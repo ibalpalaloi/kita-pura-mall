@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/layout', function () {
+Route::get('/layout-toko', function () {
+    return view('layouts/toko');
+});
+
+Route::get('/layout-admin', function () {
     return view('layouts/admin');
 });
