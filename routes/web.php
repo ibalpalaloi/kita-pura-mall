@@ -16,3 +16,14 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/layout-toko', function () {
+    return view('layouts/toko');
+});
+
+Route::get('/layout-admin', function () {
+    return view('layouts/admin');
+});
