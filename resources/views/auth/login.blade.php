@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png">
-<title>Ample Admin Template - The Ultimate Multipurpose admin template</title>
+<link rel="icon" type="image/png" sizes="16x16" href="{{asset('public/template/admin/plugins/images/favicon.png')}}">
+<title>kita pura</title>
 <!-- Bootstrap Core CSS -->
 <link href="{{asset('public/template/admin/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
 <!-- animation CSS -->
@@ -15,7 +15,7 @@
 <!-- Custom CSS -->
 <link href="{{asset('public/template/admin/css/style.css')}}" rel="stylesheet">
 <!-- color CSS -->
-<link href="{{asset('public/template/admin/css/colors/default.css" id="theme')}}"  rel="stylesheet">
+<link href="{{asset('public/template/admin/css/colors/default.css')}}" id="theme"  rel="stylesheet">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -78,7 +78,7 @@
                     </div>
                     <div class="form-group m-b-0">
                       <div class="col-sm-12 text-center">
-                        <p>Don't have an account? <a href="register.html" class="text-primary m-l-5"><b>Sign Up</b></a></p>
+                        <p>Don't have an account? <a href="<?=url('/')?>/sign_up" class="text-primary m-l-5"><b>Sign Up</b></a></p>
                       </div>
                     </div>
                   </form>
@@ -106,7 +106,7 @@
   
 </section>
 <!-- jQuery -->
-<script src="../plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="{{asset('public/template/admin/plugins/bower_components/jquery/dist/jquery.min.js')}}"></script>
 <!-- Bootstrap Core JavaScript -->
 <script src="{{asset('public/template/admin/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- Menu Plugin JavaScript -->
@@ -119,6 +119,6 @@
 <!-- Custom Theme JavaScript -->
 <script src="{{asset('public/template/admin/js/custom.min.js')}}"></script>
 <!--Style Switcher -->
-<script src="../plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+<script src="{{asset('public/template/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js')}}"></script>
 </body>
 </html>

@@ -17,7 +17,11 @@ use App\Http\Controllers\AuthController;
 Route::get('/', function () {
     return view('welcome');
 });
+// auth
 Route::get('/login', [AuthController::class, 'login']);
+Route::get('/sign_up', [AuthController::class, 'sign_up']);
+Route::post('/post_sign_up', [AuthController::class, 'post_sign_up']);
+// end auth
 Route::get('/layout', function () {
     return view('layouts/admin');
 });
