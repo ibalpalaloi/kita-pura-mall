@@ -9,18 +9,21 @@
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16"
         href="{{asset('public/template/admin/plugins/images/favicon.png')}}">
-    <title>Toko</title>
-     <!-- Bootstrap Core CSS -->
-     <link href="{{asset('public/template/admin/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+    <title>Toko | @yield('title')</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="{{asset('public/template/admin/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Menu CSS -->
     <link href="{{asset('public/template/admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css')}}"
         rel="stylesheet">
     <!-- animation CSS -->
     <link href="{{asset('public/template/admin/css/animate.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="{{asset('public/template/admin/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('public/template/admin/css/style_toko.css')}}" rel="stylesheet">
     <!-- color CSS -->
     <link href="{{asset('public/template/admin/css/colors/megna-dark.css')}}" id="theme" rel="stylesheet">
+
+    @yield('header-scripts')
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -127,8 +130,7 @@
                     <li class="user-pro">
                         <a href="#" class="waves-effect"><img
                                 src="{{asset('public/template/admin/plugins/images/users/varun.jpg')}}" alt="user-img"
-                                class="img-circle"> <span class="hide-menu">Toko <span
-                                    class="fa arrow"></span></span>
+                                class="img-circle"> <span class="hide-menu">Toko <span class="fa arrow"></span></span>
                         </a>
                         <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
                             <li><a href="javascript:void(0)"><i class="ti-user"></i> <span class="hide-menu">My
@@ -166,9 +168,14 @@
         <!-- ============================================================== -->
         <!-- Page Content -->
         <!-- ============================================================== -->
+
+
+        @yield('modal')
+
+
         <div id="page-wrapper">
             <div class="container-fluid">
-        
+                @yield("content")
             </div>
             <!-- /.container-fluid -->
             <footer class="footer text-center"> 2017 &copy; Ample Admin brought to you by themedesigner.in </footer>
@@ -195,9 +202,7 @@
     <script src="{{asset('public/template/admin/js/waves.js')}}"></script>
     <!-- Custom Theme JavaScript -->
     <script src="{{asset('public/template/admin/js/custom.min.js')}}"></script>
-    <!--Style Switcher -->
-    <script src="{{asset('public/template/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js')}}">
-    </script>
+    @yield('footer-scripts')
 </body>
 
 </html>
