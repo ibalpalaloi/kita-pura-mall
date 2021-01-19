@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\Admin_Manajemen_Pengguna_Controller;
+
 
 
 /*
@@ -18,10 +20,19 @@ use App\Http\Controllers\HomeController;
 Route::get('/', [HomeController::class, 'index']);
 
 
-Route::get('/layout-toko', function () {
-    return view('layouts/toko');
-});
+
 
 Route::get('/layout-admin', function () {
     return view('layouts/admin');
 });
+
+Route::get('/layout-toko', function () {
+    return view('layouts/toko');
+});
+
+
+Route::get('/admin/beranda', function () {
+    return view('users/admin/beranda');
+});
+
+Route::get('/admin/manajemen/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'index']);
