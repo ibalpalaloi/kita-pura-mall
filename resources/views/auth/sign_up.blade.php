@@ -14,7 +14,7 @@
     <!-- animation CSS -->
     <link href="{{asset('public/template/admin/css/animate.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="{{asset('public/template/admin/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('public/template/admin/css/style_toko.css')}}" rel="stylesheet">
     <!-- color CSS -->
     <link href="{{asset('public/template/admin/css/colors/megna-dark.css')}}" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

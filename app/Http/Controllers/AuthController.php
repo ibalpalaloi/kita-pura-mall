@@ -29,13 +29,13 @@ class AuthController extends Controller
 
         // $enkripsi = crypt($request->email, $request->password);
 
-        $user = new User;
-        $user->username = $request->nama;
-        $user->password = bcrypt($request->password);
-        $user->email = $request->email;
-        $user->remember_token = str::random(60);
-        $user->level_akses = 'toko';
-        $user->save();
+        // $user = new User;
+        // $user->username = $request->nama;
+        // $user->password = bcrypt($request->password);
+        // $user->email = $request->email;
+        // $user->remember_token = str::random(60);
+        // $user->level_akses = 'toko';
+        // $user->save();
         
     }
 }
