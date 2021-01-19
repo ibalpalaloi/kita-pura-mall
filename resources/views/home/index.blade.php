@@ -135,10 +135,18 @@
 				max-width: 480px;
 				width: 100%;
 				margin: 0px auto;
-				padding: 0px 16px 80px;
+				padding: 0px 16px 95px;
 				box-sizing: border-box;
 				min-height: calc(100vh - 60px);							
 			}	
+
+			.container-mall {
+				max-width: 480px;
+				width: 100%;
+				margin: 0px auto;
+				padding: 0px 16px 0px;
+				box-sizing: border-box;	
+			}
 
 			.banner {
 				max-width: 480px;
@@ -157,21 +165,50 @@
 				z-index: 11;				
 			}
 
-			.kategori {
+
+			.card-mall {
 				background: white;
-				/*border: 2px solid red;*/
 				box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;
-				border-radius: 1.5em;
-				padding: 0.8em 0em 1em 0em;
-				display: flex; 
-				/*justify-content: space-around; */
-				position: relative; top: -3em; 
-				z-index: 2;   
-				overflow-y: visible; 
-				overflow-x: auto; 
-				/*white-space: nowrap;*/
+				border-radius: 1.5em;	
+				/*border: 2px solid red;			*/
+				margin-bottom: 1em;
+				/*margin-top: 1em;*/
 			}
 
+			.kategori {
+				padding: 0.8em 0em 1em 0em;
+				display: flex; 
+				position: relative; 
+				top: -3em; 
+				margin-bottom: -2em;
+				z-index: 2;   
+				overflow-y: visible; 
+				overflow-x: auto; 			
+
+			}
+
+			.nama-kategori {
+				padding: 0.5em 0.5em 0.5em 0.5em;
+				display: flex; 				
+				justify-content: space-around;
+			}
+
+			.footer {
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				color: white;
+				text-align: center;
+			}
+
+			.footer-mall-menu {
+				background: white;
+				box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;
+				border-radius: 3em;			
+				margin-bottom: 1em;		
+
+			}
 		</style>
 	</head>
 	<body>
@@ -196,7 +233,7 @@
 		</div>
 
 		<main id="homepage" class="homepage">
-			<div class="kategori">
+			<div class="card-mall kategori">
 				@php
 				$kategori = array('bayi.svg', 'elektronik.svg', 'fashion.svg', 'food.svg', 'industri.svg', 'kecantikan.svg', 'olahraga.svg', 'rumah_tangga.svg', 'bayi.svg', 'elektronik.svg', 'fashion.svg', 'food.svg', 'industri.svg', 'kecantikan.svg', 'olahraga.svg', 'rumah_tangga.svg');
 				$nama_kategori = array('Perlengkapan Bayi', 'Rumah Tangga', 'Keperluan Pribadi', 'Makanan Minuman', 'Kantor Industri',  'Kecantikan', 'Olharaga', 'Jasa', 'Perlengkapan Bayi', 'Rumah Tangga', 'Keperluan Pribadi', 'Makanan Minuman', 'Kantor Industri',  'Kecantikan', 'Olharaga', 'Jasa');
@@ -218,14 +255,91 @@
 				</div> 
 				@endfor
 			</div>
-			<div class="style__Container-juttkj-1 clPWcC">
-				<h3 class="style__Text-juttkj-3 iBqPAl">Ingin Menggalang Dana?</h3>
-				<div class="style__ButtonWrapper-juttkj-4 kyUdEc">
-					<button id="home_button_galang-dana" color="blue" class="style__ButtonWrapper-sc-1dpwvg2-0 jEenUH" style="margin-bottom: 1em;">Galang Dana Sekarang</button>
-					<button id="home_button_galang-dana" color="blue" class="style__ButtonWrapper-sc-1dpwvg2-0 jEenUH">Galang Dana Sekarang</button>
+			<div class="card-mall">
+				<div style="margin-left: 1em; font-size: 1.1em; font-weight: 800; padding-top: 0.8em;">Digital Download</div>
+				<div class="nama-kategori">
+					@php
+					$digital = array('digital_1.svg', 'digital_2.svg', 'digital_3.svg', 'digital_4.svg');
+					$nama_digital = array('Kaili The Movie', 'Enola Holmes', 'Noah Album', 'Yellow Claw');
+					@endphp 
+					@for ($i = 0; $i < count($digital); $i++)  
+					<div style="display: flex; justify-content: center; flex-direction: column; width: 20%; border-radius: 0.5em;padding: 0px;">
+						<img src="<?=url('/')?>/public/img/product/{{$digital[$i]}}" style="width: 100%;">
+						<div style="text-align: left; font-size: 0.55em; position: relative; top: -3.1em; margin-bottom: -3.1em; padding: 0.7em 0em 0.7em 0.5em; border-bottom-left-radius: 0.5em; border-bottom-right-radius: 0.5em; background-image: linear-gradient(to top, #feeff6, #fcf9fc);"> <?=substr(strip_tags($nama_digital[$i]), 0, 12)?>@if (strlen($nama_digital[$i]) > 12)..@endif<br><span style="color: #ff006e; font-weight: 600;">Rp. {{number_format(5000,0,',','.')}}</span></div>
+					</div> 
+					@endfor
 				</div>
+				<div style="margin-right: 1.5em; font-size: 0.8em; font-weight: 800; text-align: right; padding-bottom: 1em; color: #bec0c6;">Lebih Banyak</div>
+			</div>
+			<div class="card-mall">
+				<div style="margin-left: 1em; font-size: 1.1em; font-weight: 800; padding-top: 0.8em;">Makanan dan Minuman</div>
+				<div class="nama-kategori">
+					@php
+					$digital = array('kfc.png', 'janji_jiwa.jpg', 'richese.png', 'starbucks.png');
+					$nama_digital = array('KFC', 'Janji Jiwa', 'Richese Factory', 'Starbucks');
+					@endphp 
+					@for ($i = 0; $i < count($digital); $i++)  
+					<div style="display: flex; justify-content: center; flex-direction: column; width: 20%; border-radius: 0.5em;padding: 0px;">
+						<img src="<?=url('/')?>/public/img/toko/{{$digital[$i]}}" style="width: 100%;">
+						<div style="text-align: left; font-size: 0.55em; position: relative; top: -3.1em; margin-bottom: -3.1em; padding: 0.7em 0em 0.7em 0.5em; border-bottom-left-radius: 0.5em; border-bottom-right-radius: 0.5em; background-image: linear-gradient(to top, #feeff6, #fcf9fc);"> <?=substr(strip_tags($nama_digital[$i]), 0, 12)?>@if (strlen($nama_digital[$i]) > 12)..@endif<br><span style="color: #ff006e; font-weight: 600;">5000+ Pengunjung</span></div>
+					</div> 
+					@endfor
+				</div>
+				<div style="margin-right: 1.5em; font-size: 0.8em; font-weight: 800; text-align: right; padding-bottom: 1em; color: #bec0c6;">Lebih Banyak</div>
+			</div>
+			<div class="card-mall">
+				<div style="margin-left: 1em; font-size: 1.1em; font-weight: 800; padding-top: 0.8em;">Rumah Kos</div>
+				<div class="nama-kategori">
+					@php
+					$digital = array('digital_1.svg', 'digital_2.svg', 'digital_3.svg', 'digital_4.svg');
+					$nama_digital = array('Kaili The Movie', 'Enola Holmes', 'Noah Album', 'Yellow Claw');
+					@endphp 
+					@for ($i = 0; $i < count($digital); $i++)  
+					<div style="display: flex; justify-content: center; flex-direction: column; width: 20%; border-radius: 0.5em;padding: 0px;">
+						<img src="<?=url('/')?>/public/img/product/{{$digital[$i]}}" style="width: 100%;">
+						<div style="text-align: left; font-size: 0.55em; position: relative; top: -3.1em; margin-bottom: -3.1em; padding: 0.7em 0em 0.7em 0.5em; border-bottom-left-radius: 0.5em; border-bottom-right-radius: 0.5em; background-image: linear-gradient(to top, #feeff6, #fcf9fc);"> <?=substr(strip_tags($nama_digital[$i]), 0, 12)?>@if (strlen($nama_digital[$i]) > 12)..@endif<br>Rp. 5000</div>
+					</div> 
+					@endfor
+				</div>
+				<div style="margin-right: 1.5em; font-size: 0.8em; font-weight: 800; text-align: right; padding-bottom: 1em; color: #bec0c6;">Lebih Banyak</div>
+			</div>
+			<div class="card-mall">
+				<div style="margin-left: 1em; font-size: 1.1em; font-weight: 800; padding-top: 0.8em;">Kesehatan</div>
+				<div class="nama-kategori">
+					@php
+					$digital = array('digital_1.svg', 'digital_2.svg', 'digital_3.svg', 'digital_4.svg');
+					$nama_digital = array('Kaili The Movie', 'Enola Holmes', 'Noah Album', 'Yellow Claw');
+					@endphp 
+					@for ($i = 0; $i < count($digital); $i++)  
+					<div style="display: flex; justify-content: center; flex-direction: column; width: 20%; border-radius: 0.5em;padding: 0px;">
+						<img src="<?=url('/')?>/public/img/product/{{$digital[$i]}}" style="width: 100%;">
+						<div style="text-align: left; font-size: 0.55em; position: relative; top: -3.1em; margin-bottom: -3.1em; padding: 0.7em 0em 0.7em 0.5em; border-bottom-left-radius: 0.5em; border-bottom-right-radius: 0.5em; background-image: linear-gradient(to top, #feeff6, #fcf9fc);"> <?=substr(strip_tags($nama_digital[$i]), 0, 12)?>@if (strlen($nama_digital[$i]) > 12)..@endif<br>Rp. 5000</div>
+					</div> 
+					@endfor
+				</div>
+				<div style="margin-right: 1.5em; font-size: 0.8em; font-weight: 800; text-align: right; padding-bottom: 1em; color: #bec0c6;">Lebih Banyak</div>
 			</div>
 		</main>
+		<div class="footer">
+			<div class="container-mall">
+				<div class="footer-mall-menu" style="display: flex; justify-content: space-around;">
+					@php
+					$menu = array('beranda.svg', 'pencarian.svg', 'toko.svg', 'akun.svg');
+					$nama_menu = array('Beranda', 'Pencarian', 'Toko', 'Akun');
+					@endphp 
+					@for ($i = 0; $i < count($menu); $i++)  
+					<div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0em 0em 0.8em; ">
+						<div style="height: 5em; width: 5em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;">
+							<div style="background: #ff006e; width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;">
+								<img src="<?=url('/')?>/public/img/menu/{{$menu[$i]}}" style="width: 60%; ">
+							</div>
+							<div style="text-align: center; font-size: 0.7em; color: #5b5b5b;">{{$nama_menu[$i]}}</div>
+						</div>
+					</div> 
+					@endfor
+				</div>
+			</div>
+		</div>
 	</body>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script type="text/javascript">
