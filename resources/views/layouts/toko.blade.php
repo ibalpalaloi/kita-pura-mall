@@ -144,7 +144,7 @@
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-compress"></i><span class="hide-menu">Toko</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item"><a href="<?=url('toko/informasi_toko')?>" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu">Informasi Toko</span></a></li>
-                                <li class="sidebar-item"><a href="<?=url('toko/akun')?>)" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu">Akun</span></a></li>
+                                <li class="sidebar-item"><a href="<?=url('toko/akun')?>" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu">Akun</span></a></li>
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Multi Dropdown</span></a>
