@@ -1,29 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr" lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
     <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16"
-        href="{{asset('public/template/admin/plugins/images/favicon.png')}}">
+    <meta name="robots" content="noindex,nofollow">
     <title>Toko | @yield('title')</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="{{asset('public/template/admin/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-    <!-- Menu CSS -->
-    <link href="{{asset('public/template/admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css')}}"
-        rel="stylesheet">
-    <!-- animation CSS -->
-    <link href="{{asset('public/template/admin/css/animate.css')}}" rel="stylesheet">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('public/template/admin//assets/images/favicon.png')}}">
     <!-- Custom CSS -->
-    <link href="{{asset('public/template/admin/css/style_toko.css')}}" rel="stylesheet">
-    <!-- color CSS -->
-    <link href="{{asset('public/template/admin/css/colors/megna-dark.css')}}" id="theme" rel="stylesheet">
-
+    <link href="{{asset('public/template/admin//dist/css/style.min.css')}}" rel="stylesheet">
     @yield('header-scripts')
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -32,94 +23,118 @@
 <![endif]-->
 </head>
 
-<body class="fix-header">
+<body>
     <!-- ============================================================== -->
-    <!-- Preloader -->
+    <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
     <div class="preloader">
-        <svg class="circular" viewBox="25 25 50 50">
-            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
-        </svg>
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
     </div>
     <!-- ============================================================== -->
-    <!-- Wrapper -->
+    <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
-    <div id="wrapper">
+    <div id="main-wrapper">
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <nav class="navbar navbar-default navbar-static-top m-b-0">
-            <div class="navbar-header">
-                <div class="top-left-part">
-                    <!-- Logo -->
-                    <a class="logo" href="index.html">
-                        <!-- Logo icon image, you can use font-icon also --><b>
-                            <!--This is dark logo icon--><img
-                                src="{{asset('public/template/admin/plugins/images/admin-logo.png')}}" alt="home"
-                                class="dark-logo" />
-                            <!--This is light logo icon--><img
-                                src="{{asset('public/template/admin/plugins/images/admin-logo-dark.png')}}" alt="home"
-                                class="light-logo" />
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header border-right">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                    <a class="navbar-brand" href="index.html">
+                        <!-- Logo icon -->
+                        <b class="logo-icon">
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                            <img src="{{asset('public/template/admin//assets/images/logos/logo-icon.png')}}" alt="homepage" class="dark-logo" />
+                            <!-- Light Logo icon -->
+                            <img src="{{asset('public/template/admin//assets/images/logos/logo-light-icon.png')}}" alt="homepage" class="light-logo" />
                         </b>
-                        <!-- Logo text image you can use text also --><span class="hidden-xs">
-                            <!--This is dark logo text--><img
-                                src="{{asset('public/template/admin/plugins/images/admin-text.png')}}" alt="home"
-                                class="dark-logo" />
-                            <!--This is light logo text--><img
-                                src="{{asset('public/template/admin/plugins/images/admin-text-dark.png')}}" alt="home"
-                                class="light-logo" />
-                        </span> </a>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span class="logo-text">
+                             <!-- dark Logo text -->
+                             <img src="{{asset('public/template/admin//assets/images/logos/logo-text.png')}}" alt="homepage" class="dark-logo" />
+                             <!-- Light Logo text -->    
+                             <img src="{{asset('public/template/admin//assets/images/logos/logo-light-text.png')}}" class="light-logo" alt="homepage" />
+                        </span>
+                    </a>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Toggle which is visible on mobile only -->
+                    <!-- ============================================================== -->
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
                 </div>
-                <!-- /Logo -->
-                <!-- Search input and Toggle icon -->
-                <ul class="nav navbar-top-links navbar-left">
-                    <li><a href="javascript:void(0)" class="open-close waves-effect waves-light"><i
-                                class="ti-menu"></i></a></li>
-                </ul>
-                <ul class="nav navbar-top-links navbar-right pull-right">
-                    <li>
-                        <form role="search" class="app-search hidden-sm hidden-xs m-r-10">
-                            <input type="text" placeholder="Search..." class="form-control"> <a href=""><i
-                                    class="fa fa-search"></i></a> </form>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img
-                                src="{{asset('public/template/admin/plugins/images/users/varun.jpg')}}" alt="user-img"
-                                width="36" class="img-circle"><b class="hidden-xs">Steave</b><span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user animated flipInY">
-                            <li>
-                                <div class="dw-user-box">
-                                    <div class="u-img"><img
-                                            src="{{asset('public/template/admin/plugins/images/users/varun.jpg')}}"
-                                            alt="user" /></div>
-                                    <div class="u-text">
-                                        <h4>Steave Jobs</h4>
-                                        <p class="text-muted">varun@gmail.com</p><a href="profile.html"
-                                            class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-18"></i></a></li>
+
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav">
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item search-box"> 
+                            <form class="app-search d-none d-lg-block">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <a href="" class="active"><i class="fa fa-search"></i></a>
+                            </form>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="{{asset('public/template/admin//assets/images/users/1.jpg')}}" alt="user" class="rounded-circle" width="36">
+                                <span class="ml-2 font-medium">Steve</span><span class="fas fa-angle-down ml-2"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                                <div class="d-flex no-block align-items-center p-3 mb-2 border-bottom">
+                                    <div class=""><img src="{{asset('public/template/admin//assets/images/users/1.jpg')}}" alt="user" class="rounded" width="80"></div>
+                                    <div class="ml-2">
+                                        <h4 class="mb-0">Steave Jobs</h4>
+                                        <p class=" mb-0 text-muted">varun@gmail.com</p>
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-danger text-white mt-2 btn-rounded">View Profile</a>
                                     </div>
                                 </div>
-                            </li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-                            <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
-                            <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
-                        </ul>
-                        <!-- /.dropdown-user -->
-                    </li>
-                    <!-- /.dropdown -->
-                </ul>
-            </div>
-
-        </nav>
-        <!-- End Top Navigation -->
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user mr-1 ml-1"></i> My Profile</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet mr-1 ml-1"></i> My Balance</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email mr-1 ml-1"></i> Inbox</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings mr-1 ml-1"></i> Account Setting</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off mr-1 ml-1"></i> Logout</a>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
+<<<<<<< HEAD
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav slimscrollsidebar">
                 <div class="sidebar-head">
@@ -165,48 +180,128 @@
                     <li class="devider"></li>
 
                 </ul>
+=======
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="starter-kit.html" aria-expanded="false"><i class="fa fa-home"></i><span class="hide-menu">Beranda</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-compress"></i><span class="hide-menu">Dropdown Link</span></a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Second Level Item</span></a></li>
+                                <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Second Level Item</span></a></li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Multi Dropdown</span></a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Second Level Item</span></a></li>
+                                <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Second Level Item</span></a></li>
+                                <li class="sidebar-item"> <a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Third Level</span></a>
+                                    <ul aria-expanded="false" class="collapse second-level">
+                                        <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Third Level Item</span></a></li>
+                                        <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Third Level Item</span></a></li>
+                                        <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Third Level Item</span></a></li>
+                                        <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Third Level Item</span></a></li>
+                                        <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Third Level Item</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+>>>>>>> master
             </div>
-        </div>
+            <!-- End Sidebar scroll-->
+        </aside>
         <!-- ============================================================== -->
-        <!-- End Left Sidebar -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
-        <!-- Page Content -->
+        <!-- Page wrapper  -->
         <!-- ============================================================== -->
-
-
-        @yield('modal')
-
-
-        <div id="page-wrapper">
-            <div class="container-fluid">
+        <div class="page-wrapper">
+            @yield("modal")
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb border-bottom">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-xs-12 justify-content-start d-flex align-items-center">
+                        <h5 class="font-medium text-uppercase mb-0">Beranda</h5>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-xs-12 d-flex justify-content-start justify-content-md-end align-self-center">
+                        <nav aria-label="breadcrumb" class="mt-2">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item active" aria-current="page">Beranda</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="page-content container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
                 @yield("content")
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
             </div>
-            <!-- /.container-fluid -->
-            <footer class="footer text-center"> 2017 &copy; Ample Admin brought to you by themedesigner.in </footer>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer text-center">
+                Kaili Nusantara Production
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
-        <!-- End Page Content -->
+        <!-- End Page wrapper  -->
         <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
-    <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="{{asset('public/template/admin/plugins/bower_components/jquery/dist/jquery.min.js')}}"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{{asset('public/template/admin/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-    <!-- Menu Plugin JavaScript -->
-    <script src="{{asset('public/template/admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js')}}">
-    </script>
-    <!--slimscroll JavaScript -->
-    <script src="{{asset('public/template/admin/js/jquery.slimscroll.js')}}"></script>
+    <script src="{{asset('public/template/admin//assets/libs/jquery/dist/jquery.min.js')}}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="{{asset('public/template/admin//assets/libs/popper.js/dist/umd/popper.min.js')}}"></script>
+    <script src="{{asset('public/template/admin//assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <!-- apps -->
+    <script src="{{asset('public/template/admin//dist/js/app.min.js')}}"></script>
+    <script src="{{asset('public/template/admin//dist/js/app.init.js')}}"></script>
+    <script src="{{asset('public/template/admin//dist/js/app-style-switcher.js')}}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="{{asset('public/template/admin//assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js')}}"></script>
+    <script src="{{asset('public/template/admin//assets/extra-libs/sparkline/sparkline.js')}}"></script>
     <!--Wave Effects -->
-    <script src="{{asset('public/template/admin/js/waves.js')}}"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="{{asset('public/template/admin/js/custom.min.js')}}"></script>
+    <script src="{{asset('public/template/admin//dist/js/waves.js')}}"></script>
+    <!--Menu sidebar -->
+    <script src="{{asset('public/template/admin//dist/js/sidebarmenu.js')}}"></script>
+    <!--Custom JavaScript -->
+    <script src="{{asset('public/template/admin//dist/js/custom.min.js')}}"></script>
     @yield('footer-scripts')
 </body>
 
