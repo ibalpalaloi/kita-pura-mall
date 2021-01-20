@@ -16,7 +16,7 @@ class Toko_controller extends Controller
         return view('toko.informasi_dasar');
     }
 
-    public funtion akun(){
+    public function akun(){
         return view('toko.akun');
     }
 }
