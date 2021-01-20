@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\toko_controller\Toko_controller;
+use App\Http\Controllers\Admin\Admin_Manajemen_Pengguna_Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,12 @@ use App\Http\Controllers\toko_controller\Toko_controller;
 Route::get('/', [HomeController::class, 'index']);
 
 
+
+
+Route::get('/layout-admin', function () {
+    return view('layouts/admin');
+});
+
 Route::get('/layout-toko', function () {
     return view('layouts/toko');
 });
@@ -31,7 +38,12 @@ Route::post('/post_sign_up', [AuthController::class, 'post_sign_up']);
 Route::get('/toko', [Toko_controller::class, 'index']);
 Route::get('/toko/informasi_dasar', [Toko_controller::class, 'informasi_dasar']);
 // end toko
-
 Route::get('/layout-admin', function () {
     return view('layouts/admin');
 });
+
+Route::get('/admin/beranda', function () {
+    return view('users/admin/beranda');
+});
+
+Route::get('/admin/manajemen/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'index']);
