@@ -12,7 +12,11 @@ class Toko_controller extends Controller
         return view('toko.dashboard');
     }
 
-    public function informasi_dasar(){
+    public function informasi_toko(){
         return view('toko.informasi_dasar');
+    }
+
+    public funtion akun(){
+        return view('toko.akun');
     }
 }

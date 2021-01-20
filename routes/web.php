@@ -36,7 +36,8 @@ Route::post('/post_sign_up', [AuthController::class, 'post_sign_up']);
 // end auth
 // toko
 Route::get('/toko', [Toko_controller::class, 'index']);
-Route::get('/toko/informasi_dasar', [Toko_controller::class, 'informasi_dasar']);
+Route::get('/toko/informasi_toko', [Toko_controller::class, 'informasi_toko']);
+Route::get('/toko/akun', [Toko_controller::class, 'akun']);
 // end toko
 Route::get('/layout-admin', function () {
     return view('layouts/admin');

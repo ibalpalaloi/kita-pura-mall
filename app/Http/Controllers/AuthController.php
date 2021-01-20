@@ -36,6 +36,6 @@ class AuthController extends Controller
         // $user->remember_token = str::random(60);
         // $user->level_akses = 'toko';
         // $user->save();
-        
+        return redirect('toko');
     }
 }
