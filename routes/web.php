@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\toko_controller\Registrasi_toko_controller;
+use App\Http\Controllers\toko_controller\Toko_controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +27,10 @@ Route::get('/login', [AuthController::class, 'login']);
 Route::get('/sign_up', [AuthController::class, 'sign_up']);
 Route::post('/post_sign_up', [AuthController::class, 'post_sign_up']);
 // end auth
-// registrasi toko
-Route::get('/registrasi_toko',[Registrasi_toko_controller::class, 'index']);
-// end registrasi toko
+// toko
+Route::get('/toko', [Toko_controller::class, 'index']);
+Route::get('/toko/informasi_dasar', [Toko_controller::class, 'informasi_dasar']);
+// end toko
 
 Route::get('/layout-admin', function () {
     return view('layouts/admin');
