@@ -41,6 +41,8 @@ Route::get('/toko/informasi_toko', [Toko_controller::class, 'informasi_toko']);
 Route::get('/toko/akun', [Toko_controller::class, 'akun']);
 // ==== produk
 Route::get('/toko/semua_produk', [Produk_controller::class, 'semua_produk']);
+Route::get('/toko/tambah_produk', [Produk_controller::class, 'tambah_produk']);
+Route::post('/toko/get_sub_kategori', [Produk_controller::class, 'get_sub_kategori'])->name('get_sub_kategori');
 // ==== end produk
 // end toko
 Route::get('/layout-admin', function () {
