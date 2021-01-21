@@ -5,8 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class sub_kategori extends Model
+class Sub_kategori extends Model
 {
     use HasFactory;
+
     protected $table = 'sub_kategori';
+
+    public function kategori(){
+        return $this->belongsTo(Kategori::class);
+    }
+      
 }
