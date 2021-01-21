@@ -18,7 +18,8 @@ use App\Http\Controllers\Admin\Admin_Manajemen_Pengguna_Controller;
 */
 
 Route::get('/', [HomeController::class, 'index']);
-
+Route::get('/beranda', [HomeController::class, 'index']);
+Route::get('/pencarian', [HomeController::class, 'pencarian']);
 
 
 
