@@ -20,9 +20,11 @@ use App\Http\Controllers\Admin\Admin_Manajemen_Pengguna_Controller;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/beranda', [HomeController::class, 'index']);
-Route::get('/pencarian', [HomeController::class, 'pencarian']);
-
-
+Route::get('/explore', [HomeController::class, 'pencarian']);
+Route::get('/rekomendasi', [HomeController::class, 'rekomendasi']);
+Route::get('/home', [HomeController::class, 'home']);
+Route::get('/verifikasi-number', [HomeController::class, 'verifikasi_number']);
+Route::get('/input-password', [HomeController::class, 'input_password']);
 
 Route::get('/layout-admin', function () {
     return view('layouts/admin');

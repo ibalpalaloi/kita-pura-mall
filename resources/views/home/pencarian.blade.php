@@ -241,12 +241,15 @@
 	<body style="margin: 0px;">
 		<header class="style__Container-sc-3fiysr-0 header" style="background: white;" >
 			<div class="style__Wrapper-sc-3fiysr-2 hBSxmh pencarian-tabs" style="display: flex; justify-content: center; background: white;">
-				<a class="active-mall" href="Explore">
-					Explore
+				<a href="rekomendasi">
+					Rekomendasi
 				</a>
-				<a href="Maps">
+				<a href="maps">
 					Maps
 				</a>
+				<a href="explore" class="active-mall">
+					Explore
+				</a>			
 			</div>
 		</header>
 
