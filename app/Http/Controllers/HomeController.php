@@ -23,4 +23,20 @@ class HomeController extends Controller
 
 		return view('home/pencarian');
 	}
+
+	public function input_password(){
+		return view('auth/verifikasi_password');
+	}
+
+	public function verifikasi_number(){
+		return view('auth/verifikasi_number');
+	}
+
+	public function rekomendasi(){
+		return view('home/rekomendasi');
+	}
+
+	public function home(){
+		return view('home/home');
+	}
 }

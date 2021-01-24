@@ -1,162 +1,317 @@
-<!DOCTYPE html>
-<html dir="ltr">
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="HandheldFriendly" content="true" />		
+		<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template/admin/dist/css/style.min.css">
+		<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template/material-design/css/material-dashboard.css?v=2.1.2">
+		<style type="text/css">
+			body {
+				background: #ff006e;
+			}
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 4 admin, bootstrap 4, css3 dashboard, bootstrap 4 dashboard, ample admin bootstrap 4 dashboard, frontend, responsive bootstrap 4 admin template, material design, material dashboard bootstrap 4 dashboard template">
-    <meta name="description" content="Ample is powerful and clean admin dashboard template, inpired from Google's Material Design">
-    <meta name="robots" content="noindex,nofollow">
-    <title>Ample Template by WrapPixel</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/ampleadmin/" />
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
-    <!-- Custom CSS -->
-    <link href="{{asset('public/template/admin/dist/css/style.min.css')}}" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-</head>
+			.hBSxmh {
+				max-width: 480px;
+				width: 100%;
+				display: flex;
+				height: 60px;
+				-webkit-box-align: center;
+				align-items: center;
+				-webkit-box-pack: justify;
+				justify-content: space-between;
+				margin: 0px auto;
+			}
 
-<body>
-    <div class="main-wrapper">
-        <!-- ============================================================== -->
-        <!-- Preloader - style you can find in spinners.css -->
-        <!-- ============================================================== -->
-        <div class="preloader">
-            <div class="lds-ripple">
-                <div class="lds-pos"></div>
-                <div class="lds-pos"></div>
-            </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- Preloader - style you can find in spinners.css -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Login box.scss -->
-        <!-- ============================================================== -->
-        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url({{asset('public/template/admin/assets/images/big/auth-bg.jpg')}}) no-repeat center center;">
-            <div class="auth-box">
-                <div id="loginform">
-                    <div class="logo">
-                        <span class="db"><img src="{{asset('public/template/admin/assets/images/logos/logo-icon.png')}}" alt="logo" /></span>
-                        <h5 class="font-medium mb-3">Sign In to Admin</h5>
-                    </div>
-                    <!-- Form -->
-                    <div class="row">
-                        <div class="col-12">
-                            <form class="form-horizontal mt-3" action="<?=url('post_sign_up')?>" method="post">
-                                {{csrf_field()}}
-                                <div class="form-group row ">
-                                    <div class="col-12 ">
-                                        <input class="form-control form-control-lg" type="text" required=" " placeholder="Name" name="nama">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12 ">
-                                        <input class="form-control form-control-lg" type="text" required=" " placeholder="Email" name="email">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12 ">
-                                        <input class="form-control form-control-lg" type="password" required=" " placeholder="Password" name="password">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12 ">
-                                        <input class="form-control form-control-lg" type="password" required=" " placeholder="Confirm Password" name="konfir_password">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-12 ">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1">I agree to all <a href="javascript:void(0)">Terms</a></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group text-center ">
-                                    <div class="col-xs-12 pb-3 ">
-                                        <button class="btn btn-block btn-lg btn-info " type="submit ">SIGN UP</button>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-0 mt-2 ">
-                                    <div class="col-sm-12 text-center ">
-                                        Already have an account? <a href="authentication-login1.html " class="text-info ml-1 "><b>Sign In</b></a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div id="recoverform">
-                    <div class="logo">
-                        <span class="db"><img src="../../assets/images/logos/logo-icon.png" alt="logo" /></span>
-                        <h5 class="font-medium mb-3">Recover Password</h5>
-                        <span>Enter your Email and instructions will be sent to you!</span>
-                    </div>
-                    <div class="row mt-3">
-                        <!-- Form -->
-                        <form class="col-12" action="index.html">
-                            <!-- email -->
-                            <div class="form-group row">
-                                <div class="col-12">
-                                    <input class="form-control form-control-lg" type="email" required="" placeholder="Username">
-                                </div>
-                            </div>
-                            <!-- pwd -->
-                            <div class="row mt-3">
-                                <div class="col-12">
-                                    <button class="btn btn-block btn-lg btn-danger" type="submit" name="action">Reset</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- Login box.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper scss in scafholding.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper scss in scafholding.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Right Sidebar -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Right Sidebar -->
-        <!-- ============================================================== -->
-    </div>
-    <!-- ============================================================== -->
-    <!-- All Required js -->
-    <!-- ============================================================== -->
-    <script src="{{asset('public/template/admin/assets/libs/jquery/dist/jquery.min.js')}}"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="{{asset('public/template/admin/assets/libs/popper.js/dist/umd/popper.min.js')}}"></script>
-    <script src="{{asset('public/template/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-    <!-- ============================================================== -->
-    <!-- This page plugin js -->
-    <!-- ============================================================== -->
-    <script>
-    $('[data-toggle="tooltip"]').tooltip();
-    $(".preloader").fadeOut();
-    // ============================================================== 
-    // Login and Recover Password 
-    // ============================================================== 
-    $('#to-recover').on("click", function() {
-        $("#loginform").slideUp();
-        $("#recoverform").fadeIn();
-    });
-    </script>
-</body>
+			a {
+				text-decoration: none;
+				color: #00aeef;
+				transition: all .35s ease;
+				background-color: transparent;
+			}
 
-</html>
+			.sUjAJ {
+				background: white;
+				display: flex;
+				-webkit-box-pack: justify;
+				justify-content: space-between;
+				-webkit-box-align: center;
+				align-items: center;
+				border: none;
+				color: #dedede;
+				padding: 0px 15px;
+				font-size: 12px;
+				height: 36px;
+				width: 100%;
+				border-radius: 5px;
+				margin-right: 15px;
+			}	
+			
+			.svg-inline--fa, svg:not(:root).svg-inline--fa {
+				overflow: visible;
+			}
+
+			svg:not(:root).svg-inline--fa {
+				overflow: visible;
+			}
+			.svg-inline--fa.fa-w-16 {
+				width: 1em;
+			}
+			.svg-inline--fa.fa-w-16 {
+				width: 1em;
+			}
+			.svg-inline--fa {
+				display: inline-block;
+				font-size: inherit;
+				height: 1em;
+				vertical-align: -.125em;
+			}
+			.svg-inline--fa {
+				display: inline-block;
+				font-size: inherit;
+				height: 1em;
+				overflow: visible;
+				vertical-align: -0.125em;
+			}
+			.clPWcC {
+				max-width: 1020px;
+				margin: 0px auto;
+				padding-top: 5px;
+			}
+			.iBqPAl {
+				margin: 15px 0px 0px;
+				font-weight: 600;
+				font-size: 18px;
+				line-height: 23px;
+			}
+			.kyUdEc {
+				padding: 20px 0px;
+			}
+
+			.jEenUH {
+				display: inline-block;
+				border: 0px;
+				font-weight: 700;
+				line-height: normal;
+				text-align: center;
+				vertical-align: middle;
+				cursor: pointer;
+				transition: all 0.35s ease 0s;
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				text-decoration: none;
+				width: 100%;
+				padding: 11px 37.5px;
+				font-size: 16px;
+				border-radius: 20px;
+				background-color: rgb(0, 174, 239);
+				color: rgb(255, 255, 255);
+			}
+
+			.calMVq {
+				display: flex;
+				font-weight: 700;
+				line-height: normal;
+				text-align: center;
+				-webkit-box-pack: center;
+				justify-content: center;
+				vertical-align: middle;
+				cursor: pointer;
+				transition: all 0.35s ease 0s;
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				text-decoration: none;
+				width: 100%;
+				padding: 11px 37.5px;
+				font-size: 16px;
+				border-radius: 20px;
+				background-color: rgb(255, 255, 255);
+				color: rgb(0, 174, 239);
+				border: 1px solid rgb(0, 174, 239);
+			}
+
+			.dcmUJR {
+				margin-right: 8px;
+			}
+
+			.homepage {
+				background: transparent;
+				position: relative;
+				/*top: 60px;*/
+				max-width: 480px;
+				width: 100%;
+				margin: 0px auto;
+				padding: 0px 16px 1em;
+				box-sizing: border-box;
+				/*border: 2px solid red;						*/
+			}	
+
+			.container-mall {
+				max-width: 480px;
+				width: 100%;
+				margin: 0px auto;
+				padding: 0px 16px 0px;
+				box-sizing: border-box;	
+			}
+
+			.banner {
+				max-width: 480px;
+				width: 100%;
+				margin: 0px auto;
+				padding: 4em 0em 4em 0em;
+			}
+
+			.header {
+				background: #ff006e;
+				position: fixed;
+				width: 100%;
+				top: 0px;
+				left: 0px;
+				right: 0px;
+				z-index: 11;				
+			}
+
+
+			.card-mall {
+				background: white;
+				box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;
+				border-radius: 1.5em;	
+				/*border: 2px solid red;			*/
+				/*margin-top: 1em;*/
+			}
+
+			.login {
+				padding: 0.8em 0em 1em 0em;
+				display: flex; 
+				position: relative; 
+				top: -20em; 
+				margin-bottom: -20em;
+				z-index: 2;   
+				overflow-y: visible; 
+				overflow-x: auto; 			
+
+				display: flex;
+				flex-direction: column;
+				align-content: center;
+				align-items: center;
+
+
+			}
+
+			.nama-kategori {
+				padding: 0.5em 0.5em 0.5em 0.5em;
+				display: flex; 				
+				justify-content: space-around;
+			}
+
+			.footer {
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				color: white;
+				text-align: center;
+				/*border: 2px solid red;*/
+				padding-bottom: 0px;
+				background-color: transparent;
+			}
+
+			.footer-mall-menu {
+				background: white;
+				box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;
+				border-radius: 3em;			
+				margin-bottom: 1em;	
+
+			}
+
+			.pencarian-tabs {
+				display: flex; 
+				justify-content: center;
+			}
+
+			.pencarian-tabs > a {
+				border: 2px solid #ff006e;
+				padding: 0.5em 1.5em 0.5em 1.5em;
+				color: #ff006e;
+				border-radius: 1.5em;
+				margin: 0em 0.5em 0em 0.5em;
+			}
+
+			.pencarian-tabs {			}
+
+			.sosmed > img {
+				margin: 0px 0.6em 0px 0.6em !important;
+			}
+
+
+			.active-mall {
+				background: #ff006e;
+				color: white !important;
+			}			
+
+			.btn-mall {
+				background-color: #ff006e;
+				border-radius: 2em;
+
+			}
+
+			.btn:hover {
+				background-color: #d80f67 !important;				
+			}
+		</style>
+	</head>
+	<body style="margin: 0px;">
+
+		<div class="wrapper" style="background: #ff006e; position: relative; z-index: -1;">
+			<div class="banner" style="display: flex; justify-content: flex-end; padding: 0px;">
+				<img src="<?=url('/')?>/public/img/auth/img_login.png" style="width: 100%;">
+			</div>
+		</div>
+
+		<main id="homepage" class="homepage">
+			<div class="card-mall login">
+				<form class="form-horizontal mt-3" action="<?=url('post_sign_up')?>" method="post" style="width: 75%; display: flex; flex-direction: column;">
+					{{csrf_field()}}
+					<div class="form-group bmd-form-group">
+						<label class="bmd-label-floating">Nama</label>
+						<input type="text" class="form-control">
+					</div>
+					<div class="form-group">
+						<label class="bmd-label-floating">Email</label>
+						<input type="text" class="form-control">
+					</div>
+					<div class="form-group">
+						<label class="bmd-label-floating">Password</label>
+						<input type="text" class="form-control">
+					</div>
+					<div style="display: flex; justify-content: center;">
+						<button type="submit" class="btn btn-mall" style="width: 20em;">Daftar</button>
+					</div>
+				</form>
+			</div>
+		</main>
+
+	</body>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="<?=url('/')?>/public/template/material-design/js/core/popper.min.js"></script>
+
+	<script src="<?=url('/')?>/public/template/material-design/js/core/bootstrap-material-design.min.js"></script>
+
+	<script src="<?=url('/')?>/public/template/material-design/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
+	<script src="<?=url('/')?>/public/template/material-design/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
+	<script type="text/javascript">
+		(function($) {
+			$.fn.nodoubletapzoom = function() {
+				$(this).bind('touchstart', function preventZoom(e) {
+					var t2 = e.timeStamp
+					, t1 = $(this).data('lastTouch') || t2
+					, dt = t2 - t1
+					, fingers = e.originalEvent.touches.length;
+					$(this).data('lastTouch', t2);
+					if (!dt || dt > 500 || fingers > 1) return; 
+					e.preventDefault();
+					$(this).trigger('click').trigger('click');
+				});
+			};
+		})(jQuery);		
+	</script>
+	</html>
