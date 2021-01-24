@@ -50,27 +50,13 @@
                     <!-- Form -->
                     <div class="row">
                         <div class="col-12">
-                            <form class="form-horizontal mt-3" id="loginform" action="index.html">
+                            <form class="form-horizontal mt-3" id="loginform" action="<?=url('/post_login')?>" method="post">
+                                {{ csrf_field() }}
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
                                     </div>
-                                    <input type="text" class="form-control form-control-lg" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon2"><i class="ti-pencil"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <div class="custom-control custom-checkbox d-flex align-items-center">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1">Remember me</label>
-                                            <a href="javascript:void(0)" id="to-recover" class="text-dark ml-auto"><i class="fa fa-lock mr-1"></i> Forgot pwd?</a>
-                                        </div>
-                                    </div>
+                                    <input type="text" class="form-control form-control-lg" placeholder="Nomor HP" aria-label="Username" aria-describedby="basic-addon1" name="no_telp">
                                 </div>
                                 <div class="form-group text-center">
                                     <div class="col-xs-12 pb-3">
@@ -85,11 +71,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group mb-0 mt-2">
+                                {{-- <div class="form-group mb-0 mt-2">
                                     <div class="col-sm-12 text-center">
-                                        Don't have an account? <a href="authentication-register1.html" class="text-info ml-1"><b>Sign Up</b></a>
+                                        Don't have an account? <a href="<?=url('/sign_up')?>" class="text-info ml-1"><b>Sign Up</b></a>
                                     </div>
-                                </div>
+                                </div> --}}
                             </form>
                         </div>
                     </div>

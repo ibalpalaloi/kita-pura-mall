@@ -7,12 +7,21 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule; 
 use App\Models\User;
 use Illuminate\Support\Str;
+use Auth;
 
 class AuthController extends Controller
 {
     //
     public function login(){
         return view('auth.login');
+    }
+
+    public function post_login(Request $request){
+        $user = User::where('no_hp', $request->no_telp)->first();
+        if(!empty($user)){
+            return redirect('/login/password/'.$user->no_hp);
+        }
+        return view('toko.dashboard');
     }
 
     public function sign_up(){
@@ -37,5 +46,16 @@ class AuthController extends Controller
         // $user->level_akses = 'toko';
         // $user->save();
         return redirect('toko');
+    }
+
+    public function password($id){
+        return view('auth.password', ['no_telp'=>$id]);
+    }
+
+    public function post_password(Request $request){
+        if(Auth::attempt(['no_hp' => $request->no_hp, 'password' => $request->password])){
+            return redirect('/');
+        }
+        return back();
     }
 }
