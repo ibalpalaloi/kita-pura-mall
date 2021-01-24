@@ -32,8 +32,11 @@ Route::get('/layout-toko', function () {
 });
 // auth
 Route::get('/login', [AuthController::class, 'login']);
+Route::post('/post_login', [AuthController::class, 'post_login']);
 Route::get('/sign_up', [AuthController::class, 'sign_up']);
 Route::post('/post_sign_up', [AuthController::class, 'post_sign_up']);
+Route::get('/login/password/{id}', [AuthController::class, 'password']);
+Route::post('/post_password', [AuthController::class, 'post_password']);
 // end auth
 // toko
 Route::get('/toko', [Toko_controller::class, 'index']);
