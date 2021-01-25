@@ -22,7 +22,6 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/beranda', [HomeController::class, 'index']);
 Route::get('/explore', [HomeController::class, 'pencarian']);
 Route::get('/rekomendasi', [HomeController::class, 'rekomendasi']);
-Route::get('/home', [HomeController::class, 'home']);
 Route::get('/verifikasi-number', [HomeController::class, 'verifikasi_number']);
 Route::get('/input-password', [HomeController::class, 'input_password']);
 
@@ -40,6 +39,7 @@ Route::get('/sign_up', [AuthController::class, 'sign_up']);
 Route::post('/post_sign_up', [AuthController::class, 'post_sign_up']);
 Route::get('/login/password/{id}', [AuthController::class, 'password']);
 Route::post('/post_password', [AuthController::class, 'post_password']);
+Route::post('/post_otp', [AuthController::class, 'post_otp']);
 // end auth
 // toko
 Route::get('/toko', [Toko_controller::class, 'index']);
