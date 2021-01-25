@@ -4,7 +4,7 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<meta name="HandheldFriendly" content="true" />		
-		<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template/admin/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template/admin/dist/css/style.min.css">
 		<style type="text/css">
 
 			.hBSxmh {
@@ -135,9 +135,10 @@
 				max-width: 480px;
 				width: 100%;
 				margin: 0px auto;
-				padding: 0px 16px 95px;
+				padding: 0px 16px 1em;
 				box-sizing: border-box;
-				min-height: calc(100vh - 60px);							
+				min-height: calc(100vh - 60px);	
+				/*border: 2px solid red;						*/
 			}	
 
 			.container-mall {
@@ -200,18 +201,25 @@
 				width: 100%;
 				color: white;
 				text-align: center;
+				/*border: 2px solid red;*/
+				padding-bottom: 0px;
+				background-color: transparent;
 			}
 
 			.footer-mall-menu {
 				background: white;
 				box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;
 				border-radius: 3em;			
-				margin-bottom: 1em;		
+				margin-bottom: 1em;	
 
+			}
+
+			.sosmed > img {
+				margin: 0px 0.6em 0px 0.6em !important;
 			}
 		</style>
 	</head>
-	<body>
+	<body style="margin: 0px;">
 		<header class="style__Container-sc-3fiysr-0 header" >
 			<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
 				<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
@@ -319,25 +327,99 @@
 				</div>
 				<div style="margin-right: 1.5em; font-size: 0.8em; font-weight: 800; text-align: right; padding-bottom: 1em; color: #bec0c6;">Lebih Banyak</div>
 			</div>
-		</main>
-		<div class="footer">
-			<div class="container-mall">
-				<div class="footer-mall-menu" style="display: flex; justify-content: space-around;">
+			<div class="card-mall">
+				<div style="margin-left: 1em; font-size: 1.1em; font-weight: 800; padding-top: 0.8em;">Kesehatan</div>
+				<div class="nama-kategori">
 					@php
-					$menu = array('beranda.svg', 'pencarian.svg', 'toko.svg', 'akun.svg');
+					$digital = array('digital_1.svg', 'digital_2.svg', 'digital_3.svg', 'digital_4.svg');
+					$nama_digital = array('Kaili The Movie', 'Enola Holmes', 'Noah Album', 'Yellow Claw');
+					@endphp 
+					@for ($i = 0; $i < count($digital); $i++)  
+					<div style="display: flex; justify-content: center; flex-direction: column; width: 20%; border-radius: 0.5em;padding: 0px;">
+						<img src="<?=url('/')?>/public/img/product/{{$digital[$i]}}" style="width: 100%;">
+						<div style="text-align: left; font-size: 0.55em; position: relative; top: -3.1em; margin-bottom: -3.1em; padding: 0.7em 0em 0.7em 0.5em; border-bottom-left-radius: 0.5em; border-bottom-right-radius: 0.5em; background-image: linear-gradient(to top, #feeff6, #fcf9fc);"> <?=substr(strip_tags($nama_digital[$i]), 0, 12)?>@if (strlen($nama_digital[$i]) > 12)..@endif<br>Rp. 5000</div>
+					</div> 
+					@endfor
+				</div>
+				<div style="margin-right: 1.5em; font-size: 0.8em; font-weight: 800; text-align: right; padding-bottom: 1em; color: #bec0c6;">Lebih Banyak</div>
+			</div>
+			<div class="card-mall">
+				<div style="text-align: center; color:  #ff006e; margin-left: 1em; font-size: 1.1em; font-weight: 800; padding-top: 2.2em;">KITAPURA MALL</div>
+				<div style="padding: 0.7em 1.5em 0.7em 1.5em; text-align: justify;">adalah sebuah platform yang mewadahi UMKM daerah untuk mendigitasikan produk mereka agar mudah dijangkau khalayak umum. Aplikasi ini juga mempermudah konsumen untuk melihat produk-produk lokal.</div>
+				<div>
+					<div class="row" style="display: flex; padding-left: 22%;">
+						<div style="width: 4em; height: 4em; display: flex; align-items: center; margin-right: 1em;">
+							<img src="<?=url('/')?>/public/img/home/about/produk_lokal.png" style="width: 100%;">
+						</div>
+						<div style="display: flex; flex-direction: column; justify-content: center;">
+							<div style="font-size: 2em; color:#ff006e; font-weight: 600;">50</div>
+							<div>Produk lokal yang terdaftar</div>
+						</div>
+					</div>
+					<div class="row" style="display: flex; padding-left: 22%;">
+						<div style="width: 4em; height: 4em; display: flex; align-items: center; margin-right: 1em;">
+							<img src="<?=url('/')?>/public/img/home/about/pengunjung.png" style="width: 4em;" style="width: 100%;">
+						</div>
+						<div style="display: flex; flex-direction: column; justify-content: center;">
+							<div style="font-size: 2em; color:#ff006e; font-weight: 600;">15.000+</div>
+							<div>Pengujung setiap hari</div>
+						</div>
+					</div>
+					<div class="row" style="display: flex; padding-left: 22%;">
+						<div style="width: 4em; height: 4em; display: flex; align-items: center; margin-right: 1em;">
+							<img src="<?=url('/')?>/public/img/home/about/produk_terjual.png" style="width: 4em;">
+						</div>
+						<div style="display: flex; flex-direction: column; justify-content: center;">
+							<div style="font-size: 2em; color:#ff006e; font-weight: 600;">30.000+</div>
+							<div>Produk lokal yang terjual</div>
+						</div>
+					</div>					
+				</div>
+				<div style="margin-right: 1.5em; font-size: 0.8em; font-weight: 800; text-align: right; padding-bottom: 3em; color: #bec0c6;"></div>
+			</div>
+		</main>
+
+		<div class="wrapper" style="background: #1c2645; position: relative; z-index: -1">
+			<div class="container-mall" style="padding-bottom: 7.5em;">
+				<div style="padding-top: 2em; text-align: center; color: white;">
+					<p style="font-weight: 700;">Alamat</p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Semper vitae proin fames vulputate integer nulla amet. Donec turpis.
+				</div>
+				<div style="padding-top: 2em; text-align: center; color: white;">
+					<p style="font-weight: 700;">Connect with us on social media</p>
+					<div class="sosmed">
+						<img src="<?=url('/')?>/public/img/home/about/facebook.svg" style="width: 2.2em;">
+						<img src="<?=url('/')?>/public/img/home/about/youtube.svg" style="width: 2.2em;">
+						<img src="<?=url('/')?>/public/img/home/about/instagram.svg" style="width: 2.2em;">
+						<img src="<?=url('/')?>/public/img/home/about/twitter.svg" style="width: 2.2em;">
+					</div>
+					<div><br>
+						<a href="<?=url('/')?>" style="margin: 0em 0.3em 0em 0.3em;">About Us</a>
+						<a href="<?=url('/')?>" style="margin: 0em 0.3em 0em 0.3em;">Privacy & Policy</a>
+					</div>
+					<div>
+						Copyright&nbsp;&copy;&nbsp;<script>document.write(new Date().getFullYear());</script>&nbsp;CV. Kaili Nusantara Production
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="container-mall footer-mall-menu" style="display: flex; justify-content: space-around;">
+					@php
+					$menu = array('beranda.svg', 'pencarian_color.svg', 'toko_color.svg', 'akun_color.svg');
 					$nama_menu = array('Beranda', 'Pencarian', 'Toko', 'Akun');
+					$link_menu = array('beranda', 'pencarian', 'toko', 'akun');
 					@endphp 
 					@for ($i = 0; $i < count($menu); $i++)  
-					<div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0em 0em 0.8em; ">
+					<div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0em 0em 0.8em;">
 						<div style="height: 5em; width: 5em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;">
-							<div style="background: #ff006e; width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;">
+							<a style="@if ($i == 0) background: #ff006e; @else background: white; border: 2px solid #ff006e; @endif width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;"  href="<?=url('/')?>/{{$link_menu[$i]}}">
 								<img src="<?=url('/')?>/public/img/menu/{{$menu[$i]}}" style="width: 60%; ">
-							</div>
+							</a>
 							<div style="text-align: center; font-size: 0.7em; color: #5b5b5b;">{{$nama_menu[$i]}}</div>
 						</div>
 					</div> 
 					@endfor
-				</div>
 			</div>
 		</div>
 	</body>

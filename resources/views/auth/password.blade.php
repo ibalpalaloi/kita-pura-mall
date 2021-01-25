@@ -1,150 +1,269 @@
-<!DOCTYPE html>
-<html dir="ltr">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 4 admin, bootstrap 4, css3 dashboard, bootstrap 4 dashboard, ample admin bootstrap 4 dashboard, frontend, responsive bootstrap 4 admin template, material design, material dashboard bootstrap 4 dashboard template">
-    <meta name="description" content="Ample is powerful and clean admin dashboard template, inpired from Google's Material Design">
-    <meta name="robots" content="noindex,nofollow">
-    <title>Ample Template by WrapPixel</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/ampleadmin/" />
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
-    <!-- Custom CSS -->
-    <link href="{{asset('public/template/admin/dist/css/style.min.css')}}" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-</head>
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="HandheldFriendly" content="true" />		
+		<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template/admin/dist/css/style.min.css">
+		<style type="text/css">
 
-<body>
-    <div class="main-wrapper">
-        <!-- ============================================================== -->
-        <!-- Preloader - style you can find in spinners.css -->
-        <!-- ============================================================== -->
-        <div class="preloader">
-            <div class="lds-ripple">
-                <div class="lds-pos"></div>
-                <div class="lds-pos"></div>
-            </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- Preloader - style you can find in spinners.css -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Login box.scss -->
-        <!-- ============================================================== -->
-        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url({{asset('public/template/admin/assets/images/big/auth-bg.jpg')}}) no-repeat center center;">
-            <div class="auth-box">
-                <div id="loginform">
-                    <div class="logo">
-                        <span class="db"><img src="{{asset('public/template/admin/assets/images/logos/logo-icon.png')}}" alt="logo" /></span>
-                        <h5 class="font-medium mb-3">Sign In With {{$no_telp}}</h5>
-                    </div>
-                    <!-- Form -->
-                    <div class="row">
-                        <div class="col-12">
-                            <form class="form-horizontal mt-3" id="loginform" action="<?=url('/post_password')?>" method="post">
-                                {{ csrf_field() }}
-                                
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
-                                    </div>
-                                    <input type="text" name="no_hp" value="{{$no_telp}}" hidden>
-                                    <input type="text" class="form-control form-control-lg" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" name="password">
-                                </div>
-                                <div class="form-group text-center">
-                                    <div class="col-xs-12 pb-3">
-                                        <button class="btn btn-block btn-lg btn-info" type="submit">Log In</button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12 mt-2 text-center">
-                                        <div class="social">
-                                            <a href="javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip" title="" data-original-title="Login with Facebook"> <i aria-hidden="true" class="fab  fa-facebook"></i> </a>
-                                            <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="" data-original-title="Login with Google"> <i aria-hidden="true" class="fab  fa-google-plus"></i> </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{-- <div class="form-group mb-0 mt-2">
-                                    <div class="col-sm-12 text-center">
-                                        Don't have an account? <a href="<?=url('/sign_up')?>" class="text-info ml-1"><b>Sign Up</b></a>
-                                    </div>
-                                </div> --}}
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div id="recoverform">
-                    <div class="logo">
-                        <span class="db"><img src="../../assets/images/logos/logo-icon.png" alt="logo" /></span>
-                        <h5 class="font-medium mb-3">Recover Password</h5>
-                        <span>Enter your Email and instructions will be sent to you!</span>
-                    </div>
-                    <div class="row mt-3">
-                        <!-- Form -->
-                        <form class="col-12" action="index.html">
-                            <!-- email -->
-                            <div class="form-group row">
-                                <div class="col-12">
-                                    <input class="form-control form-control-lg" type="email" required="" placeholder="Username">
-                                </div>
-                            </div>
-                            <!-- pwd -->
-                            <div class="row mt-3">
-                                <div class="col-12">
-                                    <button class="btn btn-block btn-lg btn-danger" type="submit" name="action">Reset</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- Login box.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper scss in scafholding.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper scss in scafholding.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Right Sidebar -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Right Sidebar -->
-        <!-- ============================================================== -->
-    </div>
-    <!-- ============================================================== -->
-    <!-- All Required js -->
-    <!-- ============================================================== -->
-    <script src="{{asset('public/template/admin/assets/libs/jquery/dist/jquery.min.js')}}"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="{{asset('public/template/admin/assets/libs/popper.js/dist/umd/popper.min.js')}}"></script>
-    <script src="{{asset('public/template/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-    <!-- ============================================================== -->
-    <!-- This page plugin js -->
-    <!-- ============================================================== -->
-    <script>
-    $('[data-toggle="tooltip"]').tooltip();
-    $(".preloader").fadeOut();
-    // ============================================================== 
-    // Login and Recover Password 
-    // ============================================================== 
-    $('#to-recover').on("click", function() {
-        $("#loginform").slideUp();
-        $("#recoverform").fadeIn();
-    });
-    </script>
-</body>
+			.hBSxmh {
+				max-width: 480px;
+				width: 100%;
+				display: flex;
+				height: 60px;
+				-webkit-box-align: center;
+				align-items: center;
+				-webkit-box-pack: justify;
+				justify-content: space-between;
+				margin: 0px auto;
+			}
 
-</html>
+			a {
+				text-decoration: none;
+				color: #00aeef;
+				transition: all .35s ease;
+				background-color: transparent;
+			}
+
+			.sUjAJ {
+				background: white;
+				display: flex;
+				-webkit-box-pack: justify;
+				justify-content: space-between;
+				-webkit-box-align: center;
+				align-items: center;
+				border: none;
+				color: #dedede;
+				padding: 0px 15px;
+				font-size: 12px;
+				height: 36px;
+				width: 100%;
+				border-radius: 5px;
+				margin-right: 15px;
+			}	
+			
+			.svg-inline--fa, svg:not(:root).svg-inline--fa {
+				overflow: visible;
+			}
+
+			svg:not(:root).svg-inline--fa {
+				overflow: visible;
+			}
+			.svg-inline--fa.fa-w-16 {
+				width: 1em;
+			}
+			.svg-inline--fa.fa-w-16 {
+				width: 1em;
+			}
+			.svg-inline--fa {
+				display: inline-block;
+				font-size: inherit;
+				height: 1em;
+				vertical-align: -.125em;
+			}
+			.svg-inline--fa {
+				display: inline-block;
+				font-size: inherit;
+				height: 1em;
+				overflow: visible;
+				vertical-align: -0.125em;
+			}
+			.clPWcC {
+				max-width: 1020px;
+				margin: 0px auto;
+				padding-top: 5px;
+			}
+			.iBqPAl {
+				margin: 15px 0px 0px;
+				font-weight: 600;
+				font-size: 18px;
+				line-height: 23px;
+			}
+			.kyUdEc {
+				padding: 20px 0px;
+			}
+
+			.jEenUH {
+				display: inline-block;
+				border: 0px;
+				font-weight: 700;
+				line-height: normal;
+				text-align: center;
+				vertical-align: middle;
+				cursor: pointer;
+				transition: all 0.35s ease 0s;
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				text-decoration: none;
+				width: 100%;
+				padding: 11px 37.5px;
+				font-size: 16px;
+				border-radius: 20px;
+				background-color: rgb(0, 174, 239);
+				color: rgb(255, 255, 255);
+			}
+
+			.calMVq {
+				display: flex;
+				font-weight: 700;
+				line-height: normal;
+				text-align: center;
+				-webkit-box-pack: center;
+				justify-content: center;
+				vertical-align: middle;
+				cursor: pointer;
+				transition: all 0.35s ease 0s;
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				text-decoration: none;
+				width: 100%;
+				padding: 11px 37.5px;
+				font-size: 16px;
+				border-radius: 20px;
+				background-color: rgb(255, 255, 255);
+				color: rgb(0, 174, 239);
+				border: 1px solid rgb(0, 174, 239);
+			}
+
+			.dcmUJR {
+				margin-right: 8px;
+			}
+
+			.homepage {
+				background-color: white;
+				position: relative;
+				/*top: 60px;*/
+				max-width: 480px;
+				width: 100%;
+				margin: 0px auto;
+				padding: 0px 16px 1em;
+				box-sizing: border-box;
+				min-height: calc(100vh - 60px);	
+				/*border: 2px solid red;						*/
+			}	
+
+			.container-mall {
+				max-width: 480px;
+				width: 100%;
+				margin: 0px auto;
+				padding: 0px 16px 0px;
+				box-sizing: border-box;	
+			}
+
+			.banner {
+				max-width: 480px;
+				width: 100%;
+				margin: 0px auto;
+				padding: 4em 0em 4em 0em;
+			}
+
+			.header {
+				background: #fb036b;
+				position: fixed;
+				width: 100%;
+				top: 0px;
+				left: 0px;
+				right: 0px;
+				z-index: 11;				
+			}
+
+
+			.card-mall {
+				background: white;
+				box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;
+				border-radius: 1.5em;	
+				/*border: 2px solid red;			*/
+				margin-bottom: 1em;
+				/*margin-top: 1em;*/
+			}
+
+			.kategori {
+				padding: 0.8em 0em 1em 0em;
+				display: flex; 
+				position: relative; 
+				top: -3em; 
+				margin-bottom: -2em;
+				z-index: 2;   
+				overflow-y: visible; 
+				overflow-x: auto; 			
+
+			}
+
+			.nama-kategori {
+				padding: 0.5em 0.5em 0.5em 0.5em;
+				display: flex; 				
+				justify-content: space-around;
+			}
+
+			.footer {
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				color: white;
+				text-align: center;
+				background-color: transparent;
+			}
+
+			.footer-mall-menu {
+				background: white;
+				box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;
+				border-radius: 3em;			
+				margin-bottom: 1em;	
+
+			}
+
+			.sosmed > img {
+				margin: 0px 0.6em 0px 0.6em !important;
+			}
+		</style>
+	</head>
+	<body style="margin: 0px; background: #fb036b;">
+		<header class="style__Container-sc-3fiysr-0 header">
+			<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
+				<a id="defaultheader_logo" title="Kitapura Mall" href="/">
+					<img src="<?=url('/')?>/public/img/logo.svg">&nbsp;
+					<img src="<?=url('/')?>/public/img/logo_text.svg">
+				</a>
+			</div>
+		</header>
+
+		<div class="wrapper" style="background: #fb036b; margin-top: 8em; display: flex; flex-direction: column; justify-content: center;">
+			<div style="text-align: center; width: 100%; margin-bottom: 0.3em; color: white;">Masukan <b>Kode OTP</b> kamu disini</div>
+			<div class="container-mall" style="display: flex; justify-content: space-around;">
+				<div class="footer-mall-menu" style="width: 90%; height: 3.5em; display: flex; align-items: center; justify-content: space-around;">
+					<div>
+						<input type="text" name="nomor_hp" id="nomor_hp" class="form-control" style="width: 100% !important; padding: .375rem; border: none; text-align: center;" placeholder="XXXXXX">
+					</div>
+				</div> 
+			</div>		
+			<div style="display: flex; justify-content: center;">
+			<div style="text-align: center; width: 90%; margin-top: 0.3em; color: white;">dengan melanjutkan kamu setuju dengan <b>Syarat & Ketentuan</b> dan <b>Kebijakan Privasi</b> kami</div>		
+			</div>	
+		</div>
+		<div class="footer" style="background: #fb036b; ">
+			<div style="text-align: center; width: 100%;">Lanjut</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		(function($) {
+			$.fn.nodoubletapzoom = function() {
+				$(this).bind('touchstart', function preventZoom(e) {
+					var t2 = e.timeStamp
+					, t1 = $(this).data('lastTouch') || t2
+					, dt = t2 - t1
+					, fingers = e.originalEvent.touches.length;
+					$(this).data('lastTouch', t2);
+					if (!dt || dt > 500 || fingers > 1) return; 
+					e.preventDefault();
+					$(this).trigger('click').trigger('click');
+				});
+			};
+		})(jQuery);		
+
+		$('#nomor_hp').keyup(function(){
+			$(this).val($(this).val().replace(/(\d{3})\-?(\d{3})\-?(\d{4})/,'$1-$2-$3'))
+		});		
+	</script>
+	</html>
