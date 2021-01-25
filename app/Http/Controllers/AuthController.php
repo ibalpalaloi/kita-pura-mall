@@ -21,7 +21,7 @@ class AuthController extends Controller
         if(!empty($user)){
             return redirect('/login/password/'.$user->no_hp);
         }
-        return view('toko.dashboard');
+        return redirect()->back()->with('error', 'belum terdaftar');
     }
 
     public function sign_up(){
@@ -31,20 +31,18 @@ class AuthController extends Controller
     public function post_sign_up(Request $request){
         $this->validate($request,[
             'nama' => 'required',
-            'email' => 'required',
+            'no_hp' => 'required',
             'password' => 'required',
             'konfir_password' => Rule::in([$request->password])
         ]);
 
-        // $enkripsi = crypt($request->email, $request->password);
-
-        // $user = new User;
-        // $user->username = $request->nama;
-        // $user->password = bcrypt($request->password);
-        // $user->email = $request->email;
-        // $user->remember_token = str::random(60);
-        // $user->level_akses = 'toko';
-        // $user->save();
+        $user = new User;
+        $user->password = bcrypt($request->password);
+        $user->no_hp = $request->no_hp;
+        $user->remember_token = str::random(60);
+        $user->level_akses = 'toko';
+        $user->status = "aktif";
+        $user->save();
         return redirect('toko');
     }
 

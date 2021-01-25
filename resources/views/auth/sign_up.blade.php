@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-12 ">
-                                        <input class="form-control form-control-lg" type="text" required=" " placeholder="Email" name="email">
+                                        <input class="form-control form-control-lg" type="text" required=" " placeholder="No Telp" name="no_hp">
                                     </div>
                                 </div>
                                 <div class="form-group row">
