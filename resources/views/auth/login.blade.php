@@ -52,6 +52,11 @@
                         <div class="col-12">
                             <form class="form-horizontal mt-3" id="loginform" action="<?=url('/post_login')?>" method="post">
                                 {{ csrf_field() }}
+                                @if (session()->has('error'))
+                                <div class="alert alert-danger alert-rounded"> <i class="ti-user"></i> Akun dengan nomor ponsel belum terdaftar, silahkan mendaftar untuk melanjutkan
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                                </div>
+                                @endif
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
@@ -63,19 +68,19 @@
                                         <button class="btn btn-block btn-lg btn-info" type="submit">Log In</button>
                                     </div>
                                 </div>
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12 mt-2 text-center">
                                         <div class="social">
                                             <a href="javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip" title="" data-original-title="Login with Facebook"> <i aria-hidden="true" class="fab  fa-facebook"></i> </a>
                                             <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="" data-original-title="Login with Google"> <i aria-hidden="true" class="fab  fa-google-plus"></i> </a>
                                         </div>
                                     </div>
-                                </div>
-                                {{-- <div class="form-group mb-0 mt-2">
-                                    <div class="col-sm-12 text-center">
-                                        Don't have an account? <a href="<?=url('/sign_up')?>" class="text-info ml-1"><b>Sign Up</b></a>
-                                    </div>
                                 </div> --}}
+                                <div class="form-group mb-0 mt-2">
+                                    <div class="col-sm-12 text-center">
+                                        Belum memiliki akun? <a href="<?=url('/sign_up')?>" class="text-info ml-1"><b>Mendaftar</b></a>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

@@ -52,6 +52,7 @@
                         <div class="col-12">
                             <form class="form-horizontal mt-3" id="loginform" action="<?=url('/post_password')?>" method="post">
                                 {{ csrf_field() }}
+                                
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
