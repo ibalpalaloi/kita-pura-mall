@@ -19,45 +19,40 @@ use App\Http\Controllers\User\UserController;
 */
 
 
-
-
 Route::group(['middleware'=> 'guest'], function() {
 
     Route::get('/', [AuthController::class, 'login'])->name('login');
     Route::post('/post_login', [AuthController::class, 'post_login']);
     Route::post('/post_password', [AuthController::class, 'post_password']);
     Route::post('/post_otp', [AuthController::class, 'post_otp']);
+
     Route::get('/login/password/{id}', [AuthController::class, 'password']);
+
+    Route::get('/sign_up', [AuthController::class, 'sign_up']);
+    Route::post('/post_sign_up', [AuthController::class, 'post_sign_up']);
+
+    Route::get('/verifikasi-number', [HomeController::class, 'verifikasi_number']);
+    Route::get('/input-password', [HomeController::class, 'input_password']);
+    
 
 });
 
 Route::group(['middleware'=> 'auth'], function() {
 
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
     Route::group(['middleware'=> 'home'], function() {
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
-
         Route::get('/user', [UserController::class, 'index']);
+        Route::get('/explore', [HomeController::class, 'pencarian']);
+        Route::get('/rekomendasi', [HomeController::class, 'rekomendasi']);
 
     });
 
 });
 
 
-
-
-Route::get('/beranda', [HomeController::class, 'index']);
-Route::get('/explore', [HomeController::class, 'pencarian']);
-Route::get('/rekomendasi', [HomeController::class, 'rekomendasi']);
-Route::get('/verifikasi-number', [HomeController::class, 'verifikasi_number']);
-Route::get('/input-password', [HomeController::class, 'input_password']);
-
-// auth
-
-
-Route::get('/sign_up', [AuthController::class, 'sign_up']);
-Route::post('/post_sign_up', [AuthController::class, 'post_sign_up']);
-// end auth
 
 
 // toko

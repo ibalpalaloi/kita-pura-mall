@@ -10,12 +10,20 @@ use App\Models\Otp;
 use Illuminate\Support\Str;
 use Auth;
 use GuzzleHttp;
+use Session;
+
 
 class AuthController extends Controller
 {
     //
     public function login(){
         return view('auth.login');
+    }
+
+    public function logout(){
+        Auth::logout();
+        Session::flush();
+        return redirect('/');
     }
 
     public function post_login(Request $request){
@@ -25,7 +33,10 @@ class AuthController extends Controller
         $user = User::where('no_hp', $no_telp)->first();
 
         if(!empty($user)){
+
+
             return view('auth.verifikasi_password', ['no_telp'=>$no_telp]);
+
         }
         
         Otp::where('no_hp', $no_telp)->delete();
@@ -78,7 +89,7 @@ class AuthController extends Controller
             'password' => 'required',
             'konfir_password' => Rule::in([$request->password])
         ]);
-
+        
         $user = new User;
         $user->password = bcrypt($request->password);
         $user->no_hp = $request->no_telp;
@@ -86,16 +97,31 @@ class AuthController extends Controller
         $user->level_akses = 'toko';
         $user->status = "aktif";
         $user->save();
-        return redirect('/');
+
+
+        if(Auth::attempt(['no_hp' => $request->no_telp, 'password' => $request->password])){
+
+            Session::put('no_telp', $request->no_telp);
+            
+            // dd(Session::has('no_telp'));
+
+            return redirect('/home');
+        }
     }
 
     public function password($id){
+
         return view('auth.password', ['no_telp'=>$id]);
+        
     }
 
     public function post_password(Request $request){
+        // dd($request->all());
         if(Auth::attempt(['no_hp' => $request->no_telp, 'password' => $request->password])){
-            return redirect('/');
+
+            Session::put('no_telp', $request->no_telp);
+
+            return redirect('/home');
         }
         return back();
     }
@@ -105,10 +131,13 @@ class AuthController extends Controller
             ['no_hp', $request->no_telp],
             ['kode_otp', $request->kode_otp]
         ])->first();
+
         if(!empty($otp)){
             return view('auth.sign_up', ['no_telp'=>$request->no_telp]);
 
         }
         return view('auth.verifikasi_number');
     }
+
+    
 }
