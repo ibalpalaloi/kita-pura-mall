@@ -27,8 +27,20 @@ class AuthController extends Controller
             return view('auth.verifikasi_password', ['no_telp'=>$no_telp]);
         }
         
+        Otp::where('no_hp', $no_telp)->delete();
         $kode_otp = rand();
         $kode_otp = substr($kode_otp, 0, 4);
+
+        $cek_otp = Otp::where('kode_otp', '1234')->first();
+        
+        if ($cek_otp->kode_otp == $kode_otp){
+            while($cek_otp->kode_otp == $kode_otp){
+                $kode_otp = rand();
+                $kode_otp = substr($kode_otp, 0, 4);
+                $cek_otp = Otp::where('kode_otp', $kode_otp)->first();
+            }
+        }
+
         $json = [
             "token"=>"603b0d31a5502ba608ad0f56c9265c57",
             "source"=>6285696069326,

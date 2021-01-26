@@ -244,7 +244,7 @@
 				</div>	
 			</div>
 			<div class="footer" style="background: #fb036b; ">
-				<button type="submit">lalu</button>
+				<button type="submit">lanjut</button>
 			</div>
 		</form>	
 	</body>
