@@ -248,7 +248,7 @@
 			<div class="container-mall" style="display: flex; justify-content: space-around;">
 				<div class="footer-mall-menu" style="width: 90%; height: 3.5em; display: flex; align-items: center; justify-content: space-around;">
 					<div>
-						<input type="text" name="konfir_password" class="form-control" style="width: 100% !important; padding: .375rem; border: none; text-align: center;" placeholder="konfir Password">
+						<input type="text" name="konfirmasi_password" class="form-control" style="width: 100% !important; padding: .375rem; border: none; text-align: center;" placeholder="Konfirmasi Password">
 					</div>
 				</div> 
 			</div>		
@@ -257,8 +257,7 @@
 			</div>	
 		</div>
 		<div class="footer" style="background: #fb036b; ">
-			<button type="submit"> Lanjut</button>
-			{{-- <div style="text-align: center; width: 100%;">Lanjut</div> --}}
+			<button type="submit" class="btn" style="color: white;">Lanjut</button>
 		</div>
 	</form>
 </body>

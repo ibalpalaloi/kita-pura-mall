@@ -43,16 +43,6 @@ class AuthController extends Controller
         $kode_otp = rand();
         $kode_otp = substr($kode_otp, 0, 4);
 
-        // $cek_otp = Otp::where('kode_otp', $kode_otp)->first();
-        
-        // if ($cek_otp->kode_otp == $kode_otp){
-        //     while($cek_otp->kode_otp == $kode_otp){
-        //         $kode_otp = rand();
-        //         $kode_otp = substr($kode_otp, 0, 4);
-        //         $cek_otp = Otp::where('kode_otp', $kode_otp)->first();
-        //     }
-        // }
-
         $json = [
             "token"=>"603b0d31a5502ba608ad0f56c9265c57",
             "source"=>6285696069326,
@@ -87,14 +77,13 @@ class AuthController extends Controller
         $this->validate($request,[
             'no_telp' => 'required',
             'password' => 'required',
-            'konfir_password' => Rule::in([$request->password])
+            'konfirmasi_password' => Rule::in([$request->password])
         ]);
-        
         $user = new User;
         $user->password = bcrypt($request->password);
         $user->no_hp = $request->no_telp;
         $user->remember_token = str::random(60);
-        $user->level_akses = 'toko';
+        $user->level_akses = 'user';
         $user->status = "aktif";
         $user->save();
 
