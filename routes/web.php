@@ -25,7 +25,6 @@ Route::group(['middleware'=> 'guest'], function() {
     Route::post('/post_login', [AuthController::class, 'post_login']);
     Route::post('/post_password', [AuthController::class, 'post_password']);
     Route::post('/post_otp', [AuthController::class, 'post_otp']);
-
     Route::get('/login/password/{id}', [AuthController::class, 'password']);
 
     Route::get('/sign_up', [AuthController::class, 'sign_up']);
