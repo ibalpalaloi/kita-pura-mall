@@ -6,7 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\toko_controller\Toko_controller;
 use App\Http\Controllers\toko_controller\Produk_controller;
 use App\Http\Controllers\Admin\Admin_Manajemen_Pengguna_Controller;
-
+use App\Http\Controllers\User\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,3 +57,5 @@ Route::get('/admin/beranda', function () {
 });
 
 Route::get('/admin/manajemen/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'index']);
+
+Route::get('/user', [UserController::class, 'index']);
