@@ -227,22 +227,27 @@
 			</div>
 		</header>
 
-		<div class="wrapper" style="background: #fb036b; margin-top: 8em; display: flex; flex-direction: column; justify-content: center;">
-			<div style="text-align: center; width: 100%; margin-bottom: 0.3em; color: white;">Masukan <b>Password</b> kamu disini</div>
-			<div class="container-mall" style="display: flex; justify-content: space-around;">
-				<div class="footer-mall-menu" style="width: 90%; height: 3.5em; display: flex; align-items: center; justify-content: space-around;">
-					<div>
-						<input type="text" name="nomor_hp" id="nomor_hp" class="form-control" style="width: 100% !important; padding: .375rem; border: none; text-align: center;" placeholder="Password">
-					</div>
-				</div> 
-			</div>		
-			<div style="display: flex; justify-content: center;">
-			<div style="text-align: center; width: 90%; margin-top: 0.3em; color: white;">dengan melanjutkan kamu setuju dengan <b>Syarat & Ketentuan</b> dan <b>Kebijakan Privasi</b> kami</div>		
-			</div>	
-		</div>
-		<div class="footer" style="background: #fb036b; ">
-			<a style="text-align: center; color: white; width: 100%;" href="<?=url('/')?>/user">Lanjut</div>
-		</div>
+		<form action="<?=url('/post_password')?>" method="post">
+			{{csrf_field()}}
+			<div class="wrapper" style="background: #fb036b; margin-top: 8em; display: flex; flex-direction: column; justify-content: center;">
+				<div style="text-align: center; width: 100%; margin-bottom: 0.3em; color: white;">Masukan <b>Password</b> kamu disini</div>
+				<div class="container-mall" style="display: flex; justify-content: space-around;">
+					<div class="footer-mall-menu" style="width: 90%; height: 3.5em; display: flex; align-items: center; justify-content: space-around;">
+						<input name="no_telp" type="text" value="{{$no_telp}}" hidden>
+						<div>
+							<input name="password" type="text" name="nomor_hp" id="nomor_hp" class="form-control" style="width: 100% !important; padding: .375rem; border: none; text-align: center;" placeholder="Password">
+						</div>
+					</div> 
+				</div>		
+				<div style="display: flex; justify-content: center;">
+				<div style="text-align: center; width: 90%; margin-top: 0.3em; color: white;">dengan melanjutkan kamu setuju dengan <b>Syarat & Ketentuan</b> dan <b>Kebijakan Privasi</b> kami</div>		
+				</div>	
+			</div>
+			<div class="footer" style="background: #fb036b; ">
+				<button type="submit"> Lanjut</button>
+				{{-- <div style="text-align: center; width: 100%;">Lanjut</div> --}}
+			</div>
+		</form>
 	</body>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script type="text/javascript">
