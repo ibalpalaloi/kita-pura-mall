@@ -248,7 +248,7 @@
                     <div>
                         <span style="color: black;">+62&nbsp;</span>
                     </div>
-                </div>]
+                </div>
                 <div>
                     <input type="text" name="nomor_hp" id="nomor_hp" class="form-control" style="width: 90% !important; padding: .375rem; border: none;" placeholder="851-5628-9855" name="no_telp">
                 </div>
