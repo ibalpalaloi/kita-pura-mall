@@ -23,6 +23,7 @@ class AuthController extends Controller
         $no_telp = str_replace("-","", $no_telp);
         $no_telp = substr_replace($no_telp, "+62", 0, 0);
         $user = User::where('no_hp', $no_telp)->first();
+
         if(!empty($user)){
             return view('auth.verifikasi_password', ['no_telp'=>$no_telp]);
         }
@@ -106,6 +107,7 @@ class AuthController extends Controller
         ])->first();
         if(!empty($otp)){
             return view('auth.sign_up', ['no_telp'=>$request->no_telp]);
+
         }
         return view('auth.verifikasi_number');
     }
