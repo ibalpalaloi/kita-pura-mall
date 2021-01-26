@@ -226,6 +226,7 @@
 				</a>
 			</div>
 		</header>
+
 		<form action="<?=url('/post_password')?>" method="post">
 			{{csrf_field()}}
 			<div class="wrapper" style="background: #fb036b; margin-top: 8em; display: flex; flex-direction: column; justify-content: center;">
