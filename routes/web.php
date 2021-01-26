@@ -27,7 +27,7 @@ Route::group(['middleware'=> 'guest'], function() {
     Route::post('/post_otp', [AuthController::class, 'post_otp']);
     Route::get('/login/password/{id}', [AuthController::class, 'password']);
 
-    Route::get('/sign_up', [AuthController::class, 'sign_up']);
+    Route::get('/sign_up/{id}', [AuthController::class, 'sign_up']);
     Route::post('/post_sign_up', [AuthController::class, 'post_sign_up']);
 
     Route::get('/verifikasi-number', [HomeController::class, 'verifikasi_number']);

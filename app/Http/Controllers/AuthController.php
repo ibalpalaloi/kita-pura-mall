@@ -79,8 +79,8 @@ class AuthController extends Controller
         return view('auth.verifikasi_number', ['no_telp'=>$no_telp]);
     }
 
-    public function sign_up(){
-        return view('auth.sign_up');
+    public function sign_up($id){
+        return view('auth.sign_up', ['no_telp'=>$id]);
     }
 
     public function post_sign_up(Request $request){
@@ -133,7 +133,7 @@ class AuthController extends Controller
         ])->first();
 
         if(!empty($otp)){
-            return view('auth.sign_up', ['no_telp'=>$request->no_telp]);
+            return redirect('/sign_up/'.$request->no_telp);
 
         }
         return view('auth.verifikasi_number');
