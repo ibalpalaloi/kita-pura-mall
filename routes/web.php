@@ -25,13 +25,6 @@ Route::get('/rekomendasi', [HomeController::class, 'rekomendasi']);
 Route::get('/verifikasi-number', [HomeController::class, 'verifikasi_number']);
 Route::get('/input-password', [HomeController::class, 'input_password']);
 
-Route::get('/layout-admin', function () {
-    return view('layouts/admin');
-});
-
-Route::get('/layout-toko', function () {
-    return view('layouts/toko');
-});
 // auth
 Route::get('/login', [AuthController::class, 'login']);
 Route::post('/post_login', [AuthController::class, 'post_login']);
@@ -41,6 +34,8 @@ Route::get('/login/password/{id}', [AuthController::class, 'password']);
 Route::post('/post_password', [AuthController::class, 'post_password']);
 Route::post('/post_otp', [AuthController::class, 'post_otp']);
 // end auth
+
+
 // toko
 Route::get('/toko', [Toko_controller::class, 'index']);
 Route::get('/toko/informasi_toko', [Toko_controller::class, 'informasi_toko']);
@@ -51,12 +46,6 @@ Route::get('/toko/tambah_produk', [Produk_controller::class, 'tambah_produk']);
 Route::post('/toko/get_sub_kategori', [Produk_controller::class, 'get_sub_kategori'])->name('get_sub_kategori');
 // ==== end produk
 // end toko
-Route::get('/layout-admin', function () {
-    return view('layouts/admin');
-});
 
-Route::get('/admin/beranda', function () {
-    return view('users/admin/beranda');
-});
 
 Route::get('/admin/manajemen/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'index']);
