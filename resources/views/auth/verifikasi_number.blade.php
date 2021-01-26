@@ -227,22 +227,26 @@
 			</div>
 		</header>
 
-		<div class="wrapper" style="background: #fb036b; margin-top: 8em; display: flex; flex-direction: column; justify-content: center;">
-			<div style="text-align: center; width: 100%; margin-bottom: 0.3em; color: white;">Masukan <b>Kode OTP</b> kamu disini</div>
-			<div class="container-mall" style="display: flex; justify-content: space-around;">
-				<div class="footer-mall-menu" style="width: 90%; height: 3.5em; display: flex; align-items: center; justify-content: space-around;">
-					<div>
-						<input type="text" name="nomor_hp" id="nomor_hp" class="form-control" style="width: 100% !important; padding: .375rem; border: none; text-align: center;" placeholder="XXXXXX">
+		<form action="<?=url('/')?>/post_otp" method="post">
+			{{csrf_field()}}
+			<div class="wrapper" style="background: #fb036b; margin-top: 8em; display: flex; flex-direction: column; justify-content: center;">
+				<div style="text-align: center; width: 100%; margin-bottom: 0.3em; color: white;">Masukan <b>Kode OTP</b> kamu disini</div>
+					<div class="container-mall" style="display: flex; justify-content: space-around;">
+						<input type="text" value="{{$no_telp}}" name="no_telp" hidden>
+						<div class="footer-mall-menu" style="width: 90%; height: 3.5em; display: flex; align-items: center; justify-content: space-around;">
+							<div>
+								<input type="text" name="kode_otp" id="nomor_hp" class="form-control" style="width: 100% !important; padding: .375rem; border: none; text-align: center;" placeholder="XXXXXX">
+							</div>
+						</div> 
 					</div>
-				</div> 
-			</div>		
-			<div style="display: flex; justify-content: center;">
-			<div style="text-align: center; width: 90%; margin-top: 0.3em; color: white;">dengan melanjutkan kamu setuju dengan <b>Syarat & Ketentuan</b> dan <b>Kebijakan Privasi</b> kami</div>		
-			</div>	
-		</div>
-		<div class="footer" style="background: #fb036b; ">
-			<a style="text-align: center; color: white; width: 100%;" href="<?=url('/')?>/input-password">Lanjut</div>
-		</div>
+				<div style="display: flex; justify-content: center;">
+				<div style="text-align: center; width: 90%; margin-top: 0.3em; color: white;">dengan melanjutkan kamu setuju dengan <b>Syarat & Ketentuan</b> dan <b>Kebijakan Privasi</b> kami</div>		
+				</div>	
+			</div>
+			<div class="footer" style="background: #fb036b; ">
+				<button type="submit">lanjut</button>
+			</div>
+		</form>	
 	</body>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script type="text/javascript">
