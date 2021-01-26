@@ -138,7 +138,7 @@
             padding: 0px 16px 1em;
             box-sizing: border-box;
             min-height: calc(100vh - 60px);	
-            /*border: 2px solid red;						*/
+
         }	
 
         .container-mall {
@@ -250,10 +250,10 @@
                     </div>
                 </div>
                 <div>
-                    <input type="text" name="nomor_hp" id="nomor_hp" class="form-control" style="width: 90% !important; padding: .375rem; border: none;" placeholder="851-5628-9855" name="no_telp">
+                    <input type="text" name="nomor_hp" id="nomor_hp" class="form-control" style="width: 90% !important; padding: .375rem; border: none;" placeholder="851-5628-9855" name="no_telp" required>
                 </div>
                 <div style="display: flex; justify-content: row; align-items: center; margin-right: 1.5em;">
-                    <button type="submit">
+                    <button type="submit" class="btn" style="text-align: center;">
                         <i class="fas fa-sign-in-alt" style="color: black; font-size: 1.5em;"></i>
                     </button>
                 </div>
