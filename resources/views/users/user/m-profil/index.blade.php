@@ -137,7 +137,7 @@
 				margin: 0px auto;
 				padding: 0px 16px 1em;
 				box-sizing: border-box;
-				min-height: calc(100vh - 60px);	
+				min-height: calc(80vh - 60px);	
 				/*border: 2px solid red;						*/
 			}	
 
@@ -153,11 +153,11 @@
 				max-width: 480px;
 				width: 100%;
 				margin: 0px auto;
-				padding: 4em 0em 4em 0em;
+				padding: 0.7em 0em 0.3em 0em;
 			}
 
 			.header {
-				background: #fb036b;
+				background: #ff006e;
 				position: fixed;
 				width: 100%;
 				top: 0px;
@@ -201,6 +201,8 @@
 				width: 100%;
 				color: white;
 				text-align: center;
+				/*border: 2px solid red;*/
+				padding-bottom: 0px;
 				background-color: transparent;
 			}
 
@@ -217,46 +219,76 @@
 			}
 		</style>
 	</head>
-	<body style="margin: 0px; background: #fb036b;">
-		<header class="style__Container-sc-3fiysr-0 header">
-			<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
-				<a id="defaultheader_logo" title="Kitapura Mall" href="/">
-					<img src="<?=url('/')?>/public/img/logo.svg">&nbsp;
-					<img src="<?=url('/')?>/public/img/logo_text.svg">
-				</a>
-			</div>
-		</header>
-
-		<div class="wrapper" style="background: #fb036b; margin-top: 2em; display: flex; justify-content: center;">
-			<div class="banner">
-				<img src="<?=url('/')?>/public/img/register/animasi_login.gif" style="width: 100%;">
-				<div style="color: white; text-align: center; padding-top: 0.5em; ">
-					<h3>Semuanya ada disini !</h3>
-					<span>Belanja, cari jasa dan apapun yang<br>kalian butuhkan. semuanya ada<br>di kitapura mall.</span>
+	<body style="margin: 0px;">
+		<div class="wrapper" style="background: #ff006e; position: relative; z-index: -1">
+			<div class="banner" style="display: flex; justify-content: flex-end;">
+				<div class="" style="width: 30%; display: flex; align-items: flex-start; flex-direction: column; padding-top: 4em; padding-left: 2em;">
+					<img src="<?=url('/')?>/public/img/logo.svg" style="width: 30%; width: 60%;">
+					<img src="<?=url('/')?>/public/img/logo_text_vertical.svg" style="width: 30%; width: 90%; margin-top: 0.7em;">
 				</div>
+				<img src="<?=url('/')?>/public/img/user/img_user.png" style="width: 70%;">
 			</div>
 		</div>
-		<div class="footer" style="background: #fb036b; ">
-			<div style="text-align: center; width: 100%;">Masukan nomor hp kamu disini</div>
-			<div class="container-mall" style="display: flex; justify-content: space-around;">
-				<div class="footer-mall-menu" style="width: 90%; height: 3.5em; display: flex; align-items: center; justify-content: space-around;">
-					<div style="display: flex; justify-content: row; align-items: center; margin-left: 1.5em;">
-						<div style="padding-top: 0.5em;">
-							<img src="<?=url('/')?>/public/img/register/indonesia.svg">
-						</div>
-						<div>
-							<span style="color: black;">+62&nbsp;</span>
-						</div>
+
+
+		<main id="homepage" class="homepage">
+			<div class="card-mall kategori" style="padding: 5px;">
+				<div style="display: flex; justify-content: center; flex-direction: row; align-items: center;">
+					<div style="width: 25%; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; ">
+						<img src="<?=url('/')?>/public/img/user/lengkapi_berkas.png" style="width: 100%;">
 					</div>
-					<div>
-						<input type="text" name="nomor_hp" id="nomor_hp" class="form-control" style="width: 90% !important; padding: .375rem; border: none;" placeholder="851-5628-9855">
-					</div>
-					<div style="display: flex; justify-content: row; align-items: center; margin-right: 1.5em;">
-						<a href="<?=url('/')?>/verifikasi-number">
-							<i class="fas fa-sign-in-alt" style="color: black; font-size: 1.5em;"></i>
-						</a>
+					<div style="width: 63%; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 2%;">
+						<div class="container">
+							<div>Lengkapi akun anda!</div>
+							<div style="display: flex; justify-content: center; align-items: center;">
+								<div class="progress" style="border-radius: 1.5em; width: 90%; height: 1rem;">
+									<div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%; border-radius: 1.5em; background: #ff006e;">
+									</div>
+								</div>
+								<div style="width: 5%; margin-left: 0.5em;"><b>2/5</b></div>
+							</div>
+							<div style="font-size: 0.60em; text-align: center; width: 90%;"><b>Lengkapi akun </b>anda, Untuk bisa melakukan transaksi pada aplikasi ini</div>
+						</div>
+
 					</div>
 				</div> 
+			</div>
+			<div class="card-mall">
+				<div style="padding: 1.5em 2em 1.5em 2em;">
+					<span><img src="<?=url('/')?>/public/img/user/setting.svg"></span>
+					<span>&nbsp;&nbsp;&nbsp;Pengaturan Profil</span>
+				</div>
+			</div>
+			<div class="card-mall">
+				<div style="padding: 1.5em 2em 1.5em 2em;">
+					<span><img src="<?=url('/')?>/public/img/user/mitra.svg"></span>
+					<span>&nbsp;&nbsp;&nbsp;Mitra Kitapura</span>
+				</div>
+			</div>
+			<div class="card-mall">
+				<div style="padding: 1.5em 2em 1.5em 2em;">
+					<span>&nbsp;&nbsp;<img src="<?=url('/')?>/public/img/user/logout.svg"></span>
+					<span>&nbsp;&nbsp;&nbsp;Keluar</span>
+				</div>
+			</div>
+		</main>
+		<div class="footer">
+			<div class="container-mall footer-mall-menu" style="display: flex; justify-content: space-around;">
+					@php
+					$menu = array('beranda_color.svg', 'pencarian_color.svg', 'toko_color.svg', 'akun.svg');
+					$nama_menu = array('Beranda', 'Pencarian', 'Toko', 'Akun');
+					$link_menu = array('beranda', 'pencarian', 'toko', 'user');
+					@endphp 
+					@for ($i = 0; $i < count($menu); $i++)  
+					<div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0em 0em 0.8em;">
+						<div style="height: 5em; width: 5em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;">
+							<a style="@if ($i == 3) background: #ff006e; @else background: white; border: 2px solid #ff006e; @endif width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;"  href="<?=url('/')?>/{{$link_menu[$i]}}">
+								<img src="<?=url('/')?>/public/img/menu/{{$menu[$i]}}" style="width: 60%; ">
+							</a>
+							<div style="text-align: center; font-size: 0.7em; color: #5b5b5b;">{{$nama_menu[$i]}}</div>
+						</div>
+					</div> 
+					@endfor
 			</div>
 		</div>
 	</body>
@@ -276,9 +308,5 @@
 				});
 			};
 		})(jQuery);		
-
-		$('#nomor_hp').keyup(function(){
-			$(this).val($(this).val().replace(/(\d{3})\-?(\d{3})\-?(\d{4})/,'$1-$2-$3'))
-		});		
 	</script>
 	</html>
