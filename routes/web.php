@@ -18,7 +18,34 @@ use App\Http\Controllers\User\UserController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+
+
+
+Route::group(['middleware'=> 'guest'], function() {
+
+    Route::get('/', [AuthController::class, 'login'])->name('login');
+    Route::post('/post_login', [AuthController::class, 'post_login']);
+    Route::post('/post_password', [AuthController::class, 'post_password']);
+    Route::post('/post_otp', [AuthController::class, 'post_otp']);
+    Route::get('/login/password/{id}', [AuthController::class, 'password']);
+
+});
+
+Route::group(['middleware'=> 'auth'], function() {
+
+    Route::group(['middleware'=> 'home'], function() {
+
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+        Route::get('/user', [UserController::class, 'index']);
+
+    });
+
+});
+
+
+
+
 Route::get('/beranda', [HomeController::class, 'index']);
 Route::get('/explore', [HomeController::class, 'pencarian']);
 Route::get('/rekomendasi', [HomeController::class, 'rekomendasi']);
@@ -26,13 +53,10 @@ Route::get('/verifikasi-number', [HomeController::class, 'verifikasi_number']);
 Route::get('/input-password', [HomeController::class, 'input_password']);
 
 // auth
-Route::get('/login', [AuthController::class, 'login']);
-Route::post('/post_login', [AuthController::class, 'post_login']);
+
+
 Route::get('/sign_up', [AuthController::class, 'sign_up']);
 Route::post('/post_sign_up', [AuthController::class, 'post_sign_up']);
-Route::get('/login/password/{id}', [AuthController::class, 'password']);
-Route::post('/post_password', [AuthController::class, 'post_password']);
-Route::post('/post_otp', [AuthController::class, 'post_otp']);
 // end auth
 
 
@@ -50,4 +74,3 @@ Route::post('/toko/get_sub_kategori', [Produk_controller::class, 'get_sub_katego
 
 Route::get('/admin/manajemen/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'index']);
 
-Route::get('/user', [UserController::class, 'index']);
