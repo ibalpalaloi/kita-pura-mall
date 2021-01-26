@@ -18,11 +18,11 @@ class Home
     public function handle(Request $request, Closure $next)
     {
 
-        if (Session::has('pengguna')){
+        if (Session::has('no_telp')){
             return $next($request);        
         }
         else {
-            return route('login');
+            return route('logout');
         }
     }
 }
