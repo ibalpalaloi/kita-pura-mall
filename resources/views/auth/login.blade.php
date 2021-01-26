@@ -229,38 +229,36 @@
 
     <div class="wrapper" style="background: #fb036b; margin-top: 2em; display: flex; justify-content: center;">
         <div class="banner">
-            <img src="<?=url('/')?>/public/img/register/img_register.png" style="width: 100%;">
-            <div style="color: white; text-align: center; padding-top: 2em; ">
+            <img src="<?=url('/')?>/public/img/register/animasi_login.gif" style="width: 100%;">
+            <div style="color: white; text-align: center; padding-top: 0.5em; ">
                 <h3>Semuanya ada disini !</h3>
                 <span>Belanja, cari jasa dan apapun yang<br>kalian butuhkan. semuanya ada<br>di kitapura mall.</span>
             </div>
         </div>
     </div>
-    <div class="footer" style="background: #fb036b; ">
+    <div class="footer" style="background: #fb036b;">
         <div style="text-align: center; width: 100%;">Masukan nomor hp kamu disini</div>
-        <div class="container-mall" style="display: flex; justify-content: space-around;">
-            <form action="<?=url('/post_login')?>" method="post">
-                {{csrf_field()}}
-                <div class="footer-mall-menu" style="width: 90%; height: 3.5em; display: flex; align-items: center; justify-content: space-around;">
-                    <div style="display: flex; justify-content: row; align-items: center; margin-left: 1.5em;">
-                        <div style="padding-top: 0.5em;">
-                            <img src="<?=url('/')?>/public/img/register/indonesia.svg">
-                        </div>
-                        <div>
-                            <span style="color: black;">+62&nbsp;</span>
-                        </div>
-                    </div>]
+        <form action="<?=url('/post_login')?>" method="post" class="container-mall" style="display: flex; justify-content: space-around; width: 100%;">
+            {{csrf_field()}}
+            <div class="footer-mall-menu" style="width: 100%; height: 3.5em; display: flex; align-items: center; justify-content: space-around;">
+                <div style="display: flex; justify-content: row; align-items: center; margin-left: 1.5em;">
+                    <div style="padding-top: 0.5em;">
+                        <img src="<?=url('/')?>/public/img/register/indonesia.svg">
+                    </div>
                     <div>
-                        <input type="text" name="nomor_hp" id="nomor_hp" class="form-control" style="width: 90% !important; padding: .375rem; border: none;" placeholder="851-5628-9855" name="no_telp">
+                        <span style="color: black;">+62&nbsp;</span>
                     </div>
-                    <div style="display: flex; justify-content: row; align-items: center; margin-right: 1.5em;">
-                        <button type="submit">
-                            <i class="fas fa-sign-in-alt" style="color: black; font-size: 1.5em;"></i>
-                        </button>
-                    </div>
-                </div> 
-            </form>
-        </div>
+                </div>]
+                <div>
+                    <input type="text" name="nomor_hp" id="nomor_hp" class="form-control" style="width: 90% !important; padding: .375rem; border: none;" placeholder="851-5628-9855" name="no_telp">
+                </div>
+                <div style="display: flex; justify-content: row; align-items: center; margin-right: 1.5em;">
+                    <button type="submit">
+                        <i class="fas fa-sign-in-alt" style="color: black; font-size: 1.5em;"></i>
+                    </button>
+                </div>
+            </div> 
+        </form>
     </div>
 </body>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -281,7 +279,7 @@
     })(jQuery);		
 
     $('#nomor_hp').keyup(function(){
-        $(this).val($(this).val().replace(/(\d{3})\-?(\d{3})\-?(\d{4})/,'$1-$2-$3'))
+        $(this).val($(this).val().replace(/(\d{3})\-?(\d{4})\-?(\d{4})/,'$1-$2-$3'))
     });		
 </script>
 </html>
