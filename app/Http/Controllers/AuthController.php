@@ -31,15 +31,15 @@ class AuthController extends Controller
         $kode_otp = rand();
         $kode_otp = substr($kode_otp, 0, 4);
 
-        $cek_otp = Otp::where('kode_otp', '1234')->first();
+        // $cek_otp = Otp::where('kode_otp', $kode_otp)->first();
         
-        if ($cek_otp->kode_otp == $kode_otp){
-            while($cek_otp->kode_otp == $kode_otp){
-                $kode_otp = rand();
-                $kode_otp = substr($kode_otp, 0, 4);
-                $cek_otp = Otp::where('kode_otp', $kode_otp)->first();
-            }
-        }
+        // if ($cek_otp->kode_otp == $kode_otp){
+        //     while($cek_otp->kode_otp == $kode_otp){
+        //         $kode_otp = rand();
+        //         $kode_otp = substr($kode_otp, 0, 4);
+        //         $cek_otp = Otp::where('kode_otp', $kode_otp)->first();
+        //     }
+        // }
 
         $json = [
             "token"=>"603b0d31a5502ba608ad0f56c9265c57",
@@ -73,20 +73,19 @@ class AuthController extends Controller
 
     public function post_sign_up(Request $request){
         $this->validate($request,[
-            'nama' => 'required',
-            'no_hp' => 'required',
+            'no_telp' => 'required',
             'password' => 'required',
             'konfir_password' => Rule::in([$request->password])
         ]);
 
         $user = new User;
         $user->password = bcrypt($request->password);
-        $user->no_hp = $request->no_hp;
+        $user->no_hp = $request->no_telp;
         $user->remember_token = str::random(60);
         $user->level_akses = 'toko';
         $user->status = "aktif";
         $user->save();
-        return redirect('toko');
+        return redirect('/');
     }
 
     public function password($id){
@@ -106,7 +105,7 @@ class AuthController extends Controller
             ['kode_otp', $request->kode_otp]
         ])->first();
         if(!empty($otp)){
-            return redirect('/');
+            return view('auth.sign_up', ['no_telp'=>$request->no_telp]);
         }
         return view('auth.verifikasi_number');
     }
