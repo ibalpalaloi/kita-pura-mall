@@ -408,7 +408,7 @@
 					@php
 					$menu = array('beranda.svg', 'pencarian_color.svg', 'toko_color.svg', 'akun_color.svg');
 					$nama_menu = array('Beranda', 'Pencarian', 'Toko', 'Akun');
-					$link_menu = array('beranda', 'pencarian', 'toko', 'akun');
+					$link_menu = array('beranda', 'pencarian', 'toko', 'user');
 					@endphp 
 					@for ($i = 0; $i < count($menu); $i++)  
 					<div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0em 0em 0.8em;">

@@ -229,8 +229,8 @@
 
 		<div class="wrapper" style="background: #fb036b; margin-top: 2em; display: flex; justify-content: center;">
 			<div class="banner">
-				<img src="<?=url('/')?>/public/img/register/img_register.png" style="width: 100%;">
-				<div style="color: white; text-align: center; padding-top: 2em; ">
+				<img src="<?=url('/')?>/public/img/register/animasi_login.gif" style="width: 100%;">
+				<div style="color: white; text-align: center; padding-top: 0.5em; ">
 					<h3>Semuanya ada disini !</h3>
 					<span>Belanja, cari jasa dan apapun yang<br>kalian butuhkan. semuanya ada<br>di kitapura mall.</span>
 				</div>
