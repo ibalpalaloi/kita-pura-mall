@@ -1,335 +1,194 @@
-	<!DOCTYPE html>
-	<html>
-	<head>
-		<title></title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<meta name="HandheldFriendly" content="true"/>		
-		<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template/admin/dist/css/style.min.css">
-		<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/carousel-vertical/css/carousel-vertical.css"/>
-		<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/carousel-vertical/css/demo.css"/>
-		<style type="text/css">
+@extends('layouts.home')
 
-			.hBSxmh {
-				max-width: 480px;
-				width: 100%;
-				display: flex;
-				height: 60px;
-				-webkit-box-align: center;
-				align-items: center;
-				-webkit-box-pack: justify;
-				justify-content: space-between;
-				margin: 0px auto;
-			}
+@section('title')
+Rekomendasi |
+@endsection
 
-			a {
-				text-decoration: none;
-				color: #00aeef;
-				transition: all .35s ease;
-				background-color: transparent;
-			}
+@section('header-scripts')
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/flickity/css/flickity.css">
+<style type="text/css">
+	.pencarian-tabs > a {
+		padding: 0.5em 1.5em 0.5em 1.5em;
+		color: #ff006e;
+		border-radius: 1.5em;
+		margin: 0em 0.5em 0em 0.5em;
+		font-size: 0.7em;
+	}
 
-			.sUjAJ {
-				background: white;
-				display: flex;
-				-webkit-box-pack: justify;
-				justify-content: space-between;
-				-webkit-box-align: center;
-				align-items: center;
-				border: none;
-				color: #dedede;
-				padding: 0px 15px;
-				font-size: 12px;
-				height: 36px;
-				width: 100%;
-				border-radius: 5px;
-				margin-right: 15px;
-			}	
-			
-			.svg-inline--fa, svg:not(:root).svg-inline--fa {
-				overflow: visible;
-			}
+	.active-mall {
+		background: #ff006e;
+		color: white !important;
+	}
 
-			svg:not(:root).svg-inline--fa {
-				overflow: visible;
-			}
-			.svg-inline--fa.fa-w-16 {
-				width: 1em;
-			}
-			.svg-inline--fa.fa-w-16 {
-				width: 1em;
-			}
-			.svg-inline--fa {
-				display: inline-block;
-				font-size: inherit;
-				height: 1em;
-				vertical-align: -.125em;
-			}
-			.svg-inline--fa {
-				display: inline-block;
-				font-size: inherit;
-				height: 1em;
-				overflow: visible;
-				vertical-align: -0.125em;
-			}
-			.clPWcC {
-				max-width: 1020px;
-				margin: 0px auto;
-				padding-top: 5px;
-			}
-			.iBqPAl {
-				margin: 15px 0px 0px;
-				font-weight: 600;
-				font-size: 18px;
-				line-height: 23px;
-			}
-			.kyUdEc {
-				padding: 20px 0px;
-			}
+	.carousel {
+		background: white;
+		margin-top: 5px;
+	}
 
-			.jEenUH {
-				display: inline-block;
-				border: 0px;
-				font-weight: 700;
-				line-height: normal;
-				text-align: center;
-				vertical-align: middle;
-				cursor: pointer;
-				transition: all 0.35s ease 0s;
-				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-				text-decoration: none;
-				width: 100%;
-				padding: 11px 37.5px;
-				font-size: 16px;
-				border-radius: 20px;
-				background-color: rgb(0, 174, 239);
-				color: rgb(255, 255, 255);
-			}
+	.carousel-cell {
+		width: 87%;
+		margin: 0px auto;
+		overflow: hidden;
+		border-radius: 1em;
+		margin-right: 0.6rem;
+	}
 
-			.calMVq {
-				display: flex;
-				font-weight: 700;
-				line-height: normal;
-				text-align: center;
-				-webkit-box-pack: center;
-				justify-content: center;
-				vertical-align: middle;
-				cursor: pointer;
-				transition: all 0.35s ease 0s;
-				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-				text-decoration: none;
-				width: 100%;
-				padding: 11px 37.5px;
-				font-size: 16px;
-				border-radius: 20px;
-				background-color: rgb(255, 255, 255);
-				color: rgb(0, 174, 239);
-				border: 1px solid rgb(0, 174, 239);
-			}
-
-			.dcmUJR {
-				margin-right: 8px;
-			}
-
-			.homepage {
-				background-color: white;
-				position: relative;
-				/*top: 60px;*/
-				max-width: 480px;
-				width: 100%;
-				margin: 0px auto;
-				padding: 0px 16px 1em;
-				box-sizing: border-box;
-				min-height: calc(100vh - 60px);	
-
-				/*border: 2px solid red;						*/
-			}	
+	.carousel-cell:before{
+		display: block;
+		text-align: center;
+		line-height: 200px;
+		font-size: 80px;
+		color: white;
+	}
 
 
+	.carousel-cell > img{
+		object-fit: cover;
+		width: 100%;
+	}
 
-			.container-mall {
-				max-width: 480px;
-				width: 100%;
-				margin: 0px auto;
-				padding: 0px 16px 0px;
-				box-sizing: border-box;	
-			}
+	.flickity-button {
+		display: none;
+	}
 
-			.banner {
-				max-width: 480px;
-				width: 100%;
-				margin: 0px auto;
-				padding: 4em 0em 4em 0em;
-			}
+	.flickity-page-dots {
+		display: none;			
+	}			
 
-			.header {
-				background: #ff006e;
-				position: fixed;
-				width: 100%;
-				top: 0px;
-				left: 0px;
-				right: 0px;
-				z-index: 11;				
-			}
+	/*browser fathu*/
+	@media screen and (min-height: 550px) { 
+		.carousel-cell {
+			height: 380px;
+		}
 
+		.carousel-cell > img {
+			height: 380px;
+		}
+	}
 
-			.card-mall {
-				background: white;
-				box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;
-				border-radius: 1.5em;	
-				/*border: 2px solid red;			*/
-				margin-bottom: 1em;
-				/*margin-top: 1em;*/
-			}
+	/*app fathul*/
+	@media screen and (min-height: 600px) {
+		.carousel-cell {
+			height: 430px;
+		}
 
-			.kategori {
-				padding: 0.8em 0em 1em 0em;
-				display: flex; 
-				position: relative; 
-				top: -3em; 
-				margin-bottom: -2em;
-				z-index: 2;   
-				overflow-y: visible; 
-				overflow-x: auto; 			
+		.carousel-cell > img {
+			height: 430px;
+		}
+	}
 
-			}
+	/*browser andipa andipa*/
+	@media screen and (min-height: 650px) {
+		.carousel-cell {
+			height: 480px;
+		}
 
-			.nama-kategori {
-				padding: 0.5em 0.5em 0.5em 0.5em;
-				display: flex; 				
-				justify-content: space-around;
-			}
+		.carousel-cell > img {
+			height: 480px;
+		}
+	}
 
-			.footer {
-				position: fixed;
-				left: 0;
-				bottom: 0;
-				width: 100%;
-				color: white;
-				text-align: center;
-				/*border: 2px solid red;*/
-				padding-bottom: 0px;
-				background-color: transparent;
-			}
+	@media screen and (min-height: 680px) {
+		.carousel-cell {
+			height: 530px;
+		}
 
-			.footer-mall-menu {
-				background: white;
-				box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;
-				border-radius: 3em;			
-				margin-bottom: 1em;	
+		.carousel-cell > img {
+			height: 530px;
+		}
+	}
 
-			}
+	.kategori-tabs > a {
+		margin: 0em 0.6em 0em 0.6em;
+		font-size: 0.8em;
+	}
 
-			.sosmed > img {
-				margin: 0px 0.6em 0px 0.6em !important;
-			}
+	.kategori-active-mall {
+		font-weight: 600;
+	}	
 
-			/*pencarian*/
-			.pencarian-tabs > a {
-				border: 2px solid #ff006e;
-				padding: 0.5em 1.5em 0.5em 1.5em;
-				color: #ff006e;
-				border-radius: 1.5em;
-				margin: 0em 0.5em 0em 0.5em;
-			}
+	.homepage {
+		background-color: white;
+		position: relative;
+		max-width: 480px;
+		width: 100%;
+		margin: 0px auto;
+		padding: 0px 16px 1em;
+		box-sizing: border-box;
+		min-height: calc(100vh - 60px);	
+	}		
+</style>
+@endsection
 
-			.card-pencarian {
-				/*padding-top: 0px;*/
-				margin-bottom: 7.5em;
-			}
-
-			.active-mall {
-				background: #ff006e;
-				color: white !important;
-			}
-
-			#demo {
-				height:100%;
-			}
-			.cv-carousel .item {
-				height: 100%;
-			}
-			.cv-item {
-				background: #ff7605;
-				
-			}
-			.cv-item h4{
-				color: #fff;
-				font-size: 42pt;
-			}
-
-			.cv-nav {
-				display: none;
-			}
-		</style>
-	</head>
-	<body style="margin: 0px;">
-		<header class="style__Container-sc-3fiysr-0 header" style="background: white;" >
-			<div class="style__Wrapper-sc-3fiysr-2 hBSxmh pencarian-tabs" style="display: flex; justify-content: center; background: white;">
-				<a class="active-mall" href="rekomendasi">
-					Rekomendasi
-				</a>
-				<a href="maps">
-					Maps
-				</a>
-				<a href="explore">
-					Explore
-				</a>
-			</div>
-		</header>
+@section('content')
+<header class="style__Container-sc-3fiysr-0 header" style="background: white;" >
+	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center; flex-direction: column; height: 80px;">
+		<div class="pencarian-tabs" style="display: flex; justify-content: center; background: #eaf4ff; padding: 8px; border-radius: 1.5em;">
+			<a class="active-mall" href="<?=url('/')?>/pencarian/rekomendasi">
+				Rekomendasi
+			</a>
+			<a href="<?=url('/')?>/pencarian/maps">
+				Maps
+			</a>
+			<a href="<?=url('/')?>/pencarian/explore">
+				Explore
+			</a>
+		</div>
+		<div class="kategori-tabs" style="margin-top: 5px;">
+			<a class="kategori-active-mall">Semua</a>
+			<a class="">Makanan</a>
+			<a class="">Minuman</a>
+			<a class="">Pakaian Bayi</a>
+			<a class="">Lainnya</a>
+		</div>
+	</div>
+</header>
 
 
-		<main id="homepage" class="homepage" style="border: 2px solid blue; padding-top: 4em;">
-			<div id="demo" style="border: 2px solid salmon; height: 100% !important;">
-				<div class="cv-carousel" style="border: 2px solid green;">
-					<div class="item"><h4>1</h4></div>
-					<div class="item"><h4>2</h4></div>
-					<div class="item"><h4>3</h4></div>
-					<div class="item"><h4>4</h4></div>
-					<div class="item"><h4>5</h4></div>
-					<div class="item"><h4>6</h4></div>
-					<div class="item"><h4>7</h4></div>
-					<div class="item"><h4>8</h4></div>
-					<div class="item"><h4>9</h4></div>
-					<div class="item"><h4>10</h4></div>
-					<div class="item"><h4>11</h4></div>
-					<div class="item"><h4>12</h4></div>
+<main id="homepage" class="homepage" style="padding-top: 5.5em;  padding-left: 0px; padding-right: 0px;">
+	<div class="carousel" data-flickity>
+		@php
+		$product = array('product_1.jpg', 'product_2.jpg', 'product_3.jpg', 'product_4.jpg', 'product_5.jpg', 'product_6.jpg', 'product_7.jpg', 'product_8.jpg', 'product_9.jpg', 'product_10.jpg', 'product_11.jpg', 'product_12.jpg', 'product_13.jpg', 'product_14.jpg');
+
+		$toko = array('lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png');
+
+		$alamat = array('Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu');
+
+		$nama_product = array('Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball 
+		Food', 'Ball Ball Food', 'Ball Ball Food');
+		@endphp 
+
+		@for ($i = 0; $i < count($product); $i++) 
+		<div class="carousel-cell">
+			<div class="like-product" style="position: absolute; top: 0; right: 0; padding: 0.4em 0.5em 0.4em 0.5em;">
+				<div class="stroke-like-product" style="background: #fafafa; padding: 0.3em; border-radius: 1.5em;">
+					<div class="border-like-product" style="border: 2px solid #ff006e; border-radius: 1.5em; padding: 0.3em;color: #ff006e; font-size: 0.8em;">
+						<img src="<?=url('/')?>/public/img/like.svg" style="width: 1.5em;">&nbsp;1000+
+					</div>
 				</div>
 			</div>
-		</main>
-
-		<div class="footer">
-			<div class="container-mall footer-mall-menu" style="display: flex; justify-content: space-around;">
-				@php
-				$menu = array('beranda_color.svg', 'pencarian.svg', 'toko_color.svg', 'akun_color.svg');
-				$nama_menu = array('Beranda', 'Pencarian', 'Toko', 'Akun');
-				$link_menu = array('beranda', 'pencarian', 'toko', 'akun');
-				@endphp 
-				@for ($i = 0; $i < count($menu); $i++)  
-				<div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0em 0em 0.8em;">
-					<div style="height: 5em; width: 5em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;">
-						<a style="@if ($i == 1) background: #ff006e; @else background: white; border: 2px solid #ff006e; @endif width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;" href="<?=url('/')?>/{{$link_menu[$i]}}">
-							<img src="<?=url('/')?>/public/img/menu/{{$menu[$i]}}" style="width: 60%; ">
-						</a>
-						<div style="text-align: center; font-size: 0.7em; color: #5b5b5b;">{{$nama_menu[$i]}}</div>
+			<div class="label-product" style="position: absolute; bottom: 0em; left: 0em; padding: 0.4em 0.5em 0.4em 0.5em; display: flex; width: 100%; background-color: rgba(0,0,0,0.3); justify-content: space-between;">
+				<div class="keterangan-product" style="display: flex;">
+					<div class="logo-toko-product" style="width: 3em;">
+						<img src="<?=url('/')?>/public/img/user/{{$toko[$i]}}" style="width: 100%;">
 					</div>
-				</div> 
-				@endfor
+					<div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: center; color: white; margin-left: 0.3em;">
+						<div style="font-size: 1em;">{{$nama_product[$i]}}</div>
+						<div style="font-size: 0.6em;">{{$alamat[$i]}}</div>
+					</div>
+				</div>
+				<div class="" style="width: 3em">
+					<img src="<?=url('/')?>/public/img/belanja.svg" style="width: 100%;">
+				</div>
 			</div>
+			<img src="<?=url('/')?>/public/img/product/{{$product[$i]}}">
 		</div>
-	</body>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script type="text/javascript" src="<?=url('/')?>/public/plugins/carousel-vertical/js/carousel-vertical.js"></script>
-	<script type="text/javascript">
-		(function($){
-			$(document).ready(function(){
-					// init
-					$('.cv-carousel').carouselVertical();
-					// for moving programmatically the carousel
-					// you can do that
-					$('.cv-carousel').trigger('goTo', [5]);
-					// or that
-					$('.cv-carousel').carouselVertical().trigger('goTo', [5]);
-				});
-		})(jQuery); 
-	</script>
-	</html>
+		@endfor
+	</div>
+</main>
+@endsection
+
+@section('footer-scripts')
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.2/flickity.pkgd.min.js"></script>
+@endsection
+</html>
