@@ -27,6 +27,7 @@ class AuthController extends Controller
     }
 
     public function post_login(Request $request){
+        // dd($request->all());
         $no_telp = $request->nomor_hp;
         $no_telp = str_replace("-","", $no_telp);
         $no_telp = substr_replace($no_telp, "+62", 0, 0);
@@ -34,11 +35,10 @@ class AuthController extends Controller
 
         if(!empty($user)){
 
-
             return view('auth.verifikasi_password', ['no_telp'=>$no_telp]);
 
         }
-        
+
         Otp::where('no_hp', $no_telp)->delete();
         $kode_otp = rand();
         $kode_otp = substr($kode_otp, 0, 4);
@@ -58,7 +58,6 @@ class AuthController extends Controller
          'json'=>$json
          ]
         );
-
         $otp = new Otp;
         $otp->no_hp = $no_telp;
         $otp->kode_otp = $kode_otp;
@@ -66,8 +65,33 @@ class AuthController extends Controller
         // echo $response->getStatusCode.'<br/>';
         // echo $response->getBody(); 
         // echo json_encode($json);
+
+        // return view('auth.verifikasi_number', ['no_telp'=>$no_telp]);
+        return redirect('/verifikasi-otp/'.$no_telp);
+    }
+
+    public function verifikasi_otp($id){
+
+        $no_telp = $id;
+
         return view('auth.verifikasi_number', ['no_telp'=>$no_telp]);
     }
+
+    public function post_otp(Request $request){
+        
+        $otp = Otp::where([
+            ['no_hp', $request->no_telp],
+            ['kode_otp', $request->kode_otp]
+        ])->first();
+
+        if(!empty($otp)){
+            return redirect('/sign_up/'.$request->no_telp);
+
+        }
+        return redirect()->back();
+    }
+
+
 
     public function sign_up($id){
         return view('auth.sign_up', ['no_telp'=>$id]);
@@ -115,18 +139,7 @@ class AuthController extends Controller
         return back();
     }
 
-    public function post_otp(Request $request){
-        $otp = Otp::where([
-            ['no_hp', $request->no_telp],
-            ['kode_otp', $request->kode_otp]
-        ])->first();
 
-        if(!empty($otp)){
-            return redirect('/sign_up/'.$request->no_telp);
-
-        }
-        return view('auth.verifikasi_number');
-    }
 
     
 }

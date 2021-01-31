@@ -238,7 +238,7 @@
     </div>
     <div class="footer" style="background: #fb036b;">
         <div style="text-align: center; width: 100%;">Masukan nomor hp kamu disini</div>
-        <form action="<?=url('/post_login')?>" method="post" class="container-mall" style="display: flex; justify-content: space-around; width: 100%;">
+        <form action="<?=url('/masuk')?>" method="post" class="container-mall" style="display: flex; justify-content: space-around; width: 100%;">
             {{csrf_field()}}
             <div class="footer-mall-menu" style="width: 100%; height: 3.5em; display: flex; align-items: center; justify-content: space-around;">
                 <div style="display: flex; justify-content: row; align-items: center; margin-left: 1.5em;">
