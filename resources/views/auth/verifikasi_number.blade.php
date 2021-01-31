@@ -227,7 +227,7 @@
 			</div>
 		</header>
 
-		<form action="<?=url('/')?>/post_otp" method="post">
+		<form action="<?=url('/')?>/post-otp" method="post">
 			{{csrf_field()}}
 			<div class="wrapper" style="background: #fb036b; margin-top: 8em; display: flex; flex-direction: column; justify-content: center;">
 				<div style="text-align: center; width: 100%; margin-bottom: 0.3em; color: white;">Masukan <b>Kode OTP</b> kamu disini</div>
