@@ -41,14 +41,15 @@ Route::group(['middleware'=> 'guest'], function() {
 Route::group(['middleware'=> 'auth'], function() {
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
     Route::group(['middleware'=> 'home'], function() {
-
         Route::get('/home', [HomeController::class, 'index'])->name('home');
+        Route::get('/pencarian', [HomeController::class, 'rekomendasi']);
+        Route::get('/pencarian/explore', [HomeController::class, 'pencarian']);
+        Route::get('/pencarian/rekomendasi', [HomeController::class, 'rekomendasi']);
+        Route::get('/pencarian/maps', [HomeController::class, 'maps']);
+        // route user
         Route::get('/user', [UserController::class, 'index']);
-        Route::get('/explore', [HomeController::class, 'pencarian']);
-        Route::get('/rekomendasi', [HomeController::class, 'rekomendasi']);
-
+        Route::get('/user/biodata', [UserController::class, 'biodata']);
     });
 
 });
