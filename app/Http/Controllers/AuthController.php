@@ -45,7 +45,7 @@ class AuthController extends Controller
 
         $json = [
             "token"=>"603b0d31a5502ba608ad0f56c9265c57",
-            "source"=>6285696069326,
+            "source"=>6285158362224,
             "destination"=>$no_telp,
             "type"=>"text",
             "body"=>[
@@ -118,7 +118,7 @@ class AuthController extends Controller
             
             // dd(Session::has('no_telp'));
 
-            return redirect('/home');
+            return redirect('/user');
         }
     }
 

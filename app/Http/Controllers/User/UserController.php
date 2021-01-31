@@ -11,4 +11,8 @@ class UserController extends Controller
 	public function index(){
 		return view('users/user/m-profil/index');
 	}
+
+	public function biodata(){
+		return view('users/user/m-profil/biodata');
+	}
 }
