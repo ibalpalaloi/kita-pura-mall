@@ -24,39 +24,40 @@ Route::group(['middleware'=> 'guest'], function() {
     Route::get('/', [AuthController::class, 'login'])->name('login');
     Route::post('/masuk', [AuthController::class, 'post_login']);
 
-
     // @Jika Belum Memiliki Akun
     Route::get('/verifikasi-otp/{id}', [AuthController::class, 'verifikasi_otp']);
+    Route::get('/verifikasi-otp/{id}/kirim-ulang', [AuthController::class, 'refresh_otp']);
     Route::post('/post-otp', [AuthController::class, 'post_otp']);
 
+    // @Daftar Akun
+    Route::get('/daftar/{id}', [AuthController::class, 'sign_up']);
+    Route::post('/post-sign-up', [AuthController::class, 'post_sign_up']);
 
-
-    
-
-
-    Route::post('/post_password', [AuthController::class, 'post_password']);
-
-    Route::get('/login/password/{id}', [AuthController::class, 'password']);
-    Route::get('/sign_up/{id}', [AuthController::class, 'sign_up']);
-    Route::post('/post_sign_up', [AuthController::class, 'post_sign_up']);
-
-    Route::get('/input-password', [HomeController::class, 'input_password']);
-    
+    // @Jika Sudah Memiliki Akun
+    Route::get('/masuk/{id}', [AuthController::class, 'password']);
+    Route::post('/post-password', [AuthController::class, 'post_password']);    
 
 });
 
 Route::group(['middleware'=> 'auth'], function() {
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
     Route::group(['middleware'=> 'home'], function() {
+
+        // @home
         Route::get('/home', [HomeController::class, 'index'])->name('home');
         Route::get('/pencarian', [HomeController::class, 'rekomendasi']);
         Route::get('/pencarian/explore', [HomeController::class, 'pencarian']);
         Route::get('/pencarian/rekomendasi', [HomeController::class, 'rekomendasi']);
         Route::get('/pencarian/maps', [HomeController::class, 'maps']);
-        // route user
-        Route::get('/user', [UserController::class, 'index']);
-        Route::get('/user/biodata', [UserController::class, 'biodata']);
+
+        // @User
+        Route::get('/akun', [UserController::class, 'index']);
+        Route::get('/akun/pengaturan-profil', [UserController::class, 'biodata']);
+        Route::put('/akun/pengaturan-profil/simpan-biodata', [UserController::class, 'simpan_biodata']);
+
+        
     });
 
 });

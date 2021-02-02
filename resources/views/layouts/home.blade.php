@@ -19,7 +19,7 @@
             $menu_color = array('beranda_color.svg', 'pencarian_color.svg', 'toko_color.svg', 'emergency_color.svg', 'akun_color.svg');
             $menu = array('beranda.svg', 'pencarian.svg', 'toko.svg', 'emergency.svg', 'akun.svg');
             $nama_menu = array('Beranda', 'Pencarian', 'Toko', 'Emergency', 'Akun');
-            $link_menu = array('home', 'pencarian', 'toko', 'emergency', 'user');
+            $link_menu = array('home', 'pencarian', 'toko', 'emergency', 'akun');
             $link_now = Request::segment(1);
             @endphp 
             @for ($i = 0; $i < count($menu); $i++)  
