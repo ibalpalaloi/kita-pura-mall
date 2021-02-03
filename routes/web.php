@@ -23,38 +23,45 @@ use App\Http\Controllers\Mitra\MitraController;
 Route::group(['middleware'=> 'guest'], function() {
 
     Route::get('/', [AuthController::class, 'login'])->name('login');
-    Route::post('/post_login', [AuthController::class, 'post_login']);
-    Route::post('/post_password', [AuthController::class, 'post_password']);
-    // Route::
-    Route::post('/post_otp', [AuthController::class, 'post_otp']);
+    Route::post('/masuk', [AuthController::class, 'post_login']);
 
-    Route::get('/login/password/{id}', [AuthController::class, 'password']);
+    // @Jika Belum Memiliki Akun
+    Route::get('/verifikasi-otp/{id}', [AuthController::class, 'verifikasi_otp']);
+    Route::get('/verifikasi-otp/{id}/kirim-ulang', [AuthController::class, 'refresh_otp']);
+    Route::post('/post-otp', [AuthController::class, 'post_otp']);
 
-    Route::get('/sign_up/{id}', [AuthController::class, 'sign_up']);
-    Route::post('/post_sign_up', [AuthController::class, 'post_sign_up']);
+    // @Daftar Akun
+    Route::get('/daftar/{id}', [AuthController::class, 'sign_up']);
+    Route::post('/post-sign-up', [AuthController::class, 'post_sign_up']);
 
-    Route::get('/verifikasi-number', [HomeController::class, 'verifikasi_number']);
-    Route::get('/input-password', [HomeController::class, 'input_password']);
-    
+    // @Jika Sudah Memiliki Akun
+    Route::get('/masuk/{id}', [AuthController::class, 'password']);
+    Route::post('/post-password', [AuthController::class, 'post_password']);    
 
 });
 
 Route::group(['middleware'=> 'auth'], function() {
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
     Route::group(['middleware'=> 'home'], function() {
+
+        // @home
         Route::get('/home', [HomeController::class, 'index'])->name('home');
         Route::get('/pencarian', [HomeController::class, 'rekomendasi']);
         Route::get('/pencarian/explore', [HomeController::class, 'pencarian']);
         Route::get('/pencarian/rekomendasi', [HomeController::class, 'rekomendasi']);
         Route::get('/pencarian/maps', [HomeController::class, 'maps']);
+
         // route user
-        Route::get('/user', [UserController::class, 'index']);
-        Route::get('/user/biodata', [UserController::class, 'biodata']);
+        Route::get('/akun', [UserController::class, 'index']);
+        Route::get('/akun/pengaturan-profil', [UserController::class, 'biodata']);
+        Route::put('/akun/pengaturan-profil/simpan-biodata', [UserController::class, 'simpan_biodata']);
         Route::get('/user/jadi-mitra', [UserController::class, 'jadi_mitra']);
         Route::get('/user/jadi-mitra/{jenis_mitra}', [UserController::class, 'jenis_mitra']);
         Route::get('/user/jadi-mitra/{jenis_mitra}/register', [MitraController::class, 'register']);
         Route::get('/user/jadi-mitra/{jenis_mitra}/register/pilih-lokasi', [MitraController::class, 'pilih_lokasi']);
+
     });
 
 });
