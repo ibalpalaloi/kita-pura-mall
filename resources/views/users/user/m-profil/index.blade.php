@@ -95,7 +95,7 @@ Explore |
 	</div>
 	<div class="card-mall">
 		<div style="padding: 1.5em 2em 1.5em 2em;">
-			<a href="<?=url('/')?>/user/biodata">
+			<a href="<?=url('/')?>/akun/pengaturan-profil">
 				<span><img src="<?=url('/')?>/public/img/user/setting.svg"></span>
 				<span>&nbsp;&nbsp;&nbsp;Pengaturan Profil</span>
 			</a>
