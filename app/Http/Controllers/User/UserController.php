@@ -15,4 +15,12 @@ class UserController extends Controller
 	public function biodata(){
 		return view('users/user/m-profil/biodata');
 	}
+
+	public function jadi_mitra(){
+		return view('users/user/m-mitra/jadi_mitra');
+	}
+
+	public function jenis_mitra($status_mitra){
+		return view('users/user/m-mitra/jenis_mitra_free');
+	}
 }
