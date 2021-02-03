@@ -7,6 +7,7 @@ use App\Http\Controllers\toko_controller\Toko_controller;
 use App\Http\Controllers\toko_controller\Produk_controller;
 use App\Http\Controllers\Admin\Admin_Manajemen_Pengguna_Controller;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Mitra\MitraController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,6 +51,10 @@ Route::group(['middleware'=> 'auth'], function() {
         // route user
         Route::get('/user', [UserController::class, 'index']);
         Route::get('/user/biodata', [UserController::class, 'biodata']);
+        Route::get('/user/jadi-mitra', [UserController::class, 'jadi_mitra']);
+        Route::get('/user/jadi-mitra/{jenis_mitra}', [UserController::class, 'jenis_mitra']);
+        Route::get('/user/jadi-mitra/{jenis_mitra}/register', [MitraController::class, 'register']);
+        Route::get('/user/jadi-mitra/{jenis_mitra}/register/pilih-lokasi', [MitraController::class, 'pilih_lokasi']);
     });
 
 });

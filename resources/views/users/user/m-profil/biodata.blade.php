@@ -98,7 +98,7 @@ Biodata |
 	}
 
 	.homepage {
-		min-height: calc(60vh - 60px); 
+		min-height: calc(80vh - 60px); 
 	}
 </style>
 @endsection
@@ -158,8 +158,6 @@ Biodata |
 			</div>
 			<input type="text" class="form-control form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nomor Handphone" aria-label="no_hp" aria-describedby="basic-addon1">
 		</div>
-
-
 	</form>
 </main>
 
