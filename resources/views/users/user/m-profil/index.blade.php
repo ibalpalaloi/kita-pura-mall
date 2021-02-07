@@ -33,7 +33,7 @@ Explore |
 
 	.card-mall {
 		background: white;
-		box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;
+		/*box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;*/
 		border-radius: 1.5em;	
 		margin-bottom: 1em;
 	}
@@ -71,7 +71,7 @@ Explore |
 </div>
 
 
-<main id="homepage" class="homepage">
+<main id="homepage" class="homepage" style="background: #eaf4ff;">
 	<div class="card-mall kategori" style="padding: 5px;">
 		<div style="display: flex; justify-content: center; flex-direction: row; align-items: center;">
 			<div style="width: 25%; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; ">

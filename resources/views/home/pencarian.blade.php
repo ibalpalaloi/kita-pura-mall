@@ -67,9 +67,9 @@ Explore |
 @endsection
 
 @section('content')
-<header class="style__Container-sc-3fiysr-0 header" style="background: white;">
+<header class="style__Container-sc-3fiysr-0 header" style="background: #eaf4ff;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center; flex-direction: column; height: 55px;">
-		<div class="pencarian-tabs" style="display: flex; justify-content: center; background: #eaf4ff; padding: 8px; border-radius: 1.5em;">
+		<div class="pencarian-tabs" style="display: flex; justify-content: center; background: white; padding: 8px; border-radius: 1.5em;">
 			<a href="<?=url('/')?>/pencarian/rekomendasi">
 				Rekomendasi
 			</a>
@@ -84,9 +84,9 @@ Explore |
 </header>
 
 
-<main id="homepage" class="homepage">
-	<div class="card-pencarian">
-		<div class="nama-kategori" style="padding-top: 0.6em; margin-top: 4em; display: flex; flex-direction: column; flex-wrap: wrap;">
+<main id="homepage" class="homepage" style="background: #eaf4ff;">
+	<div class="card-pencarian" style="background: #eaf4ff;">
+		<div class="nama-kategori" style="background: #eaf4ff; padding-top: 0.6em; margin-top: 4em; display: flex; flex-direction: column; flex-wrap: wrap;">
 			@php
 			$product = array('product_1.jpg', 'product_2.jpg', 'product_3.jpg', 'product_4.jpg','product_5.jpg', 'product_6.jpg','product_7.jpg', 'product_8.jpg','product_9.jpg', 'product_10.jpg','product_11.jpg', 'product_12.jpg','product_13.jpg', 'product_14.jpg', 'product_15.jpg', 'product_16.jpg', 'product_17.jpg', 'product_18.jpg', 'product_19.jpg');
 			$rownya = count($product)/9;

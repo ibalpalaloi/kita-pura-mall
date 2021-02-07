@@ -30,16 +30,38 @@
 		margin-bottom: 1em;
 	}
 
+	.row-mall {
+		background: white;
+		margin-bottom: 1em;
+		width: 100%;	
+	}
+
 	.kategori {
 		padding: 0.8em 0em 1em 0em;
 		display: flex; 
 		position: relative; 
-		top: -3em; 
+		top: -6em; 
 		margin-bottom: -2em;
 		z-index: 2;   
 		overflow-y: visible; 
-		overflow-x: auto; 			
+		margin: 0px; 			
+		overflow-x: scroll;
+		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none;  /* Internet Explorer 10+ */
+	}
 
+
+	}
+	.kategori::-webkit-scrollbar { /* WebKit */
+		width: 0;
+		height: 0;
+	}
+
+
+
+	.product {
+		overflow-y: visible; 
+		overflow-x: auto; 		
 	}
 
 	.nama-kategori {
@@ -69,6 +91,55 @@
 		margin-bottom: 0.5em;  
 	}
 
+
+
+	.homepage {
+		padding: 0px;
+	}
+
+	.slider {
+		display: flex; 
+		overflow-y: visible; 
+		margin: 0px; 			
+		overflow-x: scroll;
+		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none;  /* Internet Explorer 10+ */
+	}
+	.slider::-webkit-scrollbar { /* WebKit */
+		width: 0;
+		height: 0;
+	}
+
+	.slider-toko {
+		display: flex; 
+		justify-content: center; 
+		flex-direction: column; 
+		align-items: center; 
+		margin: 0em 0em 0em 0.5em; 
+		width: 8.5em;		
+	}
+
+	.slider-toko img {
+		width: 8.5em;
+		height: 7.5em;
+		object-fit: cover;
+		border-top-left-radius: 1em;
+		border-top-right-radius: 1em;
+	}
+
+	.slider-toko > div {
+		height: 6.3em;
+		border-bottom-left-radius: 1em;
+		border-bottom-right-radius: 1em;
+	}
+
+	.star-rating {
+		color: #efff3b;
+	}
+
+	.star-no-rating {
+		color: #c1c3be;
+	}
 </style>
 @endsection
 
@@ -87,14 +158,14 @@
 	</div>
 </header>
 
-<div class="wrapper" style="background: #ff006e; position: relative; z-index: -1">
-	<div class="banner" >
+<div class="wrapper" style="background: #ff006e; position: relative; z-index: -1; border-bottom-right-radius: 7%; border-bottom-left-radius: 7%;">
+	<div class="banner" style="padding: 5em 0.5em 7em 0.5em;">
 		<img src="<?=url('/')?>/public/img/banner/banner.jpg" style="width: 100%;">
 	</div>
 </div>
 
-<main id="homepage" class="homepage">
-	<div class="card-mall kategori">
+<main id="homepage" class="homepage" style="background: #eaf4ff;">
+	<div class="card-mall kategori" style="margin: 0px 16px 1em;">
 		@php
 		$kategori = array('bayi.svg', 'elektronik.svg', 'fashion.svg', 'food.svg', 'industri.svg', 'kecantikan.svg', 'olahraga.svg', 'rumah_tangga.svg', 'bayi.svg', 'elektronik.svg', 'fashion.svg', 'food.svg', 'industri.svg', 'kecantikan.svg', 'olahraga.svg', 'rumah_tangga.svg');
 		$nama_kategori = array('Perlengkapan Bayi', 'Rumah Tangga', 'Keperluan Pribadi', 'Makanan Minuman', 'Kantor Industri',  'Kecantikan', 'Olharaga', 'Jasa', 'Perlengkapan Bayi', 'Rumah Tangga', 'Keperluan Pribadi', 'Makanan Minuman', 'Kantor Industri',  'Kecantikan', 'Olharaga', 'Jasa');
@@ -116,120 +187,205 @@
 		</div> 
 		@endfor
 	</div>
-	<div class="card-mall">
-		<div style="margin-left: 1em; font-size: 1.1em; font-weight: 800; padding-top: 0.8em;">Digital Download</div>
-		<div class="nama-kategori">
-			@php
-			$digital = array('digital_1.svg', 'digital_2.svg', 'digital_3.svg', 'digital_4.svg');
-			$nama_digital = array('Kaili The Movie', 'Enola Holmes', 'Noah Album', 'Yellow Claw');
-			@endphp 
-			@for ($i = 0; $i < count($digital); $i++)  
-			<div style="display: flex; justify-content: center; flex-direction: column; width: 20%; border-radius: 0.5em;padding: 0px;">
-				<img src="<?=url('/')?>/public/img/product/{{$digital[$i]}}" style="width: 100%;">
-				<div style="text-align: left; font-size: 0.55em; position: relative; top: -3.1em; margin-bottom: -3.1em; padding: 0.7em 0em 0.7em 0.5em; border-bottom-left-radius: 0.5em; border-bottom-right-radius: 0.5em; background-image: linear-gradient(to top, #feeff6, #fcf9fc);"> <?=substr(strip_tags($nama_digital[$i]), 0, 12)?>@if (strlen($nama_digital[$i]) > 12)..@endif<br><span style="color: #ff006e; font-weight: 600;">Rp. {{number_format(5000,0,',','.')}}</span></div>
-			</div> 
-			@endfor
+
+	<div class="row-mall" style="padding: 0.7em 0em 1.2em 0em; margin-top: -6em;">
+		<div style="margin-left: 1em;">
+			<div style="font-size: 1.2em; font-weight: 1000;">Bosan?</div>
+			<div style="font-size: 0.7em; margin-bottom: 0.9em; line-height: 1.3em; color: gray;">hilangkan rasa bosanmu segera! download <br>berbagai macam hiburan hanya di kitapuramall</div>
 		</div>
-		<div style="margin-right: 1.5em; font-size: 0.8em; font-weight: 800; text-align: right; padding-bottom: 1em; color: #bec0c6;">Lebih Banyak</div>
-	</div>
-	<div class="card-mall">
-		<div style="margin-left: 1em; font-size: 1.1em; font-weight: 800; padding-top: 0.8em;">Makanan dan Minuman</div>
-		<div class="nama-kategori">
+		<div class="slider">
 			@php
-			$digital = array('kfc.png', 'janji_jiwa.jpg', 'richese.png', 'starbucks.png');
-			$nama_digital = array('KFC', 'Janji Jiwa', 'Richese Factory', 'Starbucks');
+			$digital = array('kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg');
+			$nama_digital = array('Kopi Kenangan', 'Janji Jiwa', 'Richese Factory', 'Starbucks', 'KFC', 'Janji Jiwa');
+			$kategori_toko = array('makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman');
+			
+			$jumlah_digital = count($digital)-1;
 			@endphp 
+
 			@for ($i = 0; $i < count($digital); $i++)  
-			<div style="display: flex; justify-content: center; flex-direction: column; width: 20%; border-radius: 0.5em;padding: 0px;">
-				<img src="<?=url('/')?>/public/img/toko/{{$digital[$i]}}" style="width: 100%;">
-				<div style="text-align: left; font-size: 0.55em; position: relative; top: -3.1em; margin-bottom: -3.1em; padding: 0.7em 0em 0.7em 0.5em; border-bottom-left-radius: 0.5em; border-bottom-right-radius: 0.5em; background-image: linear-gradient(to top, #feeff6, #fcf9fc);"> <?=substr(strip_tags($nama_digital[$i]), 0, 12)?>@if (strlen($nama_digital[$i]) > 12)..@endif<br><span style="color: #ff006e; font-weight: 600;">5000+ Pengunjung</span></div>
-			</div> 
-			@endfor
-		</div>
-		<div style="margin-right: 1.5em; font-size: 0.8em; font-weight: 800; text-align: right; padding-bottom: 1em; color: #bec0c6;">Lebih Banyak</div>
-	</div>
-	<div class="card-mall">
-		<div style="margin-left: 1em; font-size: 1.1em; font-weight: 800; padding-top: 0.8em;">Rumah Kos</div>
-		<div class="nama-kategori">
-			@php
-			$digital = array('digital_1.svg', 'digital_2.svg', 'digital_3.svg', 'digital_4.svg');
-			$nama_digital = array('Kaili The Movie', 'Enola Holmes', 'Noah Album', 'Yellow Claw');
-			@endphp 
-			@for ($i = 0; $i < count($digital); $i++)  
-			<div style="display: flex; justify-content: center; flex-direction: column; width: 20%; border-radius: 0.5em;padding: 0px;">
-				<img src="<?=url('/')?>/public/img/product/{{$digital[$i]}}" style="width: 100%;">
-				<div style="text-align: left; font-size: 0.55em; position: relative; top: -3.1em; margin-bottom: -3.1em; padding: 0.7em 0em 0.7em 0.5em; border-bottom-left-radius: 0.5em; border-bottom-right-radius: 0.5em; background-image: linear-gradient(to top, #feeff6, #fcf9fc);"> <?=substr(strip_tags($nama_digital[$i]), 0, 12)?>@if (strlen($nama_digital[$i]) > 12)..@endif<br>Rp. 5000</div>
-			</div> 
-			@endfor
-		</div>
-		<div style="margin-right: 1.5em; font-size: 0.8em; font-weight: 800; text-align: right; padding-bottom: 1em; color: #bec0c6;">Lebih Banyak</div>
-	</div>
-	<div class="card-mall">
-		<div style="margin-left: 1em; font-size: 1.1em; font-weight: 800; padding-top: 0.8em;">Kesehatan</div>
-		<div class="nama-kategori">
-			@php
-			$digital = array('digital_1.svg', 'digital_2.svg', 'digital_3.svg', 'digital_4.svg');
-			$nama_digital = array('Kaili The Movie', 'Enola Holmes', 'Noah Album', 'Yellow Claw');
-			@endphp 
-			@for ($i = 0; $i < count($digital); $i++)  
-			<div style="display: flex; justify-content: center; flex-direction: column; width: 20%; border-radius: 0.5em;padding: 0px;">
-				<img src="<?=url('/')?>/public/img/product/{{$digital[$i]}}" style="width: 100%;">
-				<div style="text-align: left; font-size: 0.55em; position: relative; top: -3.1em; margin-bottom: -3.1em; padding: 0.7em 0em 0.7em 0.5em; border-bottom-left-radius: 0.5em; border-bottom-right-radius: 0.5em; background-image: linear-gradient(to top, #feeff6, #fcf9fc);"> <?=substr(strip_tags($nama_digital[$i]), 0, 12)?>@if (strlen($nama_digital[$i]) > 12)..@endif<br>Rp. 5000</div>
-			</div> 
-			@endfor
-		</div>
-		<div style="margin-right: 1.5em; font-size: 0.8em; font-weight: 800; text-align: right; padding-bottom: 1em; color: #bec0c6;">Lebih Banyak</div>
-	</div>
-	<div class="card-mall">
-		<div style="margin-left: 1em; font-size: 1.1em; font-weight: 800; padding-top: 0.8em;">Kesehatan</div>
-		<div class="nama-kategori">
-			@php
-			$digital = array('digital_1.svg', 'digital_2.svg', 'digital_3.svg', 'digital_4.svg');
-			$nama_digital = array('Kaili The Movie', 'Enola Holmes', 'Noah Album', 'Yellow Claw');
-			@endphp 
-			@for ($i = 0; $i < count($digital); $i++)  
-			<div style="display: flex; justify-content: center; flex-direction: column; width: 20%; border-radius: 0.5em;padding: 0px;">
-				<img src="<?=url('/')?>/public/img/product/{{$digital[$i]}}" style="width: 100%;">
-				<div style="text-align: left; font-size: 0.55em; position: relative; top: -3.1em; margin-bottom: -3.1em; padding: 0.7em 0em 0.7em 0.5em; border-bottom-left-radius: 0.5em; border-bottom-right-radius: 0.5em; background-image: linear-gradient(to top, #feeff6, #fcf9fc);"> <?=substr(strip_tags($nama_digital[$i]), 0, 12)?>@if (strlen($nama_digital[$i]) > 12)..@endif<br>Rp. 5000</div>
-			</div> 
-			@endfor
-		</div>
-		<div style="margin-right: 1.5em; font-size: 0.8em; font-weight: 800; text-align: right; padding-bottom: 1em; color: #bec0c6;">Lebih Banyak</div>
-	</div>
-	<div class="card-mall">
-		<div style="text-align: center; color:  #ff006e; margin-left: 1em; font-size: 1.1em; font-weight: 800; padding-top: 2.2em;">KITAPURA MALL</div>
-		<div style="padding: 0.7em 1.5em 0.7em 1.5em; text-align: justify;">adalah sebuah platform yang mewadahi UMKM daerah untuk mendigitasikan produk mereka agar mudah dijangkau khalayak umum. Aplikasi ini juga mempermudah konsumen untuk melihat produk-produk lokal.</div>
-		<div>
-			<div class="row" style="display: flex; padding-left: 22%;">
-				<div style="width: 4em; height: 4em; display: flex; align-items: center; margin-right: 1em;">
-					<img src="<?=url('/')?>/public/img/home/about/produk_lokal.png" style="width: 100%;">
+			<div class="slider-toko" style="@if ($i == 0) margin-left: 1em;@endif">
+				<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+				<img src="<?=url('/')?>/public/img/toko/{{$digital[$i]}}">
+				<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; background-image: url("<?=$svg?>"); color: white; background-size: cover; padding: 1em; position: relative;'> 
+					<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(255,6,115,1) 0%, rgba(255,82,181,1) 100%); box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
+						<img src="<?=url('/')?>/public/img/icon_svg/download.svg" style="width: 2em; height: 2em;">
+					</div>
+					<div style="font-weight: 500;"><?=substr(strip_tags($nama_digital[$i]), 0, 15)?>@if (strlen($nama_digital[$i]) > 15)..@endif</div>
+					<div style="font-size: 0.7em; line-height: 1em; font-weight: 0;">{{$kategori_toko[$i]}}</div>
+					<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.6em; line-height: 1em;">
+						<i class="fas fa-star star-rating"></i>
+						<i class="fas fa-star star-rating"></i>
+						<i class="fas fa-star star-rating"></i>
+						<i class="fas fa-star star-rating"></i>
+						<i class="far fa-star star-rating"></i>
+						&nbsp;<span>(100 Penilaian)</span><br>
+					</div>
+
+					<span style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.6em; line-height: 1em; vertical-align: center;">
+						<s>IDR. 25.000</s>
+					</span>
+					<span style="padding: 0; margin: 0.5em 0px 0px 0.5em; font-size: 0.9em; line-height: 1em; font-weight: 500;">IDR. 5.000</span>
 				</div>
-				<div style="display: flex; flex-direction: column; justify-content: center;">
-					<div style="font-size: 2em; color:#ff006e; font-weight: 600;">50</div>
-					<div>Produk lokal yang terdaftar</div>
-				</div>
+			</div> 
+			@if ($i == $jumlah_digital)
+			<div style="padding: 1em; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img src="<?=url('/')?>/public/img/icon_svg/vertikal_right.svg">
+				<div style="color: gray; font-size: 0.7em; white-space: nowrap;">Lebih Banyak</div>
 			</div>
-			<div class="row" style="display: flex; padding-left: 22%;">
-				<div style="width: 4em; height: 4em; display: flex; align-items: center; margin-right: 1em;">
-					<img src="<?=url('/')?>/public/img/home/about/pengunjung.png" style="width: 4em;" style="width: 100%;">
-				</div>
-				<div style="display: flex; flex-direction: column; justify-content: center;">
-					<div style="font-size: 2em; color:#ff006e; font-weight: 600;">15.000+</div>
-					<div>Pengujung setiap hari</div>
-				</div>
-			</div>
-			<div class="row" style="display: flex; padding-left: 22%;">
-				<div style="width: 4em; height: 4em; display: flex; align-items: center; margin-right: 1em;">
-					<img src="<?=url('/')?>/public/img/home/about/produk_terjual.png" style="width: 4em;">
-				</div>
-				<div style="display: flex; flex-direction: column; justify-content: center;">
-					<div style="font-size: 2em; color:#ff006e; font-weight: 600;">30.000+</div>
-					<div>Produk lokal yang terjual</div>
-				</div>
-			</div>					
+			@endif
+			@endfor
 		</div>
-		<div style="margin-right: 1.5em; font-size: 0.8em; font-weight: 800; text-align: right; padding-bottom: 3em; color: #bec0c6;"></div>
 	</div>
+	<div class="row-mall" style="padding: 0.7em 0em 1.2em 0em;">
+		<div style="margin-left: 1em;">
+			<div style="font-size: 1.2em; font-weight: 1000;">Lapar? Haus?</div>
+			<div style="font-size: 0.7em; margin-bottom: 0.9em; line-height: 1.3em; color: gray;">kitapuramall memiliki ratusan mitra yang siap menjadi<br>solusi saat anda lapar dan haus. temukan sekarang!</div>
+		</div>
+		<div class="slider">
+			@php
+			$digital = array('kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg');
+			$nama_digital = array('Kopi Kenangan', 'Janji Jiwa', 'Richese Factory', 'Starbucks', 'KFC', 'Janji Jiwa');
+			$kategori_toko = array('makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman');
+			@endphp 
+			@for ($i = 0; $i < count($digital); $i++)  
+			<div class="slider-toko" style="@if ($i == 0) margin-left: 1em;@endif">
+				<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+				<img src="<?=url('/')?>/public/img/toko/{{$digital[$i]}}">
+				<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; background-image: url("<?=$svg?>"); color: white; background-size: cover; padding: 1em; position: relative;'> 
+					<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(255,6,115,1) 0%, rgba(255,82,181,1) 100%); box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
+						<img src="<?=url('/')?>/public/img/icon_svg/download.svg" style="width: 2em; height: 2em;">
+					</div>
+					<div style="font-weight: 500;"><?=substr(strip_tags($nama_digital[$i]), 0, 15)?>@if (strlen($nama_digital[$i]) > 15)..@endif</div>
+					<div style="font-size: 0.7em; line-height: 1em; font-weight: 0;">{{$kategori_toko[$i]}}</div>
+					<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.6em; line-height: 1em;">
+						<i class="fas fa-star star-rating"></i>
+						<i class="fas fa-star star-rating"></i>
+						<i class="fas fa-star star-rating"></i>
+						<i class="fas fa-star star-rating"></i>
+						<i class="far fa-star star-rating"></i>
+						&nbsp;<span>(100 Penilaian)</span><br>
+					</div>
+
+					<span style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.6em; line-height: 1em; vertical-align: center;">
+						<s>IDR. 25.000</s>
+					</span>
+					<span style="padding: 0; margin: 0.5em 0px 0px 0.5em; font-size: 0.9em; line-height: 1em; font-weight: 500;">IDR. 5.000</span>
+				</div>
+			</div> 
+			@if ($i == $jumlah_digital)
+			<div style="padding: 1em; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img src="<?=url('/')?>/public/img/icon_svg/vertikal_right.svg">
+				<div style="color: gray; font-size: 0.7em; white-space: nowrap;">Lebih Banyak</div>
+			</div>
+			@endif
+			@endfor
+		</div>
+	</div>
+	<div class="row-mall" style="padding: 0.7em 0em 1.2em 0em; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+		<img src="<?=url('/')?>/public/img/home/stress.svg" style="width: 70%;">
+		<div style="font-size: 1.5em; font-weight: 600;">Tambal Ban dimana???</div>
+		<div style="font-size: 0.8em; text-align: center; color: gray;">ada hal Emergensi pusing mau tanya ke siapa??<br>manfaatkan fitur emergensi di kitapuramall</div>
+		<a href="<?=url('/')?>/user/jadi-mitra/premium/register" class="btn btn-primary" style="background: #fb036b; margin-top: 0.5em;border: 1px solid  #fb036b; border-radius: 1.5em; padding: 0.5em 2.5em 0.5em 2.5em;"><img src="<?=url('/')?>/public/img/menu/emergency.svg">&nbsp;&nbsp;Emergensi
+		</a>	
+	</div>
+	<div class="row-mall" style="padding: 0.7em 0em 1.2em 0em;">
+		<div style="margin-left: 1em;">
+			<div style="font-size: 1.2em; font-weight: 1000;">Lagi Sakit? Butuh Obat?</div>
+			<div style="font-size: 0.7em; margin-bottom: 0.9em; line-height: 1.3em; color: gray;">kitapuramall memiliki ratusan mitra yang siap menjadi<br>solusi saat anda lapar dan haus. temukan sekarang!</div>
+		</div>
+		<div class="slider">
+			@php
+			$digital = array('kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg');
+			$nama_digital = array('Kopi Kenangan', 'Janji Jiwa', 'Richese Factory', 'Starbucks', 'KFC', 'Janji Jiwa');
+			$kategori_toko = array('makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman');
+			@endphp 
+			@for ($i = 0; $i < count($digital); $i++)  
+			<div class="slider-toko" style="@if ($i == 0) margin-left: 1em;@endif">
+				<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+				<img src="<?=url('/')?>/public/img/toko/{{$digital[$i]}}">
+				<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; background-image: url("<?=$svg?>"); color: white; background-size: cover; padding: 1em; position: relative;'> 
+					<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(255,6,115,1) 0%, rgba(255,82,181,1) 100%); box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
+						<img src="<?=url('/')?>/public/img/icon_svg/download.svg" style="width: 2em; height: 2em;">
+					</div>
+					<div style="font-weight: 500;"><?=substr(strip_tags($nama_digital[$i]), 0, 15)?>@if (strlen($nama_digital[$i]) > 15)..@endif</div>
+					<div style="font-size: 0.7em; line-height: 1em; font-weight: 0;">{{$kategori_toko[$i]}}</div>
+					<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.6em; line-height: 1em;">
+						<i class="fas fa-star star-rating"></i>
+						<i class="fas fa-star star-rating"></i>
+						<i class="fas fa-star star-rating"></i>
+						<i class="fas fa-star star-rating"></i>
+						<i class="far fa-star star-rating"></i>
+						&nbsp;<span>(100 Penilaian)</span><br>
+					</div>
+
+					<span style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.6em; line-height: 1em; vertical-align: center;">
+						<s>IDR. 25.000</s>
+					</span>
+					<span style="padding: 0; margin: 0.5em 0px 0px 0.5em; font-size: 0.9em; line-height: 1em; font-weight: 500;">IDR. 5.000</span>
+				</div>
+			</div> 
+			@if ($i == $jumlah_digital)
+			<div style="padding: 1em; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img src="<?=url('/')?>/public/img/icon_svg/vertikal_right.svg">
+				<div style="color: gray; font-size: 0.7em; white-space: nowrap;">Lebih Banyak</div>
+			</div>
+			@endif
+			@endfor
+		</div>
+	</div>
+	<div class="row-mall" style="padding: 0.7em 0em 1.2em 0em;">
+		<div style="margin-left: 1em;">
+			<div style="font-size: 1.2em; font-weight: 1000;">Kuliah? Butuh Tempat Tinggal?</div>
+			<div style="font-size: 0.7em; margin-bottom: 0.9em; line-height: 1.3em; color: gray;">kitapuramall memiliki ratusan mitra yang siap menjadi<br>solusi saat anda lapar dan haus. temukan sekarang!</div>
+		</div>
+		<div class="slider">
+			@php
+			$digital = array('kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg');
+			$nama_digital = array('Kopi Kenangan', 'Janji Jiwa', 'Richese Factory', 'Starbucks', 'KFC', 'Janji Jiwa');
+			$kategori_toko = array('makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman');
+			@endphp 
+			@for ($i = 0; $i < count($digital); $i++)  
+			<div class="slider-toko" style="@if ($i == 0) margin-left: 1em;@endif">
+				<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+				<img src="<?=url('/')?>/public/img/toko/{{$digital[$i]}}">
+				<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; background-image: url("<?=$svg?>"); color: white; background-size: cover; padding: 1em; position: relative;'> 
+					<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(255,6,115,1) 0%, rgba(255,82,181,1) 100%); box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
+						<img src="<?=url('/')?>/public/img/icon_svg/download.svg" style="width: 2em; height: 2em;">
+					</div>
+					<div style="font-weight: 500;"><?=substr(strip_tags($nama_digital[$i]), 0, 15)?>@if (strlen($nama_digital[$i]) > 15)..@endif</div>
+					<div style="font-size: 0.7em; line-height: 1em; font-weight: 0;">{{$kategori_toko[$i]}}</div>
+					<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.6em; line-height: 1em;">
+						<i class="fas fa-star star-rating"></i>
+						<i class="fas fa-star star-rating"></i>
+						<i class="fas fa-star star-rating"></i>
+						<i class="fas fa-star star-rating"></i>
+						<i class="far fa-star star-rating"></i>
+						&nbsp;<span>(100 Penilaian)</span><br>
+					</div>
+
+					<span style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.6em; line-height: 1em; vertical-align: center;">
+						<s>IDR. 25.000</s>
+					</span>
+					<span style="padding: 0; margin: 0.5em 0px 0px 0.5em; font-size: 0.9em; line-height: 1em; font-weight: 500;">IDR. 5.000</span>
+				</div>
+			</div> 
+			@if ($i == $jumlah_digital)
+			<div style="padding: 1em; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img src="<?=url('/')?>/public/img/icon_svg/vertikal_right.svg">
+				<div style="color: gray; font-size: 0.7em; white-space: nowrap;">Lebih Banyak</div>
+			</div>
+			@endif
+			@endfor
+		</div>
+	</div>
+	<div class="row-mall" style="padding: 0.7em 0em 1.2em 0em; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+		<img src="<?=url('/')?>/public/img/home/stress2.svg" style="width: 70%;">
+		<div style="font-size: 1.5em; font-weight: 600;">Pusing? Pengen Cuci Mata?</div>
+		<div style="font-size: 0.8em; text-align: center; color: gray;">daripada nge-mall capek jalan. kitapuramall<br>sediakan fitur yang bisa mengatasi keinginan itu</div>
+		<a href="<?=url('/')?>/user/jadi-mitra/premium/register" class="btn btn-primary" style="background: #fb036b; margin-top: 0.5em;border: 1px solid  #fb036b; border-radius: 1.5em; padding: 0.5em 2.5em 0.5em 2.5em;"><img src="<?=url('/')?>/public/img/icon_svg/search.svg">&nbsp;&nbsp;Coba disini
+		</a>	
+	</div>
+
 </main>
 
 <div class="wrapper" style="background: #1c2645; position: relative; z-index: -1">

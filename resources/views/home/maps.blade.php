@@ -146,7 +146,7 @@ crossorigin=""/>
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center; flex-direction: column; height: 55px;">
-		<div class="pencarian-tabs" style="display: flex; justify-content: center; background: #eaf4ff; padding: 8px; border-radius: 1.5em;">
+		<div class="pencarian-tabs" style="display: flex; justify-content: center; background: white; padding: 8px; border-radius: 1.5em;">
 			<a href="<?=url('/')?>/pencarian/rekomendasi">
 				Rekomendasi
 			</a>
