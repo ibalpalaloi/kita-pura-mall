@@ -47,8 +47,19 @@ Rekomendasi |
 		width: 100%;
 	}
 
-	.flickity-button {
+	.flickity-button svg {
 		display: none;
+	}
+
+	.flickity-prev-next-button {
+		height: 100%;
+		width: 47%;
+		border-radius: 0px;
+		background: transparent;
+	}
+
+	.flickity-button:hover {
+		background: transparent;
 	}
 
 	.flickity-page-dots {
@@ -121,9 +132,9 @@ Rekomendasi |
 @endsection
 
 @section('content')
-<header class="style__Container-sc-3fiysr-0 header" style="background: white;" >
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center; flex-direction: column; height: 80px;">
-		<div class="pencarian-tabs" style="display: flex; justify-content: center; background: #eaf4ff; padding: 8px; border-radius: 1.5em;">
+<header class="style__Container-sc-3fiysr-0 header" style="background: #eaf4ff;" >
+	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="background: #eaf4ff; display: flex; justify-content: center; flex-direction: column; height: 80px;">
+		<div class="pencarian-tabs" style="display: flex; justify-content: center; background: white; padding: 8px; border-radius: 1.5em;">
 			<a class="active-mall" href="<?=url('/')?>/pencarian/rekomendasi">
 				Rekomendasi
 			</a>
@@ -145,8 +156,8 @@ Rekomendasi |
 </header>
 
 
-<main id="homepage" class="homepage" style="padding-top: 5.5em;  padding-left: 0px; padding-right: 0px;">
-	<div class="carousel" data-flickity>
+<main id="homepage" class="homepage" style="padding-top: 5.5em;  padding-left: 0px; padding-right: 0px; background: #eaf4ff;">
+	<div class="carousel" data-flickity style="background: #eaf4ff;">
 		@php
 		$product = array('product_1.jpg', 'product_2.jpg', 'product_3.jpg', 'product_4.jpg', 'product_5.jpg', 'product_6.jpg', 'product_7.jpg', 'product_8.jpg', 'product_9.jpg', 'product_10.jpg', 'product_11.jpg', 'product_12.jpg', 'product_13.jpg', 'product_14.jpg');
 
@@ -158,7 +169,7 @@ Rekomendasi |
 		Food', 'Ball Ball Food', 'Ball Ball Food');
 		@endphp 
 
-		@for ($i = 0; $i < count($product); $i++) 
+		@for ($i = 0; $i < 10; $i++) 
 		<div class="carousel-cell">
 			<div class="like-product" style="position: absolute; top: 0; right: 0; padding: 0.4em 0.5em 0.4em 0.5em;">
 				<div class="stroke-like-product" style="background: #fafafa; padding: 0.3em; border-radius: 1.5em;">
@@ -190,5 +201,39 @@ Rekomendasi |
 
 @section('footer-scripts')
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.2/flickity.pkgd.min.js"></script>
+<script type="text/javascript">
+	var transformProperty = ( function () {
+		var style = document.documentElement.style;
+		if ( typeof style.transform == 'string' ) {
+			return 'transform';
+		}
+		return 'WebkitTransform';
+	})();
+
+	Flickity.prototype.positionSlider = function() {
+		var x = this.x;
+  // wrap position around
+  if ( this.options.wrapAround && this.cells.length > 1 ) {
+  	x = utils.modulo( x, this.slideableWidth );
+  	x = x - this.slideableWidth;
+  	this.shiftWrapCells( x );
+  }
+
+  x = x + this.cursorPosition;
+  // reverse if right-to-left and using transform
+  x = this.options.rightToLeft && transformProperty ? -x : x;
+  var value = this.getPositionValue( x );
+  // only use 2d rendering
+  this.slider.style[ transformProperty ] = 'translateX(' + value + ')';
+
+  // scroll event
+  var firstSlide = this.slides[0];
+  if ( firstSlide ) {
+  	var positionX = -this.x - firstSlide.target;
+  	var progress = positionX / this.slidesWidth;
+  	this.dispatchEvent( 'scroll', null, [ progress, positionX ] );
+  }
+};	
+</script>
 @endsection
 </html>

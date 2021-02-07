@@ -113,6 +113,9 @@ crossorigin=""/>
 <?php
 $pemilik = "";
 $no_hp = "";
+$buka = "";
+$tutup = "";
+$hari = "";
 if (!empty($_GET['pemilik'])){
 	$pemilik = $_GET['pemilik'];
 }
@@ -360,8 +363,8 @@ crossorigin=""></script>
 		var buka = "<?=$buka?>";
 		var tutup = "<?=$tutup?>";
 		var hari = "<?=$hari?>";
-
-		location.href="<?=url('/')?>/user/jadi-mitra/free/register?pemilik="+pemilik+"&no_hp="+no_hp+"&x="+$('#latitude').val()+"&y="+$('#longitude').val()+"&alamat="+$("#alamat").val()+"&hari="+hari+"&buka="+buka+"&tutup="+tutup;
+		var status_mitra = "{{Request::segment(3)}}";
+		location.href="<?=url('/')?>/user/jadi-mitra/"+status_mitra+"?pemilik="+pemilik+"&no_hp="+no_hp+"&x="+$('#latitude').val()+"&y="+$('#longitude').val()+"&alamat="+$("#alamat").val()+"&hari="+hari+"&buka="+buka+"&tutup="+tutup;
 	}
 </script>
 @endsection

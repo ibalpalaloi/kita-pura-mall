@@ -71,11 +71,13 @@
 	}
 
 	.div-input-mall {
-		border-radius: 1.5em; border:1px solid #d1d2d4;		
+		border-radius: 1.5em; border:1px solid white;		
 	}
 
 	.div-input-mall-square {
-		border-radius: 0.5em; border:1px solid #d1d2d4;		
+		border-radius: 0.5em; border:1px solid white;	
+		color: #1c2645;
+		font-weight: 600;			
 	}
 
 	.form-control-mall-square {
@@ -100,6 +102,8 @@
 		border-top-right-radius: 1.5em; 
 		border-left: none;	
 		padding-left: 0.2em;	
+		color: #1c2645;
+		font-weight: 600;
 	}
 
 	.form-control-mall-modal {
@@ -166,6 +170,13 @@
 	.select2-container .select2-selection--single {
 		height: auto !important;
 	}   
+
+	select {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		text-indent: 1px;
+		text-overflow: '';
+	}
 </style>
 @endsection
 
@@ -302,7 +313,7 @@ if (!empty($_GET['hari'])){
 <header class="style__Container-sc-3fiysr-0 header" >
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
 		<a href="<?=url('/')?>/user/jadi-mitra" style="padding-left: 1em;">
-			<img src="<?=url('/')?>/public/img/back.svg">
+			<img src="<?=url('/')?>/public/img/back_white.svg">
 		</a>
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
 			<img src="<?=url('/')?>/public/img/logo.svg">
@@ -319,13 +330,13 @@ if (!empty($_GET['hari'])){
 	</div>
 </div>
 
-<main id="homepage" class="homepage" style="padding: 0px;">
-	<div class="card-mall kategori" style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center;">
-		<img src="<?=url('/')?>/public/img/mitra/register_free.svg" width="75%"  style="top: -11em; position: relative; overflow-x: visible; z-index: 3 !important;">
+<main id="homepage" class="homepage" style="padding: 0px;background: #eaf4ff;">
+	<div class="card-mall kategori" style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: #eaf4ff;">
+		<img src="<?=url('/')?>/public/img/mitra/mitra_free.png" width="75%"  style="top: -11em; position: relative; overflow-x: visible; z-index: 3 !important;">
 		<div style="text-align: center;font-size: 1.2em; font-weight: 500; line-height: 1.2em; margin-top: -10em;">
 			Hi, Silahkan&nbsp;<span style="color: #fb036b;">lengkapi informasi</span><br>usaha anda
 		</div>
-		<form id="biodata" style="width: 80%; margin-top: 2em; display: flex; flex-direction: column; align-items: center;">
+		<form id="biodata" style="width: 90%; margin-top: 2em;  display: flex; flex-direction: column; align-items: center;">
 			<div class="input-group mb-3 div-input-mall" id="div_nama_pemilik">
 				<div class="input-group-prepend">
 					<span class="input-group-text input-group-text-mall">
@@ -334,6 +345,7 @@ if (!empty($_GET['hari'])){
 				</div>
 				<input type="text" class="form-control form-control-mall" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" value="{{$pemilik}}">
 			</div>
+
 			<div class="input-group mb-3 div-input-mall" id="div_no_hp">
 				<div class="input-group-prepend">
 					<span class="input-group-text input-group-text-mall">
@@ -342,13 +354,29 @@ if (!empty($_GET['hari'])){
 				</div>
 				<input type="text" class="form-control form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nomor Handphone" aria-label="no_hp" aria-describedby="basic-addon1" value="{{$no_hp}}">			
 			</div>
+			<div class="input-group mb-3 div-input-mall" id="div_no_hp">
+				<div class="input-group-prepend">
+					<span class="input-group-text input-group-text-mall">
+						<img src="<?=url('/')?>/public/img/icon_svg/kategori.svg">
+					</span>
+				</div>
+				<select type="text" class="form-control form-control-mall" id="kategori_toko" name="kategori_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 3em;">
+					<option>--- Pilih Kategori Toko ---</option>
+					<option>Makanan & Minuman</option>
+					<option>Oleh - Oleh</option>
+					<option>Bengkel</option>
+					<option>Galon</option>
+					<option>Parfum</option>
+					<option>Toserba</option>
+				</select>
+			</div>
 			<div class="input-group mb-3 div-input-mall" id="div_jadwal">
 				<div class="input-group-prepend">
 					<span class="input-group-text input-group-text-mall">
-						&nbsp;<img src="<?=url('/')?>/public/img/icon_svg/kalender.svg">
+						&nbsp;<img src="<?=url('/')?>/public/img/icon_svg/calender.svg">
 					</span>
 				</div>
-				<div onclick="pilih_jadwal()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; cursor: pointer;" id="pilih_jadwal_buka_toko">Pilih Jadwal Buka Tutup Toko</div>
+				<div onclick="pilih_jadwal()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; cursor: pointer;" id="pilih_jadwal_buka_toko">--- Pilih Jadwal Buka Tutup ---</div>
 			</div>
 			<div>
 				<input type="text" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
@@ -361,10 +389,10 @@ if (!empty($_GET['hari'])){
 				<div class="input-group mb-3 div-input-mall" id="div_username">
 					<div class="input-group-prepend">
 						<span class="input-group-text input-group-text-mall" >
-							&nbsp;<img src="<?=url('/')?>/public/img/icon_svg/maps.svg">
+							&nbsp;<img src="<?=url('/')?>/public/img/icon_svg/home.svg">
 						</span>
 					</div>
-					<div onclick="pilih_lokasi()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; cursor: pointer;">Pilih Lokasi</div>
+					<div onclick="pilih_lokasi()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; cursor: pointer;">--- Pilih Lokasi ---</div>
 				</div>
 				<?php 
 			} else {
@@ -390,7 +418,7 @@ if (!empty($_GET['hari'])){
 				<div class="input-group mb-0 div-input-mall" id="div_alamat">
 					<div class="input-group-prepend">
 						<span class="input-group-text input-group-text-mall">
-							&nbsp;<img src="<?=url('/')?>/public/img/icon_svg/maps.svg">
+							&nbsp;<img src="<?=url('/')?>/public/img/icon_svg/home.svg">
 						</span>
 					</div>				
 					<input type="text" class="form-control form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" value="{{$alamat}}">
@@ -400,18 +428,22 @@ if (!empty($_GET['hari'])){
 				<?php 
 			}
 			?>		
-
-		</div>
-
-		<button type="submit" class="btn btn-primary" style="background: #ff006e; margin-top: 0.5em;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Daftar
-		</button>
-	</form>
-</div>
+			<div class="input-group mb-3 div-input-mall-square" id="div_jadwal" style="margin-top: 1em; background: white;">
+				<div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto Toko</div>
+				<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #0066ff; margin: 0px 10% 2em 10%; padding: 4em 5em;">
+					<img src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" style="width: 2em;" onclick="tambah_foto_toko()">
+				</div>
+				<input type="file" name="foto_toko" id="foto_toko">
+			</div>
+			<button type="submit" class="btn btn-primary" style="background: #ff006e; margin-top: 1em;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Daftar
+			</button>
+		</form>
+	</div>
 </main>
 
 @endsection
 
-@section('footer-scripts')>
+@section('footer-scripts')
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
@@ -428,11 +460,11 @@ if (!empty($_GET['hari'])){
 		@endif
 	<?php } ?>
 	function input_focus(id){
-		$("#div_"+id).css('border', '1px solid #525f7f');
+		$("#div_"+id).css('border', '1px solid #d1d2d4');
 	}
 
 	function input_blur(id){
-		$("#div_"+id).css('border', '1px solid #d1d2d4');		
+		$("#div_"+id).css('border', '1px solid white');		
 	}
 
 	function pilih_lokasi(){
@@ -441,6 +473,11 @@ if (!empty($_GET['hari'])){
 
 	function pilih_jadwal(){
 		$("#btn_trigger_hapus").click();
+	}
+
+
+	function tambah_foto_toko(){
+		$("#foto_toko").click();
 	}
 
 	function tambah_jadwal(){
