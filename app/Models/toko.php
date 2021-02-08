@@ -9,4 +9,8 @@ class toko extends Model
 {
     use HasFactory;
     protected $table = 'toko';
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
+    public $incrementing = false;
+
 }

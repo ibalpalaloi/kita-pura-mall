@@ -5,7 +5,8 @@
 @endsection
 
 @section('header-scripts')
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <style type="text/css">
 	.banner {
@@ -210,6 +211,7 @@
 <?php
 $pemilik = "";
 $no_hp = "";
+$kategori = "";
 $latitude = "";
 $longitude = "";
 $alamat = "";
@@ -221,6 +223,9 @@ if (!empty($_GET['pemilik'])){
 }
 if (!empty($_GET['no_hp'])){
 	$no_hp = $_GET['no_hp'];
+}
+if (!empty($_GET['kategori'])){
+	$kategori = $_GET['kategori'];
 }
 
 if (!empty($_GET['x'])){
@@ -245,50 +250,60 @@ if (!empty($_GET['hari'])){
 ?>
 
 <div class="text-center">
-	<button type="button" id="btn_trigger_hapus" class="btn btn-default btn-rounded" data-toggle="modal"
-	data-target="#modal-trigger-location">
-	Open Modal Hapus
-</button>
+    <button type="button" id="btn_trigger_hapus" class="btn btn-default btn-rounded" data-toggle="modal"
+        data-target="#modal-trigger-location">
+        Open Modal Hapus
+    </button>
 
-<div class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
-		<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
-			<div class="modal-body">
-				<div>
-					<div class="nama-toko" style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em;">Silahkan Masukan Jadwal<br>Buka/Tutup Usaha Anda</div>
-				</div>
 
-			</div>
-			<div id="jadwal_fix" style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
-				@php
-				$var_value = array("SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M");
-				$var_text = array("Setiap Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis","Jumat", "Sabtu", "Minggu");
-				@endphp
-				<?php 
+    <div class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+            <div class="modal-content"
+                style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
+                <div class="modal-body">
+                    <div>
+                        <div class="nama-toko"
+                            style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em;">Silahkan
+                            Masukan
+                            Jadwal<br>Buka/Tutup Usaha Anda</div>
+                    </div>
+
+                </div>
+                <div id="jadwal_fix"
+                    style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                    @php
+                    $var_value = array("SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M");
+                    $var_text = array("Setiap Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu",
+                    "Kamis","Jumat", "Sabtu", "Minggu");
+                    @endphp
+                    <?php 
 				$loop_hari = explode("~", $hari);
 				$loop_buka = explode("~", $buka);
 				$loop_tutup = explode("~", $tutup);
 				for ($i = 0; $i < count($loop_hari); $i++){
 					?>
-					@if ($loop_hari[0] != "")
-					<div class="input-group mb-3 div-input-mall-square" id="{{str_replace(' ', '_', $loop_hari[$i])}}" style="width: 90%; background: white; border: 1px solid white;">
-						<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
-							<div style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em;">
-								@for ($j = 0; $j < count($var_text); $j++)
-								@if ($var_text[$j] == $loop_hari[$i])
-								{{$var_value[$j]}}
-								@endif
-								@endfor
-							</div>
-						</div>
-						<div style="margin-left: 2%; width: 60%;">
-							<div style="margin-top: 0.5em; font-weight: 700; text-align: left;">{{$loop_hari[$i]}}</div>
-							<div style="font-size: 0.7em; text-align: left;">{{$loop_buka[$i]}} - {{$loop_tutup[$i]}}</div>
-						</div>
-						<div onclick='hapus_jadwal("{{$loop_hari[$i]}}")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">X</div>
-					</div>
-					@endif
-					<?php
+                    @if ($loop_hari[0] != "")
+                    <div class="input-group mb-3 div-input-mall-square" id="{{str_replace(' ', '_', $loop_hari[$i])}}"
+                        style="width: 90%; background: white; border: 1px solid white;">
+                        <div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
+                            <div
+                                style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em;">
+                                @for ($j = 0; $j < count($var_text); $j++) @if ($var_text[$j]==$loop_hari[$i])
+                                    {{$var_value[$j]}} @endif @endfor </div> </div> <div
+                                    style="margin-left: 2%; width: 60%;">
+                                    <div style="margin-top: 0.5em; font-weight: 700; text-align: left;">
+                                        {{$loop_hari[$i]}}
+                                    </div>
+                                    <div style="font-size: 0.7em; text-align: left;">{{$loop_buka[$i]}} -
+                                        {{$loop_tutup[$i]}}</div>
+                            </div>
+                            <div onclick='hapus_jadwal("{{$loop_hari[$i]}}")'
+                                style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
+                                X</div>
+                        </div>
+                        @endif
+                        <?php
 				}
 				?>
 			</div>
@@ -336,24 +351,24 @@ if (!empty($_GET['hari'])){
 </div>
 
 
-<header class="style__Container-sc-3fiysr-0 header" >
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
-		<a href="<?=url('/')?>/user/jadi-mitra" style="padding-left: 1em;">
-			<img src="<?=url('/')?>/public/img/back_white.svg">
-		</a>
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
-			<img src="<?=url('/')?>/public/img/logo.svg">
-			<img src="<?=url('/')?>/public/img/logo_text.svg">
-		</a>
-		<div style="margin-right: 2.5em;">
-			<img src="<?=url('/')?>/public/img/back.svg" hidden>
-		</div>
-	</div>
+<header class="style__Container-sc-3fiysr-0 header">
+    <div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
+        <a href="<?=url('/')?>/user/jadi-mitra" style="padding-left: 1em;">
+            <img src="<?=url('/')?>/public/img/back_white.svg">
+        </a>
+        <a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
+            <img src="<?=url('/')?>/public/img/logo.svg">
+            <img src="<?=url('/')?>/public/img/logo_text.svg">
+        </a>
+        <div style="margin-right: 2.5em;">
+            <img src="<?=url('/')?>/public/img/back.svg" hidden>
+        </div>
+    </div>
 </header>
 
 <div class="wrapper" style="background: #ff006e; position: relative; z-index: -1; padding-top: 8em;">
-	<div class="banner" >
-	</div>
+    <div class="banner">
+    </div>
 </div>
 
 <main id="homepage" class="homepage" style="padding: 0px;background: #eaf4ff;">
@@ -362,14 +377,15 @@ if (!empty($_GET['hari'])){
 		<div style="text-align: center;font-size: 1.2em; font-weight: 500; line-height: 1.2em; margin-top: -10em;">
 			Hi, Silahkan&nbsp;<span style="color: #fb036b;">lengkapi informasi</span><br>usaha anda
 		</div>
-		<form id="biodata" style="width: 90%; margin-top: 2em;  display: flex; flex-direction: column; align-items: center;">
-			<div class="input-group mb-3 div-input-mall" id="div_nama_pemilik">
+		<form enctype="multipart/form-data" action="<?=url('/')?>/user/jadi-mitra/{{Request::segment(3)}}/simpan" method="post"style="width: 90%; margin-top: 2em;  display: flex; flex-direction: column; align-items: center;">
+            {{csrf_field()}}
+            <div class="input-group mb-3 div-input-mall" id="div_nama_pemilik">
 				<span>Nama Pemilik</span>
 				<div>
 					<span class="input-group-text-mall">
 						<img src="<?=url('/')?>/public/img/icon_svg/people.svg" style="width: 100%;">
 					</span>
-					<input type="text" class="form-control-mall" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" value="{{$pemilik}}" style="width: 100%;">
+					<input type="text" class="form-control-mall" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" value="{{$pemilik}}" style="width: 100%;" required>
 				</div>
 			</div>
 			<div class="input-group mb-3 div-input-mall" id="div_kategori">
@@ -378,14 +394,12 @@ if (!empty($_GET['hari'])){
 					<span class="input-group-text-mall">
 						<img src="<?=url('/')?>/public/img/icon_svg/kategori.svg" style="width: 100%;">
 					</span>
-					<select type="text" class="form-control-mall" id="kategori_toko" name="kategori_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;">
-						<option disabled selected>Pilih Kategori Toko</option>
-						<option>Makanan & Minuman</option>
-						<option>Oleh - Oleh</option>
-						<option>Bengkel</option>
-						<option>Galon</option>
-						<option>Parfum</option>
-						<option>Toserba</option>
+					<select type="text" class="form-control-mall" id="kategori_toko" name="kategori_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;" required>
+                        <option value="" disabled selected>--- Pilih Kategori Toko ---</option>
+                        @foreach($daftar_kategori as $row)
+                        <option value="{{$row->id}}" @if($kategori==$row->id ) selected='selected' @endif>{{$row->kategori}}
+                        </option>
+                        @endforeach
 					</select>
 				</div>
 			</div>
@@ -395,7 +409,7 @@ if (!empty($_GET['hari'])){
 					<span class="input-group-text-mall">
 						<img src="<?=url('/')?>/public/img/icon_svg/handphone.svg" style="width: 100%;">
 					</span>
-					<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor hp toko" aria-label="Nomor Handphone Toko" aria-describedby="basic-addon1" value="{{$no_hp}}" style="width: 100%;">
+					<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor hp toko" aria-label="Nomor Handphone Toko" aria-describedby="basic-addon1" value="{{$no_hp}}" style="width: 100%;" required>
 				</div>
 			</div>
 			<div class="input-group mb-3 div-input-mall" id="div_jadwal">
@@ -408,9 +422,9 @@ if (!empty($_GET['hari'])){
 				</div>
 			</div>
 			<div>
-				<input type="text" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
-				<input type="text" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
-				<input type="text" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
+				<input type="hidden" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
+				<input type="hidden" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
+				<input type="hidden" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
 			</div>
 			<?php
 			if ( (($latitude == null) || ($latitude == '')) && (($longitude == null) || ($longitude == '')) && (($latitude == null) || ($latitude == ''))){
@@ -433,7 +447,7 @@ if (!empty($_GET['hari'])){
 						<span class="input-group-text-mall">
 							<img src="<?=url('/')?>/public/img/icon_svg/home.svg" style="width: 100%;">
 						</span>
-						<input type="text" class="form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" value="{{$alamat}}" style="width: 100%;">
+						<input type="text" class="form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" value="{{$alamat}}" style="width: 100%;" required>
 
 					</div>
 				</div>
@@ -441,14 +455,14 @@ if (!empty($_GET['hari'])){
 					<div class="input-group mb-1 div-input-mall" id="div_latitude" style="width: 48%;">
 						<span>Latitude</span>
 						<div>
-							<input type="text" class="form-control-mall" id="latitude" name="latitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Latitude" aria-label="latitude" aria-describedby="basic-addon1" value="{{$latitude}}" style="width: 100%; border-radius: 1.5em;">
+							<input type="text" class="form-control-mall" id="latitude" name="latitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Latitude" aria-label="latitude" aria-describedby="basic-addon1" value="{{$latitude}}" style="width: 100%; border-radius: 1.5em;" required>
 						</div>
 					</div>
 					<div class="input-group mb-1 div-input-mall" id="div_longitude" style="width: 48%;">
 						<span>Longitude</span>
 						<div>
 
-							<input type="text" class="form-control-mall" id="longitude" name="longitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Longitude" aria-label="longitude" aria-describedby="basic-addon1" value="{{$longitude}}" style="width: 100%; border-radius: 1.5em;">
+							<input type="text" class="form-control-mall" id="longitude" name="longitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Longitude" aria-label="longitude" aria-describedby="basic-addon1" value="{{$longitude}}" style="width: 100%; border-radius: 1.5em;" required>
 						</div>
 					</div>
 				</div>
@@ -457,30 +471,40 @@ if (!empty($_GET['hari'])){
 
 				<?php 
 			}
-			?>		
-			<div class="input-group mb-3 div-input-mall-square" id="div_jadwal" style="margin-top: 1em; background: white;">
-				<div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto Toko</div>
-				<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #0066ff; margin: 0px 10% 2em 10%; padding: 4em 5em;">
-					<img src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" style="width: 2em;" onclick="tambah_foto_toko()">
-				</div>
-				<input type="file" name="foto_toko" id="foto_toko">
-			</div>
-			<button type="submit" class="btn btn-primary" style="background: #ff006e; margin-top: 1em;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Daftar
-			</button>
-		</form>
-	</div>
+			?>
+            <div class="input-group mb-3 div-input-mall-square" id="div_jadwal"
+                style="margin-top: 1em; background: white;">
+                <div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto
+                    Toko</div>
+                <div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #0066ff; margin: 0px 10% 2em 10%; padding: 4em 5em; cursor: pointer;"
+                    onclick="tambah_foto_toko()">
+                    <img src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" style="width: 2em;" >
+                </div>
+                <input hidden type="file" name="foto_toko" id="foto_toko" required>
+            </div>
+            <button type="submit" class="btn btn-primary"
+                style="background: #ff006e; margin-top: 1em;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Daftar
+            </button>
+        </form>
+    </div>
 </main>
 
 @endsection
 
 @section('footer-scripts')
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
 <script type="text/javascript">
+    $("input[required], select[required]").attr("oninvalid",
+        "this.setCustomValidity('Harap Dimasukkan')");
+    $("input[required], select[required]").attr("oninput", "setCustomValidity('')");
 
-	var i = 0;
-	var jadwal_hari = [];
-	var jadwal_buka = [];
-	var jadwal_tutup = [];
+
+    var i = 0;
+    var jadwal_hari = [];
+    var jadwal_buka = [];
+    var jadwal_tutup = [];
 
 	<?php for ($i = 0; $i < count($loop_hari); $i++){?>
 		@if ($loop_hari[0] != "")
@@ -489,95 +513,100 @@ if (!empty($_GET['hari'])){
 		jadwal_tutup.push("<?=$loop_tutup[$i]?>");
 		@endif
 	<?php } ?>
-	function input_focus(id){
-		$("#div_"+id).css('border', '1px solid #d1d2d4');
-	}
+	
+    function input_focus(id) {
+        $("#div_" + id).css('border', '1px solid #d1d2d4');
+    }
 
-	function input_blur(id){
-		$("#div_"+id).css('border', '1px solid white');		
-	}
+    function input_blur(id) {
+        $("#div_" + id).css('border', '1px solid white');
+    }
 
-	function pilih_lokasi(){
-		location.href="<?=url()->current()?>/pilih-lokasi?pemilik="+$("#nama_pemilik").val()+"&no_hp="+$("#no_hp").val()+"&hari="+$("#jadwal_hari").val()+"&buka="+$("#jadwal_buka").val()+"&tutup="+$("#jadwal_tutup").val();		
-	}
+    function pilih_lokasi() {
+        location.href = "<?=url()->current()?>/pilih-lokasi?pemilik=" + $("#nama_pemilik").val() + "&no_hp=" + $(
+                "#no_hp").val() + "&kategori=" + $("#kategori_toko").val() + "&hari=" + $("#jadwal_hari").val() +
+            "&buka=" + $("#jadwal_buka").val() + "&tutup=" + $("#jadwal_tutup").val();
+    }
 
-	function pilih_jadwal(){
-		$("#btn_trigger_hapus").click();
-	}
+    function pilih_jadwal() {
+        $("#btn_trigger_hapus").click();
+    }
 
 
-	function tambah_foto_toko(){
-		$("#foto_toko").click();
-	}
+    function tambah_foto_toko() {
+        $("#foto_toko").click();
+    }
 
-	function tambah_jadwal(){
-		var simbol = $("#jadwal").val();
-		var hari = $("#jadwal option:selected").text();
-		var waktu_tutup = $("#waktu_tutup").val();
-		var waktu_buka = $("#waktu_buka").val();
-		var jadwal_sample = $("#jadwal_sample").html();
-		var fix_id = jadwal_sample.replaceAll(hari.replaceAll(" ", '_')).trim();
-		var fix_harinya = fix_id.replaceAll("harinya", hari).trim();
-		var fix_waktu = fix_harinya.replace("jamnya", waktu_buka+" - "+waktu_tutup).trim();
-		var fix_simbol = fix_waktu.replace("simbolnya", simbol).trim();
-		$("#jadwal_fix").append(fix_simbol);
 
-		jadwal_hari.push(hari);
-		jadwal_buka.push(waktu_buka);
-		jadwal_tutup.push(waktu_tutup);
+    function tambah_jadwal() {
+        var simbol = $("#jadwal").val();
+        var hari = $("#jadwal option:selected").text();
+        var waktu_tutup = $("#waktu_tutup").val();
+        var waktu_buka = $("#waktu_buka").val();
+        var jadwal_sample = $("#jadwal_sample").html();
+        var fix_id = jadwal_sample.replaceAll(hari.replaceAll(" ", '_')).trim();
+        var fix_harinya = fix_id.replaceAll("harinya", hari).trim();
+        var fix_waktu = fix_harinya.replace("jamnya", waktu_buka + " - " + waktu_tutup).trim();
+        var fix_simbol = fix_waktu.replace("simbolnya", simbol).trim();
+        $("#jadwal_fix").append(fix_simbol);
 
-		check_select();		
-		i++;
-	}
+        jadwal_hari.push(hari);
+        jadwal_buka.push(waktu_buka);
+        jadwal_tutup.push(waktu_tutup);
 
-	function check_select(){
-		var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
-		var option_text = ["Setiap Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis","Jumat", "Sabtu", "Minggu"];
-		var option = "<option disabled selected>--- Silahkan Pilih Hari ---</option>";
-		for (var i = 0; i < option_text.length; i++){
-			var indikator = false;
-			for (var j = 0; j < jadwal_hari.length; j++){
-				if (jadwal_hari[j] == option_text[i]){
-					indikator = true;
-				}
-			}
-			if (indikator == false){
-				option += "<option value='"+option_value[i]+"' >"+option_text[i]+"</option>"; 				
-			}
-		}
-		$("#jadwal").html(option);		
-		var string_hari = jadwal_hari.toString();
-		var string_buka = jadwal_buka.toString();
-		var string_tutup = jadwal_tutup.toString();
-		$("#jadwal_hari").val(string_hari.replaceAll(",", "~"));
-		$("#jadwal_buka").val(string_buka.replaceAll(",", "~"));
-		$("#jadwal_tutup").val(string_tutup.replaceAll(",", "~"));
+        check_select();
+        i++;
+    }
 
-		if ($("#jadwal_hari").val() == ''){
-			$("#pilih_jadwal_buka_toko").html("Pilih Jadwal Buka Tutup Toko");
-		}
-		else {
-			$("#pilih_jadwal_buka_toko").html("Telah memilih Jadwal");			
-		}
+    function check_select() {
+        var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
+        var option_text = ["Setiap Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis", "Jumat",
+            "Sabtu", "Minggu"
+        ];
+        var option = "<option disabled selected>--- Silahkan Pilih Hari ---</option>";
+        for (var i = 0; i < option_text.length; i++) {
+            var indikator = false;
+            for (var j = 0; j < jadwal_hari.length; j++) {
+                if (jadwal_hari[j] == option_text[i]) {
+                    indikator = true;
+                }
+            }
+            if (indikator == false) {
+                option += "<option value='" + option_value[i] + "' >" + option_text[i] + "</option>";
+            }
+        }
+        $("#jadwal").html(option);
+        var string_hari = jadwal_hari.toString();
+        var string_buka = jadwal_buka.toString();
+        var string_tutup = jadwal_tutup.toString();
+        $("#jadwal_hari").val(string_hari.replaceAll(",", "~"));
+        $("#jadwal_buka").val(string_buka.replaceAll(",", "~"));
+        $("#jadwal_tutup").val(string_tutup.replaceAll(",", "~"));
 
-	}
+        if ($("#jadwal_hari").val() == '') {
+            $("#pilih_jadwal_buka_toko").html("Pilih Jadwal Buka Tutup Toko");
+        } else {
+            $("#pilih_jadwal_buka_toko").html("Telah memilih Jadwal");
+        }
 
-	function hapus_jadwal(hari){
-		// alert(id);
-		var temp;
-		for (var i = 0; i < jadwal_hari.length; i++){
-			if (jadwal_hari[i] == hari){
-				jadwal_hari[i] = jadwal_hari[i+1];
-				jadwal_buka[i] = jadwal_buka[i+1];
-				jadwal_tutup[i] = jadwal_tutup[i+1];
+    }
 
-			}
-		}
-		jadwal_hari.pop();
-		jadwal_tutup.pop();
-		jadwal_buka.pop();
-		check_select();
-		$("#"+hari.replaceAll(" ", "_")).remove();
-	}
+    function hapus_jadwal(hari) {
+        // alert(id);
+        var temp;
+        for (var i = 0; i < jadwal_hari.length; i++) {
+            if (jadwal_hari[i] == hari) {
+                jadwal_hari[i] = jadwal_hari[i + 1];
+                jadwal_buka[i] = jadwal_buka[i + 1];
+                jadwal_tutup[i] = jadwal_tutup[i + 1];
+            }
+        }
+        jadwal_hari.pop();
+        jadwal_tutup.pop();
+        jadwal_buka.pop();
+        check_select();
+        $("#" + hari.replaceAll(" ", "_")).remove();
+    }
+
 </script>
 @endsection

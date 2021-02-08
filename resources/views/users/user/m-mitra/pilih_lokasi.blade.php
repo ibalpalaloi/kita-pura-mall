@@ -113,6 +113,7 @@ crossorigin=""/>
 <?php
 $pemilik = "";
 $no_hp = "";
+$kategori = "";
 $buka = "";
 $tutup = "";
 $hari = "";
@@ -121,6 +122,9 @@ if (!empty($_GET['pemilik'])){
 }
 if (!empty($_GET['no_hp'])){
 	$no_hp = $_GET['no_hp'];
+}
+if (!empty($_GET['kategori'])){
+	$kategori = $_GET['kategori'];
 }
 if (!empty($_GET['hari'])){
 	$hari = $_GET['hari'];
@@ -360,11 +364,12 @@ crossorigin=""></script>
 	function simpan_lokasi(){
 		var pemilik = "<?=$pemilik?>";
 		var no_hp = "<?=$no_hp?>";
+		var kategori = "<?=$kategori?>"
 		var buka = "<?=$buka?>";
 		var tutup = "<?=$tutup?>";
 		var hari = "<?=$hari?>";
 		var status_mitra = "{{Request::segment(3)}}";
-		location.href="<?=url('/')?>/user/jadi-mitra/"+status_mitra+"?pemilik="+pemilik+"&no_hp="+no_hp+"&x="+$('#latitude').val()+"&y="+$('#longitude').val()+"&alamat="+$("#alamat").val()+"&hari="+hari+"&buka="+buka+"&tutup="+tutup;
+		location.href="<?=url('/')?>/user/jadi-mitra/"+status_mitra+"?pemilik="+pemilik+"&no_hp="+no_hp+"&kategori="+kategori+"&x="+$('#latitude').val()+"&y="+$('#longitude').val()+"&alamat="+$("#alamat").val()+"&hari="+hari+"&buka="+buka+"&tutup="+tutup;
 	}
 </script>
 @endsection

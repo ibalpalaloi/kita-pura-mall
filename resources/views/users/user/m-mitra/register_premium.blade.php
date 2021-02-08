@@ -208,19 +208,23 @@
 <?php
 $pemilik = "";
 $no_hp = "";
+$kategori="";
 $latitude = "";
 $longitude = "";
 $alamat = "";
 $buka = "";
 $tutup = "";
 $hari = "";
+$deskripsi = "";
 if (!empty($_GET['pemilik'])){
 	$pemilik = $_GET['pemilik'];
 }
 if (!empty($_GET['no_hp'])){
 	$no_hp = $_GET['no_hp'];
 }
-
+if (!empty($_GET['kategori'])){
+	$kategori = $_GET['kategori'];
+}
 if (!empty($_GET['x'])){
 	$latitude = $_GET['x'];
 }
@@ -238,6 +242,9 @@ if (!empty($_GET['tutup'])){
 }
 if (!empty($_GET['hari'])){
 	$hari = $_GET['hari'];
+}
+if (!empty($_GET['deskripsi'])){
+	$hari = $_GET['deskripsi'];
 }
 
 ?>
@@ -324,7 +331,7 @@ if (!empty($_GET['hari'])){
 					<input type="time" class="form-control form-control-mall-modal"id="waktu_buka" min="09:00" max="18:00" required style="width: 100%; height: auto !important;">
 				</div>
 				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 48%;">
-					<input type="time" class="form-control form-control-mall-modal"id="waktu_tutup"  min="09:00" max="18:00" required>
+					<input type="time" class="form-control form-control-mall-modal"id="waktu_tutup"  min="09:00" max="18:00" required style="width: 100%; height: auto !important;" >
 				</div>
 			</div>
 			<button onclick="tambah_jadwal()" class="btn btn-primary" style="background: #ff006e;;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;">Tambah Jadwal
@@ -347,139 +354,144 @@ if (!empty($_GET['hari'])){
 		</div>
 	</div>
 </header>
-
-<div class="wrapper" style="background: #eaf4ff; position: relative; z-index: 2; top: -2.5em;">
-	<div class="banner" style="position: relative;">
-		<img src="<?=url('/')?>/public/img/mitra/cover_premium.svg" style="width: 100%;">
-		<div style="position: absolute; top: 20%; left: 15%; width: 70%; height: 70%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-			<div id="div_pic_toko" style="padding: auto 0; border:2px dashed white; display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 50%; height: 50%;">
-				<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" onclick="tambah_foto_toko()">
+<form enctype="multipart/form-data" action="<?=url('/')?>/user/jadi-mitra/{{Request::segment(3)}}/simpan" method="post">
+{{csrf_field()}}
+	<div class="wrapper" style="background: #eaf4ff; position: relative; z-index: 2; top: -2.5em;">
+		<div class="banner" style="position: relative;">
+			<img src="<?=url('/')?>/public/img/mitra/cover_premium.svg" style="width: 100%;">
+			<div style="position: absolute; top: 20%; left: 15%; width: 70%; height: 70%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+				<div id="div_pic_toko" style="padding: auto 0; border:2px dashed white; display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 50%; height: 50%;">
+					<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" onclick="tambah_foto_toko()">
+				</div>
+				<div id="div_pic_toko_privew" style="position: relative; padding: auto 0; display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 50%; height: 50%;" hidden>
+					<img id="pic_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
+					<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 0px; bottom: 0px;">
+				</div>
+				<div style="font-weight: 600; color: white; font-size: 1.3em; margin-top: 0.5em;">Logo Toko</div>
+				<div style="color: white; font-size: 1em; margin-top: 0em;  font-size: 0.8em; line-height: 1.3em; width: 100%;">logo toko sangat penting untuk membantu branding kepada masyarakat. dan membantu pengindentifikasian toko</div>
+				<input type="file" name="foto_toko" id="foto_toko" hidden>
 			</div>
-			<div id="div_pic_toko_privew" style="position: relative; padding: auto 0; display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 50%; height: 50%;" hidden>
-				<img id="pic_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
-				<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 0px; bottom: 0px;">
-			</div>
-			<div style="font-weight: 600; color: white; font-size: 1.3em; margin-top: 0.5em;">Logo Toko</div>
-			<div style="color: white; font-size: 1em; margin-top: 0em;  font-size: 0.8em; line-height: 1.3em; width: 100%;">logo toko sangat penting untuk membantu branding kepada masyarakat. dan membantu pengindentifikasian toko</div>
-			<input type="file" name="foto_toko" id="foto_toko" hidden>
 		</div>
 	</div>
-</div>
 
-<main id="homepage" class="homepage" style="padding: 0px; background: #eaf4ff;">
-	<div class="card-mall kategori" style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: #eaf4ff;">
-		<div style="width: 90%; margin-top: 1em; display: flex; flex-direction: column; align-items: center;">
-			<div class="input-group mb-3 div-input-mall" id="div_nama_pemilik">
-				<span>Nama Pemilik</span>
-				<div>
-					<span class="input-group-text-mall">
-						<img src="<?=url('/')?>/public/img/icon_svg/people.svg" style="width: 100%;">
-					</span>
-					<input type="text" class="form-control-mall" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" value="{{$pemilik}}" style="width: 100%;">
-				</div>
-			</div>
-			<div class="input-group mb-3 div-input-mall" id="div_kategori">
-				<span>Kategori</span>
-				<div>
-					<span class="input-group-text-mall">
-						<img src="<?=url('/')?>/public/img/icon_svg/kategori.svg" style="width: 100%;">
-					</span>
-					<select type="text" class="form-control-mall" id="kategori_toko" name="kategori_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;">
-						<option disabled selected>Pilih Kategori Toko</option>
-						<option>Makanan & Minuman</option>
-						<option>Oleh - Oleh</option>
-						<option>Bengkel</option>
-						<option>Galon</option>
-						<option>Parfum</option>
-						<option>Toserba</option>
-					</select>
-				</div>
-			</div>
-			<div class="input-group mb-3 div-input-mall" id="div_no_hp">
-				<span>Nomor Handphone Toko</span>
-				<div>
-					<span class="input-group-text-mall">
-						<img src="<?=url('/')?>/public/img/icon_svg/handphone.svg" style="width: 100%;">
-					</span>
-					<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor hp toko" aria-label="Nomor Handphone Toko" aria-describedby="basic-addon1" value="{{$no_hp}}" style="width: 100%;">
-				</div>
-			</div>
-			<div class="input-group mb-3 div-input-mall" id="div_jadwal">
-				<span>Jadwal Buka Tutup Toko</span>
-				<div>
-					<span class="input-group-text-mall">
-						<img src="<?=url('/')?>/public/img/icon_svg/calender.svg" style="width: 100%;">
-					</span>
-					<div onclick="pilih_jadwal()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; margin-left: 0.4em; " id="pilih_jadwal_buka_toko">Pilih Jadwal Toko</div>
-				</div>
-			</div>
-			<div>
-				<input type="text" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
-				<input type="text" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
-				<input type="text" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
-			</div>
-			<?php
-			if ( (($latitude == null) || ($latitude == '')) && (($longitude == null) || ($longitude == '')) && (($latitude == null) || ($latitude == ''))){
-				?>
-				<div class="input-group mb-3 div-input-mall" id="div_lokasi">
-					<span>Alamat Toko</span>
+	<main id="homepage" class="homepage" style="padding: 0px; background: #eaf4ff;">
+		<div class="card-mall kategori" style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: #eaf4ff;">
+			<div style="width: 90%; margin-top: 1em; display: flex; flex-direction: column; align-items: center;">
+				<div class="input-group mb-3 div-input-mall" id="div_nama_pemilik">
+					<span>Nama Pemilik</span>
 					<div>
 						<span class="input-group-text-mall">
-							<img src="<?=url('/')?>/public/img/icon_svg/home.svg" style="width: 100%;">
+							<img src="<?=url('/')?>/public/img/icon_svg/people.svg" style="width: 100%;">
 						</span>
-						<div onclick="pilih_lokasi()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; margin-left: 0.4em;" id="pilih_jadwal_buka_toko">Pilih Lokasi Toko</div>
+						<input type="text" class="form-control-mall" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" value="{{$pemilik}}" style="width: 100%;" required>
 					</div>
 				</div>
-				<?php 
-			} else {
-				?>
-				<div class="input-group mb-1 div-input-mall" id="div_alamat">
-					<span>Alamat Toko</span>
+				<div class="input-group mb-3 div-input-mall" id="div_kategori">
+					<span>Kategori</span>
 					<div>
 						<span class="input-group-text-mall">
-							<img src="<?=url('/')?>/public/img/icon_svg/home.svg" style="width: 100%;">
+							<img src="<?=url('/')?>/public/img/icon_svg/kategori.svg" style="width: 100%;">
 						</span>
-						<input type="text" class="form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" value="{{$alamat}}" style="width: 100%;">
-
+						<select type="text" class="form-control-mall" id="kategori_toko" name="kategori_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;" value="{{$kategori}}" required>
+							<option value="" disabled selected>--- Pilih Kategori Toko ---</option>
+							@foreach($daftar_kategori as $row)
+							<option value="{{$row->id}}" @if($kategori==$row->id ) selected='selected' @endif>{{$row->kategori}}
+							</option>
+							@endforeach
+						</select>
 					</div>
 				</div>
-				<div style="display: flex; justify-content: space-between;">
-					<div class="input-group mb-1 div-input-mall" id="div_latitude" style="width: 48%;">
-						<span>Latitude</span>
+				<div class="input-group mb-3 div-input-mall" id="div_no_hp">
+					<span>Nomor Handphone Toko</span>
+					<div>
+						<span class="input-group-text-mall">
+							<img src="<?=url('/')?>/public/img/icon_svg/handphone.svg" style="width: 100%;">
+						</span>
+						<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor hp toko" aria-label="Nomor Handphone Toko" aria-describedby="basic-addon1" value="{{$no_hp}}" style="width: 100%;" required>
+					</div>
+				</div>
+				<div class="input-group mb-3 div-input-mall" id="div_jadwal">
+					<span>Jadwal Buka Tutup Toko</span>
+					<div>
+						<span class="input-group-text-mall">
+							<img src="<?=url('/')?>/public/img/icon_svg/calender.svg" style="width: 100%;">
+						</span>
+						<div onclick="pilih_jadwal()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; margin-left: 0.4em; " id="pilih_jadwal_buka_toko">Pilih Jadwal Toko</div>
+					</div>
+				</div>
+				<div>
+					<input type="hidden" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
+					<input type="hidden" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
+					<input type="hidden" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
+				</div>
+				<?php
+				if ( (($latitude == null) || ($latitude == '')) && (($longitude == null) || ($longitude == '')) && (($latitude == null) || ($latitude == ''))){
+					?>
+					<div class="input-group mb-3 div-input-mall" id="div_lokasi">
+						<span>Alamat Toko</span>
 						<div>
-							<input type="text" class="form-control-mall" id="latitude" name="latitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Latitude" aria-label="latitude" aria-describedby="basic-addon1" value="{{$latitude}}" style="width: 100%; border-radius: 1.5em;">
+							<span class="input-group-text-mall">
+								<img src="<?=url('/')?>/public/img/icon_svg/home.svg" style="width: 100%;">
+							</span>
+							<div onclick="pilih_lokasi()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; margin-left: 0.4em;" id="pilih_jadwal_buka_toko">Pilih Lokasi Toko</div>
 						</div>
 					</div>
-					<div class="input-group mb-1 div-input-mall" id="div_longitude" style="width: 48%;">
-						<span>Longitude</span>
+					<?php 
+				} else {
+					?>
+					<div class="input-group mb-1 div-input-mall" id="div_alamat">
+						<span>Alamat Toko</span>
 						<div>
+							<span class="input-group-text-mall">
+								<img src="<?=url('/')?>/public/img/icon_svg/home.svg" style="width: 100%;">
+							</span>
+							<input type="text" class="form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" value="{{$alamat}}" style="width: 100%;">
 
-							<input type="text" class="form-control-mall" id="longitude" name="longitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Longitude" aria-label="longitude" aria-describedby="basic-addon1" value="{{$longitude}}" style="width: 100%; border-radius: 1.5em;">
 						</div>
 					</div>
-				</div>
-				<small onclick="pilih_lokasi()" style="cursor: pointer;">Ganti Lokasi</small>
-				<?php 
-			}
-			?>	
-			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="height: 20em; justify-content: flex-start;">
-				<span style="margin-top: 0px;">Deskripsi</span>
-				<div style="height: 15em; width: 100%;">
-					<textarea class="form-control-mall" id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 15em; border-radius: 0px; margin: 0.6em;" rows="8"></textarea>
-				</div>
-			</div>				
+					<div style="display: flex; justify-content: space-between;">
+						<div class="input-group mb-1 div-input-mall" id="div_latitude" style="width: 48%;">
+							<span>Latitude</span>
+							<div>
+								<input type="text" class="form-control-mall" id="latitude" name="latitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Latitude" aria-label="latitude" aria-describedby="basic-addon1" value="{{$latitude}}" style="width: 100%; border-radius: 1.5em;">
+							</div>
+						</div>
+						<div class="input-group mb-1 div-input-mall" id="div_longitude" style="width: 48%;">
+							<span>Longitude</span>
+							<div>
+
+								<input type="text" class="form-control-mall" id="longitude" name="longitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Longitude" aria-label="longitude" aria-describedby="basic-addon1" value="{{$longitude}}" style="width: 100%; border-radius: 1.5em;">
+							</div>
+						</div>
+					</div>
+					<small onclick="pilih_lokasi()" style="cursor: pointer;">Ganti Lokasi</small>
+					<?php 
+				}
+				?>	
+				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="height: 20em; justify-content: flex-start;">
+					<span style="margin-top: 0px;">Deskripsi</span>
+					<div style="height: 15em; width: 100%;">
+						<textarea class="form-control-mall" id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 15em; border-radius: 0px; margin: 0.6em;" rows="8" required>{{$deskripsi}}</textarea>
+					</div>
+				</div>				
+			</div>
+			<button type="submit" class="btn btn-primary" style="background: #ffaa00; margin-top: 0.5em;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Simpan
+			</button>
+		
 		</div>
-		<a href="#" class="btn btn-primary" style="background: #ffaa00; margin-top: 0.5em;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Simpan
-		</a>
 	</div>
-</div>
-</main>
+	</main>
+</form>
 
 @endsection
 
-@section('footer-scripts')>
+@section('footer-scripts')
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script type="text/javascript">
+
+	$("input[required], select[required]").attr("oninvalid",
+        "this.setCustomValidity('Harap Dimasukkan')");
+    $("input[required], select[required]").attr("oninput", "setCustomValidity('')");
 
 	var i = 0;
 	var jadwal_hari = [];
@@ -502,7 +514,7 @@ if (!empty($_GET['hari'])){
 	}		
 
 	function pilih_lokasi(){
-		location.href="<?=url()->current()?>/pilih-lokasi?pemilik="+$("#nama_pemilik").val()+"&no_hp="+$("#no_hp").val()+"&hari="+$("#jadwal_hari").val()+"&buka="+$("#jadwal_buka").val()+"&tutup="+$("#jadwal_tutup").val();		
+		location.href="<?=url()->current()?>/pilih-lokasi?pemilik="+$("#nama_pemilik").val()+"&no_hp="+$("#no_hp").val()+"&kategori=" + $("#kategori_toko").val()+"&hari="+$("#jadwal_hari").val()+"&buka="+$("#jadwal_buka").val()+"&tutup="+$("#jadwal_tutup").val()+"&deskripsi="+$("#deskripsi").val();		
 	}
 
 	function pilih_jadwal(){
