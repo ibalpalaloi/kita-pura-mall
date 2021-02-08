@@ -57,11 +57,19 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::get('/akun', [UserController::class, 'index']);
         Route::get('/akun/pengaturan-profil', [UserController::class, 'biodata']);
         Route::put('/akun/pengaturan-profil/simpan-biodata', [UserController::class, 'simpan_biodata']);
+
+
         Route::get('/user/jadi-mitra', [UserController::class, 'jadi_mitra']);
         Route::get('/user/jadi-mitra/{jenis_mitra}', [MitraController::class, 'register']);
-        Route::get('/user/jadi-mitra/premium/register_nik', [MitraController::class, 'register_nik']);
-        Route::get('/user/jadi-mitra/premium/upload_foto', [MitraController::class, 'upload_foto']);
+        Route::get('/user/jadi-mitra/{jenis_mitra}/register_nik', [MitraController::class, 'register_nik']);
+        Route::get('/user/jadi-mitra/{jenis_mitra}/upload_foto', [MitraController::class, 'upload_foto']);
         Route::get('/user/jadi-mitra/{jenis_mitra}/pilih-lokasi', [MitraController::class, 'pilih_lokasi']);
+
+        // Route::get('/user/jadi-mitra/{jenis_mitra}', [UserController::class, 'jenis_mitra']);
+        // Route::get('/user/jadi-mitra/{jenis_mitra}/register', [MitraController::class, 'register']);
+        // Route::get('/user/jadi-mitra/{jenis_mitra}/register/pilih-lokasi', [MitraController::class, 'pilih_lokasi']);
+
+
 
     });
 
