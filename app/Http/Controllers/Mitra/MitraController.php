@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Mitra;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
-use App\Models\Kategori;
+use App\Models\Kategori_toko;
 use App\Models\toko;
 use App\Models\Jadwal_toko;
 
@@ -24,7 +24,9 @@ class MitraController extends Controller
 
     public function register($mitra){
 
-		$kategori = Kategori::all();
+		$kategori = Kategori_toko::all();
+
+		// dd($kategori);
 
     	if ($mitra == 'free'){
 
@@ -33,12 +35,32 @@ class MitraController extends Controller
     	}
     	else {
 
-			return view('users/user/m-mitra/register_premium');
+			return view('users/user/m-mitra/register_premium', ['daftar_kategori'=>$kategori]);
 			
     	}
 	}
 	
 	public function simpan_mitra(Request $request, $jenis_mitra){
+		// dd($request->all());
+
+		$this->validate($request,[
+            'nama_pemilik' => 'required',
+            'kategori_toko' => 'required',
+            'no_hp' => 'required',
+            'jadwal_hari' => 'required',
+            'jadwal_buka' => 'required',
+            'jadwal_tutup' => 'required',
+            'alamat' => 'required',
+            'latitude' => 'required',
+			'longitude' => 'required',			
+            'foto_toko' => 'required'
+		]);
+		
+		if ($jenis_mitra == 'premium'){
+			$this->validate($request,[
+				'deskripsi' => 'required'
+			]);
+		};
 
 		$toko_id = $this->autocode('TK-');
 
@@ -49,19 +71,26 @@ class MitraController extends Controller
 		$toko->jenis_mitra = $jenis_mitra;
 		$toko->kategori_id = $request->kategori_toko;
 		$toko->nama_toko = $request->nama_pemilik;
+		$toko->nama_pemilik = $request->nama_pemilik;
 		$toko->no_hp = $request->no_hp;
 		$toko->alamat = $request->alamat;
 		$toko->kelurahan_id = "1";
 		$toko->latitude = $request->latitude;
 		$toko->longitude = $request->longitude;
 		$toko->status = "Tidak Aktif";
-	
+
+
 		// @Tambah Foto
 		$files = $request->file("foto_toko");
 		$type = $request->file("foto_toko")->getClientOriginalExtension();
 		$file_upload = $toko_id.".".$type;
-		\Storage::disk('public')->put('img/toko/'.$file_upload, file_get_contents($files));
+		\Storage::disk('public')->put('img/toko/'.$jenis_mitra.'/'.$file_upload, file_get_contents($files));
 		$toko->foto = $file_upload;
+		if ($jenis_mitra == 'premium'){
+
+			$toko->deskripsi = $request->deskripsi;
+    	}
+
 		$toko->save();
 
 		// @Tambah Jadwal
