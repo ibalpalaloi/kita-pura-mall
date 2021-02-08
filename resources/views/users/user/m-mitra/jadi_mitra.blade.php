@@ -284,7 +284,7 @@ Biodata |
 @section('content')
 <header class="style__Container-sc-3fiysr-0 header" style="position: static; background: #eaf4ff;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
-		<a href="<?=url('/')?>/user" style="padding-left: 1em;">
+		<a href="<?=url('/')?>/akun" style="padding-left: 1em;">
 			<img src="<?=url('/')?>/public/img/back.svg">
 		</a>
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
