@@ -17,7 +17,7 @@ class UserController extends Controller
 
 	public function biodata(){
 
-		$biodata = Biodata::where('id', Session::get('id_user'))->first();
+		$biodata = Biodata::where('user_id', Session::get('id_user'))->first();
 
 		//  
 
@@ -33,8 +33,7 @@ class UserController extends Controller
 			'username' => 'required'
 		]);
 		
-		$biodata = Biodata::find(Session::get('id_user'));
-
+		$biodata = Biodata::where('user_id', Session::get('id_user'));
 		// dd($biodata);
 		$biodata->nama = $request->nama_lengkap;
 		$biodata->alamat = $request->alamat;

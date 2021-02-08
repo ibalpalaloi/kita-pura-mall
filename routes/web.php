@@ -53,14 +53,17 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::get('/pencarian/rekomendasi', [HomeController::class, 'rekomendasi']);
         Route::get('/pencarian/maps', [HomeController::class, 'maps']);
 
-        // route user
+        // @akun
         Route::get('/akun', [UserController::class, 'index']);
         Route::get('/akun/pengaturan-profil', [UserController::class, 'biodata']);
         Route::put('/akun/pengaturan-profil/simpan-biodata', [UserController::class, 'simpan_biodata']);
 
-
+        // @jadi-mitra
         Route::get('/user/jadi-mitra', [UserController::class, 'jadi_mitra']);
         Route::get('/user/jadi-mitra/{jenis_mitra}', [MitraController::class, 'register']);
+        Route::post('/user/jadi-mitra/{jenis_mitra}/simpan', [MitraController::class, 'simpan_mitra']);
+
+
         Route::get('/user/jadi-mitra/{jenis_mitra}/register_nik', [MitraController::class, 'register_nik']);
         Route::get('/user/jadi-mitra/{jenis_mitra}/upload_foto', [MitraController::class, 'upload_foto']);
         Route::get('/user/jadi-mitra/{jenis_mitra}/pilih-lokasi', [MitraController::class, 'pilih_lokasi']);
