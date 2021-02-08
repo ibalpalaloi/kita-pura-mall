@@ -8,4 +8,7 @@ use Illuminate\Http\Request;
 class Admin_Manajemen_Toko_Controller extends Controller
 {
     //
+    public function index(){
+        
+    }
 }
