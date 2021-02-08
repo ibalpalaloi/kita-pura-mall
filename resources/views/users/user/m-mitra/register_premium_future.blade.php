@@ -12,7 +12,7 @@
 		max-width: 480px;
 		width: 100%;
 		margin: 0px auto;
-		padding: 4em 0em 4em 0em;
+
 	}
 
 	.header {
@@ -195,12 +195,11 @@
 		-moz-appearance: none;
 		text-indent: 1px;
 		text-overflow: '';
-		border: none;
 		width: 100%;
 		margin-left: 0.4em;
 	}
 
-	input {
+	input, textarea, select {
 		border: none;
 	}
 </style>
@@ -326,7 +325,7 @@ if (!empty($_GET['hari'])){
 					<input type="time" class="form-control form-control-mall-modal"id="waktu_buka" min="09:00" max="18:00" required style="width: 100%; height: auto !important;">
 				</div>
 				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 48%;">
-					<input type="time" class="form-control form-control-mall-modal"id="waktu_tutup"  min="09:00" max="18:00" required style="width: 100%; height: auto !important;">
+					<input type="time" class="form-control form-control-mall-modal"id="waktu_tutup"  min="09:00" max="18:00" required>
 				</div>
 			</div>
 			<button onclick="tambah_jadwal()" class="btn btn-primary" style="background: #ff006e;;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;">Tambah Jadwal
@@ -335,11 +334,10 @@ if (!empty($_GET['hari'])){
 	</div>
 </div>
 
-
-<header class="style__Container-sc-3fiysr-0 header" >
+<header class="style__Container-sc-3fiysr-0 header" style="background: #e18f00;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
 		<a href="<?=url('/')?>/user/jadi-mitra" style="padding-left: 1em;">
-			<img src="<?=url('/')?>/public/img/back_white.svg">
+			<img src="<?=url('/')?>/public/img/icon_left_white.svg">
 		</a>
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
 			<img src="<?=url('/')?>/public/img/logo.svg">
@@ -351,18 +349,31 @@ if (!empty($_GET['hari'])){
 	</div>
 </header>
 
-<div class="wrapper" style="background: #ff006e; position: relative; z-index: -1; padding-top: 8em;">
-	<div class="banner" >
+<div class="wrapper" style="background: #eaf4ff; position: relative; z-index: 2; top: -2.5em;">
+	<?php $image = "".url('/')."/public/img/mitra/background_premium.png";?>
+	<div class="banner">
+		<div style='background-image: url("<?=$image?>"); background-size: cover; height: 25em;'>
+
+			<div style="width: 70%; height: 70%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+				<div style="padding: auto 0; border:2px dashed white; display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 50%; height: 50%;" id="div_pic_toko">
+					<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" onclick="tambah_foto_toko()">
+				</div>
+
+				<div style="font-weight: 600; color: white; font-size: 1.3em; margin-top: 0.5em;">Logo Toko</div>
+				<div style="color: white; font-size: 1em; margin-top: 0em;  font-size: 0.8em; line-height: 1.3em;">logo toko sangat penting untuk membantu branding kepada masyarakat. dan membantu pengindentifikasian toko</div>
+				<input type="file" name="foto_toko" id="foto_toko">
+
+
+			</div>
+		</div>
+
+		<!-- <img src="<?=url('/')?>/public/img/mitra/cover_premium.svg" style="width: 100%; object-fit: cover;"> -->
 	</div>
 </div>
 
-<main id="homepage" class="homepage" style="padding: 0px;background: #eaf4ff;">
+<main id="homepage" class="homepage" style="padding: 0px; background: #eaf4ff;">
 	<div class="card-mall kategori" style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: #eaf4ff;">
-		<img src="<?=url('/')?>/public/img/mitra/mitra_free.png" width="75%"  style="top: -11em; position: relative; overflow-x: visible; z-index: 3 !important;">
-		<div style="text-align: center;font-size: 1.2em; font-weight: 500; line-height: 1.2em; margin-top: -10em;">
-			Hi, Silahkan&nbsp;<span style="color: #fb036b;">lengkapi informasi</span><br>usaha anda
-		</div>
-		<form id="biodata" style="width: 90%; margin-top: 2em;  display: flex; flex-direction: column; align-items: center;">
+		<div style="width: 90%; margin-top: 1em; display: flex; flex-direction: column; align-items: center;">
 			<div class="input-group mb-3 div-input-mall" id="div_nama_pemilik">
 				<span>Nama Pemilik</span>
 				<div>
@@ -453,27 +464,25 @@ if (!empty($_GET['hari'])){
 					</div>
 				</div>
 				<small onclick="pilih_lokasi()" style="cursor: pointer;">Ganti Lokasi</small>
-
-
 				<?php 
 			}
-			?>		
-			<div class="input-group mb-3 div-input-mall-square" id="div_jadwal" style="margin-top: 1em; background: white;">
-				<div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto Toko</div>
-				<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #0066ff; margin: 0px 10% 2em 10%; padding: 4em 5em;">
-					<img src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" style="width: 2em;" onclick="tambah_foto_toko()">
+			?>	
+			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="height: 20em; justify-content: flex-start;">
+				<span style="margin-top: 0px;">Deskripsi</span>
+				<div style="height: 15em; width: 100%;">
+					<textarea class="form-control-mall" id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 15em; border-radius: 0px; margin: 0.6em;" rows="8"></textarea>
 				</div>
-				<input type="file" name="foto_toko" id="foto_toko">
-			</div>
-			<button type="submit" class="btn btn-primary" style="background: #ff006e; margin-top: 1em;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Daftar
-			</button>
-		</form>
+			</div>				
+		</div>
+		<a href="<?=url('/')?>/user/jadi-mitra/premium/register_nik" class="btn btn-primary" style="background: #ffaa00; margin-top: 0.5em;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Simpan
+		</a>
 	</div>
+</div>
 </main>
 
 @endsection
 
-@section('footer-scripts')
+@section('footer-scripts')>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
@@ -495,7 +504,7 @@ if (!empty($_GET['hari'])){
 
 	function input_blur(id){
 		$("#div_"+id).css('border', '1px solid white');		
-	}
+	}		
 
 	function pilih_lokasi(){
 		location.href="<?=url()->current()?>/pilih-lokasi?pemilik="+$("#nama_pemilik").val()+"&no_hp="+$("#no_hp").val()+"&hari="+$("#jadwal_hari").val()+"&buka="+$("#jadwal_buka").val()+"&tutup="+$("#jadwal_tutup").val();		
@@ -505,9 +514,9 @@ if (!empty($_GET['hari'])){
 		$("#btn_trigger_hapus").click();
 	}
 
-
 	function tambah_foto_toko(){
 		$("#foto_toko").click();
+
 	}
 
 	function tambah_jadwal(){
@@ -561,6 +570,26 @@ if (!empty($_GET['hari'])){
 		}
 
 	}
+
+
+
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				$('#pic_toko_privew').attr('src', e.target.result);
+				// $("#div_pic_toko_preview").prop('hidden', false);
+				// $("#div_pic_toko").prop('hidden', true);
+			}
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$("#foto_toko").change(function(){
+		readURL(this);
+	});
 
 	function hapus_jadwal(hari){
 		// alert(id);
