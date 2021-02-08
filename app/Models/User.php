@@ -45,4 +45,8 @@ class User extends Authenticatable
     public $incrementing = false;
     protected $keyType = 'string';
 
+    public function biodata(){
+        return $this->hasOne(Biodata::class);
+    }
+
 }
