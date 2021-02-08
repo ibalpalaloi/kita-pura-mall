@@ -168,9 +168,9 @@
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="<?=url('/')?>/admin/manajemen/toko" class="sidebar-link">
+                                    <a href="<?=url('/')?>/admin/manajemen/kategori_toko" class="sidebar-link">
                                         <i class="mdi mdi-tablet"></i>
-                                        <span class="hide-menu">Toko</span>
+                                        <span class="hide-menu">Kategori Toko</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
