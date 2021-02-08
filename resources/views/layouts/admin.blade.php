@@ -162,15 +162,15 @@
                                     class="mdi mdi-format-color-fill"></i><span class="hide-menu">UI </span></a>
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
-                                    <a href="ui-buttons.html" class="sidebar-link">
+                                    <a href="<?=url('/')?>/admin/manajemen/pengguna" class="sidebar-link">
                                         <i class="mdi mdi-toggle-switch"></i>
-                                        <span class="hide-menu"> Buttons</span>
+                                        <span class="hide-menu">Pengguna</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="ui-modals.html" class="sidebar-link">
+                                    <a href="<?=url('/')?>/admin/manajemen/toko" class="sidebar-link">
                                         <i class="mdi mdi-tablet"></i>
-                                        <span class="hide-menu"> Modals</span>
+                                        <span class="hide-menu">Toko</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">

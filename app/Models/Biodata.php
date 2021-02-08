@@ -11,7 +11,9 @@ class Biodata extends Model
 
     protected $table = "biodata";
     protected $primaryKey = 'id';
-    protected $keyType = 'string';
-    public $incrementing = false;
+
+    public function user(){
+        return $this->belongsTo(User::class, );
+    }
 
 }
