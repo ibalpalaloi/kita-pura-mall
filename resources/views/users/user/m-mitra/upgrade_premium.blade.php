@@ -52,6 +52,9 @@
 		margin: 0px 0.6em 0px 0.6em !important;
 	}
 
+
+
+
 	.footer {
 		position: fixed;
 		left: 0;
@@ -355,7 +358,7 @@ if (!empty($_GET['deskripsi'])){
 	</div>
 </header>
 <form enctype="multipart/form-data" action="<?=url('/')?>/user/jadi-mitra/{{Request::segment(3)}}/simpan" method="post">
-	{{csrf_field()}}
+{{csrf_field()}}
 	<div class="wrapper" style="background: #eaf4ff; position: relative; z-index: 2; top: -2.5em;">
 		<div class="banner" style="position: relative;">
 			<img src="<?=url('/')?>/public/img/mitra/cover_premium.svg" style="width: 100%;">
@@ -468,34 +471,19 @@ if (!empty($_GET['deskripsi'])){
 					<?php 
 				}
 				?>	
-				<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko" style="background: white; border-radius: 2em;">
-					<div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto
-					Toko</div>
-					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #0066ff; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_lokasi_toko()" id="div_pic_lokasi_toko">
-						<img src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" style="width: 2em;">
-					</div>
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em;" id="div_pic_lokasi_toko_privew" hidden>
-						<img id="pic_lokasi_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
-						<img id="pic_lokasi_toko" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
-
-					</div>
-					<input hidden type="file" name="foto_lokasi_toko" id="foto_lokasi_toko" required>
-				</div>				
 				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="height: 20em; justify-content: flex-start;">
 					<span style="margin-top: 0px;">Deskripsi</span>
 					<div style="height: 15em; width: 100%;">
 						<textarea class="form-control-mall" id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 15em; border-radius: 0px; margin: 0.6em;" rows="8" required>{{$deskripsi}}</textarea>
 					</div>
-				</div>		
-
-
-		</div>
-		<button type="submit" class="btn btn-primary" style="background: #ffaa00; margin-top: 0.5em;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Simpan
-		</button>
+				</div>				
+			</div>
+			<button type="submit" class="btn btn-primary" style="background: #ffaa00; margin-top: 0.5em;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Simpan
+			</button>
 		
+		</div>
 	</div>
-</div>
-</main>
+	</main>
 </form>
 
 @endsection
@@ -505,8 +493,8 @@ if (!empty($_GET['deskripsi'])){
 <script type="text/javascript">
 
 	$("input[required], select[required]").attr("oninvalid",
-		"this.setCustomValidity('Harap Dimasukkan')");
-	$("input[required], select[required]").attr("oninput", "setCustomValidity('')");
+        "this.setCustomValidity('Harap Dimasukkan')");
+    $("input[required], select[required]").attr("oninput", "setCustomValidity('')");
 
 	var i = 0;
 	var jadwal_hari = [];
@@ -538,12 +526,8 @@ if (!empty($_GET['deskripsi'])){
 
 	function tambah_foto_toko(){
 		$("#foto_toko").click();
-	}
 
-	function tambah_foto_lokasi_toko(){
-		$("#foto_lokasi_toko").click();
 	}
-
 
 	function tambah_jadwal(){
 		var simbol = $("#jadwal").val();
@@ -615,24 +599,6 @@ if (!empty($_GET['deskripsi'])){
 
 	$("#foto_toko").change(function(){
 		readURL(this);
-	});
-
-
-	function readURLlokasi(input) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-
-			reader.onload = function (e) {
-				$('#pic_lokasi_toko_privew').attr('src', e.target.result);
-				$("#div_pic_lokasi_toko_privew").prop('hidden', false);
-				$("#div_pic_lokasi_toko").prop('hidden', true);
-			}
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
-
-	$("#foto_lokasi_toko").change(function(){
-		readURLlokasi(this);
 	});
 
 	function hapus_jadwal(hari){
