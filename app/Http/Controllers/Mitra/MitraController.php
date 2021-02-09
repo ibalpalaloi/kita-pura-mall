@@ -22,6 +22,12 @@ class MitraController extends Controller
 	}
 	
 
+	public function index_free(){
+		$kategori = Kategori_toko::all();
+
+		return view('users/user/m-mitra/index_free', ['daftar_kategori'=>$kategori]);
+	}
+
     public function register($mitra){
 
 		$kategori = Kategori_toko::all();

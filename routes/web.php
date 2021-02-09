@@ -60,6 +60,7 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::put('/akun/pengaturan-profil/simpan-biodata', [UserController::class, 'simpan_biodata']);
 
         // @jadi-mitra
+        Route::get('/akun/mitra-free', [MitraController::class, 'index_free']);
         Route::get('/user/jadi-mitra', [UserController::class, 'jadi_mitra']);
         Route::get('/user/jadi-mitra/{jenis_mitra}', [MitraController::class, 'register']);
         Route::post('/user/jadi-mitra/{jenis_mitra}/simpan', [MitraController::class, 'simpan_mitra']);

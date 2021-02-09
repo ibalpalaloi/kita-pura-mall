@@ -315,10 +315,10 @@ Biodata |
 								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Lokasi
 							</div>
 							<div class="feature">
-								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Deskripsi
-							</div>
-							<div class="feature">
 								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Jadwal Buka Tutup
+							</div>
+							<div class="feature" style="color: #b3b6bc;">
+								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Deskripsi
 							</div>
 							<div class="feature" style="color: #b3b6bc;">
 								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Landing Page
@@ -345,10 +345,10 @@ Biodata |
 								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Lokasi
 							</div>
 							<div class="feature">
-								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Deskripsi
+								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Jadwal Buka Tutup
 							</div>
 							<div class="feature">
-								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Jadwal Buka Tutup
+								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Deskripsi
 							</div>
 							<div class="feature">
 								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Landing Page

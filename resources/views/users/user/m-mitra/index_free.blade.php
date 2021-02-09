@@ -157,7 +157,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		}
 	}
 
-	.modal-content{
+	.modal-content-jadwal{
 		position:fixed;
 		padding:0;
 		margin:0;
@@ -204,6 +204,30 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	input {
 		border: none;
 	}
+
+	.div-feature {
+		display: flex; justify-content: center; flex-direction: column; align-items: center;
+	}
+
+	.feature {
+		background: #d9e1eb; 
+		width: 75%; 
+		padding: 0.3em 0.3em 0.3em 1.2em; 
+		border-radius: 1.5em;
+		margin: 0.25em;
+		font-size: 0.7em;
+		text-align: left;
+	}
+
+	.feature-premium {
+		background: #d9e1eb; 
+		width: 75%; 
+		padding: 0.3em 0.3em 0.3em 1.2em; 
+		border-radius: 1.5em;
+		margin: 0.25em;
+		font-size: 0.7em;
+	}
+
 </style>
 @endsection
 
@@ -249,61 +273,99 @@ if (!empty($_GET['hari'])){
 
 ?>
 
-<div class="text-center">
+<div class="text-center" hidden>
+	<button type="button" id="btn_upgrade" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modal-upgrade">
+	Open Modal Hapus</button>
+</div>
+
+<div class="modal fade" id="modal-upgrade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; box-shadow: none; border: none;">
+			<div style="width: 80%;">
+				<div style="background: white; margin-top: 4.5em; border-radius: 1.5em; position: relative;">
+					<div style="display: flex; justify-content: center; width: 100%; position: absolute; top: -3.5em;">
+						<img src="<?=url('/')?>/public/img/mitra/premium_user_img.png" style="width: 100%; ">
+					</div>
+					<img src="<?=url('/')?>/public/img/mitra/premium_user_bg.png" style="width: 100%;">
+					<div class="div-feature" style=" background: white; width: 100%; padding-top: 2.5em; padding-bottom: 2em; border-bottom-right-radius: 1.5em; border-bottom-left-radius: 1.5em;">
+						<div class="feature">
+							<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Lokasi
+						</div>
+						<div class="feature">
+							<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Jadwal Buka Tutup
+						</div>
+						<div class="feature">
+							<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Deskripsi
+						</div>
+						<div class="feature">
+							<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Landing Page
+						</div>
+						<div class="feature">
+							<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Preorder
+						</div>
+						<a href="<?=url('/')?>/akun/upgrade_premium" class="btn btn-primary" style="background: #e18f00; font-size: 0.7em; margin-top: 0.5em;border: 1px solid #e18f00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em;">Upgrade Premium Sekarang
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="text-center" hidden>
 	<button type="button" id="btn_trigger_hapus" class="btn btn-default btn-rounded" data-toggle="modal"
 	data-target="#modal-trigger-location">
 	Open Modal Hapus
 </button>
-
-
-<div class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
-	<div class="modal-content"
-	style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
-	<div class="modal-body">
-		<div>
-			<div class="nama-toko"
-			style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em;">Silahkan
-			Masukan
-			Jadwal<br>Buka/Tutup Usaha Anda</div>
-		</div>
-
-	</div>
-	<div id="jadwal_fix"
-	style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
-	@php
-	$var_value = array("SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M");
-	$var_text = array("Setiap-Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu",
-	"Kamis","Jumat", "Sabtu", "Minggu");
-	@endphp
-	<?php 
-	$loop_hari = explode("~", $hari);
-	$loop_buka = explode("~", $buka);
-	$loop_tutup = explode("~", $tutup);
-	for ($i = 0; $i < count($loop_hari); $i++){
-		?>
-		@if ($loop_hari[0] != "")
-		<div class="input-group mb-3 div-input-mall-square" id="{{str_replace(' ', '_', $loop_hari[$i])}}"
-		style="width: 90%; background: white; border: 1px solid white;">
-		<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
-			<div
-			style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em;">
-			@for ($j = 0; $j < count($var_text); $j++) @if ($var_text[$j]==$loop_hari[$i])
-		{{$var_value[$j]}} @endif @endfor </div> </div> <div
-		style="margin-left: 2%; width: 60%;">
-		<div style="margin-top: 0.5em; font-weight: 700; text-align: left;">
-			{{$loop_hari[$i]}}
-		</div>
-		<div style="font-size: 0.7em; text-align: left;">{{$loop_buka[$i]}} -
-		{{$loop_tutup[$i]}}</div>
-	</div>
-	<div onclick='hapus_jadwal("{{$loop_hari[$i]}}")'
-	style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
-X</div>
 </div>
-@endif
-<?php
+
+<div class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+		<div class="modal-content modal-content-jadwal" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
+			<div class="modal-body">
+				<div>
+					<div class="nama-toko"
+					style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em;">Silahkan
+					Masukan
+					Jadwal<br>Buka/Tutup Usaha Anda</div>
+				</div>
+
+			</div>
+			<div id="jadwal_fix"
+			style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+			@php
+			$var_value = array("SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M");
+			$var_text = array("Setiap Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu",
+			"Kamis","Jumat", "Sabtu", "Minggu");
+			@endphp
+			<?php 
+			$loop_hari = explode("~", $hari);
+			$loop_buka = explode("~", $buka);
+			$loop_tutup = explode("~", $tutup);
+			for ($i = 0; $i < count($loop_hari); $i++){
+				?>
+				@if ($loop_hari[0] != "")
+				<div class="input-group mb-3 div-input-mall-square" id="{{str_replace(' ', '_', $loop_hari[$i])}}"
+				style="width: 90%; background: white; border: 1px solid white;">
+				<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
+					<div
+					style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em;">
+					@for ($j = 0; $j < count($var_text); $j++) @if ($var_text[$j]==$loop_hari[$i])
+				{{$var_value[$j]}} @endif @endfor </div> </div> <div
+				style="margin-left: 2%; width: 60%;">
+				<div style="margin-top: 0.5em; font-weight: 700; text-align: left;">
+					{{$loop_hari[$i]}}
+				</div>
+				<div style="font-size: 0.7em; text-align: left;">{{$loop_buka[$i]}} -
+				{{$loop_tutup[$i]}}</div>
+			</div>
+			<div onclick='hapus_jadwal("{{$loop_hari[$i]}}")'
+			style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
+		X</div>
+	</div>
+	@endif
+	<?php
 }
 ?>
 </div>
@@ -353,7 +415,7 @@ X</div>
 
 <header class="style__Container-sc-3fiysr-0 header">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
-		<a href="<?=url('/')?>/user/jadi-mitra" style="padding-left: 1em;">
+		<a href="<?=url('/')?>/akun" style="padding-left: 1em;">
 			<img src="<?=url('/')?>/public/img/back_white.svg">
 		</a>
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
@@ -374,8 +436,8 @@ X</div>
 <main id="homepage" class="homepage" style="padding: 0px;background: #eaf4ff;">
 	<div class="card-mall kategori" style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: #eaf4ff;">
 		<img src="<?=url('/')?>/public/img/mitra/mitra_free.png" width="75%"  style="top: -11em; position: relative; overflow-x: visible; z-index: 3 !important;">
-		<div style="text-align: center;font-size: 1.2em; font-weight: 500; line-height: 1.2em; margin-top: -10em;">
-			Hi, Silahkan&nbsp;<span style="color: #fb036b;">lengkapi informasi</span><br>usaha anda
+		<div style="text-align: center;font-size: 1em; font-weight: 500; line-height: 1.2em; margin-top: -11em; margin-bottom: -1em;color: white; background: #ff006e; padding: 1em 2em 1em 2em; border-radius: 2em; display: flex; justify-content: center; align-items: center; width: 90%;" onclick="upgrade_mitra()">
+			<img src="<?=url('/')?>/public/img/icon_svg/crown.svg" style="width: 1.5em;">&nbsp;&nbsp;&nbsp;<span>Tingkatkan dengan premium</span>
 		</div>
 		<form enctype="multipart/form-data" action="<?=url('/')?>/user/jadi-mitra/{{Request::segment(3)}}/simpan" method="post"style="width: 90%; margin-top: 2em;  display: flex; flex-direction: column; align-items: center;">
 			{{csrf_field()}}
@@ -472,7 +534,7 @@ X</div>
 				<?php 
 			}
 			?>
-			<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko"
+			<div class="input-group mb-3 div-input-mall-square" id="div_jadwal"
 			style="margin-top: 1em; background: white;">
 			<div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto
 			Toko</div>
@@ -488,7 +550,7 @@ X</div>
 			<input hidden type="file" name="foto_toko" id="foto_toko" required>
 		</div>
 		<button type="submit" class="btn btn-primary"
-		style="background: #ff006e; margin-top: 1em;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Daftar
+		style="background: #ff006e; margin-top: 1em;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Ubah Data
 	</button>
 </form>
 </div>
@@ -542,6 +604,23 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$("#foto_toko").click();
 	}
 
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				$('#pic_toko_privew').attr('src', e.target.result);
+				$("#div_pic_toko_privew").prop('hidden', false);
+				$("#div_pic_toko").prop('hidden', true);
+			}
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$("#foto_toko").change(function(){
+		readURL(this);
+	});
 
 	function tambah_jadwal() {
 		var simbol = $("#jadwal").val();
@@ -563,27 +642,9 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		i++;
 	}
 
-	function readURL(input) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-
-			reader.onload = function (e) {
-				$('#pic_toko_privew').attr('src', e.target.result);
-				$("#div_pic_toko_privew").prop('hidden', false);
-				$("#div_pic_toko").prop('hidden', true);
-			}
-
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
-
-	$("#foto_toko").change(function(){
-		readURL(this);
-	});
-
 	function check_select() {
 		var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
-		var option_text = ["Setiap-Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis", "Jumat",
+		var option_text = ["Setiap Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis", "Jumat",
 		"Sabtu", "Minggu"
 		];
 		var option = "<option disabled selected>--- Silahkan Pilih Hari ---</option>";
@@ -629,6 +690,10 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
         jadwal_buka.pop();
         check_select();
         $("#" + hari.replaceAll(" ", "_")).remove();
+    }
+
+    function upgrade_mitra(){
+    	$("#btn_upgrade").click();
     }
 
 </script>
