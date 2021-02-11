@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Kategori_toko extends Model
 {
     use HasFactory;
-    protected $table = 'kategori_toko';
 
+    protected $table = 'kategori_toko';
 }

@@ -6,7 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\toko_controller\Toko_controller;
 use App\Http\Controllers\toko_controller\Produk_controller;
 use App\Http\Controllers\Admin\Admin_Manajemen_Pengguna_Controller;
-use App\Http\Controllers\Admin\Admin_Manajemen_Toko_Controller;
+use App\Http\Controllers\Admin\Admin_Manajemen_Kategori_Controller;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Mitra\MitraController;
 /*
@@ -102,5 +102,10 @@ Route::get('/admin/manajemen/pengguna', [Admin_Manajemen_Pengguna_Controller::cl
 Route::post('/admin/ubah_password/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'ubah_password']);
 Route::get('/admin/delete/pengguna/{id}', [Admin_Manajemen_Pengguna_Controller::class, 'hapus_pengguna']);
 
+// manajemen kategori
+Route::get('/admin/manajemen/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'kategori_toko']);
+Route::get('/admin/delete/kategori_toko/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_kategori_toko']);
+Route::post('/admin/tambah/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'tambah_kategori_toko']);
+Route::post('/admin/ubah/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'ubah_kategori_toko']);
 
 
