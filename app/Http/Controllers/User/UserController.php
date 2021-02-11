@@ -29,15 +29,25 @@ class UserController extends Controller
 
 		$this->validate($request,[
 			'nama_lengkap' => 'required',
+			'jenis_kelamin' => 'required',
             'alamat' => 'required',
 			'username' => 'required'
 		]);
 		
-		$biodata = Biodata::where('user_id', Session::get('id_user'));
+		$biodata = Biodata::where('user_id', Session::get('id_user'))->first();
 		// dd($biodata);
 		$biodata->nama = $request->nama_lengkap;
+		$biodata->jenis_kelamin = $request->jenis_kelamin;
 		$biodata->alamat = $request->alamat;
 		$biodata->username = $request->username;
+		
+		if($request->file('foto')){
+			$files = $request->file("foto");
+			$type = $request->file("foto")->getClientOriginalExtension();
+			$file_upload = Session::get('id_user').".".$type;
+			\Storage::disk('public')->put('img/biodata/'.$file_upload, file_get_contents($files));
+			$biodata->foto = $file_upload;
+		}
 		$biodata->save();
 		
 		$notification = array(
