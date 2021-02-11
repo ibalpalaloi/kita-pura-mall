@@ -22,15 +22,92 @@ class MitraController extends Controller
 	}
 	
 
+	public function mitra(){
+
+		$toko = toko::where('user_id', Session::get('id_user'))->first();
+
+		// dd($toko);
+
+		if($toko){
+
+			if($toko->status == 'Tidak Aktif'){
+
+				// dd($toko);
+
+				$notification = array(
+					'message' => 'Belum Terverifikasi ',
+					'jenis_mitra' => $toko->jenis_mitra
+				 );     
+		
+				return redirect()->back()->with($notification);
+			}
+
+			else{
+
+				return redirect('/akun/mitra/'.$toko->jenis_mitra);
+
+			}
+
+		}
+		else{
+
+			return redirect('/akun/jadi-mitra');
+		
+		}
+		 
+	}
+
+	public function jadi_mitra(){
+
+		$toko = toko::where('user_id', Session::get('id_user'))->first();
+
+		if($toko){
+
+			if($toko->status == 'Tidak Aktif'){
+
+				// dd($toko);
+
+				$notification = array(
+					'message' => 'Belum Terverifikasi ',
+					'jenis_mitra' => $toko->jenis_mitra
+				 );     
+		
+				return redirect()->back()->with($notification);
+			}
+
+			else{
+
+				return redirect('/akun/mitra/'.$toko->jenis_mitra);
+
+			}
+		}
+		else{
+
+			return view('users/user/m-mitra/jadi_mitra');
+
+		}
+	}
+
+
+
+
 	public function index_free(){
 		$kategori = Kategori_toko::all();
 
-		return view('users/user/m-mitra/index_free', ['daftar_kategori'=>$kategori]);
+		$toko = toko::where('user_id', Session::get('id_user'))->first();
+
+		
+		
+		return view('users/user/m-mitra/index_free', ['daftar_kategori'=>$kategori,'toko'=>$toko]);
 	}
 
 	public function index_premium(){
+
 		$kategori = Kategori_toko::all();
-		return view('users/user/m-mitra/index_premium', ['daftar_kategori'=>$kategori]);
+
+		$toko = toko::where('user_id', Session::get('id_user'))->first();
+
+		return view('users/user/m-mitra/index_premium', ['daftar_kategori'=>$kategori,'toko'=>$toko]);
 	}
 
 	public function register($mitra){
@@ -130,6 +207,7 @@ class MitraController extends Controller
 	} 
 
 	public function pilih_lokasi($jenis_mitra){
+
 		if ($jenis_mitra == 'free'){
 			return view('users/user/m-mitra/pilih_lokasi_free');
 

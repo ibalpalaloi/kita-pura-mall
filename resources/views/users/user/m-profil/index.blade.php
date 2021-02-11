@@ -62,11 +62,8 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 @endsection
 
 @section('content')
-<div class="text-center" hidden>
-	<button type="button" id="btn_verifikasi" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modal-verifikasi">
-	Open Modal Hapus</button>
-</div>
 
+@if(Session::has('message'))
 <div class="modal fade" id="modal-verifikasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
 		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; box-shadow: none; border: none;">
@@ -76,7 +73,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 						<img src="<?=url('/')?>/public/img/mitra/waiting.svg" style="width: 100%; margin-left: 0.7em; margin-bottom: 0em;">
 						<h3 style="margin-top: 0em; color: white;">Berhasil!</h3>
 						<div style="text-align: center; font-size: 0.8em; line-height: 1.2em; color: white;">data toko anda berhasil dikirimkan.<br>mohon tunggu verifikasi dari<br>tim kitapuramall</div>
-						<a href="<?=url('/')?>/akun/mitra-free" style="color: white; background: #ffaa00; padding: 0.3em 0em 0.5em 0em; width: 50%; margin-top: 0.8em; border-radius: 2em; text-align: center; font-weight: 600;">Ubah data ?</a>
+						<a href="<?=url('/')?>/akun/mitra/{{Session::get('jenis_mitra')}}" style="color: white; background: #ffaa00; padding: 0.3em 0em 0.5em 0em; width: 50%; margin-top: 0.8em; border-radius: 2em; text-align: center; font-weight: 600;">Ubah data ?</a>
 					</div>
 					<img src="<?=url('/')?>/public/img/mitra/bg-waiting.svg" style="width: 100%;">
 				</div>
@@ -84,6 +81,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		</div>
 	</div>
 </div>
+@endif
 
 <div class="wrapper" style="background: #ff006e; position: relative; z-index: -1">
 	<div class="banner" style="display: flex; justify-content: flex-end;">
@@ -128,33 +126,9 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	</div>
 	<div class="card-mall">
 		<div style="padding: 1.5em 2em 1.5em 2em;">
-			<a href="<?=url('/')?>/user/jadi-mitra">
+			<a href="<?=url('/')?>/akun/mitra">
 				<span><img src="<?=url('/')?>/public/img/user/mitra.svg"></span>
-				<span>&nbsp;&nbsp;&nbsp;Kondisi Belum Jadi Mitra</span>
-			</a>
-		</div>
-	</div>
-	<div class="card-mall">
-		<div style="padding: 1.5em 2em 1.5em 2em;">
-			<a href="<?=url('/')?>/akun/mitra-free">
-				<span><img src="<?=url('/')?>/public/img/user/mitra.svg"></span>
-				<span>&nbsp;&nbsp;&nbsp;Kondisi Sudah Jadi Mitra Gratis</span>
-			</a>
-		</div>
-	</div>
-	<div class="card-mall">
-		<div style="padding: 1.5em 2em 1.5em 2em;">
-			<div onclick="menunggu_verifikasi()">
-				<span><img src="<?=url('/')?>/public/img/user/mitra.svg"></span>
-				<span>&nbsp;&nbsp;&nbsp;Kondisi Menunggu Verifikasi Data Mitra</span>
-			</div>
-		</div>
-	</div>
-	<div class="card-mall">
-		<div style="padding: 1.5em 2em 1.5em 2em;">
-			<a href="<?=url('/')?>/akun/mitra-premium">
-				<span><img src="<?=url('/')?>/public/img/user/mitra.svg"></span>
-				<span>&nbsp;&nbsp;&nbsp;Kondisi Sudah Jadi Mitra Premium</span>
+				<span>&nbsp;&nbsp;&nbsp;Mitra Kitapura</span>
 			</a>
 		</div>
 	</div>
@@ -176,9 +150,10 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
 <script type="text/javascript">
-	function menunggu_verifikasi() {
-		$("#btn_verifikasi").click();
-	}
+
+	@if(Session::has('message'))
+	    $('#modal-verifikasi').modal('show')
+    @endif
 </script>
 
 @endsection
