@@ -353,7 +353,7 @@ X</div>
 
 <header class="style__Container-sc-3fiysr-0 header">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
-		<a href="<?=url('/')?>/user/jadi-mitra" style="padding-left: 1em;">
+		<a href="<?=url('/')?>/akun/jadi-mitra" style="padding-left: 1em;">
 			<img src="<?=url('/')?>/public/img/back_white.svg">
 		</a>
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
@@ -377,7 +377,7 @@ X</div>
 		<div style="text-align: center;font-size: 1.2em; font-weight: 500; line-height: 1.2em; margin-top: -10em;">
 			Hi, Silahkan&nbsp;<span style="color: #fb036b;">lengkapi informasi</span><br>usaha anda
 		</div>
-		<form enctype="multipart/form-data" action="<?=url('/')?>/user/jadi-mitra/{{Request::segment(3)}}/simpan" method="post"style="width: 90%; margin-top: 2em;  display: flex; flex-direction: column; align-items: center;">
+		<form enctype="multipart/form-data" action="<?=url('/')?>/akun/jadi-mitra/{{Request::segment(3)}}/simpan" method="post"style="width: 90%; margin-top: 2em;  display: flex; flex-direction: column; align-items: center;">
 			{{csrf_field()}}
 			<div class="input-group mb-3 div-input-mall" id="div_nama_pemilik">
 				<span>Nama Pemilik</span>

@@ -447,7 +447,8 @@ if (!empty($_GET['hari'])){
 					<span class="input-group-text-mall">
 						<img src="<?=url('/')?>/public/img/icon_svg/people.svg" style="width: 100%;">
 					</span>
-					<input type="text" class="form-control-mall" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" value="{{$pemilik}}" style="width: 100%;" required>
+					<input type="text" class="form-control-mall" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" 
+					value="{{$toko->nama_pemilik}}" style="width: 100%;" required>
 				</div>
 			</div>
 			<div class="input-group mb-3 div-input-mall" id="div_kategori">
@@ -471,7 +472,7 @@ if (!empty($_GET['hari'])){
 					<span class="input-group-text-mall">
 						<img src="<?=url('/')?>/public/img/icon_svg/handphone.svg" style="width: 100%;">
 					</span>
-					<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor hp toko" aria-label="Nomor Handphone Toko" aria-describedby="basic-addon1" value="{{$no_hp}}" style="width: 100%;" required>
+					<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor hp toko" aria-label="Nomor Handphone Toko" aria-describedby="basic-addon1" value="{{$toko->no_hp}}"style="width: 100%;" required>
 				</div>
 			</div>
 			<div class="input-group mb-3 div-input-mall" id="div_jadwal">
