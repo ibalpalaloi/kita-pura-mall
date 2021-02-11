@@ -293,12 +293,14 @@ if (!empty($_GET['hari'])){
 				<div class="input-group mb-3 div-input-mall" id="div_jenis_kelamin" style="border: 1px solid #eaf4ff;">
 					<div class="input-group-prepend">
 						<div class="input-group-text input-group-text-mall" style="border-radius: 1.5em; width: auto;">
-							<span style="margin-left: 0.5em; margin-right: 2em; color: #b3b7c0;" id="option_pria" onclick="pilih_jenkel(this.id, 'Pria')"><i class="fas fa-circle" style="font-size: 0.8em;"></i>&nbsp;&nbsp;Pria</span>
+						
+							<span style="margin-left: 0.5em; margin-right: 2em; color:@if($biodata->jenis_kelamin == 'Pria') #1c2645 @else #b3b7c0 @endif;" 
+							id="option_pria" onclick="pilih_jenkel(this.id, 'Pria')"><i class="fas fa-circle" style="font-size: 0.8em;"></i>&nbsp;&nbsp;Pria</span>
 							<span style="margin-right: 0.5em; color: #b3b7c0;" id="option_wanita" onclick="pilih_jenkel(this.id, 'Wanita')"><i class="fas fa-circle" style="font-size: 0.8em;"></i>&nbsp;&nbsp;Wanita</span>
 						</div>
 					</div>
 				</div>
-				<input type="text" name="jenis_kelamin" id="jenis_kelamin">
+				<input type="hidden" name="jenis_kelamin" id="jenis_kelamin" value="{{$biodata->jenis_kelamin}}">
 			</div>
 			<div class="form-group" style="margin-top: 0.5em;">
 				<label>Alamat</label>
@@ -345,11 +347,11 @@ if (!empty($_GET['hari'])){
 					</div>
 				</div>
 			</div>
-			<div class="form-group" style="margin-top: 0.5em; display: flex; align-items: center;">
+			<!-- <div class="form-group" style="margin-top: 0.5em; display: flex; align-items: center;">
 				<input type="checkbox" name="">&nbsp;
 				<label style="font-size: 0.6em; vertical-align: center;">saya telah membaca dan menyetujui <a href="#" style="color: #ff006e;">syarat dan ketentuan berlaku</a></label>
 
-			</div>
+			</div> -->
 			<div style="display: flex;justify-content: center;">
 				<button type="submit" class="btn btn-primary" style="background: #fb036b; font-size: 1em; border: 1px solid #fb036b; border-radius: 1.5em;  width: 60%; display: flex; align-items: center; justify-content: center;"><img src="<?=url('/')?>/public/img/icon_svg/folder_white.svg" style="width: 1.2em;">&nbsp;&nbsp;&nbsp;Simpan
 				</button>
@@ -357,13 +359,41 @@ if (!empty($_GET['hari'])){
 		</form>
 
 	</div>
+
+
 </main>
+
+
+@if(Session::has('message'))
+    <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center font-weight-bold py-3">
+                    {{Session::get('message')}}
+                    <div class="row mt-2 p-2">
+                        <button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
+                            data-dismiss="modal">Tutup</button>
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    @endif
 
 @endsection
 
-@section('footer-scripts')>
+@section('footer-scripts')
+<script src="<?=url('/')?>/public/template/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
 
+		@if(Session::has('message'))
+			$('#modal-pemberitahuan').modal('show')
+		@endif
 	var i = 0;
 	var jadwal_hari = [];
 	var jadwal_buka = [];
