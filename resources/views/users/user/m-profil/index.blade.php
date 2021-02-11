@@ -152,6 +152,14 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	</div>
 	<div class="card-mall">
 		<div style="padding: 1.5em 2em 1.5em 2em;">
+			<a href="<?=url('/')?>/akun/mitra-premium">
+				<span><img src="<?=url('/')?>/public/img/user/mitra.svg"></span>
+				<span>&nbsp;&nbsp;&nbsp;Kondisi Sudah Jadi Mitra Premium</span>
+			</a>
+		</div>
+	</div>
+	<div class="card-mall">
+		<div style="padding: 1.5em 2em 1.5em 2em;">
 			<a href="<?=url('/')?>/logout">
 				<span>&nbsp;&nbsp;<img src="<?=url('/')?>/public/img/user/logout.svg"></span>
 				<span>&nbsp;&nbsp;&nbsp;Keluar</span>

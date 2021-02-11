@@ -19,7 +19,7 @@
 
 </head>
 
-<body style="background: #eaf4ff;">
+<body style="background: #eaf4ff; min-height: 100%;" class="hold-transition sidebar-mini layout-fixed">
 	@yield("content")
 </body>    
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
