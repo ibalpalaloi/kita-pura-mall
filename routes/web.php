@@ -61,6 +61,9 @@ Route::group(['middleware'=> 'auth'], function() {
 
         // @jadi-mitra
         Route::get('/akun/mitra-free', [MitraController::class, 'index_free']);
+        Route::get('/akun/mitra-premium', [MitraController::class, 'index_premium']);
+        Route::get('/akun/mitra-premium/atur-toko', [MitraController::class, 'atur_toko_premium']);
+        Route::get('/akun/mitra-premium/atur-produk', [MitraController::class, 'atur_produk_premium']);
         Route::get('/user/jadi-mitra', [UserController::class, 'jadi_mitra']);
         Route::get('/user/jadi-mitra/{jenis_mitra}', [MitraController::class, 'register']);
         Route::post('/user/jadi-mitra/{jenis_mitra}/simpan', [MitraController::class, 'simpan_mitra']);
@@ -90,7 +93,7 @@ Route::get('/toko/akun', [Toko_controller::class, 'akun']);
 // ==== produk
 Route::get('/toko/semua_produk', [Produk_controller::class, 'semua_produk']);
 Route::get('/toko/tambah_produk', [Produk_controller::class, 'tambah_produk']);
-Route::post('/toko/get_sub_kategori', [Produk_controller::class, 'get_sub_kategori'])->name('get_sub_kategori');
+Route::post('/toko/get_sub_kategori', [Produk_controller::class, 'get_sub_kategori'])->name('get_sub_kategori_');
 // ==== end produk
 // end toko
 
@@ -99,10 +102,18 @@ Route::get('/admin/manajemen/pengguna', [Admin_Manajemen_Pengguna_Controller::cl
 Route::post('/admin/ubah_password/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'ubah_password']);
 Route::get('/admin/delete/pengguna/{id}', [Admin_Manajemen_Pengguna_Controller::class, 'hapus_pengguna']);
 
-// manajemen kategori
+// manajemen kategori toko
 Route::get('/admin/manajemen/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'kategori_toko']);
 Route::get('/admin/delete/kategori_toko/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_kategori_toko']);
 Route::post('/admin/tambah/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'tambah_kategori_toko']);
 Route::post('/admin/ubah/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'ubah_kategori_toko']);
 
-
+// manajemen kategori produk
+Route::get('/admin/manajemen/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'kategori_produk']);
+Route::post('/admin/manajemen/get_sub_kategori', [Admin_Manajemen_Kategori_Controller::class, 'get_sub_kategori'])->name('get_sub_kategori');
+Route::post('/admin/ubah/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'ubah_kategori_produk']);
+Route::get('/admin/delete/kategori_produk/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_kategori_produk']);
+Route::post('/admin/ubah/sub_kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'ubah_sub_kategori_produk']);
+Route::get('/admin/delete/sub_kategori_produk/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_sub_kategori_produk']);
+Route::post('/admin/tambah/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'tambah_kategori_produk']);
+Route::post('/admin/tambah/sub_kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'tambah_sub_kategori_produk']);
