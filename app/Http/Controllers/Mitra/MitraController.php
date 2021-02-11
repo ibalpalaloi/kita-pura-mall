@@ -15,10 +15,10 @@ class MitraController extends Controller
 	//
 	
 	public function autocode($kode){
-        $timestamp = time(); 
-        $random = rand(10, 100);
-        $current_date = date('mdYs'.$random, $timestamp); 
-        return $kode.$current_date;
+		$timestamp = time(); 
+		$random = rand(10, 100);
+		$current_date = date('mdYs'.$random, $timestamp); 
+		return $kode.$current_date;
 	}
 	
 
@@ -28,38 +28,43 @@ class MitraController extends Controller
 		return view('users/user/m-mitra/index_free', ['daftar_kategori'=>$kategori]);
 	}
 
-    public function register($mitra){
+	public function index_premium(){
+		$kategori = Kategori_toko::all();
+		return view('users/user/m-mitra/index_premium', ['daftar_kategori'=>$kategori]);
+	}
+
+	public function register($mitra){
 
 		$kategori = Kategori_toko::all();
 
 		// dd($kategori);
 
-    	if ($mitra == 'free'){
+		if ($mitra == 'free'){
 
 			return view('users/user/m-mitra/register_free', ['daftar_kategori'=>$kategori]);
 			
-    	}
-    	else {
+		}
+		else {
 
 			return view('users/user/m-mitra/register_premium', ['daftar_kategori'=>$kategori]);
 			
-    	}
+		}
 	}
 	
 	public function simpan_mitra(Request $request, $jenis_mitra){
 		// dd($request->all());
 
 		$this->validate($request,[
-            'nama_pemilik' => 'required',
-            'kategori_toko' => 'required',
-            'no_hp' => 'required',
-            'jadwal_hari' => 'required',
-            'jadwal_buka' => 'required',
-            'jadwal_tutup' => 'required',
-            'alamat' => 'required',
-            'latitude' => 'required',
+			'nama_pemilik' => 'required',
+			'kategori_toko' => 'required',
+			'no_hp' => 'required',
+			'jadwal_hari' => 'required',
+			'jadwal_buka' => 'required',
+			'jadwal_tutup' => 'required',
+			'alamat' => 'required',
+			'latitude' => 'required',
 			'longitude' => 'required',			
-            'foto_toko' => 'required'
+			'foto_toko' => 'required'
 		]);
 		
 		if ($jenis_mitra == 'premium'){
@@ -71,7 +76,7 @@ class MitraController extends Controller
 		$toko_id = $this->autocode('TK-');
 
 		// @Tambah Toko
-        $toko = new toko;
+		$toko = new toko;
 		$toko->id = $toko_id;
 		$toko->user_id = Session::get('id_user');
 		$toko->jenis_mitra = $jenis_mitra;
@@ -95,7 +100,7 @@ class MitraController extends Controller
 		if ($jenis_mitra == 'premium'){
 
 			$toko->deskripsi = $request->deskripsi;
-    	}
+		}
 
 		$toko->save();
 
@@ -116,16 +121,31 @@ class MitraController extends Controller
 		return redirect('/akun');
 	}
 
-    public function register_nik(){
-    	return view('users/user/m-mitra/register_nik');
-    }
+	public function register_nik(){
+		return view('users/user/m-mitra/register_nik');
+	}
 
-    public function upload_foto(){
-    	return view('users/user/m-mitra/upload_foto');
-    } 
+	public function upload_foto(){
+		return view('users/user/m-mitra/upload_foto');
+	} 
 
-    public function pilih_lokasi(){
-    	return view('users/user/m-mitra/pilih_lokasi');
-    }
+	public function pilih_lokasi($jenis_mitra){
+		if ($jenis_mitra == 'free'){
+			return view('users/user/m-mitra/pilih_lokasi_free');
+
+		}
+		else {
+	    	return view('users/user/m-mitra/pilih_lokasi_premium');			
+		}
+	}
+
+	public function atur_toko_premium(){
+		$kategori = Kategori_toko::all();
+		return view('users/user/m-mitra/premium/atur_toko', ['daftar_kategori'=>$kategori]);
+	}
+
+	public function atur_produk_premium(){
+		return view('users/user/m-mitra/premium/atur_produk');
+	}
 
 }

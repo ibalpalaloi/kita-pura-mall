@@ -174,9 +174,9 @@
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="ui-tab.html" class="sidebar-link">
+                                    <a href="<?=url('/')?>/admin/manajemen/kategori_produk" class="sidebar-link">
                                         <i class="mdi mdi-sort-variant"></i>
-                                        <span class="hide-menu"> Tab</span>
+                                        <span class="hide-menu">Kategori Produk</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">

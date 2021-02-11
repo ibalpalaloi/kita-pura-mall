@@ -5,7 +5,6 @@ Maps |
 @endsection
 
 @section('header-scripts')
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template/admin/dist/css/style.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
 integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -71,8 +70,8 @@ crossorigin=""/>
 	}
 
 	.div-input-mall {
-		border-radius: 1.5em; border:1px solid #d1d2d4;		
-		width: 48%;
+		border-radius: 1.5em; border:1px solid white;		
+		width: 100%;
 	}
 
 	.input-group-text-mall {
@@ -87,8 +86,7 @@ crossorigin=""/>
 
 	.form-control-mall {
 		height: 3em; 
-		border-bottom-right-radius: 1.5em; 
-		border-top-right-radius: 1.5em; 
+		border-radius: 1.5em;
 		border-left: none;	
 		padding-left: 0.2em;	
 	}
@@ -138,71 +136,6 @@ if (!empty($_GET['tutup'])){
 
 ?>
 
-
-<div class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em;">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content" style="border-radius: 1.2em;">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">×</span>
-			</button>
-			<div class="modal-body">
-				<div class="detail-product" style="display: block;">
-					<div class="like-product" style="position: absolute; top: 10; right: 0; padding: 16.5em 1em 0.4em 0.5em;">
-						<div class="stroke-like-product" style="background: #fafafa; padding: 0.3em; border-radius: 1.5em;">
-							<div class="border-like-product" style="border: 2px solid #ff006e; border-radius: 1.5em; padding: 0.3em;color: #ff006e; font-size: 0.8em;">
-								<img src="<?=url('/')?>/public/img/like.svg" style="width: 1.5em;">&nbsp;1000+
-							</div>
-						</div>
-					</div>
-					<img src="<?=url('/')?>/public/img/product/product_1.jpg" >
-				</div>
-				<div>
-					<div class="nama-toko" style="font-weight: 600; font-size: 1em; margin-top: 1em;">Somay Bandung</div>
-					<div class="alamat-toko" style="font-size: 0.7em; color: #b1aeae;">Jl. RE Martadinata Kelurahan Tondo, Kecamatan Mantikulore Kota Palu</div> 
-				</div>
-				<div>
-					<div class="nama-product" style="font-weight: 600; font-size: 1em; margin-top: 0.2em;">Rating</div>
-					<div class="alamat-product" style="font-size: 0.7em;">
-						<i class="fas fa-star star-rating"></i>
-						<i class="fas fa-star star-rating"></i>
-						<i class="fas fa-star star-rating"></i>
-						<i class="fas fa-star star-rating"></i>
-						<i class="fas fa-star star-no-rating"></i>
-						&nbsp;&nbsp;<span>12 Penilaian</span>
-					</div> 
-				</div>
-				<div class="penilaian-product" style="display: flex; justify-content: flex-start; margin-top: 0.3em;">
-					<div class="nilai-product" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-						<img src="<?=url('/')?>/public/img/nilai_product/porsi_pas.svg">
-						<div class="ket-nilai-product" style="color: #b1aeae; font-size: 0.5em; font-weight: 500;">Porsi Pas</div>
-					</div>
-					<div class="nilai-product" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-						<img src="<?=url('/')?>/public/img/nilai_product/rasa_enak.svg">
-						<div class="ket-nilai-product" style="color: #b1aeae; font-size: 0.5em; font-weight: 500;">Rasa Enak</div>
-					</div>
-					<div class="nilai-product" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-						<img src="<?=url('/')?>/public/img/nilai_product/kemasan_baik.svg">
-						<div class="ket-nilai-product" style="color: #b1aeae; font-size: 0.5em; font-weight: 500;">Kemasan Baik</div>
-					</div>
-				</div>
-				<div>
-					<div class="jadwal-buka" style="font-weight: 600; font-size: 1em; margin-top: 0.2em;">Jadwal Buka</div>
-					<div class="detail-jadwal-toko" style="font-size: 0.7em; display: flex;">
-						<img src="<?=url('/')?>/public/img/nilai_product/kalender.svg" style="width: 2.5em;">
-						<div class="" style="font-size: 0.9em; margin-left: 1em;">
-							<div>Senin - Minggu</div>
-							<div>08.00 WITA - 20.00 WITA</div>
-						</div>
-					</div> 
-				</div>
-			</div>
-		</div>
-		<div class="div-call" style="position: absolute; bottom: 1; right: 0; width: 4.5em; padding: 33em 0em 0em 0em;">
-			<img src="<?=url('/')?>/public/img/nilai_product/call.svg" style="width: 100%;">
-		</div>
-	</div>
-</div>
-
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
 		<a href="<?=url('/')?>/user/jadi-mitra" style="padding-left: 1em;">
@@ -222,38 +155,60 @@ if (!empty($_GET['tutup'])){
 	<div id="mapid"></div>
 </main>
 
-<div class="footer" style="background: white;">
-	<div class="container-mall" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-bottom: 1em;">
-		<div style="display: flex; justify-content: space-between;">
-			<div class="input-group mb-3 div-input-mall" id="div_lat">
+<div class="footer" style="background: #eaf4ff;">
+	<span id="icon_loading"><img src="<?=url('/')?>/public/img/icon_svg/loading.gif" style="width: 0.8em;"></span>&nbsp;<span id="status_pencarian" style="color: black; font-size: 0.8em;">Sedang mendeteksi lokasi....</span>
+	<div class="container-mall" id="tampil_alamat" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-bottom: 1em;">
+		<div style="display: flex; width: 100%; justify-content: space-between;">
+			<div class="input-group mb-3 div-input-mall" id="div_koordinat" style="width: 80%; display: flex; justify-content: center; align-items: center; background: white;">
 				<div class="input-group-prepend">
-					<span class="input-group-text input-group-text-mall">
-						X (LAT)
+					<span class="input-group-text input-group-text-mall" style="width: 4em;">
+						<img src="<?=url('/')?>/public/img/icon_svg/location.svg">
 					</span>
 				</div>
-				<input type="text" class="form-control form-control-mall" id="latitude" name="latitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Latitude" aria-label="latitude" aria-describedby="basic-addon1">
+				<input type="text" class="form-control form-control-mall" id="koordinat" name="koordinat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="koordinat" aria-label="koordinat" aria-describedby="basic-addon1" style="font-size: 0.8em;">
 			</div>
-			<div class="input-group mb-3 div-input-mall" id="div_longitude">
-				<div class="input-group-prepend">
-					<span class="input-group-text input-group-text-mall">
-						Y (LNG)
-					</span>
-				</div>
-				<input type="text" class="form-control form-control-mall" id="longitude" name="longitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Longitude" aria-label="longitude" aria-describedby="basic-addon1">
+			<div id="btn_koordinat" style="width: 15%; border: 2px solid #ff006e; margin-bottom: 1.1em; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+				<img src="<?=url('/')?>/public/img/icon_svg/loading_pink.gif" style="width: 50%;">
+			</div>
+			<div id="btn_koordinat_ditemukan" style="width: 15%; border: 2px solid #ff006e; margin-bottom: 1.1em; border-radius: 50%; display: flex; align-items: center; justify-content: center;" hidden onclick="tampilkan_titik()">
+				<img src="<?=url('/')?>/public/img/icon_svg/maps.svg" style="width: 50%;">
 			</div>
 
 		</div>
 		<div class="input-group mb-3 div-input-mall" id="div_alamat" style="width: 100%;">
 			<div class="input-group-prepend">
 				<span class="input-group-text input-group-text-mall" style="width: 4em;">
-					<img src="<?=url('/')?>/public/img/icon_svg/location.svg">
+					<img src="<?=url('/')?>/public/img/icon_svg/home.svg">
 				</span>
 			</div>
 			<input type="text" class="form-control form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan alamat" aria-label="alamat" aria-describedby="basic-addon1" >
 		</div>
-		<button onclick="simpan_lokasi()" class="btn btn-primary" style="background: #ff006e;;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Simpan Lokasi
+		<button onclick="simpan_lokasi()" id="btn_simpan_lokasi" class="btn btn-primary" style="background: #ff006e;;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Simpan Lokasi
 		</button>
 	</div>
+	<div class="container-mall" id="tampil_titik" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-bottom: 1em;" hidden>
+		<div style="display: flex; width: 100%; justify-content: space-between;">
+			<div class="input-group mb-3 div-input-mall" id="div_latitude" style="width: 100%; display: flex; justify-content: center; align-items: center; background: white;">
+				<div class="input-group-prepend">
+					<span class="input-group-text input-group-text-mall" style="width: 4em; font-weight: 600;">
+						X
+					</span>
+				</div>
+				<input type="text" class="form-control form-control-mall" id="latitude" name="latitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Latitude" aria-label="latitude" aria-describedby="basic-addon1" style="font-size: 1em;">
+			</div>
+		</div>
+		<div class="input-group mb-3 div-input-mall" id="div_longitude" style="width: 100%; display: flex; justify-content: center; align-items: center; background: white;">
+			<div class="input-group-prepend">
+				<span class="input-group-text input-group-text-mall" style="width: 4em; font-weight: 600;">
+					Y
+				</span>
+			</div>
+			<input type="text" class="form-control form-control-mall" id="longitude" name="longitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Longitude" aria-label="longitude" aria-describedby="basic-addon1" style="font-size: 1em;">
+		</div>
+		<button onclick="simpan_koordinat()" id="btn_simpan_lokasi" class="btn btn-primary" style="background: #ff006e;;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Simpan Koordinat
+		</button>
+	</div>
+
 </div>
 @endsection
 
@@ -261,8 +216,6 @@ if (!empty($_GET['tutup'])){
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
 integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
 crossorigin=""></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script type="text/javascript" src="<?=url('/')?>/public/plugins/leaflet/js/Leaflet.AccuratePosition.js"></script>
 <script type="text/javascript">
 	var map = L.map('mapid', {attributionControl: false, zoomControl: false}).setView([-0.8479103, 119.8993065], 12);
@@ -299,8 +252,11 @@ crossorigin=""></script>
 
       current_accuracy = L.circle(e.latlng, radius).addTo(map);
       var latlng = e.latlng;
+      $("#koordinat").val(e.latlng.lat+", "+e.latlng.lng);
       $("#latitude").val(e.latlng.lat);
       $("#longitude").val(e.latlng.lng);
+
+      // $("#longitude").val();
   }
 
   function onLocationError(e) {
@@ -316,12 +272,27 @@ crossorigin=""></script>
     }
 
 
+    function tampilkan_titik(){
+    	$("#tampil_titik").prop('hidden', false);
+    	$("#tampil_alamat").prop('hidden', true);    	
+    }
+
     function onAccuratePositionProgress (e) {
-    	L.marker(e.latlng).addTo(map).bindPopup("Sedang mendeteksi lokasi.... (Akurasi :"+e.accuracy+")").openPopup();
+    	$("#icon_loading").prop('hidden', false);
+    	L.marker(e.latlng).addTo(map).bindPopup("Sedang mendeteksi lokasi....").openPopup();
+    	$("#status_pencarian").html("Sedang mendeteksi lokasi.... (Akurasi :"+e.accuracy+")");
+    	$("#btn_simpan_lokasi").prop('disabled', true);
+    	$("#btn_koordinat").prop('hidden', false);
+    	$("#btn_koordinat_ditemukan").prop('hidden', true);
     }
 
     function onAccuratePositionFound (e) {
+    	$("#icon_loading").prop('hidden', true);
     	L.marker(e.latlng).addTo(map).bindPopup("Lokasi ditemukan! (Akurasi : "+e.accuracy+")").openPopup();
+    	$("#status_pencarian").html("Lokasi ditemukan! (Akurasi :"+e.accuracy+")");
+    	$("#btn_simpan_lokasi").prop('disabled', false);
+    	$("#btn_koordinat").prop('hidden', true);
+    	$("#btn_koordinat_ditemukan").prop('hidden', false);
 
     }
 
@@ -332,7 +303,6 @@ crossorigin=""></script>
 
     cari_lokasi();
     function cari_lokasi(){
-    	locate();
     	map.on('locationfound', onLocationFound);
     	map.on('locationerror', onLocationError);
     	map.on('accuratepositionprogress', onAccuratePositionProgress);
@@ -343,6 +313,7 @@ crossorigin=""></script>
 		    maxWait: 15000, // defaults to 10000
 	    	desiredAccuracy: 30 // defaults to 20
 	    });
+    	locate();
 
     }
 
@@ -353,12 +324,11 @@ crossorigin=""></script>
 </script>
 <script type="text/javascript">
 	function input_focus(id){
-		$("#div_"+id).css('border', '1px solid #525f7f');
-
+		$("#div_"+id).css('border', '1px solid #d1d2d4');
 	}
 
 	function input_blur(id){
-		$("#div_"+id).css('border', '1px solid #d1d2d4');		
+		$("#div_"+id).css('border', '1px solid white');		
 	}
 
 	function simpan_lokasi(){
@@ -370,6 +340,12 @@ crossorigin=""></script>
 		var hari = "<?=$hari?>";
 		var status_mitra = "{{Request::segment(3)}}";
 		location.href="<?=url('/')?>/user/jadi-mitra/"+status_mitra+"?pemilik="+pemilik+"&no_hp="+no_hp+"&kategori="+kategori+"&x="+$('#latitude').val()+"&y="+$('#longitude').val()+"&alamat="+$("#alamat").val()+"&hari="+hari+"&buka="+buka+"&tutup="+tutup;
+	}
+
+	function simpan_koordinat(){
+		$("#tampil_titik").prop('hidden', true);
+		$("#tampil_alamat").prop('hidden', false);
+		$("#koordinat").val($("#latitude").val()+", "+$("#longitude").val());
 	}
 </script>
 @endsection
