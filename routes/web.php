@@ -61,6 +61,9 @@ Route::group(['middleware'=> 'auth'], function() {
 
         // @jadi-mitra
         Route::get('/akun/mitra-free', [MitraController::class, 'index_free']);
+        Route::get('/akun/mitra-premium', [MitraController::class, 'index_premium']);
+        Route::get('/akun/mitra-premium/atur-toko', [MitraController::class, 'atur_toko_premium']);
+        Route::get('/akun/mitra-premium/atur-produk', [MitraController::class, 'atur_produk_premium']);
         Route::get('/user/jadi-mitra', [UserController::class, 'jadi_mitra']);
         Route::get('/user/jadi-mitra/{jenis_mitra}', [MitraController::class, 'register']);
         Route::post('/user/jadi-mitra/{jenis_mitra}/simpan', [MitraController::class, 'simpan_mitra']);
