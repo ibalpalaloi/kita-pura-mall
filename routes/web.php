@@ -67,6 +67,7 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::get('/akun/jadi-mitra/{jenis_mitra}/pilih-lokasi', [MitraController::class, 'pilih_lokasi']);
         Route::post('/akun/jadi-mitra/{jenis_mitra}/simpan', [MitraController::class, 'simpan_mitra']);
         // @mitra free
+        Route::get('/akun/mitra/upgrade-premium', [MitraController::class, 'upgrade_premium']);
         Route::get('/akun/mitra/free', [MitraController::class, 'index_free']);
         Route::put('/akun/mitra/free/simpan-data', [MitraController::class, 'simpan_data_free']);
 

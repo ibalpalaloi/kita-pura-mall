@@ -115,6 +115,8 @@ $kategori = "";
 $buka = "";
 $tutup = "";
 $hari = "";
+$gambar_toko = "";
+$deskripsi = "";
 if (!empty($_GET['pemilik'])){
 	$pemilik = $_GET['pemilik'];
 }
@@ -133,7 +135,15 @@ if (!empty($_GET['buka'])){
 if (!empty($_GET['tutup'])){
 	$tutup = $_GET['tutup'];
 }
-
+if (!empty($_GET['tutup'])){
+	$tutup = $_GET['tutup'];
+}
+if (!empty($_GET['gambar_toko'])){
+	$gambar_toko = $_GET['gambar_toko'];
+}
+if (!empty($_GET['deskripsi'])){
+	$deskripsi = $_GET['deskripsi'];
+}
 ?>
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
@@ -331,8 +341,10 @@ crossorigin=""></script>
 		var buka = "<?=$buka?>";
 		var tutup = "<?=$tutup?>";
 		var hari = "<?=$hari?>";
+		var deskripsi = "<?=$deskripsi?>";
+		var gambar_toko = "<?=$gambar_toko?>";
 		var status_mitra = "{{Request::segment(3)}}";
-		location.href="<?=url('/')?>/user/jadi-mitra/"+status_mitra+"?pemilik="+pemilik+"&no_hp="+no_hp+"&kategori="+kategori+"&x="+$('#latitude').val()+"&y="+$('#longitude').val()+"&alamat="+$("#alamat").val()+"&hari="+hari+"&buka="+buka+"&tutup="+tutup;
+		location.href="<?=url('/')?>/akun/jadi-mitra/"+status_mitra+"?pemilik="+pemilik+"&no_hp="+no_hp+"&kategori="+kategori+"&x="+$('#latitude').val()+"&y="+$('#longitude').val()+"&alamat="+$("#alamat").val()+"&hari="+hari+"&buka="+buka+"&tutup="+tutup+"&deskripsi="+deskripsi+"&gambar_toko="+gambar_toko;
 	}
 
 	function simpan_koordinat(){

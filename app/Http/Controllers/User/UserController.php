@@ -6,20 +6,34 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Biodata;
 use App\Models\User;
+use App\Models\toko;
 use Session;
 
 class UserController extends Controller
 {
     //
 	public function index(){
-		return view('users/user/m-profil/index');
+		$toko = toko::where('user_id', Session::get('id_user'))->first();
+		if($toko){
+			if($toko->status == 'Tidak Aktif'){
+				$status_aktif_mitra = "Tidak Aktif";				
+				Session::put('status_mitra', $toko->jenis_mitra);
+			}
+			else{
+				$status_aktif_mitra = "Aktif";								
+				Session::put('status_mitra', $toko->jenis_mitra);
+			}
+		}
+		else {
+			$status_aktif_mitra = "bukan_mitra";
+			Session::put('status_mitra', "Belum jadi mitra");			
+		}
+		return view('users/user/m-profil/index', compact('status_aktif_mitra'));
 	}
 
 	public function biodata(){
 
 		$biodata = Biodata::where('user_id', Session::get('id_user'))->first();
-
-		//  
 
 		return view('users/user/m-profil/biodata', ['biodata'=>$biodata]);
 	}
@@ -30,7 +44,7 @@ class UserController extends Controller
 		$this->validate($request,[
 			'nama_lengkap' => 'required',
 			'jenis_kelamin' => 'required',
-            'alamat' => 'required',
+			'alamat' => 'required',
 			'username' => 'required'
 		]);
 		
@@ -51,10 +65,10 @@ class UserController extends Controller
 		$biodata->save();
 		
 		$notification = array(
-            'message' => 'Biodata Berhasil Diperbarui'
-         );     
+			'message' => 'Biodata Berhasil Diperbarui'
+		);     
 
-        return redirect()->back()->with($notification);
+		return redirect()->back()->with($notification);
 	}
 
 	

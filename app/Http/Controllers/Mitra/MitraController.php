@@ -24,37 +24,39 @@ class MitraController extends Controller
 
 	public function mitra(){
 
-		$toko = toko::where('user_id', Session::get('id_user'))->first();
+		// $toko = toko::where('user_id', Session::get('id_user'))->first();
+		// if($toko){
 
-		// dd($toko);
+		// 	if($toko->status == 'Tidak Aktif'){
 
-		if($toko){
+		// 		// dd($toko);
 
-			if($toko->status == 'Tidak Aktif'){
-
-				// dd($toko);
-
-				$notification = array(
-					'message' => 'Belum Terverifikasi ',
-					'jenis_mitra' => $toko->jenis_mitra
-				 );     
+		// 		$notification = array(
+		// 			'message' => 'Belum Terverifikasi ',
+		// 			'jenis_mitra' => $toko->jenis_mitra
+		// 		 );     
 		
-				return redirect()->back()->with($notification);
-			}
+		// 		return redirect()->back()->with($notification);
+		// 	}
 
-			else{
+		// 	else{
 
-				return redirect('/akun/mitra/'.$toko->jenis_mitra);
+		// 		return redirect('/akun/mitra/'.$toko->jenis_mitra);
 
-			}
+		// 	}
 
-		}
-		else{
+		// }
+		// else{
 
-			return redirect('/akun/jadi-mitra');
+		// 	return redirect('/akun/jadi-mitra');
 		
-		}
+		// }
 		 
+	}
+
+	public function upgrade_premium(){
+		$daftar_kategori = Kategori_toko::all();
+		return view('users/user/m-mitra/upgrade_premium', compact('daftar_kategori'));
 	}
 
 	public function jadi_mitra(){
@@ -139,8 +141,6 @@ class MitraController extends Controller
 			'jadwal_buka' => 'required',
 			'jadwal_tutup' => 'required',
 			'alamat' => 'required',
-			'latitude' => 'required',
-			'longitude' => 'required',			
 			'foto_toko' => 'required'
 		]);
 		
@@ -163,10 +163,7 @@ class MitraController extends Controller
 		$toko->no_hp = $request->no_hp;
 		$toko->alamat = $request->alamat;
 		$toko->kelurahan_id = "1";
-		$toko->latitude = $request->latitude;
-		$toko->longitude = $request->longitude;
 		$toko->status = "Tidak Aktif";
-
 
 		// @Tambah Foto
 		$files = $request->file("foto_toko");
@@ -175,10 +172,8 @@ class MitraController extends Controller
 		\Storage::disk('public')->put('img/toko/'.$jenis_mitra.'/'.$file_upload, file_get_contents($files));
 		$toko->foto = $file_upload;
 		if ($jenis_mitra == 'premium'){
-
 			$toko->deskripsi = $request->deskripsi;
 		}
-
 		$toko->save();
 
 		// @Tambah Jadwal
@@ -195,7 +190,7 @@ class MitraController extends Controller
 			$jadwal->save();
 		}
 		
-		return redirect('/akun');
+		return redirect('/akun?daftar_mitra=success');
 	}
 
 	public function register_nik(){
