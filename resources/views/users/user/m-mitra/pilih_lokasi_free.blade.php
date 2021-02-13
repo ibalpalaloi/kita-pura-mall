@@ -137,16 +137,9 @@ if (!empty($_GET['tutup'])){
 ?>
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
-		<a href="<?=url('/')?>/user/jadi-mitra" style="padding-left: 1em;">
-			<img src="<?=url('/')?>/public/img/back.svg">
-		</a>
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
-			<img src="<?=url('/')?>/public/img/logo_color.svg">
-			<img src="<?=url('/')?>/public/img/logo_text_color.svg">
-		</a>
+	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: flex-end;">
 		<div style="margin-right: 1em;">
-			<div class="btn btn-primary" onclick="cari_lokasi()">Cari Lokasi</div>
+			<div class="btn btn-primary" onclick="cari_lokasi()" style="background: #ff006e; border: 2px solid #ff006e;">Cari Lokasi</div>
 		</div>
 	</div>
 </header>
@@ -297,7 +290,8 @@ crossorigin=""></script>
     }
 
     function onAccuratePositionError (e) {
-    	console.log(e.message)
+    	// console.log(e.message)
+    	alert('error');
     }
 
 
@@ -339,7 +333,7 @@ crossorigin=""></script>
 		var tutup = "<?=$tutup?>";
 		var hari = "<?=$hari?>";
 		var status_mitra = "{{Request::segment(3)}}";
-		location.href="<?=url('/')?>/user/jadi-mitra/"+status_mitra+"?pemilik="+pemilik+"&no_hp="+no_hp+"&kategori="+kategori+"&x="+$('#latitude').val()+"&y="+$('#longitude').val()+"&alamat="+$("#alamat").val()+"&hari="+hari+"&buka="+buka+"&tutup="+tutup;
+		location.href="<?=url('/')?>/akun/jadi-mitra/"+status_mitra+"?pemilik="+pemilik+"&no_hp="+no_hp+"&kategori="+kategori+"&x="+$('#latitude').val()+"&y="+$('#longitude').val()+"&alamat="+$("#alamat").val()+"&hari="+hari+"&buka="+buka+"&tutup="+tutup;
 	}
 
 	function simpan_koordinat(){

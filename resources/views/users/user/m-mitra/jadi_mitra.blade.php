@@ -326,7 +326,7 @@ Biodata |
 							<div class="feature" style="color: #b3b6bc;">
 								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Preorder
 							</div>
-							<a href="<?=url('/')?>/user/jadi-mitra/free" class="btn btn-primary" style="background: #fb036b; font-size: 0.7em; margin-top: 0.5em;border: 1px solid #fb036b; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 40%;">Daftar
+							<a href="<?=url('/')?>/akun/jadi-mitra/free" class="btn btn-primary" style="background: #fb036b; font-size: 0.7em; margin-top: 0.5em;border: 1px solid #fb036b; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 40%;">Daftar
 							</a>
 						</div>
 					</div>
@@ -356,7 +356,7 @@ Biodata |
 							<div class="feature">
 								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Preorder
 							</div>
-							<a href="<?=url('/')?>/user/jadi-mitra/premium" class="btn btn-primary" style="background: #ffaa00; font-size: 0.7em; margin-top: 0.5em;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 40%;">Daftar
+							<a href="<?=url('/')?>/akun/jadi-mitra/premium" class="btn btn-primary" style="background: #ffaa00; font-size: 0.7em; margin-top: 0.5em;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 40%;">Daftar
 							</a>
 						</div>
 					</div>

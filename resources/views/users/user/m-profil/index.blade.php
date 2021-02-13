@@ -42,6 +42,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 	.card-mall a {
 		color: black;
+		text-decoration: none !important;
 	}
 
 	.kategori {
@@ -63,7 +64,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 @section('content')
 
-@if(Session::has('message'))
+@if ($status_aktif_mitra == 'Tidak Aktif')
 <div class="modal fade" id="modal-verifikasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
 		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; box-shadow: none; border: none;">
@@ -73,7 +74,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 						<img src="<?=url('/')?>/public/img/mitra/waiting.svg" style="width: 100%; margin-left: 0.7em; margin-bottom: 0em;">
 						<h3 style="margin-top: 0em; color: white;">Berhasil!</h3>
 						<div style="text-align: center; font-size: 0.8em; line-height: 1.2em; color: white;">data toko anda berhasil dikirimkan.<br>mohon tunggu verifikasi dari<br>tim kitapuramall</div>
-						<a href="<?=url('/')?>/akun/mitra/{{Session::get('jenis_mitra')}}" style="color: white; background: #ffaa00; padding: 0.3em 0em 0.5em 0em; width: 50%; margin-top: 0.8em; border-radius: 2em; text-align: center; font-weight: 600;">Ubah data ?</a>
+						<a href="<?=url('/')?>/akun/mitra/{{Session::get('status_mitra')}}" style="color: white; background: #ffaa00; padding: 0.3em 0em 0.5em 0em; width: 50%; margin-top: 0.8em; border-radius: 2em; text-align: center; font-weight: 600;">Ubah data ?</a>
 					</div>
 					<img src="<?=url('/')?>/public/img/mitra/bg-waiting.svg" style="width: 100%;">
 				</div>
@@ -99,6 +100,9 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		<div style="display: flex; justify-content: center; flex-direction: row; align-items: center;">
 			<div style="width: 25%; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; ">
 				<img src="<?=url('/')?>/public/img/user/lengkapi_berkas.png" style="width: 100%;">
+				@if (Session::get('status_mitra') != 'Belum jadi mitra')
+				<div style="font-size: 0.6em; background: #ff006e; color: white; padding: 0.3em 1.5em 0.3em 1.5em; border-radius:2em; position: absolute; bottom: 1.5em;">Mitra {{ucfirst(Session::get('status_mitra'))}}</div>
+				@endif
 			</div>
 			<div style="width: 63%; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 2%;">
 				<div class="container">
@@ -126,10 +130,29 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	</div>
 	<div class="card-mall">
 		<div style="padding: 1.5em 2em 1.5em 2em;">
-			<a href="<?=url('/')?>/akun/mitra">
+			@if ($status_aktif_mitra == 'bukan_mitra')
+			<a href="<?=url('/')?>/akun/jadi-mitra">
 				<span><img src="<?=url('/')?>/public/img/user/mitra.svg"></span>
 				<span>&nbsp;&nbsp;&nbsp;Mitra Kitapura</span>
 			</a>
+			@elseif ($status_aktif_mitra == "Tidak Aktif")
+			<div onclick="verifikasi()" style="cursor: pointer;">
+				<span><img src="<?=url('/')?>/public/img/user/mitra.svg"></span>
+				<span>&nbsp;&nbsp;&nbsp;Mitra Kitapura</span>
+			</div>
+			@else
+			@if (Session::get('status_mitra') == 'free')
+			<a href="<?=url('/')?>/akun/mitra/free">
+				<span><img src="<?=url('/')?>/public/img/user/mitra.svg"></span>
+				<span>&nbsp;&nbsp;&nbsp;Mitra Kitapura</span>
+			</a>
+			@elseif (Session::get('status_mitra') == 'premium')
+			<a href="<?=url('/')?>/akun/mitra/premium">
+				<span><img src="<?=url('/')?>/public/img/user/mitra.svg"></span>
+				<span>&nbsp;&nbsp;&nbsp;Mitra Kitapura</span>
+			</a>
+			@endif					
+			@endif
 		</div>
 	</div>
 	<div class="card-mall">
@@ -151,9 +174,9 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 </script>
 <script type="text/javascript">
 
-	@if(Session::has('message'))
-	    $('#modal-verifikasi').modal('show')
-    @endif
+	function verifikasi(){
+		$('#modal-verifikasi').modal('show');
+	}
 </script>
 
 @endsection

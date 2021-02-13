@@ -5,6 +5,8 @@
 @endsection
 
 @section('header-scripts')
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <style type="text/css">
 	.banner {
@@ -366,7 +368,7 @@ if (!empty($_GET['hari'])){
 
 @if(Session::has('message'))
     <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-        aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
         <div class="modal-dialog modal-sm modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body text-center font-weight-bold py-3">
@@ -382,7 +384,7 @@ if (!empty($_GET['hari'])){
             <!-- /.modal-dialog -->
         </div>
     </div>
-    @endif
+@endif
 
 @endsection
 
