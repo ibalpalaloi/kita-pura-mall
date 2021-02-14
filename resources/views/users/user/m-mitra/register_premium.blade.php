@@ -275,7 +275,7 @@
 		</div>
 	</div>
 </header>
-<form enctype="multipart/form-data" action="<?=url('/')?>/user/jadi-mitra/{{Request::segment(3)}}/simpan" method="post">
+<form enctype="multipart/form-data" action="<?=url('/')?>/akun/jadi-mitra/{{Request::segment(3)}}/simpan" method="post">
 	{{csrf_field()}}
 	<div class="wrapper" style="background: #eaf4ff; position: relative; z-index: 2; top: -2.5em;">
 		<div class="banner" style="position: relative;">
@@ -369,6 +369,26 @@
 
 		</div>
 	</div>
+	@if(Session::has('message'))
+    <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center font-weight-bold py-3">
+                    {{Session::get('message')}}
+                    <div class="row mt-2 p-2">
+                        <button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
+                            data-dismiss="modal">Tutup</button>
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+	@endif
+
 </main>
 </form>
 
@@ -377,6 +397,10 @@
 @section('footer-scripts')
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script type="text/javascript">
+
+	@if(Session::has('message'))
+		$('#modal-pemberitahuan').modal('show')
+	@endif
 
 	$("input[required], select[required]").attr("oninvalid",
 		"this.setCustomValidity('Harap Dimasukkan')");

@@ -66,16 +66,35 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::get('/akun/jadi-mitra/{jenis_mitra}', [MitraController::class, 'register']);
         Route::get('/akun/jadi-mitra/{jenis_mitra}/pilih-lokasi', [MitraController::class, 'pilih_lokasi']);
         Route::post('/akun/jadi-mitra/{jenis_mitra}/simpan', [MitraController::class, 'simpan_mitra']);
-        // @mitra free
-        Route::get('/akun/mitra/upgrade-premium', [MitraController::class, 'upgrade_premium']);
-        Route::get('/akun/mitra/free', [MitraController::class, 'index_free']);
-        Route::put('/akun/mitra/free/simpan-data', [MitraController::class, 'simpan_data_free']);
 
 
-        // @mitra premium 
-        Route::get('/akun/mitra/premium', [MitraController::class, 'index_premium']);
-        Route::get('/akun/mitra/premium/atur-toko', [MitraController::class, 'atur_toko_premium']);
-        Route::get('/akun/mitra/premium/atur-produk', [MitraController::class, 'atur_produk_premium']);
+        Route::group(['middleware'=> 'free'], function() {
+
+            // @mitra free
+            Route::get('/akun/mitra/free', [MitraController::class, 'index_free']);
+            Route::put('/akun/mitra/free/simpan', [MitraController::class, 'simpan_data_free']);
+            Route::get('/akun/mitra/free/upgrade-premium', [MitraController::class, 'upgrade_premium']);
+            Route::put('/akun/mitra/free/upgrade-premium/simpan', [MitraController::class, 'simpan_upgrade_premium']);
+
+        });
+
+        Route::group(['middleware'=> 'premium'], function() {
+
+                // @mitra premium 
+            Route::get('/akun/mitra/premium', [MitraController::class, 'index_premium']);
+            Route::put('/akun/mitra/premium/simpan', [MitraController::class, 'simpan_data_premium']);
+            Route::get('/akun/mitra/premium/atur-toko', [MitraController::class, 'atur_toko_premium']);
+            Route::get('/akun/mitra/premium/atur-produk', [MitraController::class, 'atur_produk_premium']);
+            Route::post('/akun/mitra/premium/atur-produk/simpan', [MitraController::class, 'simpan_atur_produk_premium']);
+            Route::put('/akun/mitra/premium/atur-produk/update', [MitraController::class, 'update_atur_produk_premium']);
+            Route::put('/akun/mitra/premium/atur-produk/hapus', [MitraController::class, 'hapus_atur_produk_premium']);
+
+
+
+
+
+        });
+
 
 
         Route::get('/user/jadi-mitra/{jenis_mitra}/register_nik', [MitraController::class, 'register_nik']);
