@@ -7,6 +7,7 @@ use App\Http\Controllers\toko_controller\Toko_controller;
 use App\Http\Controllers\toko_controller\Produk_controller;
 use App\Http\Controllers\Admin\Admin_Manajemen_Pengguna_Controller;
 use App\Http\Controllers\Admin\Admin_Manajemen_Kategori_Controller;
+use App\Http\Controllers\Admin\Admin_Manajemen_Toko_Controller;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Mitra\MitraController;
 /*
@@ -144,3 +145,8 @@ Route::post('/admin/ubah/sub_kategori_produk', [Admin_Manajemen_Kategori_Control
 Route::get('/admin/delete/sub_kategori_produk/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_sub_kategori_produk']);
 Route::post('/admin/tambah/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'tambah_kategori_produk']);
 Route::post('/admin/tambah/sub_kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'tambah_sub_kategori_produk']);
+
+// manajemen toko
+Route::get('/admin/manajemen/toko', [Admin_Manajemen_Toko_Controller::class, 'index']);
+Route::get('/admin/manajemen/daftar_tunggu_toko', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko']);
+Route::get('/admin/manajemen/daftar_tunggu_toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko_detail']);
