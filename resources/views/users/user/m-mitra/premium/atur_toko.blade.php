@@ -413,11 +413,14 @@ if (!empty($_GET['deskripsi'])){
 
 
 <main id="homepage" class="homepage" style="padding-top: 4em; background: #eaf4ff;">
+	<form enctype="multipart/form-data" action="<?=url('/')?>/akun/mitra/{{$toko->jenis_mitra}}/simpan" method="post">
+	{{csrf_field()}}
+	{{method_field('PUT')}}
 	<div style="display: flex; justify-content: center;">
 		<div style="width: 90%; margin-top: 2em; display: flex; flex-direction: column; align-items: center;">
 			<div class="mb-4" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
 				<div id="div_pic_toko_privew" style="position: relative; padding: auto 0; display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 9rem; height: 9rem; border: 2px solid #b3b6bc;">
-					<img id="pic_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
+					<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/{{$toko->jenis_mitra}}/{{$toko->foto}}" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
 					<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_yellow.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 0px; bottom: 0px;">
 				</div>
 				<div style="font-weight: 600; color: black; font-size: 1.3em; margin-top: 0.5em;">Logo Toko</div>
@@ -430,7 +433,7 @@ if (!empty($_GET['deskripsi'])){
 					<span class="input-group-text-mall">
 						<img src="<?=url('/')?>/public/img/icon_svg/people.svg" style="width: 100%;">
 					</span>
-					<input type="text" class="form-control-mall" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" value="{{$pemilik}}" style="width: 100%;" required>
+					<input type="text" class="form-control-mall" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" style="width: 100%;" value="{{$toko->nama_pemilik}}" required>
 				</div>
 			</div>
 			<div class="input-group mb-3 div-input-mall" id="div_kategori">
@@ -442,87 +445,97 @@ if (!empty($_GET['deskripsi'])){
 					<select type="text" class="form-control-mall" id="kategori_toko" name="kategori_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;" value="{{$kategori}}" required>
 						<option value="" disabled selected>--- Pilih Kategori Toko ---</option>
 						@foreach($daftar_kategori as $row)
-						<option value="{{$row->id}}" @if($kategori==$row->id ) selected='selected' @endif>{{$row->kategori}}
+						<option value="{{$row->id}}" @if($toko->kategori_id==$row->id ) selected='selected' @endif>{{$row->kategori}}
 						</option>
 						@endforeach
 					</select>
 				</div>
 			</div>
 			<div class="input-group mb-3 div-input-mall" id="div_no_hp">
-				<span>Nomor Handphone Toko</span>
-				<div>
-					<span class="input-group-text-mall">
-						<img src="<?=url('/')?>/public/img/icon_svg/handphone.svg" style="width: 100%;">
-					</span>
-					<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor hp toko" aria-label="Nomor Handphone Toko" aria-describedby="basic-addon1" value="{{$no_hp}}" style="width: 100%;" required>
+					<span>Nomor Handphone Toko</span>
+					<div>
+						<span class="input-group-text-mall">
+							<img src="<?=url('/')?>/public/img/icon_svg/handphone.svg" style="width: 100%;">
+						</span>
+						<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor hp toko" aria-label="Nomor Handphone Toko" aria-describedby="basic-addon1" style="width: 100%;" value="{{$toko->no_hp}}" required>
+					</div>
 				</div>
-			</div>
-			<div class="input-group mb-3 div-input-mall" id="div_jadwal">
-				<span>Jadwal Buka Tutup Toko</span>
-				<div>
-					<span class="input-group-text-mall">
-						<img src="<?=url('/')?>/public/img/icon_svg/calender.svg" style="width: 100%;">
-					</span>
-					<div onclick="pilih_jadwal()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; margin-left: 0.4em; " id="pilih_jadwal_buka_toko">Pilih Jadwal Toko</div>
+				<div class="input-group mb-3 div-input-mall" id="div_jadwal">
+					<span>Jadwal Buka Tutup Toko</span>
+					<div>
+						<span class="input-group-text-mall">
+							<img src="<?=url('/')?>/public/img/icon_svg/calender.svg" style="width: 100%;">
+						</span>
+						<div onclick="pilih_jadwal()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; margin-left: 0.4em; " id="pilih_jadwal_buka_toko">Pilih Jadwal Toko</div>
+
+					</div>
 				</div>
-			</div>
-			<div>
-				<input type="hidden" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
-				<input type="hidden" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
-				<input type="hidden" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
-			</div>
-			<?php
-			if ( (($latitude == null) || ($latitude == '')) && (($longitude == null) || ($longitude == '')) && (($latitude == null) || ($latitude == ''))){
-				?>
-				<div class="input-group mb-3 div-input-mall" id="div_lokasi">
+				<div>
+
+				@foreach($jadwal as $row)
+					@if($loop->first)
+						@php
+							$hari .= $row->hari;
+							$buka .= $row->jam_buka;
+							$tutup .= $row->jam_tutup;
+						@endphp
+					@else
+						@php
+							$hari .= '~'.$row->hari;
+							$buka .= '~'.$row->jam_buka;
+							$tutup .= '~'.$row->jam_tutup;
+						@endphp
+					@endif
+				@endforeach
+
+
+					<input type="text" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
+					<input type="text" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
+					<input type="text" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
+				</div>
+				<div class="input-group mb-3 div-input-mall" id="div_alamat">
 					<span>Alamat Toko</span>
 					<div>
 						<span class="input-group-text-mall">
 							<img src="<?=url('/')?>/public/img/icon_svg/home.svg" style="width: 100%;">
 						</span>
-						<div onclick="pilih_lokasi()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; margin-left: 0.4em;" id="pilih_jadwal_buka_toko">Pilih Lokasi Toko</div>
-					</div>
-				</div>
-				<?php 
-			} else {
-				?>
-				<div class="input-group mb-1 div-input-mall" id="div_alamat">
-					<span>Alamat Toko</span>
-					<div>
-						<span class="input-group-text-mall">
-							<img src="<?=url('/')?>/public/img/icon_svg/home.svg" style="width: 100%;">
-						</span>
-						<input type="text" class="form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" value="{{$alamat}}" style="width: 100%;">
+						<input type="text" class="form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" style="width: 100%;" value="{{$toko->alamat}}">
 
 					</div>
 				</div>
-				<div style="display: flex; justify-content: space-between;">
-					<div class="input-group mb-1 div-input-mall" id="div_latitude" style="width: 48%;">
-						<span>Latitude</span>
-						<div>
-							<input type="text" class="form-control-mall" id="latitude" name="latitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Latitude" aria-label="latitude" aria-describedby="basic-addon1" value="{{$latitude}}" style="width: 100%; border-radius: 1.5em;">
-						</div>
-					</div>
-					<div class="input-group mb-1 div-input-mall" id="div_longitude" style="width: 48%;">
-						<span>Longitude</span>
-						<div>
-
-							<input type="text" class="form-control-mall" id="longitude" name="longitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Longitude" aria-label="longitude" aria-describedby="basic-addon1" value="{{$longitude}}" style="width: 100%; border-radius: 1.5em;">
-						</div>
-					</div>
-				</div>
-				<small onclick="pilih_lokasi()" style="cursor: pointer;">Ganti Lokasi</small>
-				<?php 
-			}
-			?>					
 			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="height: 20em; justify-content: flex-start;">
 				<span style="margin-top: 0px;">Deskripsi</span>
 				<div style="height: 15em; width: 100%;">
-					<textarea class="form-control-mall" id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 15em; border-radius: 0px; margin: 0.6em;" rows="8" required>{{$deskripsi}}</textarea>
+					<textarea class="form-control-mall" id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 15em; border-radius: 0px; margin: 0.6em;" rows="8" required>{{$toko->deskripsi}}</textarea>
 				</div>
-			</div>		
+			</div>	
+			<button type="submit" class="btn btn-primary" style="background: #ffaa00; margin-top: 0.5em;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Simpan
+			</button>	
 		</div>
 	</div>
+	</form>
+
+	@if(Session::has('message'))
+    <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center font-weight-bold py-3">
+                    {{Session::get('message')}}
+                    <div class="row mt-2 p-2">
+                        <button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
+                            data-dismiss="modal">Tutup</button>
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+	@endif
+
+
 </main>
 
 @endsection
@@ -532,6 +545,10 @@ if (!empty($_GET['deskripsi'])){
 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
 <script type="text/javascript">
+
+	@if(Session::has('message'))
+		$('#modal-pemberitahuan').modal('show')
+	@endif
 
 	var i = 0;
 	var jadwal_hari = [];

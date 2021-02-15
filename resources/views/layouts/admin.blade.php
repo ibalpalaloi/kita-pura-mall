@@ -180,9 +180,9 @@
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="ui-tooltip-popover.html" class="sidebar-link">
+                                    <a href="<?=url('/')?>/admin/manajemen/toko" class="sidebar-link">
                                         <i class="mdi mdi-image-filter-vintage"></i>
-                                        <span class="hide-menu"> Tooltip &amp; Popover</span>
+                                        <span class="hide-menu">Manajemen Toko</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">

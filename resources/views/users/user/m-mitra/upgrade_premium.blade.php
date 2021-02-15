@@ -206,6 +206,13 @@
 
 @section('content')
 
+@php
+$buka = "";
+$tutup = "";
+$hari = "";
+
+@endphp
+
 <div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
 		<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
@@ -275,8 +282,9 @@
 		</div>
 	</div>
 </header>
-<form enctype="multipart/form-data" action="<?=url('/')?>/user/jadi-mitra/{{Request::segment(3)}}/simpan" method="post">
+<form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post">
 	{{csrf_field()}}
+	{{method_field('PUT')}}
 	<div class="wrapper" style="background: #eaf4ff; position: relative; z-index: 2; top: -2.5em;">
 		<div class="banner" style="position: relative;">
 			<img src="<?=url('/')?>/public/img/mitra/cover_premium.svg" style="width: 100%;">
@@ -304,7 +312,7 @@
 						<span class="input-group-text-mall">
 							<img src="<?=url('/')?>/public/img/icon_svg/people.svg" style="width: 100%;">
 						</span>
-						<input type="text" class="form-control-mall" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" style="width: 100%;" required>
+						<input type="text" class="form-control-mall" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" style="width: 100%;" value="{{$toko->nama_pemilik}}" required>
 					</div>
 				</div>
 				<div class="input-group mb-3 div-input-mall" id="div_kategori">
@@ -315,9 +323,10 @@
 						</span>
 						<select type="text" class="form-control-mall" id="kategori_toko" name="kategori_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;"  required>
 							<option value="" disabled selected>Pilih Kategori Toko</option>
-							@foreach($daftar_kategori as $row)
-							<option value="{{$row->id}}">{{$row->kategori}}</option>
-							@endforeach
+						@foreach($daftar_kategori as $row)
+							<option value="{{$row->id}}" @if($toko->kategori_id == $row->id ) selected='selected' @endif>{{$row->kategori}}
+							</option>
+						@endforeach
 						</select>
 					</div>
 				</div>
@@ -327,7 +336,7 @@
 						<span class="input-group-text-mall">
 							<img src="<?=url('/')?>/public/img/icon_svg/handphone.svg" style="width: 100%;">
 						</span>
-						<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor hp toko" aria-label="Nomor Handphone Toko" aria-describedby="basic-addon1" style="width: 100%;" required>
+						<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor hp toko" aria-label="Nomor Handphone Toko" aria-describedby="basic-addon1" style="width: 100%;" value="{{$toko->no_hp}}" required>
 					</div>
 				</div>
 				<div class="input-group mb-3 div-input-mall" id="div_jadwal">
@@ -341,9 +350,27 @@
 					</div>
 				</div>
 				<div>
-					<input type="hidden" name="jadwal_hari" id="jadwal_hari">
-					<input type="hidden" name="jadwal_buka" id="jadwal_buka">
-					<input type="hidden" name="jadwal_tutup" id="jadwal_tutup">
+
+				@foreach($jadwal as $row)
+					@if($loop->first)
+						@php
+							$hari .= $row->hari;
+							$buka .= $row->jam_buka;
+							$tutup .= $row->jam_tutup;
+						@endphp
+					@else
+						@php
+							$hari .= '~'.$row->hari;
+							$buka .= '~'.$row->jam_buka;
+							$tutup .= '~'.$row->jam_tutup;
+						@endphp
+					@endif
+				@endforeach
+
+
+					<input type="text" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
+					<input type="text" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
+					<input type="text" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
 				</div>
 				<div class="input-group mb-3 div-input-mall" id="div_alamat">
 					<span>Alamat Toko</span>
@@ -351,24 +378,47 @@
 						<span class="input-group-text-mall">
 							<img src="<?=url('/')?>/public/img/icon_svg/home.svg" style="width: 100%;">
 						</span>
-						<input type="text" class="form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" style="width: 100%;">
+						<input type="text" class="form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" style="width: 100%;" value="{{$toko->alamat}}">
 
 					</div>
 				</div>
 				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="height: 20em; justify-content: flex-start;">
 					<span style="margin-top: 0px;">Deskripsi</span>
 					<div style="height: 15em; width: 100%;">
-						<textarea class="form-control-mall" id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 15em; border-radius: 0px; margin: 0.6em;" rows="8" required></textarea>
+						<textarea class="form-control-mall" id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 15em; border-radius: 0px; margin: 0.6em;" rows="8" required>{{$toko->deskripsi}}</textarea>
 					</div>
 				</div>		
-
-
 			</div>
 			<button type="submit" class="btn btn-primary" style="background: #ffaa00; margin-top: 0.5em;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Simpan
 			</button>
 
 		</div>
 	</div>
+
+	@if ($errors->any())
+    <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center font-weight-bold py-3">
+				@if($errors->first('foto_toko'))
+				Harus memasukkan logo toko
+				@else
+				Semua form harus diisi
+				@endif
+                    <div class="row mt-2 p-2">
+                        <button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
+                            data-dismiss="modal">Tutup</button>
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+	@endif
+
 </main>
 </form>
 
