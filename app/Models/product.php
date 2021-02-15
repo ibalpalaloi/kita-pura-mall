@@ -9,4 +9,7 @@ class product extends Model
 {
     use HasFactory;
     protected $table = 'product';
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
+    public $incrementing = false;
 }
