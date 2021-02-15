@@ -15,7 +15,7 @@
 	}
 
 	.class {
-		asfasf
+		
 	}
 
 	.header {
