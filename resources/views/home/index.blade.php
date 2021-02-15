@@ -11,6 +11,11 @@
 		width: 100%;
 		margin: 0px auto;
 		padding: 4em 0em 4em 0em;
+
+	}
+
+	.class {
+		asfasf
 	}
 
 	.header {
