@@ -63,6 +63,12 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 @endsection
 
 @section('content')
+<?php
+	$daftar_mitra = "";
+	if (!empty($_GET['daftar_mitra'])){
+		$daftar_mitra = $_GET['daftar_mitra'];
+	}
+?>
 
 @if ($status_aktif_mitra == 'Tidak Aktif')
 <div class="modal fade" id="modal-verifikasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
@@ -177,6 +183,10 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	function verifikasi(){
 		$('#modal-verifikasi').modal('show');
 	}
+
+	@if ($daftar_mitra == 'success')
+		$('#modal-verifikasi').modal('show');
+	@endif	
 </script>
 
 @endsection
