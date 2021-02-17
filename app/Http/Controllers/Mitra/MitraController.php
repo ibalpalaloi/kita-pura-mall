@@ -284,7 +284,7 @@ class MitraController extends Controller
 		$notification = array(
 			'message' => 'Belum Terverifikasi',
 			'jenis_mitra' => 'premium'
-		 );     
+		);     
 
 		return redirect('/akun')->with($notification);
 	}
@@ -305,12 +305,15 @@ class MitraController extends Controller
 
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 
-		if($toko->status == "Tidak Aktif"){
+		$toko = toko::where('user_id', Session::get('id_user'))->first();
 
+
+		if($toko->status == "Belum lengkap"){
+			return view('users/user/m-mitra/register_nik');
+		}
+		else if ($toko->status == 'Tidak Aktif'){
 			$daftar_kategori = Kategori_toko::all();
-
 			$jadwal = Jadwal_toko::where('toko_id', $toko->id)->get();
-
 			return view('users/user/m-mitra/upgrade_premium', compact('daftar_kategori','toko','jadwal'));
 		}
 		else{
@@ -322,7 +325,7 @@ class MitraController extends Controller
 	public function simpan_data_premium(Request $request){
 
 		// dd($request->all());
-	
+
 		$this->validate($request,[
 			'nama_pemilik' => 'required',
 			'kategori_toko' => 'required',
@@ -336,7 +339,7 @@ class MitraController extends Controller
 
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 		$toko->nama_pemilik = $request->nama_pemilik;
-		$toko->kategori_id = $request->kategori_toko;
+		$toko->kategori_toko_id = $request->kategori_toko;
 		$toko->no_hp = $request->no_hp;
 		$toko->alamat = $request->alamat;
 		$toko->deskripsi = $request->deskripsi;
@@ -376,7 +379,7 @@ class MitraController extends Controller
 			$notification = array(
 				'message' => 'Belum Terverifikasi',
 				'jenis_mitra' => 'premium'
-			 );     
+			);     
 
 			return redirect('/akun')->with($notification);
 		}
@@ -475,7 +478,6 @@ class MitraController extends Controller
 
 
 
-
 	public function register_nik(){
 		return view('users/user/m-mitra/register_nik');
 	}
@@ -485,6 +487,8 @@ class MitraController extends Controller
 	} 
 
 	
+
+
 
 
 

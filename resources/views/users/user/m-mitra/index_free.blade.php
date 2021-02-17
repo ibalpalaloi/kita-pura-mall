@@ -234,43 +234,9 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 @section('content')
 <?php
-$pemilik = "";
-$no_hp = "";
-$kategori = "";
-$latitude = "";
-$longitude = "";
-$alamat = "";
 $buka = "";
 $tutup = "";
 $hari = "";
-if (!empty($_GET['pemilik'])){
-	$pemilik = $_GET['pemilik'];
-}
-if (!empty($_GET['no_hp'])){
-	$no_hp = $_GET['no_hp'];
-}
-if (!empty($_GET['kategori'])){
-	$kategori = $_GET['kategori'];
-}
-
-if (!empty($_GET['x'])){
-	$latitude = $_GET['x'];
-}
-if (!empty($_GET['y'])){
-	$longitude = $_GET['y'];
-}
-if (!empty($_GET['alamat'])){
-	$alamat = $_GET['alamat'];
-}
-if (!empty($_GET['buka'])){
-	$buka= $_GET['buka'];
-}
-if (!empty($_GET['tutup'])){
-	$tutup = $_GET['tutup'];
-}
-if (!empty($_GET['hari'])){
-	$hari = $_GET['hari'];
-}
 
 ?>
 <div class="modal fade" id="modal-upgrade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
@@ -319,9 +285,25 @@ if (!empty($_GET['hari'])){
 				</div>
 			</div>
 			<div id="jadwal_fix" style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				@foreach($jadwal as $row)
+					@if($loop->first)
+						@php
+							$hari .= $row->hari;
+							$buka .= $row->jam_buka;
+							$tutup .= $row->jam_tutup;
+						@endphp
+					@else
+						@php
+							$hari .= '~'.$row->hari;
+							$buka .= '~'.$row->jam_buka;
+							$tutup .= '~'.$row->jam_tutup;
+						@endphp
+					@endif
+				@endforeach
+
 				@php
 				$var_value = array("SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M");
-				$var_text = array("Setiap Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu",
+				$var_text = array("Setiap-Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu",
 				"Kamis","Jumat", "Sabtu", "Minggu");
 				@endphp
 				<?php 
@@ -333,7 +315,7 @@ if (!empty($_GET['hari'])){
 					@if ($loop_hari[0] != "")
 					<div class="input-group mb-3 div-input-mall-square" id="{{str_replace(' ', '_', $loop_hari[$i])}}" style="width: 90%; background: white; border: 1px solid white;">
 						<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
-							<div style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em;">
+							<div style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
 								@for ($j = 0; $j < count($var_text); $j++) 
 								@if ($var_text[$j]==$loop_hari[$i])
 								{{$var_value[$j]}} 
@@ -345,8 +327,7 @@ if (!empty($_GET['hari'])){
 							<div style="margin-top: 0.5em; font-weight: 700; text-align: left;">
 								{{$loop_hari[$i]}}
 							</div>
-							<div style="font-size: 0.7em; text-align: left;">{{$loop_buka[$i]}} -
-							{{$loop_tutup[$i]}}</div>
+							<div style="font-size: 0.7em; text-align: left;">{{$loop_buka[$i]}} - {{$loop_tutup[$i]}}</div>
 						</div>
 						<div onclick='hapus_jadwal("{{$loop_hari[$i]}}")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
 							X
@@ -374,8 +355,6 @@ if (!empty($_GET['hari'])){
 				<select type="text" class="form-control form-control-mall-modal" id="jadwal" name="jadwal" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="jadwal" aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
 					<option disabled selected>--- Silahkan Pilih Hari ---</option>
 					@if(@jadwal)
-
-					@else
 						@for ($i = 0; $i < count($var_text); $i++)
 						@php $indikator = false; @endphp
 						@for ($j = 0; $j < count($loop_hari); $j++)
@@ -479,23 +458,7 @@ if (!empty($_GET['hari'])){
 					<div onclick="pilih_jadwal()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; margin-left: 0.4em; " id="pilih_jadwal_buka_toko">Pilih Jadwal Toko</div>
 				</div>
 			</div>
-			<div>
-
-				@foreach($jadwal as $row)
-					@if($loop->first)
-						@php
-							$hari .= $row->hari;
-							$buka .= $row->jam_buka;
-							$tutup .= $row->jam_tutup;
-						@endphp
-					@else
-						@php
-							$hari .= '~'.$row->hari;
-							$buka .= '~'.$row->jam_buka;
-							$tutup .= '~'.$row->jam_tutup;
-						@endphp
-					@endif
-				@endforeach
+			<div hidden>
 				<input type="text" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
 				<input type="text" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
 				<input type="text" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
@@ -556,6 +519,8 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 </script>
 <script type="text/javascript">
 
+
+
 	@if(Session::has('message'))
 			$('#modal-pemberitahuan').modal('show')
 	@endif
@@ -571,6 +536,13 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	var jadwal_buka = [];
 	var jadwal_tutup = [];
 
+	<?php for ($i = 0; $i < count($loop_hari); $i++){?>
+		@if ($loop_hari[0] != "")
+		jadwal_hari.push("<?=$loop_hari[$i]?>");
+		jadwal_buka.push("<?=$loop_buka[$i]?>");
+		jadwal_tutup.push("<?=$loop_tutup[$i]?>");
+		@endif
+	<?php } ?>
 	function input_focus(id) {
 		$("#div_" + id).css('border', '1px solid #d1d2d4');
 	}
@@ -629,7 +601,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 	function check_select() {
 		var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
-		var option_text = ["Setiap Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis", "Jumat",
+		var option_text = ["Setiap-Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis", "Jumat",
 		"Sabtu", "Minggu"
 		];
 		var option = "<option disabled selected>--- Silahkan Pilih Hari ---</option>";
@@ -653,7 +625,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$("#jadwal_tutup").val(string_tutup.replaceAll(",", "~"));
 
 		if ($("#jadwal_hari").val() == '') {
-			$("#pilih_jadwal_buka_toko").html("Pilih Jadwal Buka Tutup Toko");
+			$("#pilih_jadwal_buka_toko").html("Pilih Jadwal Toko");
 		} else {
 			$("#pilih_jadwal_buka_toko").html("Telah memilih Jadwal");
 		}

@@ -13,8 +13,10 @@
         body {
           font-family: 'Roboto', sans-serif;
       }
-  </style>
-  @yield('header-scripts')
+
+
+    </style>
+@yield('header-scripts')
 </head>
 
 <body style="background: #eaf4ff !important;">
