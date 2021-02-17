@@ -62,6 +62,7 @@ Route::group(['middleware'=> 'auth'], function() {
 
         // @mitra
         Route::get('/akun/mitra', [MitraController::class, 'mitra']);
+        
         // @belum jadi mitra
         Route::get('/akun/jadi-mitra', [MitraController::class, 'jadi_mitra']);
         Route::get('/akun/jadi-mitra/{jenis_mitra}', [MitraController::class, 'register']);
