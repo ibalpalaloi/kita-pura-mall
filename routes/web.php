@@ -86,6 +86,8 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::get('/akun/mitra/premium', [MitraController::class, 'index_premium']);
             Route::put('/akun/mitra/premium/simpan', [MitraController::class, 'simpan_data_premium']);
             Route::get('/akun/mitra/premium/atur-toko', [MitraController::class, 'atur_toko_premium']);
+            Route::get('/akun/mitra/premium/tambah-produk', [MitraController::class, 'daftar_produk_premium']);
+            Route::get('/akun/mitra/premium/tambah-produk/add', [MitraController::class, 'tambah_produk_premium']);
             Route::get('/akun/mitra/premium/atur-produk', [MitraController::class, 'atur_produk_premium']);
             Route::post('/akun/mitra/premium/atur-produk/simpan', [MitraController::class, 'simpan_atur_produk_premium']);
             Route::put('/akun/mitra/premium/atur-produk/update', [MitraController::class, 'update_atur_produk_premium']);

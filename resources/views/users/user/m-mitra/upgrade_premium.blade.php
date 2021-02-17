@@ -223,6 +223,58 @@ $hari = "";
 
 			</div>
 			<div id="jadwal_fix" style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				@foreach($jadwal as $row)
+					@if($loop->first)
+						@php
+							$hari .= $row->hari;
+							$buka .= $row->jam_buka;
+							$tutup .= $row->jam_tutup;
+						@endphp
+					@else
+						@php
+							$hari .= '~'.$row->hari;
+							$buka .= '~'.$row->jam_buka;
+							$tutup .= '~'.$row->jam_tutup;
+						@endphp
+					@endif
+				@endforeach
+
+				@php
+				$var_value = array("SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M");
+				$var_text = array("Setiap-Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu",
+				"Kamis","Jumat", "Sabtu", "Minggu");
+				@endphp
+				<?php 
+				$loop_hari = explode("~", $hari);
+				$loop_buka = explode("~", $buka);
+				$loop_tutup = explode("~", $tutup);
+				for ($i = 0; $i < count($loop_hari); $i++){
+					?>
+					@if ($loop_hari[0] != "")
+					<div class="input-group mb-3 div-input-mall-square" id="{{str_replace(' ', '_', $loop_hari[$i])}}" style="width: 90%; background: white; border: 1px solid white;">
+						<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
+							<div style="width: 2.5em; height: 2.5em; background:#ffaa00; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
+								@for ($j = 0; $j < count($var_text); $j++) 
+								@if ($var_text[$j]==$loop_hari[$i])
+								{{$var_value[$j]}} 
+								@endif 
+								@endfor 
+							</div> 
+						</div> 
+						<div style="margin-left: 2%; width: 60%;">
+							<div style="margin-top: 0.5em; font-weight: 700; text-align: left;">
+								{{$loop_hari[$i]}}
+							</div>
+							<div style="font-size: 0.7em; text-align: left;">{{$loop_buka[$i]}} - {{$loop_tutup[$i]}}</div>
+						</div>
+						<div onclick='hapus_jadwal("{{$loop_hari[$i]}}")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ffaa00; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
+							X
+						</div>
+					</div>
+					@endif
+					<?php
+				}
+				?>
 			</div>
 			<div id="jadwal_sample" style="width: 100%; display: flex; justify-content: center;" hidden>
 				<div class="input-group mb-3 div-input-mall-square" id="harinya" style="width: 90%; background: white; border: 1px solid white;">
@@ -240,16 +292,19 @@ $hari = "";
 			<div class="input-group mb-3 div-input-mall" id="div_jadwal" style="width: 90%;">
 				<select type="text" class="form-control form-control-mall-modal" id="jadwal" name="jadwal" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="jadwal" aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
 					<option disabled selected>--- Silahkan Pilih Hari ---</option>
-					<option value="SH">Setiap-Hari</option>
-					<option value="SS">Senin-Sabtu</option>
-					<option value="SJ">Senin-JUmat</option>
-					<option value="S">Senin</option>
-					<option value="S">Selasa</option>
-					<option value="R">Rabu</option>
-					<option value="K">Kamis</option>
-					<option value="J">Jumat</option>
-					<option value="S">Sabtu</option>
-					<option value="M">Minggu</option>
+					@if(@jadwal)
+						@for ($i = 0; $i < count($var_text); $i++)
+						@php $indikator = false; @endphp
+						@for ($j = 0; $j < count($loop_hari); $j++)
+						@if ($loop_hari[$j] == $var_text[$i]) 
+						@php $indikator = true; @endphp
+						@endif
+						@endfor
+						@if ($indikator == false)
+						<option value="{{$var_value[$i]}}">{{$var_text[$i]}}</option>
+						@endif
+						@endfor
+					@endif
 				</select>			
 			</select>			
 		</div>
@@ -269,7 +324,7 @@ $hari = "";
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: #ffaa00;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
-		<a href="<?=url('/')?>/akun/mitra/free" style="padding-left: 1em;">
+		<a href="<?=url('/')?>/akun" style="padding-left: 1em;">
 			<img src="<?=url('/')?>/public/img/icon_left_white.svg">
 		</a>
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
@@ -345,29 +400,11 @@ $hari = "";
 						<span class="input-group-text-mall">
 							<img src="<?=url('/')?>/public/img/icon_svg/calender.svg" style="width: 100%;">
 						</span>
-						<div onclick="pilih_jadwal()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; margin-left: 0.4em; " id="pilih_jadwal_buka_toko">Pilih Jadwal Toko</div>
+						<div onclick="pilih_jadwal()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; margin-left: 0.4em; " id="pilih_jadwal_buka_toko">Telah memilih jadwal toko</div>
 
 					</div>
 				</div>
-				<div>
-
-				@foreach($jadwal as $row)
-					@if($loop->first)
-						@php
-							$hari .= $row->hari;
-							$buka .= $row->jam_buka;
-							$tutup .= $row->jam_tutup;
-						@endphp
-					@else
-						@php
-							$hari .= '~'.$row->hari;
-							$buka .= '~'.$row->jam_buka;
-							$tutup .= '~'.$row->jam_tutup;
-						@endphp
-					@endif
-				@endforeach
-
-
+				<div hidden>
 					<input type="text" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
 					<input type="text" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
 					<input type="text" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
@@ -432,10 +469,19 @@ $hari = "";
 		"this.setCustomValidity('Harap Dimasukkan')");
 	$("input[required], select[required]").attr("oninput", "setCustomValidity('')");
 
+
 	var i = 0;
 	var jadwal_hari = [];
 	var jadwal_buka = [];
 	var jadwal_tutup = [];
+
+	<?php for ($i = 0; $i < count($loop_hari); $i++){?>
+		@if ($loop_hari[0] != "")
+		jadwal_hari.push("<?=$loop_hari[$i]?>");
+		jadwal_buka.push("<?=$loop_buka[$i]?>");
+		jadwal_tutup.push("<?=$loop_tutup[$i]?>");
+		@endif
+	<?php } ?>
 
 	function input_focus(id){
 		$("#div_"+id).css('border', '1px solid #d1d2d4');
