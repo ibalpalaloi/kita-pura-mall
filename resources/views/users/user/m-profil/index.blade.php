@@ -64,10 +64,17 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 @section('content')
 <?php
-	$daftar_mitra = "";
-	if (!empty($_GET['daftar_mitra'])){
-		$daftar_mitra = $_GET['daftar_mitra'];
-	}
+$daftar_mitra = "";
+if (!empty($_GET['daftar_mitra'])){
+	$daftar_mitra = $_GET['daftar_mitra'];
+}
+?>
+
+<?php
+$daftar_mitra_premium = "";
+if (!empty($_GET['daftar_mitra_premium'])){
+	$daftar_mitra_premium = $_GET['daftar_mitra_premium'];
+}
 ?>
 
 @if ($status_aktif_mitra == 'Tidak Aktif')
@@ -79,6 +86,26 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 					<div style="display: flex; justify-content: center; flex-direction: column; align-items: center; width: 100%; position: absolute; top: -6.8em;">
 						<img src="<?=url('/')?>/public/img/mitra/waiting.svg" style="width: 100%; margin-left: 0.7em; margin-bottom: 0em;">
 						<h3 style="margin-top: 0em; color: white;">Berhasil!</h3>
+						<div style="text-align: center; font-size: 0.8em; line-height: 1.2em; color: white;">data toko anda berhasil dikirimkan.<br>mohon tunggu verifikasi dari<br>tim kitapuramall</div>
+						<a href="<?=url('/')?>/akun/mitra/{{Session::get('status_mitra')}}" style="color: white; background: #ffaa00; padding: 0.3em 0em 0.5em 0em; width: 50%; margin-top: 0.8em; border-radius: 2em; text-align: center; font-weight: 600;">Ubah data ?</a>
+					</div>
+					<img src="<?=url('/')?>/public/img/mitra/bg-waiting.svg" style="width: 100%;">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+
+@if ($status_aktif_mitra == 'Belum lengkap')
+<div class="modal fade" id="modal-verifikasi-ktp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; box-shadow: none; border: none;">
+			<div style="width: 80%;">
+				<div style="background: transparent; margin-top: 4.5em; border-radius: 1.5em; position: relative;">
+					<div style="display: flex; justify-content: center; flex-direction: column; align-items: center; width: 100%; position: absolute; top: -6.8em;">
+						<img src="<?=url('/')?>/public/img/mitra/waiting.svg" style="width: 100%; margin-left: 0.7em; margin-bottom: 0em;">
+						<h3 style="margin-top: 0em; color: white;">1 Langkah Lagi</h3>
 						<div style="text-align: center; font-size: 0.8em; line-height: 1.2em; color: white;">data toko anda berhasil dikirimkan.<br>mohon tunggu verifikasi dari<br>tim kitapuramall</div>
 						<a href="<?=url('/')?>/akun/mitra/{{Session::get('status_mitra')}}" style="color: white; background: #ffaa00; padding: 0.3em 0em 0.5em 0em; width: 50%; margin-top: 0.8em; border-radius: 2em; text-align: center; font-weight: 600;">Ubah data ?</a>
 					</div>
@@ -146,6 +173,11 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 				<span><img src="<?=url('/')?>/public/img/user/mitra.svg"></span>
 				<span>&nbsp;&nbsp;&nbsp;Mitra Kitapura</span>
 			</div>
+			@elseif ($status_aktif_mitra == "Belum lengkap")
+			<div onclick="verifikasi_ktp()" style="cursor: pointer;">
+				<span><img src="<?=url('/')?>/public/img/user/mitra.svg"></span>
+				<span>&nbsp;&nbsp;&nbsp;Mitra Kitapura</span>
+			</div>
 			@else
 			@if (Session::get('status_mitra') == 'free')
 			<a href="<?=url('/')?>/akun/mitra/free">
@@ -184,9 +216,22 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$('#modal-verifikasi').modal('show');
 	}
 
+
+	@if ($status_aktif_mitra == "Belum lengkap")
+	function verifikasi_ktp(){
+		$('#modal-verifikasi-ktp').modal('show');
+	}
+	@endif
+
 	@if ($daftar_mitra == 'success')
-		$('#modal-verifikasi').modal('show');
+	$('#modal-verifikasi').modal('show');
 	@endif	
+
+	@if ($daftar_mitra_premium == 'success')
+	$('#modal-verifikasi-ktp').modal('show');
+
+	@endif	
+
 </script>
 
 @endsection

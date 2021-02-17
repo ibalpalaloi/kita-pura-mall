@@ -53,7 +53,7 @@ class MitraController extends Controller
 		// 	return redirect('/akun/jadi-mitra');
 		
 		// }
-		 
+
 	}
 
 
@@ -71,8 +71,8 @@ class MitraController extends Controller
 				$notification = array(
 					'message' => 'Belum Terverifikasi ',
 					'jenis_mitra' => $toko->jenis_mitra
-				 );     
-		
+				);     
+
 				return redirect()->back()->with($notification);
 			}
 
@@ -214,24 +214,39 @@ class MitraController extends Controller
 		$notification = array(
 			'message' => 'Belum Terverifikasi',
 			'jenis_mitra' => 'premium'
-		 );     
+		);     
 
 		return redirect('/akun')->with($notification);
 	}
 
 
 
+	public function tambah_produk_premium(){
+		$kategori = Kategori_toko::all();
+		$toko = toko::where('user_id', Session::get('id_user'))->first();
+		$jadwal = Jadwal_toko::where('toko_id', $toko->id)->get();
+		return view('users/user/m-mitra/premium/tambah_produk', ['daftar_kategori'=>$kategori,'toko'=>$toko,'jadwal'=>$jadwal]);
+	}
+
+	public function daftar_produk_premium(){
+		$kategori_produk = Kategori::all();
+
+		$toko = toko::where('user_id', Session::get('id_user'))->first();
+		$produk = product::where('id_toko', $toko->id)->get();
+		return view('users/user/m-mitra/premium/daftar_produk', compact('kategori_produk','produk'));		
+	}
+
 	public function index_premium(){
 
 		$toko = toko::where('user_id', Session::get('id_user'))->first();
 
 
-		if($toko->status == "Tidak Aktif"){
-
+		if($toko->status == "Belum lengkap"){
+			return view('users/user/m-mitra/register_nik');
+		}
+		else if ($toko->status == 'Tidak Aktif'){
 			$daftar_kategori = Kategori_toko::all();
-
 			$jadwal = Jadwal_toko::where('toko_id', $toko->id)->get();
-
 			return view('users/user/m-mitra/upgrade_premium', compact('daftar_kategori','toko','jadwal'));
 		}
 		else{
@@ -243,7 +258,7 @@ class MitraController extends Controller
 	public function simpan_data_premium(Request $request){
 
 		// dd($request->all());
-	
+
 		$this->validate($request,[
 			'nama_pemilik' => 'required',
 			'kategori_toko' => 'required',
@@ -257,7 +272,7 @@ class MitraController extends Controller
 
 		$toko = toko::where('user_id', Session::get('id_user'))->first();
 		$toko->nama_pemilik = $request->nama_pemilik;
-		$toko->kategori_id = $request->kategori_toko;
+		$toko->kategori_toko_id = $request->kategori_toko;
 		$toko->no_hp = $request->no_hp;
 		$toko->alamat = $request->alamat;
 		$toko->deskripsi = $request->deskripsi;
@@ -297,7 +312,7 @@ class MitraController extends Controller
 			$notification = array(
 				'message' => 'Belum Terverifikasi',
 				'jenis_mitra' => 'premium'
-			 );     
+			);     
 
 			return redirect('/akun')->with($notification);
 		}
@@ -317,7 +332,7 @@ class MitraController extends Controller
 		$kategori_produk = Kategori::all();
 
 		$toko = toko::where('user_id', Session::get('id_user'))->first();
-		$produk = product::where('toko_id', $toko->id)->get();
+		$produk = product::where('id_toko', $toko->id)->get();
 
 		return view('users/user/m-mitra/premium/atur_produk', compact('kategori_produk','produk'));
 	}
@@ -446,7 +461,6 @@ class MitraController extends Controller
 		$toko->no_hp = $request->no_hp;
 		$toko->alamat = $request->alamat;
 		$toko->kelurahan_id = "1";
-		$toko->status = "Tidak Aktif";
 
 		// @Tambah Foto
 		$files = $request->file("foto_toko");
@@ -456,7 +470,12 @@ class MitraController extends Controller
 		$toko->foto = $file_upload;
 		if ($jenis_mitra == 'premium'){
 			$toko->deskripsi = $request->deskripsi;
+			$toko->status = "Belum lengkap";			
 		}
+		else {
+			$toko->status = "Tidak Aktif";			
+		}
+
 		$toko->save();
 
 		// @Tambah Jadwal
@@ -472,8 +491,12 @@ class MitraController extends Controller
 			$jadwal->jam_tutup = $jam_tutup[$i];
 			$jadwal->save();
 		}
-		
-		return redirect('/akun?daftar_mitra=success');
+		if ($jenis_mitra == 'premium'){
+			return redirect('/akun?daftar_mitra_premium=success');
+		}
+		else {
+			return redirect('/akun?daftar_mitra=success');			
+		}
 	}
 
 	public function register_nik(){
@@ -491,9 +514,11 @@ class MitraController extends Controller
 
 		}
 		else {
-	    	return view('users/user/m-mitra/pilih_lokasi_premium');			
+			return view('users/user/m-mitra/pilih_lokasi_premium');			
 		}
 	}
+
+
 
 
 

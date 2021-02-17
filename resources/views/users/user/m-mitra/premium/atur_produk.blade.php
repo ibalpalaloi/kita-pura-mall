@@ -1,4 +1,4 @@
-@extends('layouts.home_no_menu')
+@extends('layouts.home_premium')
 
 @section('title')
 
@@ -304,7 +304,50 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		transform: translate3d(0, 25%, 0);
 	}
 
+	.homepage {
+		min-height: calc(80vh - 60px); 
 
+	}
+
+	.togglebutton,.togglebutton .toggle,.togglebutton input,.togglebutton label{user-select:none}
+	.togglebutton label{cursor:pointer}
+	.form-group.is-focused .togglebutton label,.togglebutton label{color:rgba(0,0,0,.26)}
+	.form-group.is-focused .togglebutton label:focus,.form-group.is-focused .togglebutton label:hover{
+		color:rgba(0,0,0,.54)
+	}
+	fieldset[disabled] .form-group.is-focused .togglebutton label{color:rgba(0,0,0,.26)}
+	.togglebutton label input[type=checkbox]{opacity:0;width:0;height:0}
+	.togglebutton label .toggle{text-align:left;margin-left:5px}
+	.togglebutton label .toggle,.togglebutton label input[type=checkbox][disabled]+.toggle{
+		content:"";
+		display:inline-block;
+		width:55px;
+		height:25px;
+		background-color:rgba(80,80,80,.7);
+		border-radius:15px;
+		margin-right:0px;
+		transition:background .8s ease;vertical-align:middle
+	}
+	.togglebutton label .toggle:after{
+		content:"";
+		display:inline-block;
+		width:22px;
+		height:22px;
+		background-color:#fff;
+		border-radius:20px;
+		position:relative;
+		box-shadow:0 1px 3px 1px rgba(0,0,0,.4);
+		margin-left: 0.3em;
+		top:1px;
+		border:1px solid rgba(0,0,0,.54);
+		transition:left .8s ease,background .8s ease,box-shadow .1s ease
+	}
+	.togglebutton label input[type=checkbox][disabled]+.toggle:after,.togglebutton label input[type=checkbox][disabled]:checked+.toggle:after{background-color:#bdbdbd}
+	.togglebutton label input[type=checkbox]+.toggle:active:after,.togglebutton label input[type=checkbox][disabled]+.toggle:active:after{box-shadow:0 1px 3px 1px rgba(0,0,0,.4),0 0 0 15px rgba(0,0,0,.1)}
+	.togglebutton label input[type=checkbox]:checked+.toggle:after{left:25px}
+	.togglebutton label input[type=checkbox]:checked+.toggle{background-color:#8a6614}
+	.togglebutton label input[type=checkbox]:checked+.toggle:after{border-color:#8a6614}
+	.togglebutton label input[type=checkbox]:checked+.toggle:active:after{box-shadow:0 1px 3px 1px #8a6614,0 0 0 15px rgba(156,39,176,.1)}
 </style>
 @endsection
 
@@ -355,225 +398,157 @@ if (!empty($_GET['deskripsi'])){
 ?>
 
 
-<div id="modal-tambah" class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<div class="modal-dialog modal-dialog-bottom" role="document" style="padding: 0px; overflow-y: initial !important;">
-		<div class="modal-content" style="border-radius: 1em; background: #eaf4ff; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 0em; border-bottom-right-radius: 0em;">
-			<div class="modal-body" style="width: 100%;height: 80vh; overflow-y: auto;">
-			<form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post">
-				{{csrf_field()}}
-				<div class="input-group mb-2 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; background: white; border-radius: 1.2em;">
-					<div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto
-					Produk</div>
-					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #0066ff; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_toko()" id="div_pic_toko">
-						<img src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" style="width: 2em;">
-					</div>
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em;" id="div_pic_toko_privew" hidden>
-						<img id="pic_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
-						<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
-					</div>
-
-					<input hidden type="file" name="foto_toko" id="foto_toko" required>
-				</div>
-				<div class="input-group mb-3 div-input-mall" id="div_nama_pemilik">
-					<span>Nama Produk</span>
-					<div>
-						<span class="input-group-text-mall">
-							<img src="<?=url('/')?>/public/img/icon_svg/people.svg" style="width: 100%;">
-						</span>
-						<input type="text" class="form-control-mall" id="nama" name="nama" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan Nama Produk" aria-label="Nama Produk" aria-describedby="basic-addon1" style="width: 100%;" required>
-					</div>
-				</div>
-				<div class="input-group mb-3 div-input-mall" id="div_kategori">
-					<span>Kategori</span>
-					<div>
-						<span class="input-group-text-mall">
-							<img src="<?=url('/')?>/public/img/icon_svg/kategori.svg" style="width: 100%;">
-						</span>
-						<select class="form-control-mall" id="kategori_produk" name="kategori_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;" required>
-							<option value="" disabled selected>--- Pilih Kategori ---</option>
-							@foreach($kategori_produk as $row)
-								<option value="{{$row->id}}">{{$row->nama}}
-								</option>
-							@endforeach
-						</select>
-					</div>
-				</div>
-
-				<div class="input-group mb-3 div-input-mall" id="div_harga">
-					<span>Harga</span>
-					<div>
-						<span class="input-group-text-mall">
-							<img src="<?=url('/')?>/public/img/icon_svg/harga.svg" style="width: 100%;">
-						</span>
-						<input type="text" class="form-control-mall" id="harga" name="harga" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan harga produk" aria-label="Harga produk" aria-describedby="basic-addon1" style="width: 100%;" required>
-					</div>
-				</div>
-				<div class="input-group mb-3 div-input-mall" id="div_stok">
-					<span>Stok</span>
-					<div>
-						<span class="input-group-text-mall">
-							<img src="<?=url('/')?>/public/img/icon_svg/stok.svg" style="width: 100%;">
-						</span>
-						<input type="text" class="form-control-mall" id="stok" name="stok" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan jumlah stok" aria-label="Jumlah stok" aria-describedby="basic-addon1" style="width: 100%;" required>
-					</div>
-				</div>
-				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="justify-content: flex-start;">
-					<span style="margin-top: 0px;">Deskripsi</span>
-					<div style=" width: 100%;">
-						<textarea class="form-control-mall" id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 10em; border-radius: 0px; margin: 0.6em;" rows="8" required></textarea>
-					</div>
-				</div>				
-				<button type="submit" class="btn btn-primary" style="background: #ffaa00;;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;">Tambah Produk
-				</button>	
-				</form>			
-			</div>
-
-		</div>
-	</div>
-</div>
-
-<div id="modal-ubah" class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<div class="modal-dialog modal-dialog-bottom" role="document" style="padding: 0px; overflow-y: initial !important;">
-		<div class="modal-content" style="border-radius: 1em; background: #eaf4ff; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 0em; border-bottom-right-radius: 0em; border: none;">
-			<div class="modal-body" style="width: 100%;height: 80vh; overflow-y: auto;">
-
-				<form enctype="multipart/form-data" action="{{url()->current()}}/update" method="post">
-					{{csrf_field()}}
-					{{method_field('PUT')}}
-					<input type="hidden" id="edit_id_produk" name="edit_id_produk">
-					<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; background: white; border-radius: 1.2em;">
-						<div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto
-						Produk</div>
-						<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em;" id="div_edit_pic_toko_privew">
-							<img id="pic_edit_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
-							<img id="pic_edit_toko" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
-
-						</div>
-
-						<input hidden type="file" name="edit_foto_toko" id="edit_foto_toko" >
-					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_edit_nama_produk">
-						<span>Nama Produk</span>
-						<div>
-							<span class="input-group-text-mall">
-								<img src="<?=url('/')?>/public/img/icon_svg/people.svg" style="width: 100%;">
-							</span>
-							<input type="text" class="form-control-mall" id="edit_nama_produk" name="edit_nama_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama produk" aria-label="Nama Produk" aria-describedby="basic-addon1" style="width: 100%;" required>
-						</div>
-					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_edit_kategori">
-						<span>Kategori</span>
-						<div>
-							<span class="input-group-text-mall">
-								<img src="<?=url('/')?>/public/img/icon_svg/kategori.svg" style="width: 100%;">
-							</span>
-							<select type="text" class="form-control-mall" id="edit_kategori" name="edit_kategori" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;" required>
-								<option value="" disabled selected>--- Pilih Kategori Toko ---</option>
-								@foreach($kategori_produk as $row)
-									<option value="{{$row->id}}">{{$row->nama}}
-									</option>
-								@endforeach
-							</select>
-						</div>
-					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_edit_harga">
-						<span>Harga</span>
-						<div>
-							<span class="input-group-text-mall">
-								<img src="<?=url('/')?>/public/img/icon_svg/harga.svg" style="width: 100%;">
-							</span>
-							<input type="text" class="form-control-mall" id="edit_harga" name="edit_harga" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan harga produk" aria-label="Harga produk" aria-describedby="basic-addon1" style="width: 100%;" required>
-						</div>
-					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_edit_stok">
-						<span>Stok</span>
-						<div>
-							<span class="input-group-text-mall">
-								<img src="<?=url('/')?>/public/img/icon_svg/stok.svg" style="width: 100%;">
-							</span>
-							<input type="text" class="form-control-mall" id="edit_stok" name="edit_stok" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan jumlah stok" aria-label="Jumlah stok" aria-describedby="basic-addon1" style="width: 100%;" required>
-						</div>
-					</div>				
-					<div class="input-group mb-3 div-input-mall" id="div_edit_deskripsi" style="justify-content: flex-start;">
-						<span style="margin-top: 0px;">Deskripsi</span>
-						<div style=" width: 100%;">
-							<textarea class="form-control-mall" id="edit_deskripsi" name="edit_deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 10em; border-radius: 0px; margin: 0.6em;" rows="8" required></textarea>
-						</div>
-					</div>
-
-					<div style="display: flex; justify-content: space-around; background: transparent;">
-						<button type="submit" class="btn btn-primary" style="background: #ffaa00;border: 1px solid #ffaa00; border-radius: 1.5em;  width: 40%; margin-bottom: 1em;">Ubah
-						</button>
-
-						<button onclick="hapus_produk()" class="btn btn-danger" style="border-radius: 1.5em; width: 40%; margin-bottom: 1em;">Hapus
-						</button>
-						
-					</div>
-				</form>
-
-			</div>
-		</div>
-	</div>
-</div>
-
-<header class="style__Container-sc-3fiysr-0 header" style="background: white;">
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
-		<a href="<?=url('/')?>/akun" style="padding-left: 1em;">
-			<img src="<?=url('/')?>/public/img/back_black.svg">
+<header class="style__Container-sc-3fiysr-0 header" style="background: transparent;  padding-top: 0.3em">
+	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
+		<a href="<?=url('/')?>/akun/mitra/premium" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
+			<img src="<?=url('/')?>/public/img/back_white.svg">
 		</a>
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
-			<img src="<?=url('/')?>/public/img/logo_black.svg">
-			<img src="<?=url('/')?>/public/img/logo_text_black.svg">
+		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
+			<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
 		</a>
-		<div style="margin-right: 2.5em;">
-			<img src="<?=url('/')?>/public/img/back.svg" hidden>
-		</div>
+		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
+		</a>
 	</div>
 </header>
 
 
 
-<main id="homepage" class="homepage" style="padding-top: 4em; background: #eaf4ff;">
-	<div style="display: flex; justify-content: center; flex-direction: column;">
-		<h5 style="text-align: left; width: 100%; margin-top: 1em; padding-left: 0.1em; font-weight: 640;">Atur Produk</h5>
-		<div class="input-group mb-3 div-input-mall" id="div_nama_pemilik" style="border-radius: 0.5em; padding: 0.1em 0em 0.1em 0em;">
-			<div style="padding-left: 0.5em; width: 100%;">
-				<input type="text" class="form-control-mall" id="nama_pemilik" name="nama_pemilik" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" value="{{$pemilik}}" style="width: 100%;" required>
-				<span style="width: 3em; display: flex; justify-content: center;">
-					<img src="<?=url('/')?>/public/img/icon_svg/pencarian.svg" style="width: 45%;">
-				</span>
-
+<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
+	<div>
+		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em; z-index: -1;">
+	</div>
+	<div>
+		<div style="padding: 0px 16px 1em;">
+			<h3 style="color: white;">Atur Produk</h3>
+			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Tampilan Maps</h6>
+			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+				<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
 			</div>
-		</div>
-		<h7 style="text-align: left; width: 100%; padding-left: 0.1em; font-weight: 640; margin-bottom: 0.5em;">Produk</h7>
-		<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
-		@foreach($produk as $row)
-		<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
-				<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-				<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
-				<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; background: #f3a301; color: white; background-size: cover; position: relative;'> 
-					<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #ed9f01; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;" onclick='edit_produk("{{$row->id}}","{{$row->toko_id}}/produk/{{$row->foto_produk}}", "{{$row->nama}}", "{{$row->kategori_id}}", "{{$row->harga}}", "{{$row->stok}}", "{{$row->deskripsi}}")'>
-						<img src="<?=url('/')?>/public/img/icon_svg/pencil.svg" style="width: 1.5em; height: 1.5em;">
-					</div>
-					<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
-					<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori_id}}</div>
+			<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+				<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('1')" id="div_pic_maps_1">
+					<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
+				</div>
+				<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew" hidden>
+					<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+					<img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
+				</div>
 
-					<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-						<s>IDR. 25.000</s>
+				<input hidden type="file" name="foto_maps_1" id="foto_maps_1" required>
+			</div>
+			<div style="display: flex; justify-content: space-between;">
+				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
+					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('2')" id="div_pic_maps_2">
+						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
+					</div>
+					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew" hidden>
+						<img id="pic_maps_2_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<img id="pic_maps_2" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
+					</div>
+
+					<input hidden type="file" name="foto_maps_2" id="foto_maps_2" required>
+				</div>
+				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
+					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('3')" id="div_pic_maps_3">
+						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
+					</div>
+					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew" hidden>
+						<img id="pic_maps_3_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<img id="pic_maps_3" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
+					</div>
+
+					<input hidden type="file" name="foto_maps_3" id="foto_maps_3" required>
+				</div>
+			</div>
+			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Menu Favorit</h6>
+			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+				<div style="font-size: 0.8em; color: #dddddd; line-height: 1.3em;">pilih 3 menu favorit untuk ditampilkan di halaman depan landing page</div>
+			</div>
+			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
+				<div style="width: 100%; padding-right: 0.5em;">
+					<span class="input-group-text-mall">
 					</span>
-					<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$row->harga}}</span>
-					<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
-						Stok : {{$row->stok}}
+					<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em;" required>
+					<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center;">
+						<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
 					</div>
 				</div>
-			</div> 
-			@endforeach
-		</div>
-		<div class="btn btn-success" onclick="tambah_produk()"><img src="<?=url('/')?>/public/img/icon_svg/plus.svg"></div>
+			</div>
+			<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding-bottom: 4em;">
+				@if ($produk->count() > 0)
+				@foreach($produk as $row)
+				<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
+					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+					<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
+					<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; background: #f3a301; color: white; background-size: cover; position: relative;'> 
+						<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #ed9f01; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;" onclick='edit_produk("{{$row->id}}","{{$row->toko_id}}/produk/{{$row->foto_produk}}", "{{$row->nama}}", "{{$row->kategori_id}}", "{{$row->harga}}", "{{$row->stok}}", "{{$row->deskripsi}}")'>
+							<div class="togglebutton">
+								<label>
+									<input type="checkbox" checked="">
+									<span class="toggle"></span>
+								</label>
+							</div>
+						</div>
+						<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
+						<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori_id}}</div>
 
+						<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
+							<s>IDR. 25.000</s>
+						</span>
+						<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$row->harga}}</span>
+						<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
+							Stok : {{$row->stok}}
+						</div>
+					</div>
+				</div> 
+				@endforeach
+				@else
+				<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
+					@php
+					$digital = array('TKO-1204012490124/product_1.png', 'TKO-1204012490124/product_2.png', 'TKO-1204012490124/product_3.png', 'TKO-1204012490124/product_4.png', 'TKO-1204012490124/product_1.png', 'TKO-1204012490124/product_2.png');
+					$nama_digital = array('Bakso', 'Sate', 'Nasi Goreng', 'Mie Ayam', 'Bakso', 'Sate');
+					$kategori_toko = array('Makanan', 'Makanan', 'Makanan', 'Makanan', 'Makanan', 'Makanan');
+
+					$jumlah_digital = count($digital)-1;
+					@endphp 
+
+					@for ($i = 0; $i < count($digital); $i++)  
+					<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
+						<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+						<img src="<?=url('/')?>/public/img/product/{{$digital[$i]}}">
+						<div class="st0" style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative;'> 
+							<div style="position: absolute; top: -1em; z-index: 0;right: 0.5em; display: flex; justify-content: center; align-items: center;">
+								<div class="togglebutton">
+									<label>
+										<input type="checkbox" checked="">
+										<span class="toggle"></span>
+									</label>
+								</div>
+							</div>
+							<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($nama_digital[$i]), 0, 15)?>@if (strlen($nama_digital[$i]) > 15)..@endif</div>
+							<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$kategori_toko[$i]}}</div>
+
+
+							<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
+								<s>IDR. 25.000</s>
+							</span>
+							<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. 5.000</span>
+							<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
+								Stok : 42
+							</div>
+						</div>
+					</div> 
+					@endfor
+				</div>
+				@endif
+			</div>
+		</div>
 	</div>
 </main>
-
+<div class="footer">
+	<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk/add" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
+		<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%;">
+	</a>
+</div>
 @endsection
 
 @section('footer-scripts')
@@ -582,27 +557,28 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 </script>
 <script type="text/javascript">
 
-	function tambah_foto_toko(){
-		$("#foto_toko").click();
+	function tambah_foto_toko(id){
+		$("#foto_maps_"+id).click();
+		$("#foto_maps_"+id).change(function(){
+			readURL(this, id);
+		});
 	}	
 
-	function readURL(input) {
+	function readURL(input, id) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 
 			reader.onload = function (e) {
-				$('#pic_toko_privew').attr('src', e.target.result);
-				$("#div_pic_toko_privew").prop('hidden', false);
-				$("#div_pic_toko").prop('hidden', true);
+				$('#pic_maps_'+id+'_privew').attr('src', e.target.result);
+				$("#div_pic_maps_"+id+"_privew").prop('hidden', false);
+				$("#div_pic_maps_"+id).prop('hidden', true);
 			}
 
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
 
-	$("#foto_toko").change(function(){
-		readURL(this);
-	});
+
 
 	function input_focus(id){
 		$("#div_"+id).css('border', '1px solid #d1d2d4');

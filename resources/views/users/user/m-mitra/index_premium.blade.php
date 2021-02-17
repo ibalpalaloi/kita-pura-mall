@@ -1,4 +1,4 @@
-@extends('layouts.home_no_menu')
+@extends('layouts.home_premium')
 
 @section('title')
 
@@ -233,16 +233,18 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		margin: 0em 0.3em 0em 0.3em; 
 		background: white; 
 		padding: 0.3em 1.3em 0.3em 1.3em; 
-		border-radius: 2em;		
+		border-radius: 2em;
+		border: 1px solid white;		
 	}
 
 	.analitik-active {
 		color: white;
-		background: #ffaa00;
+		background: #dd9d25;
+		border: 1px solid #dd9d25;
 	}
 
 	.card-menu-premium {
-		background: white; 
+		background: transparent; 
 		display: flex; 
 		justify-content: center; 
 		margin-top: .5em; 
@@ -258,6 +260,25 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		height: 100%;
 
 	}  
+
+
+/*
+	@charset "utf-8";
+	.st0
+	{
+		background : -moz-linear-gradient(-39.86% 71.45% 30deg,rgba(35, 35, 35, 1) 0%,rgba(53, 53, 53, 1) 30.17%,rgba(28, 28, 29, 1) 59.5%,rgba(37, 37, 38, 1) 85.75%);
+		background : -webkit-linear-gradient(30deg, rgba(35, 35, 35, 1) 0%, rgba(53, 53, 53, 1) 30.17%, rgba(28, 28, 29, 1) 59.5%, rgba(37, 37, 38, 1) 85.75%);
+		background : -webkit-gradient(linear,-39.86% 71.45% ,139.86% 28.55% ,color-stop(0,rgba(35, 35, 35, 1) ),color-stop(0.3017,rgba(53, 53, 53, 1) ),color-stop(0.595,rgba(28, 28, 29, 1) ),color-stop(0.8575,rgba(37, 37, 38, 1) ));
+		background : -o-linear-gradient(30deg, rgba(35, 35, 35, 1) 0%, rgba(53, 53, 53, 1) 30.17%, rgba(28, 28, 29, 1) 59.5%, rgba(37, 37, 38, 1) 85.75%);
+		background : -ms-linear-gradient(30deg, rgba(35, 35, 35, 1) 0%, rgba(53, 53, 53, 1) 30.17%, rgba(28, 28, 29, 1) 59.5%, rgba(37, 37, 38, 1) 85.75%);
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#232323', endColorstr='#252526' ,GradientType=0)";
+		background : linear-gradient(60deg, rgba(35, 35, 35, 1) 0%, rgba(53, 53, 53, 1) 30.17%, rgba(28, 28, 29, 1) 59.5%, rgba(37, 37, 38, 1) 85.75%);
+		border-style : Solid;
+		border-width : 1px;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#232323',endColorstr='#252526' , GradientType=1);
+		background-size: cover;
+		}*/
+
 
 </style>
 @endsection
@@ -290,108 +311,76 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 </div>
 
 
-<header class="style__Container-sc-3fiysr-0 header" style="background: white;">
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
-		<a href="<?=url('/')?>/akun" style="padding-left: 1em;">
-			<img src="<?=url('/')?>/public/img/back_black.svg">
+<header class="style__Container-sc-3fiysr-0 header" style="background: transparent; padding-top: 0.3em;">
+	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
+		<a href="<?=url('/')?>/akun" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
+			<img src="<?=url('/')?>/public/img/back_white.svg">
 		</a>
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
-			<img src="<?=url('/')?>/public/img/logo_black.svg">
-			<img src="<?=url('/')?>/public/img/logo_text_black.svg">
+		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
+			<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
 		</a>
-		<div style="margin-right: 2.5em;">
-			<img src="<?=url('/')?>/public/img/back.svg" hidden>
-		</div>
+		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
+			<img src="<?=url('/')?>/public/img/icon_svg/landing_page.svg" style="width: 100%;">
+		</a>
 	</div>
 </header>
 
 
-
-<main id="homepage" class="homepage" style="padding-top: 6em; background: #eaf4ff;">
+@php $url = url('/')."/public/img/home/bg-premium.svg"; @endphp
+<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
 	<div>
-		<h3>Analitik</h3>
-		<div style="text-align: justify; font-size: 0.8em; line-height: 1.2em; color: #a1a4a8;">dengan fitur ini kalian bisa melihat total pengunjung yang mengunjungi toko anda dan berapa jumlah transaksi yang terjadi</div>
-		<div class="card-menu-premium">
-			<div style="margin-top: 0.5em; background: #eaf4ff; padding: 0.5em; display: flex; justify-content: center; border-radius: 1.5em; font-size: 0.75em;">
-				<div class="btn-menu-analitik analitik-active">Pekanan</div>
-				<div class="btn-menu-analitik">Bulanan</div>
+		<div style="padding: 0px 16px 1em;">
+			<h3 style="color: white;">Transaksi</h3>
+			<div style=" display: flex; justify-content: space-between; align-items: center;">
+				<div style="font-size: 0.8em; line-height: 1.2em; color: #a1a4a8;">Statistik</div>
+				<div style="display: flex; font-size: 0.6em;color: #a1a4a8;">
+					<div class="btn-menu-analitik analitik-active">Pekanan</div>
+					<div class="btn-menu-analitik">Bulanan</div>
+				</div>				
 			</div>
-			<div style="margin-top: 1em; width: 100%;">
+		</div>
+		<div class="grafis" style="">
+			<canvas id="chart-0" hidden></canvas>
+			<canvas id="chart-1"></canvas>
+		</div>
+		<div class="card-menu-premium" style="margin-top: 0em;padding-top: 0px;">
+			<div style="margin-top: 0em; background: transparent; padding: 0.5em; display: flex; justify-content: center; border-radius: 1.5em; font-size: 0.75em;">
+			</div>
+			<div style="width: 100%;">
 				<div class="statis" style="width: 100%; display: flex; justify-content: center; flex-direction: column; color: #a1a4a8;">
-					<div style="font-size: 1.8em; font-weight: 600; text-align: center;">Total</div>
 					<div style="display: flex; justify-content: space-around;">
 						<div class="item-statis" style="display: flex; justify-content: center;">
-							<div style="display: flex; align-items: center;">
-								<img src="<?=url('/')?>/public/img/icon_svg/pengujung.svg" style="height: 2em;">
-							</div>
 							<div style="margin-left: 0.5em;">
-								<div style="font-size: 1.6em; font-weight: 700; margin-bottom: 0em; text-align: center;">1000</div>
-								<div style="font-size: 0.7em; margin-top: 0em; line-height: 0.3em; margin-bottom: 1.2em; text-align: center;">Pengujung</div>
+								<hr style="border: 3px solid #dd9d25; border-radius: 1.5em; width: 1.5em; margin-bottom: 0em;">
+								<div style="margin-top: 1px;font-size: 1.6em; font-weight: 700; margin-bottom: 0em; text-align: center; color: white;">1000</div>
+								<div style="font-size: 0.7em; margin-top: 0em; line-height: 0.3em; margin-bottom: 1.2em; text-align: center; color: white;">Pengujung</div>
 							</div>
 						</div>
 						<div class="item-statis" style="display: flex; justify-content: center;">
-							<div style="display: flex; align-items: center;">
-								<img src="<?=url('/')?>/public/img/icon_svg/transaksi.svg" style="height: 2em;">
-							</div>
 							<div style="margin-left: 0.5em;">
-								<div style="font-size: 1.6em; font-weight: 700; margin-bottom: 0em; text-align: center;">1000</div>
-								<div style="font-size: 0.7em; margin-top: 0em; line-height: 0.3em; margin-bottom: 1.2em; text-align: center;">Transaksi</div>
+								<hr style="border: 3px solid #dd9d25; border-radius: 1.5em; width: 1.5em; margin-bottom: 0em;">
+								<div style="font-size: 1.6em; color: white; font-weight: 700; margin-bottom: 0em; text-align: center;">1000</div>
+								<div style="font-size: 0.7em; margin-top: 0em; line-height: 0.3em; margin-bottom: 1.2em; text-align: center; color: white;">Transaksi</div>
 							</div>
 						</div>
 
 					</div>
 				</div>
-				<div class="grafis" style="padding: 1em;">
-					<canvas id="chart-0"></canvas>
-					<canvas id="chart-1"></canvas>
-
-				</div>
 			</div>			
 		</div>
-	</div>
-	<div style="margin-top: 1em;">
-		<h3>Atur Toko</h3>
-		<div style="text-align: justify; font-size: 0.8em; line-height: 1.2em; color: #a1a4a8;">dengan fitur ini kalian bisa mengatur informasi toko seperti nama pemilik, jadwal buka tutup, alamat usaha dan lain lain</div>
-		<div class="card-menu-premium">
-			<div style="margin-top: 1em; width: 100%; display: flex;">
-				<div style="width: 50%; display: flex; justify-content: center; flex-direction: column; color: #a1a4a8;">
-					<img src="<?=url('/')?>/public/img/mitra/premium/atur_toko.png" style="width: 100%; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em;">
-				</div>
-				<div style="padding: 1em; color: black; display: flex; justify-content: center; align-items: center; flex-direction: column; width: 50%;">
-					<h5>Atur Toko</h5>
-					<a href="{{url()->current()}}/atur-toko" style="width: 70%; background: #ffaa00; color: white; text-align: center; border-radius: 1.5em;">Pilih</a>
-				</div>
-			</div>			
-		</div>
-	</div>
-	<div style="margin-top: 1em;">
-		<h3>Atur Produk</h3>
-		<div style="text-align: justify; font-size: 0.8em; line-height: 1.2em; color: #a1a4a8;">dengan fitur ini kalian bisa mengatur informasi toko seperti nama pemilik, jadwal buka tutup, alamat usaha dan lain lain</div>
-		<div class="card-menu-premium">
-			<div style="margin-top: 1em; width: 100%; display: flex;">
-				<div style="width: 50%; display: flex; justify-content: center; flex-direction: column; color: #a1a4a8;">
-					<img src="<?=url('/')?>/public/img/mitra/premium/atur_produk.png" style="width: 100%; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em;">
-				</div>
-				<div style="padding: 1em; color: black; display: flex; justify-content: center; align-items: center; flex-direction: column; width: 50%;">
-					<h5>Atur Produk</h5>
-					<a href="{{url()->current()}}/atur-produk" style="width: 70%; background: #ffaa00; color: white; text-align: center; border-radius: 1.5em;">Pilih</a>
-				</div>
-			</div>			
-		</div>
-	</div>
-	<div style="margin-top: 1em;">
-		<h3>Atur Maps</h3>
-		<div style="text-align: justify; font-size: 0.8em; line-height: 1.2em; color: #a1a4a8;">dengan fitur ini kalian bisa mengatur informasi toko seperti nama pemilik, jadwal buka tutup, alamat usaha dan lain lain</div>
-		<div class="card-menu-premium">
-			<div style="margin-top: 1em; width: 100%; display: flex;">
-				<div style="width: 50%; display: flex; justify-content: center; flex-direction: column; color: #a1a4a8;">
-					<img src="<?=url('/')?>/public/img/mitra/premium/atur_maps.png" style="width: 100%; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em;">
-				</div>
-				<div style="padding: 1em; color: black; display: flex; justify-content: center; align-items: center; flex-direction: column; width: 50%;">
-					<h5>Atur Maps</h5>
-					<div style="width: 70%; background: #ffaa00; color: white; text-align: center; border-radius: 1.5em;" onclick="atur_maps()">Pilih</div>
-				</div>
-			</div>			
+		<div style="display: flex; justify-content: center; flex-direction: column; align-items: center; padding-bottom: 1.2em;">
+			<a href="<?=url('/')?>/akun/mitra/premium/atur-toko" style="padding-left: 0.4em;">
+				<img src="<?=url('/')?>/public/img/button/toko_premium/atur_toko.svg" style="width: 100%;">
+			</a>
+			<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk" style="padding-left: 0.4em;">
+				<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_produk.svg" style="width: 100%;">
+			</a>
+			<a href="<?=url('/')?>/akun/mitra/premium/atur-produk" style="padding-left: 0.4em;">
+				<img src="<?=url('/')?>/public/img/button/toko_premium/atur_produk.svg" style="width: 100%;">
+			</a>
+			<a href="<?=url('/')?>/akun/mitra/premium/list-pesanan" style="padding-left: 0.4em;">
+				<img src="<?=url('/')?>/public/img/button/toko_premium/list_pesanan.svg" style="width: 100%;">
+			</a>
 		</div>
 	</div>
 
@@ -412,8 +401,8 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	var color_bulanan = ["#ffaa00", "#ffaa00", "#ffaa00", "#ffaa00","#ffaa00", "#ffaa00","#ffaa00", "#ffaa00","#ffaa00", "#ffaa00","#ffaa00", "#ffaa00"];
 
 
-	var label_pekanan = ["Senin", "Selasa", "Rabu", "Kamis","Jumat", "Sabtu", "Minggu"];
-	var jumlah_pekanan = [15, 24, 35, 12, 16, 12, 19];
+	var label_pekanan = ["", "Senin", "Selasa", "Rabu", "Kamis","Jumat", "Sabtu", "Minggu", ""];
+	var jumlah_pekanan = [0, 15, 24, 35, 30, 28, 34, 0, 0];
 	var maxJumlah_pekanan = Math.max.apply(Math, jumlah_pekanan)/2;
 	var color_pekanan = ["#ffaa00", "#ffaa00", "#ffaa00", "#ffaa00","#ffaa00", "#ffaa00", "#ffaa00"];
 	create_chart(label_bulanan, jumlah_bulanan, color_bulanan, "chart-0", maxJumlah_bulanan);
@@ -461,71 +450,79 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 				strokeColor: color,   
 			}]
 		};
+
 		var ctx = document.getElementById(target);
+		var ctx_gradient = ctx.getContext("2d");
+		var gradientFill = ctx_gradient.createLinearGradient(0, 50, 0, 150);
+		gradientFill.addColorStop(1, "transparent");
+		gradientFill.addColorStop(0, "#dc961c");
+
 		var data = {
 			labels: label,
 			datasets: [{
 				data: jumlah,
-				backgroundColor: color,
-				fill: false,
+				fill: true,
 				borderColor: "#ffaa00",
-				borderDash: [4, 2],  	
-				fillColor: "rgba(151,205,187,0.2)",
-    			// backgroundColor: "rgba(151,205,187,0.2)",    			
+				pointBackgroundColor: "#1c1e1e",
+				pointRadius: [0, 5, 5, 5, 5, 5, 5, 5, 0],
+				pointBorderWidth: 2,
+				backgroundColor: gradientFill,    			
 
-    		}]
-    	}
+			}]
+		}
 
-    	Chart.defaults.global.defaultFontSize = "10";
-    	var myChart = new Chart(ctx, {
-    		type: 'line',
-    		label: '90',
-    		data: data,
-    		options: {
-    			"hover": {
-    				"animationDuration": 4
-    			},
-    			"animation": {
-    				"duration": 1,
-    				"onComplete": function() {
-    					var chartInstance = this.chart,
-    					ctx = chartInstance.ctx;
-    					ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-    					ctx.textAlign = 'center';
-    					ctx.textBaseline = 'bottom';
-    					this.data.datasets.forEach(function(dataset, i) {
-    						var meta = chartInstance.controller.getDatasetMeta(i);
-    						meta.data.forEach(function(bar, index) {
-    							var data = dataset.data[index];
-    							ctx.fillText(data, bar._model.x, bar._model.y - 5);
-    						});
-    					});
-    				}
-    			},
-    			datasetFill: true,
-    			legend: {"display": false,},
-    			tooltips: {"enabled": false},
-    			scales: {
-    				yAxes: [{
-    					display: true,
-    					gridLines: {display: true},
-    					ticks: {
-    						max: Math.max(...data.datasets[0].data) + margin_top,
-    						display: false,
-    						beginAtZero: true,
-    						padding: 25
-    					},
-    				}],
-    				xAxes: [{
-    					gridLines: {display: false},
-    					ticks: {beginAtZero: true}
-    				}]
-    			}
-    		}
-    	});
-    }
-
-
+		Chart.defaults.global.defaultFontSize = "10";
+		Chart.defaults.global.defaultFontColor = "white";
+		var myChart = new Chart(ctx, {
+			type: 'line',
+			label: '90',
+			data: data,
+			options: {
+				"hover": {
+					"animationDuration": 4
+				},
+				"animation": {
+					"duration": 1,
+					"onComplete": function() {
+						var chartInstance = this.chart,
+						ctx = chartInstance.ctx;
+						ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+						ctx.textAlign = 'center';
+						ctx.textBaseline = 'bottom';
+						this.data.datasets.forEach(function(dataset, i) {
+							var meta = chartInstance.controller.getDatasetMeta(i);
+							meta.data.forEach(function(bar, index) {
+								if ((index != 0) && (index != 8)){
+									var data = dataset.data[index];
+									ctx.fillStyle = "white";
+									ctx.fillText(data, bar._model.x, bar._model.y - 5);
+								}
+							});
+						});
+					}
+				},
+				datasetFill: true,
+				legend: {"display": false},
+				tooltips: {"enabled": false},
+				scales: {
+					yAxes: [{
+						display: false,
+						gridLines: {display: true},
+						ticks: {
+							max: Math.max(...data.datasets[0].data) + margin_top,
+							display: false,
+							beginAtZero: true,
+							padding: 25
+						},
+					}],
+					xAxes: [{
+						gridLines: {display: false},
+						ticks: {beginAtZero: true}
+					}]
+				}
+			}
+		});
+	}
 
 </script>
 @endsection
