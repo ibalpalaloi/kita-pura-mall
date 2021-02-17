@@ -15,14 +15,19 @@ class UserController extends Controller
 	public function index(){
 		$toko = toko::where('user_id', Session::get('id_user'))->first();
 		if($toko){
-			if($toko->status == 'Tidak Aktif'){
+			if($toko->status == "Tidak Aktif"){
 				$status_aktif_mitra = "Tidak Aktif";				
+				Session::put('status_mitra', $toko->jenis_mitra);
+			}
+			else if($toko->status == 'Belum lengkap'){
+				$status_aktif_mitra = "Belum lengkap";				
 				Session::put('status_mitra', $toko->jenis_mitra);
 			}
 			else{
 				$status_aktif_mitra = "Aktif";								
 				Session::put('status_mitra', $toko->jenis_mitra);
 			}
+
 		}
 		else {
 			$status_aktif_mitra = "bukan_mitra";
