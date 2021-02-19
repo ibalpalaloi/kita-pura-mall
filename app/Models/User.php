@@ -49,4 +49,8 @@ class User extends Authenticatable
         return $this->hasOne(Biodata::class);
     }
 
+    public function toko(){
+        return $this->hasOne(Toko::class);
+    }
+
 }
