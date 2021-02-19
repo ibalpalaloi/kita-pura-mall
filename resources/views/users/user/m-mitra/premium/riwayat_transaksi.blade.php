@@ -342,21 +342,21 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
         
 	</div>
 </div> 
-@foreach ($total_penjualan as $item)
+@for($i=count($total_penjualan); $i>0; $i--)
 <div style="margin-top: 1em;">
     <div class="card-menu-premium">
         <div style="margin-top: 1em; width: 100%; display: flex; justify-content: center; ">
             <div style="padding: 1em; color: black; display: flex; justify-content: center; align-items: center; flex-direction: column; width: 50%;">
                 <h7>Total Penjualan</h7>
                 <div style="width: 100%; background: #ffaa00; color: white; text-align: center; border-radius: 1.5em;">
-                    <h5>IDR {{$item['keuntungan']}}</h5>
+                    <h5>IDR {{$total_penjualan[$i-1]['keuntungan']}}</h5>
                 </div>
-                <h7>{{$item['hari_awal']}} - {{$item['hari_akhir']}}</h7>
+                <h7>{{$total_penjualan[$i-1]['hari_awal']}} - {{$total_penjualan[$i-1]['hari_akhir']}}</h7>
             </div>
         </div>			
     </div>
 </div>
-@endforeach
+@endfor
 
 </main>
 

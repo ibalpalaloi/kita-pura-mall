@@ -342,16 +342,16 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
         
 	</div>
 </div> 
-@for($i=0; $i<count($hasil_bulanan); $i++)
+@for($i=count($hasil_bulanan); $i>0; $i--)
 <div style="margin-top: 1em;">
     <div class="card-menu-premium">
         <div style="margin-top: 1em; width: 100%; display: flex; justify-content: center; ">
             <div style="padding: 1em; color: black; display: flex; justify-content: center; align-items: center; flex-direction: column; width: 50%;">
                 <h7>Hasil Penjualan</h7>
                 <div style="width: 100%; background: #ffaa00; color: white; text-align: center; border-radius: 1.5em;">
-                    <h5>IDR {{$hasil_bulanan[$i]['total']}}</h5>
+                    <h5>IDR {{$hasil_bulanan[$i-1]['total']}}</h5>
                 </div>
-                <h7>{{$hasil_bulanan[$i]['bulan']}}</h7>
+                <h7>{{$hasil_bulanan[$i-1]['bulan']}}</h7>
             </div>
         </div>
     </div>
