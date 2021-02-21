@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Daftar_tunggu_toko extends Model
+class Ktp_toko extends Model
 {
+    protected $table = "ktp_toko";
+
     use HasFactory;
-    protected $table = 'daftar_tunggu_toko';
     
 }
