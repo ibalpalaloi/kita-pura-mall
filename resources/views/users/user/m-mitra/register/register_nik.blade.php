@@ -275,92 +275,47 @@
 		</div>
 	</div>
 </header>
-<form enctype="multipart/form-data" action="<?=url('/')?>/akun/jadi-mitra/{{Request::segment(3)}}/simpan" method="post">
+<form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post">
 	{{csrf_field()}}
 	<div class="wrapper" style="background: #eaf4ff; position: relative; z-index: 2; top: -2.5em;">
 		<div class="banner" style="position: relative;">
 			<img src="<?=url('/')?>/public/img/mitra/cover_premium.svg" style="width: 100%;">
 			<div style="position: absolute; top: 7.5em; left: 5%; width: 90%; height: 90%; display: flex; justify-content: center; align-items: center; flex-direction: column; background: white; border-radius: 1.5em;">
-				<div id="div_pic_toko" style="padding: auto 0; border:2px dashed #ffaa00; display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 50%; height: 50%;">
+				<div id="div_pic_toko" style="padding: auto 0; border:2px dashed #ffaa00; display: flex; justify-content: center; align-items: center; border-radius: 1.5em; width: 75%; height: 50%;">
 					<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_yellow.svg" onclick="tambah_foto_toko()">
 				</div>
-				<div id="div_pic_toko_privew" style="position: relative; padding: auto 0; display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 50%; height: 50%; border: 2px solid #b3b6bc;" hidden>
-					<img id="pic_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
+				<div id="div_pic_toko_privew" style="position: relative; padding: auto 0; display: flex; justify-content: center; align-items: center; border-radius: 1.5em; width: 75%; height: 50%; border: 2px solid #b3b6bc;" hidden>
+					<img id="pic_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; border-radius: 1.5em; object-fit: cover;height: 100%;">
 					<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_yellow.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 0px; bottom: 0px;">
 				</div>
-				<div style="font-weight: 600; color: black; font-size: 1.3em; margin-top: 0.5em;">Logo Toko</div>
-				<div style="color: #b3b6bc; font-size: 1em; margin-top: 0em;  font-size: 0.8em; line-height: 1.3em; width: 100%; padding: 0em 10%;">logo toko sangat penting untuk membantu branding kepada masyarakat. dan membantu pengindentifikasian toko</div>
+				<div style="font-weight: 600; color: black; font-size: 1.3em; margin-top: 0.5em;">Foto KTP</div>
+				<!-- <div style="color: #b3b6bc; font-size: 1em; margin-top: 0em;  font-size: 0.8em; line-height: 1.3em; width: 100%; padding: 0em 10%;">Foto KTP sangat penting untuk membantu kami kepada masyarakat. dan membantu pengindentifikasian toko</div> -->
 				<input type="file" name="foto_toko" id="foto_toko" hidden>
 			</div>
 		</div>
 	</div>
 
-	<main id="homepage" class="homepage" style="padding: 0px; background: #eaf4ff; margin-top: 2em; border-radius: 1.5em;">
+	<main id="homepage" class="homepage" style="padding: 0px; background: #eaf4ff; margin-top: 5em; border-radius: 1.5em;">
 		<div class="card-mall kategori" style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: #eaf4ff;">
 			<div style="width: 90%; margin-top: 1em; display: flex; flex-direction: column; align-items: center;">
-				<div class="input-group mb-3 div-input-mall" id="div_nama_pemilik">
-					<span>Nama Pemilik</span>
+				<div class="input-group mb-3 div-input-mall" id="div_nama_ktp">
+					<span>Nama KTP</span>
 					<div>
 						<span class="input-group-text-mall">
 							<img src="<?=url('/')?>/public/img/icon_svg/people.svg" style="width: 100%;">
 						</span>
-						<input type="text" class="form-control-mall" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" style="width: 100%;" required>
+						<input type="text" class="form-control-mall" id="nama_ktp" name="nama_ktp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" style="width: 100%;" required>
 					</div>
 				</div>
-				<div class="input-group mb-3 div-input-mall" id="div_kategori">
-					<span>Kategori</span>
+				<div class="input-group mb-3 div-input-mall" id="div_no_nik">
+					<span>Nomor NIK</span>
 					<div>
 						<span class="input-group-text-mall">
-							<img src="<?=url('/')?>/public/img/icon_svg/kategori.svg" style="width: 100%;">
+							<img src="<?=url('/')?>/public/img/icon_svg/card.svg" style="width: 100%;">
 						</span>
-						<select type="text" class="form-control-mall" id="kategori_toko" name="kategori_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;"  required>
-							<option value="" disabled selected>Pilih Kategori Toko</option>
-							@foreach($daftar_kategori as $row)
-							<option value="{{$row->id}}">{{$row->kategori}}</option>
-							@endforeach
-						</select>
+						<input type="text" class="form-control-mall" id="no_nik" name="no_nik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor NIK" aria-label="Nomor NIK" aria-describedby="basic-addon1" style="width: 100%;" required>
 					</div>
 				</div>
-				<div class="input-group mb-3 div-input-mall" id="div_no_hp">
-					<span>Nomor Handphone Toko</span>
-					<div>
-						<span class="input-group-text-mall">
-							<img src="<?=url('/')?>/public/img/icon_svg/handphone.svg" style="width: 100%;">
-						</span>
-						<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor hp toko" aria-label="Nomor Handphone Toko" aria-describedby="basic-addon1" style="width: 100%;" required>
-					</div>
-				</div>
-				<div class="input-group mb-3 div-input-mall" id="div_jadwal">
-					<span>Jadwal Buka Tutup Toko</span>
-					<div>
-						<span class="input-group-text-mall">
-							<img src="<?=url('/')?>/public/img/icon_svg/calender.svg" style="width: 100%;">
-						</span>
-						<div onclick="pilih_jadwal()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; margin-left: 0.4em; " id="pilih_jadwal_buka_toko">Pilih Jadwal Toko</div>
-
-					</div>
-				</div>
-				<div>
-					<input type="hidden" name="jadwal_hari" id="jadwal_hari">
-					<input type="hidden" name="jadwal_buka" id="jadwal_buka">
-					<input type="hidden" name="jadwal_tutup" id="jadwal_tutup">
-				</div>
-				<div class="input-group mb-3 div-input-mall" id="div_alamat">
-					<span>Alamat Toko</span>
-					<div>
-						<span class="input-group-text-mall">
-							<img src="<?=url('/')?>/public/img/icon_svg/home.svg" style="width: 100%;">
-						</span>
-						<input type="text" class="form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" style="width: 100%;">
-
-					</div>
-				</div>
-				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="height: 20em; justify-content: flex-start;">
-					<span style="margin-top: 0px;">Deskripsi</span>
-					<div style="height: 15em; width: 100%;">
-						<textarea class="form-control-mall" id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 15em; border-radius: 0px; margin: 0.6em;" rows="8" required></textarea>
-					</div>
-				</div>		
 
 
 			</div>

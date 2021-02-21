@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Biodata;
 use App\Models\User;
+use App\Models\Daftar_tunggu_toko;
 use App\Models\toko;
 use Session;
 
@@ -43,9 +44,24 @@ class UserController extends Controller
 			Session::put('status_mitra', $toko->jenis_mitra);
 		}
 		else {
+			$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
 
-			$status_aktif_mitra = "bukan_mitra";
-			Session::put('status_mitra', "Belum jadi mitra");			
+			if ($daftar_tunggu){
+				if($toko){
+
+					$status_aktif_mitra = $toko->jenis_mitra;
+					Session::put('status_mitra', $toko->jenis_mitra);	
+				}
+				else{
+					$status_aktif_mitra = $daftar_tunggu->jenis_mitra;
+					Session::put('status_mitra', $daftar_tunggu->jenis_mitra);	
+				}
+			}
+			else{
+				$status_aktif_mitra = "bukan_mitra";
+				Session::put('status_mitra', "Belum jadi mitra");	
+			}
+				
 		}
 		return view('users/user/m-profil/index', compact('status_aktif_mitra'));
 	}
