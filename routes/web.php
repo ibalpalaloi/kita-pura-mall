@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Admin_Manajemen_Kategori_Controller;
 use App\Http\Controllers\Admin\Admin_Manajemen_Toko_Controller;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Mitra\MitraController;
+use App\Http\Controllers\Mitra\PesananController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -108,7 +109,14 @@ Route::group(['middleware'=> 'auth'], function() {
         // Route::get('/user/jadi-mitra/{jenis_mitra}/register', [MitraController::class, 'register']);
         // Route::get('/user/jadi-mitra/{jenis_mitra}/register/pilih-lokasi', [MitraController::class, 'pilih_lokasi']);
 
-
+        // list pesanan
+        Route::get('/akun/pengaturan_toko/pesanan', [PesananController::class, 'pesanan']);
+        Route::get('/akun/pengaturan_toko/hapus_pesanan/{id}', [PesananController::class, 'hapus_pesanan']);
+        Route::get('/akun/list_produk', [PesananController::class, 'list_produk']);
+        Route::post('/akun/post/pesanan', [PesananController::class, 'post_pesanan']);
+        Route::get('/akun/riwayat_transaksi', [PesananController::class, 'riwayat_transaksi']);
+        Route::get('/akun/riwayat_transaksi/bulan', [PesananController::class, 'riwayat_transaksi_bulan']);
+        
 
     });
 
