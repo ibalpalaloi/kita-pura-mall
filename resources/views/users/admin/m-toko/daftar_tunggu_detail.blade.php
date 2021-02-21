@@ -44,6 +44,12 @@ Detail Daftar Tunguu
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-md-12">Nama Pemilik</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control form-control-line" value="{{$toko->nama_toko}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="example-email" class="col-md-12">No Hp</label>
                             <div class="col-md-12">
                                 <input type="text" class="form-control form-control-line" value="{{$toko->no_hp}}">
@@ -56,23 +62,20 @@ Detail Daftar Tunguu
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-12">Kategori Toko</label>
+                            <div class="col-sm-12">
+                                <select class="form-control form-control-line">
+                                    <option>Free</option>
+                                    <option>Premium</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-md-12">Deskripsi</label>
                             <div class="col-md-12">
                                 <textarea rows="5" class="form-control form-control-line">{{$toko->deskripsi}}</textarea>
                             </div>
                         </div>
-                        {{-- <div class="form-group">
-                            <label class="col-sm-12">Select Country</label>
-                            <div class="col-sm-12">
-                                <select class="form-control form-control-line">
-                                    <option>London</option>
-                                    <option>India</option>
-                                    <option>Usa</option>
-                                    <option>Canada</option>
-                                    <option>Thailand</option>
-                                </select>
-                            </div>
-                        </div> --}}
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <button class="btn btn-success">Verifikasi</button>

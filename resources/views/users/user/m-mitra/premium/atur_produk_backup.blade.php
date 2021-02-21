@@ -485,7 +485,7 @@ if (!empty($_GET['deskripsi'])){
 			<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
 				<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
 				<img src="<?=url('/')?>/public/img/product/{{$digital[$i]}}">
-				<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; background: #f3a301; color: white; background-size: cover; position: relative;'> 
+				<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; background: #9d0208; color: white; background-size: cover; position: relative;'> 
 					<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #ed9f01; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
 						<img src="<?=url('/')?>/public/img/icon_svg/pencil.svg" style="width: 1.5em; height: 1.5em;">
 					</div>

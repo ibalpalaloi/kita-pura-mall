@@ -16,4 +16,8 @@ class Toko extends Model
     public function kategori_toko(){
         return $this->belongsTo(Kategori_toko::class);
     }
+
+    public function pesanan(){
+        return $this->hasMany(Pesanan::class);
+    }
 }
