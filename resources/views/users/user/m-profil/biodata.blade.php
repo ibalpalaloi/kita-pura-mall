@@ -298,7 +298,7 @@ if (!empty($_GET['hari'])){
 						
 							<span style="margin-left: 0.5em; margin-right: 2em; color:@if($biodata->jenis_kelamin == 'Pria') #1c2645 @else #b3b7c0 @endif;" 
 							id="option_pria" onclick="pilih_jenkel(this.id, 'Pria')"><i class="fas fa-circle" style="font-size: 0.8em;"></i>&nbsp;&nbsp;Pria</span>
-							<span style="margin-right: 0.5em; color: #b3b7c0;" id="option_wanita" onclick="pilih_jenkel(this.id, 'Wanita')"><i class="fas fa-circle" style="font-size: 0.8em;"></i>&nbsp;&nbsp;Wanita</span>
+							<span style="margin-right: 0.5em; color:@if($biodata->jenis_kelamin == 'Wanita') #1c2645 @else #b3b7c0 @endif;" id="option_wanita" onclick="pilih_jenkel(this.id, 'Wanita')"><i class="fas fa-circle" style="font-size: 0.8em;"></i>&nbsp;&nbsp;Wanita</span>
 						</div>
 					</div>
 				</div>
