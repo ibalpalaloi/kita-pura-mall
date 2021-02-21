@@ -94,7 +94,7 @@ Explore |
 			$index = 0;
 			@endphp 
 			@for ($j = 0; $j < $rownya; $j++)
-			<div class="row" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+			<div class="row" style="display: flex; flex-wrap: wrap; justify-content: space-around;" onclick='tampil_gambar("{{$product[$j]}}")'>
 				@for ($i = 0; $i < 6; $i++)
 				<div style="display: flex; justify-content: center; flex-direction: column;  width:30%; margin: 1.5%;">
 					<img src="<?=url('/')?>/public/img/product/thumbnail/{{$product[$index]}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
@@ -148,5 +148,11 @@ Explore |
 @endsection
 
 @section('footer-scripts')
+<script type="text/javascript">
+	function tampil_gambar(gambarnya) {
+		alert(gambarnya);
+		// body...
+	}
+</script>
 
 @endsection
