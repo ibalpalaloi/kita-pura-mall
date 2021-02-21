@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Biodata;
 use App\Models\User;
+use App\Models\Daftar_tunggu_toko;
 use App\Models\toko;
 use Session;
 
@@ -13,32 +14,61 @@ class UserController extends Controller
 {
     //
 	public function index(){
-		$toko = toko::where('user_id', Session::get('id_user'))->first();
-		if($toko){
-			if($toko->status == "Tidak Aktif"){
-				$status_aktif_mitra = "Tidak Aktif";				
-				Session::put('status_mitra', $toko->jenis_mitra);
-			}
-			else if($toko->status == 'Belum lengkap'){
-				$status_aktif_mitra = "Belum lengkap";				
-				Session::put('status_mitra', $toko->jenis_mitra);
-			}
-			else{
-				$status_aktif_mitra = "Aktif";								
-				Session::put('status_mitra', $toko->jenis_mitra);
-			}
+
+		$progress = 2;
+
+		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
+
+		if(!empty($biodata->nama)){
+
+			$progress = $progress+1;
+			
+		}
+		if(!empty($biodata->jenis_kelamin)){
+
+			$progress = $progress+1;
+			
+		}if(!empty($biodata->alamat)){
+
+			$progress = $progress+1;
 
 		}
+		
+		Session::put('progress_biodata', $progress);
+
+		$toko = toko::where('users_id', Session::get('id_user'))->first();
+
+		if($toko){
+
+			$status_aktif_mitra = $toko->jenis_mitra;
+			Session::put('status_mitra', $toko->jenis_mitra);
+		}
 		else {
-			$status_aktif_mitra = "bukan_mitra";
-			Session::put('status_mitra', "Belum jadi mitra");			
+			$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+
+			if ($daftar_tunggu){
+				if($toko){
+
+					$status_aktif_mitra = $toko->jenis_mitra;
+					Session::put('status_mitra', $toko->jenis_mitra);	
+				}
+				else{
+					$status_aktif_mitra = $daftar_tunggu->jenis_mitra;
+					Session::put('status_mitra', $daftar_tunggu->jenis_mitra);	
+				}
+			}
+			else{
+				$status_aktif_mitra = "bukan_mitra";
+				Session::put('status_mitra', "Belum jadi mitra");	
+			}
+				
 		}
 		return view('users/user/m-profil/index', compact('status_aktif_mitra'));
 	}
 
 	public function biodata(){
 
-		$biodata = Biodata::where('user_id', Session::get('id_user'))->first();
+		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
 
 		return view('users/user/m-profil/biodata', ['biodata'=>$biodata]);
 	}
@@ -53,7 +83,7 @@ class UserController extends Controller
 			'username' => 'required'
 		]);
 		
-		$biodata = Biodata::where('user_id', Session::get('id_user'))->first();
+		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
 		// dd($biodata);
 		$biodata->nama = $request->nama_lengkap;
 		$biodata->jenis_kelamin = $request->jenis_kelamin;

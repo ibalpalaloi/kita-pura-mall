@@ -153,7 +153,7 @@ class AuthController extends Controller
         $user->save();
 
         $biodata = new Biodata;
-        $biodata->user_id = $id_user;
+        $biodata->users_id = $id_user;
         $biodata->username = $this->autocode('user');
         $biodata->save();
 
