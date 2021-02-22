@@ -271,25 +271,17 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	.slider-toko {
 		display: flex; 
 		justify-content: center; 
-		flex-direction: column; 
 		align-items: center; 
 		margin: 0em 0em 0em 0.5em; 
-		width: 47.5%;		
 	}
 
 	.slider-toko img {
 		width: 100%;
-		height: 7.5em;
+		height: 100%;
 		object-fit: cover;
-		border-top-left-radius: 1em;
-		border-top-right-radius: 1em;
+		border-radius: 0.5em;
 	}
 
-	.slider-toko > div {
-		height: 6.3em;
-		border-bottom-left-radius: 1em;
-		border-bottom-right-radius: 1em;
-	}
 
 	.star-rating {
 		color: #efff3b;
@@ -297,6 +289,14 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 	.star-no-rating {
 		color: #c1c3be;
+	}
+
+	.button-detail {
+		display: flex;	
+	}
+
+	.button-detail > div{
+		margin-right: 0.3em;
 	}
 
 	.modal .fade:not(.in).bottom .modal-dialog {
@@ -419,49 +419,9 @@ if (!empty($_GET['deskripsi'])){
 	</div>
 	<div>
 		<div style="padding: 0px 16px 1em;">
-			<h3 style="color: white;">Atur Produk</h3>
-			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Tampilan Maps</h6>
+			<h3 style="color: white;">List Pesanan<br>Toko Hari Ini</h3>
 			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
-				<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
-			</div>
-			<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-				<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('1')" id="div_pic_maps_1">
-					<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
-				</div>
-				<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew" hidden>
-					<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-					<img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
-				</div>
-
-				<input hidden type="file" name="foto_maps_1" id="foto_maps_1" required>
-			</div>
-			<div style="display: flex; justify-content: space-between;">
-				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
-					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('2')" id="div_pic_maps_2">
-						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
-					</div>
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew" hidden>
-						<img id="pic_maps_2_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-						<img id="pic_maps_2" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
-					</div>
-
-					<input hidden type="file" name="foto_maps_2" id="foto_maps_2" required>
-				</div>
-				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
-					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('3')" id="div_pic_maps_3">
-						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
-					</div>
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew" hidden>
-						<img id="pic_maps_3_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-						<img id="pic_maps_3" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
-					</div>
-
-					<input hidden type="file" name="foto_maps_3" id="foto_maps_3" required>
-				</div>
-			</div>
-			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Menu Favorit</h6>
-			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
-				<div style="font-size: 0.8em; color: #dddddd; line-height: 1.3em;">pilih 3 menu favorit untuk ditampilkan di halaman depan landing page</div>
+				<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">input pesanan toko untuk mendapatkan total transaksi</div>
 			</div>
 			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
 				<div style="width: 100%; padding-right: 0.5em;">
@@ -475,70 +435,55 @@ if (!empty($_GET['deskripsi'])){
 			</div>
 			<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding-bottom: 4em;">
 				@foreach ($pesanan as $item)
-				<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
-					<img src="<?=url('/')?>/public/img/product/TKO-1204012490124/product_1.png">
-					<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; background: #f3a301; color: white; background-size: cover; position: relative;'>
-						<div onclick='hapus_pesanan("{{$item->id}}")' style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #ed9f01; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
-							<img src="<?=url('/')?>/public/img/icon_svg/pencil.svg" style="width: 1.5em; height: 1.5em;">
-						</div>
-						<div style="font-weight: 500; margin-top: 0em;">{{$item->product->nama}}</div>
-						<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$item->product->jenis}}</div>
+				<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px; width: 100%; background: radial-gradient(131.25% 1072.4% at -7.42% 138.67%, #232323 0%, #353535 42.71%, #1C1C1D 77.6%, #252526 100%); border-radius: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83); position: relative;">
+					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+					<div style="width: 27%; margin: 0.5em; height: 7em;">
+						<img src="<?=url('/')?>/public/img/toko/{{Auth()->user()->id}}/produk/product_8.jpg">
+					</div>
+					<div style='text-align: left; font-size: 0.75em; width:60%; color: white; background-size: cover; position: relative; margin-left: 0.5em; display: flex; justify-content: space-between;'> 
+						<div>
+							<div style="font-weight: 500; margin-top: 0em; font-size: 1.3em;"><?=substr(strip_tags($item->nama), 0, 15)?>@if (strlen($item->nama) > 15)..@endif</div>
+							<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">Jenis</div>
 
-
-						{{-- <span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-							<s>IDR. 25.000</s>
-						</span> --}}
-						<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{number_format($item->harga_total, 0, '.', '.')}}</span>
-						<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
-							Jumlah Pesanan = {{$item->jumlah}}
+							<div style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 1.2em; vertical-align: center;">
+								<s>IDR. 25.000</s>
+							</div>
+							<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 0.9em; font-weight: 500;">IDR. 5.000</div>
+							<div class="button-detail" style="margin-top: 1.5em;">
+								<div style="width: 2em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick="kurangi_pesanan()"><i class="fa fa-minus"></i></div>
+								<div style="width: 3em; height: 2em; background: white; border-radius: 2em; color: #9d0208; display: flex; justify-content: center; align-items: center; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan"><?=$item->jumlah?></div>
+								<div style="width: 2.1em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick="tambah_pesanan()"><i class="fa fa-plus"></i></div>
+							</div>			
+						</div>				
+						<div>
+							<div style="text-align: center;">Time</div>
+							<div class="st0" style="padding: 0.2em 1em; margin-right: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83);">08:00:43</div>
 						</div>
 					</div>
-				</div>
-				@endforeach
-				<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
-					@php
-					$digital = array('TKO-1204012490124/product_1.png', 'TKO-1204012490124/product_2.png', 'TKO-1204012490124/product_3.png', 'TKO-1204012490124/product_4.png', 'TKO-1204012490124/product_1.png', 'TKO-1204012490124/product_2.png');
-					$nama_digital = array('Bakso', 'Sate', 'Nasi Goreng', 'Mie Ayam', 'Bakso', 'Sate');
-					$kategori_toko = array('Makanan', 'Makanan', 'Makanan', 'Makanan', 'Makanan', 'Makanan');
-
-					$jumlah_digital = count($digital)-1;
-					@endphp 
-
-					@for ($i = 0; $i < count($digital); $i++)  
-					<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
-						<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-						<img src="<?=url('/')?>/public/img/product/{{$digital[$i]}}">
-						<div class="st0" style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative;'> 
-							<div style="position: absolute; top: -1em; z-index: 0;right: 0.5em; display: flex; justify-content: center; align-items: center;">
-								<div class="togglebutton">
-									<label>
-										<input type="checkbox" checked="">
-										<span class="toggle"></span>
-									</label>
-								</div>
-							</div>
-							<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($nama_digital[$i]), 0, 15)?>@if (strlen($nama_digital[$i]) > 15)..@endif</div>
-							<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$kategori_toko[$i]}}</div>
-
-
-							<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-								<s>IDR. 25.000</s>
-							</span>
-							<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. 5.000</span>
-							<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
-								Stok : 42
-							</div>
+					<div style="width: 13%; height: 100%; display: flex; align-items: center; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em;" class="st0">
+						<div>
+							<img src="<?=url('/')?>/public/img/icon_svg/trash_white.svg" style="width: 100%;">
 						</div>
-					</div> 
-					@endfor
-				</div>
+					</div>
+					<div class="st0" style="position: absolute; color: white; bottom: -0.5em; right: 0px; padding: 0.2em 1em; border-radius: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83);">
+						IDR 30.000
+					</div>
+				</div> 
+				@endforeach
 			</div>
 		</div>
 	</div>
 </main>
-<div class="footer">
-	<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk/add" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
-		<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%;">
+<div class="footer st0">
+	<div style="display: flex; flex-direction: column; align-items: flex-end;">
+		<div style="font-size: 0.8em; margin-bottom: 0.5em;">Senin, 15 Februari 2020</div>
+		<div>
+			<span style="margin-right: 1em;">Total</span>
+			<span class="st0" style="padding: 0.2em 0.7em; border-radius: 0.3em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83);">IDR 30.000</span>
+		</div>
+	</div>
+	<a href="<?=url('/')?>/akun/mitra/premium/list-pesanan/list-produk" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
+		<img src="<?=url('/')?>/public/img/button/toko_premium/input_pesanan.svg" style="width: 100%;">
 	</a>
 </div>
 @endsection

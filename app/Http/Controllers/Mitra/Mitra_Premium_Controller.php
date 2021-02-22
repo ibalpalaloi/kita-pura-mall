@@ -18,7 +18,7 @@ use App\Models\Jadwal_toko;
 class Mitra_Premium_Controller extends Controller
 {
     //
-    public function index_premium(){
+	public function index_premium(){
 
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 
@@ -194,8 +194,21 @@ class Mitra_Premium_Controller extends Controller
 	}
 
 
+	public function daftar_produk_premium(){
+		$kategori_produk = Kategori::all();
 
+		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$produk = product::where('toko_id', $toko->id)->get();
 
+		return view('users/user/m-mitra/premium/daftar_produk', compact('kategori_produk', 'produk'));
+	}
+
+	public function tambah_produk_premium(){
+		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$produk = product::where('toko_id', $toko->id)->get();
+		$daftar_kategori = Kategori_toko::all();
+		return view('users/user/m-mitra/premium/tambah_produk', compact('toko', 'daftar_kategori'));
+	}
 
 	public function register_nik(){
 		return view('users/user/m-mitra/register_nik');
