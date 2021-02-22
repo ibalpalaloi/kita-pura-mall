@@ -1,21 +1,23 @@
-@extends('layouts.home_no_menu')
+@extends('layouts.home_premium')
 
 @section('title')
 
 @endsection
 
 @section('header-scripts')
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/lunar/css/lunar.css">
 <style type="text/css">
 	.banner {
 		max-width: 480px;
 		width: 100%;
 		margin: 0px auto;
+		padding: 4em 0em 4em 0em;
 	}
 
 	.header {
-		background: #ff006e;
+		background: #ffaa00;
 		position: fixed;
 		width: 100%;
 		top: 0px;
@@ -93,7 +95,7 @@
 
 
 	.div-input-mall-square {
-		border-radius: 0.5em; border:1px solid white;	
+		border-radius: 1.5em; border:1px solid white;	
 		color: #1c2645;
 		font-weight: 600;			
 	}
@@ -107,21 +109,21 @@
 	.input-group-text-mall {
 		border: none;
 		display: flex;justify-content: center;
-		border-bottom-left-radius: 1.5em; 
-		border-top-left-radius: 1.5em; 
-		padding-left: 1.2em;
+		border-bottom-left-radius: 0.5em; 
+		border-top-left-radius: 0.5em; 
 	}
 
 
 	.form-control-mall {
 		height: 2.5em; 
-		border-bottom-right-radius: 1.5em; 
-		border-top-right-radius: 1.5em; 
-		border-left: none;	
-		color: #1c2645;
+		border-bottom-right-radius: 0.5em; 
+		border-top-right-radius: 0.5em; 
+		border:  none;	
+		background: #202020;
+		color: white;
 		font-weight: 600;
 		padding: 0em 0em 0em 0.6em;	
-
+		margin-left: 0px;
 	}
 
 	.form-control-mall-modal {
@@ -155,7 +157,7 @@
 		}
 	}
 
-	.modal-content{
+	.modal-content-jadwal{
 		position:fixed;
 		padding:0;
 		margin:0;
@@ -194,163 +196,198 @@
 		-moz-appearance: none;
 		text-indent: 1px;
 		text-overflow: '';
+		border: none;
 		width: 100%;
 		margin-left: 0.4em;
 	}
 
-	input, textarea, select {
+	input {
 		border: none;
 	}
+
+	.div-feature {
+		display: flex; justify-content: center; flex-direction: column; align-items: center;
+	}
+
+	.feature {
+		background: #d9e1eb; 
+		width: 75%; 
+		padding: 0.3em 0.3em 0.3em 1.2em; 
+		border-radius: 1.5em;
+		margin: 0.25em;
+		font-size: 0.7em;
+		text-align: left;
+	}
+
+	.feature-premium {
+		background: #d9e1eb; 
+		width: 75%; 
+		padding: 0.3em 0.3em 0.3em 1.2em; 
+		border-radius: 1.5em;
+		margin: 0.25em;
+		font-size: 0.7em;
+	}
+
+	.btn-menu-analitik {
+		color: #a1a4a8; 
+		margin: 0em 0.3em 0em 0.3em; 
+		background: white; 
+		padding: 0.3em 1.3em 0.3em 1.3em; 
+		border-radius: 2em;		
+	}
+
+	.analitik-active {
+		color: white;
+		background: #ffaa00;
+	}
+
+	.card-menu-premium {
+		background: white; 
+		display: flex; 
+		justify-content: center; 
+		margin-top: .5em; 
+		flex-direction: column; 
+		align-items: center;		
+		border-radius: 1.5em;
+	}
+
+	.modal .close {
+		right: -1.3em !important;
+	}
+
+	.togglebutton,.togglebutton .toggle,.togglebutton input,.togglebutton label{user-select:none}
+	.togglebutton label{cursor:pointer}
+	.form-group.is-focused .togglebutton label,.togglebutton label{color:rgba(0,0,0,.26)}
+	.form-group.is-focused .togglebutton label:focus,.form-group.is-focused .togglebutton label:hover{
+		color:rgba(0,0,0,.54)
+	}
+	fieldset[disabled] .form-group.is-focused .togglebutton label{color:rgba(0,0,0,.26)}
+	.togglebutton label input[type=checkbox]{opacity:0;width:0;height:0}
+	.togglebutton label .toggle{text-align:left;margin-left:5px}
+	.togglebutton label .toggle,.togglebutton label input[type=checkbox][disabled]+.toggle{
+		content:"";
+		display:inline-block;
+		width:30px;
+		height:15px;
+		background-color:rgba(80,80,80,.7);
+		border-radius:15px;
+		margin-right:15px;
+		transition:background .3s ease;vertical-align:middle
+	}
+	.togglebutton label .toggle:after{
+		content:"";
+		display:inline-block;
+		width:20px;
+		height:20px;
+		background-color:#fff;
+		border-radius:20px;
+		position:relative;
+		box-shadow:0 1px 3px 1px rgba(0,0,0,.4);
+		left:-5px;
+		top:-2.5px;
+		border:1px solid rgba(0,0,0,.54);
+		transition:left .3s ease,background .3s ease,box-shadow .1s ease
+	}
+	.togglebutton label input[type=checkbox][disabled]+.toggle:after,.togglebutton label input[type=checkbox][disabled]:checked+.toggle:after{background-color:#bdbdbd}
+	.togglebutton label input[type=checkbox]+.toggle:active:after,.togglebutton label input[type=checkbox][disabled]+.toggle:active:after{box-shadow:0 1px 3px 1px rgba(0,0,0,.4),0 0 0 15px rgba(0,0,0,.1)}
+	.togglebutton label input[type=checkbox]:checked+.toggle:after{left:15px}
+	.togglebutton label input[type=checkbox]:checked+.toggle{background-color:#8a6614}
+	.togglebutton label input[type=checkbox]:checked+.toggle:after{border-color:#8a6614}
+	.togglebutton label input[type=checkbox]:checked+.toggle:active:after{box-shadow:0 1px 3px 1px #8a6614,0 0 0 15px rgba(156,39,176,.1)}
 </style>
 @endsection
 
+
+
 @section('content')
-
-<div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
-		<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
-			<div class="modal-body">
-				<div>
-					<div class="nama-toko" style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em;">Silahkan Masukan Jadwal<br>Buka/Tutup Usaha Anda</div>
-				</div>
-
-			</div>
-			<div id="jadwal_fix" style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
-			</div>
-			<div id="jadwal_sample" style="width: 100%; display: flex; justify-content: center;" hidden>
-				<div class="input-group mb-3 div-input-mall-square" id="harinya" style="width: 90%; background: white; border: 1px solid white;">
-					<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
-						<div style="width: 2.5em; height: 2.5em; background:#ffaa00; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">simbolnya</div>
-					</div>
-					<div style="margin-left: 2%; width: 60%;">
-						<div style="margin-top: 0.5em; font-weight: 700; text-align: left;">harinya</div>
-						<div style="font-size: 0.7em; text-align: left;">jamnya</div>
-					</div>
-					<div onclick='hapus_jadwal("harinya")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ffaa00; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">X</div>
-				</div>
-			</div>
-			<hr style="border-top: 1px solid #c8d2dd; width: 100%;">
-			<div class="input-group mb-3 div-input-mall" id="div_jadwal" style="width: 90%;">
-				<select type="text" class="form-control form-control-mall-modal" id="jadwal" name="jadwal" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="jadwal" aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
-					<option disabled selected>--- Silahkan Pilih Hari ---</option>
-					<option value="SH">Setiap-Hari</option>
-					<option value="SS">Senin-Sabtu</option>
-					<option value="SJ">Senin-JUmat</option>
-					<option value="S">Senin</option>
-					<option value="S">Selasa</option>
-					<option value="R">Rabu</option>
-					<option value="K">Kamis</option>
-					<option value="J">Jumat</option>
-					<option value="S">Sabtu</option>
-					<option value="M">Minggu</option>
-				</select>			
-			</select>			
-		</div>
-		<div style="width: 90%; display: flex; justify-content: space-between;">
-			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 48%;">
-				<input type="time" class="form-control form-control-mall-modal"id="waktu_buka" min="09:00" max="18:00" required style="width: 100%; height: auto !important;">
-			</div>
-			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 48%;">
-				<input type="time" class="form-control form-control-mall-modal"id="waktu_tutup"  min="09:00" max="18:00" required style="width: 100%; height: auto !important;" >
-			</div>
-		</div>
-		<button onclick="tambah_jadwal()" class="btn btn-primary" style="background: #ffaa00;;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;">Tambah Jadwal
-		</button>
-	</div>
-</div>
-</div>
-
-<header class="style__Container-sc-3fiysr-0 header" style="background: #ffaa00;">
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
-		<a href="<?=url('/')?>/akun/jadi-mitra" style="padding-left: 1em;">
-			<img src="<?=url('/')?>/public/img/icon_left_white.svg">
+<header class="style__Container-sc-3fiysr-0 header" style="background: transparent; padding-top: 0.3em;">
+	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
+		<a href="<?=url('/')?>/akun" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
+			<img src="<?=url('/')?>/public/img/back_white.svg">
 		</a>
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
-			<img src="<?=url('/')?>/public/img/logo.svg">
-			<img src="<?=url('/')?>/public/img/logo_text.svg">
-			<input type="text" id="gambar_toko" hidden>
+		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
+			<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
 		</a>
-		<div style="margin-right: 2.5em;">
-			<img src="<?=url('/')?>/public/img/back.svg" hidden>
-		</div>
+		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
+		</a>
 	</div>
 </header>
-<form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post">
-	{{csrf_field()}}
-	<div class="wrapper" style="background: #eaf4ff; position: relative; z-index: 2; top: -2.5em;">
-		<div class="banner" style="position: relative;">
-			<img src="<?=url('/')?>/public/img/mitra/cover_premium.svg" style="width: 100%;">
-			<div style="position: absolute; top: 7.5em; left: 5%; width: 90%; height: 90%; display: flex; justify-content: center; align-items: center; flex-direction: column; background: white; border-radius: 1.5em;">
-				<div id="div_pic_toko" style="padding: auto 0; border:2px dashed #ffaa00; display: flex; justify-content: center; align-items: center; border-radius: 1.5em; width: 75%; height: 50%;">
-					<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_yellow.svg" onclick="tambah_foto_toko()">
-				</div>
-				<div id="div_pic_toko_privew" style="position: relative; padding: auto 0; display: flex; justify-content: center; align-items: center; border-radius: 1.5em; width: 75%; height: 50%; border: 2px solid #b3b6bc;" hidden>
-					<img id="pic_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; border-radius: 1.5em; object-fit: cover;height: 100%;">
-					<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_yellow.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 0px; bottom: 0px;">
-				</div>
-				<div style="font-weight: 600; color: black; font-size: 1.3em; margin-top: 0.5em;">Foto KTP</div>
-				<!-- <div style="color: #b3b6bc; font-size: 1em; margin-top: 0em;  font-size: 0.8em; line-height: 1.3em; width: 100%; padding: 0em 10%;">Foto KTP sangat penting untuk membantu kami kepada masyarakat. dan membantu pengindentifikasian toko</div> -->
-				<input type="file" name="foto_toko" id="foto_toko" hidden>
-			</div>
-		</div>
-	</div>
 
-	<main id="homepage" class="homepage" style="padding: 0px; background: #eaf4ff; margin-top: 5em; border-radius: 1.5em;">
-		<div class="card-mall kategori" style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: #eaf4ff;">
-			<div style="width: 90%; margin-top: 1em; display: flex; flex-direction: column; align-items: center;">
-				<div class="input-group mb-3 div-input-mall" id="div_nama_ktp">
-					<span>Nama KTP</span>
-					<div>
-						<span class="input-group-text-mall">
-							<img src="<?=url('/')?>/public/img/icon_svg/people.svg" style="width: 100%;">
-						</span>
-						<input type="text" class="form-control-mall" id="nama_ktp" name="nama_ktp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" style="width: 100%;" required>
+
+
+<main id="homepage" class="homepage" style="padding-top: 4em; background: transparent;">
+	<form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post">
+		{{csrf_field()}}
+		<div style="display: flex; justify-content: center;">
+			<div style="width: 90%; margin-top: 0em; display: flex; flex-direction: column; align-items: center;">
+				<div class="input-group mb-4 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 11.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko()" id="div_pic_toko">
+						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
 					</div>
+					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 11.5em;" id="div_pic_toko_privew" hidden>
+						<img id="pic_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
+					</div>
+
+					<input hidden type="file" name="foto_toko" id="foto_toko" required>
 				</div>
-				<div class="input-group mb-3 div-input-mall" id="div_no_nik">
-					<span>Nomor NIK</span>
-					<div>
-						<span class="input-group-text-mall">
-							<img src="<?=url('/')?>/public/img/icon_svg/card.svg" style="width: 100%;">
+				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Nama KTP</div>
+					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+						<span class="input-group-text-mall" style="width: 3em; background: #202020;">
+							<img src="<?=url('/')?>/public/img/icon_svg/todo_white.svg" style="width: 55%;">
 						</span>
-						<input type="text" class="form-control-mall" id="no_nik" name="no_nik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor NIK" aria-label="Nomor NIK" aria-describedby="basic-addon1" style="width: 100%;" required>
+						<input type="text" class="form-control-mall" id="nama_ktp" name="nama_ktp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama sesuai KTP" aria-label="Nama KTP" aria-describedby="basic-addon1" style="width: 100%;">
 					</div>
 				</div>
 
-
+				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex;justify-content: space-between;">
+					<div class="harga" style="width: 100%;">
+						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Nomor KTP</div>
+						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
+								<img src="<?=url('/')?>/public/img/icon_svg/harga_white.svg" style="width: 70%;">
+							</span>
+							<input type="text" class="form-control-mall" id="no_nik" name="no_nik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan Nomor NIK" aria-label="Nomor NIK" aria-describedby="basic-addon1" required style="width: 100%;">
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
+					<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
+				</button>	
 			</div>
-			<button type="submit" class="btn btn-primary" style="background: #ffaa00; margin-top: 0.5em;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">Simpan
-			</button>
-
 		</div>
-	</div>
+	</form>
+
 	@if(Session::has('message'))
-    <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-        aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
-        <div class="modal-dialog modal-sm modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body text-center font-weight-bold py-3">
-                    {{Session::get('message')}}
-                    <div class="row mt-2 p-2">
-                        <button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
-                            data-dismiss="modal">Tutup</button>
+	<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+	aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+	<div class="modal-dialog modal-sm modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body text-center font-weight-bold py-3">
+				{{Session::get('message')}}
+				<div class="row mt-2 p-2">
+					<button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
+					data-dismiss="modal">Tutup</button>
 
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-    </div>
-	@endif
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+</div>
+@endif
+
 
 </main>
-</form>
 
 @endsection
 
 @section('footer-scripts')
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
 <script type="text/javascript">
 
 	@if(Session::has('message'))
