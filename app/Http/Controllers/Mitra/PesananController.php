@@ -16,7 +16,7 @@ class PesananController extends Controller
     public function pesanan(){
         // $pesanan = Pesanan::where('created_at', date('Y-m-d').'00:00:00')->get();
         // dd($pesanan);
-        $toko = Toko::where('user_id', Auth()->user()->id)->first();
+        $toko = Toko::where('users_id', Auth()->user()->id)->first();
         $pesanan = Pesanan::where('toko_id', $toko->id)
                             ->whereDate('created_at', date('Y-m-d'))
                             ->get();
@@ -24,25 +24,28 @@ class PesananController extends Controller
         foreach($pesanan as $data){
             $total_pesanan += $data->harga_total;
         }
+        // dd($pesanan);
         return view('/users.user.m-mitra.premium.pesanan', compact('pesanan', 'total_pesanan'));
     }
 
     public function list_produk(){
-        $toko = Toko::where('user_id', Auth()->user()->id)->first();
+        $toko = Toko::where('users_id', Auth()->user()->id)->first();
         $produk = Product::where('toko_id', $toko->id)->get();
         return view('/users.user.m-mitra.premium.list_produk', compact('produk'));
     }
 
     public function post_pesanan(Request $request){
-        $toko = Toko::where('user_id', Auth()->user()->id)->first();
+        $toko = Toko::where('users_id', Auth()->user()->id)->first();
         $pesanan = new Pesanan;
         $pesanan->toko_id = $toko->id;
         $pesanan->product_id = $request->id_produk;
         $pesanan->jumlah = $request->jumlah_pesanan;
+        $pesanan->tanggal = $request->tanggal;
+        $pesanan->waktu = $request->waktu;
         $pesanan->harga_total = $request->jumlah_pesanan * $request->harga;
         $pesanan->save();
 
-        return redirect('/akun/pengaturan_toko/pesanan');
+        return redirect('/akun/mitra/premium/list-pesanan');
     }
 
     public function riwayat_transaksi(){
@@ -60,7 +63,7 @@ class PesananController extends Controller
         //     $pesanan->save();
         // }
         $bulan = array();
-        $toko = Toko::where('user_id', Auth()->user()->id)->first();
+        $toko = Toko::where('users_id', Auth()->user()->id)->first();
         $posts = Pesanan::whereTokoId($toko->id)->orderBy('created_at')->get()->groupBy(function($item) {
             return $item->created_at->format('Y-m');
         });
@@ -96,7 +99,7 @@ class PesananController extends Controller
     public function riwayat_transaksi_bulan(){
         $bulan = array();
         $array_hasil = array();
-        $toko = Toko::where('user_id', Auth()->user()->id)->first();
+        $toko = Toko::where('users_id', Auth()->user()->id)->first();
         $posts = Pesanan::whereTokoId($toko->id)->orderBy('created_at')->get()->groupBy(function($item) {
             return $item->created_at->format('Y-m');
         });
@@ -113,6 +116,7 @@ class PesananController extends Controller
             $array_hasil[$i]['bulan'] = $bulan[$i];
             $array_hasil[$i]['total'] = number_format($total, 0, ".", ".");
         }
+        // dd($array_hasil);
         return view('users.user.m-mitra.premium.riwayat_transaksi_bulan', ['hasil_bulanan'=>$array_hasil]);
     }
 

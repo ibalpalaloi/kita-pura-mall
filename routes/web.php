@@ -107,6 +107,14 @@ Route::group(['middleware'=> 'auth'], function() {
                 // @mitra premium 
             Route::get('/akun/mitra/premium', [Mitra_Premium_Controller::class, 'index_premium']);
 
+            //list pesanana
+            Route::get('/akun/mitra/premium/list-pesanan', [PesananController::class, 'pesanan']);
+            Route::get('/akun/mitra/premium/list-pesanan/list-produk', [PesananController::class, 'list_produk']);
+            Route::post('/akun/mitra/premium/simpan-pesanan', [PesananController::class, 'post_pesanan']);
+            Route::get('/akun/pengaturan_toko/hapus_pesanan/{id}', [PesananController::class, 'hapus_pesanan']);
+            Route::get('/akun/riwayat_transaksi', [PesananController::class, 'riwayat_transaksi']);
+            Route::get('/akun/riwayat_transaksi/bulan', [PesananController::class, 'riwayat_transaksi_bulan']);
+
             Route::get('/akun/mitra/premium/upload-ktp', [Mitra_Premium_Controller::class, 'upload_ktp']);
             Route::post('/akun/mitra/premium/upload-ktp/simpan', [Mitra_Premium_Controller::class, 'simpan_ktp']);
 
@@ -130,12 +138,7 @@ Route::group(['middleware'=> 'auth'], function() {
         // Route::get('/user/jadi-mitra/{jenis_mitra}/register/pilih-lokasi', [MitraController::class, 'pilih_lokasi']);
 
         // list pesanan
-        Route::get('/akun/pengaturan_toko/pesanan', [PesananController::class, 'pesanan']);
-        Route::get('/akun/pengaturan_toko/hapus_pesanan/{id}', [PesananController::class, 'hapus_pesanan']);
-        Route::get('/akun/list_produk', [PesananController::class, 'list_produk']);
-        Route::post('/akun/post/pesanan', [PesananController::class, 'post_pesanan']);
-        Route::get('/akun/riwayat_transaksi', [PesananController::class, 'riwayat_transaksi']);
-        Route::get('/akun/riwayat_transaksi/bulan', [PesananController::class, 'riwayat_transaksi_bulan']);
+
         
 
     });
