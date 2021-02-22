@@ -11,6 +11,13 @@ use App\Models\Toko;
 class Admin_Manajemen_Toko_Controller extends Controller
 {
     //
+    public function autocode($kode){
+		$timestamp = time(); 
+		$random = rand(10, 100);
+		$current_date = date('mdYs'.$random, $timestamp); 
+		return $kode.$current_date;
+	}
+
     public function index(){
         $toko = Toko::all();
         return view('users.admin.m-toko.index', ['toko'=> $toko]);
@@ -28,9 +35,11 @@ class Admin_Manajemen_Toko_Controller extends Controller
     }
 
     public function post_daftar_tunggu_toko(Request $request){
+        $username = $this->autocode('MITRA-');
         $toko = new Toko;
         $toko->users_id = $request->user_id;
         $toko->id = $request->toko_id;
+        $toko->username = $username;
         $toko->jenis_mitra = $request->jenis_mitra;
         $toko->kategori_toko_id = $request->kategori_toko;
         $toko->nama_toko = $request->nama_toko;
