@@ -117,7 +117,7 @@ if (!empty($_GET['daftar_mitra_premium'])){
     </div>
 @endif
 
-@if ($status_aktif_mitra == 'Belum lengkap')
+@if((Session::get('message') == 'KTP Belum Lengkap') || ($cek_ktp == "KTP Belum Lengkap"))
 <div class="modal fade" id="modal-verifikasi-ktp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
 		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; box-shadow: none; border: none;">
@@ -127,7 +127,12 @@ if (!empty($_GET['daftar_mitra_premium'])){
 						<img src="<?=url('/')?>/public/img/mitra/waiting.svg" style="width: 100%; margin-left: 0.7em; margin-bottom: 0em;">
 						<h3 style="margin-top: 0em; color: white;">1 Langkah Lagi</h3>
 						<div style="text-align: center; font-size: 0.8em; line-height: 1.2em; color: white;">data toko anda berhasil dikirimkan.<br>mohon tunggu verifikasi dari<br>tim kitapuramall</div>
-						<a href="<?=url('/')?>/akun/mitra/{{Session::get('status_mitra')}}" style="color: white; background: #ffaa00; padding: 0.3em 0em 0.5em 0em; width: 50%; margin-top: 0.8em; border-radius: 2em; text-align: center; font-weight: 600;">Ubah data ?</a>
+						@if(Session::get('status_mitra') == 'free')
+						<a href="<?=url('/')?>/akun/mitra/{{Session::get('status_mitra')}}/upgrade-premium/upload-ktp" style="color: white; background: #ffaa00; padding: 0.3em 0em 0.5em 0em; width: 50%; margin-top: 0.8em; border-radius: 2em; text-align: center; font-weight: 600;">Ubah data ?</a>
+						@else
+						<a href="<?=url('/')?>/akun/mitra/{{Session::get('status_mitra')}}/upload-ktp" style="color: white; background: #ffaa00; padding: 0.3em 0em 0.5em 0em; width: 50%; margin-top: 0.8em; border-radius: 2em; text-align: center; font-weight: 600;">Ubah data ?</a>
+						@endif
+					
 					</div>
 					<img src="<?=url('/')?>/public/img/mitra/bg-waiting.svg" style="width: 100%;">
 				</div>
@@ -211,7 +216,6 @@ if (!empty($_GET['daftar_mitra_premium'])){
 @endsection
 
 @section('footer-scripts')
-@section('footer-scripts')
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
@@ -226,6 +230,10 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$('#modal-verifikasi').modal('show');
 	@endif
 
+	@if((Session::get('message') == 'KTP Belum Lengkap') || ($cek_ktp == "KTP Belum Lengkap"))
+		$('#modal-verifikasi-ktp').modal('show');
+	@endif	
+
 
 	@if ($status_aktif_mitra == "Belum lengkap")
 	function verifikasi_ktp(){
@@ -237,10 +245,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$('#modal-verifikasi').modal('show');
 	@endif	
 
-	@if ($daftar_mitra_premium == 'success')
-	$('#modal-verifikasi-ktp').modal('show');
 
-	@endif	
 
 
 </script>

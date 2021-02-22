@@ -13,6 +13,8 @@ use App\Models\toko;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\product;
 use App\Models\Jadwal_toko;
+use App\Models\Ktp_toko;
+
 
 
 class Mitra_Premium_Controller extends Controller
@@ -24,7 +26,20 @@ class Mitra_Premium_Controller extends Controller
 
 		if($toko){
 
-			return view('users/user/m-mitra/index_premium');
+			$ktp = Ktp_toko::where('toko_id', $toko->id)->first();
+			if($ktp){
+
+				return view('users/user/m-mitra/index_premium');
+			}
+			else{
+
+				$notification = array(
+					'message' => 'KTP Belum Lengkap'
+				 );     
+		
+				return redirect('/akun/')->with($notification);
+			}
+
 		}
 
 		else{
@@ -194,7 +209,46 @@ class Mitra_Premium_Controller extends Controller
 	}
 
 
+	public function upload_ktp(){
 
+		return view('users/user/m-mitra/premium/register_nik');
+
+    }
+
+    public function simpan_ktp(Request $request){
+
+        // dd($request->all());
+
+        $this->validate($request,[
+			'nama_ktp' => 'required',
+			'no_nik' => 'required',
+			'foto_toko' => 'required'
+		]);
+
+		$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+
+        $ktp = new Ktp_toko;
+		$ktp->toko_id = $toko->toko_id;
+		$ktp->nama = $request->nama_ktp;
+		$ktp->nik = $request->no_nik;
+
+        $files = $request->file("foto_toko");
+        $type = $request->file("foto_toko")->getClientOriginalExtension();
+        $file_upload = $this->autocode('KTP-').".".$type;
+        \Storage::disk('public')->put('img/toko/'.$toko->toko_id.'/ktp/'.$file_upload, file_get_contents($files));
+        $ktp->foto = $file_upload;
+
+        $ktp->save();
+
+        $notification = array(
+            'message' => 'Belum Terverifikasi',
+            'jenis_mitra' => $toko->jenis_mitra
+        );     
+
+        return redirect('/akun')->with($notification);
+
+
+    }
 
 
 	public function register_nik(){

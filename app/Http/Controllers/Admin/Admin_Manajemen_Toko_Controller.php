@@ -35,24 +35,51 @@ class Admin_Manajemen_Toko_Controller extends Controller
     }
 
     public function post_daftar_tunggu_toko(Request $request){
-        $username = $this->autocode('MITRA-');
-        $toko = new Toko;
-        $toko->users_id = $request->user_id;
-        $toko->id = $request->toko_id;
-        $toko->username = $username;
-        $toko->jenis_mitra = $request->jenis_mitra;
-        $toko->kategori_toko_id = $request->kategori_toko;
-        $toko->nama_toko = $request->nama_toko;
-        $toko->nama_pemilik = $request->nama_pemilik;
-        $toko->no_hp = $request->no_hp;
-        $toko->alamat = $request->alamat;
-        $toko->kelurahan_id = $request->kelurahan_id;
-        $toko->latitude = $request->latitude;
-        $toko->longitude = $request->longitude;
-        $toko->status = 'aktif';
-        $toko->logo_toko = $request->logo_toko;
-        $toko->deskripsi = $request->deskripsi;
-        $toko->save();
+
+        $toko = toko::where('id', $request->toko_id)->first();
+
+        if($toko){
+
+            $toko->users_id = $request->user_id;
+            $toko->id = $request->toko_id;
+            $toko->jenis_mitra = $request->jenis_mitra;
+            $toko->kategori_toko_id = $request->kategori_toko;
+            $toko->nama_toko = $request->nama_toko;
+            $toko->nama_pemilik = $request->nama_pemilik;
+            $toko->no_hp = $request->no_hp;
+            $toko->alamat = $request->alamat;
+            $toko->kelurahan_id = $request->kelurahan_id;
+            $toko->latitude = $request->latitude;
+            $toko->longitude = $request->longitude;
+            $toko->status = 'aktif';
+            $toko->logo_toko = $request->logo_toko;
+            $toko->deskripsi = $request->deskripsi;
+            $toko->save();
+
+        }
+        else{
+
+            $username = $this->autocode('MITRA-');
+            $toko = new Toko;
+            $toko->users_id = $request->user_id;
+            $toko->id = $request->toko_id;
+            $toko->username = $username;
+            $toko->jenis_mitra = $request->jenis_mitra;
+            $toko->kategori_toko_id = $request->kategori_toko;
+            $toko->nama_toko = $request->nama_toko;
+            $toko->nama_pemilik = $request->nama_pemilik;
+            $toko->no_hp = $request->no_hp;
+            $toko->alamat = $request->alamat;
+            $toko->kelurahan_id = $request->kelurahan_id;
+            $toko->latitude = $request->latitude;
+            $toko->longitude = $request->longitude;
+            $toko->status = 'aktif';
+            $toko->logo_toko = $request->logo_toko;
+            $toko->deskripsi = $request->deskripsi;
+            $toko->save();
+
+        }
+
 
         Daftar_tunggu_toko::find($request->id)->delete();
 
