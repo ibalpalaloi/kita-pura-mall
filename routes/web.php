@@ -180,6 +180,7 @@ Route::post('/admin/tambah/sub_kategori_produk', [Admin_Manajemen_Kategori_Contr
 Route::get('/admin/manajemen/toko', [Admin_Manajemen_Toko_Controller::class, 'index']);
 Route::get('/admin/manajemen/daftar_tunggu_toko', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko']);
 Route::get('/admin/manajemen/daftar_tunggu_toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko_detail']);
+Route::post('/admin/manajemen/daftar_tunggu_toko/post', [Admin_Manajemen_Toko_Controller::class, 'post_daftar_tunggu_toko']);
 
 Route::get('/{username_mitra}/daftar-menu/{produk}', [LandingPageController::class, 'detail_produk']);
 Route::get('/{username_mitra}/daftar-menu', [LandingPageController::class, 'daftar_menu']);
