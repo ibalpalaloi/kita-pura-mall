@@ -46,11 +46,15 @@ class User extends Authenticatable
     protected $keyType = 'string';
 
     public function biodata(){
-        return $this->hasOne(Biodata::class);
+        return $this->hasOne(Biodata::class, 'users_id');
     }
 
     public function toko(){
         return $this->hasOne(Toko::class);
+    }
+
+    public function daftar_tunggu_toko(){
+        return $this->hasOne(Daftar_tunggu_toko::class, 'users_id');
     }
 
 }

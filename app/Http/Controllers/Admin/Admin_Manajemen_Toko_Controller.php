@@ -23,6 +23,30 @@ class Admin_Manajemen_Toko_Controller extends Controller
 
     public function daftar_tunggu_toko_detail($id){
         $toko = Daftar_tunggu_toko::find($id);
-        return view('users.admin.m-toko.daftar_tunggu_detail', ['toko'=>$toko]);
+        $kategori_toko = Kategori_toko::all();
+        return view('users.admin.m-toko.daftar_tunggu_detail', ['toko'=>$toko, 'kategori_toko'=>$kategori_toko]);
+    }
+
+    public function post_daftar_tunggu_toko(Request $request){
+        $toko = new Toko;
+        $toko->users_id = $request->user_id;
+        $toko->id = $request->toko_id;
+        $toko->jenis_mitra = $request->jenis_mitra;
+        $toko->kategori_toko_id = $request->kategori_toko;
+        $toko->nama_toko = $request->nama_toko;
+        $toko->nama_pemilik = $request->nama_pemilik;
+        $toko->no_hp = $request->no_hp;
+        $toko->alamat = $request->alamat;
+        $toko->kelurahan_id = $request->kelurahan_id;
+        $toko->latitude = $request->latitude;
+        $toko->longitude = $request->longitude;
+        $toko->status = 'aktif';
+        $toko->logo_toko = $request->logo_toko;
+        $toko->deskripsi = $request->deskripsi;
+        $toko->save();
+
+        Daftar_tunggu_toko::find($request->id)->delete();
+
+        return redirect('/admin/manajemen/daftar_tunggu_toko');
     }
 }
