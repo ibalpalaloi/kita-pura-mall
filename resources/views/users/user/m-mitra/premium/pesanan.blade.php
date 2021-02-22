@@ -1,4 +1,4 @@
-@extends('layouts.home_no_menu')
+@extends('layouts.home_premium')
 
 @section('title')
 
@@ -271,25 +271,17 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	.slider-toko {
 		display: flex; 
 		justify-content: center; 
-		flex-direction: column; 
 		align-items: center; 
 		margin: 0em 0em 0em 0.5em; 
-		width: 47.5%;		
 	}
 
 	.slider-toko img {
 		width: 100%;
-		height: 7.5em;
+		height: 100%;
 		object-fit: cover;
-		border-top-left-radius: 1em;
-		border-top-right-radius: 1em;
+		border-radius: 0.5em;
 	}
 
-	.slider-toko > div {
-		height: 6.3em;
-		border-bottom-left-radius: 1em;
-		border-bottom-right-radius: 1em;
-	}
 
 	.star-rating {
 		color: #efff3b;
@@ -299,109 +291,259 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		color: #c1c3be;
 	}
 
+	.button-detail {
+		display: flex;	
+	}
+
+	.button-detail > div{
+		margin-right: 0.3em;
+	}
+
 	.modal .fade:not(.in).bottom .modal-dialog {
 		-webkit-transform: translate3d(0, 25%, 0);
 		transform: translate3d(0, 25%, 0);
 	}
 
-	
+	.homepage {
+		min-height: calc(80vh - 60px); 
+
+	}
+
+	.togglebutton,.togglebutton .toggle,.togglebutton input,.togglebutton label{user-select:none}
+	.togglebutton label{cursor:pointer}
+	.form-group.is-focused .togglebutton label,.togglebutton label{color:rgba(0,0,0,.26)}
+	.form-group.is-focused .togglebutton label:focus,.form-group.is-focused .togglebutton label:hover{
+		color:rgba(0,0,0,.54)
+	}
+	fieldset[disabled] .form-group.is-focused .togglebutton label{color:rgba(0,0,0,.26)}
+	.togglebutton label input[type=checkbox]{opacity:0;width:0;height:0}
+	.togglebutton label .toggle{text-align:left;margin-left:5px}
+	.togglebutton label .toggle,.togglebutton label input[type=checkbox][disabled]+.toggle{
+		content:"";
+		display:inline-block;
+		width:55px;
+		height:25px;
+		background-color:rgba(80,80,80,.7);
+		border-radius:15px;
+		margin-right:0px;
+		transition:background .8s ease;vertical-align:middle
+	}
+	.togglebutton label .toggle:after{
+		content:"";
+		display:inline-block;
+		width:22px;
+		height:22px;
+		background-color:#fff;
+		border-radius:20px;
+		position:relative;
+		box-shadow:0 1px 3px 1px rgba(0,0,0,.4);
+		margin-left: 0.3em;
+		top:1px;
+		border:1px solid rgba(0,0,0,.54);
+		transition:left .8s ease,background .8s ease,box-shadow .1s ease
+	}
+	.togglebutton label input[type=checkbox][disabled]+.toggle:after,.togglebutton label input[type=checkbox][disabled]:checked+.toggle:after{background-color:#bdbdbd}
+	.togglebutton label input[type=checkbox]+.toggle:active:after,.togglebutton label input[type=checkbox][disabled]+.toggle:active:after{box-shadow:0 1px 3px 1px rgba(0,0,0,.4),0 0 0 15px rgba(0,0,0,.1)}
+	.togglebutton label input[type=checkbox]:checked+.toggle:after{left:25px}
+	.togglebutton label input[type=checkbox]:checked+.toggle{background-color:#8a6614}
+	.togglebutton label input[type=checkbox]:checked+.toggle:after{border-color:#8a6614}
+	.togglebutton label input[type=checkbox]:checked+.toggle:active:after{box-shadow:0 1px 3px 1px #8a6614,0 0 0 15px rgba(156,39,176,.1)}
 </style>
-@endsection	
+@endsection
+
+
 
 @section('content')
+<?php
+$pemilik = "";
+$no_hp = "";
+$kategori="";
+$latitude = "";
+$longitude = "";
+$alamat = "";
+$buka = "";
+$tutup = "";
+$hari = "";
+$deskripsi = "";
+if (!empty($_GET['pemilik'])){
+	$pemilik = $_GET['pemilik'];
+}
+if (!empty($_GET['no_hp'])){
+	$no_hp = $_GET['no_hp'];
+}
+if (!empty($_GET['kategori'])){
+	$kategori = $_GET['kategori'];
+}
+if (!empty($_GET['x'])){
+	$latitude = $_GET['x'];
+}
+if (!empty($_GET['y'])){
+	$longitude = $_GET['y'];
+}
+if (!empty($_GET['alamat'])){
+	$alamat = $_GET['alamat'];
+}
+if (!empty($_GET['buka'])){
+	$buka= $_GET['buka'];
+}
+if (!empty($_GET['tutup'])){
+	$tutup = $_GET['tutup'];
+}
+if (!empty($_GET['hari'])){
+	$hari = $_GET['hari'];
+}
+if (!empty($_GET['deskripsi'])){
+	$hari = $_GET['deskripsi'];
+}
+?>
 
 
-<header class="style__Container-sc-3fiysr-0 header" style="background: white;">
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
-		<a href="<?=url('/')?>/akun" style="padding-left: 1em;">
-			<img src="<?=url('/')?>/public/img/back_black.svg">
+<header class="style__Container-sc-3fiysr-0 header" style="background: transparent;  padding-top: 0.3em">
+	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
+		<a href="<?=url('/')?>/akun/mitra/premium" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
+			<img src="<?=url('/')?>/public/img/back_white.svg">
 		</a>
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
-			<img src="<?=url('/')?>/public/img/logo_black.svg">
-			<img src="<?=url('/')?>/public/img/logo_text_black.svg">
+		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
+			<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
 		</a>
-		<a href="<?=url('/')?>/akun/riwayat_transaksi" style="margin-right: 2.5em;">
-			<img src="<?=url('/')?>/public/img/icon_svg/calender.svg">
+		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
 		</a>
 	</div>
 </header>
 
 
 
+<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
+	<div>
+		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em; z-index: -1;">
+	</div>
+	<div>
+		<div style="padding: 0px 16px 1em;">
+			<h3 style="color: white;">List Pesanan<br>Toko Hari Ini</h3>
+			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+				<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">input pesanan toko untuk mendapatkan total transaksi</div>
+			</div>
+			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
+				<div style="width: 100%; padding-right: 0.5em;">
+					<span class="input-group-text-mall">
+					</span>
+					<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em;" required>
+					<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center;">
+						<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
+					</div>
+				</div>
+			</div>
+			<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding-bottom: 4em;">
+				@foreach ($pesanan as $item)
+				<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px; width: 100%; background: radial-gradient(131.25% 1072.4% at -7.42% 138.67%, #232323 0%, #353535 42.71%, #1C1C1D 77.6%, #252526 100%); border-radius: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83); position: relative;">
+					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+					<div style="width: 27%; margin: 0.5em; height: 7em;">
+						<img src="<?=url('/')?>/public/img/toko/{{Auth()->user()->id}}/produk/product_8.jpg">
+					</div>
+					<div style='text-align: left; font-size: 0.75em; width:60%; color: white; background-size: cover; position: relative; margin-left: 0.5em; display: flex; justify-content: space-between;'> 
+						<div>
+							<div style="font-weight: 500; margin-top: 0em; font-size: 1.3em;"><?=substr(strip_tags($item->nama), 0, 15)?>@if (strlen($item->nama) > 15)..@endif</div>
+							<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">Jenis</div>
 
-
-<main id="homepage" class="homepage" style="padding-top: 6em; background: #eaf4ff;">
-<div style="display: flex; justify-content: center; flex-direction: column;">
-    <h4>List Pesanan Toko hari Ini</h4>
-    <div style="text-align: justify; font-size: 0.8em; line-height: 1.2em; color: #a1a4a8;">Input pesanan toko untuk mendapatkan total transaksi</div>
-    <div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
-		<div id="defaultheader_search" class="style__SearchInput-sc-3fiysr-3 sUjAJ">
-			<span></span>
-			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="color: #dedede;">
-				<path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
-			</svg>
+							<div style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 1.2em; vertical-align: center;">
+								<s>IDR. 25.000</s>
+							</div>
+							<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 0.9em; font-weight: 500;">IDR. 5.000</div>
+							<div class="button-detail" style="margin-top: 1.5em;">
+								<div style="width: 2em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick="kurangi_pesanan()"><i class="fa fa-minus"></i></div>
+								<div style="width: 3em; height: 2em; background: white; border-radius: 2em; color: #9d0208; display: flex; justify-content: center; align-items: center; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan"><?=$item->jumlah?></div>
+								<div style="width: 2.1em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick="tambah_pesanan()"><i class="fa fa-plus"></i></div>
+							</div>			
+						</div>				
+						<div>
+							<div style="text-align: center;">Time</div>
+							<div class="st0" style="padding: 0.2em 1em; margin-right: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83);">08:00:43</div>
+						</div>
+					</div>
+					<div style="width: 13%; height: 100%; display: flex; align-items: center; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em;" class="st0">
+						<div>
+							<img src="<?=url('/')?>/public/img/icon_svg/trash_white.svg" style="width: 100%;">
+						</div>
+					</div>
+					<div class="st0" style="position: absolute; color: white; bottom: -0.5em; right: 0px; padding: 0.2em 1em; border-radius: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83);">
+						IDR 30.000
+					</div>
+				</div> 
+				@endforeach
+			</div>
 		</div>
 	</div>
-	@foreach ($pesanan as $item)
-	<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
-		<img src="<?=url('/')?>/public/img/product/TKO-1204012490124/product_1.png">
-		<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; background: #f3a301; color: white; background-size: cover; position: relative;'>
-			<div onclick='hapus_pesanan("{{$item->id}}")' style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #ed9f01; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
-				<img src="<?=url('/')?>/public/img/icon_svg/pencil.svg" style="width: 1.5em; height: 1.5em;">
-			</div>
-			<div style="font-weight: 500; margin-top: 0em;">{{$item->product->nama}}</div>
-			<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$item->product->jenis}}</div>
-
-
-			{{-- <span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-				<s>IDR. 25.000</s>
-			</span> --}}
-			<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{number_format($item->harga_total, 0, '.', '.')}}</span>
-			<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
-				Jumlah Pesanan = {{$item->jumlah}}
-			</div>
-		</div>
-	</div>
-	@endforeach
-    
-	<h4>Total Pesanan = {{$total_pesanan}}</h4>
-	<a href="<?=url('/')?>/akun/list_produk" class="btn btn-success" style="color: white">Input Pesan</a>
-</div> 
 </main>
-
+<div class="footer st0">
+	<div style="display: flex; flex-direction: column; align-items: flex-end;">
+		<div style="font-size: 0.8em; margin-bottom: 0.5em;">Senin, 15 Februari 2020</div>
+		<div>
+			<span style="margin-right: 1em;">Total</span>
+			<span class="st0" style="padding: 0.2em 0.7em; border-radius: 0.3em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83);">IDR 30.000</span>
+		</div>
+	</div>
+	<a href="<?=url('/')?>/akun/mitra/premium/list-pesanan/list-produk" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
+		<img src="<?=url('/')?>/public/img/button/toko_premium/input_pesanan.svg" style="width: 100%;">
+	</a>
+</div>
 @endsection
 
 @section('footer-scripts')
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-	$(document).ready(function(){
-		    $('.count').prop('disabled', true);
-   			$(document).on('click','.plus',function(){
-				$('.count').val(parseInt($('.count').val()) + 1 );
-    		});
-        	$(document).on('click','.minus',function(){
-    			$('.count').val(parseInt($('.count').val()) - 1 );
-    				if ($('.count').val() == 0) {
-						$('.count').val(1);
-					}
-    	    	});
- 		});
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
-<script>
-	function hapus_pesanan(id){
-		swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this imaginary file!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    window.location = ("<?=url('/')?>/akun/pengaturan_toko/hapus_pesanan/"+id)
-                } 
-            });
-	}
-</script>
+<script type="text/javascript">
 
+	function tambah_foto_toko(id){
+		$("#foto_maps_"+id).click();
+		$("#foto_maps_"+id).change(function(){
+			readURL(this, id);
+		});
+	}	
+
+	function readURL(input, id) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				$('#pic_maps_'+id+'_privew').attr('src', e.target.result);
+				$("#div_pic_maps_"+id+"_privew").prop('hidden', false);
+				$("#div_pic_maps_"+id).prop('hidden', true);
+			}
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+
+
+	function input_focus(id){
+		$("#div_"+id).css('border', '1px solid #d1d2d4');
+	}
+
+	function input_blur(id){
+		$("#div_"+id).css('border', '1px solid white');		
+	}		
+
+
+
+
+	function tambah_produk(){
+		$('#modal-tambah').modal('show'); 
+	}
+
+	function edit_produk(id, gambar, nama, kategori, harga, stok, deskripsi){
+		$("#edit_id_produk").val(id);
+		$("#hapus_id_produk").val(id);
+		$("#pic_edit_toko_privew").attr('src', "<?=url('/')?>/public/img/toko/"+gambar);
+		$("#edit_nama_produk").val(nama);
+		$("#edit_kategori").val(kategori);
+		$("#edit_harga").val(harga);
+		$("#edit_stok").val(stok);
+		$("#edit_deskripsi").val(deskripsi);
+		$("#modal-ubah").modal('show');
+	}
+
+
+</script>
 @endsection
