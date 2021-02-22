@@ -8,6 +8,7 @@ use App\Models\Biodata;
 use App\Models\User;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\toko;
+use App\Models\Ktp_toko;
 use Session;
 
 class UserController extends Controller
@@ -16,7 +17,7 @@ class UserController extends Controller
 	public function index(){
 
 		$progress = 2;
-
+		$cek_ktp = "";
 		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
 
 		if(!empty($biodata->nama)){
@@ -40,19 +41,22 @@ class UserController extends Controller
 
 		if($toko){
 
+			$toko_id = $toko->id;
 			$status_aktif_mitra = $toko->jenis_mitra;
 			Session::put('status_mitra', $toko->jenis_mitra);
+		
 		}
 		else {
 			$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
 
 			if ($daftar_tunggu){
 				if($toko){
-
+					$toko_id = $toko->id;
 					$status_aktif_mitra = $toko->jenis_mitra;
 					Session::put('status_mitra', $toko->jenis_mitra);	
 				}
 				else{
+					$toko_id = $daftar_tunggu->toko_id;
 					$status_aktif_mitra = $daftar_tunggu->jenis_mitra;
 					Session::put('status_mitra', $daftar_tunggu->jenis_mitra);	
 				}
@@ -63,7 +67,21 @@ class UserController extends Controller
 			}
 				
 		}
-		return view('users/user/m-profil/index', compact('status_aktif_mitra'));
+
+		if($status_aktif_mitra == 'premium'){
+
+			$ktp = Ktp_toko::where('toko_id', $toko_id)->first();
+
+			if(is_null($ktp)){
+				$cek_ktp = "KTP Belum Lengkap";
+			}
+		}
+
+		// dd($cek_ktp);
+		
+		return view('users/user/m-profil/index', 
+				['status_aktif_mitra' => $status_aktif_mitra, 'cek_ktp' => $cek_ktp]
+					);
 	}
 
 	public function biodata(){

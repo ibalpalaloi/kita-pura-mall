@@ -69,8 +69,8 @@ Detail Daftar Tunguu
                             <label class="col-sm-12">Jenis Mitra</label>
                             <div class="col-sm-12">
                                 <select name="jenis_mitra" class="form-control form-control-line">
-                                    <option @if($toko->jenis_mitra == 'free') selected @endif>Free</option>
-                                    <option @if($toko->jenis_mitra == 'premium') selected @endif>Premium</option>
+                                    <option value="free" @if($toko->jenis_mitra == 'free') selected @endif>Free</option>
+                                    <option value="premium" @if($toko->jenis_mitra == 'premium') selected @endif>Premium</option>
                                 </select>
                             </div>
                         </div>

@@ -48,13 +48,16 @@ class MitraController extends Controller
 
 				$toko = toko::where('users_id', Session::get('id_user'))->first();
 
+				// dd($toko->jenis_mitra);
+
 				if($toko){
 
-
-					$notification = array(
-						'message' => 'Lokasi Maps Belum Ditentukan'
-					);     
-
+					if(is_null($toko->longitude) && is_null($toko->latitude)){
+						$notification = array(
+							'message' => 'Lokasi Maps Belum Ditentukan'
+						);     
+					}
+				
 					return redirect('/akun/mitra/'.$toko->jenis_mitra)->with($notification);
 
 				}
