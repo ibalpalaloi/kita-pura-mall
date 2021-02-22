@@ -412,13 +412,11 @@ $status_ugrade = "";
 	<div class="card-mall kategori" style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: #eaf4ff;">
 		<img src="<?=url('/')?>/public/img/mitra/mitra_free.png" width="75%"  style="top: -11em; position: relative; overflow-x: visible; z-index: 3 !important;">
 
-		@if($status_ugrade == 'ya')
+	
 		<div style="text-align: center;font-size: 1em; font-weight: 500; line-height: 1.2em; margin-top: -11em; margin-bottom: -1em;color: white; background: #ff006e; padding: 1em 2em 1em 2em; border-radius: 2em; display: flex; justify-content: center; align-items: center; width: 90%;" onclick="upgrade_mitra()">
 			<img src="<?=url('/')?>/public/img/icon_svg/crown.svg" style="width: 1.5em;">&nbsp;&nbsp;&nbsp;<span>Tingkatkan dengan premium</span>
 		</div>
-		@else
-		<div style="margin-top: -11em; margin-bottom: -1e"></div>
-		@endif
+
 
 	
 		<form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post" style="width: 90%; margin-top: 2em;  display: flex; flex-direction: column; align-items: center;">
