@@ -237,8 +237,6 @@ class Mitra_Free_Controller extends Controller
 		
 		$old_toko = toko::where('users_id', Session::get('id_user'))->first();
 
-		dd($old_toko);
-
 		$toko = new Daftar_tunggu_toko;
 		$toko->nama_toko = $request->nama_toko;
 		$toko->toko_id = $old_toko->id;
