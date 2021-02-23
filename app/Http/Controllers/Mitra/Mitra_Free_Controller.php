@@ -12,6 +12,7 @@ use App\Models\Kategori;
 use App\Models\toko;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\Jadwal_toko;
+use App\Models\Ktp_toko;
 
 
 class Mitra_Free_Controller extends Controller
@@ -239,6 +240,7 @@ class Mitra_Free_Controller extends Controller
 
 		$toko = new Daftar_tunggu_toko;
 		$toko->nama_toko = $request->nama_toko;
+		$toko->users_id = Session::get('id_user');
 		$toko->toko_id = $old_toko->id;
 		$toko->jenis_mitra = "premium";
 		$toko->kategori_toko_id = $request->kategori_toko;
