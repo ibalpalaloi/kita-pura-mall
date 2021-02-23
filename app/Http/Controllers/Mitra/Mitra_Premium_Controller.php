@@ -209,7 +209,6 @@ class Mitra_Premium_Controller extends Controller
 	}
 
 
-<<<<<<< HEAD
 	public function upload_ktp(){
 
 		return view('users/user/m-mitra/premium/register_nik');
@@ -250,7 +249,6 @@ class Mitra_Premium_Controller extends Controller
 
 
     }
-=======
 	public function daftar_produk_premium(){
 		$kategori_produk = Kategori::all();
 
@@ -259,7 +257,6 @@ class Mitra_Premium_Controller extends Controller
 
 		return view('users/user/m-mitra/premium/daftar_produk', compact('kategori_produk', 'produk'));
 	}
->>>>>>> aac808893a55649340bf1339aabad3c3cd3921af
 
 	public function tambah_produk_premium(){
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
