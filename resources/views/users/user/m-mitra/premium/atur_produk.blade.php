@@ -348,6 +348,10 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	.togglebutton label input[type=checkbox]:checked+.toggle{background-color:#8a6614}
 	.togglebutton label input[type=checkbox]:checked+.toggle:after{border-color:#8a6614}
 	.togglebutton label input[type=checkbox]:checked+.toggle:active:after{box-shadow:0 1px 3px 1px #8a6614,0 0 0 15px rgba(156,39,176,.1)}
+
+	.daftar-icon div {
+		margin-right: 0.5em;
+	}
 </style>
 @endsection
 
@@ -398,6 +402,7 @@ if (!empty($_GET['deskripsi'])){
 ?>
 
 
+
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;  padding-top: 0.3em">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
 		<a href="<?=url('/')?>/akun/mitra/premium" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
@@ -419,7 +424,16 @@ if (!empty($_GET['deskripsi'])){
 	</div>
 	<div>
 		<div style="padding: 0px 16px 1em;">
-			<h3 style="color: white;">Atur Produk</h3>
+			<h3 style="color: white;">Atur<br>Landing Page</h3>
+			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Video</h6>
+			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+				<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
+			</div>
+			<div class="input-group mb-3 div-input-mall-square" id="div_video" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+				<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_video()" id="div_pic_video">
+					<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
+				</div>
+			</div>
 			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Tampilan Maps</h6>
 			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
 				<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
@@ -457,6 +471,42 @@ if (!empty($_GET['deskripsi'])){
 					</div>
 
 					<input hidden type="file" name="foto_maps_3" id="foto_maps_3" required>
+				</div>
+			</div>
+			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Deskripsi</h6>
+			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+				<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
+			</div>
+			<div class="input-group mb-3 div-input-mall-square st0" id="div_deskripsi" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+				<div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 0.8em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;" class="st0">
+					<div>
+						<div>Icon</div>
+						<div class="daftar-icon" style="padding-top: 0.5em; display: flex;">
+							<div style="height: 2.5em; width: 2.5em; background: #9d0208; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><img src="<?=url('/')?>/public/img/icon_service/diantarkan.svg"></div>
+							<div style="height: 2.5em; width: 2.5em; background: #9d0208; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><img src="<?=url('/')?>/public/img/icon_service/tempat_nyaman.svg"></div>
+							<div style="height: 2.5em; width: 2.5em; background: #9d0208; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><img src="<?=url('/')?>/public/img/icon_service/wifi.svg"></div>
+
+							<div style="height: 2.5em; width: 2.5em; border: 2px solid white; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><i class="fa fa-plus"></i></div>
+						</div>
+					</div>
+					<div style="margin-top: 1em;">
+						<div>Judul</div>
+						<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
+							<div><img src="<?=url('/')?>/public/img/icon_svg/judul.svg" style="width: 100%;"></div>
+							<div>
+								<input type="text" name="judul" style="color: white; background: transparent; font-size: 1.15em; padding-left: 0.9em;" placeholder="Masukan judul service">
+							</div>
+						</div>
+					</div>	
+					<div style="margin-top: 1em; padding-bottom: 0.5em;">
+						<div>Keterangan</div>
+						<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
+							<div><img src="<?=url('/')?>/public/img/icon_svg/keterangan.svg" style="width: 100%;"></div>
+							<div style="width: 100%;">
+								<textarea name="keterangan" style="color: white; background: transparent; font-size: 0.9em; line-height: 1.15em; padding-left: 1.3em; border: none; width: 100%;" rows="8" placeholder="Masukan keterangan service"></textarea> 
+							</div>
+						</div>
+					</div>									
 				</div>
 			</div>
 			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Menu Favorit</h6>
@@ -563,6 +613,10 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 			readURL(this, id);
 		});
 	}	
+
+	function tambah_video(){
+		alert('tes');
+	}
 
 	function readURL(input, id) {
 		if (input.files && input.files[0]) {
