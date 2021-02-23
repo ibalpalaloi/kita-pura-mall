@@ -311,7 +311,7 @@ if (!empty($_GET['deskripsi'])){
 	$hari = $_GET['deskripsi'];
 }
 ?>
-<div class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+<div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
 		<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
 			<div class="modal-body">
@@ -401,7 +401,7 @@ if (!empty($_GET['deskripsi'])){
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent; padding-top: 0.3em;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
-		<a href="<?=url('/')?>/akun/mitra/premium" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
+		<a href="<?=url('/')?>/akun" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
 			<img src="<?=url('/')?>/public/img/back_white.svg">
 		</a>
 		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
@@ -424,30 +424,13 @@ if (!empty($_GET['deskripsi'])){
 					@php $url = url('/')."/public/img/button/toko_premium/bg-photo-profile.svg"; @endphp
 					<div style='background-image: url("<?=$url?>"); padding: 1.5em;'>
 						<div id="div_pic_toko_privew" style="position: relative; padding: auto 0; display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 9rem; height: 9rem; background: #1c1c1c;">
-							<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/{{$toko->jenis_mitra}}/{{$toko->foto}}" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
+							<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/{{$toko->toko_id}}/logo/{{$toko->logo_toko}}" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
 							<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_yellow.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 0px; bottom: 0px;">
 						</div>
 					</div>
 					<input type="file" name="foto_toko" id="foto_toko" hidden>
 					<div style="display: flex; justify-content: center;">
-						<div style="background: transparent; color: white; text-align: center; font-size: 1.5em;  position: relative;">
-							&nbsp;<span style="font-weight: 645;">Nama Toko</span>&nbsp;
-							<span style="width: 1em; position: absolute; right: -0.8em;">
-								<img src="<?=url('/')?>/public/img/icon_svg/edit.svg" style="width: 65%;">
-							</span>
-						</div>
-						&nbsp;&nbsp;
-						<input type="text" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1.5em; font-weight: 645;" value="Warung Mantap" required hidden>
-					</div>
-					<div style="display: flex; justify-content: center;">
-						<div style="background: transparent; color: white; text-align: center; font-size: 1em;  position: relative;">
-							&nbsp;<span>Nama Pemilik</span>&nbsp;
-							<span style="width: 1em; position: absolute; right: -1em;">
-								<img src="<?=url('/')?>/public/img/icon_svg/edit.svg" style="width: 65%;">
-							</span>
-						</div>
-						&nbsp;&nbsp;
-						<input type="text" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama pemilik" aria-label="Nama Pemilik"aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em;" value="" required hidden>
+						<input type="text" id="nama_toko" name="nama_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Toko" aria-label="Nama Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1.5em; font-weight: 645;" required value="{{$toko->nama_toko}}">
 					</div>
 
 
@@ -494,7 +477,7 @@ if (!empty($_GET['deskripsi'])){
 
 					</div>
 				</div>
-				<div hidden>
+				<div>
 
 					@foreach($jadwal as $row)
 					@if($loop->first)
