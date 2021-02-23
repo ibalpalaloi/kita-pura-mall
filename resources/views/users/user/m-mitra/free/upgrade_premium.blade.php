@@ -324,6 +324,22 @@ if (!empty($_GET['deskripsi'])){
 				</div>
 			</div>
 			<div id="jadwal_fix" style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+					@foreach($jadwal as $row)
+						@if($loop->first)
+							@php
+								$hari .= $row->hari;
+								$buka .= $row->jam_buka;
+								$tutup .= $row->jam_tutup;
+							@endphp
+						@else
+							@php
+								$hari .= '~'.$row->hari;
+								$buka .= '~'.$row->jam_buka;
+								$tutup .= '~'.$row->jam_tutup;
+							@endphp
+						@endif
+					@endforeach
+
 				@php
 				$var_value = array("SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M");
 				$var_text = array("Setiap-Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis","Jumat", "Sabtu", "Minggu");
@@ -371,6 +387,7 @@ if (!empty($_GET['deskripsi'])){
 			<hr style="border-top: 1px solid #c8d2dd; width: 100%;">
 			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 90%;">
 				<select type="text" class="form-control form-control-mall-modal" id="jadwal" name="jadwal" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="jadwal" aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
+				<option disabled selected>--- Silahkan Pilih Hari ---</option>
 					@for ($i = 0; $i < count($var_text); $i++)
 					@php $indikator = false; @endphp
 					@for ($j = 0; $j < count($loop_hari); $j++)
@@ -477,27 +494,10 @@ if (!empty($_GET['deskripsi'])){
 
 					</div>
 				</div>
-				<div>
-
-					@foreach($jadwal as $row)
-					@if($loop->first)
-					@php
-					$hari .= $row->hari;
-					$buka .= $row->jam_buka;
-					$tutup .= $row->jam_tutup;
-					@endphp
-					@else
-					@php
-					$hari .= '~'.$row->hari;
-					$buka .= '~'.$row->jam_buka;
-					$tutup .= '~'.$row->jam_tutup;
-					@endphp
-					@endif
-					@endforeach
-
-					<input type="text" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
-					<input type="text" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
-					<input type="text" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
+				<div hidden>
+					<input type="hidden" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
+					<input type="hidden" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
+					<input type="hidden" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
 				</div>
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Alamat</div>

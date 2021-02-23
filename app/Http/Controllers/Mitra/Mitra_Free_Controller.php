@@ -209,10 +209,20 @@ class Mitra_Free_Controller extends Controller
 
 		$daftar_kategori = Kategori_toko::all();
 		$kelurahan = kelurahan::all();
-		
+
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
-		$jadwal = Jadwal_toko::where('toko_id', $toko->id)->get();
-		$foto_toko = Foto_maps::where('toko_id', $toko->toko_id)->get();
+		if($toko){
+		
+			$jadwal = Jadwal_toko::where('toko_id', $toko->id)->get();
+			$foto_toko = Foto_maps::where('toko_id', $toko->id)->get();
+		}
+		else{
+
+			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+			$jadwal = Jadwal_toko::where('toko_id', $toko->toko_id)->get();
+			$foto_toko = Foto_maps::where('toko_id', $toko->toko_id)->get();
+		}
+
 
 
 		return view('users/user/m-mitra/free/upgrade_premium', compact('daftar_kategori','kelurahan','toko','jadwal','foto_toko'));
@@ -230,38 +240,62 @@ class Mitra_Free_Controller extends Controller
 			'jadwal_buka' => 'required',
 			'jadwal_tutup' => 'required',
 			'alamat' => 'required',
-			'deskripsi' => 'required',
-			'foto_toko' => 'required'
+			'deskripsi' => 'required'
 		]);
 
-		
-		
+	
 		$old_toko = toko::where('users_id', Session::get('id_user'))->first();
 
-		$toko = new Daftar_tunggu_toko;
-		$toko->nama_toko = $request->nama_toko;
-		$toko->users_id = Session::get('id_user');
-		$toko->toko_id = $old_toko->id;
-		$toko->jenis_mitra = "premium";
-		$toko->kategori_toko_id = $request->kategori_toko;
-		$toko->no_hp = $request->no_hp;
-		$toko->alamat = $request->alamat;
-		$toko->kelurahan_id = $request->kelurahan;
-		$toko->deskripsi = $request->deskripsi;
+		if($old_toko){
 
-		if($request->file("foto_toko")){
-
-			$files = $request->file("foto_toko");
-			$type = $request->file("foto_toko")->getClientOriginalExtension();
-			$file_upload = $this->autocode('Logo').".".$type;
-			\Storage::disk('public')->put('img/toko/'.$old_toko->id.'/logo/'.$file_upload, file_get_contents($files));
-			$toko->logo_toko = $file_upload;
+			$toko = new Daftar_tunggu_toko;
+			$toko->nama_toko = $request->nama_toko;
+			$toko->users_id = Session::get('id_user');
+			$toko->toko_id = $old_toko->id;
+			$toko->jenis_mitra = "premium";
+			$toko->kategori_toko_id = $request->kategori_toko;
+			$toko->no_hp = $request->no_hp;
+			$toko->alamat = $request->alamat;
+			$toko->kelurahan_id = $request->kelurahan;
+			$toko->deskripsi = $request->deskripsi;
+	
+			if($request->file("foto_toko")){
+	
+				$files = $request->file("foto_toko");
+				$type = $request->file("foto_toko")->getClientOriginalExtension();
+				$file_upload = $this->autocode('Logo').".".$type;
+				\Storage::disk('public')->put('img/toko/'.$old_toko->id.'/logo/'.$file_upload, file_get_contents($files));
+				$toko->logo_toko = $file_upload;
+			}
+			$toko->save();
+	
 		}
-		$toko->save();
+		else{
 
+			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();;
+			$toko->nama_toko = $request->nama_toko;
+			$toko->users_id = Session::get('id_user');
+			$toko->jenis_mitra = "premium";
+			$toko->kategori_toko_id = $request->kategori_toko;
+			$toko->no_hp = $request->no_hp;
+			$toko->alamat = $request->alamat;
+			$toko->kelurahan_id = $request->kelurahan;
+			$toko->deskripsi = $request->deskripsi;
+	
+			if($request->file("foto_toko")){
+	
+				$files = $request->file("foto_toko");
+				$type = $request->file("foto_toko")->getClientOriginalExtension();
+				$file_upload = $this->autocode('Logo').".".$type;
+				\Storage::disk('public')->put('img/toko/'.$toko->toko_id.'/logo/'.$file_upload, file_get_contents($files));
+				$toko->logo_toko = $file_upload;
+			}
+			$toko->save();
+
+		}
 
 		if($request->file("foto_toko_1")){
-
+	
 			$foto = Foto_maps::where('id', $request->id_foto_toko_1)->first();
 			$files = $request->file("foto_toko_1");
 			$type = $request->file("foto_toko_1")->getClientOriginalExtension();
@@ -295,6 +329,8 @@ class Mitra_Free_Controller extends Controller
 			$foto->foto = $file_upload;
 			$foto->save();
 		}
+
+	
 
 		$hapus_jadwal = Jadwal_toko::where('toko_id', $old_toko->id)->delete();
 
