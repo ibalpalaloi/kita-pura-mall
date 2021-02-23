@@ -1,4 +1,4 @@
-@extends('layouts.home_no_menu')
+@extends('layouts.home_premium')
 
 @section('title')
 
@@ -274,11 +274,11 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		flex-direction: column; 
 		align-items: center; 
 		margin: 0em 0em 0em 0.5em; 
-		width: 47.5%;		
+		width: 8.5em;		
 	}
 
 	.slider-toko img {
-		width: 100%;
+		width: 8.5em;
 		height: 7.5em;
 		object-fit: cover;
 		border-top-left-radius: 1em;
@@ -290,6 +290,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		border-bottom-left-radius: 1em;
 		border-bottom-right-radius: 1em;
 	}
+
 
 	.star-rating {
 		color: #efff3b;
@@ -304,258 +305,264 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		transform: translate3d(0, 25%, 0);
 	}
 
-	.qty .count {
-    color: #000;
-    display: inline-block;
-    vertical-align: top;
-    font-size: 16px;
-    font-weight: 70;
-    line-height: 30px;
-    padding: 0 2px
-    ;min-width: 35px;
-    text-align: center;
+	.homepage {
+		min-height: calc(80vh - 60px); 
+
 	}
-	.qty .plus {
-		cursor: pointer;
-		display: inline-block;
-		vertical-align: top;
-		color: white;
-		width: 20px;
-		height: 20px;
-		font: 16px/1 Arial,sans-serif;
-		text-align: center;
-		border-radius: 50%;
-		}
-	.qty .minus {
-		cursor: pointer;
-		display: inline-block;
-		vertical-align: top;
-		color: white;
-		width: 20px;
-		height: 20px;
-		font: 16px/1 Arial,sans-serif;
-		text-align: center;
-		border-radius: 50%;
-		background-clip: padding-box;
+
+	.togglebutton,.togglebutton .toggle,.togglebutton input,.togglebutton label{user-select:none}
+	.togglebutton label{cursor:pointer}
+	.form-group.is-focused .togglebutton label,.togglebutton label{color:rgba(0,0,0,.26)}
+	.form-group.is-focused .togglebutton label:focus,.form-group.is-focused .togglebutton label:hover{
+		color:rgba(0,0,0,.54)
 	}
-	.minus:hover{
-		background-color: #717fe0 !important;
+	fieldset[disabled] .form-group.is-focused .togglebutton label{color:rgba(0,0,0,.26)}
+	.togglebutton label input[type=checkbox]{opacity:0;width:0;height:0}
+	.togglebutton label .toggle{text-align:left;margin-left:5px}
+	.togglebutton label .toggle,.togglebutton label input[type=checkbox][disabled]+.toggle{
+		content:"";
+		display:inline-block;
+		width:55px;
+		height:25px;
+		background-color:rgba(80,80,80,.7);
+		border-radius:15px;
+		margin-right:0px;
+		transition:background .8s ease;vertical-align:middle
 	}
-	.plus:hover{
-		background-color: #717fe0 !important;
+	.togglebutton label .toggle:after{
+		content:"";
+		display:inline-block;
+		width:22px;
+		height:22px;
+		background-color:#fff;
+		border-radius:20px;
+		position:relative;
+		box-shadow:0 1px 3px 1px rgba(0,0,0,.4);
+		margin-left: 0.3em;
+		top:1px;
+		border:1px solid rgba(0,0,0,.54);
+		transition:left .8s ease,background .8s ease,box-shadow .1s ease
 	}
-	/*Prevent text selection*/
-	span{
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
+	.togglebutton label input[type=checkbox][disabled]+.toggle:after,.togglebutton label input[type=checkbox][disabled]:checked+.toggle:after{background-color:#bdbdbd}
+	.togglebutton label input[type=checkbox]+.toggle:active:after,.togglebutton label input[type=checkbox][disabled]+.toggle:active:after{box-shadow:0 1px 3px 1px rgba(0,0,0,.4),0 0 0 15px rgba(0,0,0,.1)}
+	.togglebutton label input[type=checkbox]:checked+.toggle:after{left:25px}
+	.togglebutton label input[type=checkbox]:checked+.toggle{background-color:#8a6614}
+	.togglebutton label input[type=checkbox]:checked+.toggle:after{border-color:#8a6614}
+	.togglebutton label input[type=checkbox]:checked+.toggle:active:after{box-shadow:0 1px 3px 1px #8a6614,0 0 0 15px rgba(156,39,176,.1)}
+
+	.button-detail {
+		display: flex;	
 	}
-	input{  
-		border: 0;
-		width: 2%;
-	}
-	nput::-webkit-outer-spin-button,
-	input::-webkit-inner-spin-button {
-		-webkit-appearance: none;
-		margin: 0;
-	}
-	input:disabled{
-		background-color:white;
-	}
+
+	.button-detail > div{
+		margin-right: 0.3em;
+	}	
 </style>
-@endsection	
+@endsection
+
+
 
 @section('content')
+<?php
+$pemilik = "";
+$no_hp = "";
+$kategori="";
+$latitude = "";
+$longitude = "";
+$alamat = "";
+$buka = "";
+$tutup = "";
+$hari = "";
+$deskripsi = "";
+if (!empty($_GET['pemilik'])){
+	$pemilik = $_GET['pemilik'];
+}
+if (!empty($_GET['no_hp'])){
+	$no_hp = $_GET['no_hp'];
+}
+if (!empty($_GET['kategori'])){
+	$kategori = $_GET['kategori'];
+}
+if (!empty($_GET['x'])){
+	$latitude = $_GET['x'];
+}
+if (!empty($_GET['y'])){
+	$longitude = $_GET['y'];
+}
+if (!empty($_GET['alamat'])){
+	$alamat = $_GET['alamat'];
+}
+if (!empty($_GET['buka'])){
+	$buka= $_GET['buka'];
+}
+if (!empty($_GET['tutup'])){
+	$tutup = $_GET['tutup'];
+}
+if (!empty($_GET['hari'])){
+	$hari = $_GET['hari'];
+}
+if (!empty($_GET['deskripsi'])){
+	$hari = $_GET['deskripsi'];
+}
+?>
 
 
-<header class="style__Container-sc-3fiysr-0 header" style="background: white;">
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
-		<a href="<?=url('/')?>/akun" style="padding-left: 1em;">
-			<img src="<?=url('/')?>/public/img/back_black.svg">
+<header class="style__Container-sc-3fiysr-0 header" style="background: transparent;  padding-top: 0.3em">
+	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
+		<a href="<?=url('/')?>/akun/mitra/premium" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
+			<img src="<?=url('/')?>/public/img/back_white.svg">
 		</a>
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
-			<img src="<?=url('/')?>/public/img/logo_black.svg">
-			<img src="<?=url('/')?>/public/img/logo_text_black.svg">
+		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
+			<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
 		</a>
-		<div style="margin-right: 2.5em;">
-			<img src="<?=url('/')?>/public/img/back.svg" hidden>
-		</div>
+		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
+		</a>
 	</div>
 </header>
 
-{{-- modal --}}
-<div id="modal_pesan" class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<div class="modal-dialog modal-dialog-bottom" role="document" style="padding: 0px; overflow-y: initial !important;">
-		<div class="modal-content" style="border-radius: 1em; background: #eaf4ff; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 0em; border-bottom-right-radius: 0em; border: none;">
-			<div class="modal-body" style="width: 100%;height: 80vh; overflow-y: auto;">
-				<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; background: white; border-radius: 1.2em;">
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em;" id="div_edit_pic_toko_privew">
-						<img id="pic_edit_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
-					</div>
 
-					<input hidden type="file" name="edit_foto_toko" id="edit_foto_toko" required>
+
+<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
+	<div>
+		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em; z-index: -1;">
+	</div>
+	<div>
+		<div style="padding: 0px 16px 1em;">
+			<h3 style="color: white;">Input Pesanan Toko</h3>
+			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+				<div style="font-size: 0.8em; color: #dddddd; line-height: 1.3em;">Dengan memasukan pesanan, dapat memudahkan anda. mengidentifikasi total transaksi kamu. per/bulan/minggu/tahun.</div>
+			</div>
+			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
+				<div style="width: 100%; padding-right: 0.5em;">
+					<span class="input-group-text-mall">
+					</span>
+					<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em;" required>
+					<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center;">
+						<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
+					</div>
 				</div>
-				<form action="<?=url('/')?>/akun/post/pesanan" method="post">
+			</div>
+			<div class="row-mall" style="padding: 0.7em 0em 0.7em 0em;">
+				<div class="slider" style=" margin-top: 0em;">
+					@if ($produk->count() > 0)
+					@foreach($produk as $item)
+					<div class="slider-toko" style="@if ($loop->iteration == 0) margin-left: 1em;@endif">
+						<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+						<img src="<?=url('/')?>/public/img/toko/{{$item->toko_id}}/produk/{{$item->foto}}">
+						<div class="st0" style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%;color: white; background-size: cover; position: relative;'> 
+							<div id="check_{{$item->id}}"style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #757575; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;" onclick='modal_pesan("{{$item->id}}", "{{$item->harga}}")'>
+								<i class="fa fa-check" style="font-size: 2em;"></i>
+							</div>
+							<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($item->nama), 0, 15)?>@if (strlen($item->nama) > 15)..@endif</div>
+							<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$item->kategori_id}}</div>
+
+							<div style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.7em; line-height: 1em; vertical-align: center;">
+								<s>IDR. 25.000</s>
+							</div>
+							<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 0.9em;font-weight: 500;">IDR. {{$item->harga}}</div>
+						</div>
+					</div> 
+					@endforeach
+					@else
+					@endif
+				</div>
+			</div>
+			<div class="row-mall" style="padding: 0.7em 0.5em 1.2em 0.5em;">
+				<form action="<?=url('/')?>/akun/mitra/premium/simpan-pesanan" method="post">
 					{{ csrf_field() }}
-					<input type="text" name="jumlah_pesanan" id="hidden_nilai" hidden>
+					<input type="text" name="jumlah_pesanan" id="input_jumlah_pesanan" value="1" hidden>
 					<input type="text" name="id_produk" id="id_produk" hidden>
 					<input type="text" name="harga" id="harga" hidden>
-					<h4>Jumlah Pesanan</h4>
-					<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
-						<div id="defaultheader_search" class="style__SearchInput-sc-3fiysr-3 sUjAJ">
-							pesanan
-							<div style="float: right">
-								<div class="qty">
-									<span class="minus bg-dark">-</span>
-									<input type="number" class="count" value="1">
-									<span class="plus bg-dark">+</span>
-								</div>
-							</div>
+					<h4 style="color: white;">Jumlah Pesanan</h4>
+					<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex; justify-content:space-between;">
+						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Pesanan</div>
+						<div class="button-detail">
+							<div style="width: 2em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick="kurangi_pesanan()"><i class="fa fa-minus"></i></div>
+							<div style="width: 3em; height: 2em; background: white; border-radius: 2em; color: #9d0208; display: flex; justify-content: center; align-items: center; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan">1</div>
+							<div style="width: 2.1em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick="tambah_pesanan()"><i class="fa fa-plus"></i></div>
 						</div>
 					</div>
-	
-					<h4>Ketersedian</h4>
-					<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
-						<div id="defaultheader_search" class="style__SearchInput-sc-3fiysr-3 sUjAJ">
-							Stok
-							<div class="custom-control custom-switch">
-								<input type="checkbox" class="custom-control-input" id="customSwitches">
-								<label class="custom-control-label" for="customSwitches"></label>
-							</div>
+					<h4 style="color: white;">Ketersediaan</h4>
+					<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex; justify-content:space-between;">
+						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Stok</div>
+						<div class="custom-control custom-switch">
+							<input type="checkbox" class="custom-control-input" id="customSwitches">
+							<label class="custom-control-label" for="customSwitches"></label>
 						</div>
 					</div>
-	
-					<div style="display: flex; justify-content: space-around; background: transparent;">
-						<button type="submit" class="btn btn-primary" style="background: #ffaa00;border: 1px solid #ffaa00; border-radius: 1.5em;  width: 40%; margin-bottom: 1em;">Simpan
-						</button>
+					<div>
+						@php date_default_timezone_set('Asia/Makassar'); @endphp
+						<h4 style="color: white;">Tanggal</h4>
+						<div class="input-group mb-3 st0" id="div_tanggal" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex; justify-content:space-between;">
+							<input type="date" id="tanggal" name="tanggal" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="tanggal" aria-label="tanggal" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white;" value="<?=date('Y-m-d')?>">
+						</div>
+
 					</div>
+					<div>
+						<h4 style="color: white;">Waktu</h4>
+						<div class="input-group mb-3 st0" id="div_waktu" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex; justify-content:space-between;">
+							<span></span>
+							<input type="time" id="waktu" name="waktu" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nomor Handphone" aria-label="waktu" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white;" value="<?=date('H:i')?>">
+						</div>
+
+					</div>
+					<button type="submit" class="btn" style="width: 100%; margin-bottom: 1em; background: transparent;">
+						<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%;">
+					</button>
 
 				</form>
 			</div>
 		</div>
 	</div>
-</div>
-{{-- end modal --}}
-
-<main id="homepage" class="homepage" style="padding-top: 6em; background: #eaf4ff;">
-<div style="display: flex; justify-content: center; flex-direction: column;">
-    <h4>Input Pesanan Toko</h4>
-    <div style="text-align: justify; font-size: 0.8em; line-height: 1.2em; color: #a1a4a8;">Dengan memasukkan pesananan memudahkan anda menidentifikasi total transaksi kamu perbulan/minggu/tahun</div>
-    <div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
-		<div id="defaultheader_search" class="style__SearchInput-sc-3fiysr-3 sUjAJ">
-			<span></span>
-			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="color: #dedede;">
-				<path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
-			</svg>
-		</div>
-	</div>
-    
-	<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
-		@foreach ($produk as $item)
-		<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
-			<img src="<?=url('/')?>/public/img/product/{{$item->foto}}">
-			<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; background: #f3a301; color: white; background-size: cover; position: relative;'>
-				<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #ed9f01; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;" onclick='modal_pesan("{{$item->foto}}", "{{$item->id}}", "{{$item->harga}}")'>
-					<img src="<?=url('/')?>/public/img/icon_svg/transaksi.svg" style="width: 1.5em; height: 1.5em;">
-				</div>
-				<div style="font-weight: 500; margin-top: 0em;">{{$item->nama}}</div>
-				<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$item->jenis}}</div>
-
-
-				<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-					<s>IDR. {{$item->harga}}</s>
-				</span>
-				<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$item->harga}}</span>
-				<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
-					Stok : {{$item->stok}}
-				</div>
-			</div>
-		</div> 
-		@endforeach
-
-		{{-- <div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
-			<img src="<?=url('/')?>/public/img/product/TKO-1204012490124/product_1.png">
-			<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; background: #f3a301; color: white; background-size: cover; position: relative;'>
-				<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #ed9f01; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
-					<img src="<?=url('/')?>/public/img/icon_svg/transaksi.svg" style="width: 1.5em; height: 1.5em;">
-				</div>
-				<div style="font-weight: 500; margin-top: 0em;">Nama Produk</div>
-				<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">Makanan</div>
-
-
-				<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-					<s>IDR. 25.000</s>
-				</span>
-				<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. 5.000</span>
-				<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
-					Stok : 42
-				</div>
-			</div>
-		</div>  --}}
-	</div>
-
-	<h4>Jumlah Pesanan</h4>
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
-		<div id="defaultheader_search" class="style__SearchInput-sc-3fiysr-3 sUjAJ">
-			pesanan
-			<div style="float: right">
-				<div class="qty">
-					<span class="minus bg-dark">-</span>
-					<input type="number" class="count" name="qty" value="1">
-					<span class="plus bg-dark">+</span>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<h4>Ketersedian</h4>
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
-		<div id="defaultheader_search" class="style__SearchInput-sc-3fiysr-3 sUjAJ">
-			Stok
-			<div class="custom-control custom-switch">
-				<input type="checkbox" class="custom-control-input" id="customSwitches">
-				<label class="custom-control-label" for="customSwitches"></label>
-			  </div>
-		</div>
-	</div>
-
-	<a href="<?=url('/')?>/akun/pengaturan_toko/pesanan" class="btn btn-success" style="color: white">Simpan</a>
-</div>
 </main>
-
 @endsection
 
 @section('footer-scripts')
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
-<script>
-	$(document).ready(function(){
-		    $('.count').prop('disabled', true);
-   			$(document).on('click','.plus',function(){
-				$('.count').val(parseInt($('.count').val()) + 1 );
-				var nilai = $('.count').val();
-				$('#hidden_nilai').val(nilai);
-				
-    		});
-        	$(document).on('click','.minus',function(){
-    			$('.count').val(parseInt($('.count').val()) - 1 );
-    				if ($('.count').val() == 0) {
-						$('.count').val(1);
-					}
-					var nilai = $('.count').val();
-					$('#hidden_nilai').val(nilai);
-    	    	});
-				
- 		});
-</script>
-<script>
-	function modal_pesan(gambar, id_produk, harga){
-		$("#pic_edit_toko_privew").attr('src', "<?=url('/')?>/public/img/product/"+gambar);
-		$('#id_produk').val(id_produk);
-		$('#harga').val(harga);
-		$('#hidden_nilai').val(1);
-		$("#modal_pesan").modal('show');
+<script type="text/javascript">
+
+
+	function tambah_pesanan(){
+		var jumlah_pesanan = $("#jumlah_pesanan").html();
+		// alert(jumlah_pesanan)
+		$("#jumlah_pesanan").html(parseInt(jumlah_pesanan)+1);
+		$("#input_jumlah_pesanan").val(parseInt(jumlah_pesanan)+1);
 	}
+
+	function kurangi_pesanan(){
+		var jumlah_pesanan = $("#jumlah_pesanan").html();
+		$("#jumlah_pesanan").html(parseInt(jumlah_pesanan)-1);		
+		$("#input_jumlah_pesanan").val(parseInt(jumlah_pesanan)-1);		
+	}
+
+
+	function modal_pesan(id_produk, harga){
+		@foreach($produk as $item)
+			$("#check_<?=$item->id?>").css('background', '#757575');
+		@endforeach
+		$("#id_produk").val(id_produk);
+		$("#harga").val(harga);
+		$("#check_"+id_produk).css('background', '#9a7418');
+	}
+
+	function tambah_produk(){
+		$('#modal-tambah').modal('show'); 
+	}
+
+	function edit_produk(id, gambar, nama, kategori, harga, stok, deskripsi){
+		$("#edit_id_produk").val(id);
+		$("#hapus_id_produk").val(id);
+		$("#pic_edit_toko_privew").attr('src', "<?=url('/')?>/public/img/toko/"+gambar);
+		$("#edit_nama_produk").val(nama);
+		$("#edit_kategori").val(kategori);
+		$("#edit_harga").val(harga);
+		$("#edit_stok").val(stok);
+		$("#edit_deskripsi").val(deskripsi);
+		$("#modal-ubah").modal('show');
+	}
+
+
 </script>
 @endsection
