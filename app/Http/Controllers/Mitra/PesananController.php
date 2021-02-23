@@ -16,7 +16,7 @@ class PesananController extends Controller
     public function pesanan(){
         // $pesanan = Pesanan::where('created_at', date('Y-m-d').'00:00:00')->get();
         // dd($pesanan);
-        $toko = Toko::where('user_id', Auth()->user()->id)->first();
+        $toko = Toko::where('users_id', Auth()->user()->id)->first();
         $pesanan = Pesanan::where('toko_id', $toko->id)
                             ->whereDate('created_at', date('Y-m-d'))
                             ->get();
