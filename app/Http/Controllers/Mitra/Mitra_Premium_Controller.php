@@ -20,6 +20,16 @@ use App\Models\Ktp_toko;
 class Mitra_Premium_Controller extends Controller
 {
     //
+
+
+	public function autocode($kode){
+		$timestamp = time(); 
+		$random = rand(10, 100);
+		$current_date = date('mdYs'.$random, $timestamp); 
+		return $kode.$current_date;
+	}
+
+
 	public function index_premium(){
 
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
@@ -46,7 +56,6 @@ class Mitra_Premium_Controller extends Controller
 
 			$daftar_kategori = Kategori_toko::all();
 			$kelurahan = kelurahan::all();
-			
 			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
 			$jadwal = Jadwal_toko::where('toko_id', $toko->id)->get();
 			$foto_toko = Foto_maps::where('toko_id', $toko->toko_id)->get();
