@@ -187,3 +187,4 @@ Route::get('/{username_mitra}', [LandingPageController::class, 'landing_page_mit
 
 // keranjang
 Route::post('/tambah_keranjang_belanja', [Keranjang_Belanja_Controller::class, 'tambah_keranjang_belanja'])->name('tambah_keranjang_belanja');
+Route::get('/user/keranjang', [Keranjang_Belanja_Controller::class, 'keranjang']);
