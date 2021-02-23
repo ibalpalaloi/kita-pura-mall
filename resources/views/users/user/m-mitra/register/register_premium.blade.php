@@ -421,26 +421,8 @@ Jadwal
 					</div>
 					<input type="file" name="foto_toko" id="foto_toko" hidden>
 					<div style="display: flex; justify-content: center;">
-						<div style="background: transparent; color: white; text-align: center; font-size: 1.5em;  position: relative;" id="div_nama_toko">
-							&nbsp;
-							<span style="font-weight: 645;">Nama Toko</span>&nbsp;
-							<span style="width: 1em; position: absolute; right: -0.8em;" onclick="ubah_nama_toko()">
-								<img src="<?=url('/')?>/public/img/icon_svg/edit.svg" style="width: 65%;">
-							</span>
-						</div>
-						<input type="text" id="nama_toko" name="nama_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Toko" aria-label="Nama Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1.5em; font-weight: 645;" required hidden>
+						<input type="text" id="nama_toko" name="nama_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Toko" aria-label="Nama Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1.5em; font-weight: 645;" required>
 					</div>
-					<div style="display: flex; justify-content: center;">
-						<div style="background: transparent; color: white; text-align: center; font-size: 1em;  position: relative;" id="div_nama_pemilik">
-							&nbsp;<span>Nama Pemilik</span>&nbsp;
-							<span style="width: 1em; position: absolute; right: -1em;" onclick="ubah_nama_pemilik()">
-								<img src="<?=url('/')?>/public/img/icon_svg/edit.svg" style="width: 65%;">
-							</span>
-						</div>
-						<input type="text" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Pemilik" aria-label="Nama Pemilik"aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em;" value="" required hidden>
-					</div>
-
-
 				</div>
 				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="height: 7.5em; justify-content: flex-start; background: #292929; border: none; border-radius: 0.5em;">
 					<span style="margin-top: 0px; color: white; font-weight: 600;">Deskripsi</span>
@@ -708,11 +690,6 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 	function ubah_nama_toko(){
 		$("#div_nama_toko").prop('hidden', true);
 		$("#nama_toko").prop('hidden', false);
-	}
-
-	function ubah_nama_pemilik(){
-		$("#div_nama_pemilik").prop('hidden', true);
-		$("#nama_pemilik").prop('hidden', false);
 	}
 
 	function hapus_jadwal(hari){
