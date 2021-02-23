@@ -294,7 +294,7 @@
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: flex-end;">
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="/">
 			<img src="<?=url('/')?>/public/img/icon_svg/bag_transparent.svg">
-			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">0</div>
+			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
 		</a>
 	</div>	
 </header>
@@ -482,11 +482,11 @@
 				<div style="width: 100%; margin-top: 1.5em;">
 					<div style="font-size: 1.4em; font-weight: 1000; text-align: center;">Menu</div>
 				</div>
-				@php
+				{{-- @php
 				$foto_product = array('product_6.png', 'product_7.png', 'product_8.png');
-				@endphp 
+				@endphp  --}}
 
-				@for ($i = 0; $i < count($foto_product); $i++)
+				{{-- @for ($i = 0; $i < count($foto_product); $i++)
 				<div class="input-group mb-3" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em; display: flex; justify-content: center;">
 					<div style="display: flex; justify-content: center; position:relative;width: 85%; margin: 0px; height: 13em;">
 						<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf">
@@ -517,7 +517,40 @@
 
 					</div>
 				</div>
-				@endfor
+				@endfor --}}
+				@foreach ($produk as $item)
+				<div class="input-group mb-3" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em; display: flex; justify-content: center;">
+					<div style="display: flex; justify-content: center; position:relative;width: 85%; margin: 0px; height: 13em;">
+						<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf">
+							<img src="<?=url('/')?>/public/img/product/{{$item->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						</a>
+						<div class="label-product" style="position: absolute; bottom: 0em; left: 0em; padding: 0.4em 0.5em 0.9em 1.2em; display: flex; width: 100%; background-color: rgba(0,0,0,0.3); justify-content: space-between;">
+							<div class="keterangan-product" style="display: flex;">
+								<div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: center; color: white; margin-left: 0.3em;">
+									<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf" style="font-size: 1em; line-height: 1.3em;">{{$item->nama}}</a>
+									<div style="font-size: 0.7em; line-height: 1em;">{{$item->jenis}}</div>
+									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.8em; line-height: 1em;">
+										<i class="fas fa-star star-rating"></i>
+										<i class="fas fa-star star-rating"></i>
+										<i class="fas fa-star star-rating"></i>
+										<i class="fas fa-star star-rating"></i>
+										<i class="far fa-star star-rating"></i>
+									</div>
+									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.6em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
+										<s>IDR. {{number_format($item->harga)}}</s>
+									</div>
+									<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1em; line-height: 1em; font-weight: 500;">IDR. 5.000</div>
+								</div>
+							</div>
+							<div class="">
+								<img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="position: absolute; bottom: -0.8em; right: -0.5em; width: 5em;" onclick="masukan_keranjang('{{$item->toko_id}}', '{{$item->id}}')">
+							</div>
+						</div>
+
+					</div>
+				</div>
+				@endforeach
+				
 				<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">
 					<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu" style="color: #111111;">Lihat lebih banyak</a>
 				</div>
@@ -599,7 +632,9 @@
 @endsection
 
 @section('footer-scripts')
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
 <script>
 	var swiper = new Swiper('.swiper-container', {
 		pagination: {
@@ -607,7 +642,12 @@
 		},
 	});
 
-	function masukan_keranjang(){
+	function masukan_keranjang(toko_id, produk_id){
+		$.ajax({
+			url : "{{ route('tambah_keranjang_belanja') }}",
+			method : 'post',
+			data : {toko_id:toko_id, produk_id:produk_id, _token:'{{csrf_token()}}'}
+		})
 		var jumlah_keranjang = $("#jumlah_keranjang").html();
 		jumlah_keranjang = parseInt(jumlah_keranjang)+1;
 		$("#jumlah_keranjang").html(jumlah_keranjang);
