@@ -344,7 +344,7 @@ class Mitra_Free_Controller extends Controller
 
 		for ($i = 0; $i < count($hari); $i++) {
 			$jadwal = new Jadwal_toko;
-			$jadwal->toko_id = $old_toko->id;
+			$jadwal->toko_id = $toko_id;
 			$jadwal->hari = $hari[$i];
 			$jadwal->jam_buka = $jam_buka[$i];
 			$jadwal->jam_tutup = $jam_tutup[$i];
