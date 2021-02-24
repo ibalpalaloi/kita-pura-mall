@@ -183,6 +183,31 @@
 @endsection
 
 @section('content')
+<div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+style="padding: 1.5em; padding: 0px;">
+<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+	<div class="modal-content" style="border-radius: 1.2em; background: #9d0208; display: flex; justify-content: center; align-items: center;">
+		<div class="modal-body">
+			<div class="nama-toko" style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em; color: white;">Penilaian</div>
+		</div>
+		<hr style="border-top: 1px solid white; width: 100%;">
+		<input type="text" name="nilai_rating" id="nilai_rating" value="" hidden>
+		<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 2.5em; line-height: 1em;">
+			<i class="far fa-star star-rating" id="rating_1" onclick="nilai_toko('1')"></i>
+			<i class="far fa-star star-rating" id="rating_2" onclick="nilai_toko('2')"></i>
+			<i class="far fa-star star-rating" id="rating_3" onclick="nilai_toko('3')"></i>
+			<i class="far fa-star star-rating" id="rating_4" onclick="nilai_toko('4')"></i>
+			<i class="far fa-star star-rating" id="rating_5" onclick="nilai_toko('5')"></i>
+		</div>
+		<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 80%; display: flex; flex-direction: column; color: white; font-size: 0.85em;">
+			<button onclick="tambah_jadwal()" class="btn btn-primary" style="background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%);border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%; margin-bottom: 1em; margin-top: 1em; border: none;">Kirim
+			</button>
+		</div>
+	</div>
+</div>
+</div>
+
+
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent; padding-top: 0.3em;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
 		<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; margin-right: ">
@@ -202,7 +227,7 @@
 
 <main id="homepage" class="homepage" style="background:transparent;">
 
-	@php $img = url('/')."/public/img/product/TKO-1204012490124/product_5.jpg"; @endphp
+	@php $img = url('/')."/public/img/product/TK-021220212313/product_8.jpg"; @endphp
 
 	<div id="bg" style=" width: 100%;">
 		<img src="<?=$img?>">
@@ -214,19 +239,23 @@
 				<div style="width: 3em; height: 2em; background: white; border-radius: 2em; color: #9d0208; display: flex; justify-content: center; align-items: center; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan">1</div>
 				<div style="width: 2.1em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick="tambah_pesanan()"><i class="fa fa-plus"></i></div>
 			</div>
-			<div class="nama-barang" style="font-size: 1.3em; margin-top: 0.5em; margin-bottom: 0.2em;">Ayam Bakar</div>
-			<div class="deskripsi-and-rating" style="display: flex; justify-content: space-between; width: 100%;">
-				<div style="font-size: 0.9em; font-weight: 600;">Deskripsi</div>
-				<div style="padding: 0; margin: 0em 0px 0px 0px; font-size: 0.8em;">
-					<i class="fas fa-star star-rating"></i>
-					<i class="fas fa-star star-rating"></i>
-					<i class="fas fa-star star-rating"></i>
-					<i class="fas fa-star star-rating"></i>
-					<i class="far fa-star star-rating"></i>
-					&nbsp;(100 Penilaian)
-				</div>
+			<div class="nama-barang" style="font-size: 1.3em; margin-top: 0.5em; margin-bottom: 0.2em; line-height: 0.8em;">Ayam Bakar</div>
+			<div style="padding: 0; margin: 0em 0px 0px 0px; font-size: 0.8em;">
+				<i class="fas fa-star star-rating"></i>
+				<i class="fas fa-star star-rating"></i>
+				<i class="fas fa-star star-rating"></i>
+				<i class="fas fa-star star-rating"></i>
+				<i class="far fa-star star-rating"></i>
+				&nbsp;(100 Penilaian)
+			</div>			
+			<div style="color: white; font-size: 0.8em; margin-top: 1.2em;" onclick="menilai()">				
+				<i class="far fa-star star-rating"></i>&nbsp;Saya ingin menilai
 			</div>
-			<div style="font-size: 0.7em; text-align: left; margin-top: 1em;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra felis elit sollicitudin tortor. Id egestas curabitur enim non sed aliquam feugiat. Arcu praesent ullamcorper sapien eu enim dolor. Amet, ut porta adipiscing amet est cras phasellus odio. Tempor vel velit sagittis, sed justo. Maecenas erat enim, blandit lobortis. Metus pellentesque mauris mauris, morbi. Faucibus risus.</div>
+			<div class="deskripsi-and-rating" style="display: flex; justify-content: space-between; width: 100%;">
+				<div style="font-size: 0.9em; font-weight: 600; margin-top: 1em;">Deskripsi</div>
+
+			</div>
+			<div style="font-size: 0.7em; text-align: left; margin-top: 0.5em;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra felis elit sollicitudin tortor. Id egestas curabitur enim non sed aliquam feugiat. Arcu praesent ullamcorper sapien eu enim dolor. Amet, ut porta adipiscing amet est cras phasellus odio. Tempor vel velit sagittis, sed justo. Maecenas erat enim, blandit lobortis. Metus pellentesque mauris mauris, morbi. Faucibus risus.</div>
 			@php $url = url('/')."/public/img/button/landing_page/gradient_orange.svg"; @endphp
 			<div style="background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%);border-radius: 35px; padding: 0.8em; width: 100%; margin-top: 0.5em;" onclick="masukan_keranjang()">
 				Tambahkan ke keranjang<img src="<?=url('/')?>/public/img/button/landing_page/keranjang_icon.svg">
@@ -239,6 +268,9 @@
 @endsection
 
 @section('footer-scripts')
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
 <script type="text/javascript">
 	function masukan_keranjang(){
 		var jumlah_keranjang = $("#jumlah_keranjang").html();
@@ -256,5 +288,23 @@
 		var jumlah_pesanan = $("#jumlah_pesanan").html();
 		$("#jumlah_pesanan").html(parseInt(jumlah_pesanan)-1);		
 	}
+
+	function nilai_toko(index){
+		$("#nilai_rating").val(index);
+		index = parseInt(index)+1;
+		for (var i = 1; i <= index; i++){
+			$("#rating_"+i).removeClass("far");
+			$("#rating_"+i).addClass("fas");
+		}
+		for (var j = index; j <= 5; j++){
+			$("#rating_"+j).removeClass("fas");
+			$("#rating_"+j).addClass("far");
+		}
+
+	}
+
+	function menilai(){
+		$('#modal-jadwal').modal('show');
+	}	
 </script>
 @endsection
