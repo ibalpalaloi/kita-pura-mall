@@ -35,7 +35,8 @@ class Keranjang_Belanja_Controller extends Controller
                 $data_keranjang[$toko->nama_toko]['harga'][$index] = $produk->harga;
                 $index++;
             }
-        } 
-        return view('users.user.m-keranjang.keranjang');
+        }
+        // dd($keranjang['TK-021120210461'][0]->toko->nama_toko);
+        return view('users.user.m-keranjang.keranjang', ['data_keranjang'=>$keranjang]);
     }
 }
