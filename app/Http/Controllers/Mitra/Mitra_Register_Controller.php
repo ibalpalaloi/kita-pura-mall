@@ -51,6 +51,7 @@ class Mitra_Register_Controller extends Controller
 	}
 	
 	public function simpan_mitra(Request $request, $jenis_mitra){
+
 		// dd($request->all());
 
 		$this->validate($request,[
@@ -60,8 +61,7 @@ class Mitra_Register_Controller extends Controller
 			'jadwal_hari' => 'required',
 			'jadwal_buka' => 'required',
 			'jadwal_tutup' => 'required',
-			'alamat' => 'required',
-			'foto_toko' => 'required'
+			'alamat' => 'required'
 		]);
 		
 		if ($jenis_mitra == 'premium'){
@@ -84,11 +84,11 @@ class Mitra_Register_Controller extends Controller
         // @Tambah Foto
         if($jenis_mitra == 'free'){
 
-            if($request->file("foto_toko")){
+            if($request->file("foto_toko_1")){
 			
                 $foto = new Foto_maps;
-                $files = $request->file("foto_toko");
-                $type = $request->file("foto_toko")->getClientOriginalExtension();
+                $files = $request->file("foto_toko_1");
+                $type = $request->file("foto_toko_1")->getClientOriginalExtension();
                 $file_upload = $this->autocode('IMG').".".$type;
                 \Storage::disk('public')->put('img/maps/'.$toko_id.'/'.$file_upload, file_get_contents($files));
     
@@ -128,7 +128,6 @@ class Mitra_Register_Controller extends Controller
 
             $toko->deskripsi = $request->deskripsi;
 
-            
             if($request->file("foto_toko")){
 
                 $files = $request->file("foto_toko");
@@ -139,47 +138,47 @@ class Mitra_Register_Controller extends Controller
                 $toko->logo_toko = $file_upload;
             }
 
-			if($request->file("foto_toko_2")){
+			// if($request->file("foto_toko_2")){
                 
-                $foto = new Foto_maps;
+            //     $foto = new Foto_maps;
     
-                $files = $request->file("foto_toko_2");
-                $type = $request->file("foto_toko_2")->getClientOriginalExtension();
-                $file_upload = $this->autocode('IMG').".".$type;
-                \Storage::disk('public')->put('img/maps/'.$toko_id.'/'.$file_upload, file_get_contents($files));
+            //     $files = $request->file("foto_toko_2");
+            //     $type = $request->file("foto_toko_2")->getClientOriginalExtension();
+            //     $file_upload = $this->autocode('IMG').".".$type;
+            //     \Storage::disk('public')->put('img/maps/'.$toko_id.'/'.$file_upload, file_get_contents($files));
     
-                $foto->toko_id = $toko_id;
-                $foto->foto = $file_upload;
-                $foto->save();
-            }
+            //     $foto->toko_id = $toko_id;
+            //     $foto->foto = $file_upload;
+            //     $foto->save();
+            // }
 
-            if($request->file("foto_toko_3")){
+            // if($request->file("foto_toko_3")){
                 
-                $foto = new Foto_maps;
+            //     $foto = new Foto_maps;
     
-                $files = $request->file("foto_toko_3");
-                $type = $request->file("foto_toko_3")->getClientOriginalExtension();
-                $file_upload = $this->autocode('IMG').".".$type;
-                \Storage::disk('public')->put('img/maps/'.$toko_id.'/'.$file_upload, file_get_contents($files));
+            //     $files = $request->file("foto_toko_3");
+            //     $type = $request->file("foto_toko_3")->getClientOriginalExtension();
+            //     $file_upload = $this->autocode('IMG').".".$type;
+            //     \Storage::disk('public')->put('img/maps/'.$toko_id.'/'.$file_upload, file_get_contents($files));
     
-                $foto->toko_id = $toko_id;
-                $foto->foto = $file_upload;
-                $foto->save();
-            }
+            //     $foto->toko_id = $toko_id;
+            //     $foto->foto = $file_upload;
+            //     $foto->save();
+            // }
 
-			if($request->file("foto_toko_4")){
+			// if($request->file("foto_toko_4")){
                 
-                $foto = new Foto_maps;
+            //     $foto = new Foto_maps;
     
-                $files = $request->file("foto_toko_4");
-                $type = $request->file("foto_toko_4")->getClientOriginalExtension();
-                $file_upload = $this->autocode('IMG').".".$type;
-                \Storage::disk('public')->put('img/maps/'.$toko_id.'/'.$file_upload, file_get_contents($files));
+            //     $files = $request->file("foto_toko_4");
+            //     $type = $request->file("foto_toko_4")->getClientOriginalExtension();
+            //     $file_upload = $this->autocode('IMG').".".$type;
+            //     \Storage::disk('public')->put('img/maps/'.$toko_id.'/'.$file_upload, file_get_contents($files));
     
-                $foto->toko_id = $toko_id;
-                $foto->foto = $file_upload;
-                $foto->save();
-            }
+            //     $foto->toko_id = $toko_id;
+            //     $foto->foto = $file_upload;
+            //     $foto->save();
+            // }
 
         }
 

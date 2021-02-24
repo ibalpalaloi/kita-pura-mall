@@ -288,8 +288,35 @@
 
 </style>
 @endsection
-
 @section('content')
+<div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+style="padding: 1.5em; padding: 0px;">
+	<form action="" method="post">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+		<div class="modal-content" style="border-radius: 1.2em; background: #9d0208; display: flex; justify-content: center; align-items: center;">
+			<div class="modal-body">
+				<div class="nama-toko" style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em; color: white;">Penilaian</div>
+			</div>
+			<hr style="border-top: 1px solid white; width: 100%;">
+			<input type="text" name="nilai_rating" id="nilai_rating" value="" hidden>
+			<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 2em; line-height: 1em;">
+				<i class="far fa-star star-rating" id="rating_1" onclick="nilai_toko('1')"></i>
+				<i class="far fa-star star-rating" id="rating_2" onclick="nilai_toko('2')"></i>
+				<i class="far fa-star star-rating" id="rating_3" onclick="nilai_toko('3')"></i>
+				<i class="far fa-star star-rating" id="rating_4" onclick="nilai_toko('4')"></i>
+				<i class="far fa-star star-rating" id="rating_5" onclick="nilai_toko('5')"></i>
+			</div>
+			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 80%; display: flex; flex-direction: column; color: white; font-size: 0.85em;">
+				<label  style="margin-top: 1em;">Masukan Pesan</label>
+				<textarea style="background: #860106; border: none; color: white;" rows="6"></textarea>
+				<button type="submit" class="btn btn-primary" style="background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%);border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%; margin-bottom: 1em; margin-top: 1em; border: none;">Kirim
+				</button>
+			</div>
+		</div>
+	</div>
+	</form>
+</div>
+
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: flex-end;">
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="/">
@@ -300,7 +327,7 @@
 </header>
 
 <div class="wrapper" style="background: transparent; position: relative; z-index: -1; border-bottom-right-radius: 7%; border-bottom-left-radius: 7%;">
-	@php $product_bg = url('/')."/public/img/product/TKO-1204012490124/product_5.jpg"; @endphp
+	@php $product_bg = url('/')."/public/img/product/TK-021220212313/product_8.jpg"; @endphp
 	<div class="banner" style='padding: 7em 0.5em 12em 0.5em; display: flex; justify-content: center; align-items: center; background-image: url("<?=$product_bg?>"); background-size: cover;'>
 		<img src="<?=url('/')?>/public/img/toko/logo/warung_mantap.png" style="width: 50%;">
 	</div>
@@ -326,7 +353,7 @@
 				<i class="far fa-star star-rating"></i>
 			</div>
 			<div class="penilai" style="display: flex; justify-content: space-between; align-items: flex-end;">
-				<div class="foto-penilai" style="display: flex; justify-content: flex-start; margin-top: 0.7em;">
+				<div class="foto-penilai" style="display: flex; justify-content: flex-start; margin-top: 0.2em;">
 					<div style="width: 1.2em; height: 1.2em; border-radius: 50%;">
 						<img src="<?=url('/')?>/public/img/user/profile_picture/fathul.jpg" style="width: 100%; border-radius: 50%;">
 					</div>
@@ -344,7 +371,10 @@
 					<div style="color: white; font-size: 0.8em;">50 Penilaian</div>
 				</div>
 			</div>
-			<div class="deskripsi" style="color: white; font-size: 0.7em; margin-top: 1.5em;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra pretium enim ac laoreet in habitant ipsum cum. Nunc purus, diam vitae tincidunt bibendum malesuada. </div>
+			<div style="color: white; font-size: 0.8em; margin-top: 1.2em;" onclick="menilai()">				
+				<i class="far fa-star star-rating"></i>&nbsp;Saya ingin menilai
+			</div>
+			<div class="deskripsi" style="color: white; font-size: 0.7em; margin-top: 0.8em;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra pretium enim ac laoreet in habitant ipsum cum. Nunc purus, diam vitae tincidunt bibendum malesuada. </div>
 			<hr style="width: 2em; margin-top: 1.5em; border: 1.5px solid white; background: white; border-radius: 1.5em;">
 		</div>
 
@@ -490,7 +520,7 @@
 				<div class="input-group mb-3" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em; display: flex; justify-content: center;">
 					<div style="display: flex; justify-content: center; position:relative;width: 85%; margin: 0px; height: 13em;">
 						<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf">
-							<img src="<?=url('/')?>/public/img/product/TKO-1204012490124/{{$foto_product[$i]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+							<img src="<?=url('/')?>/public/img/product/TK-021220212313/{{$foto_product[$i]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 						</a>
 						<div class="label-product" style="position: absolute; bottom: 0em; left: 0em; padding: 0.4em 0.5em 0.9em 1.2em; display: flex; width: 100%; background-color: rgba(0,0,0,0.3); justify-content: space-between;">
 							<div class="keterangan-product" style="display: flex;">
@@ -635,6 +665,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
 	var swiper = new Swiper('.swiper-container', {
 		pagination: {
@@ -651,6 +682,24 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		var jumlah_keranjang = $("#jumlah_keranjang").html();
 		jumlah_keranjang = parseInt(jumlah_keranjang)+1;
 		$("#jumlah_keranjang").html(jumlah_keranjang);
+	}
+
+	function nilai_toko(index){
+		$("#nilai_rating").val(index);
+		index = parseInt(index)+1;
+		for (var i = 1; i <= index; i++){
+			$("#rating_"+i).removeClass("far");
+			$("#rating_"+i).addClass("fas");
+		}
+		for (var j = index; j <= 5; j++){
+			$("#rating_"+j).removeClass("fas");
+			$("#rating_"+j).addClass("far");
+		}
+
+	}
+
+	function menilai(){
+		$('#modal-jadwal').modal('show');
 	}
 </script>
 @endsection
