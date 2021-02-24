@@ -268,6 +268,8 @@ class Mitra_Free_Controller extends Controller
 				$toko->logo_toko = $file_upload;
 			}
 			$toko->save();
+
+			$toko_id = $old_toko->id;
 	
 		}
 		else{
@@ -291,6 +293,8 @@ class Mitra_Free_Controller extends Controller
 				$toko->logo_toko = $file_upload;
 			}
 			$toko->save();
+
+			$toko_id = $toko->toko_id;
 
 		}
 
@@ -332,7 +336,7 @@ class Mitra_Free_Controller extends Controller
 
 	
 
-		$hapus_jadwal = Jadwal_toko::where('toko_id', $old_toko->id)->delete();
+		$hapus_jadwal = Jadwal_toko::where('toko_id', $toko_id)->delete();
 
 		$hari = explode('~', $request->get('jadwal_hari'));
 		$jam_buka = explode('~', $request->get('jadwal_buka'));
