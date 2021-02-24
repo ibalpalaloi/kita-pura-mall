@@ -378,7 +378,7 @@ class Mitra_Free_Controller extends Controller
 
     }
 
-    public function upgrade_simpan_ktp($jenis_mitra, Request $request){
+    public function upgrade_simpan_ktp(Request $request){
 
         // dd($request->all());
 
