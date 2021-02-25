@@ -508,7 +508,6 @@ if (!empty($_GET['deskripsi'])){
 						<input type="text" class="form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" style="width: 100%;" value="{{$toko->alamat}}">
 					</div>
 				</div>
-
 				<div class="input-group mb-3 st0" id="div_kelurahan" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kelurahan</div>
 					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
@@ -516,7 +515,7 @@ if (!empty($_GET['deskripsi'])){
 							<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 40%;">
 						</span>
 						<select type="text" class="form-control-mall" id="kelurahan" name="kelurahan" style="height: 2.5em;" required>
-							<option value="" disabled selected>Pilih Kategori Toko</option>
+							<option value="" disabled selected>Pilih Kelurahan</option>
 							@foreach($kelurahan as $row)
 							<option value="{{$row->id}}" @if($toko->kelurahan_id == $row->id ) selected='selected' @endif>{{$row->kelurahan}}
 							</option>
@@ -524,6 +523,8 @@ if (!empty($_GET['deskripsi'])){
 						</select>
 					</div>
 				</div>
+
+				
 
 				<button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
 					<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">

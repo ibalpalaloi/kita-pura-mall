@@ -530,69 +530,62 @@ if (!empty($_GET['deskripsi'])){
 					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
 					<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
 					<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; background: #f3a301; color: white; background-size: cover; position: relative;'> 
-						<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #ed9f01; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;" onclick='edit_produk("{{$row->id}}","{{$row->toko_id}}/produk/{{$row->foto_produk}}", "{{$row->nama}}", "{{$row->kategori_id}}", "{{$row->harga}}", "{{$row->stok}}", "{{$row->deskripsi}}")'>
+						<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; right: 0.8em; display: flex; justify-content: center; align-items: center;">
 							<div class="togglebutton">
-								<label>
-									<input type="checkbox" checked="">
-									<span class="toggle"></span>
-								</label>
+									<label>
+										<a href="{{url()->current()}}/{{$row->id}}/ubah-status" >	
+											<input type="checkbox" @if($row->tampil == "Ya") checked @endif>
+											<span class="toggle"></span>
+											</a>
+									</label>
+								
 							</div>
 						</div>
 						<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
-						<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori_id}}</div>
-
+						<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori->nama}}</div>
+						@if($row->diskon == '0')
+						<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$row->harga}}</span>
+						@else
 						<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-							<s>IDR. 25.000</s>
+							<s>IDR. {{$row->harga}}</s>
 						</span>
-						<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$row->harga}}</span>
+						@php
+							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
+						@endphp
+						<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$hasil_diskon}}</span>
+						@endif
 						<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
 							Stok : {{$row->stok}}
 						</div>
 					</div>
 				</div> 
 				@endforeach
-				@else
-				<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
-					@php
-					$digital = array('TKO-1204012490124/product_1.png', 'TKO-1204012490124/product_2.png', 'TKO-1204012490124/product_3.png', 'TKO-1204012490124/product_4.png', 'TKO-1204012490124/product_1.png', 'TKO-1204012490124/product_2.png');
-					$nama_digital = array('Bakso', 'Sate', 'Nasi Goreng', 'Mie Ayam', 'Bakso', 'Sate');
-					$kategori_toko = array('Makanan', 'Makanan', 'Makanan', 'Makanan', 'Makanan', 'Makanan');
-
-					$jumlah_digital = count($digital)-1;
-					@endphp 
-
-					@for ($i = 0; $i < count($digital); $i++)  
-					<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
-						<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-						<img src="<?=url('/')?>/public/img/product/{{$digital[$i]}}">
-						<div class="st0" style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative;'> 
-							<div style="position: absolute; top: -1em; z-index: 0;right: 0.5em; display: flex; justify-content: center; align-items: center;">
-								<div class="togglebutton">
-									<label>
-										<input type="checkbox" checked="">
-										<span class="toggle"></span>
-									</label>
-								</div>
-							</div>
-							<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($nama_digital[$i]), 0, 15)?>@if (strlen($nama_digital[$i]) > 15)..@endif</div>
-							<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$kategori_toko[$i]}}</div>
-
-
-							<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-								<s>IDR. 25.000</s>
-							</span>
-							<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. 5.000</span>
-							<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
-								Stok : 42
-							</div>
-						</div>
-					</div> 
-					@endfor
-				</div>
 				@endif
 			</div>
 		</div>
 	</div>
+
+	@if(Session::has('message'))
+    <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center font-weight-bold py-3">
+                    {{Session::get('message')}}
+                    <div class="row mt-2 p-2">
+                        <button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
+                            data-dismiss="modal">Tutup</button>
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    @endif
+
+
 </main>
 <div class="footer">
 	<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk/add" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
@@ -606,6 +599,13 @@ if (!empty($_GET['deskripsi'])){
 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
 <script type="text/javascript">
+
+	@if(Session::has('message'))	
+		$('#modal-pemberitahuan').modal('show')
+	@endif
+
+
+
 
 	function tambah_foto_toko(id){
 		$("#foto_maps_"+id).click();
