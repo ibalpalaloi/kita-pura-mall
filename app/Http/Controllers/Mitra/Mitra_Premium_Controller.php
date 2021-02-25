@@ -84,7 +84,7 @@ class Mitra_Premium_Controller extends Controller
 
 		$toko = Toko::where('users_id', Session::get('id_user'))->first();
 		
-		if(isnull($toko)){
+		if(is_null($toko)){
 
 			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
 
