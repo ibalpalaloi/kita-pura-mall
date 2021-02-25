@@ -417,6 +417,9 @@ if (!empty($_GET['deskripsi'])){
 </header>
 
 
+<form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post" >
+	{{csrf_field()}}
+	{{method_field('PUT')}}
 
 <main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
 	<div>
@@ -439,38 +442,56 @@ if (!empty($_GET['deskripsi'])){
 				<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
 			</div>
 			<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+				@if($foto_1)
+				<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
+						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$foto_1->toko_id}}/maps/{{$foto_1->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('1')" style="position: absolute; right: 1em; bottom: 1em;">
+				</div>
+				<input type="hidden" name="id_foto_maps_1" id="id_foto_maps_1" value="{{$foto_1->id}}">
+				@else
 				<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('1')" id="div_pic_maps_1">
-					<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
-				</div>
-				<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew" hidden>
-					<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-					<img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
-				</div>
-
-				<input hidden type="file" name="foto_maps_1" id="foto_maps_1" required>
+						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
+					</div>
+				@endif
+				<input hidden type="file" name="foto_maps_1" id="foto_maps_1">
 			</div>
 			<div style="display: flex; justify-content: space-between;">
 				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
+					@if($foto_2)
+					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew">
+						<img id="pic_maps_2_privew" src="<?=url('/')?>/public/img/toko/{{$foto_2->toko_id}}/maps/{{$foto_2->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<img id="pic_maps_2" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('2')" style="position: absolute; right: 1em; bottom: 1em;">
+					</div>
+					<input type="hidden" name="id_foto_maps_2" id="id_foto_maps_2" value="{{$foto_2->id}}">
+					@else
+					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew" hidden>
+						<img id="pic_maps_2_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<img id="pic_maps_2" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('2')" style="position: absolute; right: 1em; bottom: 1em;">
+					</div>
 					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('2')" id="div_pic_maps_2">
 						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
 					</div>
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew" hidden>
-						<img id="pic_maps_2_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-						<img id="pic_maps_2" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
-					</div>
-
-					<input hidden type="file" name="foto_maps_2" id="foto_maps_2" required>
+					@endif
+					<input hidden type="file" name="foto_maps_2" id="foto_maps_2">
 				</div>
 				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
+	
+					@if($foto_3)
+					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew">
+						<img id="pic_maps_3_privew" src="<?=url('/')?>/public/img/toko/{{$foto_3->toko_id}}/maps/{{$foto_3->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<img id="pic_maps_3" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('3')" style="position: absolute; right: 1em; bottom: 1em;">
+					</div>
+					<input type="hidden" name="id_foto_maps_3" id="id_foto_maps_3" value="{{$foto_3->id}}">
+					@else
+					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew" hidden>
+						<img id="pic_maps_3_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<img id="pic_maps_3" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('3')" style="position: absolute; right: 1em; bottom: 1em;">
+					</div>
 					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('3')" id="div_pic_maps_3">
 						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
 					</div>
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew" hidden>
-						<img id="pic_maps_3_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-						<img id="pic_maps_3" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
-					</div>
-
-					<input hidden type="file" name="foto_maps_3" id="foto_maps_3" required>
+					@endif
+					<input hidden type="file" name="foto_maps_3" id="foto_maps_3">
 				</div>
 			</div>
 			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Deskripsi</h6>
@@ -517,7 +538,7 @@ if (!empty($_GET['deskripsi'])){
 				<div style="width: 100%; padding-right: 0.5em;">
 					<span class="input-group-text-mall">
 					</span>
-					<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em;" required>
+					<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em;">
 					<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center;">
 						<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
 					</div>
@@ -588,10 +609,14 @@ if (!empty($_GET['deskripsi'])){
 
 </main>
 <div class="footer">
-	<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk/add" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
-		<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%;">
-	</a>
+	<div class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
+		<button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
+			<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
+		</button>	
+	</div>
 </div>
+</form>			
+
 @endsection
 
 @section('footer-scripts')
@@ -621,7 +646,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	function readURL(input, id) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
-
+			
 			reader.onload = function (e) {
 				$('#pic_maps_'+id+'_privew').attr('src', e.target.result);
 				$("#div_pic_maps_"+id+"_privew").prop('hidden', false);
