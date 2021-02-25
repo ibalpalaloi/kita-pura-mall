@@ -291,13 +291,15 @@
 @section('content')
 <div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
 style="padding: 1.5em; padding: 0px;">
-	<form action="" method="post">
+	<form action="<?=url('')?>/user/post_penilaian" method="post">
+		{{ csrf_field() }}
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
 		<div class="modal-content" style="border-radius: 1.2em; background: #9d0208; display: flex; justify-content: center; align-items: center;">
 			<div class="modal-body">
 				<div class="nama-toko" style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em; color: white;">Penilaian</div>
 			</div>
 			<hr style="border-top: 1px solid white; width: 100%;">
+			<input type="text" name="toko_id" value="{{$toko->id}}" hidden>
 			<input type="text" name="nilai_rating" id="nilai_rating" value="" hidden>
 			<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 2em; line-height: 1em;">
 				<i class="far fa-star star-rating" id="rating_1" onclick="nilai_toko('1')"></i>
@@ -308,7 +310,7 @@ style="padding: 1.5em; padding: 0px;">
 			</div>
 			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 80%; display: flex; flex-direction: column; color: white; font-size: 0.85em;">
 				<label  style="margin-top: 1em;">Masukan Pesan</label>
-				<textarea style="background: #860106; border: none; color: white;" rows="6"></textarea>
+				<textarea name="komentar" style="background: #860106; border: none; color: white;" rows="6"></textarea>
 				<button type="submit" class="btn btn-primary" style="background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%);border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%; margin-bottom: 1em; margin-top: 1em; border: none;">Kirim
 				</button>
 			</div>
@@ -319,7 +321,7 @@ style="padding: 1.5em; padding: 0px;">
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: flex-end;">
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="/">
+		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?user('/')?>/user/keranjang">
 			<img src="<?=url('/')?>/public/img/icon_svg/bag_transparent.svg">
 			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
 		</a>
@@ -337,7 +339,7 @@ style="padding: 1.5em; padding: 0px;">
 	<div class="kategori" style="background: #9d0208; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 2em 8%; display: flex; flex-direction: column;">
 		<div class="info-toko" style="display: flex; justify-content: space-between; width: 100%;">
 			<div class="nama-toko" style="width: 80%;">
-				<h3 style="color: white; font-weight: 500; word-wrap: break-word;">Warung Mantap</h3>
+				<h3 style="color: white; font-weight: 500; word-wrap: break-word;">{{$toko->nama_toko}}</h3>
 				<h6 style="color: white; line-height: 0.5em;">@warungmantapmantap</h6>
 			</div>
 			<div class="lokasi" style="display: flex; align-items: center;">
@@ -368,7 +370,7 @@ style="padding: 1.5em; padding: 0px;">
 					</div>
 				</div>
 				<div>
-					<div style="color: white; font-size: 0.8em;">50 Penilaian</div>
+					<div style="color: white; font-size: 0.8em;">{{count($penilaian)}} Penilaian</div>
 				</div>
 			</div>
 			<div style="color: white; font-size: 0.8em; margin-top: 1.2em;" onclick="menilai()">				
@@ -592,42 +594,18 @@ style="padding: 1.5em; padding: 0px;">
 					</div>
 				</div>
 				<div class="penilaian" style="margin-top: 0.5em;">
+					@foreach ($penilaian as $item)
 					<div class="penilai mb-3" style="display: flex; justify-content: center; align-items: flex-start;">
 						<div style="width: 20%; border-radius: 50%;">
 							<img src="<?=url('/')?>/public/img/user/profile_picture/fathul.jpg" style="width: 100%; border-radius: 50%;">
 						</div>
 						<div style="color: white; width: 80%; padding-left: 1em;">
-							<div style="font-size: 1em; line-height: 1em; margin-bottom: 0.3em; font-weight: 500;">User1</div>
-							<div style="font-size: 0.75em; line-height: 1.4em; font-weight: 0; color: #f9f0f0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus non eu ultrices nisl platea egestas.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus non eu ultrices nisl platea egestas.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus non eu ultrices nisl platea egestas.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus non eu ultrices nisl platea egestas.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus non eu ultrices nisl platea egestas.</div>
+							<div style="font-size: 1em; line-height: 1em; margin-bottom: 0.3em; font-weight: 500;">{{$item->user->biodata->nama}}</div>
+							<div style="font-size: 0.75em; line-height: 1.4em; font-weight: 0; color: #f9f0f0;">{{$item->komentar}}</div>
 						</div>
 					</div>
-					<div class="penilai mb-3" style="display: flex; justify-content: center; align-items: flex-start;">
-						<div style="width: 20%; border-radius: 50%;">
-							<img src="<?=url('/')?>/public/img/user/profile_picture/fathul.jpg" style="width: 100%; border-radius: 50%;">
-						</div>
-						<div style="color: white; width: 80%; padding-left: 1em;">
-							<div style="font-size: 1em; line-height: 1em; margin-bottom: 0.3em; font-weight: 500;">User1</div>
-							<div style="font-size: 0.75em; line-height: 1.4em; font-weight: 0; color: #f9f0f0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus non eu ultrices nisl platea egestas.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus non eu ultrices nisl platea egestas.</div>
-						</div>
-					</div>
-					<div class="penilai mb-3" style="display: flex; justify-content: center; align-items: flex-start;">
-						<div style="width: 20%; border-radius: 50%;">
-							<img src="<?=url('/')?>/public/img/user/profile_picture/fathul.jpg" style="width: 100%; border-radius: 50%;">
-						</div>
-						<div style="color: white; width: 80%; padding-left: 1em;">
-							<div style="font-size: 1em; line-height: 1em; margin-bottom: 0.3em; font-weight: 500;">User1</div>
-							<div style="font-size: 0.75em; line-height: 1.4em; font-weight: 0; color: #f9f0f0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus non eu ultrices nisl platea egestas.</div>
-
-						</div>
-					</div>
-					<div class="penilai mb-3" style="display: flex; justify-content: center; align-items: flex-start;">
-						<div style="width: 20%; border-radius: 50%;">
-							<img src="<?=url('/')?>/public/img/user/profile_picture/fathul.jpg" style="width: 100%; border-radius: 50%;">
-						</div>
-						<div style="color: white; width: 80%; padding-left: 1em;">
-							<textarea placeholder="Masukan komentar" style="background: #720004; color: white; font-size: 0.8em; padding: 0.8em; border: none; width: 98%;" rows="4"></textarea>
-						</div>
-					</div>
+					@endforeach
+					
 				</div>
 			</div>
 		</div>

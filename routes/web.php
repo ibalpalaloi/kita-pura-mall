@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Admin_Manajemen_Kategori_Controller;
 use App\Http\Controllers\Admin\Admin_Manajemen_Toko_Controller;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\Keranjang_Belanja_Controller;
+use App\Http\Controllers\User\PenilaianController;
 
 // MITRA
 use App\Http\Controllers\Mitra\MitraController;
@@ -194,3 +195,6 @@ Route::get('/{username_mitra}', [LandingPageController::class, 'landing_page_mit
 // keranjang
 Route::post('/tambah_keranjang_belanja', [Keranjang_Belanja_Controller::class, 'tambah_keranjang_belanja'])->name('tambah_keranjang_belanja');
 Route::get('/user/keranjang', [Keranjang_Belanja_Controller::class, 'keranjang']);
+
+// Penilaian
+Route::post('/user/post_penilaian', [PenilaianController::class, 'post_penilaian']);
