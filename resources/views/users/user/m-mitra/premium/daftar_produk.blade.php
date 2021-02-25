@@ -538,7 +538,7 @@ if (!empty($_GET['deskripsi'])){
 
 <main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
 	<div>
-		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em;">
+		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em; z-index: -5;">
 	</div>
 	<div>
 		<div style="padding: 0px 16px 1em;">
@@ -559,14 +559,14 @@ if (!empty($_GET['deskripsi'])){
 
 		</div>
 	</div>
-	<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
+	<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding: 0px 16px 1em;">
 		@if ($produk->count() > 0)
 		@foreach($produk as $row)
 		<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
 			<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
 			<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
-			<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; background: #f3a301; color: white; background-size: cover; position: relative;'> 
-				<a href="{{url()->current()}}/{{$row->id}}" style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #ed9f01; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
+			<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative;' class="st0"> 
+				<a href="{{url()->current()}}/{{$row->id}}" style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #926c15; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
 					<img src="<?=url('/')?>/public/img/icon_svg/pencil.svg" style="width: 1.5em; height: 1.5em;">
 				</a>
 				<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>

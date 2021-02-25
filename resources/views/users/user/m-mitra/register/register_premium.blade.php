@@ -415,7 +415,7 @@ Jadwal
 					@php $url = url('/')."/public/img/button/toko_premium/bg-photo-profile.svg"; @endphp
 					<div style='background-image: url("<?=$url?>"); padding: 1.5em;'>
 						<div id="div_pic_toko_privew" style="position: relative; padding: auto 0; display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 9rem; height: 9rem; background: #1c1c1c;">
-							<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
+							<img id="pic_toko_privew" src="<?=url('/')?>/public/img/mitra/logo/premium.svg" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
 							<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_yellow.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 0px; bottom: 0px;">
 						</div>
 					</div>
