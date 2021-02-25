@@ -83,24 +83,25 @@ class Mitra_Premium_Controller extends Controller
 		]);
 
 		$toko = Toko::where('users_id', Session::get('id_user'))->first();
-		
-		if(isnull($toko)){
+		$toko_id = $toko->id;
+	
+		if(is_null($toko)){
 
 			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
-
+			$toko_id = $toko->toko_id;
 		}
 
         $ktp = new Ktp_toko;
-		$ktp->toko_id = $toko->toko_id;
+		$ktp->toko_id = $toko_id;
 		$ktp->nama = $request->nama_ktp;
 		$ktp->nik = $request->no_nik;
 
         $files = $request->file("foto_toko");
         $type = $request->file("foto_toko")->getClientOriginalExtension();
         $file_upload = $this->autocode('KTP-').".".$type;
-        \Storage::disk('public')->put('img/toko/'.$toko->toko_id.'/ktp/'.$file_upload, file_get_contents($files));
+        \Storage::disk('public')->put('img/toko/'.$toko_id.'/ktp/'.$file_upload, file_get_contents($files));
         $ktp->foto = $file_upload;
-
+		
         $ktp->save();
 
         $notification = array(
