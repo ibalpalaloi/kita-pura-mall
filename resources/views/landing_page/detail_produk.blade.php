@@ -225,7 +225,7 @@ style="padding: 1.5em; padding: 0px;">
 
 
 
-<main id="homepage" class="homepage" style="background:transparent;">y
+<main id="homepage" class="homepage" style="background:transparent;">
 	@php $img = url('/')."/public/img/product/$produk->foto"; @endphp
 
 	<div id="bg" style=" width: 100%;">

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Toko;
 use App\Models\Product;
 use App\Models\Keranjang_belanja;
+use App\Models\Penilaian_toko;
 
 class LandingPageController extends Controller
 {
@@ -13,7 +14,8 @@ class LandingPageController extends Controller
 		$keranjang = Keranjang_belanja::where('user_id', Auth()->user()->id)->get();
 		$toko = Toko::where('username', $mitra)->first();
 		$produk = Product::where('toko_id', $toko->id)->get();
-		return view('landing_page/index', compact('toko', 'produk', 'keranjang'));
+		$penilaian = Penilaian_toko::where('toko_id', $toko->id)->get();
+		return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian'));
 	}
 
 	public function daftar_menu(){
