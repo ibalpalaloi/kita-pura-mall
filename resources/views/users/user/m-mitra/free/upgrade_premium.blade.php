@@ -524,8 +524,7 @@ if (!empty($_GET['deskripsi'])){
 					</div>
 				</div>
 
-				
-
+			
 				<button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
 					<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
 				</button>	

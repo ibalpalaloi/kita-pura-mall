@@ -8,6 +8,8 @@ use Session;
 use App\Models\Kategori;
 use App\Models\toko;
 use App\Models\product;
+use App\Models\Foto_maps;
+
 
 class Mitra_Premium_Produk_Controller extends Controller
 {
@@ -146,9 +148,80 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$kategori_produk = Kategori::all();
 
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
+
 		$produk = product::where('toko_id', $toko->id)->get();
 
-		return view('users/user/m-mitra/premium/atur_produk', compact('kategori_produk','produk'));
+		$foto_1 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','1')->first();
+		$foto_2 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','2')->first();
+		$foto_3 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','3')->first();
+		// dd($foto_maps);
+
+		return view('users/user/m-mitra/premium/atur_produk', compact('kategori_produk','produk','foto_1','foto_2','foto_3'));
+
+	}
+
+	public function simpan_atur_produk_premium(Request $request){
+
+		// dd($request->all());
+
+		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		
+		if($request->file("foto_maps_1")){
+			$foto = Foto_maps::where('id', $request->id_foto_maps_1)->first();
+			if(is_null($foto)){
+
+				$foto = new Foto_maps;
+				$foto->toko_id = $toko->id;
+			}
+			else{
+				\Storage::disk('public')->delete('img/toko/'.$toko->id.'/maps/'.$foto->foto);
+			}
+			$files = $request->file("foto_maps_1");
+			$type = $request->file("foto_maps_1")->getClientOriginalExtension();
+			$file_upload = $this->autocode('IMG').".".$type;
+			\Storage::disk('public')->put('img/toko/'.$toko->id.'/maps/'.$file_upload, file_get_contents($files));
+			$foto->foto = $file_upload;
+			$foto->no_foto = "1";
+			$foto->save();
+		}
+
+		
+		if($request->file("foto_maps_2")){
+			$foto = Foto_maps::where('id', $request->id_foto_maps_2)->first();
+			if(is_null($foto)){
+				$foto = new Foto_maps;
+				$foto->toko_id = $toko->id;
+			}
+			else{
+				\Storage::disk('public')->delete('img/toko/'.$toko->id.'/maps/'.$foto->foto);
+			}
+			$files = $request->file("foto_maps_2");
+			$type = $request->file("foto_maps_2")->getClientOriginalExtension();
+			$file_upload = $this->autocode('IMG').".".$type;
+			\Storage::disk('public')->put('img/toko/'.$toko->id.'/maps/'.$file_upload, file_get_contents($files));
+			$foto->foto = $file_upload;
+			$foto->no_foto = "2";
+			$foto->save();
+		}
+		if($request->file("foto_maps_3")){
+			$foto = Foto_maps::where('id', $request->id_foto_maps_3)->first();
+			if(is_null($foto)){
+				$foto = new Foto_maps;
+				$foto->toko_id = $toko->id;
+			}
+			else{
+				\Storage::disk('public')->delete('img/toko/'.$toko->id.'/maps/'.$foto->foto);
+			}
+			$files = $request->file("foto_maps_3");
+			$type = $request->file("foto_maps_3")->getClientOriginalExtension();
+			$file_upload = $this->autocode('IMG').".".$type;
+			\Storage::disk('public')->put('img/toko/'.$toko->id.'/maps/'.$file_upload, file_get_contents($files));
+			$foto->foto = $file_upload;
+			$foto->no_foto = "3";
+			$foto->save();
+		}
+
+		return redirect()->back();
 
 	}
 

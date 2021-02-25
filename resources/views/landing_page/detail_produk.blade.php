@@ -233,7 +233,7 @@ style="padding: 1.5em; padding: 0px;">
 
 
 <main id="homepage" class="homepage" style="background:transparent;">
-	@php $img = url('/')."/public/img/product/$produk->foto"; @endphp
+	@php $img = url('/')."/public/img/toko/$produk->toko_id/produk/$produk->foto_produk"; @endphp
 
 	<div id="bg" style=" width: 100%;">
 		<img src="<?=$img?>">

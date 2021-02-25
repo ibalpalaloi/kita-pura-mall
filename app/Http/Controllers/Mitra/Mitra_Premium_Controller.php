@@ -83,10 +83,10 @@ class Mitra_Premium_Controller extends Controller
 		]);
 
 		$toko = Toko::where('users_id', Session::get('id_user'))->first();
-		$toko_id = $toko->id;
-	
-		if(is_null($toko)){
-
+		if($toko){
+			$toko_id = $toko->id;
+		}
+		else{
 			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
 			$toko_id = $toko->toko_id;
 		}
@@ -95,7 +95,6 @@ class Mitra_Premium_Controller extends Controller
 		$ktp->toko_id = $toko_id;
 		$ktp->nama = $request->nama_ktp;
 		$ktp->nik = $request->no_nik;
-
         $files = $request->file("foto_toko");
         $type = $request->file("foto_toko")->getClientOriginalExtension();
         $file_upload = $this->autocode('KTP-').".".$type;
@@ -142,10 +141,12 @@ class Mitra_Premium_Controller extends Controller
 				$files = $request->file("foto_toko");
 				$type = $request->file("foto_toko")->getClientOriginalExtension();
 				$file_upload = $toko->id.".".$type;
-				\Storage::disk('public')->put('img/toko/'.$toko->jenis_mitra.'/'.$file_upload, file_get_contents($files));
+				\Storage::disk('public')->put('img/toko/'.$toko->id.'/logo/'.$file_upload, file_get_contents($files));
 			}
 			$toko->save();
 	
+
+			$toko_id = $toko->id;
 
 		}
 		else{
@@ -161,14 +162,15 @@ class Mitra_Premium_Controller extends Controller
 				$files = $request->file("foto_toko");
 				$type = $request->file("foto_toko")->getClientOriginalExtension();
 				$file_upload = $toko->id.".".$type;
-				\Storage::disk('public')->put('img/toko/'.$toko->jenis_mitra.'/'.$file_upload, file_get_contents($files));
+				\Storage::disk('public')->put('img/toko/'.$toko->toko_id.'/logo/'.$file_upload, file_get_contents($files));
 			}
 			$toko->save();
 
 
+			$toko_id = $toko->toko_id;
 		}
 
-		$hapus_jadwal = Jadwal_toko::where('toko_id', $toko->id)->delete();
+		$hapus_jadwal = Jadwal_toko::where('toko_id', $toko_id)->delete();
 
 		$hari = explode('~', $request->get('jadwal_hari'));
 		$jam_buka = explode('~', $request->get('jadwal_buka'));
@@ -176,7 +178,7 @@ class Mitra_Premium_Controller extends Controller
 
 		for ($i = 0; $i < count($hari); $i++) {
 			$jadwal = new Jadwal_toko;
-			$jadwal->toko_id = $toko->id;
+			$jadwal->toko_id = $toko_id;
 			$jadwal->hari = $hari[$i];
 			$jadwal->jam_buka = $jam_buka[$i];
 			$jadwal->jam_tutup = $jam_tutup[$i];
