@@ -159,13 +159,13 @@ if (!empty($_GET['daftar_mitra_premium'])){
 			<div style="width: 25%; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; ">
 				<img src="<?=url('/')?>/public/img/user/lengkapi_berkas.png" style="width: 100%;">
 				@if (Session::get('status_mitra') != 'Belum jadi mitra')
-				<div style="font-size: 0.6em; background: #ff006e; color: white; padding: 0.3em 1.5em 0.3em 1.5em; border-radius:2em; position: absolute; bottom: 1.5em;">Mitra {{ucfirst($status_aktif_mitra)}}</div>
+				<div style="font-size: 0.6em; background: #ff006e; color: white; padding: 0.3em 1em 0.3em 1em; border-radius:2em; position: absolute; bottom: 2.1em;">Mitra {{ucfirst($status_aktif_mitra)}}</div>
 				@endif
 			</div>
 			<div style="width: 63%; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 2%;">
 				<div class="container">
 				@if(Session::get('progress_biodata') == '5')
-				<div>Semoga Harimu <strong>Menyenangkan!</strong></div>
+				<div style="line-height: 1.1em;">Semoga Harimu <strong>Menyenangkan!</strong></div>
 				@else
 				<div>Lengkapi akun anda!</div>			
 				@endif

@@ -147,13 +147,61 @@
 
 .kategori-tabs {
 	display: flex; 
-	justify-content: space-around;
+	justify-content: center;
 	width: 90%;
 }
 
 .kategori-tabs > a {
-	margin: 0em 0.6em 0em 0.6em;
+	margin: 0em 0.5em 0em 0.5em;
 	font-size: 1em;
+	border-radius: 0.3em;
+	color: #ADADAD;
+}
+
+.active-kategori {
+	background: #9D0208;
+	color: white !important;
+}
+
+.form-control-mall {
+	height: 2.5em; 
+	border-bottom-right-radius: 0.5em; 
+	border-top-right-radius: 0.5em; 
+	border:  none;	
+	background: #202020;
+	font-weight: 600;
+	padding: 0em 0em 0em 0.6em;	
+	margin-left: 0px;
+}
+
+
+.div-input-mall {
+	border-radius: 1.5em; border:1px solid white;		
+	display: flex; justify-content: center; flex-direction: column; align-items: flex-start;
+	background: white;
+	padding-top: 0.3em;
+	padding-bottom: 0.3em;
+}
+
+.div-input-mall > span {
+	color: #b3b6bc;
+	padding: 0em 0em 0em 1.5em; 
+	font-size: 0.75em;
+	position: relative;
+	top: 0.5em;
+}
+
+.div-input-mall div {
+	display: flex; justify-content: center; flex-direction: row;
+	width: 90%;
+}
+
+
+
+.div-input-mall-square {
+	border-radius: 0.5em; border:1px solid white;	
+	color: #1c2645;
+	font-weight: 600;			
 }
 </style>
 @endsection
@@ -165,10 +213,7 @@
 			<img src="<?=url('/')?>/public/img/icon_svg/back_red.svg" style="width: 28%;">
 		</a>
 		<a style="height: 100%; width: 80%; display: flex; justify-content: center; align-items: center;">
-			<div id="defaultheader_search" class="style__SearchInput-sc-3fiysr-3 sUjAJ" style="width: 100%; background: #eaf4ff; margin-right: 0px;">
-				<span></span>
-				<img src="<?=url('/')?>/public/img/icon_svg/search_landing.svg">
-			</div>
+			<img src="<?=url('/')?>/public/img/toko/logo/warung_mantap.png" style="width: 20%;">
 		</a>
 		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; ">
 			<img src="<?=url('/')?>/public/img/icon_svg/keranjang_polos_red.svg" style="width: 50%;">
@@ -182,16 +227,31 @@
 <main id="homepage" class="homepage" style="background:white;">
 
 	<div class="row-mall" style="padding: 5em 0em 1.2em 0em;">
+		<h2 style="color: #9D0208; font-weight: 600; margin-bottom: 0px; margin-top: 1em;">Produk Kami</h2>
+		<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
+			<div style="width: 100%;">
+
+				<div class="div-input-mall-square" style="background: #eaf4ff; display: flex; align-items: center; margin-right: 0.5em;"> 
+					<span class="input-group-text-mall" style="margin-left: 0.8em;">
+						<img src="<?=url('/')?>/public/img/icon_svg/search_grey.svg">
+					</span>
+					<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em; background: #EAF4FF; color: grey !important;" required>
+				</div>
+				<div style="width: 3.4em; height: 3em; background: #9D0208; border-radius: 0.5em; display: flex; justify-content: center;align-items: center;">
+					<img src="<?=url('/')?>/public/img/icon_svg/filter_white.svg" style="width: 50%;">
+				</div>
+			</div>
+		</div>
 		<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">
-			<div class="kategori-tabs" style="margin-top: 5px;">
-				<a class="kategori-active-mall">General</a>
-				<a class="">terbaru</a>
-				<a class="">paling dicari</a>
+			<div class="kategori-tabs" style="margin-top: 5px; font-size: 0.85em;">
+				<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">General</a>
+				<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">terbaru</a>
+				<a class="active-kategori" style="padding: 0.3em 0.7em;">paling dicari</a>
 			</div>
 		</div>
 		<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
 			@php
-			$digital = array('TKO-1204012490124/product_1.png', 'TKO-1204012490124/product_2.png', 'TKO-1204012490124/product_3.png', 'TKO-1204012490124/product_4.png', 'TKO-1204012490124/product_1.png', 'TKO-1204012490124/product_2.png');
+			$digital = array('TK-021220212313/product_1.png', 'TK-021220212313/product_2.png', 'TK-021220212313/product_3.png', 'TK-021220212313/product_4.png', 'TK-021220212313/product_1.png', 'TK-021220212313/product_2.png');
 			$nama_digital = array('Bakso', 'Sate', 'Nasi Goreng', 'Mie Ayam', 'Bakso', 'Sate');
 			$kategori_toko = array('Makanan', 'Makanan', 'Makanan', 'Makanan', 'Makanan', 'Makanan');
 			

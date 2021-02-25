@@ -213,9 +213,16 @@ style="padding: 1.5em; padding: 0px;">
 		<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; margin-right: ">
 			<img src="<?=url('/')?>/public/img/icon_svg/back_red.svg" style="width: 28%;">
 		</a>
-		<a style="height: 100%; width: 80%; display: flex; justify-content: center; align-items: center;">
-			<img src="<?=url('/')?>/public/img/toko/logo/warung_mantap.png" style="width: 20%;">
-		</a>
+			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
+				<div style="width: 100%; padding-right: 0.5em;">
+					<span class="input-group-text-mall">
+					</span>
+					<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em;" required>
+					<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center;">
+						<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
+					</div>
+				</div>
+			</div>
 		<a style="width: 15%; position: relative; right: 1em;">
 			<img src="<?=url('/')?>/public/img/icon_svg/bag_transparent.svg" style="width: 90%;">
 			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: 0px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">0</div>
