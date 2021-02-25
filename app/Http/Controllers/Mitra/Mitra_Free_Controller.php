@@ -88,13 +88,14 @@ class Mitra_Free_Controller extends Controller
 
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
         if($toko){
-
             $toko->nama_toko = $request->nama_toko;
             $toko->kategori_toko_id = $request->kategori_toko;
             $toko->no_hp = $request->no_hp;
             $toko->alamat = $request->alamat;
             $toko->kelurahan_id = $request->kelurahan;
             $toko->save();
+
+			$toko_id = $toko->id;
     	
         }
         else{
@@ -106,48 +107,69 @@ class Mitra_Free_Controller extends Controller
             $toko->alamat = $request->alamat;
             $toko->kelurahan_id = $request->kelurahan;
             $toko->save();
-
-
+			
+			$toko_id = $toko->toko_id;
         }
 
 		if($request->file("foto_toko_1")){
 
 			$foto = Foto_maps::where('id', $request->id_foto_toko_1)->first();
+			if(is_null($foto)){
+				$foto = new Foto_maps;
+				$foto->toko_id = $toko_id;
+			}
+			else{
+				\Storage::disk('public')->delete('img/toko/'.$toko_id.'/maps/'.$foto->foto);
+			}
 			$files = $request->file("foto_toko_1");
 			$type = $request->file("foto_toko_1")->getClientOriginalExtension();
 			$file_upload = $this->autocode('IMG').".".$type;
-			\Storage::disk('public')->delete('img/maps/'.$toko->toko_id.'/'.$foto->foto);
-			\Storage::disk('public')->put('img/maps/'.$toko->toko_id.'/'.$file_upload, file_get_contents($files));
+			\Storage::disk('public')->put('img/toko/'.$toko_id.'/maps/'.$file_upload, file_get_contents($files));
 			$foto->foto = $file_upload;
+			$foto->no_foto = "1";
 			$foto->save();
 		}
 
 		if($request->file("foto_toko_2")){
 			
-			$foto = Foto_maps::where('id', $request->id_foto_toko_1)->first();
+			$foto = Foto_maps::where('id', $request->id_foto_toko_2)->first();
+			if(is_null($foto)){
+				$foto = new Foto_maps;
+				$foto->toko_id = $toko_id;
+			}
+			else{
+				\Storage::disk('public')->delete('img/toko/'.$toko_id.'/maps/'.$foto->foto);
+			}
 			$files = $request->file("foto_toko_2");
 			$type = $request->file("foto_toko_2")->getClientOriginalExtension();
 			$file_upload = $this->autocode('IMG').".".$type;
-			\Storage::disk('public')->delete('img/maps/'.$toko->toko_id.'/'.$foto->foto);
-			\Storage::disk('public')->put('img/maps/'.$toko->toko_id.'/'.$file_upload, file_get_contents($files));
+			\Storage::disk('public')->put('img/toko/'.$toko_id.'/maps/'.$file_upload, file_get_contents($files));
 			$foto->foto = $file_upload;
+			$foto->no_foto = "2";
 			$foto->save();
 		}
 
 		if($request->file("foto_toko_3")){
-			
-			$foto = Foto_maps::where('id', $request->id_foto_toko_1)->first();
+
+			$foto = Foto_maps::where('id', $request->id_foto_toko_3)->first();
+			if(is_null($foto)){
+				$foto = new Foto_maps;
+				$foto->toko_id = $toko_id;
+			}
+			else{
+				\Storage::disk('public')->delete('img/toko/'.$toko_id.'/maps/'.$foto->foto);
+			}
 			$files = $request->file("foto_toko_3");
 			$type = $request->file("foto_toko_3")->getClientOriginalExtension();
 			$file_upload = $this->autocode('IMG').".".$type;
-			\Storage::disk('public')->delete('img/maps/'.$toko->toko_id.'/'.$foto->foto);
-			\Storage::disk('public')->put('img/maps/'.$toko->toko_id.'/'.$file_upload, file_get_contents($files));
+			\Storage::disk('public')->put('img/toko/'.$toko_id.'/maps/'.$file_upload, file_get_contents($files));
 			$foto->foto = $file_upload;
+			$foto->no_foto = "3";
 			$foto->save();
 		}
 
 
-		$hapus_jadwal = Jadwal_toko::where('toko_id', $toko->id)->delete();
+		$hapus_jadwal = Jadwal_toko::where('toko_id', $toko_id)->delete();
 
 		$hari = explode('~', $request->get('jadwal_hari'));
 		$jam_buka = explode('~', $request->get('jadwal_buka'));
@@ -155,7 +177,7 @@ class Mitra_Free_Controller extends Controller
 
 		for ($i = 0; $i < count($hari); $i++) {
 			$jadwal = new Jadwal_toko;
-			$jadwal->toko_id = $toko->id;
+			$jadwal->toko_id = $toko_id;
 			$jadwal->hari = $hari[$i];
 			$jadwal->jam_buka = $jam_buka[$i];
 			$jadwal->jam_tutup = $jam_tutup[$i];
@@ -299,42 +321,62 @@ class Mitra_Free_Controller extends Controller
 		}
 
 		if($request->file("foto_toko_1")){
-	
+
 			$foto = Foto_maps::where('id', $request->id_foto_toko_1)->first();
+			if(is_null($foto)){
+				$foto = new Foto_maps;
+				$foto->toko_id = $toko_id;
+			}
+			else{
+				\Storage::disk('public')->delete('img/toko/'.$toko_id.'/maps/'.$foto->foto);
+			}
 			$files = $request->file("foto_toko_1");
 			$type = $request->file("foto_toko_1")->getClientOriginalExtension();
 			$file_upload = $this->autocode('IMG').".".$type;
-			\Storage::disk('public')->delete('img/maps/'.$toko->toko_id.'/'.$foto->foto);
-			\Storage::disk('public')->put('img/maps/'.$toko->toko_id.'/'.$file_upload, file_get_contents($files));
+			\Storage::disk('public')->put('img/toko/'.$toko_id.'/maps/'.$file_upload, file_get_contents($files));
 			$foto->foto = $file_upload;
+			$foto->no_foto = "1";
 			$foto->save();
 		}
 
+
 		if($request->file("foto_toko_2")){
 			
-			$foto = Foto_maps::where('id', $request->id_foto_toko_1)->first();
+			$foto = Foto_maps::where('id', $request->id_foto_toko_2)->first();
+			if(is_null($foto)){
+				$foto = new Foto_maps;
+				$foto->toko_id = $toko_id;
+			}
+			else{
+				\Storage::disk('public')->delete('img/toko/'.$toko_id.'/maps/'.$foto->foto);
+			}
 			$files = $request->file("foto_toko_2");
 			$type = $request->file("foto_toko_2")->getClientOriginalExtension();
 			$file_upload = $this->autocode('IMG').".".$type;
-			\Storage::disk('public')->delete('img/maps/'.$toko->toko_id.'/'.$foto->foto);
-			\Storage::disk('public')->put('img/maps/'.$toko->toko_id.'/'.$file_upload, file_get_contents($files));
+			\Storage::disk('public')->put('img/toko/'.$toko_id.'/maps/'.$file_upload, file_get_contents($files));
 			$foto->foto = $file_upload;
+			$foto->no_foto = "2";
 			$foto->save();
 		}
 
 		if($request->file("foto_toko_3")){
-			
-			$foto = Foto_maps::where('id', $request->id_foto_toko_1)->first();
+
+			$foto = Foto_maps::where('id', $request->id_foto_toko_3)->first();
+			if(is_null($foto)){
+				$foto = new Foto_maps;
+				$foto->toko_id = $toko_id;
+			}
+			else{
+				\Storage::disk('public')->delete('img/toko/'.$toko_id.'/maps/'.$foto->foto);
+			}
 			$files = $request->file("foto_toko_3");
 			$type = $request->file("foto_toko_3")->getClientOriginalExtension();
 			$file_upload = $this->autocode('IMG').".".$type;
-			\Storage::disk('public')->delete('img/maps/'.$toko->toko_id.'/'.$foto->foto);
-			\Storage::disk('public')->put('img/maps/'.$toko->toko_id.'/'.$file_upload, file_get_contents($files));
+			\Storage::disk('public')->put('img/toko/'.$toko_id.'/maps/'.$file_upload, file_get_contents($files));
 			$foto->foto = $file_upload;
+			$foto->no_foto = "3";
 			$foto->save();
 		}
-
-	
 
 		$hapus_jadwal = Jadwal_toko::where('toko_id', $toko_id)->delete();
 

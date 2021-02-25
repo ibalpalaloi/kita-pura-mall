@@ -90,36 +90,35 @@ class Mitra_Register_Controller extends Controller
                 $files = $request->file("foto_toko_1");
                 $type = $request->file("foto_toko_1")->getClientOriginalExtension();
                 $file_upload = $this->autocode('IMG').".".$type;
-                \Storage::disk('public')->put('img/maps/'.$toko_id.'/'.$file_upload, file_get_contents($files));
-    
+                \Storage::disk('public')->put('img/toko/'.$toko_id.'/maps/'.$file_upload, file_get_contents($files));
                 $foto->toko_id = $toko_id;
                 $foto->foto = $file_upload;
+                $foto->no_foto = "1";
                 $foto->save();
             }
             if($request->file("foto_toko_2")){
                 
                 $foto = new Foto_maps;
-    
                 $files = $request->file("foto_toko_2");
                 $type = $request->file("foto_toko_2")->getClientOriginalExtension();
                 $file_upload = $this->autocode('IMG').".".$type;
-                \Storage::disk('public')->put('img/maps/'.$toko_id.'/'.$file_upload, file_get_contents($files));
+                \Storage::disk('public')->put('img/toko/'.$toko_id.'/maps/'.$file_upload, file_get_contents($files));
     
                 $foto->toko_id = $toko_id;
                 $foto->foto = $file_upload;
+                $foto->no_foto = "2";
                 $foto->save();
             }
             if($request->file("foto_toko_3")){
                 
                 $foto = new Foto_maps;
-    
                 $files = $request->file("foto_toko_3");
                 $type = $request->file("foto_toko_3")->getClientOriginalExtension();
                 $file_upload = $this->autocode('IMG').".".$type;
-                \Storage::disk('public')->put('img/maps/'.$toko_id.'/'.$file_upload, file_get_contents($files));
-    
+                \Storage::disk('public')->put('img/toko/'.$toko_id.'/maps/'.$file_upload, file_get_contents($files));
                 $foto->toko_id = $toko_id;
                 $foto->foto = $file_upload;
+                $foto->no_foto = "3";
                 $foto->save();
             }
 
@@ -137,56 +136,10 @@ class Mitra_Register_Controller extends Controller
 
                 $toko->logo_toko = $file_upload;
             }
-
-			// if($request->file("foto_toko_2")){
-                
-            //     $foto = new Foto_maps;
-    
-            //     $files = $request->file("foto_toko_2");
-            //     $type = $request->file("foto_toko_2")->getClientOriginalExtension();
-            //     $file_upload = $this->autocode('IMG').".".$type;
-            //     \Storage::disk('public')->put('img/maps/'.$toko_id.'/'.$file_upload, file_get_contents($files));
-    
-            //     $foto->toko_id = $toko_id;
-            //     $foto->foto = $file_upload;
-            //     $foto->save();
-            // }
-
-            // if($request->file("foto_toko_3")){
-                
-            //     $foto = new Foto_maps;
-    
-            //     $files = $request->file("foto_toko_3");
-            //     $type = $request->file("foto_toko_3")->getClientOriginalExtension();
-            //     $file_upload = $this->autocode('IMG').".".$type;
-            //     \Storage::disk('public')->put('img/maps/'.$toko_id.'/'.$file_upload, file_get_contents($files));
-    
-            //     $foto->toko_id = $toko_id;
-            //     $foto->foto = $file_upload;
-            //     $foto->save();
-            // }
-
-			// if($request->file("foto_toko_4")){
-                
-            //     $foto = new Foto_maps;
-    
-            //     $files = $request->file("foto_toko_4");
-            //     $type = $request->file("foto_toko_4")->getClientOriginalExtension();
-            //     $file_upload = $this->autocode('IMG').".".$type;
-            //     \Storage::disk('public')->put('img/maps/'.$toko_id.'/'.$file_upload, file_get_contents($files));
-    
-            //     $foto->toko_id = $toko_id;
-            //     $foto->foto = $file_upload;
-            //     $foto->save();
-            // }
-
         }
 
 		$toko->save();
 
-		
-	
-	
 		// @Tambah Jadwal
 		$hari = explode('~', $request->get('jadwal_hari'));
 		$jam_buka = explode('~', $request->get('jadwal_buka'));

@@ -127,6 +127,7 @@ Route::group(['middleware'=> 'auth'], function() {
 
             // @atur produk
             Route::get('/akun/mitra/premium/atur-produk', [Mitra_Premium_Produk_Controller::class, 'atur_produk_premium']);
+            Route::put('/akun/mitra/premium/atur-produk/simpan', [Mitra_Premium_Produk_Controller::class, 'simpan_atur_produk_premium']);
             Route::get('/akun/mitra/premium/atur-produk/{id}/ubah-status', [Mitra_Premium_Produk_Controller::class, 'ubah_status_produk_premium']);
 
             // list pesananan
