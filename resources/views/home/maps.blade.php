@@ -136,10 +136,22 @@ crossorigin=""/>
 						</div>
 					</div> 
 				</div>
+				<div style="display: flex; justify-content: space-between;">
+					<div style="width: 45%; background: #FF006E; color:white; font-size: 1.2em; padding: 0.4em 0.8em; border-radius: 1.5em; display: flex; justify-content: flex-start; align-items: center; margin-top: 0.5em;">
+						<div style="border: 2px solid white; width: 2em; height: 2em; display: flex; justify-content: center; align-items: center; border:none; border-radius: 50%;">
+							<img src="<?=url('/')?>/public/img/button/emergency/telpon.svg" style="width: 60%;">
+						</div>
+						<div>Telepon</div>
+					</div>
+					<div style="width: 45%; background: #35A500; color:white; font-size: 1.2em; padding: 0.4em 0.8em; border-radius: 1.5em; display: flex; justify-content: flex-start; align-items: center; margin-top: 0.5em;">
+						<div style="border: 2px solid white; width: 2em; height: 2em; display: flex; justify-content: center; align-items: center; border:none; border-radius: 50%;">
+							<img src="<?=url('/')?>/public/img/button/emergency/whatapp.svg" style="width: 60%;">
+						</div>
+						<div>Whatsapp</div>
+					</div>
+
+				</div>
 			</div>
-		</div>
-		<div class="div-call" style="position: absolute; bottom: 1; right: 0; width: 4.5em; padding: 33em 0em 0em 0em;">
-			<img src="<?=url('/')?>/public/img/nilai_product/call.svg" style="width: 100%;">
 		</div>
 	</div>
 </div>
