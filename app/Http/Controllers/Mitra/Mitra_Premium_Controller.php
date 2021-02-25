@@ -82,7 +82,13 @@ class Mitra_Premium_Controller extends Controller
 			'foto_toko' => 'required'
 		]);
 
-		$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+		$toko = Toko::where('users_id', Session::get('id_user'))->first();
+		
+		if(isnull($toko)){
+
+			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+
+		}
 
         $ktp = new Ktp_toko;
 		$ktp->toko_id = $toko->toko_id;
