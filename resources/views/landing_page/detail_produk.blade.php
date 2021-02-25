@@ -225,7 +225,7 @@ style="padding: 1.5em; padding: 0px;">
 			</div>
 		<a style="width: 15%; position: relative; right: 1em;">
 			<img src="<?=url('/')?>/public/img/icon_svg/bag_transparent.svg" style="width: 90%;">
-			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: 0px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">0</div>
+			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: 0px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
 		</a>
 	</div>
 </header>
@@ -233,8 +233,7 @@ style="padding: 1.5em; padding: 0px;">
 
 
 <main id="homepage" class="homepage" style="background:transparent;">
-
-	@php $img = url('/')."/public/img/product/TK-021220212313/product_8.jpg"; @endphp
+	@php $img = url('/')."/public/img/product/$produk->foto"; @endphp
 
 	<div id="bg" style=" width: 100%;">
 		<img src="<?=$img?>">
@@ -246,6 +245,8 @@ style="padding: 1.5em; padding: 0px;">
 				<div style="width: 3em; height: 2em; background: white; border-radius: 2em; color: #9d0208; display: flex; justify-content: center; align-items: center; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan">1</div>
 				<div style="width: 2.1em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick="tambah_pesanan()"><i class="fa fa-plus"></i></div>
 			</div>
+			<div class="nama-barang" style="font-size: 1.3em; margin-top: 0.5em; margin-bottom: 0.2em;">{{$produk->nama}}</div>
+
 			<div class="nama-barang" style="font-size: 1.3em; margin-top: 0.5em; margin-bottom: 0.2em; line-height: 0.8em;">Ayam Bakar</div>
 			<div style="padding: 0; margin: 0em 0px 0px 0px; font-size: 0.8em;">
 				<i class="fas fa-star star-rating"></i>
@@ -262,9 +263,9 @@ style="padding: 1.5em; padding: 0px;">
 				<div style="font-size: 0.9em; font-weight: 600; margin-top: 1em;">Deskripsi</div>
 
 			</div>
-			<div style="font-size: 0.7em; text-align: left; margin-top: 0.5em;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra felis elit sollicitudin tortor. Id egestas curabitur enim non sed aliquam feugiat. Arcu praesent ullamcorper sapien eu enim dolor. Amet, ut porta adipiscing amet est cras phasellus odio. Tempor vel velit sagittis, sed justo. Maecenas erat enim, blandit lobortis. Metus pellentesque mauris mauris, morbi. Faucibus risus.</div>
+			<div style="font-size: 0.7em; text-align: left; margin-top: 1em;">{{$produk->deskripsi}}</div>
 			@php $url = url('/')."/public/img/button/landing_page/gradient_orange.svg"; @endphp
-			<div style="background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%);border-radius: 35px; padding: 0.8em; width: 100%; margin-top: 0.5em;" onclick="masukan_keranjang()">
+			<div style="background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%);border-radius: 35px; padding: 0.8em; width: 100%; margin-top: 0.5em;" onclick="masukan_keranjang('{{$produk->toko_id}}', '{{$produk->id}}')">
 				Tambahkan ke keranjang<img src="<?=url('/')?>/public/img/button/landing_page/keranjang_icon.svg">
 			</div>
 
@@ -279,7 +280,12 @@ style="padding: 1.5em; padding: 0px;">
 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
 <script type="text/javascript">
-	function masukan_keranjang(){
+	function masukan_keranjang(toko_id, produk_id){
+		$.ajax({
+			url : "{{ route('tambah_keranjang_belanja') }}",
+			method : 'post',
+			data : {toko_id:toko_id, produk_id:produk_id, _token:'{{csrf_token()}}'}
+		})
 		var jumlah_keranjang = $("#jumlah_keranjang").html();
 		jumlah_keranjang = parseInt(jumlah_keranjang)+1;
 		$("#jumlah_keranjang").html(jumlah_keranjang);
