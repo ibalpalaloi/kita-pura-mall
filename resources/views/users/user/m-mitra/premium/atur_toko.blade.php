@@ -424,7 +424,6 @@ if (!empty($_GET['deskripsi'])){
 </header>
 
 
-
 <main id="homepage" class="homepage" style="padding-top: 4em; background: transparent;">
 	<form enctype="multipart/form-data" action="<?=url('/')?>/akun/mitra/{{$toko->jenis_mitra}}/simpan" method="post">
 		{{csrf_field()}}
@@ -436,7 +435,7 @@ if (!empty($_GET['deskripsi'])){
 					@php $url = url('/')."/public/img/button/toko_premium/bg-photo-profile.svg"; @endphp
 					<div style='background-image: url("<?=$url?>"); padding: 1.5em;'>
 						<div id="div_pic_toko_privew" style="position: relative; padding: auto 0; display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 9rem; height: 9rem; background: #1c1c1c;">
-							<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/{{$toko->jenis_mitra}}/{{$toko->foto}}" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
+							<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/logo/{{$toko->logo_toko}}" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
 							<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_yellow.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 0px; bottom: 0px;">
 						</div>
 					</div>
