@@ -507,7 +507,7 @@ $status_ugrade = "";
 				<div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto Toko</div>
 				@foreach($foto_toko as $row)
 				<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em;" id="div_pic_toko_privew_{{$loop->iteration}}">
-					<img id="pic_toko_privew_{{$loop->iteration}}" src="<?=url('/')?>/public/img/maps/{{$row->toko_id}}/{{$row->foto}}" style="width: 100%; object-fit: cover;height: 100%;">
+					<img id="pic_toko_privew_{{$loop->iteration}}" src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/maps/{{$row->foto}}" style="width: 100%; object-fit: cover;height: 100%;">
 					<img id="pic_toko_{{$loop->iteration}}" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko_{{$loop->iteration}}()" style="position: absolute; right: 1em; bottom: 1em;">
 				</div>
 

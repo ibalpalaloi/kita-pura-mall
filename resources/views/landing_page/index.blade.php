@@ -554,13 +554,13 @@ style="padding: 1.5em; padding: 0px;">
 				<div class="input-group mb-3" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em; display: flex; justify-content: center;">
 					<div style="display: flex; justify-content: center; position:relative;width: 85%; margin: 0px; height: 13em;">
 						<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/{{$item->id}}">
-							<img src="<?=url('/')?>/public/img/product/{{$item->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+							<img src="<?=url('/')?>/public/img/toko/{{$item->toko_id}}/produk/{{$item->foto_produk}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 						</a>
 						<div class="label-product" style="position: absolute; bottom: 0em; left: 0em; padding: 0.4em 0.5em 0.9em 1.2em; display: flex; width: 100%; background-color: rgba(0,0,0,0.3); justify-content: space-between;">
 							<div class="keterangan-product" style="display: flex;">
 								<div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: center; color: white; margin-left: 0.3em;">
-									<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf" style="font-size: 1em; line-height: 1.3em;">{{$item->nama}}</a>
-									<div style="font-size: 0.7em; line-height: 1em;">{{$item->jenis}}</div>
+									<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf" style="color:white;font-size: 1em; line-height: 1.3em;">{{$item->nama}}</a>
+									<div style="font-size: 0.7em; line-height: 1em;">{{$item->kategori->nama}}</div>
 									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.8em; line-height: 1em;">
 										<i class="fas fa-star star-rating"></i>
 										<i class="fas fa-star star-rating"></i>
@@ -568,10 +568,23 @@ style="padding: 1.5em; padding: 0px;">
 										<i class="fas fa-star star-rating"></i>
 										<i class="far fa-star star-rating"></i>
 									</div>
+									@if($item->diskon != '0')
 									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.6em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
 										<s>IDR. {{number_format($item->harga)}}</s>
 									</div>
-									<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1em; line-height: 1em; font-weight: 500;">IDR. 5.000</div>
+									@php
+										$hasil_diskon = ($item->harga)-((($item->diskon)/100)*($item->harga));
+									@endphp
+									<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1em; line-height: 1em; font-weight: 500;">IDR. {{$hasil_diskon}}</div>
+									@else
+									<div style="padding: 0; margin: 0.5em 0px 0px 0em; font-size: 1em; line-height: 1em; font-weight: 500;">IDR. {{$item->harga}}</div>
+									@endif
+
+									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
+										Stok : {{$item->stok}}
+									</div>
+									
+								
 								</div>
 							</div>
 							<div class="">
