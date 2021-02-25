@@ -83,7 +83,8 @@ class Mitra_Premium_Controller extends Controller
 		]);
 
 		$toko = Toko::where('users_id', Session::get('id_user'))->first();
-		$toko_id = $toko->id;
+
+		// $toko_id = $toko->id;
 	
 		if(is_null($toko)){
 
@@ -208,8 +209,6 @@ class Mitra_Premium_Controller extends Controller
 		$kelurahan = kelurahan::all();
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 		$jadwal = Jadwal_toko::where('toko_id', $toko->id)->get();
-
-		// dd($jadwal);
 
 		return view('users/user/m-mitra/premium/atur_toko', ['daftar_kategori'=>$kategori,'kelurahan'=>$kelurahan ,'toko'=>$toko,'jadwal'=>$jadwal]);
 	}
