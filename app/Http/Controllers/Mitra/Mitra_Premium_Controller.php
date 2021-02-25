@@ -39,7 +39,7 @@ class Mitra_Premium_Controller extends Controller
 			$ktp = Ktp_toko::where('toko_id', $toko->id)->first();
 			if($ktp){
 
-				return view('users/user/m-mitra/index_premium');
+				return view('users/user/m-mitra/premium/index_premium');
 			}
 			else{
 
@@ -64,6 +64,46 @@ class Mitra_Premium_Controller extends Controller
 		}
 
 	}
+
+	
+	public function upload_ktp(){
+
+		return view('users/user/m-mitra/premium/register_nik');
+
+    }
+
+    public function simpan_ktp(Request $request){
+
+        // dd($request->all());
+
+        $this->validate($request,[
+			'nama_ktp' => 'required',
+			'no_nik' => 'required',
+			'foto_toko' => 'required'
+		]);
+
+		$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+
+        $ktp = new Ktp_toko;
+		$ktp->toko_id = $toko->toko_id;
+		$ktp->nama = $request->nama_ktp;
+		$ktp->nik = $request->no_nik;
+
+        $files = $request->file("foto_toko");
+        $type = $request->file("foto_toko")->getClientOriginalExtension();
+        $file_upload = $this->autocode('KTP-').".".$type;
+        \Storage::disk('public')->put('img/toko/'.$toko->toko_id.'/ktp/'.$file_upload, file_get_contents($files));
+        $ktp->foto = $file_upload;
+
+        $ktp->save();
+
+        $notification = array(
+            'message' => 'Belum Terverifikasi',
+            'jenis_mitra' => $toko->jenis_mitra
+        );     
+
+        return redirect('/akun')->with($notification);
+    }
 
 	public function simpan_data_premium(Request $request){
 
@@ -158,155 +198,35 @@ class Mitra_Premium_Controller extends Controller
 	public function atur_toko_premium(){
 
 		$kategori = Kategori_toko::all();
+		$kelurahan = kelurahan::all();
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 		$jadwal = Jadwal_toko::where('toko_id', $toko->id)->get();
 
-		return view('users/user/m-mitra/premium/atur_toko', ['daftar_kategori'=>$kategori,'toko'=>$toko,'jadwal'=>$jadwal]);
+		// dd($jadwal);
+
+		return view('users/user/m-mitra/premium/atur_toko', ['daftar_kategori'=>$kategori,'kelurahan'=>$kelurahan ,'toko'=>$toko,'jadwal'=>$jadwal]);
 	}
 
-	public function atur_produk_premium(){
+	public function atur_lokasi(){
 
-		$kategori_produk = Kategori::all();
-
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
-		$produk = product::where('toko_id', $toko->id)->get();
-
-		return view('users/user/m-mitra/premium/atur_produk', compact('kategori_produk','produk'));
+		return view('users/user/m-mitra/premium/pilih_lokasi_premium');
 	}
 
-	public function simpan_atur_produk_premium(Request $request){
+	public function simpan_lokasi(Request $request){
 
 		// dd($request->all());
 
-		$this->validate($request,[
-			'nama' => 'required',
-			'kategori_produk' => 'required',
-			'harga' => 'required',
-			'stok' => 'required',
-			'deskripsi' => 'required',
-			'foto_toko' => 'required',
-		]);
-
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
-		$produk_id = $this->autocode('PD-');
+        $toko->latitude = $request->latitude;
+        $toko->longitude = $request->longitude;
+        $toko->save();
 
-		// @Tambah Produk
-		$produk = new product;
-		$produk->id = $produk_id;
-		$produk->toko_id = $toko->id;
-		$produk->kategori_id = $request->kategori_produk;
-		$produk->nama = $request->nama;
-		$produk->harga = $request->harga;
-		$produk->stok = $request->stok;
-		$produk->deskripsi = $request->deskripsi;
-		// @Tambah Foto
-		$files = $request->file("foto_toko");
-		$type = $request->file("foto_toko")->getClientOriginalExtension();
-		$file_upload = $produk_id.".".$type;
-		\Storage::disk('public')->put('img/toko/'.$toko->id.'/produk/'.$file_upload, file_get_contents($files));
-		$produk->foto_produk = $file_upload;
-		$produk->save();
+	
+		$notification = array(
+			'message' => 'Lokasi Berhasil Diperbarui'
+		);     
 
-		return redirect()->back();
-
+		return redirect('/akun/mitra/premium/atur-toko')->with($notification);
 	}
-
-	public function update_atur_produk_premium(Request $request){
-
-		$this->validate($request,[
-			'edit_id_produk' => 'required',
-			'edit_nama_produk' => 'required',
-			'edit_kategori' => 'required',
-			'edit_harga' => 'required',
-			'edit_stok' => 'required',
-			'edit_deskripsi' => 'required',
-		]);
-
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
-		$produk = product::where('id', $request->edit_id_produk)->first();
-		$produk->kategori_id = $request->edit_kategori;
-		$produk->nama = $request->edit_nama_produk;
-		$produk->harga = $request->edit_harga;
-		$produk->stok = $request->edit_stok;
-		$produk->deskripsi = $request->edit_deskripsi;
-		// @Tambah Foto
-		if($request->file('edit_foto_toko')){
-
-			$files = $request->file("edit_foto_toko");
-			$type = $request->file("edit_foto_toko")->getClientOriginalExtension();
-			$file_upload = $produk->id.".".$type;
-			\Storage::disk('public')->put('img/toko/'.$toko->id.'/produk/'.$file_upload, file_get_contents($files));
-			$produk->foto_produk = $file_upload;
-		}
-
-		$produk->save();
-
-		return redirect()->back();
-	}
-
-
-	public function upload_ktp(){
-
-		return view('users/user/m-mitra/premium/register_nik');
-
-    }
-
-    public function simpan_ktp(Request $request){
-
-        // dd($request->all());
-
-        $this->validate($request,[
-			'nama_ktp' => 'required',
-			'no_nik' => 'required',
-			'foto_toko' => 'required'
-		]);
-
-		$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
-
-        $ktp = new Ktp_toko;
-		$ktp->toko_id = $toko->toko_id;
-		$ktp->nama = $request->nama_ktp;
-		$ktp->nik = $request->no_nik;
-
-        $files = $request->file("foto_toko");
-        $type = $request->file("foto_toko")->getClientOriginalExtension();
-        $file_upload = $this->autocode('KTP-').".".$type;
-        \Storage::disk('public')->put('img/toko/'.$toko->toko_id.'/ktp/'.$file_upload, file_get_contents($files));
-        $ktp->foto = $file_upload;
-
-        $ktp->save();
-
-        $notification = array(
-            'message' => 'Belum Terverifikasi',
-            'jenis_mitra' => $toko->jenis_mitra
-        );     
-
-        return redirect('/akun')->with($notification);
-
-
-    }
-	public function daftar_produk_premium(){
-		$kategori_produk = Kategori::all();
-
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
-		$produk = product::where('toko_id', $toko->id)->get();
-
-		return view('users/user/m-mitra/premium/daftar_produk', compact('kategori_produk', 'produk'));
-	}
-
-	public function tambah_produk_premium(){
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
-		$produk = product::where('toko_id', $toko->id)->get();
-		$daftar_kategori = Kategori_toko::all();
-		return view('users/user/m-mitra/premium/tambah_produk', compact('toko', 'daftar_kategori'));
-	}
-
-	public function register_nik(){
-		return view('users/user/m-mitra/register_nik');
-	}
-
-	public function upload_foto(){
-		return view('users/user/m-mitra/upload_foto');
-	} 
 
 }
