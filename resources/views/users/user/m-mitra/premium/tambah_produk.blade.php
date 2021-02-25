@@ -317,7 +317,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 <main id="homepage" class="homepage" style="padding-top: 4em; background: transparent;">
 	<div>
-		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em;">
+		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em; z-index: -5;">
 	</div>	
 	<form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post">
 		{{csrf_field()}}
