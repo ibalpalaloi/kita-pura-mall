@@ -236,11 +236,11 @@
 						</div>
 						<div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: center; color: white; margin-left: 0.3em;">
 							<div style="font-size: 0.7em; line-height: 1em;">{{$toko[$i]['kategori_toko']}}</div>
-							<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf" style="font-size: 1em; line-height: 1.3em; color: white;">Ayam Bakar</a>
+							<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf" style="font-size: 1em; line-height: 1.3em; color: white;"><?=substr(strip_tags($toko[$i]['nama_toko']), 0, 15)?>@if (strlen($toko[$i]['nama_toko']) > 15)..@endif</a>
 						</div>
 					</div>
 					@if ($toko[$i]['jenis_mitra'] == 'premium')
-					<a href="<?=url('/')?>/{{$toko[$i]['username']}}"><div style="background: white; padding: 0.2em 1em; color: #ff006e; border-radius: 1.5em; font-size: 0.8em; display: flex; align-items: center;">Kunjungi Toko</div></a>
+					<a href="<?=url('/')?>/{{$toko[$i]['username']}}" style="background: white; padding: 0.2em 1em; color: #ff006e; border-radius: 1.5em; font-size: 0.8em; display: flex; align-items: center;">Kunjungi Toko</a>
 					@else
 					<div style="background: #ff006e; padding: 0.2em 1.1em; color: white; border-radius: 1.5em; font-size: 0.8em; display: flex; align-items: center;">Hubungi Toko</div>
 					@endif
