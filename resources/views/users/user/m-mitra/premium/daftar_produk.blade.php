@@ -360,7 +360,7 @@ if (!empty($_GET['deskripsi'])){
 ?>
 
 
-<div id="modal-tambah" class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+<!-- <div id="modal-tambah" class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-bottom" role="document" style="padding: 0px; overflow-y: initial !important;">
 		<div class="modal-content" style="border-radius: 1em; background: #eaf4ff; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 0em; border-bottom-right-radius: 0em;">
 			<div class="modal-body" style="width: 100%;height: 80vh; overflow-y: auto;">
@@ -435,9 +435,9 @@ if (!empty($_GET['deskripsi'])){
 
 		</div>
 	</div>
-</div>
+</div> -->
 
-<div id="modal-ubah" class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+<!-- <div id="modal-ubah" class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-bottom" role="document" style="padding: 0px; overflow-y: initial !important;">
 		<div class="modal-content" style="border-radius: 1em; background: #eaf4ff; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 0em; border-bottom-right-radius: 0em; border: none;">
 			<div class="modal-body" style="width: 100%;height: 80vh; overflow-y: auto;">
@@ -519,7 +519,7 @@ if (!empty($_GET['deskripsi'])){
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;  padding-top: 0.3em">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
@@ -538,7 +538,7 @@ if (!empty($_GET['deskripsi'])){
 
 <main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
 	<div>
-		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em;">
+		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em; z-index: -5;">
 	</div>
 	<div>
 		<div style="padding: 0px 16px 1em;">
@@ -559,23 +559,31 @@ if (!empty($_GET['deskripsi'])){
 
 		</div>
 	</div>
-	<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
+	<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding: 0px 16px 1em;">
 		@if ($produk->count() > 0)
 		@foreach($produk as $row)
 		<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
 			<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
 			<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
-			<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; background: #f3a301; color: white; background-size: cover; position: relative;'> 
-				<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #ed9f01; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;" onclick='edit_produk("{{$row->id}}","{{$row->toko_id}}/produk/{{$row->foto_produk}}", "{{$row->nama}}", "{{$row->kategori_id}}", "{{$row->harga}}", "{{$row->stok}}", "{{$row->deskripsi}}")'>
+			<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative;' class="st0"> 
+				<a href="{{url()->current()}}/{{$row->id}}" style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #926c15; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
 					<img src="<?=url('/')?>/public/img/icon_svg/pencil.svg" style="width: 1.5em; height: 1.5em;">
-				</div>
+				</a>
 				<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
-				<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori_id}}</div>
-
+				<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori->nama}}</div>
+				@if($row->diskon == '0')
+				<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$row->harga}}</span>
+				@else
 				<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-					<s>IDR. 25.000</s>
+					<s>IDR. {{$row->harga}}</s>
 				</span>
-				<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$row->harga}}</span>
+				@php
+					$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
+				@endphp
+
+				<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$hasil_diskon}}</span>
+				@endif
+			
 				<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
 					Stok : {{$row->stok}}
 				</div>
@@ -583,14 +591,35 @@ if (!empty($_GET['deskripsi'])){
 		</div> 
 		@endforeach
 		@else
-			<div>Belum ada produk</div>
+			<div style="color:white;text-align:center;">Belum ada produk</div>
 		@endif
 	</div>
 
+	@if(Session::has('message'))
+    <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center font-weight-bold py-3">
+                    {{Session::get('message')}}
+                    <div class="row mt-2 p-2">
+                        <button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
+                            data-dismiss="modal">Tutup</button>
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    @endif
+
 </div>
+
 </main>
 <div class="footer">
-	<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk/add" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
+	<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk/tambah" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
 		<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_produk.svg" style="width: 100%;">
 	</a>
 </div>
@@ -601,6 +630,10 @@ if (!empty($_GET['deskripsi'])){
 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
 <script type="text/javascript">
+
+	@if(Session::has('message'))	
+		$('#modal-pemberitahuan').modal('show')
+	@endif
 
 	function tambah_foto_toko(){
 		$("#foto_toko").click();

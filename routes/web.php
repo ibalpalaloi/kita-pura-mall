@@ -18,6 +18,7 @@ use App\Http\Controllers\Mitra\MitraController;
 use App\Http\Controllers\Mitra\Mitra_Register_Controller;
 use App\Http\Controllers\Mitra\Mitra_Free_Controller;
 use App\Http\Controllers\Mitra\Mitra_Premium_Controller;
+use App\Http\Controllers\Mitra\Mitra_Premium_Produk_Controller;
 use App\Http\Controllers\Mitra\PesananController;
 /*
 |--------------------------------------------------------------------------
@@ -105,11 +106,31 @@ Route::group(['middleware'=> 'auth'], function() {
         });
 
         Route::group(['middleware'=> 'premium'], function() {
-
-                // @mitra premium 
+            // @mitra premium 
             Route::get('/akun/mitra/premium', [Mitra_Premium_Controller::class, 'index_premium']);
+            Route::put('/akun/mitra/premium/simpan', [Mitra_Premium_Controller::class, 'simpan_data_premium']);
+            Route::get('/akun/mitra/premium/upload-ktp', [Mitra_Premium_Controller::class, 'upload_ktp']);
+            Route::post('/akun/mitra/premium/upload-ktp/simpan', [Mitra_Premium_Controller::class, 'simpan_ktp']);
 
-            //list pesanana
+            // @atur toko
+            Route::get('/akun/mitra/premium/atur-toko', [Mitra_Premium_Controller::class, 'atur_toko_premium']);            
+            Route::get('/akun/mitra/premium/atur-toko/atur-lokasi', [Mitra_Premium_Controller::class, 'atur_lokasi']);
+            Route::put('/akun/mitra/premium/atur-toko/atur-lokasi/simpan', [Mitra_Premium_Controller::class, 'simpan_lokasi']);
+
+            // @tambah produk
+            Route::get('/akun/mitra/premium/tambah-produk', [Mitra_Premium_Produk_Controller::class, 'daftar_produk_premium']);
+            Route::get('/akun/mitra/premium/tambah-produk/tambah', [Mitra_Premium_Produk_Controller::class, 'tambah_produk_premium']);
+            Route::post('/akun/mitra/premium/tambah-produk/tambah/simpan', [Mitra_Premium_Produk_Controller::class, 'simpan_tambah_produk_premium']);
+            Route::get('/akun/mitra/premium/tambah-produk/{id}', [Mitra_Premium_Produk_Controller::class, 'produk_premium']);
+            Route::put('/akun/mitra/premium/tambah-produk/{id}/simpan', [Mitra_Premium_Produk_Controller::class, 'update_tambah_produk_premium']);
+            Route::get('/akun/mitra/premium/tambah-produk/{id}/hapus', [Mitra_Premium_Produk_Controller::class, 'hapus_tambah_produk_premium']);
+
+            // @atur produk
+            Route::get('/akun/mitra/premium/atur-produk', [Mitra_Premium_Produk_Controller::class, 'atur_produk_premium']);
+            Route::put('/akun/mitra/premium/atur-produk/simpan', [Mitra_Premium_Produk_Controller::class, 'simpan_atur_produk_premium']);
+            Route::get('/akun/mitra/premium/atur-produk/{id}/ubah-status', [Mitra_Premium_Produk_Controller::class, 'ubah_status_produk_premium']);
+
+            // list pesananan
             Route::get('/akun/mitra/premium/list-pesanan', [PesananController::class, 'pesanan']);
             Route::get('/akun/mitra/premium/list-pesanan/list-produk', [PesananController::class, 'list_produk']);
             Route::post('/akun/mitra/premium/simpan-pesanan', [PesananController::class, 'post_pesanan']);
@@ -117,29 +138,8 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::get('/akun/riwayat_transaksi', [PesananController::class, 'riwayat_transaksi']);
             Route::get('/akun/riwayat_transaksi/bulan', [PesananController::class, 'riwayat_transaksi_bulan']);
 
-            Route::get('/akun/mitra/premium/upload-ktp', [Mitra_Premium_Controller::class, 'upload_ktp']);
-            Route::post('/akun/mitra/premium/upload-ktp/simpan', [Mitra_Premium_Controller::class, 'simpan_ktp']);
-
-            Route::put('/akun/mitra/premium/simpan', [Mitra_Premium_Controller::class, 'simpan_data_premium']);
-            Route::get('/akun/mitra/premium/atur-toko', [Mitra_Premium_Controller::class, 'atur_toko_premium']);
-            Route::get('/akun/mitra/premium/tambah-produk', [Mitra_Premium_Controller::class, 'daftar_produk_premium']);
-            Route::get('/akun/mitra/premium/tambah-produk/add', [Mitra_Premium_Controller::class, 'tambah_produk_premium']);
-            Route::get('/akun/mitra/premium/atur-produk', [Mitra_Premium_Controller::class, 'atur_produk_premium']);
-            Route::post('/akun/mitra/premium/atur-produk/simpan', [Mitra_Premium_Controller::class, 'simpan_atur_produk_premium']);
-            Route::put('/akun/mitra/premium/atur-produk/update', [Mitra_Premium_Controller::class, 'update_atur_produk_premium']);
-            Route::put('/akun/mitra/premium/atur-produk/hapus', [Mitra_Premium_Controller::class, 'hapus_atur_produk_premium']);
 
         });
-
-
-        Route::get('/user/jadi-mitra/{jenis_mitra}/register_nik', [MitraController::class, 'register_nik']);
-        Route::get('/user/jadi-mitra/{jenis_mitra}/upload_foto', [MitraController::class, 'upload_foto']);
-
-        // Route::get('/user/jadi-mitra/{jenis_mitra}', [UserController::class, 'jenis_mitra']);
-        // Route::get('/user/jadi-mitra/{jenis_mitra}/register', [MitraController::class, 'register']);
-        // Route::get('/user/jadi-mitra/{jenis_mitra}/register/pilih-lokasi', [MitraController::class, 'pilih_lokasi']);
-
-        // list pesanan
 
         
 

@@ -384,6 +384,26 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		</div>
 	</div>
 
+	@if(Session::has('message'))
+    <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center font-weight-bold py-3">
+                    {{Session::get('message')}}
+                    <div class="row mt-2 p-2">
+                        <button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
+                            data-dismiss="modal">Tutup</button>
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+	@endif
+
 </main>
 
 @endsection
@@ -394,6 +414,12 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <script type="text/javascript">
+
+
+	@if(Session::has('message'))
+		$('#modal-pemberitahuan').modal('show')
+	@endif
+
 
 	var label_bulanan = ["01", "02", '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 	var jumlah_bulanan = [15, 24, 35, 12, 16, 12, 29, 40, 8, 0,0,0];

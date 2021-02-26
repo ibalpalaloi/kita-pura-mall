@@ -29,6 +29,8 @@ class MitraController extends Controller
 
 	public function mitra(){
 
+		$notification = array();
+
 		if(Session::get('progress_biodata') != '5'){
 
 				$notification = array(
@@ -52,11 +54,15 @@ class MitraController extends Controller
 
 				if($toko){
 
+
 					if(is_null($toko->longitude) && is_null($toko->latitude)){
 						$notification = array(
 							'message' => 'Lokasi Maps Belum Ditentukan'
 						);     
 					}
+
+					// dd($toko);
+
 				
 					return redirect('/akun/mitra/'.$toko->jenis_mitra)->with($notification);
 
