@@ -223,24 +223,24 @@
 		$status = array('free', 'premium', 'free');
 		@endphp 
 
-		@for ($i = 0; $i < count($foto_product); $i++)
+		@for ($i = 0; $i < count($toko); $i++)
 		<div class="input-group mb-3" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em; display: flex; justify-content: center;">
 			<div style="display: flex; justify-content: center; position:relative;width: 85%; margin: 0px; height: 13em;">
 				<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf">
-					<img src="<?=url('/')?>/public/img/product/TK-021220212313/{{$foto_product[$i]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+					<img src="<?=url('/')?>/public/img/product/TK-021220212313/product_6.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 				</a>
 				<div class="label-product" style="position: absolute; bottom: 0em; left: 0em; padding: 0.9em 0.5em 0.9em 1.2em; display: flex; width: 100%; background-color: rgba(0,0,0,0.3); justify-content: space-between;">
 					<div class="keterangan-product" style="display: flex;">
 						<div style="width: 2em; height: 2em;">
-							<img src="<?=url('/')?>/public/img/mitra/logo/{{$logo[$i]}}" style="width: 100%;">
+							<img src="<?=url('/')?>/public/img/mitra/logo/premium.svg" style="width: 100%;">
 						</div>
 						<div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: center; color: white; margin-left: 0.3em;">
-							<div style="font-size: 0.7em; line-height: 1em;">makanan</div>
+							<div style="font-size: 0.7em; line-height: 1em;">{{$toko[$i]['kategori_toko']}}</div>
 							<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf" style="font-size: 1em; line-height: 1.3em; color: white;">Ayam Bakar</a>
 						</div>
 					</div>
-					@if ($status[$i] == 'premium')
-					<div style="background: white; padding: 0.2em 1em; color: #ff006e; border-radius: 1.5em; font-size: 0.8em; display: flex; align-items: center;">Kunjungi Toko</div>
+					@if ($toko[$i]['jenis_mitra'] == 'premium')
+					<a href="<?=url('/')?>/{{$toko[$i]['username']}}"><div style="background: white; padding: 0.2em 1em; color: #ff006e; border-radius: 1.5em; font-size: 0.8em; display: flex; align-items: center;">Kunjungi Toko</div></a>
 					@else
 					<div style="background: #ff006e; padding: 0.2em 1.1em; color: white; border-radius: 1.5em; font-size: 0.8em; display: flex; align-items: center;">Hubungi Toko</div>
 					@endif
