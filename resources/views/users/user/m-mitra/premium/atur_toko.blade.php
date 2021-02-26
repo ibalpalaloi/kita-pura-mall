@@ -346,7 +346,7 @@ if (!empty($_GET['deskripsi'])){
 					@if ($loop_hari[0] != "")
 					<div class="input-group mb-3 div-input-mall-square" id="{{str_replace(' ', '_', $loop_hari[$i])}}" style="width: 90%; background: white; border: 1px solid white;">
 						<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
-							<div style="width: 2.5em; height: 2.5em; background:#ffaa00; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em;">
+							<div style="width: 2.5em; height: 2.5em; background:#ffaa00; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
 								@for ($j = 0; $j < count($var_text); $j++)
 								@if ($var_text[$j] == $loop_hari[$i])
 								{{$var_value[$j]}}
@@ -435,7 +435,11 @@ if (!empty($_GET['deskripsi'])){
 					@php $url = url('/')."/public/img/button/toko_premium/bg-photo-profile.svg"; @endphp
 					<div style='background-image: url("<?=$url?>"); padding: 1.5em;'>
 						<div id="div_pic_toko_privew" style="position: relative; padding: auto 0; display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 9rem; height: 9rem; background: #1c1c1c;">
+							@if ($toko->logo_toko)
 							<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/logo/{{$toko->logo_toko}}" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
+							@else
+							<img id="pic_toko_privew" src="<?=url('/')?>/public/img/mitra/logo/premium.svg" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
+							@endif
 							<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_yellow.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 0px; bottom: 0px;">
 						</div>
 					</div>
