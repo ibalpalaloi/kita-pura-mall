@@ -510,10 +510,10 @@ if (!empty($_GET['deskripsi'])){
 
 					</div>
 				</div>
-				<div>
-					<input type="text" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
-					<input type="text" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
-					<input type="text" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
+				<div hidden> 
+					<input type="hidden" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
+					<input type="hidden" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
+					<input type="hidden" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
 				</div>
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Alamat</div>
