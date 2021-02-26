@@ -421,190 +421,194 @@ if (!empty($_GET['deskripsi'])){
 	{{csrf_field()}}
 	{{method_field('PUT')}}
 
-<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
-	<div>
-		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em; z-index: -1;">
-	</div>
-	<div>
-		<div style="padding: 0px 16px 1em;">
-			<h3 style="color: white;">Atur<br>Landing Page</h3>
-			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Video</h6>
-			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
-				<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
-			</div>
-			<div class="input-group mb-3 div-input-mall-square" id="div_video" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-				<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_video()" id="div_pic_video">
-					<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
+	<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
+		<div>
+			<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em; z-index: -1;">
+		</div>
+		<div>
+			<div style="padding: 0px 16px 1em;">
+				<h3 style="color: white;">Atur<br>Landing Page</h3>
+				<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Video</h6>
+				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+					<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
 				</div>
-			</div>
-			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Tampilan Maps</h6>
-			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
-				<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
-			</div>
-			<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-				@if($foto_1)
-				<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
+				<div class="input-group mb-3 div-input-mall-square" id="div_video" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_video()" id="div_pic_video">
+						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
+					</div>
+				</div>
+				<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Tampilan Maps</h6>
+				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+					<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
+				</div>
+				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+					@if($foto_1)
+					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
 						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$foto_1->toko_id}}/maps/{{$foto_1->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 						<img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('1')" style="position: absolute; right: 1em; bottom: 1em;">
-				</div>
-				<input type="hidden" name="id_foto_maps_1" id="id_foto_maps_1" value="{{$foto_1->id}}">
-				@else
-				<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('1')" id="div_pic_maps_1">
-						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
 					</div>
-				@endif
-				<input hidden type="file" name="foto_maps_1" id="foto_maps_1">
-			</div>
-			<div style="display: flex; justify-content: space-between;">
-				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
-					@if($foto_2)
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew">
-						<img id="pic_maps_2_privew" src="<?=url('/')?>/public/img/toko/{{$foto_2->toko_id}}/maps/{{$foto_2->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-						<img id="pic_maps_2" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('2')" style="position: absolute; right: 1em; bottom: 1em;">
-					</div>
-					<input type="hidden" name="id_foto_maps_2" id="id_foto_maps_2" value="{{$foto_2->id}}">
+					<input type="hidden" name="id_foto_maps_1" id="id_foto_maps_1" value="{{$foto_1->id}}">
 					@else
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew" hidden>
-						<img id="pic_maps_2_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-						<img id="pic_maps_2" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('2')" style="position: absolute; right: 1em; bottom: 1em;">
+					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew" hidden>
+						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('1')" style="position: absolute; right: 1em; bottom: 1em;">
 					</div>
-					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('2')" id="div_pic_maps_2">
+					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('1')" id="div_pic_maps_1">
 						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
 					</div>
 					@endif
-					<input hidden type="file" name="foto_maps_2" id="foto_maps_2">
+					<input hidden type="file" name="foto_maps_1" id="foto_maps_1">
 				</div>
-				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
-	
-					@if($foto_3)
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew">
-						<img id="pic_maps_3_privew" src="<?=url('/')?>/public/img/toko/{{$foto_3->toko_id}}/maps/{{$foto_3->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-						<img id="pic_maps_3" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('3')" style="position: absolute; right: 1em; bottom: 1em;">
+				<div style="display: flex; justify-content: space-between;">
+					<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
+						@if($foto_2)
+						<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew">
+							<img id="pic_maps_2_privew" src="<?=url('/')?>/public/img/toko/{{$foto_2->toko_id}}/maps/{{$foto_2->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+							<img id="pic_maps_2" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('2')" style="position: absolute; right: 1em; bottom: 1em;">
+						</div>
+						<input type="hidden" name="id_foto_maps_2" id="id_foto_maps_2" value="{{$foto_2->id}}">
+						@else
+						<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew" hidden>
+							<img id="pic_maps_2_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+							<img id="pic_maps_2" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('2')" style="position: absolute; right: 1em; bottom: 1em;">
+						</div>
+						<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('2')" id="div_pic_maps_2">
+							<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
+						</div>
+						@endif
+						<input hidden type="file" name="foto_maps_2" id="foto_maps_2">
 					</div>
-					<input type="hidden" name="id_foto_maps_3" id="id_foto_maps_3" value="{{$foto_3->id}}">
-					@else
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew" hidden>
-						<img id="pic_maps_3_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-						<img id="pic_maps_3" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('3')" style="position: absolute; right: 1em; bottom: 1em;">
-					</div>
-					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('3')" id="div_pic_maps_3">
-						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
-					</div>
-					@endif
-					<input hidden type="file" name="foto_maps_3" id="foto_maps_3">
-				</div>
-			</div>
-			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Deskripsi</h6>
-			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
-				<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
-			</div>
-			<div class="input-group mb-3 div-input-mall-square st0" id="div_deskripsi" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-				<div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 0.8em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;" class="st0">
-					<div>
-						<div>Icon</div>
-						<div class="daftar-icon" style="padding-top: 0.5em; display: flex;">
-							<div style="height: 2.5em; width: 2.5em; background: #9d0208; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><img src="<?=url('/')?>/public/img/icon_service/diantarkan.svg"></div>
-							<div style="height: 2.5em; width: 2.5em; background: #9d0208; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><img src="<?=url('/')?>/public/img/icon_service/tempat_nyaman.svg"></div>
-							<div style="height: 2.5em; width: 2.5em; background: #9d0208; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><img src="<?=url('/')?>/public/img/icon_service/wifi.svg"></div>
+					<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
 
-							<div style="height: 2.5em; width: 2.5em; border: 2px solid white; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><i class="fa fa-plus"></i></div>
+						@if($foto_3)
+						<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew">
+							<img id="pic_maps_3_privew" src="<?=url('/')?>/public/img/toko/{{$foto_3->toko_id}}/maps/{{$foto_3->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+							<img id="pic_maps_3" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('3')" style="position: absolute; right: 1em; bottom: 1em;">
 						</div>
-					</div>
-					<div style="margin-top: 1em;">
-						<div>Judul</div>
-						<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
-							<div><img src="<?=url('/')?>/public/img/icon_svg/judul.svg" style="width: 100%;"></div>
-							<div>
-								<input type="text" name="judul" style="color: white; background: transparent; font-size: 1.15em; padding-left: 0.9em;" placeholder="Masukan judul service">
-							</div>
+						<input type="hidden" name="id_foto_maps_3" id="id_foto_maps_3" value="{{$foto_3->id}}">
+						@else
+						<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew" hidden>
+							<img id="pic_maps_3_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+							<img id="pic_maps_3" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko('3')" style="position: absolute; right: 1em; bottom: 1em;">
 						</div>
-					</div>	
-					<div style="margin-top: 1em; padding-bottom: 0.5em;">
-						<div>Keterangan</div>
-						<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
-							<div><img src="<?=url('/')?>/public/img/icon_svg/keterangan.svg" style="width: 100%;"></div>
-							<div style="width: 100%;">
-								<textarea name="keterangan" style="color: white; background: transparent; font-size: 0.9em; line-height: 1.15em; padding-left: 1.3em; border: none; width: 100%;" rows="8" placeholder="Masukan keterangan service"></textarea> 
-							</div>
+						<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko('3')" id="div_pic_maps_3">
+							<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
 						</div>
-					</div>									
-				</div>
-			</div>
-			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Menu Favorit</h6>
-			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
-				<div style="font-size: 0.8em; color: #dddddd; line-height: 1.3em;">pilih 3 menu favorit untuk ditampilkan di halaman depan landing page</div>
-			</div>
-			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
-				<div style="width: 100%; padding-right: 0.5em;">
-					<span class="input-group-text-mall">
-					</span>
-					<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em;">
-					<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center;">
-						<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
+						@endif
+						<input hidden type="file" name="foto_maps_3" id="foto_maps_3">
 					</div>
 				</div>
-			</div>
-			<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding-bottom: 4em;">
-				@if ($produk->count() > 0)
-				@foreach($produk as $row)
-				<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
-					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-					<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
-					<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; background: #f3a301; color: white; background-size: cover; position: relative;'> 
-						<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; right: 0.8em; display: flex; justify-content: center; align-items: center;">
-							<div class="togglebutton">
+				<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Deskripsi</h6>
+				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+					<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
+				</div>
+				<div class="input-group mb-3 div-input-mall-square st0" id="div_deskripsi" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+					<div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 0.8em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;" class="st0">
+						<div>
+							<div>Icon</div>
+							<div class="daftar-icon" style="padding-top: 0.5em; display: flex;">
+								<div style="height: 2.5em; width: 2.5em; background: #9d0208; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><img src="<?=url('/')?>/public/img/icon_service/diantarkan.svg"></div>
+								<div style="height: 2.5em; width: 2.5em; background: #9d0208; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><img src="<?=url('/')?>/public/img/icon_service/tempat_nyaman.svg"></div>
+								<div style="height: 2.5em; width: 2.5em; background: #9d0208; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><img src="<?=url('/')?>/public/img/icon_service/wifi.svg"></div>
+
+								<div style="height: 2.5em; width: 2.5em; border: 2px solid white; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><i class="fa fa-plus"></i></div>
+							</div>
+						</div>
+						<div style="margin-top: 1em;">
+							<div>Judul</div>
+							<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
+								<div><img src="<?=url('/')?>/public/img/icon_svg/judul.svg" style="width: 100%;"></div>
+								<div>
+									<input type="text" name="judul" style="color: white; background: transparent; font-size: 1.15em; padding-left: 0.9em;" placeholder="Masukan judul service">
+								</div>
+							</div>
+						</div>	
+						<div style="margin-top: 1em; padding-bottom: 0.5em;">
+							<div>Keterangan</div>
+							<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
+								<div><img src="<?=url('/')?>/public/img/icon_svg/keterangan.svg" style="width: 100%;"></div>
+								<div style="width: 100%;">
+									<textarea name="keterangan" style="color: white; background: transparent; font-size: 0.9em; line-height: 1.15em; padding-left: 1.3em; border: none; width: 100%;" rows="8" placeholder="Masukan keterangan service"></textarea> 
+								</div>
+							</div>
+						</div>									
+					</div>
+				</div>
+				<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Menu Favorit</h6>
+				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+					<div style="font-size: 0.8em; color: #dddddd; line-height: 1.3em;">pilih 3 menu favorit untuk ditampilkan di halaman depan landing page</div>
+				</div>
+				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
+					<div style="width: 100%; padding-right: 0.5em;">
+						<span class="input-group-text-mall">
+						</span>
+						<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em;">
+						<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center;">
+							<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
+						</div>
+					</div>
+				</div>
+				<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding-bottom: 4em;">
+					@if ($produk->count() > 0)
+					@foreach($produk as $row)
+					<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
+						<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+						<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
+						<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative;' class="st0"> 
+							<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; right: 0.8em; display: flex; justify-content: center; align-items: center;">
+								<div class="togglebutton">
 									<label>
 										<a href="{{url()->current()}}/{{$row->id}}/ubah-status" >	
 											<input type="checkbox" @if($row->tampil == "Ya") checked @endif>
 											<span class="toggle"></span>
-											</a>
+										</a>
 									</label>
-								
+
+								</div>
+							</div>
+							<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
+							<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori->nama}}</div>
+							@if($row->diskon == '0')
+							<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$row->harga}}</span>
+							@else
+							<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
+								<s>IDR. {{$row->harga}}</s>
+							</span>
+							@php
+							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
+							@endphp
+							<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$hasil_diskon}}</span>
+							@endif
+							<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
+								Stok : {{$row->stok}}
 							</div>
 						</div>
-						<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
-						<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori->nama}}</div>
-						@if($row->diskon == '0')
-						<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$row->harga}}</span>
-						@else
-						<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-							<s>IDR. {{$row->harga}}</s>
-						</span>
-						@php
-							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
-						@endphp
-						<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$hasil_diskon}}</span>
-						@endif
-						<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
-							Stok : {{$row->stok}}
-						</div>
-					</div>
-				</div> 
-				@endforeach
-				@endif
+					</div> 
+					@endforeach
+					@endif
+				</div>
 			</div>
 		</div>
+
+		@if(Session::has('message'))
+		<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+		aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+		<div class="modal-dialog modal-sm modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body text-center font-weight-bold py-3">
+					{{Session::get('message')}}
+					<div class="row mt-2 p-2">
+						<button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
+						data-dismiss="modal">Tutup</button>
+
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
 	</div>
-
-	@if(Session::has('message'))
-    <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-        aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
-        <div class="modal-dialog modal-sm modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body text-center font-weight-bold py-3">
-                    {{Session::get('message')}}
-                    <div class="row mt-2 p-2">
-                        <button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
-                            data-dismiss="modal">Tutup</button>
-
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-    </div>
-    @endif
+	@endif
 
 
 </main>
@@ -626,7 +630,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 <script type="text/javascript">
 
 	@if(Session::has('message'))	
-		$('#modal-pemberitahuan').modal('show')
+	$('#modal-pemberitahuan').modal('show')
 	@endif
 
 

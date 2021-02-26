@@ -448,7 +448,7 @@ if (!empty($_GET['deskripsi'])){
 					@foreach($produk as $item)
 					<div class="slider-toko" style="@if ($loop->iteration == 0) margin-left: 1em;@endif">
 						<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-						<img src="<?=url('/')?>/public/img/toko/{{$item->toko_id}}/produk/{{$item->foto}}">
+						<img src="<?=url('/')?>/public/img/toko/{{$item->toko_id}}/produk/{{$item->foto_produk}}">
 						<div class="st0" style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%;color: white; background-size: cover; position: relative;'> 
 							<div id="check_{{$item->id}}"style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #757575; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;" onclick='modal_pesan("{{$item->id}}", "{{$item->harga}}")'>
 								<i class="fa fa-check" style="font-size: 2em;"></i>
