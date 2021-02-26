@@ -632,11 +632,15 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$.ajax({
 			url : "{{ route('tambah_keranjang_belanja') }}",
 			method : 'post',
-			data : {toko_id:toko_id, produk_id:produk_id, _token:'{{csrf_token()}}'}
+			data : {toko_id:toko_id, produk_id:produk_id, _token:'{{csrf_token()}}'},
+			success:function()
+			{
+				var jumlah_keranjang = $("#jumlah_keranjang").html();
+				jumlah_keranjang = parseInt(jumlah_keranjang)+1;
+				$("#jumlah_keranjang").html(jumlah_keranjang);
+			}
 		})
-		var jumlah_keranjang = $("#jumlah_keranjang").html();
-		jumlah_keranjang = parseInt(jumlah_keranjang)+1;
-		$("#jumlah_keranjang").html(jumlah_keranjang);
+		
 	}
 
 	function nilai_toko(index){
