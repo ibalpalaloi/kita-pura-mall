@@ -236,7 +236,7 @@
 						</div>
 						<div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: center; color: white; margin-left: 0.3em;">
 							<div style="font-size: 0.7em; line-height: 1em;">{{$toko[$i]['kategori_toko']}}</div>
-							<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf" style="font-size: 1em; line-height: 1.3em; color: white;">Ayam Bakar</a>
+							<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf" style="font-size: 1em; line-height: 1.3em; color: white;">{{$toko[$i]['nama_toko']}}</a>
 						</div>
 					</div>
 					@if ($toko[$i]['jenis_mitra'] == 'premium')
