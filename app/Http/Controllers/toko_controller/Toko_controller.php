@@ -4,12 +4,33 @@ namespace App\Http\Controllers\toko_controller;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Toko;
+use App\Models\Foto_maps;
 
 class Toko_controller extends Controller
 {
     //
     public function index(){
-        return view('toko.dashboard');
+        $list_toko = array();
+        $toko = Toko::all();
+        $i = 0;
+        foreach($toko as $toko){
+            $foto_maps = Foto_maps::where('toko_id', $toko->id)->first();
+            if(!empty($foto_maps)){
+                $list_toko[$i]['foto'] = $foto_maps->foto;
+            }
+            else{
+                $list_toko[$i]['foto'] = '';
+            }
+            $list_toko[$i]['id_toko'] = $toko->id;
+            $list_toko[$i]['username'] = $toko->username;
+            $list_toko[$i]['nama_toko'] = $toko->nama_toko;
+            $list_toko[$i]['kategori_toko'] = $toko->kategori_toko->kategori;
+            $list_toko[$i]['jenis_mitra'] = $toko->jenis_mitra;
+            $list_toko[$i]['logo'] = $toko->logo_toko;
+            $i++;
+        }
+        return view('toko.dashboard', ['toko'=>$list_toko]);
     }
 
     public function informasi_toko(){
