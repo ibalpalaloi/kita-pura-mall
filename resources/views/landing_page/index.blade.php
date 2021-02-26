@@ -331,7 +331,7 @@ style="padding: 1.5em; padding: 0px;">
 <div class="wrapper" style="background: transparent; position: relative; z-index: -1; border-bottom-right-radius: 7%; border-bottom-left-radius: 7%;">
 	@php $product_bg = url('/')."/public/img/product/TK-021220212313/product_8.jpg"; @endphp
 	<div class="banner" style='padding: 7em 0.5em 12em 0.5em; display: flex; justify-content: center; align-items: center; background-image: url("<?=$product_bg?>"); background-size: cover;'>
-		<img src="<?=url('/')?>/public/img/toko/logo/warung_mantap.png" style="width: 50%;">
+		<img src="{{$toko->logo()}}" style="width: 50%;">
 	</div>
 </div>
 
@@ -348,26 +348,23 @@ style="padding: 1.5em; padding: 0px;">
 		</div>
 		<div class="penilaian" style="margin-top: 0.5em;">
 			<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em;">
-				<i class="fas fa-star star-rating"></i>
-				<i class="fas fa-star star-rating"></i>
-				<i class="fas fa-star star-rating"></i>
-				<i class="fas fa-star star-rating"></i>
-				<i class="far fa-star star-rating"></i>
+				@php
+					$bintang = 5-$rating;
+				@endphp
+				@for ($i = 0; $i < $rating; $i++)
+					<i class="fas fa-star star-rating"></i>
+				@endfor
+				@for ($i = 0; $i < $bintang; $i++)
+					<i class="far fa-star star-rating"></i>
+				@endfor
 			</div>
 			<div class="penilai" style="display: flex; justify-content: space-between; align-items: flex-end;">
 				<div class="foto-penilai" style="display: flex; justify-content: flex-start; margin-top: 0.2em;">
-					<div style="width: 1.2em; height: 1.2em; border-radius: 50%;">
-						<img src="<?=url('/')?>/public/img/user/profile_picture/fathul.jpg" style="width: 100%; border-radius: 50%;">
-					</div>
-					<div style="width: 1.2em; height: 1.2em; border-radius: 50%;">
-						<img src="<?=url('/')?>/public/img/user/profile_picture/user.png" style="width: 100%; border-radius: 50%;">
-					</div>
-					<div style="width: 1.2em; height: 1.2em; border-radius: 50%;">
-						<img src="<?=url('/')?>/public/img/user/profile_picture/fathul.jpg" style="width: 100%; border-radius: 50%;">
-					</div>
-					<div style="width: 1.2em; height: 1.2em; border-radius: 50%;">
-						<img src="<?=url('/')?>/public/img/user/profile_picture/fathul.jpg" style="width: 100%; border-radius: 50%;">
-					</div>
+					@foreach ($penilaian as $data)
+						<div style="width: 1.2em; height: 1.2em; border-radius: 50%;">
+							<img src="<?=url('/')?>/public/img/user/profile_picture/{{$data->user->biodata->foto}}" style="width: 100%; border-radius: 50%;">
+						</div>
+					@endforeach
 				</div>
 				<div>
 					<div style="color: white; font-size: 0.8em;">{{count($penilaian)}} Penilaian</div>
@@ -376,7 +373,7 @@ style="padding: 1.5em; padding: 0px;">
 			<div style="color: white; font-size: 0.8em; margin-top: 1.2em;" onclick="menilai()">				
 				<i class="far fa-star star-rating"></i>&nbsp;Saya ingin menilai
 			</div>
-			<div class="deskripsi" style="color: white; font-size: 0.7em; margin-top: 0.8em;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra pretium enim ac laoreet in habitant ipsum cum. Nunc purus, diam vitae tincidunt bibendum malesuada. </div>
+			<div class="deskripsi" style="color: white; font-size: 0.7em; margin-top: 0.8em;">{{$toko->deskripsi}}</div>
 			<hr style="width: 2em; margin-top: 1.5em; border: 1.5px solid white; background: white; border-radius: 1.5em;">
 		</div>
 
@@ -587,11 +584,11 @@ style="padding: 1.5em; padding: 0px;">
 			</div>
 		</div>
 	</div>
-	<div style="background: #720004; margin-top: -2em; border: none; position: absolute; z-index: 5;">
+	<div style="background: #720004; margin-top: -2em; border: none; position: absolute; z-index: 5; width: 100%;">
 		<div class="container-mall" style="padding-bottom: 3em;">
 			<div style="padding-top: 2em; text-align: center; color: white;">
 				<p style="font-weight: 700;">Alamat</p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Semper vitae proin fames vulputate integer nulla amet. Donec turpis.
+				{{$toko->alamat}}
 			</div>
 			<div style="padding-top: 2em; text-align: center; color: white;">
 				<p style="font-weight: 700;">Connect with us on social media</p>
