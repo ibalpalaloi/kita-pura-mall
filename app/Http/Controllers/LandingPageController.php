@@ -14,8 +14,16 @@ class LandingPageController extends Controller
 		$keranjang = Keranjang_belanja::where('user_id', Auth()->user()->id)->get();
 		$toko = Toko::where('username', $mitra)->first();
 		$produk = Product::where('toko_id', $toko->id)->where('tampil','ya')->get();
-		$penilaian = Penilaian_toko::where('toko_id', $toko->id)->get();
-		return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian'));
+		$penilaian = Penilaian_toko::where('toko_id', $toko->id)->take(4)->get();
+		$rating = 0;
+		if(!empty($penilaian)){
+			foreach($penilaian as $data){
+				$rating += $data->bintang;
+			}
+			$rating = $rating / count($penilaian);
+		}
+		$rating = floor($rating);
+		return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian', 'rating'));
 	}
 
 	public function daftar_menu($mitra){
