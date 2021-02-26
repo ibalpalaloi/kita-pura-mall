@@ -142,6 +142,7 @@ class Mitra_Premium_Controller extends Controller
 				$type = $request->file("foto_toko")->getClientOriginalExtension();
 				$file_upload = $toko->id.".".$type;
 				\Storage::disk('public')->put('img/toko/'.$toko->id.'/logo/'.$file_upload, file_get_contents($files));
+				$toko->logo_toko = $file_upload;
 			}
 			$toko->save();
 	
@@ -163,6 +164,7 @@ class Mitra_Premium_Controller extends Controller
 				$type = $request->file("foto_toko")->getClientOriginalExtension();
 				$file_upload = $toko->id.".".$type;
 				\Storage::disk('public')->put('img/toko/'.$toko->toko_id.'/logo/'.$file_upload, file_get_contents($files));
+				$toko->logo_toko = $file_upload;
 			}
 			$toko->save();
 
