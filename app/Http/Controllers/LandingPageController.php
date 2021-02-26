@@ -14,7 +14,6 @@ class LandingPageController extends Controller
 		$keranjang = Keranjang_belanja::where('user_id', Auth()->user()->id)->get();
 		$toko = Toko::where('username', $mitra)->first();
 		$produk = Product::where('toko_id', $toko->id)->where('tampil','ya')->get();
-
 		$penilaian = Penilaian_toko::where('toko_id', $toko->id)->get();
 		return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian'));
 	}
