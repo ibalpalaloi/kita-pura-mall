@@ -28,13 +28,12 @@ class AuthController extends Controller
     }
 
     public function buat_kode_otp($no_telp){
-
         Otp::where('no_hp', $no_telp)->delete();
         $kode_otp = rand();
         $kode_otp = substr($kode_otp, 0, 6);
 
         $json = [
-            "token"=>"fc7904f159b3b18696813a28319c049c",
+            "token"=>"3a5be6424cbf00451c8e3a91fe339437",
             "source"=>628114588477,
             "destination"=>$no_telp,
             "type"=>"text",

@@ -20,4 +20,8 @@ class Toko extends Model
     public function pesanan(){
         return $this->hasMany(Pesanan::class);
     }
+
+    public function foto_maps(){
+        return $this->hasMany(Foto_maps::class);
+    }
 }
