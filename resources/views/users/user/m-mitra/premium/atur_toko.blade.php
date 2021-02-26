@@ -510,7 +510,7 @@ if (!empty($_GET['deskripsi'])){
 
 					</div>
 				</div>
-				<div hidden>
+				<div hidden> 
 					<input type="hidden" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
 					<input type="hidden" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
 					<input type="hidden" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
@@ -595,6 +595,14 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	var jadwal_hari = [];
 	var jadwal_buka = [];
 	var jadwal_tutup = [];
+
+	<?php for ($i = 0; $i < count($loop_hari); $i++){?>
+		@if ($loop_hari[0] != "")
+		jadwal_hari.push("<?=$loop_hari[$i]?>");
+		jadwal_buka.push("<?=$loop_buka[$i]?>");
+		jadwal_tutup.push("<?=$loop_tutup[$i]?>");
+		@endif
+	<?php } ?>
 
 	function tambah_foto_toko(){
 		$("#foto_toko").click();
