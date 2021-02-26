@@ -308,7 +308,8 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
 			<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
 		</a>
-		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
+		<a href="{{url()->current()}}/hapus" style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
+			<img src="<?=url('/')?>/public/img/icon_svg/trash_white.svg">
 		</a>
 	</div>
 </header>
@@ -317,22 +318,20 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 <main id="homepage" class="homepage" style="padding-top: 4em; background: transparent;">
 	<div>
-		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em; z-index: -5;">
+		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em;">
 	</div>	
 	<form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post">
 		{{csrf_field()}}
+		{{method_field('PUT')}}
 		<div style="display: flex; justify-content: center;">
 			<div style="width: 90%; margin-top: 0em; display: flex; flex-direction: column; align-items: center;">
 				<div class="input-group mb-4 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 11.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_foto_toko()" id="div_pic_toko">
-						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
-					</div>
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 11.5em;" id="div_pic_toko_privew" hidden>
-						<img id="pic_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 11.5em;" id="div_pic_toko_privew">
+						<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/{{$produk->toko_id}}/produk/{{$produk->foto_produk}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 						<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
 					</div>
 
-					<input hidden type="file" name="foto_toko" id="foto_toko" required>
+					<input hidden type="file" name="foto_toko" id="foto_toko" >
 				</div>
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Nama Produk</div>
@@ -340,7 +339,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 						<span class="input-group-text-mall" style="width: 3em; background: #202020;">
 							<img src="<?=url('/')?>/public/img/icon_svg/todo_white.svg" style="width: 55%;">
 						</span>
-						<input type="text" class="form-control-mall" id="nama_produk" name="nama_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Produk" aria-label="nama_produk" aria-describedby="basic-addon1" style="width: 100%;" required>
+						<input type="text" class="form-control-mall" id="nama_produk" name="nama_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Produk" aria-label="nama_produk" aria-describedby="basic-addon1" style="width: 100%;" value="{{$produk->nama}}"required>
 					</div>
 				</div>
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
@@ -352,7 +351,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 						<select type="text" class="form-control-mall" id="kategori_produk" name="kategori_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;"  required>
 							<option value="" disabled selected>Pilih Kategori Produk</option>
 							@foreach($kategori_produk as $row)
-							<option value="{{$row->id}}">{{$row->nama}}</option>
+							<option value="{{$row->id}}" @if($produk->kategori_id == $row->id ) selected='selected' @endif>{{$row->nama}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -364,7 +363,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
 								<img src="<?=url('/')?>/public/img/icon_svg/harga_white.svg" style="width: 70%;">
 							</span>
-							<input type="number" class="form-control-mall" id="harga_produk" name="harga_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Harga Produk" aria-label="harga_produk" aria-describedby="basic-addon1" style="width: 100%;" required>
+							<input type="number" class="form-control-mall" id="harga_produk" name="harga_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Harga Produk" aria-label="harga_produk" aria-describedby="basic-addon1" style="width: 100%;" value="{{$produk->harga}}" required>
 						</div>
 					</div>
 					<div class="diskon" style="width: 45%;">
@@ -373,21 +372,21 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
 								<img src="<?=url('/')?>/public/img/icon_svg/percent_white.svg" style="width: 60%;">
 							</span>
-							<input type="number" class="form-control-mall" id="diskon_produk" name="diskon_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Diskon Produk" aria-label="diskon_produk" aria-describedby="basic-addon1" style="width: 100%;" value="0" required>
+							<input type="number" class="form-control-mall" id="diskon_produk" name="diskon_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Diskon Produk" aria-label="diskon_produk" aria-describedby="basic-addon1" style="width: 100%;" value="{{$produk->diskon}}" required>
 						</div>
 					</div>
 				</div>
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Deskripsi</div>
 					<div style="height: 11.5em; width: 100%;">
-						<textarea id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 15em; border-radius: 0px; margin-top: 0.5em; background: #292929; color: #dddddd; border: none; font-size: 0.7em; padding: 0.3em 1em 0.5em 1em; text-align: justify; border-radius: 0.5em;" rows="10" required placeholder="Silahkan Isi Deskripsi Produk..."></textarea>
+						<textarea id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 15em; border-radius: 0px; margin-top: 0.5em; background: #292929; color: #dddddd; border: none; font-size: 0.7em; padding: 0.3em 1em 0.5em 1em; text-align: justify; border-radius: 0.5em;" rows="10" required placeholder="Silahkan Isi Deskripsi Produk...">{{$produk->deskripsi}}</textarea>
 					</div>
 				</div>
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.7em 1em 0.5em 1em; border-radius: 0.5em; display: flex; justify-content: space-between;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 1em;">Stok</div>
 					<div class="togglebutton">
 						<label>
-							<input type="checkbox" name="stok">
+							<input type="checkbox" @if($produk->stok == "Tersedia") checked @endif name="stok">
 							<span class="toggle"></span>
 						</label>
 					</div>
