@@ -206,7 +206,7 @@
 			
 			$jumlah_digital = count($digital)-1;
 			@endphp 
-
+			@if (!empty($toko['makanan']))
 			@for ($i = 0; $i < count($toko['makanan']); $i++)  
 			<div class="slider-toko" style="@if ($i == 0) margin-left: 1em;@endif">
 				<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
@@ -239,6 +239,7 @@
 			</div>
 			@endif
 			@endfor
+			@endif
 		</div>
 	</div>
 	
@@ -258,7 +259,7 @@
 			<div style="font-size: 0.7em; margin-bottom: 0.9em; line-height: 1.3em; color: gray;">kitapuramall memiliki ratusan mitra yang siap menjadi<br>solusi saat anda lapar dan haus. temukan sekarang!</div>
 		</div>
 		<div class="slider">
-
+			@if (!empty($toko['kesehatan']))
 			@for ($i = 0; $i < count($toko['kesehatan']); $i++)  
 			<div class="slider-toko" style="@if ($i == 0) margin-left: 1em;@endif">
 				<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
@@ -291,6 +292,7 @@
 			</div>
 			@endif
 			@endfor
+			@endif
 		</div>
 	</div>
 
