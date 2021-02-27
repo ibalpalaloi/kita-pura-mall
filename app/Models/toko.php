@@ -24,4 +24,12 @@ class Toko extends Model
     public function foto_maps(){
         return $this->hasMany(Foto_maps::class);
     }
+
+    public function logo(){
+        if(!$this->logo_toko){
+            return asset('public/img/toko/logo/premium.svg');
+        }
+
+        return asset('public/img/toko/'.$this->id.'/logo/'.$this->logo_toko);
+    }
 }
