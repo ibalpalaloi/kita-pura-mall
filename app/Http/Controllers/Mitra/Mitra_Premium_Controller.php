@@ -57,10 +57,13 @@ class Mitra_Premium_Controller extends Controller
 			$daftar_kategori = Kategori_toko::all();
 			$kelurahan = kelurahan::all();
 			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
-			$jadwal = Jadwal_toko::where('toko_id', $toko->toko_id)->get();
-			$foto_toko = Foto_maps::where('toko_id', $toko->toko_id)->get();
 
-			return view('users/user/m-mitra/free/upgrade_premium', compact('daftar_kategori','kelurahan','toko','jadwal','foto_toko'));
+			$jadwal = Jadwal_toko::where('toko_id', $toko->toko_id)->get();
+			$foto_1 = Foto_maps::where('toko_id', $toko->toko_id)->where('no_foto','1')->first();
+			$foto_2 = Foto_maps::where('toko_id', $toko->toko_id)->where('no_foto','2')->first();
+			$foto_3 = Foto_maps::where('toko_id', $toko->toko_id)->where('no_foto','3')->first();
+
+			return view('users/user/m-mitra/free/upgrade_premium', compact('daftar_kategori','kelurahan','toko','jadwal','foto_1','foto_2','foto_3'));
 		}
 
 	}
