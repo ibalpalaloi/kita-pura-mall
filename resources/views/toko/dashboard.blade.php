@@ -204,7 +204,7 @@
 					<span class="input-group-text-mall" style="margin-left: 0.8em;">
 						<img src="<?=url('/')?>/public/img/icon_svg/search_grey.svg">
 					</span>
-					<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em; background: white; color: grey !important;" required>
+					<input type="text" class="form-control-mall" id="cari_toko" name="cari_produk" placeholder="Cari Toko" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em; background: white; color: grey !important;" required>
 				</div>
 				<div style="width: 3.4em; height: 3em; background: #FF006E; border-radius: 0.5em; display: flex; justify-content: center;align-items: center;">
 					<img src="<?=url('/')?>/public/img/icon_svg/filter_white.svg" style="width: 50%;">
@@ -217,44 +217,47 @@
 
 <main id="homepage" class="homepage" style="background: #eaf4ff;">
 	<div class="row-mall" style="padding: 0em 0em 5.5em 0em; margin-top: 10em; background: #eaf4ff;">
-		@php
-		$foto_product = array('product_6.png', 'product_7.png', 'product_8.png');
-		$logo = array('free.svg', 'premium.svg', 'free.svg');
-		$status = array('free', 'premium', 'free');
-		@endphp 
-
-		@for ($i = 0; $i < count($toko); $i++)
-		<div class="input-group mb-3" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em; display: flex; justify-content: center;">
-			<div style="display: flex; justify-content: center; position:relative;width: 85%; margin: 0px; height: 13em;">
-				<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf">
-					<img src="<?=url('/')?>/public/img/product/TK-021220212313/product_6.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-				</a>
-				<div class="label-product" style="position: absolute; bottom: 0em; left: 0em; padding: 0.9em 0.5em 0.9em 1.2em; display: flex; width: 100%; background-color: rgba(0,0,0,0.3); justify-content: space-between;">
-					<div class="keterangan-product" style="display: flex;">
-						<div style="width: 2em; height: 2em;">
-							<img src="<?=url('/')?>/public/img/mitra/logo/premium.svg" style="width: 100%;">
-						</div>
-						<div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: center; color: white; margin-left: 0.3em;">
-							<div style="font-size: 0.7em; line-height: 1em;">{{$toko[$i]['kategori_toko']}}</div>
-							<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf" style="font-size: 1em; line-height: 1.3em; color: white;"><?=substr(strip_tags($toko[$i]['nama_toko']), 0, 15)?>@if (strlen($toko[$i]['nama_toko']) > 15)..@endif</a>
-							<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf" style="font-size: 1em; line-height: 1.3em; color: white;">{{$toko[$i]['nama_toko']}}</a>
-						</div>
-					</div>
-					@if ($toko[$i]['jenis_mitra'] == 'premium')
-					<a href="<?=url('/')?>/{{$toko[$i]['username']}}" style="background: white; padding: 0.2em 1em; color: #ff006e; border-radius: 1.5em; font-size: 0.8em; display: flex; align-items: center;">Kunjungi Toko</a>
-					@else
-					<div style="background: #ff006e; padding: 0.2em 1.1em; color: white; border-radius: 1.5em; font-size: 0.8em; display: flex; align-items: center;">Hubungi Toko</div>
-					@endif
-				</div>
-
-			</div>
+		<div id="post-data">
+			@include('toko.toko_data')
 		</div>
-		@endfor
+		<div class="load text-center" style="display: none">
+			loading ......
+		</div>
+		<br><br><br>
 	</div>
-
 </main>
 
 @endsection
 
 @section('footer-scripts')
+<script>
+	function loadMoreData(page){
+		$.ajax({
+			url: '?page=' + page,
+			type: 'get',
+			beforeSend: function(){
+				$(".load").show();
+			}
+		})
+		.done(function(data){
+			if(data.html == ""){
+				$(".load").html('no more');
+				return;
+			}
+			$('.load').hide();
+			$('#post-data').append(data.html);
+		})
+		.fail(function(jqXHR, ajaxOptions, thrownError){
+			alert("server errror");
+		}); 
+	}
+	
+	var page = 1;
+	$(window).scroll(function(){
+		if($(window).scrollTop() + $(window).height() >= $(document).height()){
+			page++;
+			loadMoreData(page);
+		}
+	})
+</script>
 @endsection
