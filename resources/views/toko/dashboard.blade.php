@@ -202,7 +202,7 @@
 			<div style="width: 100%; margin-bottom: 0px;">
 				<div class="div-input-mall-square" style="background: white; display: flex; align-items: center; margin-right: 0.5em;"> 
 					<span class="input-group-text-mall" style="margin-left: 0.8em;">
-						<img src="<?=url('/')?>/public/img/icon_svg/search_grey.svg">
+							<img src="<?=url('/')?>/public/img/icon_svg/search_grey.svg">
 					</span>
 					<input type="text" class="form-control-mall" id="cari_toko" name="cari_produk" placeholder="Cari Toko" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em; background: white; color: grey !important;" required>
 				</div>
@@ -222,8 +222,8 @@
 		</div>
 		<div class="load text-center" style="display: none">
 			loading ......
+			<br><br>
 		</div>
-		<br><br><br>
 	</div>
 </main>
 
@@ -231,9 +231,9 @@
 
 @section('footer-scripts')
 <script>
-	function loadMoreData(page){
+	function loadMoreData(page, cari){
 		$.ajax({
-			url: '?page=' + page,
+			url: '?page=' + page + '&cari=' + cari,
 			type: 'get',
 			beforeSend: function(){
 				$(".load").show();
@@ -241,11 +241,15 @@
 		})
 		.done(function(data){
 			if(data.html == ""){
-				$(".load").html('no more');
+				$(".load").html('');
 				return;
+			}
+			if(page == 1){
+				$('#post-data').empty();
 			}
 			$('.load').hide();
 			$('#post-data').append(data.html);
+			
 		})
 		.fail(function(jqXHR, ajaxOptions, thrownError){
 			alert("server errror");
@@ -253,11 +257,26 @@
 	}
 	
 	var page = 1;
+
 	$(window).scroll(function(){
 		if($(window).scrollTop() + $(window).height() >= $(document).height()){
 			page++;
 			loadMoreData(page);
 		}
+	})
+
+	$(document).ready(function(){
+		var cari = $('#cari_toko').val();
+		page = 1;
+		loadMoreData(page, cari);
+	})
+
+	$(document).ready(function(){
+		$('#cari_toko').on('input', function(){
+			var cari = $('#cari_toko').val();
+			page = 1;
+			loadMoreData(page, cari);
+		});
 	})
 </script>
 @endsection
