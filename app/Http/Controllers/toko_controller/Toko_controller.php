@@ -31,8 +31,13 @@ class Toko_controller extends Controller
         //     $i++;
         // }
         // return view('toko.dashboard', ['toko'=>$list_toko]);
-
-        $tokos = Toko::paginate(3);
+        $cari = $request->get('cari');
+        if ($cari == ''){
+            $tokos = Toko::paginate(4);
+        }
+        else{
+            $tokos = Toko::where('nama_toko', 'like', '%'.$cari.'%')->paginate(4);
+        }
         if($request->ajax()){
             $view = view('toko.toko_data', compact('tokos'))->render();
             return response()->json(['html'=>$view]);
