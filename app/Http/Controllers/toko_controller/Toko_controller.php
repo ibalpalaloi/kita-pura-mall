@@ -32,7 +32,7 @@ class Toko_controller extends Controller
         // }
         // return view('toko.dashboard', ['toko'=>$list_toko]);
         $cari = $request->get('cari');
-        if ($cari == ''){
+        if ($cari == 'all'){
             $tokos = Toko::paginate(4);
         }
         else{
