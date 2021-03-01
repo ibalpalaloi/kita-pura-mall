@@ -97,7 +97,7 @@ if (!empty($_GET['daftar_mitra_premium'])){
 </div>
 @endif
 
-@if(Session::get('message') == 'Biodata Belum Lengkap')
+@if(Session::get('message') != 'Belum Terverifikasi')
     <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
         aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
         <div class="modal-dialog modal-sm modal-dialog-centered">

@@ -121,7 +121,7 @@ class UserController extends Controller
 			'message' => 'Biodata Berhasil Diperbarui'
 		);     
 
-		return redirect()->back()->with($notification);
+		return redirect('/akun')->with($notification);
 	}
 
 	
