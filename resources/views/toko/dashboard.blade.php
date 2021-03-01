@@ -275,6 +275,9 @@
 		$('#cari_toko').on('input', function(){
 			var cari = $('#cari_toko').val();
 			page = 1;
+			if(cari == ''){
+				cari = 'all';
+			}
 			loadMoreData(page, cari);
 		});
 	})
