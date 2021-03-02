@@ -65,8 +65,21 @@ class HomeController extends Controller
 		return view('auth/verifikasi_number');
 	}
 
-	public function rekomendasi(){
-		return view('home/rekomendasi');
+	public function rekomendasi(Request $request){
+		$kategori = $request->get('kategori');
+		// if($kategori == 'semua'){
+		// 	$produk = Product::paginate(3);
+		// }
+		// else{
+		// 	$produk = Product::where('kategori_id', $kategori)->paginate(3);
+		// };
+
+		$produk = Product::paginate(3);
+		if($request->ajax()){
+			$view = view('home.rekomendasi_produk', compact('produk'))->render();
+            return response()->json(['html'=>$view]);
+		}
+		return view('home/rekomendasi', compact('produk'));
 	}
 
 	public function home(){

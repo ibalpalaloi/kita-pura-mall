@@ -157,44 +157,8 @@ Rekomendasi |
 
 
 <main id="homepage" class="homepage" style="padding-top: 5.5em;  padding-left: 0px; padding-right: 0px; background: #eaf4ff;">
-	<div class="carousel" data-flickity style="background: #eaf4ff;">
-		@php
-		$product = array('product_1.jpg', 'product_2.jpg', 'product_3.jpg', 'product_4.jpg', 'product_5.jpg', 'product_6.jpg', 'product_7.jpg', 'product_8.jpg', 'product_9.jpg', 'product_10.jpg', 'product_11.jpg', 'product_12.jpg', 'product_13.jpg', 'product_14.jpg');
-
-		$toko = array('lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png');
-
-		$alamat = array('Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu');
-
-		$nama_product = array('Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball 
-		Food', 'Ball Ball Food', 'Ball Ball Food');
-		@endphp 
-
-		@for ($i = 0; $i < 10; $i++) 
-		<div class="carousel-cell">
-			<div class="like-product" style="position: absolute; top: 0; right: 0; padding: 0.4em 0.5em 0.4em 0.5em;">
-				<div class="stroke-like-product" style="background: #fafafa; padding: 0.3em; border-radius: 1.5em;">
-					<div class="border-like-product" style="border: 2px solid #ff006e; border-radius: 1.5em; padding: 0.3em;color: #ff006e; font-size: 0.8em;">
-						<img src="<?=url('/')?>/public/img/like.svg" style="width: 1.5em;">&nbsp;1000+
-					</div>
-				</div>
-			</div>
-			<div class="label-product" style="position: absolute; bottom: 0em; left: 0em; padding: 0.4em 0.5em 0.4em 0.5em; display: flex; width: 100%; background-color: rgba(0,0,0,0.3); justify-content: space-between;">
-				<div class="keterangan-product" style="display: flex;">
-					<div class="logo-toko-product" style="width: 3em;">
-						<img src="<?=url('/')?>/public/img/user/{{$toko[$i]}}" style="width: 100%;">
-					</div>
-					<div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: center; color: white; margin-left: 0.3em;">
-						<div style="font-size: 1em;">{{$nama_product[$i]}}</div>
-						<div style="font-size: 0.6em;">{{$alamat[$i]}}</div>
-					</div>
-				</div>
-				<div class="" style="width: 3em">
-					<img src="<?=url('/')?>/public/img/belanja.svg" style="width: 100%;">
-				</div>
-			</div>
-			<img src="<?=url('/')?>/public/img/product/{{$product[$i]}}">
-		</div>
-		@endfor
+	<div id="post-data" class="carousel" data-flickity style="background: #eaf4ff;">
+		@include('home.rekomendasi_produk')
 	</div>
 </main>
 @endsection
@@ -235,5 +199,29 @@ Rekomendasi |
   }
 };	
 </script>
+<script>
+	var page = 1;
+	$(document).ready(function(){
+		var kategori = 'semua';
+		page = 1;
+		loadMoreData(page, kategori);
+	})
+
+	function loadMoreData(page, kategori){
+		$.ajax({
+			url: '?page=' + page + '&kategori=' + kategori,
+			type: 'get'
+		})
+		.done(function(data){
+			if(page == 1){
+				$('#post-data').empty();
+			}
+			$('#post-data').append(data.html);
+			
+		})
+		.fail(function(jqXHR, ajaxOptions, thrownError){
+			alert("server errror");
+		}); 
+	}
+</script>
 @endsection
-</html>
