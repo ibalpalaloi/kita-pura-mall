@@ -19,4 +19,7 @@ class Product extends Model
     public function kategori(){
         return $this->belongsTo(Kategori::class);
     }
+    public function toko(){
+        return $this->belongsTo(Toko::class);
+    }
 }
