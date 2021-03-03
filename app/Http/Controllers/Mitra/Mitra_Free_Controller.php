@@ -38,14 +38,20 @@ class Mitra_Free_Controller extends Controller
 
 		    $jadwal_toko = Jadwal_toko::where('toko_id', $toko->id)->get();
 
-		    $foto_maps = Foto_maps::where('toko_id', $toko->id)->get();
+		    $foto_1 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','1')->first();
+			$foto_2 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','2')->first();
+			$foto_3 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','3')->first();
+
+			// dd($foto_1);
 
 		    return view('users/user/m-mitra/free/index_free', [
                 'daftar_kategori'=>$kategori,
                 'toko'=>$toko, 
                 'jadwal'=>$jadwal_toko,
                 'kelurahan'=>$kelurahan,
-                'foto_toko'=>$foto_maps,
+				'foto_1'=> $foto_1,
+				'foto_2' => $foto_2,
+				'foto_3' => $foto_3,
 				'status_upgrade'=>'ya'
                 ]);
 
@@ -53,10 +59,11 @@ class Mitra_Free_Controller extends Controller
         else{
 
 		    $daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
-
 		    $jadwal_toko = Jadwal_toko::where('toko_id', $daftar_tunggu->toko_id)->get();
 
-		    $foto_maps = Foto_maps::where('toko_id', $daftar_tunggu->toko_id)->get();
+			$foto_1 = Foto_maps::where('toko_id', $daftar_tunggu->toko_id)->where('no_foto','1')->first();
+			$foto_2 = Foto_maps::where('toko_id', $daftar_tunggu->toko_id)->where('no_foto','2')->first();
+			$foto_3 = Foto_maps::where('toko_id', $daftar_tunggu->toko_id)->where('no_foto','3')->first();
 
 
             // dd($foto_maps);
@@ -67,7 +74,9 @@ class Mitra_Free_Controller extends Controller
                 'toko'=>$daftar_tunggu, 
                 'jadwal'=>$jadwal_toko,
                 'kelurahan'=>$kelurahan,
-                'foto_toko'=>$foto_maps
+                'foto_1'=> $foto_1,
+				'foto_2' => $foto_2,
+				'foto_3' => $foto_3
                 ]);
 
         }
@@ -411,7 +420,7 @@ class Mitra_Free_Controller extends Controller
         $toko->longitude = $request->longitude;
         $toko->save();
 
-		return redirect('/akun/mitra/free/upgrade-premium/upload-ktp')->with($notification);
+		return redirect('/akun/mitra/free/upgrade-premium/upload-ktp');
 	}
 
 	public function upgrade_upload_ktp(){

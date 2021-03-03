@@ -505,16 +505,57 @@ $status_ugrade = "";
 			</div>
 			<div class="input-group mb-3 div-input-mall-square" id="div_jadwal" style="margin-top: 1em; background: white;">
 				<div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto Toko</div>
-				@foreach($foto_toko as $row)
-				<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em;" id="div_pic_toko_privew_{{$loop->iteration}}">
-					<img id="pic_toko_privew_{{$loop->iteration}}" src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/maps/{{$row->foto}}" style="width: 100%; object-fit: cover;height: 100%;">
-					<img id="pic_toko_{{$loop->iteration}}" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko_{{$loop->iteration}}()" style="position: absolute; right: 1em; bottom: 1em;">
+				@if($foto_1)
+				<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_1">
+					<img id="pic_toko_privew_1" src="<?=url('/')?>/public/img/toko/{{$foto_1->toko_id}}/maps/{{$foto_1->foto}}" style="width: 100%; object-fit: cover;height: 100%;">
+					<img id="pic_toko_1" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('1')" style="position: absolute; right: 1em; bottom: 1em;">
 				</div>
+				<input type="hidden" name="id_foto_toko_1" id="id_foto_toko_1" value="{{$foto_1->id}}">
+				@else
+				<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #FF006E; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_toko('1')" id="div_pic_toko_1">
+					<img src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" style="width: 2em;">
+				</div>
+				<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_1" hidden>
+					<img id="pic_toko_privew_1" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
+					<img id="pic_toko_1" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('1')" style="position: absolute; right: 1em; bottom: 1em;">
+				</div>
+				@endif
+				<input hidden type="file" name="foto_toko_1" id="foto_toko_1">
 
-				<input hidden type="file" name="foto_toko_{{$loop->iteration}}" id="foto_toko_{{$loop->iteration}}">
-				<input hidden type="hidden" name="id_foto_toko_{{$loop->iteration}}" id="id_foto_toko_{{$loop->iteration}}" value="{{$row->id}}">
-				@endforeach
+				@if($foto_2)
+				<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_2">
+					<img id="pic_toko_privew_2" src="<?=url('/')?>/public/img/toko/{{$foto_2->toko_id}}/maps/{{$foto_2->foto}}" style="width: 100%; object-fit: cover;height: 100%;">
+					<img id="pic_toko_2" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('2')" style="position: absolute; right: 1em; bottom: 1em;">
+				</div>
+				<input type="hidden" name="id_foto_toko_2" id="id_foto_toko_2" value="{{$foto_2->id}}">
+				@else
+				<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #FF006E; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_toko('2')" id="div_pic_toko_2">
+					<img src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" style="width: 2em;">
+				</div>
+				<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_2" hidden>
+					<img id="pic_toko_privew_2" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
+					<img id="pic_toko_2" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('2')" style="position: absolute; right: 1em; bottom: 1em;">
+				</div>
+				@endif
+				<input hidden type="file" name="foto_toko_2" id="foto_toko_2" >
 
+				@if($foto_3)
+
+				<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_3">
+					<img id="pic_toko_privew_3" src="<?=url('/')?>/public/img/toko/{{$foto_3->toko_id}}/maps/{{$foto_3->foto}}" style="width: 100%; object-fit: cover;height: 100%;">
+					<img id="pic_toko_3" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('3')" style="position: absolute; right: 1em; bottom: 1em;">
+				</div>
+				<input type="hidden" name="id_foto_toko_3" id="id_foto_toko_3" value="{{$foto_3->id}}">
+				@else
+				<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #FF006E; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_toko('3')" id="div_pic_toko_3">
+					<img src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" style="width: 2em;">
+				</div>
+				<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_3" hidden>
+					<img id="pic_toko_privew_3" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
+					<img id="pic_toko_3" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('3')" style="position: absolute; right: 1em; bottom: 1em;">
+				</div>
+				@endif
+				<input hidden type="file" name="foto_toko_3" id="foto_toko_3" >
 			</div>
 			<button type="submit" class="btn btn-primary" style="background: #ff006e; margin-top: 1em;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;">
 				Ubah Data
@@ -591,30 +632,28 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$("#modal-jadwal").modal('show');
 	}
 
+    function tambah_foto_toko(id) {
+        $("#foto_toko_"+id).click();
+        $("#foto_toko_"+id).change(function () {
+            readURL(this, id);
+        });
 
-	@foreach($foto_toko as $row)
-		function tambah_foto_toko_{{$loop->iteration}}() {
-			$("#foto_toko_{{$loop->iteration}}").click();
-		}
+    }
 
-		function readURL(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
+	function readURL(input, id) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-				reader.onload = function (e) {
-					$('#pic_toko_privew_{{$loop->iteration}}').attr('src', e.target.result);
-					$("#div_pic_toko_privew_{{$loop->iteration}}").prop('hidden', false);
-					$("#div_pic_toko_{{$loop->iteration}}").prop('hidden', true);
-				}
+            reader.onload = function (e) {
+                $('#pic_toko_privew_'+id).attr('src', e.target.result);
+                $("#div_pic_toko_privew_"+id).prop('hidden', false);
+                $("#div_pic_toko_"+id).prop('hidden', true);
+            }
 
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
-		$("#foto_toko_{{$loop->iteration}}").change(function(){
-			readURL(this);
-		});
-	@endforeach
 	
 	function tambah_jadwal() {
 		var simbol = $("#jadwal").val();

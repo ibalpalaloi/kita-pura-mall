@@ -76,7 +76,7 @@ class MitraController extends Controller
 						'jenis_mitra' => $daftar_tunggu->jenis_mitra
 					);     
 			
-					return redirect()->back()->with($notification);
+					return redirect('/akun')->with($notification);
 					
 				}
 
