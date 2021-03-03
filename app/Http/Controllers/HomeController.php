@@ -41,6 +41,7 @@ class HomeController extends Controller
 				$list_toko[$kategori_nama[$j]][$i]['rating'] = $rating;
 				$list_toko[$kategori_nama[$j]][$i]['harga'] = $produk->harga;
 				$list_toko[$kategori_nama[$j]][$i]['foto'] = $data->logo_toko;
+				$list_toko[$kategori_nama[$j]][$i]['logo'] = $data->logo();
 				$i++;
 			}
 		}
