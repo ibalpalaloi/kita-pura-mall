@@ -260,8 +260,12 @@
 
 	$(window).scroll(function(){
 		if($(window).scrollTop() + $(window).height() >= $(document).height()){
+			var cari = $('#cari_toko').val();
+			if(cari == ''){
+				cari = 'all';
+			}
 			page++;
-			loadMoreData(page);
+			loadMoreData(page, cari);
 		}
 	})
 

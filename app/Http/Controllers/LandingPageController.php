@@ -7,6 +7,7 @@ use App\Models\Toko;
 use App\Models\Product;
 use App\Models\Keranjang_belanja;
 use App\Models\Penilaian_toko;
+use App\Models\Foto_maps;
 
 class LandingPageController extends Controller
 {
@@ -15,6 +16,13 @@ class LandingPageController extends Controller
 		$toko = Toko::where('username', $mitra)->first();
 		$produk = Product::where('toko_id', $toko->id)->where('tampil','ya')->get();
 		$penilaian = Penilaian_toko::where('toko_id', $toko->id)->take(4)->get();
+		$foto_maps = Foto_maps::where('toko_id', $toko->id)->get();
+		$foto_map = array();
+		if(!empty($foto_maps)){
+			foreach($foto_maps as $foto){
+				$foto_map[$foto->no_foto] = $foto->foto;
+			} 
+		}
 		$rating = 0;
 		if(!empty($penilaian)){
 			foreach($penilaian as $data){
@@ -23,7 +31,7 @@ class LandingPageController extends Controller
 			$rating = $rating / count($penilaian);
 		}
 		$rating = floor($rating);
-		return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian', 'rating'));
+		return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian', 'rating', 'foto_map'));
 	}
 
 	public function daftar_menu($mitra){

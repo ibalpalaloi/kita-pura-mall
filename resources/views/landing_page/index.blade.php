@@ -412,27 +412,34 @@ style="padding: 1.5em; padding: 0px;">
 				<div style="font-size: 1.4em; font-weight: 1000; text-align: center;">Our Service</div>
 				<div style="font-size: 0.8em; text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
 			</div>
-			<div class="input-group mb-3" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-				<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
-					<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/mitra/foto_maps/maps_2.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-				</div>
+			@if(!empty($foto_map[1]))
+				<div class="input-group mb-3" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
+						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/mitra/foto_maps/maps_2.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+					</div>
 
-				<input hidden type="file" name="foto_maps_1" id="foto_maps_1" required>
-			</div>
+					<input hidden type="file" name="foto_maps_1" id="foto_maps_1" required>
+				</div>
+			@endif
 			<div style="display: flex; justify-content: space-between;">
-				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew">
-						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/mitra/foto_maps/maps_1.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-					</div>
+				@if(!empty($foto_map[2]))
+					<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
+						<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew">
+							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/mitra/foto_maps/maps_1.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						</div>
 
-					<input hidden type="file" name="foto_maps_2" id="foto_maps_2" required>
-				</div>
-				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew">
-						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/mitra/foto_maps/maps_3.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<input hidden type="file" name="foto_maps_2" id="foto_maps_2" required>
 					</div>
+				@endif
+				@if (!empty($foto_map[3]))
+					<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
+						<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew">
+							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/mitra/foto_maps/maps_3.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						</div>
 
-				</div>
+					</div>
+				@endif
+				
 			</div>
 		</div>
 		<div class="row-mall" style="padding: 0em 8% 1.2em 8%; margin-top: 0em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em;">
