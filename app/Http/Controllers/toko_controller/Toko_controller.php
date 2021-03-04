@@ -33,11 +33,25 @@ class Toko_controller extends Controller
         // return view('toko.dashboard', ['toko'=>$list_toko]);
         $cari = $request->get('cari');
         if ($cari == 'all'){
-            $tokos = Toko::paginate(4);
+            $tokos = Toko::paginate(5);
         }
         else{
-            $tokos = Toko::where('nama_toko', 'like', '%'.$cari.'%')->paginate(4);
+            $tokos = Toko::where('nama_toko', 'like', '%'.$cari.'%')->paginate(5);
         }
+        $index = 0;
+        for($i = 0; $i < count($tokos); $i++){
+            $foto = Foto_maps::where([
+                                        ['toko_id', $tokos[$i]->id],
+                                        ['no_foto', 1]
+                                    ])->first();
+            if(!empty($foto)){
+                $tokos[$i]->setAttribute('foto', $foto->foto);
+            }
+            else{
+                $tokos[$i]->setAttribute('foto', '');
+            }
+        }
+        
         if($request->ajax()){
             $view = view('toko.toko_data', compact('tokos'))->render();
             return response()->json(['html'=>$view]);

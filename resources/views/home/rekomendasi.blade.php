@@ -52,8 +52,8 @@ Rekomendasi |
 	}
 
 	.flickity-prev-next-button {
-		height: 100%;
-		width: 47%;
+		height: 0%;
+		width: 0%;
 		border-radius: 0px;
 		background: transparent;
 	}
