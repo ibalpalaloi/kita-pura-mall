@@ -68,6 +68,7 @@ Route::group(['middleware'=> 'auth'], function() {
         // @akun
         Route::get('/akun', [UserController::class, 'index']);
         Route::get('/akun/pengaturan-profil', [UserController::class, 'biodata']);
+        Route::post('/akun/pengaturan-profil/simpan-foto', [UserController::class, 'simpan_foto']);
         Route::put('/akun/pengaturan-profil/simpan-biodata', [UserController::class, 'simpan_biodata']);
 
         // @mitra
@@ -82,9 +83,11 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::get('/akun/jadi-mitra/{jenis_mitra}/pilih-lokasi/selesai', [Mitra_Register_Controller::class, 'selesai']);
         Route::get('/akun/jadi-mitra/{jenis_mitra}/upload-ktp', [Mitra_Register_Controller::class, 'upload_ktp']);
         Route::post('/akun/jadi-mitra/{jenis_mitra}/upload-ktp/simpan', [Mitra_Register_Controller::class, 'simpan_ktp']);
-
-
-
+        // @verifikasi_nomor_hp
+        Route::post('/ganti-nomor-hp', [AuthController::class, 'ganti_nomor_hp'])->name('ganti_nomor_hp');
+        Route::post('/kirim-ulang-otp', [AuthController::class, 'kirim_ulang_otp'])->name('kirim_ulang_otp');
+        Route::post('/set-null', [AuthController::class, 'set_null'])->name('set-null');
+        Route::post('/notif-lengkap', [AuthController::class, 'notif_biodata_lengkap'])->name('notif_lengkap');
         Route::group(['middleware'=> 'free'], function() {
             // @mitra free
             Route::get('/akun/mitra/free', [Mitra_Free_Controller::class, 'index_free']);
@@ -148,7 +151,8 @@ Route::group(['middleware'=> 'auth'], function() {
 });
 
 
-
+Route::get('crop-image-before-upload-using-croppie', [MitraController::class, 'index']);
+Route::post('crop-image-before-upload-using-croppie', [MitraController::class, 'uploadCropImage']);
 
 // toko
 Route::get('/toko', [Toko_controller::class, 'index']);

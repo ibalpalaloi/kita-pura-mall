@@ -7,7 +7,7 @@
 @section('header-scripts')
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/select2/css/select2.css">
 <style type="text/css">
     .banner {
         max-width: 480px;
@@ -83,12 +83,12 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
         padding-bottom: 0.3em;
     }
 
-    .div-input-mall>span {
+    .div-input-mall .label-mall {
         color: #b3b6bc;
         padding: 0em 0em 0em 1.5em;
         font-size: 0.75em;
         position: relative;
-        top: 0.5em;
+        top: 0.3em;
     }
 
     .div-input-mall div {
@@ -222,79 +222,137 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
         bottom: 0;
     }
 
+    .select2-selection--single {
+        border: none !important;
+        margin: 0.2em;
+        padding: 0.3em;
+    }
+    .select2-selection__arrow {
+        margin-top: 0.7em;
+        display: none;
+    }
+
+    .list-kategori {
+        display: flex; justify-content: flex-start; flex-wrap: wrap;
+    }
+
+    .list-kategori .badge {
+        margin-right: 0.5em;
+        border-radius: 0.8em;
+    }
 </style>
 @endsection
 
 @section('content')
-<div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-style="padding: 1.5em; padding: 0px;">
-<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
-    <div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
-        <div class="modal-body">
-            <div>
-                <div class="nama-toko"
-                style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em;">Silahkan
-                Masukan
-                Jadwal<br>Buka/Tutup Usaha Anda</div>
+<div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+        <div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
+            <div class="modal-body">
+                <div>
+                    <div class="nama-toko"
+                    style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em;">Silahkan
+                    Masukan
+                    Jadwal<br>Buka/Tutup Usaha Anda</div>
+                </div>
             </div>
+            <div id="jadwal_fix" style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+            </div>
+            <div id="jadwal_sample" style="width: 100%; display: flex; justify-content: center;" hidden>
+                <div class="input-group mb-3 div-input-mall-square" id="harinya" style="width: 90%; background: white; border: 1px solid white;">
+                    <div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
+                        <div style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
+                        simbolnya</div>
+                    </div>
+                    <div style="margin-left: 2%; width: 60%;">
+                        <div style="margin-top: 0.5em; font-weight: 700; text-align: left;">harinya</div>
+                        <div style="font-size: 0.7em; text-align: left;">jamnya</div>
+                    </div>
+                    <div onclick='hapus_jadwal("harinya")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
+                    X</div>
+                </div>
+            </div>
+            <hr style="border-top: 1px solid #c8d2dd; width: 100%;">
+            <div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 90%;">
+                <select type="text" class="form-control form-control-mall-modal" id="jadwal" name="jadwal" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="jadwal" aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
+                    <option value="SH">Setiap-Hari</option>
+                    <option value="SS">Senin-Sabtu</option>
+                    <option value="SJ">Senin-Jumat</option>
+                    <option value="S">Senin</option>
+                    <option value="S">Selasa</option>
+                    <option value="R">Rabu</option>
+                    <option value="K">Kamis</option>
+                    <option value="J">Jumat</option>
+                    <option value="S">Sabtu</option>
+                    <option value="M">Minggu</option>
+                </select>
+            </div>
+            <div style="width: 90%; display: flex; justify-content: space-between;">
+                <div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 40%;">
+                    <small style="margin-left: 2em;">Waktu Buka</small>
+                    <input type="time" class="form-control form-control-mall-modal" id="waktu_buka" value="07:00" min="09:00"
+                    max="18:00" required style="width: 100%; height: auto !important;">
+                </div>
+                <div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 40%;">
+                    <small style="margin-left: 2em;">Waktu Tutup</small>
+                    <input type="time" class="form-control form-control-mall-modal" id="waktu_tutup" value="16:00" min="09:00"
+                    max="18:00" required style="width: 100%; height: auto !important;">
+                </div>
+                <div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 15%; background: #FF006E; display: flex; justify-content: center; color: white; align-items: center;"  onclick="tambah_jadwal()">
+                    <i class="fa fa-plus"></i>
+                </div>
+            </div>
+            <button data-dismiss="modal" class="btn btn-primary" style="background: #80B918;border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;"><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+            </button>
         </div>
-        <div id="jadwal_fix"
-        style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
-        <!-- Jadwal -->
     </div>
-    <div id="jadwal_sample" style="width: 100%; display: flex; justify-content: center;" hidden>
-        <div class="input-group mb-3 div-input-mall-square" id="harinya"
-        style="width: 90%; background: white; border: 1px solid white;">
-        <div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
-            <div
-            style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
-        simbolnya</div>
-    </div>
-    <div style="margin-left: 2%; width: 60%;">
-        <div style="margin-top: 0.5em; font-weight: 700; text-align: left;">harinya</div>
-        <div style="font-size: 0.7em; text-align: left;">jamnya</div>
-    </div>
-    <div onclick='hapus_jadwal("harinya")'
-    style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
-X</div>
-</div>
-</div>
-<hr style="border-top: 1px solid #c8d2dd; width: 100%;">
-<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 90%;">
-    <select type="text" class="form-control form-control-mall-modal" id="jadwal" name="jadwal"
-    onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="jadwal"
-    aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
-    <option disabled selected>--- Silahkan Pilih Hari ---</option>
-    <option value="SH">Setiap-Hari</option>
-    <option value="SS">Senin-Sabtu</option>
-    <option value="SJ">Senin-Jumat</option>
-    <option value="S">Senin</option>
-    <option value="S">Selasa</option>
-    <option value="R">Rabu</option>
-    <option value="K">Kamis</option>
-    <option value="J">Jumat</option>
-    <option value="S">Sabtu</option>
-    <option value="M">Minggu</option>
-</select>
-</div>
-<div style="width: 90%; display: flex; justify-content: space-between;">
-    <div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 48%;">
-        <input type="time" class="form-control form-control-mall-modal" id="waktu_buka" min="09:00"
-        max="18:00" required style="width: 100%; height: auto !important;">
-    </div>
-    <div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 48%;">
-        <input type="time" class="form-control form-control-mall-modal" id="waktu_tutup" min="09:00"
-        max="18:00" required style="width: 100%; height: auto !important;">
-    </div>
-</div>
-<button onclick="tambah_jadwal()" class="btn btn-primary"
-style="background: #ff006e;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;">Tambah
-Jadwal
-</button>
-</div>
-</div>
 </div>
 
+<div class="modal fade" id="modal-kategori" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+        <div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
+            <div class="modal-body">
+                <div>
+                    <div class="nama-toko"
+                    style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em; text-align: center;">Silahkan
+                    Masukan Kategori<br>Usaha Anda</div>
+                </div>
+            </div>
+            <div id="kategori_fix" style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+            </div>
+            <div id="kategori_sample" style="width: 100%; display: flex; justify-content: center;" hidden>
+                <div class="input-group mb-3 div-input-mall-square" id="kategorinya" style="width: 90%; background: white; border: 1px solid white;">
+                    <div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
+                        <div style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
+                        simbolnya</div>
+                    </div>
+                    <div style="margin-left: 2%; width: 60%;">
+                        <div style="margin-top: 0.5em; font-weight: 700; text-align: left;">kategori_nya</div>
+                    </div>
+                    <div onclick='hapus_kategori("kategorinya")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
+                    X</div>
+                </div>
+            </div>
+            <hr style="border-top: 1px solid #c8d2dd; width: 100%;">
+            <div style="display: flex; justify-content: space-between; width: 90%;">
+                <div class="input-group mb-3 div-input-mall" id="div_kategori" style="width: 80%;">
+                    <select type="text" class="form-control form-control-mall-modal" id="kategori" name="kategori" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="kategori" aria-describedby="basic-addon1" style="width: 100%; text-align: center !import   ant;">
+                        @foreach ($daftar_kategori as $row)
+                        <option value="SH">{{$row->kategori}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div style="width: 14%; display: flex; justify-content: space-between;">
+                    <div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 100%; background: #FF006E; display: flex; justify-content: center; color: white; align-items: center;"  onclick="tambah_kategori()">
+                        <i class="fa fa-plus"></i>
+                    </div>
+                </div>
+            </div>
+            <button data-dismiss="modal" class="btn btn-primary" style="background: #80B918;border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;"><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+            </button>
+        </div>
+    </div>
+</div>
 
 <header class="style__Container-sc-3fiysr-0 header">
     <div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
@@ -325,10 +383,15 @@ Jadwal
         <form enctype="multipart/form-data" action="<?=url('/')?>/akun/jadi-mitra/{{Request::segment(3)}}/simpan" method="post" style="width: 90%; margin-top: 2em;  display: flex; flex-direction: column; align-items: center;">
             {{csrf_field()}}
             <div class="input-group mb-3 div-input-mall" id="div_nama_toko">
-                <span>Nama Toko</span>
+                <div style="display: flex; align-items: center;justify-content: flex-start;">
+                    <span class="label-mall">Nama Toko</span>&nbsp;&nbsp;
+                    <span>
+                        <div class="label-mall" style="background:#ff006e; color: white; padding: 0.1em 1.5em 0.3em 1em; border-radius: 1.5em; line-height: 1.2em;">wajib</div>
+                    </span>
+                </div>
                 <div>
                     <span class="input-group-text-mall">
-                        <img src="<?=url('/')?>/public/img/icon_svg/people.svg" style="width: 100%;">
+                        <img src="<?=url('/')?>/public/img/icon_svg/toko.svg" style="width: 100%;">
                     </span>
                     <input type="text" class="form-control-mall" id="nama_toko" name="nama_toko"
                     onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan Nama Toko"
@@ -336,104 +399,156 @@ Jadwal
                 </div>
             </div>
             <div class="input-group mb-3 div-input-mall" id="div_kategori">
-                <span>Kategori</span>
+                <div style="display: flex; align-items: center;justify-content: flex-start;">
+                    <span class="label-mall">Kategori</span>&nbsp;&nbsp;
+                    <span >
+                        <div class="label-mall" style="background:#ff006e; color: white; padding: 0.1em 1.5em 0.3em 1em; border-radius: 1.5em; line-height: 1.2em;">wajib</div>
+                    </span>
+                </div>
+                <div style="width: 96%;">
+                    <div class="list-kategori" style="display: flex; justify-content: flex-start; padding: 0.5em 1em 1em 1em;">
+                    </div>
+                    <div style="width: 2em; height: 2em; font-size: 0.8em; background: #ff006e; color: white; border-radius: 50%; padding-top: 0.5em;" onclick="tambah_kategori_modal()">
+                        <i class="fa fa-plus"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3 div-input-mall" id="div_no_hp">
+                <div style="display: flex; align-items: center;justify-content: flex-start;">
+                    <span class="label-mall">Nomor Handphone Toko</span>&nbsp;&nbsp;
+                    <span>
+                        <div class="label-mall" style="background:#ff006e; color: white; padding: 0.1em 1.5em 0.3em 1em; border-radius: 1.5em; line-height: 1.2em;">wajib</div>
+                    </span>
+                </div>
+                <div>
+                    <span class="input-group-text-mall">
+                        <img src="<?=url('/')?>/public/img/icon_svg/handphone.svg" style="width: 100%;">
+                    </span>
+                    <input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)"
+                    onblur="input_blur(this.id)" placeholder="Masukan nomor hp toko"
+                    aria-label="Nomor Handphone Toko" aria-describedby="basic-addon1" style="width: 100%;" required>
+                </div>
+            </div>
+            <div class="input-group mb-3 div-input-mall" id="div_jadwal">
+                <div style="display: flex; align-items: center;justify-content: flex-start;">
+                    <span class="label-mall">Jadwal Buka</span>&nbsp;&nbsp;
+                    <span>
+                        <div class="label-mall" style="background:#ff006e; color: white; padding: 0.1em 1.5em 0.3em 1em; border-radius: 1.5em; line-height: 1.2em;">wajib</div>
+                    </span>
+                </div>            <div>
+                    <span class="input-group-text-mall">
+                        <img src="<?=url('/')?>/public/img/icon_svg/calender.svg" style="width: 100%;">
+                    </span>
+                    <div onclick="pilih_jadwal()" class="form-control form-control-mall"
+                    style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; margin-left: 0.4em; "
+                    id="pilih_jadwal_buka_toko">Pilih Jadwal Toko</div>
+                </div>
+            </div>
+            <div>
+                <input name="input_kategori" id="input_kategori">
+                <input type="hidden" name="jadwal_hari" id="jadwal_hari">
+                <input type="hidden" name="jadwal_buka" id="jadwal_buka">
+                <input type="hidden" name="jadwal_tutup" id="jadwal_tutup">
+            </div>
+            <div class="input-group mb-3 div-input-mall" id="div_lokasi">
+                <div style="display: flex; align-items: center;justify-content: flex-start;">
+                    <span class="label-mall">Alamat Usaha</span>&nbsp;&nbsp;
+                    <span>
+                        <div class="label-mall" style="background:#ff006e; color: white; padding: 0.1em 1.5em 0.3em 1em; border-radius: 1.5em; line-height: 1.2em;">wajib</div>
+                    </span>
+                </div>            <div>
+                    <span class="input-group-text-mall">
+                        <img src="<?=url('/')?>/public/img/icon_svg/home.svg" style="width: 100%;">
+                    </span>&nbsp;
+                    <input type="text" class="form-control-mall" id="alamat" name="alamat"
+                    onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat"
+                    aria-label="alamat" aria-describedby="basic-addon1" style="width: 100%;" required>
+                </div>
+            </div>
+            <div class="input-group mb-3 div-input-mall" id="div_kelurahan">
+                <div style="display: flex; align-items: center;justify-content: flex-start;">
+                    <span class="label-mall">Kelurahan</span>&nbsp;&nbsp;
+                    <span>
+                        <div class="label-mall" style="background:#ff006e; color: white; padding: 0.1em 1.5em 0.3em 1em; border-radius: 1.5em; line-height: 1.2em;">wajib</div>
+                    </span>
+                </div>
                 <div>
                     <span class="input-group-text-mall">
                         <img src="<?=url('/')?>/public/img/icon_svg/kategori.svg" style="width: 100%;">
                     </span>
-                    <select type="text" class="form-control-mall" id="kategori_toko" name="kategori_toko"
+                    <select type="text" class="form-control-mall" id="kelurahan" name="kelurahan"
                     onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;" required>
-                    <option value="" disabled selected>Pilih Kategori Toko</option>
-                    @foreach($daftar_kategori as $row)
-                    <option value="{{$row->id}}">{{$row->kategori}}</option>
+                    <option value="" disabled selected>Pilih Kelurahan</option>
+                    @foreach($kelurahan as $row)
+                    <option value="{{$row->id}}">{{$row->kelurahan}}</option>
                     @endforeach
                 </select>
             </div>
         </div>
-        <div class="input-group mb-3 div-input-mall" id="div_no_hp">
-            <span>Nomor Handphone Toko</span>
-            <div>
-                <span class="input-group-text-mall">
-                    <img src="<?=url('/')?>/public/img/icon_svg/handphone.svg" style="width: 100%;">
-                </span>
-                <input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)"
-                onblur="input_blur(this.id)" placeholder="Masukan nomor hp toko"
-                aria-label="Nomor Handphone Toko" aria-describedby="basic-addon1" style="width: 100%;" required>
+        <div class="input-group mb-3 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; background: white;">
+            <div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto Toko</div>
+            <div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+                <div style="position: relative; display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
+                    <img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/register/maps/tampak_depan.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+                    <div style="position: absolute;top: 40%;">
+                        <img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('1')" style=" width: 2.5em; margin-left: 40%; margin-bottom: 2em;">
+                        <div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Foto Depan Tempat Usaha</div>
+                    </div>
+                </div>
+                <input hidden type="file" name="foto_maps_1" id="foto_maps_1">
             </div>
-        </div>
-        <div class="input-group mb-3 div-input-mall" id="div_jadwal">
-            <span>Jadwal Buka Tutup Toko</span>
-            <div>
-                <span class="input-group-text-mall">
-                    <img src="<?=url('/')?>/public/img/icon_svg/calender.svg" style="width: 100%;">
-                </span>
-                <div onclick="pilih_jadwal()" class="form-control form-control-mall"
-                style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; margin-left: 0.4em; "
-                id="pilih_jadwal_buka_toko">Pilih Jadwal Toko</div>
-            </div>
-        </div>
-        <div>
-            <input type="hidden" name="jadwal_hari" id="jadwal_hari">
-            <input type="hidden" name="jadwal_buka" id="jadwal_buka">
-            <input type="hidden" name="jadwal_tutup" id="jadwal_tutup">
-        </div>
-        <div class="input-group mb-3 div-input-mall" id="div_lokasi">
-            <span>Alamat Toko</span>
-            <div>
-                <span class="input-group-text-mall">
-                    <img src="<?=url('/')?>/public/img/icon_svg/home.svg" style="width: 100%;">
-                </span>&nbsp;
-                <input type="text" class="form-control-mall" id="alamat" name="alamat"
-                onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat"
-                aria-label="alamat" aria-describedby="basic-addon1" style="width: 100%;" required>
-            </div>
-        </div>
-        <div class="input-group mb-3 div-input-mall" id="div_kelurahan">
-            <span>Kategori</span>
-            <div>
-                <span class="input-group-text-mall">
-                    <img src="<?=url('/')?>/public/img/icon_svg/kategori.svg" style="width: 100%;">
-                </span>
-                <select type="text" class="form-control-mall" id="kelurahan" name="kelurahan"
-                onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;" required>
-                <option value="" disabled selected>Pilih Kelurahan</option>
-                @foreach($kelurahan as $row)
-                <option value="{{$row->id}}">{{$row->kelurahan}}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-    <div class="input-group mb-3 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; background: white;">
-        <div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto Toko</div>
-        <div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #FF006E; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_toko('1')" id="div_pic_toko_1">
-            <img src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" style="width: 2em;">
-        </div>
-        <div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_1" hidden>
-            <img id="pic_toko_privew_1" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
-            <img id="pic_toko_1" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('1')" style="position: absolute; right: 1em; bottom: 1em;">
-        </div>
-        <input hidden type="file" name="foto_toko_1" id="foto_toko_1" required>
-        <div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #FF006E; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_toko('2')" id="div_pic_toko_2">
-            <img src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" style="width: 2em;">
-        </div>
-        <div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_2" hidden>
-            <img id="pic_toko_privew_2" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
-            <img id="pic_toko_2" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('2')" style="position: absolute; right: 1em; bottom: 1em;">
-        </div>
-        <input hidden type="file" name="foto_toko_2" id="foto_toko_2" >
-        <div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #FF006E; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_toko('3')" id="div_pic_toko_3">
-            <img src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" style="width: 2em;">
-        </div>
-        <div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_3" hidden>
-            <img id="pic_toko_privew_3" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
-            <img id="pic_toko_3" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('3')" style="position: absolute; right: 1em; bottom: 1em;">
-        </div>
-        <input hidden type="file" name="foto_toko_3" id="foto_toko_3" >
-    </div>
+            <div style="display: flex; justify-content: space-between; width: 100%;">
+                <div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
+                    <div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew">
+                        <img id="pic_maps_2_privew" src="<?=url('/')?>/public/img/register/maps/produk.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+                        <div style="position: absolute;top: 40%;">
+                            <img id="pic_maps_2" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('2')" style=" width: 2.5em; margin-left: 20%; margin-bottom: 2em;">
+                            <div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
+                        </div>
+                    </div>
+                    <input hidden type="file" name="foto_maps_2" id="foto_maps_2">
+                </div>
+                <div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
 
-    <button type="submit" class="btn btn-primary" style="background: #ff006e; margin-top: 1em;border: 1px solid #ff006e;border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;"> Daftar
-    </button>
-</form>
+                    <div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew">
+                        <img id="pic_maps_3_privew" src="<?=url('/')?>/public/img/register/maps/bebas.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+                        <div style="position: absolute;top: 40%;">
+                            <img id="pic_maps_3" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('3')" style=" width: 2.5em; margin-left: 15%; margin-bottom: 2em;">
+                            <div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
+                        </div>
+                    </div>
+                    <input hidden type="file" name="foto_maps_3" id="foto_maps_3">
+                </div>
+            </div>
+            <div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #FF006E; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_toko('1')" id="div_pic_toko_1">
+                <img src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" style="width: 2em;">
+            </div>
+            <div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_1" hidden>
+                <img id="pic_toko_privew_1" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
+                <img id="pic_toko_1" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('1')" style="position: absolute; right: 1em; bottom: 1em;">
+            </div>
+            <input hidden type="file" name="foto_toko_1" id="foto_toko_1" required>
+            <div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #FF006E; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_toko('2')" id="div_pic_toko_2">
+                <img src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" style="width: 2em;">
+            </div>
+            <div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_2" hidden>
+                <img id="pic_toko_privew_2" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
+                <img id="pic_toko_2" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('2')" style="position: absolute; right: 1em; bottom: 1em;">
+            </div>
+            <input hidden type="file" name="foto_toko_2" id="foto_toko_2" >
+            <div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #FF006E; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_toko('3')" id="div_pic_toko_3">
+                <img src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" style="width: 2em;">
+            </div>
+            <div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_3" hidden>
+                <img id="pic_toko_privew_3" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
+                <img id="pic_toko_3" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('3')" style="position: absolute; right: 1em; bottom: 1em;">
+            </div>
+            <input hidden type="file" name="foto_toko_3" id="foto_toko_3" >
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="background: #ff006e; margin-top: 1em;border: 1px solid #ff006e;border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;"> Daftar
+        </button>
+    </form>
 </div>
 </main>
 
@@ -443,6 +558,7 @@ Jadwal
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
+<script src="<?=url('/')?>/public/plugins/select2/js/select2.full.min.js"></script>
 <script type="text/javascript">
     $("input[required], select[required]").attr("oninvalid",
         "this.setCustomValidity('Harap Dimasukkan')");
@@ -453,6 +569,9 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
     var jadwal_hari = [];
     var jadwal_buka = [];
     var jadwal_tutup = [];
+
+    var i_kategori = 0;
+    var value_kategori = [];
 
     function input_focus(id) {
         $("#div_" + id).css('border', '1px solid #d1d2d4');
@@ -492,6 +611,25 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
     }
 
 
+    function tambah_kategori(){
+        var simbol_kategori = $("#kategori").val();
+        var kategorinya = $("#kategori option:selected").text();
+        var kategori_sample = $("#kategori_sample").html();
+        var fix_id = kategori_sample.replaceAll("kategorinya", kategorinya.replaceAll(" ", '_')).trim();
+        var fix_kategorinya = fix_id.replaceAll("kategori_nya", kategorinya).trim();
+        var fix_simbol = fix_kategorinya.replace("simbolnya", simbol_kategori).trim();
+        $("#kategori_fix").append(fix_simbol);
+
+        value_kategori.push(kategorinya);
+        $(".list-kategori").html('');
+        for (var i = 0; i < value_kategori.length; i++){
+            $(".list-kategori").append("<badge class='badge badge-secondary'>"+value_kategori[i]+"</badge>");
+        }
+
+        check_select_kategori();
+        i_kategori++;
+    }
+
     function tambah_jadwal() {
         var simbol = $("#jadwal").val();
         var hari = $("#jadwal option:selected").text();
@@ -503,7 +641,6 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
         var fix_waktu = fix_harinya.replace("jamnya", waktu_buka + " - " + waktu_tutup).trim();
         var fix_simbol = fix_waktu.replace("simbolnya", simbol).trim();
         $("#jadwal_fix").append(fix_simbol);
-
         jadwal_hari.push(hari);
         jadwal_buka.push(waktu_buka);
         jadwal_tutup.push(waktu_tutup);
@@ -512,14 +649,50 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
         i++;
     }
 
+    function tambah_kategori_modal(){
+        $('#modal-kategori').modal('show');
+    }
 
+
+
+
+    function check_select_kategori() {
+        var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
+
+        var option_text = [];
+        @foreach ($daftar_kategori as $row)
+        option_text.push("<?=$row->kategori?>");
+        @endforeach
+        var option = "";
+        for (var i = 0; i < option_text.length; i++) {
+            var indikator = false;
+            for (var j = 0; j < value_kategori.length; j++) {
+                if (value_kategori[j] == option_text[i]) {
+                    indikator = true;
+                }
+            }
+            if (indikator == false) {
+                option += "<option value='" + "S" + "' >" + option_text[i] + "</option>";
+            }
+        }
+        $("#kategori").html(option);
+        var string_kategori = value_kategori.toString();
+        $("#input_kategori").val(string_kategori.replaceAll(",", "~"));
+
+        // if ($("#input_kategori").val() == '') {
+            // $("#pilih_jadwal_buka_toko").html("Pilih Jadwal Buka Tutup Toko");
+        // } else {
+            // $("#pilih_jadwal_buka_toko").html("Telah memilih Jadwal");
+        // }
+
+    }
 
     function check_select() {
         var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
         var option_text = ["Setiap-Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis", "Jumat",
         "Sabtu", "Minggu"
         ];
-        var option = "<option disabled selected>--- Silahkan Pilih Hari ---</option>";
+        var option = "";
         for (var i = 0; i < option_text.length; i++) {
             var indikator = false;
             for (var j = 0; j < jadwal_hari.length; j++) {
@@ -547,10 +720,22 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
     }
 
+
+    $("#kelurahan").select2();
+    $("#kategori_toko").select2();
+
     function hapus_jadwal(hari) {
         // alert(id);
         var temp;
+        var find = false;
+
         for (var i = 0; i < jadwal_hari.length; i++) {
+            if (find == true){
+                jadwal_hari[i] = jadwal_hari[i + 1];
+                jadwal_buka[i] = jadwal_buka[i + 1];
+                jadwal_tutup[i] = jadwal_tutup[i + 1];
+            }
+
             if (jadwal_hari[i] == hari) {
                 jadwal_hari[i] = jadwal_hari[i + 1];
                 jadwal_buka[i] = jadwal_buka[i + 1];
@@ -563,6 +748,31 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
         check_select();
         $("#" + hari.replaceAll(" ", "_")).remove();
     }
+
+    function hapus_kategori(kategori) {
+        kategori = kategori.replaceAll("_", " ");
+        var temp;
+        var find = false;
+        for (var i = 0; i < value_kategori.length; i++) {
+            if (find == true){
+                value_kategori[i] = value_kategori[i + 1];                
+            }
+            if (value_kategori[i] == kategori) {
+                value_kategori[i] = value_kategori[i + 1];
+                find = true;
+            }
+        }
+        value_kategori.pop();
+        check_select_kategori();
+        $("#" + kategori.replaceAll(" ", "_")).remove();
+        $(".list-kategori").html('');
+        for (var i = 0; i < value_kategori.length; i++){
+            $(".list-kategori").append("<badge class='badge badge-secondary'>"+value_kategori[i]+"</badge>");
+        }
+
+
+    }
+
 
 </script>
 @endsection
