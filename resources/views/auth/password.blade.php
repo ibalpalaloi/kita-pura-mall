@@ -242,7 +242,7 @@
 			</div>	
 		</div>
 		<div class="footer" style="background: #fb036b; ">
-			<div style="text-align: center; width: 100%;">Lanjut</div>
+			<div style="text-align: center; width: 100%;font-weight: 800;">Lanjut</div>
 		</div>
 	</body>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

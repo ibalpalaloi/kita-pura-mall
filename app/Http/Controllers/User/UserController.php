@@ -44,7 +44,7 @@ class UserController extends Controller
 			$toko_id = $toko->id;
 			$status_aktif_mitra = $toko->jenis_mitra;
 			Session::put('status_mitra', $toko->jenis_mitra);
-		
+
 		}
 		else {
 			$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
@@ -65,7 +65,7 @@ class UserController extends Controller
 				$status_aktif_mitra = "bukan_mitra";
 				Session::put('status_mitra', "Belum jadi mitra");	
 			}
-				
+
 		}
 
 		if($status_aktif_mitra == 'premium'){
@@ -78,10 +78,10 @@ class UserController extends Controller
 		}
 
 		// dd($cek_ktp);
-		
+		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
 		return view('users/user/m-profil/index', 
-				['status_aktif_mitra' => $status_aktif_mitra, 'cek_ktp' => $cek_ktp]
-					);
+			['status_aktif_mitra' => $status_aktif_mitra, 'cek_ktp' => $cek_ktp, 'biodata' => $biodata]
+		);
 	}
 
 	public function biodata(){
@@ -115,6 +115,9 @@ class UserController extends Controller
 			\Storage::disk('public')->put('img/biodata/'.$file_upload, file_get_contents($files));
 			$biodata->foto = $file_upload;
 		}
+		if ($biodata->notif == 0){
+			$biodata->notif = 1;
+		}
 		$biodata->save();
 		
 		$notification = array(
@@ -128,4 +131,30 @@ class UserController extends Controller
 	public function jenis_mitra($status_mitra){
 		return view('users/user/m-mitra/jenis_mitra_free');
 	}
+
+	public function simpan_foto(Request $request)
+	{
+		$image = $request->image;
+
+		list($type, $image) = explode(';', $image);
+		list(, $image)      = explode(',', $image);
+		$image = base64_decode($image);
+		$image_name= time().'.png';
+        // $path = public_path('upload/'.$image_name);
+
+        // file_put_contents($path, $image);
+
+		\Storage::disk('public')->put('img/user/profile_picture/'.$image_name, file_get_contents($request->image));
+		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
+		$image_path = "public/img/user/profile_picture/".$biodata->foto;
+		if(\File::exists($image_path)) {
+			\File::delete($image_path);
+		}
+
+		$biodata->foto = $image_name;
+		$biodata->save();
+
+		return response()->json(['status'=>$image_name]);
+	}
+
 }
