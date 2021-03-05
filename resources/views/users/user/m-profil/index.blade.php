@@ -97,24 +97,40 @@ if (!empty($_GET['daftar_mitra_premium'])){
 </div>
 @endif
 
-@if(Session::get('message') != 'Belum Terverifikasi')
-    <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-        aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
-        <div class="modal-dialog modal-sm modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body text-center font-weight-bold py-3">
-                    {{Session::get('message')}}
-                    <div class="row mt-2 p-2">
-                        <button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
-                            data-dismiss="modal">Tutup</button>
 
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-    </div>
+@if($biodata->notif == 1)
+<div class="modal fade" id="modal-notif-berhasil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; background: linear-gradient(180deg, #D4D700 20.31%, #80B918 100%); display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: 0;">
+				<img src="<?=url('/')?>/public/img/mitra/modal_berhasil_biodata.svg" style="width: 80%; position: absolute; top: -9.5em;">
+				<div style="font-size: 2em; font-weight: 600; margin-top: 1em;">Yeah, Hore!</div>
+				<div style="font-size: 1.1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1em;">selamat anda sudah bisa menikmati semua fitur kitapuramall</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+
+@if(Session::get('message') == 'Biodata Belum Lengkap')
+<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+<div class="modal-dialog modal-sm modal-dialog-centered">
+	<div class="modal-content">
+		<div class="modal-body text-center font-weight-bold py-3">
+			{{Session::get('message')}}
+			<div class="row mt-2 p-2">
+				<button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
+				data-dismiss="modal">Tutup</button>
+
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+</div>
 @endif
 
 @if((Session::get('message') == 'KTP Belum Lengkap') || ($cek_ktp == "KTP Belum Lengkap"))
@@ -132,7 +148,7 @@ if (!empty($_GET['daftar_mitra_premium'])){
 						@else
 						<a href="<?=url('/')?>/akun/mitra/{{Session::get('status_mitra')}}/upload-ktp" style="color: white; background: #ffaa00; padding: 0.3em 0em 0.5em 0em; width: 50%; margin-top: 0.8em; border-radius: 2em; text-align: center; font-weight: 600;">Ubah data ?</a>
 						@endif
-					
+
 					</div>
 					<img src="<?=url('/')?>/public/img/mitra/bg-waiting.svg" style="width: 100%;">
 				</div>
@@ -157,18 +173,22 @@ if (!empty($_GET['daftar_mitra_premium'])){
 	<div class="card-mall kategori" style="padding: 5px;">
 		<div style="display: flex; justify-content: center; flex-direction: row; align-items: center;">
 			<div style="width: 25%; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; ">
-				<img src="<?=url('/')?>/public/img/user/lengkapi_berkas.png" style="width: 100%;">
+				@if ($biodata->foto)
+				<img src="<?=url('/')?>/public/img/user/profile_picture/{{$biodata->foto}}" style="width: 100%; border-radius: 50%;">
+				@else
+				<img src="<?=url('/')?>/public/img/user/profile_picture/user.png" style="width: 100%; border-radius: 50%;">
+				@endif
 				@if (Session::get('status_mitra') != 'Belum jadi mitra')
 				<div style="font-size: 0.6em; background: #ff006e; color: white; padding: 0.3em 1em 0.3em 1em; border-radius:2em; position: absolute; bottom: 2.1em;">Mitra {{ucfirst($status_aktif_mitra)}}</div>
 				@endif
 			</div>
 			<div style="width: 63%; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 2%;">
 				<div class="container">
-				@if(Session::get('progress_biodata') == '5')
-				<div style="line-height: 1.1em;">Semoga Harimu <strong>Menyenangkan!</strong></div>
-				@else
-				<div>Lengkapi akun anda!</div>			
-				@endif
+					@if(Session::get('progress_biodata') == '5')
+					<div style="line-height: 1.1em;">Semoga Harimu <strong>Menyenangkan!</strong></div>
+					@else
+					<div>Lengkapi akun anda!</div>			
+					@endif
 					<div style="display: flex; justify-content: center; align-items: center;">
 						<div class="progress" style="border-radius: 1.5em; width: 90%; height: 1rem;">
 							<div class="progress-bar" role="progressbar" aria-valuenow="{{Session::get('progress_biodata')*20}}" aria-valuemin="0" aria-valuemax="100" style="width:{{Session::get('progress_biodata')*20}}%; border-radius: 1.5em; background: #ff006e;">
@@ -222,16 +242,28 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 <script type="text/javascript">
 
 	@if(Session::get('message') == 'Biodata Belum Lengkap')
-		$('#modal-pemberitahuan').modal('show')
+	$('#modal-pemberitahuan').modal('show');
 	@endif
 
+	@if($biodata->notif == 1)
+	$('#modal-notif-berhasil').modal('show');
+	$.ajax({
+		url:"{{ route('notif_lengkap') }}",
+		method: "post",
+		data : {nomor:"<?=$biodata->id?>", _token:'{{csrf_token()}}'},
+		success:function(result)
+		{
+			// do something
+		}
+	})  
+	@endif
 
 	@if(Session::get('message') == 'Belum Terverifikasi')
-		$('#modal-verifikasi').modal('show');
+	$('#modal-verifikasi').modal('show');
 	@endif
 
 	@if((Session::get('message') == 'KTP Belum Lengkap') || ($cek_ktp == "KTP Belum Lengkap"))
-		$('#modal-verifikasi-ktp').modal('show');
+	$('#modal-verifikasi-ktp').modal('show');
 	@endif	
 
 
@@ -242,7 +274,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	@endif
 
 	@if ($daftar_mitra == 'success')
-		$('#modal-verifikasi').modal('show');
+	$('#modal-verifikasi').modal('show');
 	@endif	
 
 

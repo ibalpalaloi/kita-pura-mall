@@ -260,7 +260,7 @@
 	            </div>
 	        </div>
 	        <div class="footer" style="background: #fb036b; ">
-	            <button type="submit" class="btn" style="color: white;">Lanjut</button>
+	            <button type="submit" class="btn" style="color: white; font-weight: 600;font-size: 1.2em;">Lanjut</button>
 
 	        </div>
 	    </form>

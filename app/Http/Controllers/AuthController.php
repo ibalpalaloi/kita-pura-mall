@@ -43,10 +43,10 @@ class AuthController extends Controller
         ];
         $client = new GuzzleHttp\Client();
         $response = $client->request('POST', 'http://waping.es/api/send',
-         ['header'=>['Content-Type'=>'application/json'],
-         'json'=>$json
-         ]
-        );
+           ['header'=>['Content-Type'=>'application/json'],
+           'json'=>$json
+       ]
+   );
         
         $otp = new Otp;
         $otp->no_hp = $no_telp;
@@ -57,9 +57,11 @@ class AuthController extends Controller
 
 
     public function post_login(Request $request){
-        // dd($request->all());
         $no_telp = $request->nomor_hp;
         $no_telp = str_replace("-","", $no_telp);
+        if ((strlen($no_telp) == 12) && ($no_telp[0] == 0)){
+            $no_telp = substr($no_telp, 1);
+        }
         $no_telp = substr_replace($no_telp, "+62", 0, 0);
         $user = User::where('no_hp', $no_telp)->first();
 
@@ -69,13 +71,13 @@ class AuthController extends Controller
 
         }
 
-        $this->buat_kode_otp($no_telp);
+        // $this->buat_kode_otp($no_telp);
 
         // echo $response->getStatusCode.'<br/>';
         // echo $response->getBody(); 
         // echo json_encode($json);
 
-        return redirect('/verifikasi-otp/'.$no_telp);
+        return redirect('daftar/'.$no_telp);
     }
 
     public function refresh_otp($id){
@@ -87,11 +89,11 @@ class AuthController extends Controller
 
         $notification = array(
             'message' => 'Kode OTP Telah Dikirim Kembali'
-         );     
+        );     
 
         return redirect()->back()->with($notification);
     }
-  
+
 
     public function verifikasi_otp($id){
 
@@ -101,7 +103,7 @@ class AuthController extends Controller
     }
 
     public function post_otp(Request $request){
-        
+
         $otp = Otp::where([
             ['no_hp', $request->no_telp],
             ['kode_otp', $request->kode_otp]
@@ -114,7 +116,7 @@ class AuthController extends Controller
 
         $notification = array(
             'message' => 'Maaf Kode OTP Dimasukkan Salah, Silahkan Masukkan Kembali Kode OTP Yang Benar'
-         );     
+        );     
 
         return redirect()->back()->with($notification);
     }
@@ -160,6 +162,7 @@ class AuthController extends Controller
 
             Session::put('id_user', $id_user);
             Session::put('no_telp', $request->no_telp);
+            Session::put('status_nomor', "Belum Terverifikasi");
             
             // dd(Session::has('no_telp'));
 
@@ -168,7 +171,7 @@ class AuthController extends Controller
     }
 
     public function password($id){
-                
+
         return view('auth.verifikasi_password', ['no_telp'=>$id]);
         
         // return view('auth.password', ['no_telp'=>$id]);
@@ -188,15 +191,71 @@ class AuthController extends Controller
             // dd($user->id);
             Session::put('id_user', $user->id);
             Session::put('no_telp', $request->no_telp);
-
+            Session::put('status_nomor', $user->status_nomor);
             return redirect('/home');
         }
 
         $notification = array(
             'message' => 'Maaf Password Salah'
-         );     
+        );     
 
         return redirect()->back()->with($notification);
+    }
+
+    public function ganti_nomor_hp(Request $request){
+        $user = User::where('id', Session::get('id_user'))->first();
+        $user->no_hp = $request->nomor;
+        $user->save();
+        Session::put('no_telp', $request->nomor);
+    }
+
+    public function kirim_ulang_otp(){
+        // kode ganti OTP disini
+
+        // sampai sini
+        date_default_timezone_set('Asia/Makassar');
+        $waktu = date('Y-m-d H:i:s');
+        $user = User::where('id', Session::get('id_user'))->first();
+        if ($user->waktu_validasi == null){
+            $user->waktu_validasi = $waktu;
+            $user->save();
+            $newtimestamp = strtotime("$waktu + 1 minute");
+            $deadline = date('Y-m-d H:i:s', $newtimestamp);
+            $diff  = strtotime($deadline) - strtotime($waktu);
+            if ($diff > 0){
+                echo $diff;
+            }
+            else {
+                $user->waktu_validasi = null;
+                $user->save();
+            }
+
+        }
+        else {
+            $newtimestamp = strtotime("$user->waktu_validasi + 1 minute");
+            $deadline = date('Y-m-d H:i:s', $newtimestamp);
+            $diff  = strtotime($deadline) - strtotime($waktu);
+            if ($diff > 0){
+                echo $diff;
+            }
+            else {
+                $user->waktu_validasi = null;
+                $user->save();
+            }
+        }
+    }
+
+    public function set_null(){
+        $user = User::where('id', Session::get('id_user'))->first();
+        $user->waktu_validasi = null;
+        $user->save();
+    }
+
+    public function notif_biodata_lengkap(Request $request){
+        $biodata = Biodata::where('users_id', Session::get('id_user'))->first();
+        $biodata->notif = 2;
+        $biodata->save();
+
     }
     
 }
