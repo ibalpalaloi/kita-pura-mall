@@ -488,7 +488,7 @@ Jadwal
 							<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 40%;">
 						</span>
 						<select type="text" class="form-control-mall" id="kelurahan" name="kelurahan" style="height: 2.5em;" required>
-							<option value="" disabled selected>Pilih Kategori Toko</option>
+							<option value="" disabled selected>Pilih Kelurahan</option>
 							@foreach($kelurahan as $row)
 							<option value="{{$row->id}}">{{$row->kelurahan}}
 							</option>
