@@ -145,7 +145,7 @@ crossorigin=""/>
 					</div>
 					<div style="width: 45%; background: #35A500; color:white; font-size: 1.2em; padding: 0.4em 0.8em; border-radius: 1.5em; display: flex; justify-content: flex-start; align-items: center; margin-top: 0.5em;">
 						<div style="border: 2px solid white; width: 2em; height: 2em; display: flex; justify-content: center; align-items: center; border:none; border-radius: 50%;">
-							<img src="<?=url('/')?>/public/img/button/emergency/whatapp.svg" style="width: 60%;">
+							<img src="<?=url('/')?>/public/img/button/emergency/whatapp .svg" style="width: 60%;">
 						</div>
 						<div>Whatsapp</div>
 					</div>

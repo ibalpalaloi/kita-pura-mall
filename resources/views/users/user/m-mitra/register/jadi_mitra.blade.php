@@ -334,12 +334,12 @@ Biodata |
 			</div>
 			<div class="swiper-slide" style="background: transparent; display: flex; justify-content: center; flex-direction: column;">
 				<div style="width: 80%;">
-					<div style="text-align: center;font-size: 0.8em; font-weight: 500; line-height: 1.2em;">Mau punya <span style="color: #ffaa00;">Landing Page</span> gratis?<br>Daftar mitra Premium di kitapuramall</div>
+					<div style="text-align: center;font-size: 0.8em; font-weight: 500; line-height: 1.2em;">Mau punya <span style="color: #926C15;">Landing Page</span> gratis?<br>Daftar mitra Premium di kitapuramall</div>
 					<div style="background: white; margin-top: 4.5em; border-radius: 1.5em; position: relative;">
 						<div style="display: flex; justify-content: center; width: 100%; position: absolute; top: -3.5em;">
 							<img src="<?=url('/')?>/public/img/mitra/premium_user_img.png" style="width: 100%; ">
 						</div>
-						<img src="<?=url('/')?>/public/img/mitra/premium_user_bg.png" style="width: 100%;">
+						<img src="<?=url('/')?>/public/img/mitra/premium_user_bg_2.png" style="width: 100%;">
 						<div class="div-feature" style=" background: white; width: 100%; padding-top: 1.5em; padding-bottom: 2em; border-bottom-right-radius: 1.5em; border-bottom-left-radius: 1.5em;">
 							<div class="feature">
 								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Lokasi
@@ -356,7 +356,7 @@ Biodata |
 							<div class="feature">
 								<i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;Preorder
 							</div>
-							<a href="<?=url('/')?>/akun/jadi-mitra/premium" class="btn btn-primary" style="background: #ffaa00; font-size: 0.7em; margin-top: 0.5em;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 40%;">Daftar
+							<a href="<?=url('/')?>/akun/jadi-mitra/premium" class="btn btn-primary" style="background: #926C15; font-size: 0.7em; margin-top: 0.5em;border: 1px solid #926C15; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 40%;">Daftar
 							</a>
 						</div>
 					</div>

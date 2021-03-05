@@ -57,4 +57,5 @@ class User extends Authenticatable
         return $this->hasOne(Daftar_tunggu_toko::class, 'users_id');
     }
 
+
 }
