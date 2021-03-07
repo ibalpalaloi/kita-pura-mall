@@ -9,6 +9,7 @@ use App\Models\Kategori_toko;
 use App\Models\Foto_maps;
 use App\Models\kelurahan;
 use App\Models\Kategori;
+use App\Models\Kategorinya_toko;
 use App\Models\toko;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\product;
@@ -39,7 +40,7 @@ class Mitra_Premium_Controller extends Controller
 			$ktp = Ktp_toko::where('toko_id', $toko->id)->first();
 			if($ktp){
 
-				return view('users/user/m-mitra/premium/index_premium');
+				return view('users/user/m-mitra/premium/index_premium', compact('toko'));
 			}
 			else{
 
@@ -73,13 +74,13 @@ class Mitra_Premium_Controller extends Controller
 
 		return view('users/user/m-mitra/premium/register_nik');
 
-    }
+	}
 
-    public function simpan_ktp(Request $request){
+	public function simpan_ktp(Request $request){
 
         // dd($request->all());
 
-        $this->validate($request,[
+		$this->validate($request,[
 			'nama_ktp' => 'required',
 			'no_nik' => 'required',
 			'foto_toko' => 'required'
@@ -94,25 +95,25 @@ class Mitra_Premium_Controller extends Controller
 			$toko_id = $toko->toko_id;
 		}
 
-        $ktp = new Ktp_toko;
+		$ktp = new Ktp_toko;
 		$ktp->toko_id = $toko_id;
 		$ktp->nama = $request->nama_ktp;
 		$ktp->nik = $request->no_nik;
-        $files = $request->file("foto_toko");
-        $type = $request->file("foto_toko")->getClientOriginalExtension();
-        $file_upload = $this->autocode('KTP-').".".$type;
-        \Storage::disk('public')->put('img/toko/'.$toko_id.'/ktp/'.$file_upload, file_get_contents($files));
-        $ktp->foto = $file_upload;
+		$files = $request->file("foto_toko");
+		$type = $request->file("foto_toko")->getClientOriginalExtension();
+		$file_upload = $this->autocode('KTP-').".".$type;
+		\Storage::disk('public')->put('img/toko/'.$toko_id.'/ktp/'.$file_upload, file_get_contents($files));
+		$ktp->foto = $file_upload;
 		
-        $ktp->save();
+		$ktp->save();
 
-        $notification = array(
-            'message' => 'Belum Terverifikasi',
-            'jenis_mitra' => $toko->jenis_mitra
-        );     
+		$notification = array(
+			'message' => 'Belum Terverifikasi',
+			'jenis_mitra' => $toko->jenis_mitra
+		);     
 
-        return redirect('/akun')->with($notification);
-    }
+		return redirect('/akun')->with($notification);
+	}
 
 	public function simpan_data_premium(Request $request){
 
@@ -120,7 +121,7 @@ class Mitra_Premium_Controller extends Controller
 
 		$this->validate($request,[
 			'nama_toko' => 'required',
-			'kategori_toko' => 'required',
+			// 'kategori_toko' => 'required',
 			'no_hp' => 'required',
 			'jadwal_hari' => 'required',
 			'jadwal_buka' => 'required',
@@ -148,7 +149,7 @@ class Mitra_Premium_Controller extends Controller
 				$toko->logo_toko = $file_upload;
 			}
 			$toko->save();
-	
+
 
 			$toko_id = $toko->id;
 
@@ -190,13 +191,23 @@ class Mitra_Premium_Controller extends Controller
 			$jadwal->save();
 		}
 
+        // @Tambah Kategornya toko
+		Kategorinya_toko::where('toko_id', $toko_id)->delete();
+		$kategori_toko = explode('~', $request->get('input_id_kategori'));
+		for ($i = 0; $i < count($kategori_toko); $i++){
+			$db = new Kategorinya_toko;
+			$db->toko_id = $toko_id;
+			$db->kategori_toko_id = $kategori_toko[$i];
+			$db->save();
+		}
+
 		$notification = array(
 			'message' => 'Data Toko Berhasil Diperbarui'
 		);     
 
 		if($toko->status == "Aktif"){
 
-			return redirect()->back()->with($notification);
+			return redirect('/akun/mitra/premium')->with($notification);
 		}
 		else{
 
@@ -215,8 +226,10 @@ class Mitra_Premium_Controller extends Controller
 		$kelurahan = kelurahan::all();
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 		$jadwal = Jadwal_toko::where('toko_id', $toko->id)->get();
+		$kategorinya_toko = Kategorinya_toko::where('toko_id', $toko->id)->get();
+		// dd($kategorinya_toko);
 
-		return view('users/user/m-mitra/premium/atur_toko', ['daftar_kategori'=>$kategori,'kelurahan'=>$kelurahan ,'toko'=>$toko,'jadwal'=>$jadwal]);
+		return view('users/user/m-mitra/premium/atur_toko', ['daftar_kategori'=>$kategori,'kelurahan'=>$kelurahan ,'toko'=>$toko,'jadwal'=>$jadwal, 'kategorinya_toko'=>$kategorinya_toko]);
 	}
 
 	public function atur_lokasi(){
@@ -229,11 +242,11 @@ class Mitra_Premium_Controller extends Controller
 		// dd($request->all());
 
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
-        $toko->latitude = $request->latitude;
-        $toko->longitude = $request->longitude;
-        $toko->save();
+		$toko->latitude = $request->latitude;
+		$toko->longitude = $request->longitude;
+		$toko->save();
 
-	
+
 		$notification = array(
 			'message' => 'Lokasi Berhasil Diperbarui'
 		);     

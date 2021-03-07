@@ -79,8 +79,10 @@ class UserController extends Controller
 
 		// dd($cek_ktp);
 		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		// dd($toko);
 		return view('users/user/m-profil/index', 
-			['status_aktif_mitra' => $status_aktif_mitra, 'cek_ktp' => $cek_ktp, 'biodata' => $biodata]
+			['status_aktif_mitra' => $status_aktif_mitra, 'cek_ktp' => $cek_ktp, 'biodata' => $biodata, 'toko'=>$toko]
 		);
 	}
 

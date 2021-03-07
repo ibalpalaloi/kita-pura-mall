@@ -210,7 +210,7 @@
 			@for ($i = 0; $i < count($toko['makanan']); $i++)  
 			<div class="slider-toko" style="@if ($i == 0) margin-left: 1em;@endif">
 				<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-				<img src="{{$toko['makanan'][$i]['nama_toko']}}">
+				<img src="">
 				<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; background-image: url("<?=$svg?>"); color: white; background-size: cover; padding: 1em; position: relative;'> 
 					<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(255,6,115,1) 0%, rgba(255,82,181,1) 100%); box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
 						<img src="<?=url('/')?>/public/img/icon_svg/download.svg" style="width: 2em; height: 2em;">

@@ -5,9 +5,9 @@
 @endsection
 
 @section('header-scripts')
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+ -->
 <style type="text/css">
 	.banner {
 		max-width: 480px;
@@ -280,128 +280,150 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		}*/
 
 
-</style>
-@endsection
+	</style>
+	@endsection
 
-@section('content')
+	@section('content')
 
-<div id="modal-atur-maps" class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<div class="modal-dialog modal-dialog-bottom" role="document" style="padding: 0px; overflow-y: initial !important;">
-		<div class="modal-content" style="border-radius: 1em; background: #eaf4ff; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 0em; border-bottom-right-radius: 0em;">
-			<div class="modal-body" style="width: 100%;height: 80vh; overflow-y: auto;">
-				@for ($i = 0; $i < 3; $i++)
-				<div class="input-group mb-2 div-input-mall-square" id="div_foto_toko_{{$i}}" style="margin-top: 1em; background: white; border-radius: 1.2em;">
-					<div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Foto Maps {{$i+1}} </div>
-					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #0066ff; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick='tambah_foto_toko("{{$i}}")' id="div_pic_toko_{{$i}}">
-						<img src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" style="width: 2em;">
-					</div>
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em;" id="div_pic_toko_privew_{{$i}}" hidden>
-						<img id="pic_toko_privew_{{$i}}" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
-						<img id="pic_toko_{{$i}}" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick='tambah_foto_toko("{{$i}}")' style="position: absolute; right: 1em; bottom: 1em;">
-
-					</div>
-
-					<input hidden type="file" name="foto_toko_{{$i}}" id="foto_toko_{{$i}}" required>
+	@if(Session::get('message') == 'Data Toko Berhasil Diperbarui')
+	<div class="modal fade" id="modal-berhasil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+			<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+				<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+					<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: -0.5em; z-index: 5;">
+					<img src="<?=url('/')?>/public/img/mitra/modal_simpan_toko_premium.svg" style="width: 95%; position: absolute; top: -10.5em;">
+					<div style="font-size: 2em; font-weight: 600;">Tersimpan</div>
+					<div style="font-size: 1.1em; text-align: center; width: 90%; font-weight: 0; color: #ffe6f1;">Perubahan Toko Telah berhasil disimpan</div>
 				</div>
-				@endfor
 			</div>
-
 		</div>
 	</div>
-</div>
+	@endif
 
 
-<header class="style__Container-sc-3fiysr-0 header" style="background: transparent; padding-top: 0.3em;">
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
-		<a href="<?=url('/')?>/akun" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
-			<img src="<?=url('/')?>/public/img/back_white.svg">
-		</a>
-		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
-			<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
-		</a>
-		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
-			<img src="<?=url('/')?>/public/img/icon_svg/landing_page.svg" style="width: 100%;">
-		</a>
-	</div>
-</header>
-
-
-@php $url = url('/')."/public/img/home/bg-premium.svg"; @endphp
-<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
-	<div>
-		<div style="padding: 0px 16px 1em;">
-			<h3 style="color: white;">Transaksi</h3>
-			<div style=" display: flex; justify-content: space-between; align-items: center;">
-				<div style="font-size: 0.8em; line-height: 1.2em; color: #a1a4a8;">Statistik</div>
-				<div style="display: flex; font-size: 0.6em;color: #a1a4a8;">
-					<div class="btn-menu-analitik analitik-active">Pekanan</div>
-					<div class="btn-menu-analitik">Bulanan</div>
-				</div>				
-			</div>
-		</div>
-		<div class="grafis" style="">
-			<canvas id="chart-0" hidden></canvas>
-			<canvas id="chart-1"></canvas>
-		</div>
-		<div class="card-menu-premium" style="margin-top: 0em;padding-top: 0px;">
-			<div style="margin-top: 0em; background: transparent; padding: 0.5em; display: flex; justify-content: center; border-radius: 1.5em; font-size: 0.75em;">
-			</div>
-			<div style="width: 100%;">
-				<div class="statis" style="width: 100%; display: flex; justify-content: center; flex-direction: column; color: #a1a4a8;">
-					<div style="display: flex; justify-content: space-around;">
-						<div class="item-statis" style="display: flex; justify-content: center;">
-							<div style="margin-left: 0.5em;">
-								<hr style="border: 3px solid #dd9d25; border-radius: 1.5em; width: 1.5em; margin-bottom: 0em;">
-								<div style="margin-top: 1px;font-size: 1.6em; font-weight: 700; margin-bottom: 0em; text-align: center; color: white;">1000</div>
-								<div style="font-size: 0.7em; margin-top: 0em; line-height: 0.3em; margin-bottom: 1.2em; text-align: center; color: white;">Pengujung</div>
-							</div>
+	<div id="modal-atur-maps" class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+		<div class="modal-dialog modal-dialog-bottom" role="document" style="padding: 0px; overflow-y: initial !important;">
+			<div class="modal-content" style="border-radius: 1em; background: #eaf4ff; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 0em; border-bottom-right-radius: 0em;">
+				<div class="modal-body" style="width: 100%;height: 80vh; overflow-y: auto;">
+					@for ($i = 0; $i < 3; $i++)
+					<div class="input-group mb-2 div-input-mall-square" id="div_foto_toko_{{$i}}" style="margin-top: 1em; background: white; border-radius: 1.2em;">
+						<div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Foto Maps {{$i+1}} </div>
+						<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #0066ff; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick='tambah_foto_toko("{{$i}}")' id="div_pic_toko_{{$i}}">
+							<img src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" style="width: 2em;">
 						</div>
-						<div class="item-statis" style="display: flex; justify-content: center;">
-							<div style="margin-left: 0.5em;">
-								<hr style="border: 3px solid #dd9d25; border-radius: 1.5em; width: 1.5em; margin-bottom: 0em;">
-								<div style="font-size: 1.6em; color: white; font-weight: 700; margin-bottom: 0em; text-align: center;">1000</div>
-								<div style="font-size: 0.7em; margin-top: 0em; line-height: 0.3em; margin-bottom: 1.2em; text-align: center; color: white;">Transaksi</div>
-							</div>
+						<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em;" id="div_pic_toko_privew_{{$i}}" hidden>
+							<img id="pic_toko_privew_{{$i}}" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
+							<img id="pic_toko_{{$i}}" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick='tambah_foto_toko("{{$i}}")' style="position: absolute; right: 1em; bottom: 1em;">
+
 						</div>
 
+						<input hidden type="file" name="foto_toko_{{$i}}" id="foto_toko_{{$i}}" required>
 					</div>
+					@endfor
 				</div>
-			</div>			
-		</div>
-		<div style="display: flex; justify-content: center; flex-direction: column; align-items: center; padding-bottom: 1.2em;">
-			<a href="<?=url('/')?>/akun/mitra/premium/atur-toko" style="padding-left: 0.4em;">
-				<img src="<?=url('/')?>/public/img/button/toko_premium/atur_toko.svg" style="width: 100%;">
-			</a>
-			<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk" style="padding-left: 0.4em;">
-				<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_produk.svg" style="width: 100%;">
-			</a>
-			<a href="<?=url('/')?>/akun/mitra/premium/atur-produk" style="padding-left: 0.4em;">
-				<img src="<?=url('/')?>/public/img/button/toko_premium/atur_produk.svg" style="width: 100%;">
-			</a>
-			<a href="<?=url('/')?>/akun/mitra/premium/list-pesanan" style="padding-left: 0.4em;">
-				<img src="<?=url('/')?>/public/img/button/toko_premium/list_pesanan.svg" style="width: 100%;">
-			</a>
+
+			</div>
 		</div>
 	</div>
 
-	@if(Session::has('message'))
-    <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-        aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
-        <div class="modal-dialog modal-sm modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body text-center font-weight-bold py-3">
-                    {{Session::get('message')}}
-                    <div class="row mt-2 p-2">
-                        <button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
-                            data-dismiss="modal">Tutup</button>
 
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-    </div>
+	<header class="style__Container-sc-3fiysr-0 header" style="background: #353535; padding-top: 0.3em;">
+		<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
+			<a href="<?=url('/')?>/akun" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
+				<img src="<?=url('/')?>/public/img/back_white.svg">
+			</a>
+			<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
+				<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
+			</a>
+			<a href="<?=url('/')?>/{{$toko->username}}" style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
+				<img src="<?=url('/')?>/public/img/icon_svg/landing_page.svg" style="width: 100%;">
+			</a>
+		</div>
+	</header>
+
+
+	@php $url = url('/')."/public/img/home/bg-premium.svg"; @endphp
+	<main id="homepage" class="homepage" style='background: transparent; padding: 6em 0px 0px 0px;'>
+		<div>
+			<div style="padding: 0px 16px 1em;">
+				<h3 style="color: white; font-size: 1.75rem; font-weight: 500;">Transaksi</h3>
+				<div style=" display: flex; justify-content: space-between; align-items: center;">
+					<div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">Statistik</div>
+					<div style="display: flex; font-size: 0.7em;color: #a1a4a8;">
+						<div class="btn-menu-analitik analitik-active">Pekanan</div>
+						<div class="btn-menu-analitik">Bulanan</div>
+					</div>				
+				</div>
+			</div>
+			<div class="grafis" style="">
+				<canvas id="chart-0" hidden></canvas>
+				<canvas id="chart-1"></canvas>
+			</div>
+			<div class="card-menu-premium" style="margin-top: 0em;padding-top: 0px;">
+				<div style="margin-top: 0em; background: transparent; padding: 0.5em; display: flex; justify-content: center; border-radius: 1.5em; font-size: 0.75em;">
+				</div>
+				<div style="width: 100%;">
+					<div class="statis" style="width: 100%; display: flex; justify-content: center; flex-direction: column; color: #a1a4a8;">
+						<div style="display: flex; justify-content: space-around;">
+							<div class="item-statis" style="display: flex; justify-content: center;">
+								<div style="margin-left: 0.5em;">
+									<hr style="border: 3px solid #dd9d25; border-radius: 1.5em; width: 1.5em; margin-bottom: 0em;">
+									<div style="margin-top: 1px;font-size: 1.6em; font-weight: 700; margin-bottom: 0em; text-align: center; color: white;">1000</div>
+									<div style="font-size: 0.7em; margin-top: 0em; line-height: 0.3em; margin-bottom: 1.2em; text-align: center; color: white;">Pengujung</div>
+								</div>
+							</div>
+							<div class="item-statis" style="display: flex; justify-content: center;">
+								<div style="margin-left: 0.5em;">
+									<hr style="border: 3px solid #dd9d25; border-radius: 1.5em; width: 1.5em; margin-bottom: 0em;">
+									<div style="font-size: 1.6em; color: white; font-weight: 700; margin-bottom: 0em; text-align: center;">1000</div>
+									<div style="font-size: 0.7em; margin-top: 0em; line-height: 0.3em; margin-bottom: 1.2em; text-align: center; color: white;">Transaksi</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>			
+			</div>
+			<div style="width: 100%; display: flex; justify-content: center;">
+				<div style="width: 80%; background: #1E1E1F; padding: 1em 1.5em; border-radius: 2em; position: relative; margin-top: 0.5em; margin-bottom: 0.5em;">
+					<input type="text" id="link_toko" style="color: white;width: 100%; background: #1E1E1F; font-weight: 500;" value="kitapura.com/warungmantap" readonly>
+					<div style="width: 2.5em; height: 2.5em; background: #DD9D25; border-radius: 50%; display: flex; justify-content: center; position: absolute; right: 0.6em; bottom: 0.6em;"><img src="<?=url('/')?>/public/img/icon_svg/copy_white.svg" style="width: 60%;"></div>
+				</div>
+			</div>
+			<div style="display: flex;justify-content:center;flex-direction: column; align-items: center; padding-bottom: 1.2em;">
+				<a href="<?=url('/')?>/akun/mitra/premium/atur-toko" style="padding-left: 0.4em;">
+					<img src="<?=url('/')?>/public/img/button/toko_premium/atur_toko.svg" style="width: 100%;">
+				</a>
+				<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk" style="padding-left: 0.4em;">
+					<img src="<?=url('/')?>/public/img/button/toko_premium/atur_produk.svg" style="width: 100%;">
+				</a>
+				<a href="<?=url('/')?>/akun/mitra/premium/atur-produk" style="padding-left: 0.4em;">
+					<img src="<?=url('/')?>/public/img/button/toko_premium/atur_landing_page.svg" style="width: 100%;">
+				</a>
+				<a href="<?=url('/')?>/akun/mitra/premium/list-pesanan" style="padding-left: 0.4em;">
+					<img src="<?=url('/')?>/public/img/button/toko_premium/list_pesanan.svg" style="width: 100%;">
+				</a>
+			</div>
+		</div>
+
+		@if(Session::has('message'))
+		<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+		aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+		<div class="modal-dialog modal-sm modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body text-center font-weight-bold py-3">
+					{{Session::get('message')}}
+					<div class="row mt-2 p-2">
+						<button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
+						data-dismiss="modal">Tutup</button>
+
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+	</div>
 	@endif
 
 </main>
@@ -417,9 +439,12 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 
 	@if(Session::has('message'))
-		$('#modal-pemberitahuan').modal('show')
+	// $('#modal-pemberitahuan').modal('show');
 	@endif
 
+	@if(Session::get('message') == 'Data Toko Berhasil Diperbarui')
+	$('#modal-berhasil').modal('show');
+	@endif
 
 	var label_bulanan = ["01", "02", '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 	var jumlah_bulanan = [15, 24, 35, 12, 16, 12, 29, 40, 8, 0,0,0];

@@ -9,10 +9,12 @@ use App\Models\Kategori_toko;
 use App\Models\Foto_maps;
 use App\Models\kelurahan;
 use App\Models\Kategori;
+use App\Models\Kategorinya_toko;
 use App\Models\toko;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\Jadwal_toko;
 use App\Models\Ktp_toko;
+
 
 
 class Mitra_Free_Controller extends Controller
@@ -42,6 +44,8 @@ class Mitra_Free_Controller extends Controller
 			$foto_2 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','2')->first();
 			$foto_3 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','3')->first();
 
+			$kategorinya_toko = Kategorinya_toko::where('toko_id', $toko->id)->get();
+
 			// dd($foto_1);
 
 		    return view('users/user/m-mitra/free/index_free', [
@@ -52,7 +56,8 @@ class Mitra_Free_Controller extends Controller
 				'foto_1'=> $foto_1,
 				'foto_2' => $foto_2,
 				'foto_3' => $foto_3,
-				'status_upgrade'=>'ya'
+				'status_upgrade'=>'ya',
+				'kategorinya_toko'=>$kategorinya_toko
                 ]);
 
         }
@@ -87,7 +92,6 @@ class Mitra_Free_Controller extends Controller
         // dd($request->all());
 		$this->validate($request,[
 			'nama_toko' => 'required',
-			'kategori_toko' => 'required',
 			'no_hp' => 'required',
 			'jadwal_hari' => 'required',
 			'jadwal_buka' => 'required',
@@ -184,6 +188,7 @@ class Mitra_Free_Controller extends Controller
 		$jam_buka = explode('~', $request->get('jadwal_buka'));
 		$jam_tutup = explode('~', $request->get('jadwal_tutup'));
 
+
 		for ($i = 0; $i < count($hari); $i++) {
 			$jadwal = new Jadwal_toko;
 			$jadwal->toko_id = $toko_id;
@@ -193,6 +198,14 @@ class Mitra_Free_Controller extends Controller
 			$jadwal->save();
 		}
 
+		Kategorinya::where('toko_id', $toko_id)->delete();
+        $kategori_toko = explode('~', $request->get('input_id_kategori'));
+        for ($i = 0; $i < count($kategori_toko); $i++){
+            $db = new Kategorinya_toko;
+            $db->toko_id = $toko_id;
+            $db->kategori_toko_id = $kategori_toko[$i];
+            $db->save();
+        }
 		$notification = array(
 			'message' => 'Data Toko Berhasil Diperbarui'
 		);     

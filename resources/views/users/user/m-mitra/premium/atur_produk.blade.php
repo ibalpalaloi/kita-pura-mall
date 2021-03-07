@@ -590,35 +590,16 @@ if (!empty($_GET['deskripsi'])){
 			</div>
 		</div>
 
-		@if(Session::has('message'))
-		<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-		aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
-		<div class="modal-dialog modal-sm modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-body text-center font-weight-bold py-3">
-					{{Session::get('message')}}
-					<div class="row mt-2 p-2">
-						<button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
-						data-dismiss="modal">Tutup</button>
 
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
+
+	</main>
+	<div class="footer">
+		<div class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
+			<button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
+				<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
+			</button>	
 		</div>
 	</div>
-	@endif
-
-
-</main>
-<div class="footer">
-	<div class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
-		<button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
-			<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
-		</button>	
-	</div>
-</div>
 </form>			
 
 @endsection

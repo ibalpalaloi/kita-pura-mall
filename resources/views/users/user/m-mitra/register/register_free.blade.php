@@ -301,7 +301,9 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
                     <i class="fa fa-plus"></i>
                 </div>
             </div>
-            <button data-dismiss="modal" class="btn btn-primary" style="background: #80B918;border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;"><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+            <button class="btn btn-secondary" id="simpan_disabled_jadwal" onclick="simpan_disabled_jadwal()" style="background: #6c757d;border: 1px solid #6c757d; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;"><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+            </button>
+            <button data-dismiss="modal" id="simpan_enabled_jadwal" class="btn btn-secondary" style="background: #80B918; border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" hidden><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
             </button>
         </div>
     </div>
@@ -326,7 +328,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
                         simbolnya</div>
                     </div>
                     <div style="margin-left: 2%; width: 60%;">
-                        <div style="margin-top: 0.5em; font-weight: 700; text-align: left;">kategori_nya</div>
+                        <div style="margin-top: 1em; font-weight: 700; text-align: left;">kategori_nya</div>
                     </div>
                     <div onclick='hapus_kategori("kategorinya")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
                     X</div>
@@ -335,9 +337,9 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
             <hr style="border-top: 1px solid #c8d2dd; width: 100%;">
             <div style="display: flex; justify-content: space-between; width: 90%;">
                 <div class="input-group mb-3 div-input-mall" id="div_kategori" style="width: 80%;">
-                    <select type="text" class="form-control form-control-mall-modal" id="kategori" name="kategori" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="kategori" aria-describedby="basic-addon1" style="width: 100%; text-align: center !import   ant;">
+                    <select type="text" class="form-control form-control-mall-modal" id="kategori" name="kategori" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="kategori" aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
                         @foreach ($daftar_kategori as $row)
-                        <option value="SH">{{$row->kategori}}</option>
+                        <option value="{{$row->id}}">{{$row->kategori}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -348,8 +350,11 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
                     </div>
                 </div>
             </div>
-            <button data-dismiss="modal" class="btn btn-primary" style="background: #80B918;border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;"><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+            <button class="btn btn-secondary" id="simpan_disabled_kategori" onclick="simpan_disabled_kategori()" style="background: #6c757d;border: 1px solid #6c757d; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;"><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
             </button>
+            <button data-dismiss="modal" id="simpan_enabled_kategori" class="btn btn-secondary" style="background: #80B918; border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" hidden><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+            </button>
+
         </div>
     </div>
 </div>
@@ -444,8 +449,9 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
                     id="pilih_jadwal_buka_toko">Pilih Jadwal Toko</div>
                 </div>
             </div>
-            <div>
+            <div hidden>
                 <input name="input_kategori" id="input_kategori">
+                <input name="input_id_kategori" id="input_id_kategori">
                 <input type="hidden" name="jadwal_hari" id="jadwal_hari">
                 <input type="hidden" name="jadwal_buka" id="jadwal_buka">
                 <input type="hidden" name="jadwal_tutup" id="jadwal_tutup">
@@ -487,63 +493,39 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
         </div>
         <div class="input-group mb-3 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; background: white;">
             <div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto Toko</div>
-            <div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-                <div style="position: relative; display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
-                    <img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/register/maps/tampak_depan.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+            <div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+                <div style="position: relative; display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_1">
+                    <img id="pic_toko_privew_1" src="<?=url('/')?>/public/img/register/maps/tampak_depan.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
                     <div style="position: absolute;top: 40%;">
                         <img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('1')" style=" width: 2.5em; margin-left: 40%; margin-bottom: 2em;">
                         <div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Foto Depan Tempat Usaha</div>
                     </div>
                 </div>
-                <input hidden type="file" name="foto_maps_1" id="foto_maps_1">
+                <input hidden type="file" name="foto_toko_1" id="foto_toko_1">
             </div>
             <div style="display: flex; justify-content: space-between; width: 100%;">
-                <div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
-                    <div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew">
-                        <img id="pic_maps_2_privew" src="<?=url('/')?>/public/img/register/maps/produk.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+                <div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
+                    <div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_2">
+                        <img id="pic_toko_privew_2" src="<?=url('/')?>/public/img/register/maps/produk.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
                         <div style="position: absolute;top: 40%;">
-                            <img id="pic_maps_2" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('2')" style=" width: 2.5em; margin-left: 20%; margin-bottom: 2em;">
+                            <img id="pic_toko_2" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('2')" style=" width: 2.5em; margin-left: 20%; margin-bottom: 2em;">
                             <div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
                         </div>
                     </div>
-                    <input hidden type="file" name="foto_maps_2" id="foto_maps_2">
+                    <input hidden type="file" name="foto_toko_2" id="foto_toko_2">
                 </div>
-                <div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
+                <div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
 
-                    <div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew">
-                        <img id="pic_maps_3_privew" src="<?=url('/')?>/public/img/register/maps/bebas.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+                    <div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_3">
+                        <img id="pic_toko_privew_3" src="<?=url('/')?>/public/img/register/maps/bebas.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
                         <div style="position: absolute;top: 40%;">
-                            <img id="pic_maps_3" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('3')" style=" width: 2.5em; margin-left: 15%; margin-bottom: 2em;">
+                            <img id="pic_toko_3" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('3')" style=" width: 2.5em; margin-left: 15%; margin-bottom: 2em;">
                             <div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
                         </div>
                     </div>
-                    <input hidden type="file" name="foto_maps_3" id="foto_maps_3">
+                    <input hidden type="file" name="foto_toko_3" id="foto_toko_3">
                 </div>
             </div>
-            <div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #FF006E; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_toko('1')" id="div_pic_toko_1">
-                <img src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" style="width: 2em;">
-            </div>
-            <div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_1" hidden>
-                <img id="pic_toko_privew_1" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
-                <img id="pic_toko_1" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('1')" style="position: absolute; right: 1em; bottom: 1em;">
-            </div>
-            <input hidden type="file" name="foto_toko_1" id="foto_toko_1" required>
-            <div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #FF006E; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_toko('2')" id="div_pic_toko_2">
-                <img src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" style="width: 2em;">
-            </div>
-            <div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_2" hidden>
-                <img id="pic_toko_privew_2" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
-                <img id="pic_toko_2" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('2')" style="position: absolute; right: 1em; bottom: 1em;">
-            </div>
-            <input hidden type="file" name="foto_toko_2" id="foto_toko_2" >
-            <div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #FF006E; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_toko('3')" id="div_pic_toko_3">
-                <img src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" style="width: 2em;">
-            </div>
-            <div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em; position: relative;" id="div_pic_toko_privew_3" hidden>
-                <img id="pic_toko_privew_3" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
-                <img id="pic_toko_3" src="<?=url('/')?>/public/img/icon_svg/add_circle_pink.svg" onclick="tambah_foto_toko('3')" style="position: absolute; right: 1em; bottom: 1em;">
-            </div>
-            <input hidden type="file" name="foto_toko_3" id="foto_toko_3" >
         </div>
 
         <button type="submit" class="btn btn-primary" style="background: #ff006e; margin-top: 1em;border: 1px solid #ff006e;border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 70%;"> Daftar
@@ -572,6 +554,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
     var i_kategori = 0;
     var value_kategori = [];
+    var value_id_kategori = [];
 
     function input_focus(id) {
         $("#div_" + id).css('border', '1px solid #d1d2d4');
@@ -585,6 +568,14 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
         $('#modal-jadwal').modal('show');
     }
 
+
+    function simpan_disabled_kategori(){
+        alert("Tambahkan data terlebih dahulu");
+    }
+
+    function simpan_disabled_jadwal(){
+        alert("Tambahkan data terlebih dahulu");        
+    }
 
     function tambah_foto_toko(id) {
         $("#foto_toko_"+id).click();
@@ -612,41 +603,57 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 
     function tambah_kategori(){
-        var simbol_kategori = $("#kategori").val();
+        var id_kategori = $("#kategori").val();
         var kategorinya = $("#kategori option:selected").text();
-        var kategori_sample = $("#kategori_sample").html();
-        var fix_id = kategori_sample.replaceAll("kategorinya", kategorinya.replaceAll(" ", '_')).trim();
-        var fix_kategorinya = fix_id.replaceAll("kategori_nya", kategorinya).trim();
-        var fix_simbol = fix_kategorinya.replace("simbolnya", simbol_kategori).trim();
-        $("#kategori_fix").append(fix_simbol);
-
-        value_kategori.push(kategorinya);
-        $(".list-kategori").html('');
-        for (var i = 0; i < value_kategori.length; i++){
-            $(".list-kategori").append("<badge class='badge badge-secondary'>"+value_kategori[i]+"</badge>");
+        if (id_kategori == null){
+            alert("Silahkan Pilih Kategori");
         }
+        else {
+            var kategori_sample = $("#kategori_sample").html();
+            var fix_id = kategori_sample.replaceAll("kategorinya", id_kategori).trim();
+            var fix_kategorinya = fix_id.replaceAll("kategori_nya", kategorinya).trim();
+            var fix_simbol = fix_kategorinya.replace("simbolnya", kategorinya.substring(0,1)).trim();
+            $("#kategori_fix").append(fix_simbol);
 
-        check_select_kategori();
-        i_kategori++;
+            value_kategori.push(kategorinya);
+            value_id_kategori.push(id_kategori);
+            $(".list-kategori").html('');
+            for (var i = 0; i < value_kategori.length; i++){
+                $(".list-kategori").append("<badge class='badge badge-secondary'>"+value_kategori[i]+"</badge>");
+            }
+
+            check_select_kategori();
+            i_kategori++;
+            $("#simpan_disabled_kategori").prop("hidden", true);
+            $("#simpan_enabled_kategori").prop("hidden", false);
+        }
     }
 
     function tambah_jadwal() {
         var simbol = $("#jadwal").val();
         var hari = $("#jadwal option:selected").text();
-        var waktu_tutup = $("#waktu_tutup").val();
-        var waktu_buka = $("#waktu_buka").val();
-        var jadwal_sample = $("#jadwal_sample").html();
-        var fix_id = jadwal_sample.replaceAll(hari.replaceAll(" ", '_')).trim();
-        var fix_harinya = fix_id.replaceAll("harinya", hari).trim();
-        var fix_waktu = fix_harinya.replace("jamnya", waktu_buka + " - " + waktu_tutup).trim();
-        var fix_simbol = fix_waktu.replace("simbolnya", simbol).trim();
-        $("#jadwal_fix").append(fix_simbol);
-        jadwal_hari.push(hari);
-        jadwal_buka.push(waktu_buka);
-        jadwal_tutup.push(waktu_tutup);
+        if (simbol == null){
+            alert("Silahkan Pilih Jadwal");
+        }
+        else {
+            var waktu_tutup = $("#waktu_tutup").val();
+            var waktu_buka = $("#waktu_buka").val();
+            var jadwal_sample = $("#jadwal_sample").html();
+            var fix_id = jadwal_sample.replaceAll(hari.replaceAll(" ", '_')).trim();
+            var fix_harinya = fix_id.replaceAll("harinya", hari).trim();
+            var fix_waktu = fix_harinya.replace("jamnya", waktu_buka + " - " + waktu_tutup).trim();
+            var fix_simbol = fix_waktu.replace("simbolnya", simbol).trim();
+            $("#jadwal_fix").append(fix_simbol);
+            jadwal_hari.push(hari);
+            jadwal_buka.push(waktu_buka);
+            jadwal_tutup.push(waktu_tutup);
+            check_select();
+            i++;
+            $("#simpan_disabled_jadwal").prop("hidden", true);
+            $("#simpan_enabled_jadwal").prop("hidden", false);
 
-        check_select();
-        i++;
+        }
+
     }
 
     function tambah_kategori_modal(){
@@ -660,7 +667,9 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
         var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
 
         var option_text = [];
+        var option_id = [];
         @foreach ($daftar_kategori as $row)
+        option_id.push("<?=$row->id?>");
         option_text.push("<?=$row->kategori?>");
         @endforeach
         var option = "";
@@ -672,19 +681,14 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
                 }
             }
             if (indikator == false) {
-                option += "<option value='" + "S" + "' >" + option_text[i] + "</option>";
+                option += "<option value='" + option_id[i] + "' >" + option_text[i] + "</option>";
             }
         }
         $("#kategori").html(option);
         var string_kategori = value_kategori.toString();
+        var string_id_kategori = value_id_kategori.toString();
         $("#input_kategori").val(string_kategori.replaceAll(",", "~"));
-
-        // if ($("#input_kategori").val() == '') {
-            // $("#pilih_jadwal_buka_toko").html("Pilih Jadwal Buka Tutup Toko");
-        // } else {
-            // $("#pilih_jadwal_buka_toko").html("Telah memilih Jadwal");
-        // }
-
+        $("#input_id_kategori").val(string_id_kategori.replaceAll(",", "~"));
     }
 
     function check_select() {
@@ -722,7 +726,6 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 
     $("#kelurahan").select2();
-    $("#kategori_toko").select2();
 
     function hapus_jadwal(hari) {
         // alert(id);
@@ -746,6 +749,10 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
         jadwal_tutup.pop();
         jadwal_buka.pop();
         check_select();
+        if (jadwal_hari.length == 0){
+            $("#simpan_disabled_jadwal").prop("hidden", false);
+            $("#simpan_enabled_jadwal").prop("hidden", true);            
+        }
         $("#" + hari.replaceAll(" ", "_")).remove();
     }
 
@@ -755,17 +762,24 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
         var find = false;
         for (var i = 0; i < value_kategori.length; i++) {
             if (find == true){
-                value_kategori[i] = value_kategori[i + 1];                
+                value_id_kategori[i] = value_id_kategori[i + 1];
+                value_kategori[i] = value_kategori[i + 1];
             }
-            if (value_kategori[i] == kategori) {
+            if (value_id_kategori[i] == kategori) {
+                value_id_kategori[i] = value_id_kategori[i + 1];
                 value_kategori[i] = value_kategori[i + 1];
                 find = true;
             }
         }
         value_kategori.pop();
+        value_id_kategori.pop();
         check_select_kategori();
         $("#" + kategori.replaceAll(" ", "_")).remove();
         $(".list-kategori").html('');
+        if (value_kategori.length == 0){
+            $("#simpan_disabled_kategori").prop("hidden", false);
+            $("#simpan_enabled_kategori").prop("hidden", true);            
+        }
         for (var i = 0; i < value_kategori.length; i++){
             $(".list-kategori").append("<badge class='badge badge-secondary'>"+value_kategori[i]+"</badge>");
         }

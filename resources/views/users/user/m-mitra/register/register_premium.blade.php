@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/lunar/css/lunar.css">
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/select2/css/select2.css">
+
 <style type="text/css">
 	.banner {
 		max-width: 480px;
@@ -139,6 +141,16 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		border: none;
 	}
 
+	.select2-selection--single {
+		border: none !important;
+		margin: 0.2em;
+		padding: 0.3em;
+
+	}
+	.select2-selection__arrow {
+		margin-top: 0.7em;
+		display: none;
+	}
 
 	.animate-bottom {
 		position: relative;
@@ -185,11 +197,19 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 	.select2-container--default .select2-selection--single .select2-selection__rendered {
 		height: 25px !important;
+		color: white;
 	}
 
 	.select2-container .select2-selection--single {
 		height: auto !important;
-	}   
+		background: #202020;	
+
+	}  
+
+	.select2 {
+		background: #202020 !important;
+		color: white;		
+	}
 
 	select {
 		-webkit-appearance: none;
@@ -266,6 +286,21 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		bottom: 0;
 	}
 
+	.list-kategori {
+		display: flex; justify-content: flex-start; flex-wrap: wrap;
+	}
+
+	.list-kategori .badge {
+		margin-right: 0.5em;
+		margin-bottom: 0.5em;
+		border-radius: 1.5em;
+		background-color: #EBEBEB;
+		color: #5C5C5C;
+		height: auto;	
+		padding: 0.3em 0.5em 0.3em 0.5em;
+
+	}
+
 
 </style>
 @endsection
@@ -321,77 +356,125 @@ if (!empty($_GET['deskripsi'])){
 	$hari = $_GET['deskripsi'];
 }
 ?>
-<div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-style="padding: 1.5em; padding: 0px;">
-<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
-	<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
-		<div class="modal-body">
-			<div>
-				<div class="nama-toko"
-				style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em;">Silahkan Masukan
-				Jadwal<br>Buka/Tutup Usaha Anda</div>
+<div class="modal fade" id="modal-kategori" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+		<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
+			<div class="modal-body">
+				<div>
+					<div class="nama-toko"
+					style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em; text-align: center;">Silahkan
+					Masukan Kategori<br>Usaha Anda</div>
+				</div>
 			</div>
+			<div id="kategori_fix" style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+			</div>
+			<div id="kategori_sample" style="width: 100%; display: flex; justify-content: center;" hidden>
+				<div class="input-group mb-3 div-input-mall-square" id="kategorinya" style="width: 90%; background: white; border: 1px solid white;">
+					<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
+						<div style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
+						simbolnya</div>
+					</div>
+					<div style="margin-left: 2%; width: 60%;">
+						<div style="margin-top: 1em; font-weight: 700; text-align: left;">kategori_nya</div>
+					</div>
+					<div onclick='hapus_kategori("kategorinya")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
+					X</div>
+				</div>
+			</div>
+			<hr style="border-top: 1px solid #c8d2dd; width: 100%;">
+			<div style="display: flex; justify-content: space-between; width: 90%;">
+				<div class="input-group mb-3 div-input-mall" id="div_kategori" style="width: 80%;">
+					<select type="text" class="form-control form-control-mall-modal" id="kategori" name="kategori" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="kategori" aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
+						@foreach ($daftar_kategori as $row)
+						<option value="{{$row->id}}">{{$row->kategori}}</option>
+						@endforeach
+					</select>
+				</div>
+
+				<div style="width: 14%; display: flex; justify-content: space-between;">
+					<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 100%; background: #FF006E; display: flex; justify-content: center; color: white; align-items: center;"  onclick="tambah_kategori()">
+						<i class="fa fa-plus"></i>
+					</div>
+				</div>
+			</div>
+			<button class="btn btn-secondary" id="simpan_disabled_kategori" onclick="simpan_disabled_kategori()" style="background: #6c757d;border: 1px solid #6c757d; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;"><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+			</button>
+			<button data-dismiss="modal" id="simpan_enabled_kategori" class="btn btn-secondary" style="background: #80B918; border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" hidden><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+			</button>
 
 		</div>
-		<div id="jadwal_fix"
-		style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
 	</div>
-	<div id="jadwal_sample" style="width: 100%; display: flex; justify-content: center;" hidden>
-		<div class="input-group mb-3 div-input-mall-square" id="harinya"
-		style="width: 90%; background: white; border: 1px solid white;">
-		<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
-			<div
-			style="width: 2.5em; height: 2.5em; background:#ffaa00; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
-		simbolnya</div>
-	</div>
-	<div style="margin-left: 2%; width: 60%;">
-		<div style="margin-top: 0.5em; font-weight: 700; text-align: left;">harinya</div>
-		<div style="font-size: 0.7em; text-align: left;">jamnya</div>
-	</div>
-	<div onclick='hapus_jadwal("harinya")'
-	style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ffaa00; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
-X</div>
-</div>
-</div>
-<hr style="border-top: 1px solid #c8d2dd; width: 100%;">
-<div class="input-group mb-3 div-input-mall" id="div_jadwal" style="width: 90%;">
-	<select type="text" class="form-control form-control-mall-modal" id="jadwal" name="jadwal"
-	onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="jadwal"
-	aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
-	<option disabled selected>--- Silahkan Pilih Hari ---</option>
-	<option value="SH">Setiap-Hari</option>
-	<option value="SS">Senin-Sabtu</option>
-	<option value="SJ">Senin-JUmat</option>
-	<option value="S">Senin</option>
-	<option value="S">Selasa</option>
-	<option value="R">Rabu</option>
-	<option value="K">Kamis</option>
-	<option value="J">Jumat</option>
-	<option value="S">Sabtu</option>
-	<option value="M">Minggu</option>
-</select>
-</select>
-</div>
-<div style="width: 90%; display: flex; justify-content: space-between;">
-	<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 48%;">
-		<input type="time" class="form-control form-control-mall-modal" id="waktu_buka" min="09:00"
-		max="18:00" required style="width: 100%; height: auto !important;">
-	</div>
-	<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 48%;">
-		<input type="time" class="form-control form-control-mall-modal" id="waktu_tutup" min="09:00"
-		max="18:00" required style="width: 100%; height: auto !important;">
-	</div>
-</div>
-<button onclick="tambah_jadwal()" class="btn btn-primary"
-style="background: #ffaa00;;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;">Tambah
-Jadwal
-</button>
-</div>
-</div>
 </div>
 
 
-<header class="style__Container-sc-3fiysr-0 header" style="background: transparent; padding-top: 0.3em;">
+<div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+		<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
+			<div class="modal-body">
+				<div>
+					<div class="nama-toko"
+					style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em;">Silahkan Masukan
+					Jadwal<br>Buka/Tutup Usaha Anda</div>
+				</div>
+			</div>
+			<div id="jadwal_fix" style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+			</div>
+			<div id="jadwal_sample" style="width: 100%; display: flex; justify-content: center;" hidden>
+				<div class="input-group mb-3 div-input-mall-square" id="harinya" style="width: 90%; background: white; border: 1px solid white;">
+					<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
+						<div
+						style="width: 2.5em; height: 2.5em; background:#ffaa00; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">simbolnya</div>
+					</div>
+					<div style="margin-left: 2%; width: 60%;">
+						<div style="margin-top: 0.5em; font-weight: 700; text-align: left;">harinya</div>
+						<div style="font-size: 0.7em; text-align: left;">jamnya</div>
+					</div>
+					<div onclick='hapus_jadwal("harinya")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ffaa00; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
+						X
+					</div>
+				</div>
+			</div>
+			<hr style="border-top: 1px solid #c8d2dd; width: 100%;">
+			<div class="input-group mb-3 div-input-mall" id="div_jadwal" style="width: 90%;">
+				<select type="text" class="form-control form-control-mall-modal" id="jadwal" name="jadwal" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="jadwal" aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
+					<option value="" disabled selected>--- Silahkan Pilih Hari ---</option>
+					<option value="SH">Setiap-Hari</option>
+					<option value="SS">Senin-Sabtu</option>
+					<option value="SJ">Senin-JUmat</option>
+					<option value="S">Senin</option>
+					<option value="S">Selasa</option>
+					<option value="R">Rabu</option>
+					<option value="K">Kamis</option>
+					<option value="J">Jumat</option>
+					<option value="S">Sabtu</option>
+					<option value="M">Minggu</option>
+				</select>
+			</div>
+			<div style="width: 90%; display: flex; justify-content: space-between;">
+				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 40%;">
+					<small style="margin-left: 2em;">Waktu Buka</small>
+					<input type="time" class="form-control form-control-mall-modal" id="waktu_buka" value="07:00" min="09:00"
+					max="18:00" required style="width: 100%; height: auto !important;">
+				</div>
+				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 40%;">
+					<small style="margin-left: 2em;">Waktu Tutup</small>
+					<input type="time" class="form-control form-control-mall-modal" id="waktu_tutup" value="16:00" min="09:00"
+					max="18:00" required style="width: 100%; height: auto !important;">
+				</div>
+				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 15%; background: #FF006E; display: flex; justify-content: center; color: white; align-items: center;"  onclick="tambah_jadwal()">
+					<i class="fa fa-plus"></i>
+				</div>
+			</div>
+			<button class="btn btn-secondary" id="simpan_disabled_jadwal" onclick="simpan_disabled_jadwal()" style="background: #6c757d;border: 1px solid #6c757d; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;"><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+			</button>
+			<button data-dismiss="modal" id="simpan_enabled_jadwal" class="btn btn-secondary" style="background: #80B918; border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" hidden><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+			</button>
+		</div>
+	</div>
+</div>
+
+
+<header class="style__Container-sc-3fiysr-0 header" style="background:#353535; padding-top: 0.3em;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
 		<a href="<?=url('/')?>/akun/jadi-mitra" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
 			<img src="<?=url('/')?>/public/img/back_white.svg">
@@ -420,8 +503,10 @@ Jadwal
 						</div>
 					</div>
 					<input type="file" name="foto_toko" id="foto_toko" hidden>
-					<div style="display: flex; justify-content: center;">
+					<div style="display: flex; justify-content: center; flex-direction: column;">
 						<input type="text" id="nama_toko" name="nama_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Toko" aria-label="Nama Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1.5em; font-weight: 645;" required>
+						<input type="text" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" required>
+
 					</div>
 				</div>
 				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="height: 7.5em; justify-content: flex-start; background: #292929; border: none; border-radius: 0.5em;">
@@ -432,18 +517,12 @@ Jadwal
 				</div>
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kategori</div>
-					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
-						<span class="input-group-text-mall" style="width: 3em; background: #202020;">
-							<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 40%;">
-						</span>
-						<select type="text" class="form-control-mall" id="kategori_toko" name="kategori_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;" required>
-							<option value="" disabled selected>Pilih Kategori Toko</option>
-							@foreach($daftar_kategori as $row)
-							<option value="{{$row->id}}">{{$row->kategori}}
-							</option>
-							@endforeach
-						</select>
-
+					<div style="width: 100%; background: #292929; border-radius: 0.5em;margin-top: 0.3em; display: flex; justify-content: space-between;">
+						<div class="list-kategori" style="min-height: 5em; align-items: flex-start; padding: 0.5em 0.5em 0.5em 0.5em; width: 88%;">
+						</div>
+						<div style="width: 2em; height: 2em; font-size: 0.8em; background: #FFC331; color: #202020; border-radius: 50%; padding-top: 0.2em; padding-left: 0.5em; margin: 1em;" onclick="tambah_kategori_modal()">
+							<i class="fa fa-plus"></i>
+						</div>
 					</div>
 				</div>
 
@@ -467,6 +546,8 @@ Jadwal
 					</div>
 				</div>
 				<div hidden>
+					<input name="input_kategori" id="input_kategori">
+					<input name="input_id_kategori" id="input_id_kategori">
 					<input type="text" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
 					<input type="text" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
 					<input type="text" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
@@ -557,21 +638,31 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 
 @section('footer-scripts')
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="<?=url('/')?>/public/plugins/select2/js/select2.full.min.js"></script>
+
 <script type="text/javascript">
-    @if(Session::has('message'))
-    $('#modal-pemberitahuan').modal('show')
-    @endif
+	@if(Session::has('message'))
+	$('#modal-pemberitahuan').modal('show')
+	@endif
 
 	$("input[required], select[required]").attr("oninvalid",
 		"this.setCustomValidity('Harap Dimasukkan')");
 	$("input[required], select[required]").attr("oninput", "setCustomValidity('')");
 
+	function tambah_kategori_modal(){
+		$('#modal-kategori').modal('show');
+	}
 
-    var i = 0;
-    var jadwal_hari = [];
-    var jadwal_buka = [];
-    var jadwal_tutup = [];
+	$("#kelurahan").select2();
 
+	var i = 0;
+	var jadwal_hari = [];
+	var jadwal_buka = [];
+	var jadwal_tutup = [];
+
+	var i_kategori = 0;
+	var value_kategori = [];
+	var value_id_kategori = [];
 
 	function input_focus(id){
 		$("#div_"+id).css('border', '1px solid #d1d2d4');
@@ -595,24 +686,58 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 	}
 
 
-	function tambah_jadwal(){
+	function tambah_jadwal() {
 		var simbol = $("#jadwal").val();
 		var hari = $("#jadwal option:selected").text();
-		var waktu_tutup = $("#waktu_tutup").val();
-		var waktu_buka = $("#waktu_buka").val();
-		var jadwal_sample = $("#jadwal_sample").html();
-		var fix_id = jadwal_sample.replaceAll(hari.replaceAll(" ", '_')).trim();
-		var fix_harinya = fix_id.replaceAll("harinya", hari).trim();
-		var fix_waktu = fix_harinya.replace("jamnya", waktu_buka+" - "+waktu_tutup).trim();
-		var fix_simbol = fix_waktu.replace("simbolnya", simbol).trim();
-		$("#jadwal_fix").append(fix_simbol);
+		if (simbol == null){
+			alert("Silahkan Pilih Jadwal");
+		}
+		else {
+			var waktu_tutup = $("#waktu_tutup").val();
+			var waktu_buka = $("#waktu_buka").val();
+			var jadwal_sample = $("#jadwal_sample").html();
+			var fix_id = jadwal_sample.replaceAll(hari.replaceAll(" ", '_')).trim();
+			var fix_harinya = fix_id.replaceAll("harinya", hari).trim();
+			var fix_waktu = fix_harinya.replace("jamnya", waktu_buka + " - " + waktu_tutup).trim();
+			var fix_simbol = fix_waktu.replace("simbolnya", simbol).trim();
+			$("#jadwal_fix").append(fix_simbol);
+			jadwal_hari.push(hari);
+			jadwal_buka.push(waktu_buka);
+			jadwal_tutup.push(waktu_tutup);
+			check_select();
+			i++;
+			$("#simpan_disabled_jadwal").prop("hidden", true);
+			$("#simpan_enabled_jadwal").prop("hidden", false);
 
-		jadwal_hari.push(hari);
-		jadwal_buka.push(waktu_buka);
-		jadwal_tutup.push(waktu_tutup);
+		}
 
-		check_select();		
-		i++;
+	}
+
+	function tambah_kategori(){
+		var id_kategori = $("#kategori").val();
+		var kategorinya = $("#kategori option:selected").text();
+		if (id_kategori == null){
+			alert("Silahkan Pilih Kategori");
+		}
+		else {
+			var kategori_sample = $("#kategori_sample").html();
+			var fix_id = kategori_sample.replaceAll("kategorinya", id_kategori).trim();
+			var fix_kategorinya = fix_id.replaceAll("kategori_nya", kategorinya).trim();
+			var fix_simbol = fix_kategorinya.replace("simbolnya", kategorinya.substring(0,1)).trim();
+			$("#kategori_fix").append(fix_simbol);
+
+			value_kategori.push(kategorinya);
+			value_id_kategori.push(id_kategori);
+			$(".list-kategori").html('');
+			for (var i = 0; i < value_kategori.length; i++){
+				$(".list-kategori").append("<badge class='badge badge-secondary'>"+value_kategori[i]+"</badge>");
+			}
+
+			check_select_kategori();
+			i_kategori++;
+			$("#simpan_disabled_kategori").prop("hidden", true);
+			$("#simpan_enabled_kategori").prop("hidden", false);
+		}
 	}
 
 	function check_select(){
@@ -647,6 +772,42 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 
 	}
 
+	function simpan_disabled_kategori(){
+		alert("Tambahkan data terlebih dahulu");
+	}
+
+	function simpan_disabled_jadwal(){
+		alert("Tambahkan data terlebih dahulu");        
+	}
+
+
+	function check_select_kategori() {
+		var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
+
+		var option_text = [];
+		var option_id = [];
+		@foreach ($daftar_kategori as $row)
+		option_id.push("<?=$row->id?>");
+		option_text.push("<?=$row->kategori?>");
+		@endforeach
+		var option = "";
+		for (var i = 0; i < option_text.length; i++) {
+			var indikator = false;
+			for (var j = 0; j < value_kategori.length; j++) {
+				if (value_kategori[j] == option_text[i]) {
+					indikator = true;
+				}
+			}
+			if (indikator == false) {
+				option += "<option value='" + option_id[i] + "' >" + option_text[i] + "</option>";
+			}
+		}
+		$("#kategori").html(option);
+		var string_kategori = value_kategori.toString();
+		var string_id_kategori = value_id_kategori.toString();
+		$("#input_kategori").val(string_kategori.replaceAll(",", "~"));
+		$("#input_id_kategori").val(string_id_kategori.replaceAll(",", "~"));
+	}
 
 
 	function readURL(input) {
@@ -709,5 +870,37 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 		check_select();
 		$("#"+hari.replaceAll(" ", "_")).remove();
 	}
+
+	function hapus_kategori(kategori) {
+		kategori = kategori.replaceAll("_", " ");
+		var temp;
+		var find = false;
+		for (var i = 0; i < value_kategori.length; i++) {
+			if (find == true){
+				value_id_kategori[i] = value_id_kategori[i + 1];
+				value_kategori[i] = value_kategori[i + 1];
+			}
+			if (value_id_kategori[i] == kategori) {
+				value_id_kategori[i] = value_id_kategori[i + 1];
+				value_kategori[i] = value_kategori[i + 1];
+				find = true;
+			}
+		}
+		value_kategori.pop();
+		value_id_kategori.pop();
+		check_select_kategori();
+		$("#" + kategori.replaceAll(" ", "_")).remove();
+		$(".list-kategori").html('');
+		if (value_kategori.length == 0){
+			$("#simpan_disabled_kategori").prop("hidden", false);
+			$("#simpan_enabled_kategori").prop("hidden", true);            
+		}
+		for (var i = 0; i < value_kategori.length; i++){
+			$(".list-kategori").append("<badge class='badge badge-secondary'>"+value_kategori[i]+"</badge>");
+		}
+
+
+	}
+
 </script>
 @endsection

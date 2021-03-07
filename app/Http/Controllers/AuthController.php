@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\Biodata;
 use App\Models\Otp;
+use App\Models\Toko;
 use Illuminate\Support\Str;
 use Auth;
 use GuzzleHttp;
@@ -257,5 +258,13 @@ class AuthController extends Controller
         $biodata->save();
 
     }
+
+    public function notif_toko_lengkap(Request $request){
+        $toko = Toko::where('users_id', Session::get('id_user'))->first();
+        $toko->notif = 2;
+        $toko->save();
+
+    }
+
     
 }
