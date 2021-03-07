@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 use App\Models\Kategori_toko;
+use App\Models\Kategorinya_toko;
 use App\Models\Foto_maps;
 use App\Models\kelurahan;
 use App\Models\Kategori;
@@ -56,7 +57,7 @@ class Mitra_Register_Controller extends Controller
 
 		$this->validate($request,[
 			'nama_toko' => 'required',
-			'kategori_toko' => 'required',
+			// 'kategori_toko' => 'required',
 			'no_hp' => 'required',
 			'jadwal_hari' => 'required',
 			'jadwal_buka' => 'required',
@@ -153,6 +154,14 @@ class Mitra_Register_Controller extends Controller
 			$jadwal->jam_tutup = $jam_tutup[$i];
 			$jadwal->save();
 		}
+        // @Tambah Kategornya toko
+        $kategori_toko = explode('~', $request->get('input_id_kategori'));
+        for ($i = 0; $i < count($kategori_toko); $i++){
+            $db = new Kategorinya_toko;
+            $db->toko_id = $toko_id;
+            $db->kategori_toko_id = $kategori_toko[$i];
+            $db->save();
+        }
 
 		return redirect('/akun/jadi-mitra/'.$jenis_mitra.'/pilih-lokasi');
 	}

@@ -88,6 +88,7 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::post('/kirim-ulang-otp', [AuthController::class, 'kirim_ulang_otp'])->name('kirim_ulang_otp');
         Route::post('/set-null', [AuthController::class, 'set_null'])->name('set-null');
         Route::post('/notif-lengkap', [AuthController::class, 'notif_biodata_lengkap'])->name('notif_lengkap');
+        Route::post('/notif_toko_lengkap', [AuthController::class, 'notif_toko_lengkap'])->name('notif_toko_lengkap');
         Route::group(['middleware'=> 'free'], function() {
             // @mitra free
             Route::get('/akun/mitra/free', [Mitra_Free_Controller::class, 'index_free']);

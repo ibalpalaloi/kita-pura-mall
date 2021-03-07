@@ -5,8 +5,6 @@ Explore |
 @endsection
 
 @section('header-scripts')
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <style type="text/css">
 	.footer {
 		position: fixed;
@@ -79,22 +77,36 @@ if (!empty($_GET['daftar_mitra_premium'])){
 
 @if(Session::get('message') == 'Belum Terverifikasi')
 <div class="modal fade" id="modal-verifikasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
-		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; box-shadow: none; border: none;">
-			<div style="width: 80%;">
-				<div style="background: transparent; margin-top: 4.5em; border-radius: 1.5em; position: relative;">
-					<div style="display: flex; justify-content: center; flex-direction: column; align-items: center; width: 100%; position: absolute; top: -6.8em;">
-						<img src="<?=url('/')?>/public/img/mitra/waiting.svg" style="width: 100%; margin-left: 0.7em; margin-bottom: 0em;">
-						<h3 style="margin-top: 0em; color: white;">Berhasil!</h3>
-						<div style="text-align: center; font-size: 0.8em; line-height: 1.2em; color: white;">data toko anda berhasil dikirimkan.<br>mohon tunggu verifikasi dari<br>tim kitapuramall</div>
-						<a href="<?=url('/')?>/akun/mitra/{{Session::get('jenis_mitra')}}" style="color: white; background: #ffaa00; padding: 0.3em 0em 0.5em 0em; width: 50%; margin-top: 0.8em; border-radius: 2em; text-align: center; font-weight: 600;">Ubah data ?</a>
-					</div>
-					<img src="<?=url('/')?>/public/img/mitra/bg-waiting.svg" style="width: 100%;">
-				</div>
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: 0;">
+				<img src="<?=url('/')?>/public/img/mitra/modal_daftar_register.svg" style="width: 80%; position: absolute; top: -16em;">
+				<div style="font-size: 2em; font-weight: 600; margin-top: 1em;">Mohon Tunggu...</div>
+				<div style="font-size: 1.1em; text-align: center; width: 90%; font-weight: 0; color: #ffe6f1;">kitapuramall akan mengkonfirmasi permintaan anda. mohon tunggu konfirmasi</div>
+				<a href="<?=url('/')?>/akun/pengaturan-profil" style="margin-bottom: 1em; font-size: 1.1em;margin-top: 0.5em; text-align: center; text-decoration: underline; color: white;">Konfirmasi lama? Klik disini
+				</a>
 			</div>
 		</div>
 	</div>
 </div>
+@endif
+
+@if($toko)
+@if($toko->notif == 0)
+<div class="modal fade" id="modal-notif-berhasil-toko" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; background: linear-gradient(180deg, #D4D700 20.31%, #80B918 100%); display: flex; justify-content: center; align-items: center; margin: 10em 1em 0em 1em; color: white;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: 0;">
+				<img src="<?=url('/')?>/public/img/mitra/modal_sukses_toko.svg" style="width: 80%; position: absolute; top: -17em;">
+				<div style="font-size: 2.5em; font-weight: 600; margin-top: 0.5em;">Selamat !!</div>
+				<div style="font-size: 1.1em; text-align: center; width: 60%; font-weight: 0;  line-height: 1.3em; color: #ffe6f1; margin-bottom: 1em;">anda sudah bergabung menjadi mitra <span style="font-weight: 600;">kitapuramall</span></div>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
 @endif
 
 
@@ -105,7 +117,7 @@ if (!empty($_GET['daftar_mitra_premium'])){
 			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
 				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: 0;">
 				<img src="<?=url('/')?>/public/img/mitra/modal_berhasil_biodata.svg" style="width: 80%; position: absolute; top: -9.5em;">
-				<div style="font-size: 2em; font-weight: 600; margin-top: 1em;">Yeah, Hore!</div>
+				<div style="font-size: 2em; font-weight: 600; margin-top: 2em;">Yeah, Hore!</div>
 				<div style="font-size: 1.1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1em;">selamat anda sudah bisa menikmati semua fitur kitapuramall</div>
 			</div>
 		</div>
@@ -146,9 +158,8 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 						@if(Session::get('status_mitra') == 'free')
 						<a href="<?=url('/')?>/akun/mitra/{{Session::get('status_mitra')}}/upgrade-premium/upload-ktp" style="color: white; background: #ffaa00; padding: 0.3em 0em 0.5em 0em; width: 50%; margin-top: 0.8em; border-radius: 2em; text-align: center; font-weight: 600;">Ubah data ?</a>
 						@else
-						<a href="<?=url('/')?>/akun/mitra/{{Session::get('status_mitra')}}/upload-ktp" style="color: white; background: #ffaa00; padding: 0.3em 0em 0.5em 0em; width: 50%; margin-top: 0.8em; border-radius: 2em; text-align: center; font-weight: 600;">Ubah data ?</a>
+						<a href="<?=url('/')?>/akun/mitra/{{Session::get('status_mitra')}}/upload-ktp" style="color: white; background: #ffaa00; padding: 0.3em 0em 0.5em 0em; width: 50%; margin-top: 0.8em; border-radius: 2em; text-align: center; font-weight: 600;">Lengkapi Sekarang</a>
 						@endif
-
 					</div>
 					<img src="<?=url('/')?>/public/img/mitra/bg-waiting.svg" style="width: 100%;">
 				</div>
@@ -179,7 +190,15 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 				<img src="<?=url('/')?>/public/img/user/profile_picture/user.png" style="width: 100%; border-radius: 50%;">
 				@endif
 				@if (Session::get('status_mitra') != 'Belum jadi mitra')
-				<div style="font-size: 0.6em; background: #ff006e; color: white; padding: 0.3em 1em 0.3em 1em; border-radius:2em; position: absolute; bottom: 2.1em;">Mitra {{ucfirst($status_aktif_mitra)}}</div>
+				<?php $img = "";
+				if (Session::get('status_mitra') == 'free'){
+					$img = url('/')."/public/img/icon_svg/icon_gratis.svg";
+				}
+				else {
+					$img = url('/')."/public/img/icon_svg/icon_premium.svg";
+				}
+				?>
+				<div style="font-size: 0.7em; background: #ff006e; color: white; padding: 0.3em 1em 0.3em 1em; border-radius:2em; position: absolute; bottom: 1em;"><img src="<?=$img?>">&nbsp;Mitra {{ucfirst($status_aktif_mitra)}}</div>
 				@endif
 			</div>
 			<div style="width: 63%; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 2%;">
@@ -200,7 +219,6 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 					<div style="font-size: 0.60em; text-align: center; width: 90%;"><b>Data Anda Sudah Lengkap </b>anda bisa melakukan transaksi pada aplikasi ini</div>
 					@else
 					<div style="font-size: 0.60em; text-align: center; width: 90%;"><b>Lengkapi akun </b>anda, Untuk bisa melakukan transaksi pada aplikasi ini</div>
-
 					@endif
 				</div>
 			</div>
@@ -256,6 +274,21 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 			// do something
 		}
 	})  
+	@endif
+
+	@if($toko)
+	@if($toko->notif == 0)
+	$("#modal-notif-berhasil-toko").modal('show');
+	$.ajax({
+		url:"{{ route('notif_toko_lengkap') }}",
+		method: "post",
+		data : {nomor:"<?=$toko->id?>", _token:'{{csrf_token()}}'},
+		success:function(result)
+		{
+			// do something
+		}
+	})  
+	@endif
 	@endif
 
 	@if(Session::get('message') == 'Belum Terverifikasi')
