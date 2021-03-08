@@ -51,6 +51,15 @@ class Mitra_Register_Controller extends Controller
 		}
 	}
 	
+
+    public function kirim_lokasi(){
+        $toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+        $toko->latitude = 1;
+        $toko->longitude = 1;
+        $toko->save();  
+        return redirect("https://api.whatsapp.com/send?phone=6285156100849&text=Saya%20Tidak%20Menemukan%20Lokasi%20Saya");     
+    }
+
 	public function simpan_mitra(Request $request, $jenis_mitra){
 
 		// dd($request->all());
@@ -167,14 +176,22 @@ class Mitra_Register_Controller extends Controller
 	}
 
 	public function pilih_lokasi($jenis_mitra){
+        $daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+        if (($daftar_tunggu->latitude == null) && ($daftar_tunggu->longitude == null)){
+            if ($jenis_mitra == 'free'){
+                return view('users/user/m-mitra/register/pilih_lokasi_free');
 
-		if ($jenis_mitra == 'free'){
-			return view('users/user/m-mitra/register/pilih_lokasi_free');
+            }
+            else {
+                return view('users/user/m-mitra/register/pilih_lokasi_premium');            
+            }
+        }     
+        $notification = array(
+            'message' => 'Belum Terverifikasi',
+            'jenis_mitra' => $jenis_mitra
+        );     
+        return redirect('akun')->with($notification);
 
-		}
-		else {
-	    	return view('users/user/m-mitra/register/pilih_lokasi_premium');			
-		}
 	}
 
     public function simpan_lokasi($jenis_mitra, Request $request){

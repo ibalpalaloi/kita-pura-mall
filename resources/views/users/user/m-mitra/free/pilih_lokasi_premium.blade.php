@@ -7,8 +7,8 @@ Maps |
 @section('header-scripts')
 <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template/admin/dist/css/style.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin="" />
+integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+crossorigin="" />
 <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/lunar/css/lunar.css">
 <style type="text/css">
     .pencarian-tabs>a {
@@ -107,9 +107,9 @@ Maps |
 @section('content')
 <div class="text-center" style="display: none;">
     <button type="button" id="btn_trigger_location" class="btn btn-default btn-rounded" data-toggle="modal"
-        data-target="#modal-trigger-location">
-        Open Modal Hapus
-    </button>
+    data-target="#modal-trigger-location">
+    Open Modal Hapus
+</button>
 </div>
 <?php
 $pemilik = "";
@@ -121,39 +121,57 @@ $hari = "";
 $gambar_toko = "";
 $deskripsi = "";
 if (!empty($_GET['pemilik'])){
-	$pemilik = $_GET['pemilik'];
+    $pemilik = $_GET['pemilik'];
 }
 if (!empty($_GET['no_hp'])){
-	$no_hp = $_GET['no_hp'];
+    $no_hp = $_GET['no_hp'];
 }
 if (!empty($_GET['kategori'])){
-	$kategori = $_GET['kategori'];
+    $kategori = $_GET['kategori'];
 }
 if (!empty($_GET['hari'])){
-	$hari = $_GET['hari'];
+    $hari = $_GET['hari'];
 }
 if (!empty($_GET['buka'])){
-	$buka = $_GET['buka'];
+    $buka = $_GET['buka'];
 }
 if (!empty($_GET['tutup'])){
-	$tutup = $_GET['tutup'];
+    $tutup = $_GET['tutup'];
 }
 if (!empty($_GET['tutup'])){
-	$tutup = $_GET['tutup'];
+    $tutup = $_GET['tutup'];
 }
 if (!empty($_GET['gambar_toko'])){
-	$gambar_toko = $_GET['gambar_toko'];
+    $gambar_toko = $_GET['gambar_toko'];
 }
 if (!empty($_GET['deskripsi'])){
-	$deskripsi = $_GET['deskripsi'];
+    $deskripsi = $_GET['deskripsi'];
 }
 ?>
+@if (($toko->latitude == 1) && ($toko->longitude == 1)) 
+<div class="modal fade" id="modal-verifikasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+        <div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+            <div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <img src="<?=url('/')?>/public/img/mitra/modal_daftar_register.svg" style="width: 80%; position: absolute; top: -16em;">
+                <div style="font-size: 2em; font-weight: 600; margin-top: 1em;">Mohon Tunggu...</div>
+                <div style="font-size: 1.1em; text-align: center; width: 90%; font-weight: 0; color: #ffe6f1;">anda telah mengirimkan lokasi kepada admin untuk ditambahkan oleh admin. Silahkan menunggu admin untuk mengkonfirmasi alamat anda</div>
+                <a class="btn btn-primary" href="<?=url('/')?>/akun/mitra/free/" style="margin-bottom: 0.7em; font-size: 1.1em;margin-top: 1em; text-align: center; color: white;">Kembali ke atur toko
+                </a>
+                <div data-dismiss="modal" href="<?=url('/')?>/akun/mitra/premium/atur-toko" style="margin-bottom: 1em; font-size: 1em; text-align: center; text-decoration: underline; color: white;">Atur Manual Koordinat Saya
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
     <div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: flex-end;">
-        <div style="margin-right: 1em;">
-            <div class="btn btn-primary" onclick="cari_lokasi()"
-                style="background: #ffaa00; border: 2px solid #ffaa00;">Cari Lokasi</div>
+        <div style="margin-right: 1em;" id="cari_lokasi" @if (($toko->latitude != null) && ($toko->longitude != null)) hidden @endif>
+            <div class="btn btn-primary" onclick="cari_lokasi()" style="background: #ffaa00; border: 2px solid #ffaa00;">Cari Lokasi</div>
+            <a class="btn btn-primary" href="<?=url('/')?>/akun/mitra/free/upgrade-premium/kirim-lokasi" id="kirim_lokasi" style="background: #35A500; border: 2px solid #35A500;" hidden>Tidak Menemukan Lokasi?</a>
+            
         </div>
     </div>
 </header>
@@ -163,59 +181,73 @@ if (!empty($_GET['deskripsi'])){
 </main>
 
 <div class="footer" style="background: #eaf4ff;">
-    <form action="{{url()->current()}}/simpan" method="post">
+<!--         <span id="icon_loading"><img src="<?=url('/')?>/public/img/icon_svg/loading.gif" style="width: 0.8em;">
+</span>&nbsp;<span id="status_pencarian" style="color: black; font-size: 0.8em;">Sedang mendeteksi lokasi....</span> -->
+<div class="container-mall" id="tampil_titik" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-bottom: 1em;">
+    <form action="{{url()->current()}}/simpan" method="post" style="width: 100%;">
         {{csrf_field()}}
-		<input type="hidden" value="PUT" name="_method">
-        <span id="icon_loading"><img src="<?=url('/')?>/public/img/icon_svg/loading.gif"
-                style="width: 0.8em;"></span>&nbsp;<span id="status_pencarian"
-            style="color: black; font-size: 0.8em;">Sedang mendeteksi lokasi....</span>
-        <div class="container-mall" id="tampil_titik"
-            style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-bottom: 1em;">
-            <div style="display: flex; width: 100%; justify-content: space-between;">
-                <div class="input-group mb-3 div-input-mall" id="div_latitude"
-                    style="width: 100%; display: flex; justify-content: center; align-items: center; background: white;">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text input-group-text-mall" style="width: 4em; font-weight: 600;">
-                            X
-                        </span>
-                    </div>
-                    <input type="text" class="form-control form-control-mall" id="latitude" name="latitude"
-                        onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Latitude"
-                        aria-label="latitude" aria-describedby="basic-addon1" style="font-size: 1em;">
-                </div>
-            </div>
-            <div class="input-group mb-3 div-input-mall" id="div_longitude"
-                style="width: 100%; display: flex; justify-content: center; align-items: center; background: white;">
+        <input type="hidden" value="PUT" name="_method">
+
+        <div style="display: flex; width: 100%; justify-content: space-between;">
+            <div class="input-group mb-3 div-input-mall" id="div_latitude" style="width: 100%; display: flex; justify-content: center; align-items: center; background: white;">
                 <div class="input-group-prepend">
                     <span class="input-group-text input-group-text-mall" style="width: 4em; font-weight: 600;">
-                        Y
+                        X
                     </span>
                 </div>
-                <input type="text" class="form-control form-control-mall" id="longitude" name="longitude"
-                    onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Longitude"
-                    aria-label="longitude" aria-describedby="basic-addon1" style="font-size: 1em;">
+                <input type="text" class="form-control form-control-mall" id="latitude" name="latitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Latitude" aria-label="latitude" aria-describedby="basic-addon1" style="font-size: 1em;" value="@if($toko->latitude != null){{$toko->latitude}} @endif">
             </div>
-            <button onclick="simpan_koordinat()" id="btn_simpan_lokasi" class="btn btn-primary"
-                style="background: #ffaa00;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Simpan
-                Koordinat
-            </button>
-            <a href="<?=url('/')?>/akun/mitra/free/upgrade-premium/upload-ktp" class="btn btn-primary mt-2"
-                style="background: #007bff;border: 1px solid #007bff; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Lewati</a>
         </div>
+        <div class="input-group mb-3 div-input-mall" id="div_longitude" style="width: 100%; display: flex; justify-content: center; align-items: center; background: white;">
+            <div class="input-group-prepend">
+                <span class="input-group-text input-group-text-mall" style="width: 4em; font-weight: 600;">
+                    Y
+                </span>
+            </div>
+            <input type="text" class="form-control form-control-mall" id="longitude" name="longitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Longitude" aria-label="longitude" aria-describedby="basic-addon1" style="font-size: 1em;" value="@if($toko->longitude != null){{$toko->longitude}} @endif">
+        </div>
+        <div id="koordinat_belum_tersimpan" style="width: 100%;" @if (($toko->latitude != null) && ($toko->longitude != null)) hidden @endif>
+            <button onclick="simpan_koordinat()" id="btn_simpan_lokasi" class="btn btn-primary" style="background: #ffaa00;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Simpan Koordinat
+            </button>
+            <div onclick="batal_ubah()" class="btn btn-primary mt-2" style="background: #007bff;border: 1px solid #007bff; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Batal Ubah</div>
+        </div>
+        <div id="koordinat_sudah_tersimpan" style="width: 100%;" @if (($toko->latitude != null) && ($toko->longitude != null)) @else hidden @endif>
+            <div onclick="ubah_koordinat()" id="btn_simpan_lokasi" class="btn btn-primary" style="background: #ffaa00;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Ubah Koordinat
+            </div>
+            <a href="<?=url('/')?>/akun/mitra/free/upgrade-premium" class="btn btn-primary mt-2" style="background: #007bff;border: 1px solid #007bff; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Kembali</a>
+        </div>
+
     </form>
+
+
+</div>
+
 </div>
 @endsection
 
 @section('footer-scripts')
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
+integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+crossorigin=""></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
 <script type="text/javascript" src="<?=url('/')?>/public/plugins/leaflet/js/Leaflet.AccuratePosition.js"></script>
-<script type="text/javascript">
+<script type="text/javascript"> 
+    var latitude = -0.8479103;
+    var longitude = 119.8993065;
+    @if (($toko->latitude != null) && ($toko->longitude != null))
+    latitude = "<?=$toko->latitude?>"; 
+    longitude = "<?=$toko->longitude?>";
+    @endif
+    @if (($toko->latitude == 1) && ($toko->longitude == 1))
+    $("#modal-verifikasi").modal('show');
+    @endif
+
     var map = L.map('mapid', {
         attributionControl: false,
         zoomControl: false
-    }).setView([-0.8479103, 119.8993065], 12);
+    }).setView([latitude, longitude], 12);
     var LayerKita = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
@@ -227,14 +259,48 @@ if (!empty($_GET['deskripsi'])){
 
     map.addLayer(LayerKita)
 
-    var myStyle2 = {
-        "color": "#fb3131",
-        "weight": 1,
-        "opacity": 0.9
-    };
 
     // placeholders for the L.marker and L.circle representing user's current position and accuracy    
     var current_position, current_accuracy;
+
+    @if (($toko->latitude != null) && ($toko->longitude != null))
+    var myStyle2 = {
+        "color":"#fb3131",
+        "weight":1,
+        "opacity":0.9
+    };
+
+    var food_icon = L.icon({
+        iconUrl: "<?=url('/')?>/public/img/maps/food.svg",
+                iconSize:     [38, 95], // size of the icon
+                shadowSize:   [50, 64], // size of the shadow
+                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                shadowAnchor: [4, 62],  // the same for the shadow
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            });
+
+    var marker = L.marker([<?=$toko->latitude?>, <?=$toko->longitude?>], {icon: food_icon}).on('click', function(e) { markerClick(e, "tes1");});
+    marker.addTo(map);  
+
+    function markerClick(e, string) {
+        $("#latitude").val("<?=$toko->latitude?>");
+        $("#longitude").val("<?=$toko->longitude?>");
+    }
+    @endif
+
+    function batal_ubah(){
+        location.reload();
+    }
+
+    function kirim_lokasi(){
+        alert('tes');
+    }
+
+    function ubah_koordinat(){
+        $("#koordinat_belum_tersimpan").prop('hidden', false);
+        $("#koordinat_sudah_tersimpan").prop('hidden', true);        
+        $("#cari_lokasi").prop('hidden', false);
+    }
 
     function onLocationFound(e) {
         // if position defined, then remove the existing position marker and accuracy circle from the map
@@ -259,6 +325,7 @@ if (!empty($_GET['deskripsi'])){
     function onLocationError(e) {
         alert(e.message);
     }
+
 
 
 
@@ -301,9 +368,10 @@ if (!empty($_GET['deskripsi'])){
     }
 
 
-    cari_lokasi();
+    // cari_lokasi();
 
     function cari_lokasi() {
+        $("#kirim_lokasi").prop('hidden', false);
         map.on('locationfound', onLocationFound);
         map.on('locationerror', onLocationError);
         map.on('accuratepositionprogress', onAccuratePositionProgress);
@@ -319,9 +387,7 @@ if (!empty($_GET['deskripsi'])){
     }
 
 
-    function markerClick(e, string) {
-        $("#btn_trigger_location").click();
-    }
+
 
 </script>
 <script type="text/javascript">
@@ -343,10 +409,10 @@ if (!empty($_GET['deskripsi'])){
         var deskripsi = "<?=$deskripsi?>";
         var gambar_toko = "<?=$gambar_toko?>";
         var status_mitra = "{{Request::segment(3)}}";
-        location.href = "<?=url('/')?>/akun/jadi-mitra/" + status_mitra + "?pemilik=" + pemilik + "&no_hp=" + no_hp +
-            "&kategori=" + kategori + "&x=" + $('#latitude').val() + "&y=" + $('#longitude').val() + "&alamat=" + $(
-                "#alamat").val() + "&hari=" + hari + "&buka=" + buka + "&tutup=" + tutup + "&deskripsi=" + deskripsi +
-            "&gambar_toko=" + gambar_toko;
+        // location.href = "<?=url('/')?>/akun/jadi-mitra/" + status_mitra + "?pemilik=" + pemilik + "&no_hp=" + no_hp +
+        // "&kategori=" + kategori + "&x=" + $('#latitude').val() + "&y=" + $('#longitude').val() + "&alamat=" + $(
+        //     "#alamat").val() + "&hari=" + hari + "&buka=" + buka + "&tutup=" + tutup + "&deskripsi=" + deskripsi +
+        // "&gambar_toko=" + gambar_toko;
     }
 
     function simpan_koordinat() {

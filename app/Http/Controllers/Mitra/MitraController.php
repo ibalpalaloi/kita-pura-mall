@@ -9,6 +9,7 @@ use App\Models\Kategori_toko;
 use App\Models\Foto_maps;
 use App\Models\kelurahan;
 use App\Models\Kategori;
+use App\Models\Ktp_toko;
 use App\Models\toko;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\product;
@@ -33,11 +34,11 @@ class MitraController extends Controller
 
 		if(Session::get('progress_biodata') != '5'){
 
-				$notification = array(
-					'message' => 'Biodata Belum Lengkap'
-				 );     
-		
-				return redirect()->back()->with($notification);
+			$notification = array(
+				'message' => 'Biodata Belum Lengkap'
+			);     
+
+			return redirect()->back()->with($notification);
 		}
 		else{
 
@@ -53,18 +54,34 @@ class MitraController extends Controller
 				// dd($toko->jenis_mitra);
 
 				if($toko){
+					$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+					if ($daftar_tunggu){
+						$ktp_toko = Ktp_toko::where('toko_id', $toko->id)->first();
+						if ($ktp_toko){
+							$notification = array(
+								'message' => 'Belum Terverifikasi Upgrade',
+								'jenis_mitra' => $daftar_tunggu->jenis_mitra
+							);     
+							return redirect('/akun')->with($notification);														
 
+						}
+						else {
+							$notification = array(
+								'message' => 'Belum Terverifikasi KTP',
+								'jenis_mitra' => $daftar_tunggu->jenis_mitra
+							);     
+							return redirect('/akun')->with($notification);							
 
-					if(is_null($toko->longitude) && is_null($toko->latitude)){
-						$notification = array(
-							'message' => 'Lokasi Maps Belum Ditentukan'
-						);     
+						}
 					}
-
-					// dd($toko);
-
-				
-					return redirect('/akun/mitra/'.$toko->jenis_mitra)->with($notification);
+					else {
+						if(is_null($toko->longitude) && is_null($toko->latitude)){
+							$notification = array(
+								'message' => 'Lokasi Maps Belum Ditentukan'
+							);     
+						}
+						return redirect('/akun/mitra/'.$toko->jenis_mitra)->with($notification);						
+					}
 
 				}
 				else{
@@ -75,7 +92,7 @@ class MitraController extends Controller
 						'message' => 'Belum Terverifikasi',
 						'jenis_mitra' => $daftar_tunggu->jenis_mitra
 					);     
-			
+
 					return redirect('/akun')->with($notification);
 					
 				}
@@ -83,22 +100,22 @@ class MitraController extends Controller
 			}
 
 		}
-	
+
 	}
 
-    public function uploadCropImage(Request $request)
-    {
-        $image = $request->image;
+	public function uploadCropImage(Request $request)
+	{
+		$image = $request->image;
 
-        list($type, $image) = explode(';', $image);
-        list(, $image)      = explode(',', $image);
-        $image = base64_decode($image);
-        $image_name= time().'.png';
+		list($type, $image) = explode(';', $image);
+		list(, $image)      = explode(',', $image);
+		$image = base64_decode($image);
+		$image_name= time().'.png';
         // $path = public_path('upload/'.$image_name);
 
         // file_put_contents($path, $image);
 
-        \Storage::disk('public')->put('img/user/profile_picture/'.$image_name, file_get_contents($request->image));
-        return response()->json(['status'=>true]);
-    }
+		\Storage::disk('public')->put('img/user/profile_picture/'.$image_name, file_get_contents($request->image));
+		return response()->json(['status'=>true]);
+	}
 }

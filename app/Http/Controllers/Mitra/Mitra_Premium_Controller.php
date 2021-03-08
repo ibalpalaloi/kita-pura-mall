@@ -136,6 +136,7 @@ class Mitra_Premium_Controller extends Controller
 		if($toko){
 
 			$toko->nama_toko = $request->nama_toko;
+			$toko->username = $request->username_toko;
 			$toko->kategori_toko_id = $request->kategori_toko;
 			$toko->no_hp = $request->no_hp;
 			$toko->alamat = $request->alamat;
@@ -158,6 +159,7 @@ class Mitra_Premium_Controller extends Controller
 
 			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
 			$toko->nama_toko = $request->nama_toko;
+			$toko->username = $request->username_toko;
 			$toko->kategori_toko_id = $request->kategori_toko;
 			$toko->no_hp = $request->no_hp;
 			$toko->alamat = $request->alamat;
@@ -233,8 +235,16 @@ class Mitra_Premium_Controller extends Controller
 	}
 
 	public function atur_lokasi(){
+		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		return view('users/user/m-mitra/premium/pilih_lokasi_premium', ['toko'=>$toko]);
+	}
 
-		return view('users/user/m-mitra/premium/pilih_lokasi_premium');
+	public function kirim_lokasi(){
+		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko->latitude = 0;
+		$toko->longitude = 0;
+		$toko->save();	
+		return redirect("https://api.whatsapp.com/send?phone=6285156100849&text=Saya%20Tidak%20Menemukan%20Lokasi%20Saya");		
 	}
 
 	public function simpan_lokasi(Request $request){
