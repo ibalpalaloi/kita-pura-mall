@@ -5,7 +5,7 @@ Rekomendasi |
 @endsection
 
 @section('header-scripts')
-<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/flickity/css/flickity.css">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <style type="text/css">
 	.pencarian-tabs > a {
 		padding: 0.5em 1.5em 0.5em 1.5em;
@@ -25,7 +25,7 @@ Rekomendasi |
 		margin-top: 5px;
 	}
 
-	.carousel-cell {
+	.swiper-slide {
 		width: 87%;
 		margin: 0px auto;
 		overflow: hidden;
@@ -33,7 +33,7 @@ Rekomendasi |
 		margin-right: 0.6rem;
 	}
 
-	.carousel-cell:before{
+	.swiper-slide:before{
 		display: block;
 		text-align: center;
 		line-height: 200px;
@@ -42,7 +42,7 @@ Rekomendasi |
 	}
 
 
-	.carousel-cell > img{
+	.swiper-slide > img{
 		object-fit: cover;
 		width: 100%;
 	}
@@ -68,43 +68,43 @@ Rekomendasi |
 
 	/*browser fathu*/
 	@media screen and (min-height: 550px) { 
-		.carousel-cell {
+		.swiper-slide {
 			height: 380px;
 		}
 
-		.carousel-cell > img {
+		.swiper-slide > img {
 			height: 380px;
 		}
 	}
 
 	/*app fathul*/
 	@media screen and (min-height: 600px) {
-		.carousel-cell {
+		.swiper-slide {
 			height: 430px;
 		}
 
-		.carousel-cell > img {
+		.swiper-slide > img {
 			height: 430px;
 		}
 	}
 
 	/*browser andipa andipa*/
 	@media screen and (min-height: 650px) {
-		.carousel-cell {
+		.swiper-slide {
 			height: 480px;
 		}
 
-		.carousel-cell > img {
+		.swiper-slide > img {
 			height: 480px;
 		}
 	}
 
 	@media screen and (min-height: 680px) {
-		.carousel-cell {
+		.swiper-slide {
 			height: 530px;
 		}
 
-		.carousel-cell > img {
+		.swiper-slide > img {
 			height: 530px;
 		}
 	}
@@ -128,6 +128,44 @@ Rekomendasi |
 		box-sizing: border-box;
 		min-height: calc(100vh - 60px);	
 	}		
+
+
+	.swiper-container {
+		width: 100%;
+		height: 100%;
+	}
+
+	.swiper-slide {
+		text-align: center;
+		font-size: 18px;
+		background: #fff;
+		margin-right: 6.5%;
+
+		/*margin: 0px !important;*/
+
+		/* Center slide text vertically */
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		-webkit-justify-content: center;
+		justify-content: center;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		-webkit-align-items: center;
+		align-items: center;
+	}
+
+	.swiper-container-v {
+		background: #eaf4ff;
+		display: flex;
+	}	
+
+	.swiper-wrapper {
+		display: flex; justify-content: flex-start;    	
+	}
 </style>
 @endsection
 
@@ -157,84 +195,54 @@ Rekomendasi |
 
 
 <main id="homepage" class="homepage" style="padding-top: 5.5em;  padding-left: 0px; padding-right: 0px; background: #eaf4ff;">
-	<div id="post-data" class="carousel" data-flickity style="background: #eaf4ff;">
-		@php
-		$product = array('product_1.jpg', 'product_2.jpg', 'product_3.jpg', 'product_4.jpg', 'product_5.jpg', 'product_6.jpg', 'product_7.jpg', 'product_8.jpg', 'product_9.jpg', 'product_10.jpg', 'product_11.jpg', 'product_12.jpg', 'product_13.jpg', 'product_14.jpg');
-
-		$toko = array('lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png', 'lengkapi_berkas.png');
-
-		$alamat = array('Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu', 'Jl. Setia Budi No.9 Palu');
-
-		$nama_product = array('Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball Food', 'Ball Ball 
-		Food', 'Ball Ball Food', 'Ball Ball Food');
-		@endphp 
-		@for ($i = 0; $i < 10; $i++) 
-		<div class="carousel-cell">
-			<div class="like-product" style="position: absolute; top: 0; right: 0; padding: 0.4em 0.5em 0.4em 0.5em;">
-				<div class="stroke-like-product" style="background: #fafafa; padding: 0.3em; border-radius: 1.5em;">
-					<div class="border-like-product" style="border: 2px solid #ff006e; border-radius: 1.5em; padding: 0.3em;color: #ff006e; font-size: 0.8em;">
-						<img src="<?=url('/')?>/public/img/like.svg" style="width: 1.5em;">&nbsp;1000+
+	<div class="swiper-container swiper-container-h">
+		<div class="swiper-wrapper">
+			<?php
+			$kategori = array("Makanan", "Fashion", "Minuman");
+			$produk["Makanan"] = array("product_17.jpg", "product_19.jpg", "product_18.jpg");
+			$produk["Minuman"] = array("product_14.jpg", "product_16.jpg", "product_7.jpg");
+			$produk["Fashion"] = array("product_5.jpg", "product_1.jpg", "product_3.jpg");
+			?>
+			@for ($i = 0; $i < count($kategori); $i++)
+			<div class="swiper-slide">
+				<div class="swiper-container swiper-container-v">
+					<div class="swiper-wrapper">
+						@for ($j = 0; $j < count($produk[$kategori[$i]]); $j++)
+						<div class="swiper-slide">
+							<div class="label-product" style="position: absolute; bottom: 0em; left: 0em; padding: 0.4em 0.5em 0.4em 0.5em; display: flex; width: 100%; background-color: rgba(0,0,0,0.3); justify-content: space-between;">
+								<div class="keterangan-product" style="display: flex;">
+									<div class="logo-toko-product" style="width: 3em;">
+										<img src="<?=url('/')?>/public/img/toko/logo/premium.svg" style="width: 100%;">
+									</div>
+									<div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: center; color: white; margin-left: 0.3em;">
+										<div style="font-size: 1em;">Ball Ball Cafe</div>
+										<div style="font-size: 0.6em;">Jl. Setiabudi No. 9 Palu</div>
+									</div>
+								</div>
+								<div class="" style="width: 3em">
+									<img src="<?=url('/')?>/public/img/belanja.svg" style="width: 100%;">
+								</div>
+							</div>
+							<img src="<?=url('/')?>/public/img/product/{{$produk[$kategori[$i]][$j]}}">
+						</div>
+						@endfor
 					</div>
+					<div class="swiper-pagination swiper-pagination-v"></div>
 				</div>
 			</div>
-			<div class="label-product" style="position: absolute; bottom: 0em; left: 0em; padding: 0.4em 0.5em 0.4em 0.5em; display: flex; width: 100%; background-color: rgba(0,0,0,0.3); justify-content: space-between;">
-				<div class="keterangan-product" style="display: flex;">
-					<div class="logo-toko-product" style="width: 3em;">
-						<img src="<?=url('/')?>/public/img/user/{{$toko[$i]}}" style="width: 100%;">
-					</div>
-					<div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: center; color: white; margin-left: 0.3em;">
-						<div style="font-size: 1em;">{{$nama_product[$i]}}</div>
-						<div style="font-size: 0.6em;">{{$alamat[$i]}}</div>
-					</div>
-				</div>
-				<div class="" style="width: 3em">
-					<img src="<?=url('/')?>/public/img/belanja.svg" style="width: 100%;">
-				</div>
-			</div>
-			<img src="<?=url('/')?>/public/img/product/{{$product[$i]}}">
+			@endfor
 		</div>
-		@endfor
+		<!-- Add Pagination -->
+		<div class="swiper-pagination swiper-pagination-h"></div>
 	</div>
 </main>
 @endsection
 
 @section('footer-scripts')
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.2/flickity.pkgd.min.js"></script>
-<script type="text/javascript">
-	var transformProperty = ( function () {
-		var style = document.documentElement.style;
-		if ( typeof style.transform == 'string' ) {
-			return 'transform';
-		}
-		return 'WebkitTransform';
-	})();
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-	Flickity.prototype.positionSlider = function() {
-		var x = this.x;
-  // wrap position around
-  if ( this.options.wrapAround && this.cells.length > 1 ) {
-  	x = utils.modulo( x, this.slideableWidth );
-  	x = x - this.slideableWidth;
-  	this.shiftWrapCells( x );
-  }
-
-  x = x + this.cursorPosition;
-  // reverse if right-to-left and using transform
-  x = this.options.rightToLeft && transformProperty ? -x : x;
-  var value = this.getPositionValue( x );
-  // only use 2d rendering
-  this.slider.style[ transformProperty ] = 'translateX(' + value + ')';
-
-  // scroll event
-  var firstSlide = this.slides[0];
-  if ( firstSlide ) {
-  	var positionX = -this.x - firstSlide.target;
-  	var progress = positionX / this.slidesWidth;
-  	this.dispatchEvent( 'scroll', null, [ progress, positionX ] );
-  }
-};	
 </script>
-{{-- <script>
+<script>
 	var page = 1;
 	$(document).ready(function(){
 		var kategori = 'semua';
@@ -258,5 +266,25 @@ Rekomendasi |
 			alert("server errror");
 		}); 
 	}
-</script> --}}
+</script> 
+<script>
+	var swiperH = new Swiper('.swiper-container-h', {
+		slidesPerView: 1,
+		spaceBetween: 30,
+		pagination: {
+			el: '.swiper-pagination-h',
+			clickable: true,
+			dynamicBullets: true,
+		},
+	});
+	var swiperV = new Swiper('.swiper-container-v', {
+		direction: 'vertical',
+		spaceBetween: 50,
+		pagination: {
+			el: '.swiper-pagination-v',
+			clickable: true,
+			dynamicBullets: true,
+		},
+	});
+</script>
 @endsection

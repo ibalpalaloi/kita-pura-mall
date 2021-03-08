@@ -92,6 +92,75 @@ if (!empty($_GET['daftar_mitra_premium'])){
 </div>
 @endif
 
+@if(Session::get('message') == 'Belum Terverifikasi KTP')
+<div class="modal fade" id="modal-verifikasi-upgrade-ktp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: 0;">
+				<img src="<?=url('/')?>/public/img/mitra/modal_1_step.svg" style="width: 80%; position: absolute; top: -11em;">
+				<div style="font-size: 2em; font-weight: 600; margin-top: 1em;">1 Langkah Lagi</div>
+				<div style="font-size: 1.1em; text-align: center; width: 90%; font-weight: 0; color: #ffe6f1;">anda sedang dalam proses upgrade akun free ke akun premium. Sisa 1 langkah lagi kamu sudah bisa menikmati akun premium</div>
+				<a href="<?=url('/')?>/akun/mitra/free/upgrade-premium/upload-ktp" class="btn btn-primary" style="margin-bottom: 0em; font-size: 1.1em;margin-top: 1em; text-align: center; color: white;">Lanjutkan
+				</a>
+				<a href="<?=url('/')?>/akun/mitra/free/upgrade-premium/batalkan-upgrade" style="margin-bottom: 1em; font-size: 1em;margin-top: 0.5em; text-align: center; text-decoration: underline; color: white;">Batalkan Upgrade?
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+
+@if(Session::get('message') == 'Belum Terverifikasi Upgrade')
+<div class="modal fade" id="modal-verifikasi-upgrade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: 0;">
+				<img src="<?=url('/')?>/public/img/mitra/modal_daftar_register.svg" style="width: 80%; position: absolute; top: -16em;">
+				<div style="font-size: 2em; font-weight: 600; margin-top: 1em;">Mohon Tunggu...</div>
+				<div style="font-size: 1.1em; text-align: center; width: 90%; font-weight: 0; color: #ffe6f1;">anda sedang dalam proses upgrade akun free ke akun premium. Silahkan menunggu admin untuk memverifikasi data anda</div>
+				<a href="<?=url('/')?>/akun/mitra/free/upgrade-premium/batalkan-upgrade" style="margin-bottom: 1em; font-size: 1.1em;margin-top: 0.5em; text-align: center; text-decoration: underline; color: white;">Batalkan Upgrade?
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+
+@if(Session::get('message') == 'Batal Upgrade')
+<div class="modal fade" id="modal-batal-upgrade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: 0;">
+				<img src="<?=url('/')?>/public/img/mitra/modal_daftar_register.svg" style="width: 80%; position: absolute; top: -16em;">
+				<div style="font-size: 2em; font-weight: 600; margin-top: 1em;">Yahhh</div>
+				<div style="font-size: 1.1em; text-align: center; width: 90%; font-weight: 0; color: #ffe6f1;">kamu telah membatalkan upgrade akun ke premium</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+
+
+@if(Session::get('message') == 'Belum Terverifikasi')
+<div class="modal fade" id="modal-verifikasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: 0;">
+				<img src="<?=url('/')?>/public/img/mitra/modal_daftar_register.svg" style="width: 80%; position: absolute; top: -16em;">
+				<div style="font-size: 2em; font-weight: 600; margin-top: 1em;">Mohon Tunggu...</div>
+				<div style="font-size: 1.1em; text-align: center; width: 90%; font-weight: 0; color: #ffe6f1;">kitapuramall akan mengkonfirmasi permintaan anda. mohon tunggu konfirmasi</div>
+				<a href="<?=url('/')?>/akun/pengaturan-profil" style="margin-bottom: 1em; font-size: 1.1em;margin-top: 0.5em; text-align: center; text-decoration: underline; color: white;">Konfirmasi lama? Klik disini
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+
 @if($toko)
 @if($toko->notif == 0)
 <div class="modal fade" id="modal-notif-berhasil-toko" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
@@ -294,6 +363,20 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	@if(Session::get('message') == 'Belum Terverifikasi')
 	$('#modal-verifikasi').modal('show');
 	@endif
+
+	@if(Session::get('message') == 'Belum Terverifikasi KTP')
+	$('#modal-verifikasi-upgrade-ktp').modal('show');
+	@endif
+
+	@if(Session::get('message') == 'Batal Upgrade')
+	$('#modal-batal-upgrade').modal('show');
+	@endif
+
+
+	@if(Session::get('message') == 'Belum Terverifikasi Upgrade')
+	$('#modal-verifikasi-upgrade').modal('show');
+	@endif
+
 
 	@if((Session::get('message') == 'KTP Belum Lengkap') || ($cek_ktp == "KTP Belum Lengkap"))
 	$('#modal-verifikasi-ktp').modal('show');

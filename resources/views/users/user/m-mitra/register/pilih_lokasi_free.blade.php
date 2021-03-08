@@ -7,8 +7,8 @@ Maps |
 @section('header-scripts')
 <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template/admin/dist/css/style.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin="" />
+integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+crossorigin="" />
 <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/lunar/css/lunar.css">
 <style type="text/css">
     .pencarian-tabs>a {
@@ -107,9 +107,9 @@ Maps |
 @section('content')
 <div class="text-center" style="display: none;">
     <button type="button" id="btn_trigger_location" class="btn btn-default btn-rounded" data-toggle="modal"
-        data-target="#modal-trigger-location">
-        Open Modal Hapus
-    </button>
+    data-target="#modal-trigger-location">
+    Open Modal Hapus
+</button>
 </div>
 <?php
 $pemilik = "";
@@ -142,10 +142,9 @@ if (!empty($_GET['tutup'])){
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
     <div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: flex-end;">
         <div style="margin-right: 1em;">
-            <div class="btn btn-primary" onclick="cari_lokasi()"
-                style="background: #ff006e; border: 2px solid #ff006e;">Cari Lokasi</div>
-        </div>
-    </div>
+            <div class="btn btn-primary" onclick="cari_lokasi()" style="background: #ff006e; border: 2px solid #ff006e;">Cari Lokasi</div>
+            <a class="btn btn-primary" href="<?=url('/')?>/akun/jadi-mitra/free/kirim-lokasi" id="kirim_lokasi" style="background: #35A500; border: 2px solid #35A500;">Tidak Menemukan Lokasi?</a>
+        </div>    </div>
 </header>
 
 <main id="homepage" class="homepage" style="padding-left: 0px; padding-right: 0px;">
@@ -154,54 +153,54 @@ if (!empty($_GET['tutup'])){
 
 <div class="footer" style="background: #eaf4ff;">
     <form action="{{url()->current()}}/simpan" method="post" >
-	{{csrf_field()}}
-	<input type="hidden" value="PUT" name="_method">
-        <span id="icon_loading"><img src="<?=url('/')?>/public/img/icon_svg/loading.gif"
-                style="width: 0.8em;"></span>&nbsp;<span id="status_pencarian"
-            style="color: black; font-size: 0.8em;">Sedang mendeteksi lokasi....</span>
+       {{csrf_field()}}
+       <input type="hidden" value="PUT" name="_method">
+       <span id="icon_loading"><img src="<?=url('/')?>/public/img/icon_svg/loading.gif"
+        style="width: 0.8em;"></span>&nbsp;<span id="status_pencarian"
+        style="color: black; font-size: 0.8em;">Sedang mendeteksi lokasi....</span>
         <div class="container-mall" id="tampil_titik"
-            style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-bottom: 1em;">
-            <div style="display: flex; width: 100%; justify-content: space-between;">
-                <div class="input-group mb-3 div-input-mall" id="div_latitude"
-                    style="width: 100%; display: flex; justify-content: center; align-items: center; background: white;">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text input-group-text-mall" style="width: 4em; font-weight: 600;">
-                            X
-                        </span>
-                    </div>
-                    <input type="text" class="form-control form-control-mall" id="latitude" name="latitude"
-                        onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Latitude"
-                        aria-label="latitude" aria-describedby="basic-addon1" style="font-size: 1em;">
-                </div>
+        style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-bottom: 1em;">
+        <div style="display: flex; width: 100%; justify-content: space-between;">
+            <div class="input-group mb-3 div-input-mall" id="div_latitude"
+            style="width: 100%; display: flex; justify-content: center; align-items: center; background: white;">
+            <div class="input-group-prepend">
+                <span class="input-group-text input-group-text-mall" style="width: 4em; font-weight: 600;">
+                    X
+                </span>
             </div>
-            <div class="input-group mb-3 div-input-mall" id="div_longitude"
-                style="width: 100%; display: flex; justify-content: center; align-items: center; background: white;">
-                <div class="input-group-prepend">
-                    <span class="input-group-text input-group-text-mall" style="width: 4em; font-weight: 600;">
-                        Y
-                    </span>
-                </div>
-                <input type="text" class="form-control form-control-mall" id="longitude" name="longitude"
-                    onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Longitude"
-                    aria-label="longitude" aria-describedby="basic-addon1" style="font-size: 1em;">
-            </div>
-            <button onclick="simpan_koordinat()" id="btn_simpan_lokasi" class="btn btn-primary"
-                style="background: #ff006e;;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Simpan
-                Koordinat
-            </button>
-            <a href="{{url()->current()}}/selesai" class="btn btn-primary mt-2"
-                style="background: #007bff;border: 1px solid #007bff; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Lewati</a>
-
+            <input type="text" class="form-control form-control-mall" id="latitude" name="latitude"
+            onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Latitude"
+            aria-label="latitude" aria-describedby="basic-addon1" style="font-size: 1em;">
         </div>
-    </form>
+    </div>
+    <div class="input-group mb-3 div-input-mall" id="div_longitude"
+    style="width: 100%; display: flex; justify-content: center; align-items: center; background: white;">
+    <div class="input-group-prepend">
+        <span class="input-group-text input-group-text-mall" style="width: 4em; font-weight: 600;">
+            Y
+        </span>
+    </div>
+    <input type="text" class="form-control form-control-mall" id="longitude" name="longitude"
+    onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Longitude"
+    aria-label="longitude" aria-describedby="basic-addon1" style="font-size: 1em;">
+</div>
+<button onclick="simpan_koordinat()" id="btn_simpan_lokasi" class="btn btn-primary"
+style="background: #ff006e;;border: 1px solid #ff006e; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Simpan
+Koordinat
+</button>
+<a href="{{url()->current()}}/selesai" class="btn btn-primary mt-2"
+    style="background: #007bff;border: 1px solid #007bff; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Lewati</a>
+
+</div>
+</form>
 
 </div>
 @endsection
 
 @section('footer-scripts')
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
+integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+crossorigin=""></script>
 <script type="text/javascript" src="<?=url('/')?>/public/plugins/leaflet/js/Leaflet.AccuratePosition.js"></script>
 <script type="text/javascript">
     var map = L.map('mapid', {
@@ -282,7 +281,6 @@ if (!empty($_GET['tutup'])){
         $("#icon_loading").prop('hidden', true);
         L.marker(e.latlng).addTo(map).bindPopup("Lokasi ditemukan! (Akurasi : " + e.accuracy + ")").openPopup();
         $("#status_pencarian").html("Lokasi ditemukan! (Akurasi :" + e.accuracy + ")");
-        $("#btn_simpan_lokasi").prop('disabled', false);
         $("#btn_koordinat").prop('hidden', true);
         $("#btn_koordinat_ditemukan").prop('hidden', false);
 
@@ -335,8 +333,8 @@ if (!empty($_GET['tutup'])){
         var hari = "<?=$hari?>";
         var status_mitra = "{{Request::segment(3)}}";
         location.href = "<?=url('/')?>/akun/jadi-mitra/" + status_mitra + "?pemilik=" + pemilik + "&no_hp=" + no_hp +
-            "&kategori=" + kategori + "&x=" + $('#latitude').val() + "&y=" + $('#longitude').val() + "&alamat=" + $(
-                "#alamat").val() + "&hari=" + hari + "&buka=" + buka + "&tutup=" + tutup;
+        "&kategori=" + kategori + "&x=" + $('#latitude').val() + "&y=" + $('#longitude').val() + "&alamat=" + $(
+            "#alamat").val() + "&hari=" + hari + "&buka=" + buka + "&tutup=" + tutup;
     }
 
     function simpan_koordinat() {

@@ -78,6 +78,7 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::get('/akun/jadi-mitra', [Mitra_Register_Controller::class, 'jadi_mitra']);
         Route::get('/akun/jadi-mitra/{jenis_mitra}', [Mitra_Register_Controller::class, 'register']);
         Route::post('/akun/jadi-mitra/{jenis_mitra}/simpan', [Mitra_Register_Controller::class, 'simpan_mitra']);
+        Route::get('/akun/jadi-mitra/{jenis_mitra}/kirim-lokasi', [Mitra_Register_Controller::class, 'kirim_lokasi']);
         Route::get('/akun/jadi-mitra/{jenis_mitra}/pilih-lokasi', [Mitra_Register_Controller::class, 'pilih_lokasi']);
         Route::put('/akun/jadi-mitra/{jenis_mitra}/pilih-lokasi/simpan', [Mitra_Register_Controller::class, 'simpan_lokasi']);
         Route::get('/akun/jadi-mitra/{jenis_mitra}/pilih-lokasi/selesai', [Mitra_Register_Controller::class, 'selesai']);
@@ -94,12 +95,16 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::get('/akun/mitra/free', [Mitra_Free_Controller::class, 'index_free']);
             Route::put('/akun/mitra/free/simpan', [Mitra_Free_Controller::class, 'simpan_data_free']);
             
+            Route::get('/akun/mitra/free/kirim-lokasi', [Mitra_Free_Controller::class, 'kirim_lokasi']);
             Route::get('/akun/mitra/free/atur-lokasi', [Mitra_Free_Controller::class, 'atur_lokasi']);
             Route::put('/akun/mitra/free/atur-lokasi/simpan', [Mitra_Free_Controller::class, 'simpan_lokasi']);
 
             Route::get('/akun/mitra/free/upgrade-premium', [Mitra_Free_Controller::class, 'upgrade_premium']);
             Route::put('/akun/mitra/free/upgrade-premium/simpan', [Mitra_Free_Controller::class, 'simpan_upgrade_premium']);
+            Route::get('/akun/mitra/free/upgrade-premium/batalkan-upgrade', [Mitra_Free_Controller::class, 'batalkan_upgrade']);
+            Route::get('/akun/mitra/free/upgrade-premium/kirim-lokasi', [Mitra_Free_Controller::class, 'upgrade_kirim_lokasi']);
             Route::get('/akun/mitra/free/upgrade-premium/atur-lokasi', [Mitra_Free_Controller::class, 'upgrade_atur_lokasi']);
+
             Route::put('/akun/mitra/free/upgrade-premium/atur-lokasi/simpan', [Mitra_Free_Controller::class, 'upgrade_simpan_lokasi']);
             Route::get('/akun/mitra/free/upgrade-premium/upload-ktp', [Mitra_Free_Controller::class, 'upgrade_upload_ktp']);
             Route::post('/akun/mitra/free/upgrade-premium/upload-ktp/simpan', [Mitra_Free_Controller::class, 'upgrade_simpan_ktp']);
@@ -117,8 +122,10 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::post('/akun/mitra/premium/upload-ktp/simpan', [Mitra_Premium_Controller::class, 'simpan_ktp']);
 
             // @atur toko
-            Route::get('/akun/mitra/premium/atur-toko', [Mitra_Premium_Controller::class, 'atur_toko_premium']);            
+            Route::get('/akun/mitra/premium/atur-toko', [Mitra_Premium_Controller::class, 'atur_toko_premium']);               
+            Route::get('/akun/mitra/premium/atur-toko/kirim-lokasi', [Mitra_Premium_Controller::class, 'kirim_lokasi']);
             Route::get('/akun/mitra/premium/atur-toko/atur-lokasi', [Mitra_Premium_Controller::class, 'atur_lokasi']);
+
             Route::put('/akun/mitra/premium/atur-toko/atur-lokasi/simpan', [Mitra_Premium_Controller::class, 'simpan_lokasi']);
 
             // @tambah produk

@@ -9,6 +9,10 @@
 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/lunar/css/lunar.css">
 <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/select2/css/select2.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+crossorigin="" />
+
 <style type="text/css">
 	.banner {
 		max-width: 480px;
@@ -26,6 +30,15 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		right: 0px;
 		z-index: 11;				
 	}
+
+	#mapid {
+		height: 17em;
+		width: 100%;
+		margin-bottom: 0.8em;
+		margin-top: 0.5em;
+		z-index: 0;
+		border-radius: 1.5em;
+	}	
 
 	.card-mall {
 		background: white;
@@ -617,7 +630,7 @@ $status_ugrade = "";
 
 					<div style="display: flex; justify-content: center; flex-direction: column;">
 						<input type="text" id="nama_toko" name="nama_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Toko" aria-label="Nama Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1.5em; font-weight: 645;" required value="{{$toko->nama_toko}}">
-						<input type="text" id="nama_toko" name="nama_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Toko" aria-label="Nama Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" required value="{{$toko->username}}">
+						<input type="text" id="username_toko" name="username_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Username Toko" aria-label="Username Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" required value="{{$toko->username}}">
 					</div>
 				</div>
 				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="height: 7.5em; justify-content: flex-start; background: #292929; border: none; border-radius: 0.5em;">
@@ -695,7 +708,17 @@ $status_ugrade = "";
 						<span class="input-group-text-mall" style="width: 3em; background: #202020;">
 							<img src="<?=url('/')?>/public/img/icon_svg/marker_white.svg" style="width: 60%;">
 						</span>
-						<a href="{{url()->current()}}/atur-lokasi"class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" id="pilih_jadwal_buka_toko">Atur Lokasi Maps</a>
+						<a href="{{url()->current()}}/atur-lokasi" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; margin-left: 0em; " id="pilih_jadwal_buka_toko">Atur Lokasi</a>
+					</div>
+					<div style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+						<div id="mapid"></div>		
+						<div style="position: absolute;">
+							@if (($toko->latitude == 1) && ($toko->longitude == 1)) 
+							<a href="{{url()->current()}}/atur-lokasi" class="btn btn-secondary" style="font-weight: 500; box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;" >Menunggu Konfirmasi Admin</a>	
+							@elseif (($toko->latitude == null) && ($toko->longitude == null))
+							<a href="{{url()->current()}}/atur-lokasi" class="btn btn-secondary" style="font-weight: 500; box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;" >Lokasi belum diatur</a>	
+							@endif
+						</div>		
 					</div>
 				</div>
 
@@ -986,4 +1009,70 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	}
 
 </script>
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+crossorigin=""></script>
+</script>
+<script type="text/javascript"> 
+	var latitude = -0.8479103;
+	var longitude = 119.8993065;
+	@if (($toko->latitude != null) && ($toko->longitude != null))
+	latitude = "<?=$toko->latitude?>"; 
+	longitude = "<?=$toko->longitude?>";
+	@endif
+	@if (($toko->latitude == 0) && ($toko->longitude == 0))
+	$("#modal-verifikasi").modal('show');
+	@endif
+
+	var map = L.map('mapid', {
+		attributionControl: false,
+		zoomControl: false
+	}).setView([latitude, longitude], 12);
+	var LayerKita = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		maxZoom: 18,
+		id: 'mapbox/streets-v11',
+		tileSize: 512,
+		zoomOffset: -1,
+		accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+	});
+
+	map.addLayer(LayerKita)
+
+
+    // placeholders for the L.marker and L.circle representing user's current position and accuracy    
+    var current_position, current_accuracy;
+
+    @if (($toko->latitude != null) && ($toko->longitude != null))
+    var myStyle2 = {
+    	"color":"#fb3131",
+    	"weight":1,
+    	"opacity":0.9
+    };
+
+    var food_icon = L.icon({
+    	iconUrl: "<?=url('/')?>/public/img/maps/food.svg",
+                iconSize:     [38, 95], // size of the icon
+                shadowSize:   [50, 64], // size of the shadow
+                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                shadowAnchor: [4, 62],  // the same for the shadow
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            });
+
+    var marker = L.marker([<?=$toko->latitude?>, <?=$toko->longitude?>], {icon: food_icon}).on('click', function(e) { markerClick(e, "tes1");});
+    marker.addTo(map);  
+
+    function markerClick(e, string) {
+    	alert("<?=$toko->latitude?>, <?=$toko->longitude?>");
+    }
+    @endif
+
+
+
+
+
+
+
+</script>
+
 @endsection
