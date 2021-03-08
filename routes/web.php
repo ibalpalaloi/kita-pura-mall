@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingPageController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\User\Keranjang_Belanja_Controller;
 use App\Http\Controllers\User\PenilaianController;
 
 // MITRA
+use App\Http\Controllers\Mitra\Atur_Landing_Page_Controller;
 use App\Http\Controllers\Mitra\MitraController;
 use App\Http\Controllers\Mitra\Mitra_Register_Controller;
 use App\Http\Controllers\Mitra\Mitra_Free_Controller;
@@ -141,6 +143,13 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::put('/akun/mitra/premium/atur-produk/simpan', [Mitra_Premium_Produk_Controller::class, 'simpan_atur_produk_premium']);
             Route::get('/akun/mitra/premium/atur-produk/{id}/ubah-status', [Mitra_Premium_Produk_Controller::class, 'ubah_status_produk_premium']);
 
+            // atur landing page
+            Route::post('/atur_landing_page/simpan_video', [Atur_Landing_Page_Controller::class, 'simpan_video'])->name('simpan_video_landing_page');
+            Route::post('/atur_landing_page/post_fasilitas_toko', [Atur_Landing_Page_Controller::class, 'post_fasilitas_toko'])->name('post_fasilitas_toko');
+            Route::post('/akun/mitra/premium/atur-produk/post_fasilitas', [Atur_Landing_Page_Controller::class, 'post_fasilitas_baru']);
+            Route::post('/akun/mitra/premium/atur-produk/ubah_fasilitas', [Atur_Landing_Page_Controller::class, 'ubah_fasilitas']);
+            Route::get('/akun/mitra/premium/atur-produk/hapus_fasilitas/{id}', [Atur_Landing_Page_Controller::class, 'hapus_fasilitas']);
+
             // list pesananan
             Route::get('/akun/mitra/premium/list-pesanan', [PesananController::class, 'pesanan']);
             Route::get('/akun/mitra/premium/list-pesanan/list-produk', [PesananController::class, 'list_produk']);
@@ -149,6 +158,7 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::get('/akun/riwayat_transaksi', [PesananController::class, 'riwayat_transaksi']);
             Route::get('/akun/riwayat_transaksi/bulan', [PesananController::class, 'riwayat_transaksi_bulan']);
 
+            
 
         });
 
@@ -161,6 +171,8 @@ Route::group(['middleware'=> 'auth'], function() {
 
 Route::get('crop-image-before-upload-using-croppie', [MitraController::class, 'index']);
 Route::post('crop-image-before-upload-using-croppie', [MitraController::class, 'uploadCropImage']);
+// get
+Route::post('/get_video_link', [GetController::class, 'get_video_link'])->name('get_video_link');
 
 // toko
 Route::get('/toko', [Toko_controller::class, 'index']);
