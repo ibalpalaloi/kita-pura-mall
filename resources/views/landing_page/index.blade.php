@@ -381,31 +381,26 @@ style="padding: 1.5em; padding: 0px;">
 
 	<div class="landing_page" style="position: relative; top: -1.5em; z-index: 3; border-top-left-radius: 1.5em;border-top-right-radius: 1.5em; background: white;">
 		<div class="row-mall" style="padding: 0.7em 4% 1.2em 4%; margin-top: -6em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em; padding: 2em 1em 1em 1em;">
+			@if ($video)
 			<div>
 				<div style="font-size: 1.4em; font-weight: 1000; text-align: center;">Video</div>
 			</div>
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
+					@foreach ($video as $video)
 					<div class="swiper-slide" style="background: transparent; display: flex; justify-content: center; flex-direction: column;">
 						<div style="width: 92%;">
-							@php $image = url('/')."/public/img/mitra/video_thumbnail/video_1.jpg"; @endphp
-							<div style='background: white; margin-top: 0.3em; position: relative; width: 100%; height: 10em; background-image: url("<?=$image?>"); border-radius: 0.5em; background-size: cover; display: flex; justify-content: center; align-items: center;'>
-								<img src="<?=url('/')?>/public/img/icon_svg/play_button_white.svg">
+							<div style='background: white; margin-top: 0.3em; position: relative; width: 100%; height: 10em; border-radius: 0.5em; background-size: cover; display: flex; justify-content: center; align-items: center;'>
+								<iframe width="560" height="190" src="https://www.youtube.com/embed/{{$video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 							</div>
 						</div>
 					</div>
-					<div class="swiper-slide" style="background: transparent; display: flex; justify-content: center; flex-direction: column;">
-						<div style="width: 92%;">
-							@php $image = url('/')."/public/img/mitra/video_thumbnail/video_4.jpg"; @endphp
-							<div style='background: white; margin-top: 0.3em; border-radius: 0.5em;position: relative; width: 100%; height: 10em; background-image: url("<?=$image?>"); background-size: cover; display: flex; justify-content: center; align-items: center;'>
-								<img src="<?=url('/')?>/public/img/icon_svg/play_button_white.svg">
-							</div>
-						</div>
-					</div>
+					@endforeach
 				</div>
 				<!-- Add Pagination -->
 				<div class="swiper-pagination"></div>
 			</div>
+			@endif
 		</div>
 		<div class="row-mall" style="padding: 0.7em 8% 1.2em 8%; margin-top: 0em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em;">
 			<div>
@@ -447,9 +442,6 @@ style="padding: 1.5em; padding: 0px;">
 			<div class="service_1" style="display:  flex; flex-direction: column; margin-bottom: 2em;">
 				<div style="display: flex; align-items: center;">
 					<div style="width: 20%;">
-						<div style="width: 3em; height: 3em; border-radius: 50%; background: #9d0208; display: flex; justify-content: center;align-items: center;">
-							<img src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/icon/{{$data->icon}}">
-						</div>
 					</div>
 					<div style="width: 80%">
 						<div style="word-wrap: break-word;">
