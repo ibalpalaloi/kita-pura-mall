@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <style type="text/css">
 	.banner {
 		max-width: 480px;
@@ -416,6 +417,28 @@ if (!empty($_GET['deskripsi'])){
 	</div>
 </header>
 
+<div class="modal fade" id="modal-video" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-body">
+		  <form>
+			<input type="text" name="" id="nomor_div" hidden>
+			<div class="form-group">
+			  <label for="recipient-name" class="col-form-label">Link Video</label>
+			  <input type="text" class="form-control" id="link_video" placeholder="Masukkan Link video dari youtube">
+			</div>
+			<div class="form-group" id="tampil-video"> 
+
+			</div>
+		  </form>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+		  <button onclick="simpan_video()" type="button" class="btn btn-primary">Simpan</button>
+		</div>
+	  </div>
+	</div>
+  </div>
 
 <form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post" >
 	{{csrf_field()}}
@@ -433,10 +456,28 @@ if (!empty($_GET['deskripsi'])){
 					<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
 				</div>
 				<div class="input-group mb-3 div-input-mall-square" id="div_video" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_video()" id="div_pic_video">
-						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
+					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_video('1')" id="div_pic_video_1">
+						@if(!empty($video[1]))
+						 	<iframe width="560" height="190" src="https://www.youtube.com/embed/{{$video[1]}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							<img src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" style="width: 2em; position: absolute; right: 10px; bottom: 10px;">
+							
+						@else
+							<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
+						@endif
 					</div>
 				</div>
+
+				<div class="input-group mb-3 div-input-mall-square" id="div_video" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 12.5em; cursor: pointer; border-radius: 1em;" onclick="tambah_video('2')" id="div_pic_video_2">
+						@if(!empty($video[2]))
+						 	<iframe width="560" height="190" src="https://www.youtube.com/embed/{{$video[2]}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							 <img src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" style="width: 2em; position: absolute; right: 10px; bottom: 10px;">
+						@else
+							<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 2em;">
+						@endif
+					</div>
+				</div>
+				
 				<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Tampilan Maps</h6>
 				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
 					<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
@@ -507,11 +548,17 @@ if (!empty($_GET['deskripsi'])){
 						<div>
 							<div>Icon</div>
 							<div class="daftar-icon" style="padding-top: 0.5em; display: flex;">
-								<div style="height: 2.5em; width: 2.5em; background: #9d0208; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><img src="<?=url('/')?>/public/img/icon_service/diantarkan.svg"></div>
-								<div style="height: 2.5em; width: 2.5em; background: #9d0208; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><img src="<?=url('/')?>/public/img/icon_service/tempat_nyaman.svg"></div>
-								<div style="height: 2.5em; width: 2.5em; background: #9d0208; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><img src="<?=url('/')?>/public/img/icon_service/wifi.svg"></div>
-
+								@php
+									$index = 0;
+								@endphp
+								@foreach ($fasilitas_toko as $toko)
+									<div onclick="tampilkan_fasiiltas({{$index}})" style="height: 2.5em; width: 2.5em; background: #9d0208; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><img src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/icon/{{$toko->icon}}"></div>
+								@php
+									$index++;
+								@endphp
+								@endforeach
 								<div style="height: 2.5em; width: 2.5em; border: 2px solid white; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><i class="fa fa-plus"></i></div>
+								
 							</div>
 						</div>
 						<div style="margin-top: 1em;">
@@ -519,7 +566,7 @@ if (!empty($_GET['deskripsi'])){
 							<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
 								<div><img src="<?=url('/')?>/public/img/icon_svg/judul.svg" style="width: 100%;"></div>
 								<div>
-									<input type="text" name="judul" style="color: white; background: transparent; font-size: 1.15em; padding-left: 0.9em;" placeholder="Masukan judul service">
+									<input id="judul_service" type="text" name="judul" style="color: white; background: transparent; font-size: 1.15em; padding-left: 0.9em;" placeholder="Masukan judul service">
 								</div>
 							</div>
 						</div>	
@@ -528,10 +575,13 @@ if (!empty($_GET['deskripsi'])){
 							<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
 								<div><img src="<?=url('/')?>/public/img/icon_svg/keterangan.svg" style="width: 100%;"></div>
 								<div style="width: 100%;">
-									<textarea name="keterangan" style="color: white; background: transparent; font-size: 0.9em; line-height: 1.15em; padding-left: 1.3em; border: none; width: 100%;" rows="8" placeholder="Masukan keterangan service"></textarea> 
+									<textarea id="keterangan_fasilitas" name="keterangan" style="color: white; background: transparent; font-size: 0.9em; line-height: 1.15em; padding-left: 1.3em; border: none; width: 100%;" rows="8" placeholder="Masukan keterangan service"></textarea> 
 								</div>
 							</div>
-						</div>									
+						</div>	
+						<button onclick="simpan_fasilitas_toko()" type="button" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
+							<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
+						</button>									
 					</div>
 				</div>
 				<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Menu Favorit</h6>
@@ -643,8 +693,11 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		});
 	}	
 
-	function tambah_video(){
-		alert('tes');
+	function tambah_video(i){
+		$('#tampil-video').empty();
+		$('#link_video').val('');
+		$('#modal-video').modal('show');
+		$('#nomor_div').val(i);
 	}
 
 	function readURL(input, id) {
@@ -671,9 +724,6 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$("#div_"+id).css('border', '1px solid white');		
 	}		
 
-
-
-
 	function tambah_produk(){
 		$('#modal-tambah').modal('show'); 
 	}
@@ -690,6 +740,64 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$("#modal-ubah").modal('show');
 	}
 
+	function simpan_video(){
+		var link = $('#link_video').val();
+		var nomor_div = $('#nomor_div').val();
+		$.ajax({
+			url: "{{route('simpan_video_landing_page')}}",
+			method: "post",
+			data : {link:link, no:nomor_div, _token:'{{csrf_token()}}'},
+			success:function(result)
+			{
+				$('#modal-video').modal("hide"); 
+				$('#link_video').val('');
+				$('#nomor_div').val('');
+				$('#div_pic_video_'+nomor_div).html('<iframe width="560" height="190" src="https://www.youtube.com/embed/'+result+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+			}
+		})
+	}
+
+	$(document).ready(function(){
+		$('#link_video').on('input', function(){
+			var link = $('#link_video').val();
+			$.ajax({
+				url: "{{route('get_video_link')}}",
+				method: "post",
+				data : {link:link, _token:'{{csrf_token()}}'},
+				success:function(result)
+				{
+					$('#tampil-video').empty();
+					$('#tampil-video').html('<iframe width="360" height="190" src="https://www.youtube.com/embed/'+result+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+				}
+			})
+		})
+	})
+	
+	var toko = {!! json_encode($fasilitas_toko) !!};
+	var id_fasiltas_toko;
+	var index;
+
+	function tampilkan_fasiiltas(id){
+		$('#judul_service').val(toko[id]['judul']);
+		$('#keterangan_fasilitas').val(toko[id]['keterangan']);
+		id_fasiltas_toko = toko[id]['id'];
+		index = id;
+	}
+
+	function simpan_fasilitas_toko(){
+		var judul = $('#judul_service').val();
+		var keterangan = $('#keterangan_fasilitas').val();
+		$.ajax({
+			url: "{{route('post_fasilitas_toko')}}",
+			method: "post",
+			data: {id:id_fasiltas_toko, judul:judul, keterangan:keterangan, _token:'{{csrf_token()}}'},
+			success:function(){
+				alert('tersimpan');
+				toko[index]['judul'] = judul;
+				toko[index]['keterangan'] = keterangan;
+			}
+		})
+	}
 
 </script>
 @endsection
