@@ -381,31 +381,26 @@ style="padding: 1.5em; padding: 0px;">
 
 	<div class="landing_page" style="position: relative; top: -1.5em; z-index: 3; border-top-left-radius: 1.5em;border-top-right-radius: 1.5em; background: white;">
 		<div class="row-mall" style="padding: 0.7em 4% 1.2em 4%; margin-top: -6em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em; padding: 2em 1em 1em 1em;">
+			@if ($video)
 			<div>
 				<div style="font-size: 1.4em; font-weight: 1000; text-align: center;">Video</div>
 			</div>
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
+					@foreach ($video as $video)
 					<div class="swiper-slide" style="background: transparent; display: flex; justify-content: center; flex-direction: column;">
 						<div style="width: 92%;">
-							@php $image = url('/')."/public/img/mitra/video_thumbnail/video_1.jpg"; @endphp
-							<div style='background: white; margin-top: 0.3em; position: relative; width: 100%; height: 10em; background-image: url("<?=$image?>"); border-radius: 0.5em; background-size: cover; display: flex; justify-content: center; align-items: center;'>
-								<img src="<?=url('/')?>/public/img/icon_svg/play_button_white.svg">
+							<div style='background: white; margin-top: 0.3em; position: relative; width: 100%; height: 10em; border-radius: 0.5em; background-size: cover; display: flex; justify-content: center; align-items: center;'>
+								<iframe width="560" height="190" src="https://www.youtube.com/embed/{{$video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 							</div>
 						</div>
 					</div>
-					<div class="swiper-slide" style="background: transparent; display: flex; justify-content: center; flex-direction: column;">
-						<div style="width: 92%;">
-							@php $image = url('/')."/public/img/mitra/video_thumbnail/video_4.jpg"; @endphp
-							<div style='background: white; margin-top: 0.3em; border-radius: 0.5em;position: relative; width: 100%; height: 10em; background-image: url("<?=$image?>"); background-size: cover; display: flex; justify-content: center; align-items: center;'>
-								<img src="<?=url('/')?>/public/img/icon_svg/play_button_white.svg">
-							</div>
-						</div>
-					</div>
+					@endforeach
 				</div>
 				<!-- Add Pagination -->
 				<div class="swiper-pagination"></div>
 			</div>
+			@endif
 		</div>
 		<div class="row-mall" style="padding: 0.7em 8% 1.2em 8%; margin-top: 0em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em;">
 			<div>
@@ -415,7 +410,7 @@ style="padding: 1.5em; padding: 0px;">
 			@if(!empty($foto_map[1]))
 				<div class="input-group mb-3" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
 					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
-						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/mitra/foto_maps/maps_2.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[1]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 					</div>
 
 					<input hidden type="file" name="foto_maps_1" id="foto_maps_1" required>
@@ -425,7 +420,7 @@ style="padding: 1.5em; padding: 0px;">
 				@if(!empty($foto_map[2]))
 					<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
 						<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew">
-							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/mitra/foto_maps/maps_1.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[2]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 						</div>
 
 						<input hidden type="file" name="foto_maps_2" id="foto_maps_2" required>
@@ -434,7 +429,7 @@ style="padding: 1.5em; padding: 0px;">
 				@if (!empty($foto_map[3]))
 					<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
 						<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew">
-							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/mitra/foto_maps/maps_3.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[3]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 						</div>
 
 					</div>
@@ -443,16 +438,14 @@ style="padding: 1.5em; padding: 0px;">
 			</div>
 		</div>
 		<div class="row-mall" style="padding: 0em 8% 1.2em 8%; margin-top: 0em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em;">
+			@foreach ($fasilitas as $data)
 			<div class="service_1" style="display:  flex; flex-direction: column; margin-bottom: 2em;">
 				<div style="display: flex; align-items: center;">
 					<div style="width: 20%;">
-						<div style="width: 3em; height: 3em; border-radius: 50%; background: #9d0208; display: flex; justify-content: center;align-items: center;">
-							<img src="<?=url('/')?>/public/img/icon_service/tempat_nyaman.svg">
-						</div>
 					</div>
 					<div style="width: 80%">
 						<div style="word-wrap: break-word;">
-							<div style="font-weight: 500; color: black; font-size: 1.2em; display: flex; align-items: center; text-align: justify;">Tempat Nyaman</div>
+							<div style="font-weight: 500; color: black; font-size: 1.2em; display: flex; align-items: center; text-align: justify;">{{$data->judul}}</div>
 						</div>
 					</div>
 				</div>
@@ -461,57 +454,13 @@ style="padding: 1.5em; padding: 0px;">
 					</div>
 					<div style="width: 80%">
 						<div style="word-wrap: break-word;">
-							<div style="font-size: 0.8em; text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus lacinia tristique suscipit netus imperdiet. Scelerisque turpis non posuere integer sed ipsum. Viverra pretium urna non tempor magnis consectetur iaculis scelerisque. A vestibulum consequat, nunc sagittis. Lectus id sit libero felis tempor sodales feugiat arcu id. Sed urna sed iaculis sagittis. Sed nibh ut tortor.</div>	
+							<div style="font-size: 0.8em; text-align: justify;">{{$data->keterangan}}</div>	
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="service_2" style="display:  flex; flex-direction: column; margin-bottom: 2em;">
-				<div style="display: flex; align-items: center;">
-					<div style="width: 20%;">
-						<div style="width: 3em; height: 3em; border-radius: 50%; background: #9d0208; display: flex; justify-content: center;align-items: center;">
-							<img src="<?=url('/')?>/public/img/icon_service/wifi.svg">
-						</div>
-					</div>
-					<div style="width: 80%">
-						<div style="word-wrap: break-word;">
-							<div style="font-weight: 500; color: black; font-size: 1.2em; display: flex; align-items: center; text-align: justify;">Wifi</div>
-						</div>
-					</div>
-				</div>
-				<div style="display: flex;">
-					<div style="width: 20%;">
-					</div>
-					<div style="width: 80%">
-						<div style="word-wrap: break-word;">
-							<div style="font-size: 0.8em; text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus lacinia tristique suscipit netus imperdiet. Scelerisque turpis non posuere integer sed ipsum. Viverra pretium urna non tempor magnis consectetur iaculis scelerisque. A vestibulum consequat, nunc sagittis. Lectus id sit libero felis tempor sodales feugiat arcu id. Sed urna sed iaculis sagittis. Sed nibh ut tortor.</div>	
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="service_3" style="display:  flex; flex-direction: column; margin-bottom: 2em;">
-				<div style="display: flex; align-items: center;">
-					<div style="width: 20%;">
-						<div style="width: 3em; height: 3em; border-radius: 50%; background: #9d0208; display: flex; justify-content: center;align-items: center;">
-							<img src="<?=url('/')?>/public/img/icon_service/diantarkan.svg">
-						</div>
-					</div>
-					<div style="width: 80%">
-						<div style="word-wrap: break-word;">
-							<div style="font-weight: 500; color: black; font-size: 1.2em; display: flex; align-items: center; text-align: justify;">Pengantaran</div>
-						</div>
-					</div>
-				</div>
-				<div style="display: flex;">
-					<div style="width: 20%;">
-					</div>
-					<div style="width: 80%">
-						<div style="word-wrap: break-word;">
-							<div style="font-size: 0.8em; text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus lacinia tristique suscipit netus imperdiet. Scelerisque turpis non posuere integer sed ipsum. Viverra pretium urna non tempor magnis consectetur iaculis scelerisque. A vestibulum consequat, nunc sagittis. Lectus id sit libero felis tempor sodales feugiat arcu id. Sed urna sed iaculis sagittis. Sed nibh ut tortor.</div>	
-						</div>
-					</div>
-				</div>
-			</div>
+			@endforeach
+			
 		</div>
 		<div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
 			<div class="row-mall" style="border-radius: 1.5em; box-shadow: 4px 4px 28px #C9D2DA; width: 90%;">

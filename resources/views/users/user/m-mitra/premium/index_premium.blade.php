@@ -321,7 +321,36 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 					</div>
 					@endfor
 				</div>
+		</div>
+	</div>
 
+
+<header class="style__Container-sc-3fiysr-0 header" style="background: transparent; padding-top: 0.3em;">
+	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
+		<a href="<?=url('/')?>/akun" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
+			<img src="<?=url('/')?>/public/img/back_white.svg">
+		</a>
+		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
+			<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
+		</a>
+		<a href="<?=url('/')?>/{{Auth()->user()->toko->username}}" style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
+			<img src="<?=url('/')?>/public/img/icon_svg/landing_page.svg" style="width: 100%;">
+		</a>
+	</div>
+</header>
+
+
+@php $url = url('/')."/public/img/home/bg-premium.svg"; @endphp
+<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
+	<div>
+		<div style="padding: 0px 16px 1em;">
+			<h3 style="color: white;">Transaksi</h3>
+			<div style=" display: flex; justify-content: space-between; align-items: center;">
+				<div style="font-size: 0.8em; line-height: 1.2em; color: #a1a4a8;">Statistik</div>
+				<div style="display: flex; font-size: 0.6em;color: #a1a4a8;">
+					<div class="btn-menu-analitik analitik-active">Pekanan</div>
+					<div class="btn-menu-analitik">Bulanan</div>
+				</div>	
 			</div>
 		</div>
 	</div>
