@@ -32,4 +32,8 @@ class Toko extends Model
 
         return asset('public/img/toko/'.$this->id.'/logo/'.$this->logo_toko);
     }
+
+    public function video_landing_page(){
+        return $this->hasMany(Video_landing_page::class);
+    }
 }

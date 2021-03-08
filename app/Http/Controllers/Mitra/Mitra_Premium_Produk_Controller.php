@@ -9,6 +9,8 @@ use App\Models\Kategori;
 use App\Models\toko;
 use App\Models\product;
 use App\Models\Foto_maps;
+use App\Models\Video_landing_page;
+use App\Models\Landing_page_fasilitas_toko;
 
 
 class Mitra_Premium_Produk_Controller extends Controller
@@ -144,7 +146,17 @@ class Mitra_Premium_Produk_Controller extends Controller
     }
 
     public function atur_produk_premium(){
-
+		$video = array();
+		$video_ = Video_landing_page::where('toko_id', Auth()->user()->toko->id)->get();
+		if(!empty($video_)){
+			foreach($video_ as $video_){
+				$link = $video_->link_video;
+        		$link = trim(substr($link, strpos($link, '=')+1));
+				$video[$video_->no_video] = $link;
+			}
+		}
+		$fasilitas_toko = Landing_page_fasilitas_toko::where('toko_id', Auth()->user()->toko->id)->get();
+		
 		$kategori_produk = Kategori::all();
 
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
@@ -156,14 +168,12 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$foto_3 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','3')->first();
 		// dd($foto_maps);
 
-		return view('users/user/m-mitra/premium/atur_produk', compact('kategori_produk','produk','foto_1','foto_2','foto_3'));
+		return view('users/user/m-mitra/premium/atur_produk', compact('kategori_produk','produk','foto_1','foto_2','foto_3', 'video', 'fasilitas_toko'));
 
 	}
 
 	public function simpan_atur_produk_premium(Request $request){
-
-		// dd($request->all());
-
+		
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 		
 		if($request->file("foto_maps_1")){
