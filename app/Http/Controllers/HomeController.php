@@ -88,7 +88,9 @@ class HomeController extends Controller
 	}
 
 	public function maps(){
-		return view('home/maps');
+		$toko = toko::all();
+		// dd($toko);
+		return view('home/maps', compact('toko'));
 	}
 
 
