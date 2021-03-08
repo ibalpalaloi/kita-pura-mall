@@ -24,7 +24,7 @@ class LandingPageController extends Controller
 			} 
 		}
 		$rating = 0;
-		if(!empty($penilaian)){
+		if(count($penilaian) != 0){
 			foreach($penilaian as $data){
 				$rating += $data->bintang;
 			}

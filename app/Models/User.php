@@ -50,7 +50,7 @@ class User extends Authenticatable
     }
 
     public function toko(){
-        return $this->hasOne(Toko::class);
+        return $this->hasOne(Toko::class, 'users_id');
     }
 
     public function daftar_tunggu_toko(){
