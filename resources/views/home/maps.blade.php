@@ -205,7 +205,7 @@ crossorigin=""></script>
 	};
 
 	var food_icon = L.icon({
-		iconUrl: "<?=url('/')?>/public/img/maps/food.svg",
+		iconUrl: "<?=url('/')?>/public/img/maps/logo_maps.svg",
 		    iconSize:     [38, 95], // size of the icon
 		    shadowSize:   [50, 64], // size of the shadow
 		    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
@@ -213,10 +213,10 @@ crossorigin=""></script>
 		    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 		});
 
-	var marker = L.marker([-0.8479103, 119.8993065], {icon: food_icon}).on('click', function(e) { markerClick(e, "tes1");});
-	marker.addTo(map);	
-	var marker = L.marker([-0.8979103, 119.8993065], {icon: food_icon}).on('click', function(e) { markerClick(e, "tes2");});
-	marker.addTo(map);	
+	@foreach ($toko as $row)
+		var marker = L.marker([<?=$row->latitude?>, <?=$row->longitude?>], {icon: food_icon}).on('click', function(e) { markerClick(e, "tes1");});
+		marker.addTo(map);	
+	@endforeach
 
 	function markerClick(e, string) {
 		$("#btn_trigger_location").click();
