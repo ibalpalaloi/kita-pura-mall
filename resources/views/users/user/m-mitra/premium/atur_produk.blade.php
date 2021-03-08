@@ -599,43 +599,36 @@ if (!empty($_GET['deskripsi'])){
 					</div>
 				</div>
 				<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding-bottom: 4em;">
-					@if ($produk->count() > 0)
-					@foreach($produk as $row)
+					@foreach ($produk as $data)
 					<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
 						<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-						<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
+						<img src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/produk/{{$data->foto_produk}}">
 						<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative;' class="st0"> 
 							<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; right: 0.8em; display: flex; justify-content: center; align-items: center;">
 								<div class="togglebutton">
 									<label>
-										<a href="{{url()->current()}}/{{$row->id}}/ubah-status" >	
-											<input type="checkbox" @if($row->tampil == "Ya") checked @endif>
+										<a href="#" >	
+											<input type="checkbox">
 											<span class="toggle"></span>
 										</a>
 									</label>
 
 								</div>
 							</div>
-							<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
-							<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori->nama}}</div>
-							@if($row->diskon == '0')
-							<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$row->harga}}</span>
-							@else
+							<div style="font-weight: 500; margin-top: 0em;">Nama</div>
+							<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">Nama kartegori</div>
+							<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. 20000</span>
+							
 							<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-								<s>IDR. {{$row->harga}}</s>
+								<s>IDR. 3484998 </s>
 							</span>
-							@php
-							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
-							@endphp
-							<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$hasil_diskon}}</span>
-							@endif
+							
 							<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
-								Stok : {{$row->stok}}
+								Stok : stok
 							</div>
 						</div>
 					</div> 
 					@endforeach
-					@endif
 				</div>
 			</div>
 		</div>
