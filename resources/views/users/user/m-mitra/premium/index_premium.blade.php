@@ -319,7 +319,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
 			<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
 		</a>
-		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
+		<a href="<?=url('/')?>/{{Auth()->user()->toko->username}}" style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
 			<img src="<?=url('/')?>/public/img/icon_svg/landing_page.svg" style="width: 100%;">
 		</a>
 	</div>

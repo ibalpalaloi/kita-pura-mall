@@ -63,7 +63,6 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		color: white;
 		text-align: center;
 		padding-bottom: 0px;
-		background-color: transparent;
 	}
 
 	.footer-mall-menu {
@@ -440,6 +439,79 @@ if (!empty($_GET['deskripsi'])){
 	</div>
   </div>
 
+{{-- modal tambah icon --}}
+  <div class="modal fade" id="modal-fasilitas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<form action="<?=url('/')?>/akun/mitra/premium/atur-produk/post_fasilitas" method="post">
+			{{csrf_field()}}
+			<div class="input-group mb-3 div-input-mall-square st0" id="div_deskripsi" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+				<div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 0.8em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;" class="st0">
+					<div style="margin-top: 1em;">
+						<div>Judul</div>
+						<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
+							<div><img src="<?=url('/')?>/public/img/icon_svg/judul.svg" style="width: 100%;"></div>
+							<div>
+								<input type="text" name="judul" style="color: white; background: transparent; font-size: 1.15em; padding-left: 0.9em;" placeholder="Masukan judul service">
+							</div>
+						</div>
+					</div>	
+					<div style="margin-top: 1em; padding-bottom: 0.5em;">
+						<div>Keterangan</div>
+						<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
+							<div><img src="<?=url('/')?>/public/img/icon_svg/keterangan.svg" style="width: 100%;"></div>
+							<div style="width: 100%;">
+								<textarea name="keterangan" style="color: white; background: transparent; font-size: 0.9em; line-height: 1.15em; padding-left: 1.3em; border: none; width: 100%;" rows="8" placeholder="Masukan keterangan service"></textarea> 
+							</div>
+						</div>
+					</div>	
+					<button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
+						<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
+					</button>									
+				</div>
+			</div>
+		</form>
+	  </div>
+	</div>
+  </div>
+
+  {{-- ubah fasiltas --}}
+  <div class="modal fade" id="modal-ubah-fasilitas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<form action="<?=url('/')?>/akun/mitra/premium/atur-produk/ubah_fasilitas" method="post">
+			{{csrf_field()}}
+			<div class="input-group mb-3 div-input-mall-square st0" id="div_deskripsi" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+				<div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 0.8em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;" class="st0">
+					<div style="margin-top: 1em;">
+						<div>Judul</div>
+						<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
+							<div><img src="<?=url('/')?>/public/img/icon_svg/judul.svg" style="width: 100%;"></div>
+							<div>
+								<input id="judul_service" type="text" name="judul" style="color: white; background: transparent; font-size: 1.15em; padding-left: 0.9em;" placeholder="Masukan judul service">
+							</div>
+						</div>
+					</div>	
+					<div style="margin-top: 1em; padding-bottom: 0.5em;">
+						<div>Keterangan</div>
+						<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
+							<div><img src="<?=url('/')?>/public/img/icon_svg/keterangan.svg" style="width: 100%;"></div>
+							<div style="width: 100%;">
+								<textarea id="keterangan_fasilitas" name="keterangan" style="color: white; background: transparent; font-size: 0.9em; line-height: 1.15em; padding-left: 1.3em; border: none; width: 100%;" rows="8" placeholder="Masukan keterangan service"></textarea> 
+							</div>
+						</div>
+					</div>
+					<input type="text" id="id_ubah_fasilitas" name="id" hidden >	
+					<button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
+						<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
+					</button>									
+				</div>
+			</div>
+		</form>
+	  </div>
+	</div>
+  </div>
+
 <form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post" >
 	{{csrf_field()}}
 	{{method_field('PUT')}}
@@ -482,7 +554,7 @@ if (!empty($_GET['deskripsi'])){
 				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
 					<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
 				</div>
-				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+				<div class="input-group mb-3 div-input-mall-square" id="div_wfoto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
 					@if($foto_1)
 					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
 						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$foto_1->toko_id}}/maps/{{$foto_1->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
@@ -543,30 +615,17 @@ if (!empty($_GET['deskripsi'])){
 				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
 					<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
 				</div>
-				<div class="input-group mb-3 div-input-mall-square st0" id="div_deskripsi" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+				@foreach ($fasilitas_toko as $fasilitas)
+				<div class="input-group mb-3 div-input-mall-square st0" id="div_deskripsi" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">\
+					<a href="<?=url('/')?>/akun/mitra/premium/atur-produk/hapus_fasilitas/{{$fasilitas->id}}" ><img src="<?=url('/')?>/public/img/icon_svg/trash_white.svg" style="width: 2em; position: absolute; right: 10px; top: 31px"></a>
+					<img onclick="modal_ubah_fasilitas('{{$fasilitas->judul}}', '{{$fasilitas->keterangan}}', '{{$fasilitas->id}}')" src="<?=url('/')?>/public/img/icon_svg/pencil.svg" style="width: 2em; position: absolute; right: 50px; top: 31px">
 					<div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 0.8em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;" class="st0">
-						<div>
-							<div>Icon</div>
-							<div class="daftar-icon" style="padding-top: 0.5em; display: flex;">
-								@php
-									$index = 0;
-								@endphp
-								@foreach ($fasilitas_toko as $toko)
-									<div onclick="tampilkan_fasiiltas({{$index}})" style="height: 2.5em; width: 2.5em; background: #9d0208; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><img src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/icon/{{$toko->icon}}"></div>
-								@php
-									$index++;
-								@endphp
-								@endforeach
-								<div style="height: 2.5em; width: 2.5em; border: 2px solid white; border-radius: 0.4em; text-align: center; padding-top: 0.3em;"><i class="fa fa-plus"></i></div>
-								
-							</div>
-						</div>
 						<div style="margin-top: 1em;">
 							<div>Judul</div>
 							<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
 								<div><img src="<?=url('/')?>/public/img/icon_svg/judul.svg" style="width: 100%;"></div>
 								<div>
-									<input id="judul_service" type="text" name="judul" style="color: white; background: transparent; font-size: 1.15em; padding-left: 0.9em;" placeholder="Masukan judul service">
+									<input value="{{$fasilitas->judul}}" type="text" name="judul" style="color: white; background: transparent; font-size: 1.15em; padding-left: 0.9em;" readonly>
 								</div>
 							</div>
 						</div>	
@@ -575,15 +634,19 @@ if (!empty($_GET['deskripsi'])){
 							<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
 								<div><img src="<?=url('/')?>/public/img/icon_svg/keterangan.svg" style="width: 100%;"></div>
 								<div style="width: 100%;">
-									<textarea id="keterangan_fasilitas" name="keterangan" style="color: white; background: transparent; font-size: 0.9em; line-height: 1.15em; padding-left: 1.3em; border: none; width: 100%;" rows="8" placeholder="Masukan keterangan service"></textarea> 
+									<textarea name="keterangan" style="color: white; background: transparent; font-size: 0.9em; line-height: 1.15em; padding-left: 1.3em; border: none; width: 100%;" rows="8" placeholder="Masukan keterangan service" readonly>{{$fasilitas->keterangan}}</textarea> 
 								</div>
 							</div>
-						</div>	
-						<button onclick="simpan_fasilitas_toko()" type="button" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
-							<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
-						</button>									
+						</div>									
 					</div>
 				</div>
+				@endforeach
+				<div class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-fasilitas" style="padding: 0px; background: transparent; border: none;">
+						<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
+					</button>	
+				</div>
+
 				<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Menu Favorit</h6>
 				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
 					<div style="font-size: 0.8em; color: #dddddd; line-height: 1.3em;">pilih 3 menu favorit untuk ditampilkan di halaman depan landing page</div>
@@ -599,36 +662,43 @@ if (!empty($_GET['deskripsi'])){
 					</div>
 				</div>
 				<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding-bottom: 4em;">
-					@foreach ($produk as $data)
+					@if ($produk->count() > 0)
+					@foreach($produk as $row)
 					<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
 						<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-						<img src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/produk/{{$data->foto_produk}}">
+						<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
 						<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative;' class="st0"> 
 							<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; right: 0.8em; display: flex; justify-content: center; align-items: center;">
 								<div class="togglebutton">
 									<label>
-										<a href="#" >	
-											<input type="checkbox">
+										<a href="{{url()->current()}}/{{$row->id}}/ubah-status" >	
+											<input type="checkbox" @if($row->tampil == "Ya") checked @endif>
 											<span class="toggle"></span>
 										</a>
 									</label>
 
 								</div>
 							</div>
-							<div style="font-weight: 500; margin-top: 0em;">Nama</div>
-							<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">Nama kartegori</div>
-							<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. 20000</span>
-							
+							<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
+							<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori->nama}}</div>
+							@if($row->diskon == '0')
+							<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$row->harga}}</span>
+							@else
 							<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-								<s>IDR. 3484998 </s>
+								<s>IDR. {{$row->harga}}</s>
 							</span>
-							
+							@php
+							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
+							@endphp
+							<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$hasil_diskon}}</span>
+							@endif
 							<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
-								Stok : stok
+								Stok : {{$row->stok}}
 							</div>
 						</div>
 					</div> 
 					@endforeach
+					@endif
 				</div>
 			</div>
 		</div>
@@ -790,6 +860,37 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 				toko[index]['keterangan'] = keterangan;
 			}
 		})
+	}
+
+	function tambah_icon(){
+		$('#modal-fasilitas').modal('show');
+	}
+
+	function tambah_icon_pilih(){
+		$('#icon').click();
+		$("#icon").change(function(){
+			tampilkan_icon_baru(this);
+		});
+	}
+
+	function tampilkan_icon_baru(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function (e) {
+				$('#icon_baru_preview').attr('src', e.target.result);
+				$("#div_icon_baru_preview").prop('hidden', false);
+			}
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	function modal_ubah_fasilitas(judul, keterangan, id){
+		$('#modal-ubah-fasilitas').modal('show');
+		$('#judul_service').val(judul);
+		$('#keterangan_fasilitas').val(keterangan);
+		$('#id_ubah_fasilitas').val(id);
 	}
 
 </script>

@@ -40,4 +40,29 @@ class Atur_Landing_Page_Controller extends Controller
         $fasilitas->keterangan = $request->keterangan;
         $fasilitas->save();
     }
+
+    function post_fasilitas_baru(Request $request){
+        $post = new Landing_page_fasilitas_toko;
+        $post->judul = $request->judul;
+        $post->keterangan = $request->keterangan;
+        $post->toko_id = Auth()->user()->toko->id;
+        $post->save();
+
+        return back();
+    }
+
+    public function ubah_fasilitas(Request $request){
+        $post = Landing_page_fasilitas_toko::find($request->id);
+        $post->judul = $request->judul;
+        $post->keterangan = $request->keterangan;
+        $post->save();
+
+        return back();
+    }
+
+    public function hapus_fasilitas($id){
+        Landing_page_fasilitas_toko::find($id)->delete();
+
+        return back();
+    }
 }

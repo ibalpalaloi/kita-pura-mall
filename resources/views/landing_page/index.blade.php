@@ -415,7 +415,7 @@ style="padding: 1.5em; padding: 0px;">
 			@if(!empty($foto_map[1]))
 				<div class="input-group mb-3" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
 					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
-						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/mitra/foto_maps/maps_2.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[1]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 					</div>
 
 					<input hidden type="file" name="foto_maps_1" id="foto_maps_1" required>
@@ -425,7 +425,7 @@ style="padding: 1.5em; padding: 0px;">
 				@if(!empty($foto_map[2]))
 					<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
 						<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew">
-							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/mitra/foto_maps/maps_1.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[2]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 						</div>
 
 						<input hidden type="file" name="foto_maps_2" id="foto_maps_2" required>
@@ -434,7 +434,7 @@ style="padding: 1.5em; padding: 0px;">
 				@if (!empty($foto_map[3]))
 					<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
 						<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew">
-							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/mitra/foto_maps/maps_3.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[3]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 						</div>
 
 					</div>
@@ -443,16 +443,17 @@ style="padding: 1.5em; padding: 0px;">
 			</div>
 		</div>
 		<div class="row-mall" style="padding: 0em 8% 1.2em 8%; margin-top: 0em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em;">
+			@foreach ($fasilitas as $data)
 			<div class="service_1" style="display:  flex; flex-direction: column; margin-bottom: 2em;">
 				<div style="display: flex; align-items: center;">
 					<div style="width: 20%;">
 						<div style="width: 3em; height: 3em; border-radius: 50%; background: #9d0208; display: flex; justify-content: center;align-items: center;">
-							<img src="<?=url('/')?>/public/img/icon_service/tempat_nyaman.svg">
+							<img src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/icon/{{$data->icon}}">
 						</div>
 					</div>
 					<div style="width: 80%">
 						<div style="word-wrap: break-word;">
-							<div style="font-weight: 500; color: black; font-size: 1.2em; display: flex; align-items: center; text-align: justify;">Tempat Nyaman</div>
+							<div style="font-weight: 500; color: black; font-size: 1.2em; display: flex; align-items: center; text-align: justify;">{{$data->judul}}</div>
 						</div>
 					</div>
 				</div>
@@ -461,57 +462,13 @@ style="padding: 1.5em; padding: 0px;">
 					</div>
 					<div style="width: 80%">
 						<div style="word-wrap: break-word;">
-							<div style="font-size: 0.8em; text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus lacinia tristique suscipit netus imperdiet. Scelerisque turpis non posuere integer sed ipsum. Viverra pretium urna non tempor magnis consectetur iaculis scelerisque. A vestibulum consequat, nunc sagittis. Lectus id sit libero felis tempor sodales feugiat arcu id. Sed urna sed iaculis sagittis. Sed nibh ut tortor.</div>	
+							<div style="font-size: 0.8em; text-align: justify;">{{$data->keterangan}}</div>	
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="service_2" style="display:  flex; flex-direction: column; margin-bottom: 2em;">
-				<div style="display: flex; align-items: center;">
-					<div style="width: 20%;">
-						<div style="width: 3em; height: 3em; border-radius: 50%; background: #9d0208; display: flex; justify-content: center;align-items: center;">
-							<img src="<?=url('/')?>/public/img/icon_service/wifi.svg">
-						</div>
-					</div>
-					<div style="width: 80%">
-						<div style="word-wrap: break-word;">
-							<div style="font-weight: 500; color: black; font-size: 1.2em; display: flex; align-items: center; text-align: justify;">Wifi</div>
-						</div>
-					</div>
-				</div>
-				<div style="display: flex;">
-					<div style="width: 20%;">
-					</div>
-					<div style="width: 80%">
-						<div style="word-wrap: break-word;">
-							<div style="font-size: 0.8em; text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus lacinia tristique suscipit netus imperdiet. Scelerisque turpis non posuere integer sed ipsum. Viverra pretium urna non tempor magnis consectetur iaculis scelerisque. A vestibulum consequat, nunc sagittis. Lectus id sit libero felis tempor sodales feugiat arcu id. Sed urna sed iaculis sagittis. Sed nibh ut tortor.</div>	
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="service_3" style="display:  flex; flex-direction: column; margin-bottom: 2em;">
-				<div style="display: flex; align-items: center;">
-					<div style="width: 20%;">
-						<div style="width: 3em; height: 3em; border-radius: 50%; background: #9d0208; display: flex; justify-content: center;align-items: center;">
-							<img src="<?=url('/')?>/public/img/icon_service/diantarkan.svg">
-						</div>
-					</div>
-					<div style="width: 80%">
-						<div style="word-wrap: break-word;">
-							<div style="font-weight: 500; color: black; font-size: 1.2em; display: flex; align-items: center; text-align: justify;">Pengantaran</div>
-						</div>
-					</div>
-				</div>
-				<div style="display: flex;">
-					<div style="width: 20%;">
-					</div>
-					<div style="width: 80%">
-						<div style="word-wrap: break-word;">
-							<div style="font-size: 0.8em; text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus lacinia tristique suscipit netus imperdiet. Scelerisque turpis non posuere integer sed ipsum. Viverra pretium urna non tempor magnis consectetur iaculis scelerisque. A vestibulum consequat, nunc sagittis. Lectus id sit libero felis tempor sodales feugiat arcu id. Sed urna sed iaculis sagittis. Sed nibh ut tortor.</div>	
-						</div>
-					</div>
-				</div>
-			</div>
+			@endforeach
+			
 		</div>
 		<div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
 			<div class="row-mall" style="border-radius: 1.5em; box-shadow: 4px 4px 28px #C9D2DA; width: 90%;">

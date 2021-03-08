@@ -135,6 +135,9 @@ Route::group(['middleware'=> 'auth'], function() {
             // atur landing page
             Route::post('/atur_landing_page/simpan_video', [Atur_Landing_Page_Controller::class, 'simpan_video'])->name('simpan_video_landing_page');
             Route::post('/atur_landing_page/post_fasilitas_toko', [Atur_Landing_Page_Controller::class, 'post_fasilitas_toko'])->name('post_fasilitas_toko');
+            Route::post('/akun/mitra/premium/atur-produk/post_fasilitas', [Atur_Landing_Page_Controller::class, 'post_fasilitas_baru']);
+            Route::post('/akun/mitra/premium/atur-produk/ubah_fasilitas', [Atur_Landing_Page_Controller::class, 'ubah_fasilitas']);
+            Route::get('/akun/mitra/premium/atur-produk/hapus_fasilitas/{id}', [Atur_Landing_Page_Controller::class, 'hapus_fasilitas']);
 
             // list pesananan
             Route::get('/akun/mitra/premium/list-pesanan', [PesananController::class, 'pesanan']);
