@@ -10,6 +10,7 @@ use App\Models\Penilaian_toko;
 use App\Models\Foto_maps;
 use App\Models\Landing_page_fasilitas_toko;
 use App\Models\Video_landing_page;
+use App\Models\Pengunjung_toko;
 
 class LandingPageController extends Controller
 {
@@ -41,6 +42,14 @@ class LandingPageController extends Controller
 			$link = trim(substr($link, strpos($link, '=')+1));
 			array_push($video, $link);
 		}
+		// pengunjung toko
+		if(Auth()->user()->id != $toko->user->id){
+			$pengunjung = new Pengunjung_toko;
+			$pengunjung->user_id = Auth()->user()->id;
+			$pengunjung->toko_id = $toko->user->id;
+			$pengunjung->save();
+		}
+
 		return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian', 'rating', 'foto_map', 'fasilitas', 'video'));
 	}
 

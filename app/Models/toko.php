@@ -36,4 +36,8 @@ class Toko extends Model
     public function video_landing_page(){
         return $this->hasMany(Video_landing_page::class);
     }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'users_id');
+    }
 }
