@@ -370,9 +370,12 @@ style="padding: 1.5em; padding: 0px;">
 					<div style="color: white; font-size: 0.8em;">{{count($penilaian)}} Penilaian</div>
 				</div>
 			</div>
+			@if(Auth()->user()->id != $toko->user->id)
 			<div style="color: white; font-size: 0.8em; margin-top: 1.2em;" onclick="menilai()">				
 				<i class="far fa-star star-rating"></i>&nbsp;Saya ingin menilai
 			</div>
+			@endif
+			
 			<div class="deskripsi" style="color: white; font-size: 0.7em; margin-top: 0.8em;">{{$toko->deskripsi}}</div>
 			<hr style="width: 2em; margin-top: 1.5em; border: 1.5px solid white; background: white; border-radius: 1.5em;">
 		</div>
