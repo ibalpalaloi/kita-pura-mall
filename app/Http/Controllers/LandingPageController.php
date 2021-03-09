@@ -18,7 +18,7 @@ class LandingPageController extends Controller
 		$toko = Toko::where('username', $mitra)->first();
 		$produk = Product::where('toko_id', $toko->id)->where('tampil','ya')->get();
 		$penilaian = Penilaian_toko::where('toko_id', $toko->id)->take(4)->get();
-		$fasilitas = Landing_page_fasilitas_toko::where('toko_id', Auth()->user()->toko->id)->get();
+		$fasilitas = Landing_page_fasilitas_toko::where('toko_id', $toko->id)->get();
 		$foto_maps = Foto_maps::where('toko_id', $toko->id)->get();
 		$video_ = Video_landing_page::where('toko_id', $toko->id)->get();
 		$video = array();

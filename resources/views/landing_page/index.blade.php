@@ -410,7 +410,7 @@ style="padding: 1.5em; padding: 0px;">
 			@if(!empty($foto_map[1]))
 				<div class="input-group mb-3" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
 					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
-						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[1]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[1]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 					</div>
 
 					<input hidden type="file" name="foto_maps_1" id="foto_maps_1" required>
@@ -420,7 +420,7 @@ style="padding: 1.5em; padding: 0px;">
 				@if(!empty($foto_map[2]))
 					<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
 						<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew">
-							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[2]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[2]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 						</div>
 
 						<input hidden type="file" name="foto_maps_2" id="foto_maps_2" required>
@@ -429,7 +429,7 @@ style="padding: 1.5em; padding: 0px;">
 				@if (!empty($foto_map[3]))
 					<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
 						<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew">
-							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[3]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[3]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 						</div>
 
 					</div>
