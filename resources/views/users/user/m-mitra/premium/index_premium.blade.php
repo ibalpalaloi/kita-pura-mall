@@ -319,8 +319,9 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 						<input hidden type="file" name="foto_toko_{{$i}}" id="foto_toko_{{$i}}" required>
 					</div>
-					@endfor
 				</div>
+					@endfor
+			</div>
 		</div>
 	</div>
 
