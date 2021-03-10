@@ -2,7 +2,7 @@
 <div class="input-group mb-3" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em; display: flex; justify-content: center;">
     <div style="display: flex; justify-content: center; position:relative;width: 85%; margin: 0px; height: 13em;">
         <a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf">
-            <img src="<?=url('/')?>/public/img/foto/{{$toko->id}}/maps/{{$toko->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+            <img src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$toko->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
         </a>
         <div class="label-product" style="position: absolute; bottom: 0em; left: 0em; padding: 0.9em 0.5em 0.9em 1.2em; display: flex; width: 100%; background-color: rgba(0,0,0,0.3); justify-content: space-between;">
             <div class="keterangan-product" style="display: flex;">
