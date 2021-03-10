@@ -241,7 +241,6 @@ Rekomendasi |
 @section('footer-scripts')
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-</script>
 <script>
 	var page = 1;
 	$(document).ready(function(){
