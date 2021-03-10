@@ -378,9 +378,9 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	@endif
 
 
-	@if((Session::get('message') == 'KTP Belum Lengkap') || ($cek_ktp == "KTP Belum Lengkap"))
-	$('#modal-verifikasi-ktp').modal('show');
-	@endif	
+	// @if((Session::get('message') == 'KTP Belum Lengkap') || ($cek_ktp == "KTP Belum Lengkap"))
+	// $('#modal-verifikasi-ktp').modal('show');
+	// @endif	
 
 
 	@if ($status_aktif_mitra == "Belum lengkap")

@@ -46,7 +46,7 @@ $show = "finish";
 }
 }
 @endphp
-<div class="modal fade" id="modal-otp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+{{-- <div class="modal fade" id="modal-otp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
     <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
         <div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 12em 1em 0em 1em; color: white;">
             <div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
@@ -112,7 +112,7 @@ $show = "finish";
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @else
 @if(Session::get('progress_biodata') != '5')
 <div class="modal fade" id="modal-sukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">

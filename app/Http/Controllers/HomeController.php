@@ -9,6 +9,7 @@ use Image;
 use App\Models\Toko;
 use App\Models\Penilaian_toko;
 use App\Models\Product;
+use App\Models\Daftar_tunggu_toko;
 
 class HomeController extends Controller
 {
@@ -45,7 +46,16 @@ class HomeController extends Controller
 				$i++;
 			}
 		}
-		return view('home/index', ['toko'=>$list_toko]);
+		return redirect('/home_mitra');
+		// return view('home/index', ['toko'=>$list_toko]);
+	}
+
+	public function home_mitra(){
+		$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Auth()->user()->id)->get();
+		if(!empty($daftar_tunggu)){
+			return redirect('/akun');
+		}
+		return view('home.home_for_mitra', compact('daftar_tunggu'));
 	}
 
 	public function pencarian(){

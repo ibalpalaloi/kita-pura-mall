@@ -36,6 +36,7 @@ use App\Http\Controllers\Mitra\PesananController;
 
 Route::group(['middleware'=> 'guest'], function() {
 
+    
     Route::get('/', [AuthController::class, 'login'])->name('login');
     Route::post('/masuk', [AuthController::class, 'post_login']);
 
@@ -61,6 +62,7 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::group(['middleware'=> 'home'], function() {
 
         // @home
+        Route::get('/home_mitra', [HomeController::class, 'home_mitra']);
         Route::get('/home', [HomeController::class, 'index'])->name('home');
         Route::get('/pencarian', [HomeController::class, 'rekomendasi']);
         Route::get('/pencarian/explore', [HomeController::class, 'pencarian']);
