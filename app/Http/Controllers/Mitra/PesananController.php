@@ -18,13 +18,12 @@ class PesananController extends Controller
         // dd($pesanan);
         $toko = Toko::where('users_id', Auth()->user()->id)->first();
         $pesanan = Pesanan::where('toko_id', $toko->id)
-                            ->whereDate('created_at', date('Y-m-d'))
+                            ->whereDate('tanggal', date('Y-m-d'))
                             ->get();
         $total_pesanan = 0;
         foreach($pesanan as $data){
             $total_pesanan += $data->harga_total;
         }
-        // dd($pesanan);
         return view('/users.user.m-mitra.premium.pesanan', compact('pesanan', 'total_pesanan'));
     }
 
@@ -32,6 +31,20 @@ class PesananController extends Controller
         $toko = Toko::where('users_id', Auth()->user()->id)->first();
         $produk = Product::where('toko_id', $toko->id)->get();
         return view('/users.user.m-mitra.premium.list_produk', compact('produk'));
+    }
+
+    public function ubah_jumlah_pesanan(Request $request){
+        $pesanan = Pesanan::where('id', $request->id)->first();
+        $harga_produk = Product::where('id', $pesanan->product->id)->first()->harga;
+        $pesanan->harga_total = $harga_produk*$request->jumlah_pesanan;
+        $pesanan->jumlah = $request->jumlah_pesanan;
+        $pesanan->save();
+        return redirect()->back();
+    }
+
+    public function hapus_pesanan(Request $request){
+        $pesanan = Pesanan::where('id', $request->id)->delete();
+        return redirect()->back();
     }
 
     public function post_pesanan(Request $request){
@@ -120,8 +133,4 @@ class PesananController extends Controller
         return view('users.user.m-mitra.premium.riwayat_transaksi_bulan', ['hasil_bulanan'=>$array_hasil]);
     }
 
-    public function hapus_pesanan($id){
-        Pesanan::find($id)->delete();
-        return redirect('/akun/pengaturan_toko/pesanan');
-    }
 }

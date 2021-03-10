@@ -31,7 +31,6 @@ class MitraController extends Controller
 	public function mitra(){
 
 		$notification = array();
-
 		if(Session::get('progress_biodata') != '5'){
 
 			$notification = array(

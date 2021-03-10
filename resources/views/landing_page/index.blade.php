@@ -291,8 +291,8 @@
 @section('content')
 <div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
 style="padding: 1.5em; padding: 0px;">
-	<form action="<?=url('')?>/user/post_penilaian" method="post">
-		{{ csrf_field() }}
+<form action="<?=url('')?>/user/post_penilaian" method="post">
+	{{ csrf_field() }}
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
 		<div class="modal-content" style="border-radius: 1.2em; background: #9d0208; display: flex; justify-content: center; align-items: center;">
 			<div class="modal-body">
@@ -316,7 +316,7 @@ style="padding: 1.5em; padding: 0px;">
 			</div>
 		</div>
 	</div>
-	</form>
+</form>
 </div>
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
@@ -349,21 +349,21 @@ style="padding: 1.5em; padding: 0px;">
 		<div class="penilaian" style="margin-top: 0.5em;">
 			<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em;">
 				@php
-					$bintang = 5-$rating;
+				$bintang = 5-$rating;
 				@endphp
 				@for ($i = 0; $i < $rating; $i++)
-					<i class="fas fa-star star-rating"></i>
+				<i class="fas fa-star star-rating"></i>
 				@endfor
 				@for ($i = 0; $i < $bintang; $i++)
-					<i class="far fa-star star-rating"></i>
+				<i class="far fa-star star-rating"></i>
 				@endfor
 			</div>
 			<div class="penilai" style="display: flex; justify-content: space-between; align-items: flex-end;">
 				<div class="foto-penilai" style="display: flex; justify-content: flex-start; margin-top: 0.2em;">
 					@foreach ($penilaian as $data)
-						<div style="width: 1.2em; height: 1.2em; border-radius: 50%;">
-							<img src="<?=url('/')?>/public/img/user/profile_picture/{{$data->user->biodata->foto}}" style="width: 100%; border-radius: 50%;">
-						</div>
+					<div style="width: 1.2em; height: 1.2em; border-radius: 50%;">
+						<img src="<?=url('/')?>/public/img/user/profile_picture/{{$data->user->biodata->foto}}" style="width: 100%; border-radius: 50%;">
+					</div>
 					@endforeach
 				</div>
 				<div>
@@ -390,15 +390,14 @@ style="padding: 1.5em; padding: 0px;">
 					@foreach ($video as $video)
 					<div class="swiper-slide" style="background: transparent; display: flex; justify-content: center; flex-direction: column;">
 						<div style="width: 92%;">
-							<div style='background: white; margin-top: 0.3em; position: relative; width: 100%; height: 10em; border-radius: 0.5em; background-size: cover; display: flex; justify-content: center; align-items: center;'>
-								<iframe width="560" height="190" src="https://www.youtube.com/embed/{{$video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							<div style='background: white; margin-top: 0.3em; position: relative; width: 100%; height: 12em; border-radius: 0.5em; background-size: cover; display: flex; justify-content: center; align-items: center;'>
+								<iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{$video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 0.8em;"></iframe>
 							</div>
 						</div>
 					</div>
 					@endforeach
 				</div>
 				<!-- Add Pagination -->
-				<div class="swiper-pagination"></div>
 			</div>
 			@endif
 		</div>
@@ -408,31 +407,31 @@ style="padding: 1.5em; padding: 0px;">
 				<div style="font-size: 0.8em; text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
 			</div>
 			@if(!empty($foto_map[1]))
-				<div class="input-group mb-3" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
-						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[1]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-					</div>
-
-					<input hidden type="file" name="foto_maps_1" id="foto_maps_1" required>
+			<div class="input-group mb-3" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+				<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
+					<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[1]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 				</div>
+
+				<input hidden type="file" name="foto_maps_1" id="foto_maps_1" required>
+			</div>
 			@endif
 			<div style="display: flex; justify-content: space-between;">
 				@if(!empty($foto_map[2]))
-					<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
-						<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew">
-							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[2]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-						</div>
-
-						<input hidden type="file" name="foto_maps_2" id="foto_maps_2" required>
+				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
+					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew">
+						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[2]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 					</div>
+
+					<input hidden type="file" name="foto_maps_2" id="foto_maps_2" required>
+				</div>
 				@endif
 				@if (!empty($foto_map[3]))
-					<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
-						<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew">
-							<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[3]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-						</div>
-
+				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
+					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew">
+						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{Auth()->user()->toko->id}}/maps/{{$foto_map[3]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 					</div>
+
+				</div>
 				@endif
 				
 			</div>
@@ -490,7 +489,7 @@ style="padding: 1.5em; padding: 0px;">
 										<s>IDR. {{number_format($item->harga)}}</s>
 									</div>
 									@php
-										$hasil_diskon = ($item->harga)-((($item->diskon)/100)*($item->harga));
+									$hasil_diskon = ($item->harga)-((($item->diskon)/100)*($item->harga));
 									@endphp
 									<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1em; line-height: 1em; font-weight: 500;">IDR. {{$hasil_diskon}}</div>
 									@else
@@ -501,7 +500,7 @@ style="padding: 1.5em; padding: 0px;">
 										Stok : {{$item->stok}}
 									</div>
 									
-								
+									
 								</div>
 							</div>
 							<div class="">
@@ -575,11 +574,6 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 </script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
-	var swiper = new Swiper('.swiper-container', {
-		pagination: {
-			el: '.swiper-pagination',
-		},
-	});
 
 	function masukan_keranjang(toko_id, produk_id){
 		$.ajax({

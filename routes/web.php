@@ -141,6 +141,7 @@ Route::group(['middleware'=> 'auth'], function() {
             // @atur produk
             Route::get('/akun/mitra/premium/atur-produk', [Mitra_Premium_Produk_Controller::class, 'atur_produk_premium']);
             Route::put('/akun/mitra/premium/atur-produk/simpan', [Mitra_Premium_Produk_Controller::class, 'simpan_atur_produk_premium']);
+            Route::post('/akun/mitra/premium/atur-produk/simpan-foto-maps', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_maps'])->name('simpan_foto_maps');
             Route::get('/akun/mitra/premium/atur-produk/{id}/ubah-status', [Mitra_Premium_Produk_Controller::class, 'ubah_status_produk_premium']);
 
             // atur landing page
@@ -153,6 +154,8 @@ Route::group(['middleware'=> 'auth'], function() {
             // list pesananan
             Route::get('/akun/mitra/premium/list-pesanan', [PesananController::class, 'pesanan']);
             Route::get('/akun/mitra/premium/list-pesanan/list-produk', [PesananController::class, 'list_produk']);
+            Route::post('/akun/mitra/premium/hapus-pesanan', [PesananController::class, 'hapus_pesanan']);
+            Route::post('/akun/mitra/premium/ubah-jumlah-pesanan', [PesananController::class, 'ubah_jumlah_pesanan']);
             Route::post('/akun/mitra/premium/simpan-pesanan', [PesananController::class, 'post_pesanan']);
             Route::get('/akun/pengaturan_toko/hapus_pesanan/{id}', [PesananController::class, 'hapus_pesanan']);
             Route::get('/akun/riwayat_transaksi', [PesananController::class, 'riwayat_transaksi']);
