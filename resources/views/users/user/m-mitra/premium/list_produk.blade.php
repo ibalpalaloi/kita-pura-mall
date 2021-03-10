@@ -407,7 +407,7 @@ if (!empty($_GET['deskripsi'])){
 ?>
 
 
-<header class="style__Container-sc-3fiysr-0 header" style="background: transparent;  padding-top: 0.3em">
+<header class="style__Container-sc-3fiysr-0 header" style="background:#353535; padding-top: 0.3em">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
 		<a href="<?=url('/')?>/akun/mitra/premium" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
 			<img src="<?=url('/')?>/public/img/back_white.svg">

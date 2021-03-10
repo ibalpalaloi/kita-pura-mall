@@ -215,6 +215,7 @@ crossorigin=""></script>
 
 	@foreach ($toko as $row)
 		var marker = L.marker([<?=$row->latitude?>, <?=$row->longitude?>], {icon: food_icon}).on('click', function(e) { markerClick(e, "tes1");});
+		// alert('tes');
 		marker.addTo(map);	
 	@endforeach
 

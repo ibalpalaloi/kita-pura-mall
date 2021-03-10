@@ -397,8 +397,61 @@ if (!empty($_GET['deskripsi'])){
 }
 ?>
 
+<div class="modal fade" id="modal-ubah-pesanan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: -0.5em; z-index: 5;">
+				<img src="<?=url('/')?>/public/img/mitra/modal_simpan_toko_premium.svg" style="width: 95%; position: absolute; top: -10.5em;">
+				<form action="<?=url('/')?>/akun/mitra/premium/ubah-jumlah-pesanan" method="post">
+					{{csrf_field()}}
+					<div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 0.8em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;">
+						<div style="margin-top: 1em;">
+							<div>Jumlah Pesanan</div>
+							<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
+								<div><img src="<?=url('/')?>/public/img/icon_svg/judul.svg" style="width: 100%;"></div>
+								<div>
+									<input type="text" name="id" id="ubah_id" hidden>
+									<input type="text" name="jumlah_pesanan" id="jumlah_pesanan" style="color: white; background: transparent; font-size: 1.15em; padding-left: 0.9em;" placeholder="Jumlah Pesanan">
+								</div>
+							</div>
+						</div>	
+						<button type="submit" class="btn btn-primary" style="padding: 0px; margin-top: 1em;background: transparent; border: none;">
+							<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
+						</button>									
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
-<header class="style__Container-sc-3fiysr-0 header" style="background: transparent;  padding-top: 0.3em">
+<div class="modal fade" id="modal-hapus-pesanan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: -0.5em; z-index: 5;">
+				<img src="<?=url('/')?>/public/img/mitra/modal_simpan_toko_premium.svg" style="width: 95%; position: absolute; top: -10.5em;">
+				<form action="<?=url('/')?>/akun/mitra/premium/hapus-pesanan" method="post">
+					{{csrf_field()}}
+					<div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 1.5em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;">
+						<div style="text-align: center; margin-top: 1em; line-height: 1.2em;">Apakah Anda Ingin Menghapus Pesanan?</div>
+						<div style="display: flex; justify-content: center; margin-top: 0.5em;">
+							<input type="text" name="id" id="hapus_id" hidden>
+
+							<div class="btn btn-secondary" style="width: 30%; margin-right: 1em;" data-dismiss="modal">Tidak</div>
+							<button class="btn btn-primary" style="width: 30%;">Ya</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<header class="style__Container-sc-3fiysr-0 header" style="background: #353535; padding-top: 0.3em">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
 		<a href="<?=url('/')?>/akun/mitra/premium" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
 			<img src="<?=url('/')?>/public/img/back_white.svg">
@@ -438,7 +491,7 @@ if (!empty($_GET['deskripsi'])){
 				<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px; width: 100%; background: radial-gradient(131.25% 1072.4% at -7.42% 138.67%, #232323 0%, #353535 42.71%, #1C1C1D 77.6%, #252526 100%); border-radius: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83); position: relative;">
 					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
 					<div style="width: 27%; margin: 0.5em; height: 7em;">
-						<img src="<?=url('/')?>/public/img/toko/{{Auth()->user()->id}}/produk/product_8.jpg">
+						<img src="<?=url('/')?>/public/img/toko/{{$item->toko_id}}/produk/{{$item->product_id}}">
 					</div>
 					<div style='text-align: left; font-size: 0.75em; width:60%; color: white; background-size: cover; position: relative; margin-left: 0.5em; display: flex; justify-content: space-between;'> 
 						<div>
@@ -450,23 +503,23 @@ if (!empty($_GET['deskripsi'])){
 							</div>
 							<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 0.9em; font-weight: 500;">IDR. 5.000</div>
 							<div class="button-detail" style="margin-top: 1.5em;">
-								<div style="width: 2em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick="kurangi_pesanan()"><i class="fa fa-minus"></i></div>
+								<div style="width: 2em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick='ubah_pesanan("<?=$item->id?>", "<?=$item->jumlah?>")'><i class="fa fa-minus"></i></div>
 								<div style="width: 3em; height: 2em; background: white; border-radius: 2em; color: #9d0208; display: flex; justify-content: center; align-items: center; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan"><?=$item->jumlah?></div>
-								<div style="width: 2.1em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick="tambah_pesanan()"><i class="fa fa-plus"></i></div>
+								<div style="width: 2.1em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick='ubah_pesanan("<?=$item->id?>", "<?=$item->jumlah?>")'><i class="fa fa-plus"></i></div>
 							</div>			
 						</div>				
 						<div>
 							<div style="text-align: center;">Time</div>
-							<div class="st0" style="padding: 0.2em 1em; margin-right: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83);">08:00:43</div>
+							<div class="st0" style="padding: 0.2em 1em; margin-right: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83);">{{$item->waktu}}</div>
 						</div>
 					</div>
-					<div style="width: 13%; height: 100%; display: flex; align-items: center; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em;" class="st0">
+					<div style="width: 13%; height: 100%; display: flex; align-items: center; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em;" class="st0" onclick='hapus_pesanan("<?=$item->id?>")'>
 						<div>
 							<img src="<?=url('/')?>/public/img/icon_svg/trash_white.svg" style="width: 100%;">
 						</div>
 					</div>
 					<div class="st0" style="position: absolute; color: white; bottom: -0.5em; right: 0px; padding: 0.2em 1em; border-radius: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83);">
-						IDR 30.000
+						IDR {{number_format($item->harga_total,0,',','.')}}
 					</div>
 				</div> 
 				@endforeach
@@ -479,7 +532,7 @@ if (!empty($_GET['deskripsi'])){
 		<div style="font-size: 0.8em; margin-bottom: 0.5em;">Senin, 15 Februari 2020</div>
 		<div>
 			<span style="margin-right: 1em;">Total</span>
-			<span class="st0" style="padding: 0.2em 0.7em; border-radius: 0.3em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83);">IDR 30.000</span>
+			<span class="st0" style="padding: 0.2em 0.7em; border-radius: 0.3em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83);">IDR {{number_format($total_pesanan,0,',','.')}}</span>
 		</div>
 	</div>
 	<a href="<?=url('/')?>/akun/mitra/premium/list-pesanan/list-produk" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
@@ -525,8 +578,16 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$("#div_"+id).css('border', '1px solid white');		
 	}		
 
+	function ubah_pesanan(id, jumlah_pesanan){
+		$("#ubah_id").val(id);
+		$("#jumlah_pesanan").val(jumlah_pesanan)
+		$("#modal-ubah-pesanan").modal('show');
+	}
 
-
+	function hapus_pesanan(id){
+		$("#hapus_id").val(id);
+		$("#modal-hapus-pesanan").modal('show');
+	}
 
 	function tambah_produk(){
 		$('#modal-tambah').modal('show'); 

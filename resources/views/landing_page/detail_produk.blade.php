@@ -169,12 +169,13 @@
 
 #bg {
 	position: fixed; 
-	width: 200%; 
+	max-width:480px;
 	height: 200%;
-	z-index: -1;
+	z-index: 0;
 }
 #bg img {
 	position: absolute; 
+	max-width:480px;
 	z-index: -1;
 	object-fit: cover;
 	height: 50%;
