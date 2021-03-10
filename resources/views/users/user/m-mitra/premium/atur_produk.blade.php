@@ -562,7 +562,7 @@ if (!empty($_GET['deskripsi'])){
 									<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Foto Depan Tempat Usaha</div>
 								</div>
 							</div>
-							<input type="hidden" name="id_foto_toko_1" id="id_foto_toko_1" value="{{$foto_1->id}}">
+							<input type="hidden" name="id_foto_toko" id="id_foto_toko_1" value="{{$foto_1->id}}">
 						</div>
 						@else
 						<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
@@ -573,7 +573,7 @@ if (!empty($_GET['deskripsi'])){
 									<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Foto Depan Tempat Usaha</div>
 								</div>
 							</div>
-							<input type="hidden" name="id_foto_toko_1" id="id_foto_toko_1" value="null">
+							<input type="hidden" name="id_foto_toko" id="id_foto_toko_1" value="null">
 						</div>
 						@endif
 						<input hidden type="file" name="foto_toko_1" id="foto_toko_1">
@@ -593,7 +593,7 @@ if (!empty($_GET['deskripsi'])){
 									</div>
 								</div>
 							</div>
-							<input type="hidden" name="id_foto_toko_2" id="id_foto_toko_2" value="{{$foto_2->id}}">
+							<input type="hidden" name="id_foto_toko" id="id_foto_toko_2" value="{{$foto_2->id}}">
 							@else
 							<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_2" style="background:transparent; border: none; border-radius: 1.2em; width: 100%;">
 								<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_2">
@@ -603,7 +603,7 @@ if (!empty($_GET['deskripsi'])){
 										<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
 									</div>
 								</div>
-								<input type="hidden" name="id_foto_toko_2" id="id_foto_toko_2" value="null">
+								<input type="hidden" name="id_foto_toko" id="id_foto_toko_2" value="null">
 							</div>
 							@endif
 							<input hidden type="file" name="foto_toko_2" id="foto_toko_2">
@@ -622,7 +622,7 @@ if (!empty($_GET['deskripsi'])){
 										<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
 									</div>
 								</div>
-								<input hidden type="file" name="foto_toko_3" id="foto_toko_3">
+								<input type="hidden" name="id_foto_toko" id="id_foto_toko_3" value="{{$foto_3->id}}">
 							</div>
 							@else
 							<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_3" style="background:transparent; border: none; border-radius: 1.2em; width: 100%;">
@@ -633,7 +633,7 @@ if (!empty($_GET['deskripsi'])){
 										<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
 									</div>
 								</div>
-								<input type="hidden" name="id_foto_toko_3" id="id_foto_toko_3" value="null">
+								<input type="hidden" name="id_foto_toko" id="id_foto_toko_3" value="null">
 							</div>
 							@endif
 							<input hidden type="file" name="foto_toko_3" id="foto_toko_3">
