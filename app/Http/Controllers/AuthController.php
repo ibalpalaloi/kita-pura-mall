@@ -19,6 +19,7 @@ class AuthController extends Controller
 {
     //
     public function login(){
+        // return view('auth.daftar_mitra.daftar_mitra');
         return view('auth.login');
     }
 
@@ -60,7 +61,7 @@ class AuthController extends Controller
     public function post_login(Request $request){
         $no_telp = $request->nomor_hp;
         $no_telp = str_replace("-","", $no_telp);
-        if ((strlen($no_telp) == 12) && ($no_telp[0] == 0)){
+        if ($no_telp[0] == 0){
             $no_telp = substr($no_telp, 1);
         }
         $no_telp = substr_replace($no_telp, "+62", 0, 0);
@@ -266,5 +267,33 @@ class AuthController extends Controller
 
     }
 
-    
+    public function post_biodata(Request $request){
+        dd($request);
+        $no_telp = $request->no_hp;
+        $no_telp = str_replace("-","", $no_telp);
+        if ($no_telp[0] == 0){
+            $no_telp = substr($no_telp, 1);
+        }
+        $no_telp = substr_replace($no_telp, "+62", 0, 0);
+
+        $id_user = $this->autocode('USR-');
+
+        $user = new User;
+        $user->id = $id_user;
+        $user->password = bcrypt($request->password);
+        $user->no_hp = $no_telp;
+        $user->remember_token = str::random(60);
+        $user->level_akses = 'user';
+        $user->status = "aktif";
+        $user->save();
+
+        $biodata = new Biodata;
+        $biodata->users_id = $id_user;
+        $biodata->nama = $request->nama_lengkap;
+        $biodata->jenis_kelamin = $request->jenis_kelamin;
+        $biodata->alamat = $request->alamat;
+        $biodata->
+        $biodata->username = $this->autocode('user');
+        $biodata->save();
+    }
 }

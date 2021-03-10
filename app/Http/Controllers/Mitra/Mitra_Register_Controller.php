@@ -79,6 +79,7 @@ class Mitra_Register_Controller extends Controller
 				'deskripsi' => 'required'
 			]);
 		};
+        Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->delete();
 
 		$toko_id = $this->autocode('TK-');
 		// @Tambah Toko
@@ -213,8 +214,8 @@ class Mitra_Register_Controller extends Controller
     public function selesai($jenis_mitra){
 
         if ($jenis_mitra == 'premium'){
-
-            return redirect('/akun/jadi-mitra/'.$jenis_mitra.'/upload-ktp');
+            return redirect('/akun');
+            // return redirect('/akun/jadi-mitra/'.$jenis_mitra.'/upload-ktp');
         }
         else{
 
