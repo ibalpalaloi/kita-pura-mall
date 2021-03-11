@@ -168,7 +168,7 @@ class AuthController extends Controller
             
             // dd(Session::has('no_telp'));
 
-            return redirect('/akun');
+            return redirect('/home');
         }
     }
 

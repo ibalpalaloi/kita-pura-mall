@@ -52,7 +52,7 @@ class HomeController extends Controller
 
 	public function home_mitra(){
 		$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Auth()->user()->id)->get();
-		if(!empty($daftar_tunggu)){
+		if(count($daftar_tunggu) != 0){
 			return redirect('/akun');
 		}
 		return view('home.home_for_mitra', compact('daftar_tunggu'));
