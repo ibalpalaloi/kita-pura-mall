@@ -69,19 +69,25 @@ crossorigin=""/>
 		border-radius: 3em;         
 		margin-bottom: 0.5em;  
 	}
+
+	.st0
+	{
+		background : -moz-linear-gradient(-36.73% 61.91% 20deg,rgba(35, 35, 35, 1) 0%,rgba(53, 53, 53, 1) 19.55%,rgba(38, 38, 38, 1) 43.85%,rgba(53, 53, 53, 1) 72.35%,rgba(33, 33, 34, 1) 100%);
+		background : -webkit-linear-gradient(20deg, rgba(35, 35, 35, 1) 0%, rgba(53, 53, 53, 1) 19.55%, rgba(38, 38, 38, 1) 43.85%, rgba(53, 53, 53, 1) 72.35%, rgba(33, 33, 34, 1) 100%);
+		background : -webkit-gradient(linear,-36.73% 61.91% ,136.73% 38.09% ,color-stop(0,rgba(35, 35, 35, 1) ),color-stop(0.1955,rgba(53, 53, 53, 1) ),color-stop(0.4385,rgba(38, 38, 38, 1) ),color-stop(0.7235,rgba(53, 53, 53, 1) ),color-stop(1,rgba(33, 33, 34, 1) ));
+		background : -o-linear-gradient(20deg, rgba(35, 35, 35, 1) 0%, rgba(53, 53, 53, 1) 19.55%, rgba(38, 38, 38, 1) 43.85%, rgba(53, 53, 53, 1) 72.35%, rgba(33, 33, 34, 1) 100%);
+		background : -ms-linear-gradient(20deg, rgba(35, 35, 35, 1) 0%, rgba(53, 53, 53, 1) 19.55%, rgba(38, 38, 38, 1) 43.85%, rgba(53, 53, 53, 1) 72.35%, rgba(33, 33, 34, 1) 100%);
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#232323', endColorstr='#212122' ,GradientType=0)";
+		background : linear-gradient(70deg, rgba(35, 35, 35, 1) 0%, rgba(53, 53, 53, 1) 19.55%, rgba(38, 38, 38, 1) 43.85%, rgba(53, 53, 53, 1) 72.35%, rgba(33, 33, 34, 1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#232323',endColorstr='#212122' , GradientType=1);
+		background-repeat: background-size: cover;
+	}
 </style>
 @endsection
 
 @section('content')
-<div class="text-center" style="display: none;">
-	<button type="button" id="btn_trigger_location" class="btn btn-default btn-rounded" data-toggle="modal"
-	data-target="#modal-trigger-location">
-	Open Modal Hapus
-</button>
-</div>
-
 <div class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em;">
-	<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="display: flex; justify-content: center;">
 		<div class="modal-content" style="border-radius: 1.2em;">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">×</span>
@@ -89,63 +95,45 @@ crossorigin=""/>
 			<div class="modal-body">
 				<div class="detail-product" style="display: block;">
 					<div class="like-product" style="position: absolute; top: 10; right: 0; padding: 16.5em 1em 0.4em 0.5em;">
-						<div class="stroke-like-product" style="background: #fafafa; padding: 0.3em; border-radius: 1.5em;">
-							<div class="border-like-product" style="border: 2px solid #ff006e; border-radius: 1.5em; padding: 0.3em;color: #ff006e; font-size: 0.8em;">
-								<img src="<?=url('/')?>/public/img/like.svg" style="width: 1.5em;">&nbsp;1000+
+						<div class="stroke-like-product st0" style="padding: 0.3em; border-radius: 1.5em;">
+							<div class="border-like-product" style="border: 2px solid white; border-radius: 1.5em; padding: 0.3em;color: white; font-size: 1em;">
+								<img src="<?=url('/')?>/public/img/like.svg" style="width: 1.5em;">&nbsp;Landing Page
 							</div>
 						</div>
 					</div>
-					<img src="<?=url('/')?>/public/img/product/product_1.jpg" >
+					<img id="foto_maps" src="<?=url('/')?>/public/img/product/product_1.jpg">
 				</div>
 				<div>
-					<div class="nama-toko" style="font-weight: 600; font-size: 1em; margin-top: 1em;">Somay Bandung</div>
-					<div class="alamat-toko" style="font-size: 0.7em; color: #b1aeae;">Jl. RE Martadinata Kelurahan Tondo, Kecamatan Mantikulore Kota Palu</div> 
+					<div id="nama-toko" style="font-weight: 600; font-size: 1em; margin-top: 1em;">Somay Bandung</div>
+					<div id="alamat-toko" style="font-size: 0.7em; color: #b1aeae;">Jl. RE Martadinata Kelurahan Tondo, Kecamatan Mantikulore Kota Palu</div> 
 				</div>
 				<div>
 					<div class="nama-product" style="font-weight: 600; font-size: 1em; margin-top: 0.2em;">Rating</div>
 					<div class="alamat-product" style="font-size: 0.7em;">
-						<i class="fas fa-star star-rating"></i>
-						<i class="fas fa-star star-rating"></i>
-						<i class="fas fa-star star-rating"></i>
-						<i class="fas fa-star star-rating"></i>
 						<i class="fas fa-star star-no-rating"></i>
-						&nbsp;&nbsp;<span>12 Penilaian</span>
+						<i class="fas fa-star star-no-rating"></i>
+						<i class="fas fa-star star-no-rating"></i>
+						<i class="fas fa-star star-no-rating"></i>
+						<i class="fas fa-star star-no-rating"></i>
+						&nbsp;&nbsp;<span>0 Penilaian</span>
 					</div> 
-				</div>
-				<div class="penilaian-product" style="display: flex; justify-content: flex-start; margin-top: 0.3em;">
-					<div class="nilai-product" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-						<img src="<?=url('/')?>/public/img/nilai_product/porsi_pas.svg">
-						<div class="ket-nilai-product" style="color: #b1aeae; font-size: 0.5em; font-weight: 500;">Porsi Pas</div>
-					</div>
-					<div class="nilai-product" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-						<img src="<?=url('/')?>/public/img/nilai_product/rasa_enak.svg">
-						<div class="ket-nilai-product" style="color: #b1aeae; font-size: 0.5em; font-weight: 500;">Rasa Enak</div>
-					</div>
-					<div class="nilai-product" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-						<img src="<?=url('/')?>/public/img/nilai_product/kemasan_baik.svg">
-						<div class="ket-nilai-product" style="color: #b1aeae; font-size: 0.5em; font-weight: 500;">Kemasan Baik</div>
-					</div>
 				</div>
 				<div>
 					<div class="jadwal-buka" style="font-weight: 600; font-size: 1em; margin-top: 0.2em;">Jadwal Buka</div>
-					<div class="detail-jadwal-toko" style="font-size: 0.7em; display: flex;">
-						<img src="<?=url('/')?>/public/img/nilai_product/kalender.svg" style="width: 2.5em;">
-						<div class="" style="font-size: 0.9em; margin-left: 1em;">
-							<div>Senin - Minggu</div>
-							<div>08.00 WITA - 20.00 WITA</div>
-						</div>
+					<div id="detail-jadwal-toko" style="font-size: 0.7em; display: flex; flex-wrap: wrap;">
+
 					</div> 
 				</div>
 				<div style="display: flex; justify-content: space-between;">
-					<div style="width: 45%; background: #FF006E; color:white; font-size: 1.2em; padding: 0.4em 0.8em; border-radius: 1.5em; display: flex; justify-content: flex-start; align-items: center; margin-top: 0.5em;">
+					<div style="background: #FF006E; color:white; font-size: 1.2em; padding: 0.4em 0.8em; border-radius: 1.5em; display: flex; justify-content: flex-start; align-items: center; margin-top: 0.5em;">
 						<div style="border: 2px solid white; width: 2em; height: 2em; display: flex; justify-content: center; align-items: center; border:none; border-radius: 50%;">
 							<img src="<?=url('/')?>/public/img/button/emergency/telpon.svg" style="width: 60%;">
 						</div>
 						<div>Telepon</div>
 					</div>
-					<div style="width: 45%; background: #35A500; color:white; font-size: 1.2em; padding: 0.4em 0.8em; border-radius: 1.5em; display: flex; justify-content: flex-start; align-items: center; margin-top: 0.5em;">
+					<div style="background: #35A500; color:white; font-size: 1.2em; padding: 0.4em 0.8em; border-radius: 1.5em; display: flex; justify-content: flex-start; align-items: center; margin-top: 0.5em;">
 						<div style="border: 2px solid white; width: 2em; height: 2em; display: flex; justify-content: center; align-items: center; border:none; border-radius: 50%;">
-							<img src="<?=url('/')?>/public/img/button/emergency/whatapp .svg" style="width: 60%;">
+							<img src="<?=url('/')?>/public/img/button/emergency/whatapp.svg" style="width: 60%;">
 						</div>
 						<div>Whatsapp</div>
 					</div>
@@ -213,14 +201,27 @@ crossorigin=""></script>
 		    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 		});
 
-	@foreach ($toko as $row)
-		var marker = L.marker([<?=$row->latitude?>, <?=$row->longitude?>], {icon: food_icon}).on('click', function(e) { markerClick(e, "tes1");});
-		// alert('tes');
-		marker.addTo(map);	
+	@foreach ($foto_maps as $row)
+	@if (($row->latitude != null) && ($row->longitude != null))
+	var marker = L.marker([<?=$row->latitude?>, <?=$row->longitude?>], {icon: food_icon}).on('click', function(e) { markerClick(e, "<?=$row->nama_toko?>", "<?=$row->alamat?>", "<?=$row->foto?>", "<?=$row->id?>");});
+	marker.addTo(map);	
+	@endif
 	@endforeach
 
-	function markerClick(e, string) {
-		$("#btn_trigger_location").click();
+	function markerClick(e, nama_toko, alamat_toko, foto, toko_id) {
+		$.ajax({
+			url: "{{route('get_jadwal')}}",
+			method: "post",
+			data: {id_toko:toko_id, _token:'{{csrf_token()}}'},
+			success:function(result){
+				$("#nama-toko").html(nama_toko);
+				$("#alamat-toko").html(alamat_toko);
+				$("#foto_maps").attr('src', "<?=url('/')?>/public/img/toko/"+toko_id+"/maps/"+foto);
+				$("#detail-jadwal-toko").html(result.trim());
+				$("#modal-trigger-location").modal('show');
+
+			}
+		})
 	}
 </script>
 @endsection
