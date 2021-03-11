@@ -9,4 +9,9 @@ class Foto_maps extends Model
 {
     protected $table = "foto_maps";
     use HasFactory;
+
+    public function toko(){
+
+    	return $this->belongsTo(Toko::class);
+    }
 }

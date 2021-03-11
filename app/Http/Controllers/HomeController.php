@@ -98,9 +98,18 @@ class HomeController extends Controller
 	}
 
 	public function maps(){
-		$toko = toko::all();
-		// dd($toko);
-		return view('home/maps', compact('toko'));
+		$foto_maps = DB::table('toko')->select('toko.*', 'foto_maps.foto')->leftJoin('foto_maps', 'foto_maps.toko_id', '=', 'toko.id')->where('foto_maps.no_foto', '1')->get();
+		// dd($foto_maps);		
+		return view('home/maps', compact('foto_maps'));
+	}
+
+	public function get_jadwal(Request $request){
+		$jadwal = DB::table('jadwal_toko')->select('hari', 'jam_buka', 'jam_tutup')->where('toko_id', $request->id_toko)->get();
+		$fix_jadwal = "";
+		foreach ($jadwal as $row) {
+			$fix_jadwal .= "<div style='display: flex; width: 50%; margin-bottom: 0.5em;'><img src='".url('/')."/public/img/nilai_product/kalender.svg' style='width: 2.5em;'><div style='font-size: 0.9em; margin-left: 1em;'><div>$row->hari</div><div>$row->jam_buka WITA - $row->jam_tutup WITA</div></div></div>";
+		}
+		echo $fix_jadwal;
 	}
 
 

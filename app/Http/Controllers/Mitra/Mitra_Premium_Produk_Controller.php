@@ -98,7 +98,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 			else{
 				echo "t ada";
 
-				\Storage::disk('public')->delete('img/toko/'.$toko_id.'/maps/'.$foto->foto);
+				\Storage::disk('public')->delete('img/toko/'.$toko->id.'/maps/'.$foto->foto);
 			}
 			$files = $request->file('foto_toko_'.$id);
 			$type = $request->file('foto_toko_'.$id)->getClientOriginalExtension();
