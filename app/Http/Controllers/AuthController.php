@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Biodata;
 use App\Models\Otp;
 use App\Models\Toko;
+use App\Models\Daftar_tunggu_toko;
 use Illuminate\Support\Str;
 use Auth;
 use GuzzleHttp;
@@ -187,9 +188,10 @@ class AuthController extends Controller
         ]);
 
         if(Auth::attempt(['no_hp' => $request->no_telp, 'password' => $request->password])){
+            
 
             $user = User::where('no_hp', $request->no_telp)->first();
-
+            
             // dd($user->id);
             Session::put('id_user', $user->id);
             Session::put('no_telp', $request->no_telp);
@@ -203,6 +205,14 @@ class AuthController extends Controller
 
         return redirect()->back()->with($notification);
     }
+
+    // public function untuk_mitra(){
+    //     $data = Daftar_tunggu_toko::where('users_id', Auth()->user()->id)->get();
+    //     if(count($data) == 0){
+    //         return redirect('/akun/jadi-mitra/premium');
+    //     }
+    //     return redirect('/home');   
+    // }
 
     public function ganti_nomor_hp(Request $request){
         $user = User::where('id', Session::get('id_user'))->first();
