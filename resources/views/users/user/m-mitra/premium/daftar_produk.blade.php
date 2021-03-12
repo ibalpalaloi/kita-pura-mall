@@ -55,14 +55,16 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	}
 
 	.footer {
+
 		position: fixed;
 		left: 0;
 		bottom: 0;
+		padding-top: 0.5em;
 		width: 100%;
 		color: white;
 		text-align: center;
 		padding-bottom: 0px;
-		background-color: transparent;
+		background-color: #353535;
 	}
 
 	.footer-mall-menu {
@@ -279,7 +281,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 	.slider-toko img {
 		width: 100%;
-		height: 7.5em;
+		height: 8em;
 		object-fit: cover;
 		border-top-left-radius: 1em;
 		border-top-right-radius: 1em;
@@ -305,9 +307,8 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	}
 
 	.homepage {
-		min-height: calc(80vh - 60px); 
-
-	}
+		min-height: calc(20vh - 60px);
+	}	
 
 
 </style>
@@ -360,167 +361,6 @@ if (!empty($_GET['deskripsi'])){
 ?>
 
 
-<!-- <div id="modal-tambah" class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<div class="modal-dialog modal-dialog-bottom" role="document" style="padding: 0px; overflow-y: initial !important;">
-		<div class="modal-content" style="border-radius: 1em; background: #eaf4ff; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 0em; border-bottom-right-radius: 0em;">
-			<div class="modal-body" style="width: 100%;height: 80vh; overflow-y: auto;">
-				<form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post">
-					{{csrf_field()}}
-					<div class="input-group mb-2 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; background: white; border-radius: 1.2em;">
-						<div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto
-						Produk</div>
-						<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed #0066ff; margin: 0px 10% 2em 10%; height: 11.5em; cursor: pointer;" onclick="tambah_foto_toko()" id="div_pic_toko">
-							<img src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" style="width: 2em;">
-						</div>
-						<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em;" id="div_pic_toko_privew" hidden>
-							<img id="pic_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
-							<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
-						</div>
-
-						<input hidden type="file" name="foto_toko" id="foto_toko" required>
-					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_nama_pemilik">
-						<span>Nama Produk</span>
-						<div>
-							<span class="input-group-text-mall">
-								<img src="<?=url('/')?>/public/img/icon_svg/people.svg" style="width: 100%;">
-							</span>
-							<input type="text" class="form-control-mall" id="nama" name="nama" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan Nama Produk" aria-label="Nama Produk" aria-describedby="basic-addon1" style="width: 100%;" required>
-						</div>
-					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_kategori">
-						<span>Kategori</span>
-						<div>
-							<span class="input-group-text-mall">
-								<img src="<?=url('/')?>/public/img/icon_svg/kategori.svg" style="width: 100%;">
-							</span>
-							<select class="form-control-mall" id="kategori_produk" name="kategori_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;" required>
-								<option value="" disabled selected>--- Pilih Kategori ---</option>
-								@foreach($kategori_produk as $row)
-								<option value="{{$row->id}}">{{$row->nama}}
-								</option>
-								@endforeach
-							</select>
-						</div>
-					</div>
-
-					<div class="input-group mb-3 div-input-mall" id="div_harga">
-						<span>Harga</span>
-						<div>
-							<span class="input-group-text-mall">
-								<img src="<?=url('/')?>/public/img/icon_svg/harga.svg" style="width: 100%;">
-							</span>
-							<input type="text" class="form-control-mall" id="harga" name="harga" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan harga produk" aria-label="Harga produk" aria-describedby="basic-addon1" style="width: 100%;" required>
-						</div>
-					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_stok">
-						<span>Stok</span>
-						<div>
-							<span class="input-group-text-mall">
-								<img src="<?=url('/')?>/public/img/icon_svg/stok.svg" style="width: 100%;">
-							</span>
-							<input type="text" class="form-control-mall" id="stok" name="stok" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan jumlah stok" aria-label="Jumlah stok" aria-describedby="basic-addon1" style="width: 100%;" required>
-						</div>
-					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="justify-content: flex-start;">
-						<span style="margin-top: 0px;">Deskripsi</span>
-						<div style=" width: 100%;">
-							<textarea class="form-control-mall" id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 10em; border-radius: 0px; margin: 0.6em;" rows="8" required></textarea>
-						</div>
-					</div>				
-					<button type="submit" class="btn btn-primary" style="background: #ffaa00;;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;">Tambah Produk
-					</button>	
-				</form>			
-			</div>
-
-		</div>
-	</div>
-</div> -->
-
-<!-- <div id="modal-ubah" class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<div class="modal-dialog modal-dialog-bottom" role="document" style="padding: 0px; overflow-y: initial !important;">
-		<div class="modal-content" style="border-radius: 1em; background: #eaf4ff; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 0em; border-bottom-right-radius: 0em; border: none;">
-			<div class="modal-body" style="width: 100%;height: 80vh; overflow-y: auto;">
-
-				<form enctype="multipart/form-data" action="{{url()->current()}}/update" method="post">
-					{{csrf_field()}}
-					{{method_field('PUT')}}
-					<input type="hidden" id="edit_id_produk" name="edit_id_produk">
-					<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; background: white; border-radius: 1.2em;">
-						<div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto
-						Produk</div>
-						<div style="display: flex; justify-content: center; width: 100%; margin: 0px 10% 2em 10%; height: 11.5em;" id="div_edit_pic_toko_privew">
-							<img id="pic_edit_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; object-fit: cover;height: 100%;">
-							<img id="pic_edit_toko" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
-
-						</div>
-
-						<input hidden type="file" name="edit_foto_toko" id="edit_foto_toko" >
-					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_edit_nama_produk">
-						<span>Nama Produk</span>
-						<div>
-							<span class="input-group-text-mall">
-								<img src="<?=url('/')?>/public/img/icon_svg/people.svg" style="width: 100%;">
-							</span>
-							<input type="text" class="form-control-mall" id="edit_nama_produk" name="edit_nama_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama produk" aria-label="Nama Produk" aria-describedby="basic-addon1" style="width: 100%;" required>
-						</div>
-					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_edit_kategori">
-						<span>Kategori</span>
-						<div>
-							<span class="input-group-text-mall">
-								<img src="<?=url('/')?>/public/img/icon_svg/kategori.svg" style="width: 100%;">
-							</span>
-							<select type="text" class="form-control-mall" id="edit_kategori" name="edit_kategori" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;" required>
-								<option value="" disabled selected>--- Pilih Kategori Toko ---</option>
-								@foreach($kategori_produk as $row)
-								<option value="{{$row->id}}">{{$row->nama}}
-								</option>
-								@endforeach
-							</select>
-						</div>
-					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_edit_harga">
-						<span>Harga</span>
-						<div>
-							<span class="input-group-text-mall">
-								<img src="<?=url('/')?>/public/img/icon_svg/harga.svg" style="width: 100%;">
-							</span>
-							<input type="text" class="form-control-mall" id="edit_harga" name="edit_harga" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan harga produk" aria-label="Harga produk" aria-describedby="basic-addon1" style="width: 100%;" required>
-						</div>
-					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_edit_stok">
-						<span>Stok</span>
-						<div>
-							<span class="input-group-text-mall">
-								<img src="<?=url('/')?>/public/img/icon_svg/stok.svg" style="width: 100%;">
-							</span>
-							<input type="text" class="form-control-mall" id="edit_stok" name="edit_stok" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan jumlah stok" aria-label="Jumlah stok" aria-describedby="basic-addon1" style="width: 100%;" required>
-						</div>
-					</div>				
-					<div class="input-group mb-3 div-input-mall" id="div_edit_deskripsi" style="justify-content: flex-start;">
-						<span style="margin-top: 0px;">Deskripsi</span>
-						<div style=" width: 100%;">
-							<textarea class="form-control-mall" id="edit_deskripsi" name="edit_deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 10em; border-radius: 0px; margin: 0.6em;" rows="8" required></textarea>
-						</div>
-					</div>
-
-					<div style="display: flex; justify-content: space-around; background: transparent;">
-						<button type="submit" class="btn btn-primary" style="background: #ffaa00;border: 1px solid #ffaa00; border-radius: 1.5em;  width: 40%; margin-bottom: 1em;">Ubah
-						</button>
-
-						<button onclick="hapus_produk()" class="btn btn-danger" style="border-radius: 1.5em; width: 40%; margin-bottom: 1em;">Hapus
-						</button>
-						
-					</div>
-				</form>
-
-			</div>
-		</div>
-	</div>
-</div> -->
-
 <header class="style__Container-sc-3fiysr-0 header" style="background:#353535;  padding-top: 0.3em">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
 		<a href="<?=url('/')?>/akun/mitra/premium" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
@@ -536,92 +376,88 @@ if (!empty($_GET['deskripsi'])){
 
 
 
-<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
+<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 2em 0px;'>
 	<div>
-		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em; z-index: -5; right: 0px;">
-	</div>
-	<div>
-		<div style="padding: 0px 16px 1em;">
-			<h3 style="color: white;">Tambah Produk</h3>
-			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
-				<div style="font-size: 0.8em; line-height: 1.2em; color: #a1a4a8;">atur toko anda dan dapatkan ribuan pelanggan</div>
+		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: fixed; top: -2em; z-index: -5; right: 0px;">
+		<div>
+			<div style="padding: 0px 16px 1em;">
+				<h3 style="color: white;">Daftar Produk</h3>
+				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+					<div style="font-size: 0.8em; line-height: 1.2em; color: #a1a4a8;">atur toko anda dan dapatkan ribuan pelanggan</div>
+				</div>
+				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
+					<div style="width: 100%; padding-right: 0.5em;">
+						<span class="input-group-text-mall">
+						</span>
+						<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em;" required>
+						<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center;">
+							<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
+						</div>
+					</div>
+				</div>
+
 			</div>
-			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
-				<div style="width: 100%; padding-right: 0.5em;">
-					<span class="input-group-text-mall">
+		</div>
+		<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding: 0px 16px 4em;">
+			@if ($produk->count() > 0)
+			@foreach($produk as $row)
+			<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
+				<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+				<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
+				<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative;' class="st0"> 
+					<a href="{{url()->current()}}/{{$row->id}}" style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #926c15; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
+						<img src="<?=url('/')?>/public/img/icon_svg/pencil.svg" style="width: 1.5em; height: 1.5em;">
+					</a>
+					<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
+					<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori->nama}}</div>
+					@if($row->diskon == '0')
+					<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{number_format($row->harga,0,',','.')}}</span>
+					@else
+					<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
+						<s>IDR. {{number_format($row->harga,0,',','.')}}</s>
 					</span>
-					<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em;" required>
-					<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center;">
-						<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
+					@php
+					$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
+					@endphp
+
+					<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{number_format($hasil_diskon,0,',','.')}}</span>
+					@endif
+
+					<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
+						Stok : {{$row->stok}}
+					</div>
+				</div>
+			</div> 
+			@endforeach
+			@else
+			@endif
+		</div>
+
+	</div>
+	<div class="footer">
+		<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk/tambah" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
+			<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_produk.svg" style="width: 100%;">
+		</a>
+	</div>
+
+
+	@if(Session::has('message'))
+	<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+		<div class="modal-dialog modal-sm modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body text-center font-weight-bold py-3">
+					{{Session::get('message')}}
+					<div class="row mt-2 p-2">
+						<button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
+						data-dismiss="modal">Tutup</button>
+
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
-	<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding: 0px 16px 1em;">
-		@if ($produk->count() > 0)
-		@foreach($produk as $row)
-		<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
-			<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-			<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
-			<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative;' class="st0"> 
-				<a href="{{url()->current()}}/{{$row->id}}" style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #926c15; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
-					<img src="<?=url('/')?>/public/img/icon_svg/pencil.svg" style="width: 1.5em; height: 1.5em;">
-				</a>
-				<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
-				<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori->nama}}</div>
-				@if($row->diskon == '0')
-				<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$row->harga}}</span>
-				@else
-				<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-					<s>IDR. {{$row->harga}}</s>
-				</span>
-				@php
-					$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
-				@endphp
-
-				<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$hasil_diskon}}</span>
-				@endif
-			
-				<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
-					Stok : {{$row->stok}}
-				</div>
-			</div>
-		</div> 
-		@endforeach
-		@else
-		@endif
-	</div>
-
-	@if(Session::has('message'))
-    <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-        aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
-        <div class="modal-dialog modal-sm modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body text-center font-weight-bold py-3">
-                    {{Session::get('message')}}
-                    <div class="row mt-2 p-2">
-                        <button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
-                            data-dismiss="modal">Tutup</button>
-
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-    </div>
-    @endif
-
-</div>
-
+	@endif
 </main>
-<div class="footer">
-	<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk/tambah" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
-		<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_produk.svg" style="width: 100%;">
-	</a>
-</div>
 @endsection
 
 @section('footer-scripts')
@@ -631,7 +467,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 <script type="text/javascript">
 
 	@if(Session::has('message'))	
-		$('#modal-pemberitahuan').modal('show')
+	$('#modal-pemberitahuan').modal('show')
 	@endif
 
 	function tambah_foto_toko(){

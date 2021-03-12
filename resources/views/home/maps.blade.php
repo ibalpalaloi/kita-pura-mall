@@ -82,6 +82,7 @@ crossorigin=""/>
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#232323',endColorstr='#212122' , GradientType=1);
 		background-repeat: background-size: cover;
 	}
+
 </style>
 @endsection
 
@@ -94,13 +95,6 @@ crossorigin=""/>
 			</button>
 			<div class="modal-body">
 				<div class="detail-product" style="display: block;">
-					<div class="like-product" style="position: absolute; top: 10; right: 0; padding: 16.5em 1em 0.4em 0.5em;">
-						<div class="stroke-like-product st0" style="padding: 0.3em; border-radius: 1.5em;">
-							<div class="border-like-product" style="border: 2px solid white; border-radius: 1.5em; padding: 0.3em;color: white; font-size: 1em;">
-								<img src="<?=url('/')?>/public/img/like.svg" style="width: 1.5em;">&nbsp;Landing Page
-							</div>
-						</div>
-					</div>
 					<img id="foto_maps" src="<?=url('/')?>/public/img/product/product_1.jpg">
 				</div>
 				<div>
@@ -124,21 +118,30 @@ crossorigin=""/>
 
 					</div> 
 				</div>
-				<div style="display: flex; justify-content: space-between;">
-					<div style="background: #FF006E; color:white; font-size: 1.2em; padding: 0.4em 0.8em; border-radius: 1.5em; display: flex; justify-content: flex-start; align-items: center; margin-top: 0.5em;">
+				<div id="contact_free" style="display: flex; justify-content: space-between;">
+					<div style="background: #FF006E; color:white; font-size: 1.2em; padding: 0.4em 0.8em; border-radius: 1.5em; display: flex; justify-content: flex-start; align-items: center; margin-top: 0.5em; width: 45%;">
 						<div style="border: 2px solid white; width: 2em; height: 2em; display: flex; justify-content: center; align-items: center; border:none; border-radius: 50%;">
 							<img src="<?=url('/')?>/public/img/button/emergency/telpon.svg" style="width: 60%;">
 						</div>
 						<div>Telepon</div>
 					</div>
-					<div style="background: #35A500; color:white; font-size: 1.2em; padding: 0.4em 0.8em; border-radius: 1.5em; display: flex; justify-content: flex-start; align-items: center; margin-top: 0.5em;">
+					<a id="link_wa" href="" style="background: #35A500; color:white; font-size: 1.2em; padding: 0.4em 0.8em; border-radius: 1.5em; display: flex; justify-content: flex-start; align-items: center; margin-top: 0.5em; width: 45%;">
 						<div style="border: 2px solid white; width: 2em; height: 2em; display: flex; justify-content: center; align-items: center; border:none; border-radius: 50%;">
 							<img src="<?=url('/')?>/public/img/button/emergency/whatapp.svg" style="width: 60%;">
 						</div>
 						<div>Whatsapp</div>
-					</div>
+					</a>
 
 				</div>
+				<div id="contact_premium">
+					<a href="" id="link_landing_page" style="background: #FF006E; color:white; font-size: 1.2em; padding: 0.4em 0.8em; border-radius: 1.5em; align-items: center; margin-top: 0.5em; width: 100%; display: flex; justify-content: center;">
+						<div style="border: 2px solid white; width: 2em; height: 2em; display: flex; justify-content: center; align-items: center; border:none; border-radius: 50%; ">
+							<img src="<?=url('/')?>/public/img/icon_svg/landing_page3.svg" style="width: 60%;">
+						</div>
+						<div>Kunjungi Toko</div>
+					</a>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -203,12 +206,12 @@ crossorigin=""></script>
 
 	@foreach ($foto_maps as $row)
 	@if (($row->latitude != null) && ($row->longitude != null))
-	var marker = L.marker([<?=$row->latitude?>, <?=$row->longitude?>], {icon: food_icon}).on('click', function(e) { markerClick(e, "<?=$row->nama_toko?>", "<?=$row->alamat?>", "<?=$row->foto?>", "<?=$row->id?>");});
+	var marker = L.marker([<?=$row->latitude?>, <?=$row->longitude?>], {icon: food_icon}).on('click', function(e) { markerClick(e, "<?=$row->nama_toko?>", "<?=$row->alamat?>", "<?=$row->foto?>", "<?=$row->id?>", "<?=$row->no_hp?>", "<?=$row->jenis_mitra?>", "<?=$row->username?>");});
 	marker.addTo(map);	
 	@endif
 	@endforeach
 
-	function markerClick(e, nama_toko, alamat_toko, foto, toko_id) {
+	function markerClick(e, nama_toko, alamat_toko, foto, toko_id, no_hp, jenis_mitra, username) {
 		$.ajax({
 			url: "{{route('get_jadwal')}}",
 			method: "post",
@@ -216,6 +219,16 @@ crossorigin=""></script>
 			success:function(result){
 				$("#nama-toko").html(nama_toko);
 				$("#alamat-toko").html(alamat_toko);
+				if (jenis_mitra == 'free'){
+					$("#link_wa").attr('href', 'https://api.whatsapp.com/send?phone='+no_hp+'&text=Saya%20Ingin%20Memesan%20Anda%20');
+					$("#contact_free").prop('hidden', false);
+					$("#contact_premium").prop('hidden', true);
+				}
+				else {
+					$("#link_landing_page").attr('href', "<?=url('/')?>/"+username);
+					$("#contact_free").prop('hidden', true);
+					$("#contact_premium").prop('hidden', false);					
+				}
 				$("#foto_maps").attr('src', "<?=url('/')?>/public/img/toko/"+toko_id+"/maps/"+foto);
 				$("#detail-jadwal-toko").html(result.trim());
 				$("#modal-trigger-location").modal('show');

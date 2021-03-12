@@ -5,9 +5,12 @@
 @endsection
 
 @section('header-scripts')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/lunar/css/lunar.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
+
 <style type="text/css">
 	.banner {
 		max-width: 480px;
@@ -294,13 +297,47 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	.togglebutton label input[type=checkbox]:checked+.toggle{background-color:#8a6614}
 	.togglebutton label input[type=checkbox]:checked+.toggle:after{border-color:#8a6614}
 	.togglebutton label input[type=checkbox]:checked+.toggle:active:after{box-shadow:0 1px 3px 1px #8a6614,0 0 0 15px rgba(156,39,176,.1)}
+
+	.cr-slider-wrap {
+		display: none;
+	}
+
 </style>
 @endsection
 
 
 
 @section('content')
-<header class="style__Container-sc-3fiysr-0 header" style="background: transparent; padding-top: 0.3em;">
+<div class="modal fade" id="modal-sukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+		<div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<div class="container">
+					<div class="panel panel-info">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-4 text-center">
+									<div id="upload-demo">
+
+									</div>
+								</div>
+								<div class="col-md-4" style="padding:5%;">
+									<div class="btn btn-primary btn-block" id="unggah_foto" onclick="unggah_foto()">Unggah Foto</div>
+									<div id="div_upload" hidden>
+										<button class="btn btn-primary btn-block upload-image" style="margin-top:2%" >Upload Image</button>
+										<button class="btn btn-secondary btn-block" onclick="unggah_foto()">Unggah Foto</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<header class="style__Container-sc-3fiysr-0 header" style="background: #353535; padding-top: 0.3em;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
 		<a href="{{url()->previous()}}" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
 			<img src="<?=url('/')?>/public/img/back_white.svg">
@@ -326,12 +363,16 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		<div style="display: flex; justify-content: center;">
 			<div style="width: 90%; margin-top: 0em; display: flex; flex-direction: column; align-items: center;">
 				<div class="input-group mb-4 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 11.5em;" id="div_pic_toko_privew">
-						<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/{{$produk->toko_id}}/produk/{{$produk->foto_produk}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-						<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/plus_circle.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 1em; bottom: 1em;">
+					<div style="display: flex; justify-content: center; width: 100%; margin: 0px;" id="div_pic_toko_privew">
+						<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/{{$produk->toko_id}}/produk/{{$produk->foto_produk}}" style="width: 100%; border-radius: 1em;">
+						<div style="position: absolute; right: 0.5em; bottom: 0.5em; width: 3em; height: 3em; border-radius: 50%; display: flex; justify-content: center;" class="st0">
+							<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/pencil_circle_white.svg" onclick="ubah_foto()" style="width: 90%">
+						</div>
 					</div>
 
-					<input hidden type="file" name="foto_toko" id="foto_toko" >
+					<input hidden type="file" name="foto_toko" id="image" >
+					<input type="hidden" name="nama_foto_temp" id="nama_foto_temp">
+
 				</div>
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Nama Produk</div>
@@ -550,4 +591,96 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
+
+<script type="text/javascript">
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+
+	var status_ganti_foto = 0;
+
+	function ubah_foto(){
+		@php $url = ""; @endphp
+		@if ($produk->foto_produk)
+		var url = "<?=url('/')?>/public/img/toko/{{$produk->toko_id}}/produk/{{$produk->foto_produk}}";
+		@endif
+		if (status_ganti_foto == 0){
+			$(".cr-boundary").append("<img id='prev_image' src='"+url+"' style='width: 100%'; position: absolute; left:0;'>");
+		}
+		$("#div_upload").prop('hidden', true);
+		$("#unggah_foto").prop('hidden', false);
+		$('#modal-sukses').modal('show');
+	}
+
+	function unggah_foto(){
+		$("#image").click();
+	}
+
+
+
+
+	var resize = $('#upload-demo').croppie({
+		enableExif: true,
+		enableOrientation: true,    
+    viewport: { // Default { width: 100, height: 100, type: 'square' } 
+    width: 300,
+    height: 250,
+        type: 'square' //square
+    },
+    boundary: {
+    	width: 300,
+    	height:250
+    }
+});
+
+
+	$('#image').on('change', function () { 
+		$(".cr-slider-wrap").css("display", "block");
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			resize.croppie('bind',{
+				url: e.target.result
+			}).then(function(){
+				console.log('jQuery bind complete');
+			});
+		}
+		$("#div_upload").prop('hidden', false);
+		$("#unggah_foto").prop('hidden', true);
+		$("#prev_image").remove();
+		reader.readAsDataURL(this.files[0]);
+	});
+
+
+	$('.upload-image').on('click', function (ev) {
+		resize.croppie('result', {
+			circle: false,
+			type: 'canvas',
+			size: 'viewport'
+		}).then(function (img) {
+			$.ajax({
+
+				url: "<?=url('/')?>/akun/mitra/premium/tambah-produk/simpan-foto",
+				type: "POST",
+				data: {"image":img},
+				success: function (data) {
+					// alert(data);
+					$("#modal-sukses").modal('hide');
+					$('#pic_toko_privew').attr('src', "<?=url('/')?>/public/img/temp_produk/"+data);
+					$("#nama_foto_temp").val(data);
+					$("#div_pic_toko_privew").prop('hidden', false);
+					$("#div_pic_toko").prop('hidden', true);
+					$(".cr-slider-wrap").css("display", 'none');
+				}
+			});
+
+		});
+		status_ganti_foto = 1;
+
+	});
+
+</script>
+
 @endsection

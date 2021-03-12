@@ -11,7 +11,7 @@ use App\Models\product;
 use App\Models\Foto_maps;
 use App\Models\Video_landing_page;
 use App\Models\Landing_page_fasilitas_toko;
-
+use File;
 
 class Mitra_Premium_Produk_Controller extends Controller
 {
@@ -29,8 +29,6 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 
 		$produk = product::where('toko_id', $toko->id)->get();
-
-
 
 		return view('users/user/m-mitra/premium/daftar_produk', compact('kategori_produk', 'produk'));
 	}
@@ -73,11 +71,9 @@ class Mitra_Premium_Produk_Controller extends Controller
 			$produk->stok = "Tersedia";
 		}
 		// @Tambah Foto
-		$files = $request->file("foto_toko");
-		$type = $request->file("foto_toko")->getClientOriginalExtension();
-		$file_upload = $produk_id.".".$type;
-		\Storage::disk('public')->put('img/toko/'.$toko->id.'/produk/'.$file_upload, file_get_contents($files));
-		$produk->foto_produk = $file_upload;
+		// \Storage::disk('public')->put('img.$file_upload, file_get_contents($files));
+		File::move(public_path('img/temp_produk/'.$request->nama_foto_temp), public_path('img/toko/'.$toko->id.'/produk/'.$request->nama_foto_temp));
+		$produk->foto_produk = $request->nama_foto_temp;
 		$produk->save();
 
 		return redirect('/akun/mitra/premium/tambah-produk');
@@ -147,11 +143,8 @@ class Mitra_Premium_Produk_Controller extends Controller
 			$produk->stok = "Habis";
 		}
 		if($request->file("foto_toko")){
-			$files = $request->file("foto_toko");
-			$type = $request->file("foto_toko")->getClientOriginalExtension();
-			$file_upload = $produk->id.".".$type;
-			\Storage::disk('public')->put('img/toko/'.$toko->id.'/produk/'.$file_upload, file_get_contents($files));
-			$produk->foto_produk = $file_upload;
+			File::move(public_path('img/temp_produk/'.$request->nama_foto_temp), public_path('img/toko/'.$toko->id.'/produk/'.$request->nama_foto_temp));
+			$produk->foto_produk = $request->nama_foto_temp;
 		}
 
 		$produk->save();
@@ -297,6 +290,35 @@ class Mitra_Premium_Produk_Controller extends Controller
 		}
 
 		return redirect()->back();
+	}
+
+	function generateRandomString($length = 10) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
+
+	public function simpan_foto_produk(Request $request){
+		$image = $request->image;
+
+		list($type, $image) = explode(';', $image);
+		list(, $image)      = explode(',', $image);
+		$image = base64_decode($image);
+		$image_name= time().$this->generateRandomString().'.png';
+        // $path = public_path('upload/'.$image_name);
+
+        // file_put_contents($path, $image);
+		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		\Storage::disk('public')->put('img/temp_produk/'.$image_name, file_get_contents($request->image));
+		$image_path = url('/')."/public/img/temp_produk/$image_name";
+		// $biodata->foto = $image_name;
+		// $biodata->save();
+		echo $image_name;
+		// return response()->json(['status'=>$image_path]);		
 	}
 
 

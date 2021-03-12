@@ -238,9 +238,14 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
     .list-kategori .badge {
         margin-right: 0.5em;
-        border-radius: 0.8em;
-    }
-</style>
+        margin-bottom: 0.5em;
+        border-radius: 1.5em;
+        background-color: #EBEBEB;
+        color: #5C5C5C;
+        height: auto;   
+        padding: 0.3em 0.5em 0.3em 0.5em;
+
+    }</style>
 @endsection
 
 @section('content')
@@ -495,6 +500,8 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
             <div style="text-align: center; width: 100%; margin-top: 1.2em; margin-bottom: 0.8em;">Upload Foto Toko</div>
             <div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
                 <div style="position: relative; display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_1">
+                    <div class="label-mall" style="background:#ff006e; color: white; padding: 0.1em 1.5em 0.3em 1em; border-radius: 1.5em; line-height: 1.2em; position: absolute; left: 0.5em; top: 0.5em;">wajib</div>
+
                     <img id="pic_toko_privew_1" src="<?=url('/')?>/public/img/register/maps/tampak_depan.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
                     <div style="position: absolute;top: 40%;">
                         <img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('1')" style=" width: 2.5em; margin-left: 40%; margin-bottom: 2em;">
@@ -506,6 +513,8 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
             <div style="display: flex; justify-content: space-between; width: 100%;">
                 <div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
                     <div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_2">
+                        <div class="label-mall" style="background:#ff006e; color: white; padding: 0.1em 1.5em 0.3em 1em; border-radius: 1.5em; line-height: 1.2em; position: absolute; left: 0.5em; top: 0.5em;">wajib</div>
+
                         <img id="pic_toko_privew_2" src="<?=url('/')?>/public/img/register/maps/produk.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
                         <div style="position: absolute;top: 40%;">
                             <img id="pic_toko_2" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('2')" style=" width: 2.5em; margin-left: 20%; margin-bottom: 2em;">
@@ -517,7 +526,8 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
                 <div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
 
                     <div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_3">
-                        <img id="pic_toko_privew_3" src="<?=url('/')?>/public/img/register/maps/bebas.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+                        <div class="label-mall" style="background:#ff006e; color: white; padding: 0.1em 1.5em 0.3em 1em; border-radius: 1.5em; line-height: 1.2em; position: absolute; left: 0.5em; top: 0.5em;">wajib</div>
+                            <img id="pic_toko_privew_3" src="<?=url('/')?>/public/img/register/maps/bebas.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
                         <div style="position: absolute;top: 40%;">
                             <img id="pic_toko_3" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('3')" style=" width: 2.5em; margin-left: 15%; margin-bottom: 2em;">
                             <div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>

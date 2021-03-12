@@ -17,14 +17,24 @@ class PesananController extends Controller
         // $pesanan = Pesanan::where('created_at', date('Y-m-d').'00:00:00')->get();
         // dd($pesanan);
         $toko = Toko::where('users_id', Auth()->user()->id)->first();
-        $pesanan = Pesanan::where('toko_id', $toko->id)
-                            ->whereDate('tanggal', date('Y-m-d'))
-                            ->get();
-        $total_pesanan = 0;
-        foreach($pesanan as $data){
-            $total_pesanan += $data->harga_total;
+        $produk = Product::where('toko_id', $toko->id)->get()->count();
+        if ($produk == 0){
+            $notification = array(
+                'message' => 'Silahkan Masukan Produk',
+            );  
+            return redirect('/akun/mitra/premium/')->with($notification);
         }
-        return view('/users.user.m-mitra.premium.pesanan', compact('pesanan', 'total_pesanan'));
+        else {
+
+            $pesanan = Pesanan::where('toko_id', $toko->id)
+            ->whereDate('tanggal', date('Y-m-d'))
+            ->get();
+            $total_pesanan = 0;
+            foreach($pesanan as $data){
+                $total_pesanan += $data->harga_total;
+            }
+            return view('/users.user.m-mitra.premium.pesanan', compact('pesanan', 'total_pesanan'));
+        }
     }
 
     public function list_produk(){
@@ -44,7 +54,10 @@ class PesananController extends Controller
 
     public function hapus_pesanan(Request $request){
         $pesanan = Pesanan::where('id', $request->id)->delete();
-        return redirect()->back();
+        $notification = array(
+            'message' => 'Pesanan Berhasil Dihapus',
+        );  
+        return redirect()->back()->with($notification);
     }
 
     public function post_pesanan(Request $request){
@@ -58,7 +71,10 @@ class PesananController extends Controller
         $pesanan->harga_total = $request->jumlah_pesanan * $request->harga;
         $pesanan->save();
 
-        return redirect('/akun/mitra/premium/list-pesanan');
+        $notification = array(
+            'message' => 'Pesanan Berhasil Ditambahkan',
+        );  
+        return redirect('/akun/mitra/premium/list-pesanan')->with($notification);
     }
 
     public function riwayat_transaksi(){
