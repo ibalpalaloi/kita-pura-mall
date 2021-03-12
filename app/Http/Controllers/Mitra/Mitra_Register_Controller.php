@@ -214,8 +214,8 @@ class Mitra_Register_Controller extends Controller
     public function selesai($jenis_mitra){
 
         if ($jenis_mitra == 'premium'){
-            // return redirect('/akun');
-            return redirect('/akun/jadi-mitra/'.$jenis_mitra.'/upload-ktp');
+            return redirect('/home/halaman_tunggu');
+            // return redirect('/akun/jadi-mitra/'.$jenis_mitra.'/upload-ktp');
         }
         else{
 

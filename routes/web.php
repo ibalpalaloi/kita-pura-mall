@@ -58,9 +58,12 @@ Route::group(['middleware'=> 'guest'], function() {
 Route::group(['middleware'=> 'auth'], function() {
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    // Halaman Tunggu 
+    Route::get('/home/halaman_tunggu', [HomeController::class, 'untuk_mitra']);
 
     Route::group(['middleware'=> 'home'], function() {
-
+        
+        
         // @home
         Route::get('/home_mitra', [HomeController::class, 'home_mitra']);
         Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -114,7 +117,7 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::get('/akun/mitra/free/upgrade-premium/upload-ktp', [Mitra_Free_Controller::class, 'upgrade_upload_ktp']);
             Route::post('/akun/mitra/free/upgrade-premium/upload-ktp/simpan', [Mitra_Free_Controller::class, 'upgrade_simpan_ktp']);
 
-            
+        
             
 
         });

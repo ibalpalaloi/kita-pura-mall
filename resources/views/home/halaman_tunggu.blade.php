@@ -353,10 +353,10 @@ if (!empty($_GET['hari'])){
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
 
-<script type="text/javascript">
-@if($daftar_tunggu)
+{{-- <script type="text/javascript">
+@if(count($daftar_tunggu)>0)
 	$('#modal-verifikasi').modal('show');
 @endif
-</script>
+</script> --}}
 
 @endsection

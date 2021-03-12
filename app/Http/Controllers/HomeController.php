@@ -46,8 +46,21 @@ class HomeController extends Controller
 				$i++;
 			}
 		}
-		return redirect('/home_mitra');
+		return $this->untuk_mitra();
 		// return view('home/index', ['toko'=>$list_toko]);
+		
+	}
+
+	public function untuk_mitra(){
+		$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Auth()->user()->id)->get();
+		if(count($daftar_tunggu) != 0){
+			return view('home.halaman_tunggu');
+		}
+		$toko = Toko::where('users_id', Auth()->user()->id)->get();
+		if(count($toko) != 0){
+			return redirect('akun');
+		}
+		return redirect('/akun/jadi-mitra/premium');
 	}
 
 	public function home_mitra(){

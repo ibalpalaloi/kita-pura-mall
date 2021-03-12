@@ -412,7 +412,7 @@ $status_ugrade = "";
 			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 90%;">
 				<select type="text" class="form-control form-control-mall-modal" id="jadwal" name="jadwal" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="jadwal" aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
 					<option value="" disabled selected>--- Silahkan Pilih Hari ---</option>
-					@if(@jadwal)
+					@if($jadwal)
 					@for ($i = 0; $i < count($var_text); $i++)
 					@php $indikator = false; @endphp
 					@for ($j = 0; $j < count($loop_hari); $j++)
