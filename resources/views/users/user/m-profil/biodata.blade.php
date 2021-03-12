@@ -231,6 +231,14 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	}
 
 	input[type="text"]:disabled{background-color:white;}	
+
+	.cr-slider-wrap {
+		display: none;
+	}
+
+	.homepage {
+		min-height: calc(50vh - 60px);
+	}
 </style>
 @endsection
 
@@ -556,6 +564,7 @@ if (!empty($_GET['hari'])){
 
 
 	$('#image').on('change', function () { 
+		$(".cr-slider-wrap").css("display", "block");
 		var reader = new FileReader();
 		reader.onload = function (e) {
 			resize.croppie('bind',{

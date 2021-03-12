@@ -13,7 +13,6 @@ use App\Http\Controllers\Admin\Admin_Manajemen_Toko_Controller;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\Keranjang_Belanja_Controller;
 use App\Http\Controllers\User\PenilaianController;
-
 // MITRA
 use App\Http\Controllers\Mitra\Atur_Landing_Page_Controller;
 use App\Http\Controllers\Mitra\MitraController;
@@ -139,6 +138,7 @@ Route::group(['middleware'=> 'auth'], function() {
             // @tambah produk
             Route::get('/akun/mitra/premium/tambah-produk', [Mitra_Premium_Produk_Controller::class, 'daftar_produk_premium']);
             Route::get('/akun/mitra/premium/tambah-produk/tambah', [Mitra_Premium_Produk_Controller::class, 'tambah_produk_premium']);
+            Route::post('/akun/mitra/premium/tambah-produk/simpan-foto', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_produk']);
             Route::post('/akun/mitra/premium/tambah-produk/tambah/simpan', [Mitra_Premium_Produk_Controller::class, 'simpan_tambah_produk_premium']);
             Route::get('/akun/mitra/premium/tambah-produk/{id}', [Mitra_Premium_Produk_Controller::class, 'produk_premium']);
             Route::put('/akun/mitra/premium/tambah-produk/{id}/simpan', [Mitra_Premium_Produk_Controller::class, 'update_tambah_produk_premium']);

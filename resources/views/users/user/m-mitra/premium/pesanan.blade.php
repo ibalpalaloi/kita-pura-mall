@@ -448,7 +448,34 @@ if (!empty($_GET['deskripsi'])){
 		</div>
 	</div>
 </div>
-
+@if(Session::get('message') == 'Pesanan Berhasil Dihapus')
+<div class="modal fade" id="modal-notif-hapus-pesanan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; background-color: #353535;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: -4em;">
+				<img src="<?=url('/')?>/public/img/mitra/modal_trash.svg" style="width: 120%; position: absolute; top: -8em;">
+				<div style="font-size: 1.8em; font-weight: 600; margin-top: 1em;">Dihapus</div>
+				<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 0.5em;">pesanan berhasil dihapus</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+@if(Session::get('message') == 'Pesanan Berhasil Ditambahkan')
+<div class="modal fade" id="modal-notif-tambah-pesanan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; background-color: #353535;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: -4em;">
+				<img src="<?=url('/')?>/public/img/mitra/modal_sukses.svg" style="width: 120%; position: absolute; top: -11em;">
+				<div style="font-size: 1.8em; font-weight: 600; margin-top: 1em;">Berhasil</div>
+				<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 0.5em;">pesanan berhasil ditambahkan</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
 
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: #353535; padding-top: 0.3em">
@@ -460,6 +487,7 @@ if (!empty($_GET['deskripsi'])){
 			<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
 		</a>
 		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
+			<img src="<?=url('/')?>/public/img/icon_svg/riwayat_circle.svg">
 		</a>
 	</div>
 </header>
@@ -468,7 +496,7 @@ if (!empty($_GET['deskripsi'])){
 
 <main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
 	<div>
-		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em; z-index: -1;">
+		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: fixed; top: -2em; right: 0; z-index: -1;">
 	</div>
 	<div>
 		<div style="padding: 0px 16px 1em;">
@@ -486,7 +514,7 @@ if (!empty($_GET['deskripsi'])){
 					</div>
 				</div>
 			</div>
-			<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding-bottom: 4em;">
+			<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding-bottom: 10em;">
 				@foreach ($pesanan as $item)
 				<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px; width: 100%; background: radial-gradient(131.25% 1072.4% at -7.42% 138.67%, #232323 0%, #353535 42.71%, #1C1C1D 77.6%, #252526 100%); border-radius: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83); position: relative;">
 					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
@@ -568,6 +596,16 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		}
 	}
 
+
+
+
+	@if(Session::get('message') == 'Pesanan Berhasil Dihapus')
+	$("#modal-notif-hapus-pesanan").modal('show');
+	@endif
+
+	@if(Session::get('message') == 'Pesanan Berhasil Ditambahkan')
+	$("#modal-notif-tambah-pesanan").modal('show');
+	@endif
 
 
 	function input_focus(id){

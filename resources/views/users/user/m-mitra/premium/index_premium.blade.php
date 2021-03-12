@@ -282,6 +282,23 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 </div>
 @endif
 
+@if(Session::get('message') == 'Silahkan Masukan Produk')
+<div class="modal fade" id="modal-masukan-produk" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 3em 0em 3em; color: white; background: #FF006E;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -8em; right: -2em; z-index: 5;">
+				<img src="<?=url('/')?>/public/img/mitra/modal_product.svg" style="width: 100%; position: absolute; top: -18.5em;">
+				<div style="font-size: 1.8em; font-weight: 600; margin-top: 3em;">Produk Belum Ada</div>
+				<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 0.5em;">Silahkan Masukan Produk Terlebh Dahulu</div>
+				<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk" class="btn btn-primary" style="margin-bottom: 0.5em; font-size: 1.1em;margin-top: 0em; text-align: center; color: white;">Atur Produk
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+
 
 <div id="modal-atur-maps" class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-bottom" role="document" style="padding: 0px; overflow-y: initial !important;">
@@ -474,6 +491,11 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	$("#foto_toko_2", "2").change(function(){
 		readURL(this);
 	});	
+
+	@if(Session::get('message') == 'Silahkan Masukan Produk')
+	$("#modal-masukan-produk").modal('show');
+	@endif
+
 
 	function lihat_chart(value){
 		if (value == 'pekanan'){
