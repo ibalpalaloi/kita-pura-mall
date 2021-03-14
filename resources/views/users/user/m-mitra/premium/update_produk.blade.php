@@ -397,14 +397,37 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 						</select>
 					</div>
 				</div>
-				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex;justify-content: space-between;">
+				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Jenis Harga</div>
+					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+						<span class="input-group-text-mall" style="width: 100%; background: #202020; padding-top: 0.45em; padding-bottom: 0.65em; border-radius: 0.5em; display: flex; justify-content: flex-start; align-items: center; padding-left: 0.2em;">
+							@if ($produk->jenis_harga == 'Statis')
+							<span style="margin-left: 0.5em; margin-right: 2em; color:" id="option_statis" onclick="pilih_jenhar(this.id,'Statis')"><img id="img_statis" src="<?=url('/')?>/public/img/icon_svg/selected.svg">&nbsp;&nbsp;Statis
+							</span>
+							<span style="margin-right: 0.5em; color:" id="option_range" onclick="pilih_jenhar(this.id, 'Range')">
+								<img id="img_range" src="<?=url('/')?>/public/img/icon_svg/not_select.svg">&nbsp;&nbsp;Range
+							</span>
+							@else
+							<span style="margin-left: 0.5em; margin-right: 2em; color:" id="option_statis" onclick="pilih_jenhar(this.id,'Statis')"><img id="img_statis" src="<?=url('/')?>/public/img/icon_svg/not_select.svg">&nbsp;&nbsp;Statis
+							</span>
+							<span style="margin-right: 0.5em; color:" id="option_range" onclick="pilih_jenhar(this.id, 'Range')">
+								<img id="img_range" src="<?=url('/')?>/public/img/icon_svg/selected.svg">&nbsp;&nbsp;Range
+							</span>
+							@endif
+
+						</span>
+					</div>
+					<input type="hidden" name="jenis_harga" id="jenis_harga" value="{{$produk->jenis_harga}}">
+
+				</div>
+				<div class="input-group mb-3 st0" id="div_harga_statis" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex;justify-content: space-between;" @if ($produk->jenis_harga == 'Range') hidden @endif >
 					<div class="harga" style="width: 45%;">
 						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Harga</div>
 						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
 							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
 								<img src="<?=url('/')?>/public/img/icon_svg/harga_white.svg" style="width: 70%;">
 							</span>
-							<input type="number" class="form-control-mall" id="harga_produk" name="harga_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Harga Produk" aria-label="harga_produk" aria-describedby="basic-addon1" style="width: 100%;" value="{{$produk->harga}}" required>
+							<input type="number" class="form-control-mall" id="harga_produk" name="harga_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Harga" aria-label="harga_produk" aria-describedby="basic-addon1" style="width: 100%;" value="{{$produk->harga}}">
 						</div>
 					</div>
 					<div class="diskon" style="width: 45%;">
@@ -413,10 +436,32 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
 								<img src="<?=url('/')?>/public/img/icon_svg/percent_white.svg" style="width: 60%;">
 							</span>
-							<input type="number" class="form-control-mall" id="diskon_produk" name="diskon_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Diskon Produk" aria-label="diskon_produk" aria-describedby="basic-addon1" style="width: 100%;" value="{{$produk->diskon}}" required>
+							<input type="number" class="form-control-mall" id="diskon_produk" name="diskon_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Diskon Produk" aria-label="diskon_produk" aria-describedby="basic-addon1" style="width: 100%;" value="{{$produk->diskon}}">
+						</div>
+					</div>
+
+				</div>
+				<div class="input-group mb-3 st0" id="div_harga_range" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex;justify-content: space-between;" @if ($produk->jenis_harga == 'Statis') hidden @endif>
+					<div class="harga" style="width: 45%;">
+						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Harga Terendah</div>
+						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
+								<img src="<?=url('/')?>/public/img/icon_svg/harga_white.svg" style="width: 70%;">
+							</span>
+							<input type="number" class="form-control-mall" id="harga_terendah" name="harga_terendah" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Harga" aria-label="harga_produk" aria-describedby="basic-addon1" style="width: 100%;" value="{{$produk->harga_terendah}}">
+						</div>
+					</div>
+					<div class="diskon" style="width: 45%;">
+						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Harga Tertinggi</div>
+						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
+								<img src="<?=url('/')?>/public/img/icon_svg/harga_white.svg" style="width: 70%;">
+							</span>
+							<input type="number" class="form-control-mall" id="harga_tertinggi" name="harga_tertinggi" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Harga" aria-label="diskon_produk" aria-describedby="basic-addon1" style="width: 100%;" value="{{$produk->harga_tertinggi}}">
 						</div>
 					</div>
 				</div>
+
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Deskripsi</div>
 					<div style="height: 11.5em; width: 100%;">
@@ -538,6 +583,23 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		check_select();		
 		i++;
 	}
+
+	function pilih_jenhar(id, jenhar){
+		$("#jenis_harga").val(jenhar);
+		if (id == 'option_statis'){
+			$("#img_statis").attr('src', "<?=url('/')?>/public/img/icon_svg/selected.svg");
+			$("#img_range").attr('src', "<?=url('/')?>/public/img/icon_svg/not_select.svg");
+			$("#div_harga_statis").prop('hidden', false);
+			$("#div_harga_range").prop('hidden', true);
+		}
+		else {
+			$("#img_statis").attr('src', "<?=url('/')?>/public/img/icon_svg/not_select.svg");
+			$("#img_range").attr('src', "<?=url('/')?>/public/img/icon_svg/selected.svg");
+			$("#div_harga_statis").prop('hidden', true);
+			$("#div_harga_range").prop('hidden', false);
+		}
+	}
+
 
 	function check_select(){
 		var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];

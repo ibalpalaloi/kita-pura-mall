@@ -59,11 +59,10 @@ class Admin_Manajemen_Toko_Controller extends Controller
         }
         else{
 
-            $username = $this->autocode('MITRA-');
             $toko = new Toko;
             $toko->users_id = $request->user_id;
             $toko->id = $request->toko_id;
-            $toko->username = $username;
+            $toko->username = $request->username;
             $toko->jenis_mitra = $request->jenis_mitra;
             $toko->kategori_toko_id = $request->kategori_toko;
             $toko->nama_toko = $request->nama_toko;

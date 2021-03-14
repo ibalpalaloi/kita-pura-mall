@@ -183,13 +183,6 @@ Rekomendasi |
 				Explore
 			</a>
 		</div>
-		<div class="kategori-tabs" style="margin-top: 5px;">
-			<a class="kategori-active-mall">Semua</a>
-			<a class="">Makanan</a>
-			<a class="">Minuman</a>
-			<a class="">Pakaian Bayi</a>
-			<a class="">Lainnya</a>
-		</div>
 	</div>
 </header>
 

@@ -413,18 +413,17 @@ $status_ugrade = "";
 				<select type="text" class="form-control form-control-mall-modal" id="jadwal" name="jadwal" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="jadwal" aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
 					<option value="" disabled selected>--- Silahkan Pilih Hari ---</option>
 					@if($jadwal)
-					@for ($i = 0; $i < count($var_text); $i++)
-					@php $indikator = false; @endphp
-					@for ($j = 0; $j < count($loop_hari); $j++)
-					@if ($loop_hari[$j] == $var_text[$i]) 
-					@php $indikator = true; @endphp
-					@endif
-					@endfor
-					@if ($indikator == false)
-					<option value="{{$var_value[$i]}}">{{$var_text[$i]}}</option>
-					@endif
-					@endfor
-
+						@for ($i = 0; $i < count($var_text); $i++)
+							@php $indikator = false; @endphp
+							@for ($j = 0; $j < count($loop_hari); $j++)
+								@if ($loop_hari[$j] == $var_text[$i]) 
+									@php $indikator = true; @endphp
+								@endif
+							@endfor
+							@if ($indikator == false)
+								<option value="{{$var_value[$i]}}">{{$var_text[$i]}}</option>
+							@endif
+						@endfor
 					@endif
 
 				</select>			
@@ -771,9 +770,9 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	var jadwal_hari = [];
 	var jadwal_buka = [];
 	var jadwal_tutup = [];
+
 	var value_kategori = [];
 	var value_id_kategori = [];
-
 	var i_kategori = 0;
 	<?php for ($i = 0; $i < count($loop_id_val); $i++){?>
 		@if ($loop_id_val[0] != "")

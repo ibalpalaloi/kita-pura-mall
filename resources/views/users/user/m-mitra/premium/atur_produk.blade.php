@@ -676,7 +676,7 @@ if (!empty($_GET['deskripsi'])){
 					@endforeach
 					<div class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-fasilitas" style="padding: 0px; background: transparent; border: none;">
-							<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_deskripsi.svg" style="width: 100%; margin: 0px;">
+							<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_deskripsi_gold.svg" style="width: 100%; margin: 0px;">
 						</button>	
 					</div>
 
@@ -732,6 +732,9 @@ if (!empty($_GET['deskripsi'])){
 						</div> 
 						@endforeach
 						@endif
+						<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
+							<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_produk_gold.svg" style="width: 100%; margin: 0px;">
+						</a>	
 					</div>
 				</div>
 			</div>
@@ -831,12 +834,12 @@ if (!empty($_GET['deskripsi'])){
 					var hapus = "<?=url('/')?>/public/img/icon_svg/trash_circle_red.svg";
 					$('#div_pic_video_'+nomor_div).html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+result+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 1em;"></iframe>'+
 						'<div style="position: absolute; right: 10px; top: -1em; display: flex;">'+
-							'<div style="width: 2.5em;  background: #262627; display: flex; justify-content: center; border-radius: 50%;">'+
-								'<img src="'+edit+'" style="width: 90%;">'+
-							'</div>'+
-							'<div style="width: 2.5em; background: #262627; display: flex; justify-content: center; border-radius: 50%;">'+
-								'<img src="'+hapus+'" style="width: 90%;">'+
-							'</div>'+
+						'<div style="width: 2.5em;  background: #262627; display: flex; justify-content: center; border-radius: 50%;">'+
+						'<img src="'+edit+'" style="width: 90%;">'+
+						'</div>'+
+						'<div style="width: 2.5em; background: #262627; display: flex; justify-content: center; border-radius: 50%;">'+
+						'<img src="'+hapus+'" style="width: 90%;">'+
+						'</div>'+
 						'</div>');
 				}
 			})
