@@ -172,7 +172,6 @@ class Mitra_Register_Controller extends Controller
             $db->kategori_toko_id = $kategori_toko[$i];
             $db->save();
         }
-
 		return redirect('/akun/jadi-mitra/'.$jenis_mitra.'/pilih-lokasi');
 	}
 
