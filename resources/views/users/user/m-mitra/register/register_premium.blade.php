@@ -301,6 +301,13 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 	}
 
+	.is-invalid {
+		border: 1px solid red !important;
+	}
+
+	.is-invalid-text {
+		color: red !important;
+	}
 
 </style>
 @endsection
@@ -308,54 +315,14 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 @section('content')
 
 @php
-$buka = "";
-$tutup = "";
-$hari = "";
+$buka = old('jadwal_buka');
+$tutup = old('jadwal_tutup');
+$hari = old('jadwal_hari');
+$kategori = old('input_kategori');
+$id_kategori = old('input_id_kategori');
 
 @endphp
 @section('content')
-<?php
-$pemilik = "";
-$no_hp = "";
-$kategori="";
-$latitude = "";
-$longitude = "";
-$alamat = "";
-$buka = "";
-$tutup = "";
-$hari = "";
-$deskripsi = "";
-if (!empty($_GET['pemilik'])){
-	$pemilik = $_GET['pemilik'];
-}
-if (!empty($_GET['no_hp'])){
-	$no_hp = $_GET['no_hp'];
-}
-if (!empty($_GET['kategori'])){
-	$kategori = $_GET['kategori'];
-}
-if (!empty($_GET['x'])){
-	$latitude = $_GET['x'];
-}
-if (!empty($_GET['y'])){
-	$longitude = $_GET['y'];
-}
-if (!empty($_GET['alamat'])){
-	$alamat = $_GET['alamat'];
-}
-if (!empty($_GET['buka'])){
-	$buka= $_GET['buka'];
-}
-if (!empty($_GET['tutup'])){
-	$tutup = $_GET['tutup'];
-}
-if (!empty($_GET['hari'])){
-	$hari = $_GET['hari'];
-}
-if (!empty($_GET['deskripsi'])){
-	$hari = $_GET['deskripsi'];
-}
-?>
 <div class="modal fade" id="modal-kategori" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
 		<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
@@ -367,6 +334,53 @@ if (!empty($_GET['deskripsi'])){
 				</div>
 			</div>
 			<div id="kategori_fix" style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<?php
+				$kategori_val = array();
+				$kategori_id_val = array();
+				$i = 0;
+				$loop_id_val = explode("~", $id_kategori);
+				$loop_val = array();
+				$k = 0;
+				foreach ($daftar_kategori as $row){
+					$kategori_val[$i] = $row->kategori;
+					$kategori_id_val[$i] = $row->id;
+					for ($j = 0; $j < count($loop_id_val); $j++){
+						if ($loop_id_val[$j] == $row->id){
+							$k++;
+						}
+					}
+					$i++;
+				}
+				// dd($loop_val);
+
+				for ($i = 0; $i < count($loop_id_val); $i++){
+					?>
+					@if ($loop_id_val[0] != "")
+					<div class="input-group mb-3 div-input-mall-square" id="{{str_replace(' ', '_', $loop_id_val[$i])}}" style="width: 90%; background: white; border: 1px solid white;">
+						@for ($j = 0; $j < count($kategori_id_val); $j++) 
+						@if ($kategori_id_val[$j]==$loop_id_val[$i])
+						<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
+							<div style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
+								{{$kategori_id_val[$j]}}
+							</div> 
+						</div> 
+						<div style="margin-left: 2%; width: 60%;">
+							<div style="margin-top: 0.5em; font-weight: 700; text-align: left;">
+								{{$kategori_val[$j]}}
+								<?php $loop_val[$i] = $kategori_val[$j]; ?>
+							</div>
+						</div>
+						<div onclick='hapus_kategori("{{$loop_id_val[$i]}}")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
+							X
+						</div>
+						@endif 
+						@endfor 
+
+					</div>
+					@endif
+					<?php
+				}
+				?>
 			</div>
 			<div id="kategori_sample" style="width: 100%; display: flex; justify-content: center;" hidden>
 				<div class="input-group mb-3 div-input-mall-square" id="kategorinya" style="width: 90%; background: white; border: 1px solid white;">
@@ -385,9 +399,20 @@ if (!empty($_GET['deskripsi'])){
 			<div style="display: flex; justify-content: space-between; width: 90%;">
 				<div class="input-group mb-3 div-input-mall" id="div_kategori" style="width: 80%;">
 					<select type="text" class="form-control form-control-mall-modal" id="kategori" name="kategori" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="kategori" aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
-						@foreach ($daftar_kategori as $row)
-						<option value="{{$row->id}}">{{$row->kategori}}</option>
-						@endforeach
+						@if($daftar_kategori)
+						@for ($i = 0; $i < count($kategori_id_val); $i++)
+						@php $indikator = false; @endphp
+						@for ($j = 0; $j < count($loop_id_val); $j++)
+						@if ($loop_id_val[$j] == $kategori_id_val[$i]) 
+						@php $indikator = true; @endphp
+						@endif
+						@endfor
+						@if ($indikator == false)
+						<option value="{{$kategori_id_val[$i]}}">{{$kategori_val[$i]}}</option>
+						@endif
+						@endfor
+
+						@endif
 					</select>
 				</div>
 
@@ -397,11 +422,20 @@ if (!empty($_GET['deskripsi'])){
 					</div>
 				</div>
 			</div>
-			<button class="btn btn-secondary" id="simpan_disabled_kategori" onclick="simpan_disabled_kategori()" style="background: #6c757d;border: 1px solid #6c757d; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;"><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+			<?php 
+			$div_disabled = "";
+			$div_enabled = "";
+			if ($kategori == ''){
+				$div_enabled = "hidden";
+			}
+			else {
+				$div_disabled = "hidden";            	
+			}
+			?>
+			<button class="btn btn-secondary" id="simpan_disabled_kategori" onclick="simpan_disabled_kategori()" style="background: #6c757d;border: 1px solid #6c757d; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" {{$div_disabled}}><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
 			</button>
-			<button data-dismiss="modal" id="simpan_enabled_kategori" class="btn btn-secondary" style="background: #80B918; border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" hidden><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+			<button data-dismiss="modal" id="simpan_enabled_kategori" class="btn btn-secondary" style="background: #80B918; border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" {{$div_enabled}}><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
 			</button>
-
 		</div>
 	</div>
 </div>
@@ -418,37 +452,72 @@ if (!empty($_GET['deskripsi'])){
 				</div>
 			</div>
 			<div id="jadwal_fix" style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				@php
+				$var_value = array("SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M");
+				$var_text = array("Setiap-Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu",
+				"Kamis","Jumat", "Sabtu", "Minggu");
+				@endphp
+				<?php 
+				$loop_hari = explode("~", $hari);
+				$loop_buka = explode("~", $buka);
+				$loop_tutup = explode("~", $tutup);
+				for ($i = 0; $i < count($loop_hari); $i++){
+					?>
+					@if ($loop_hari[0] != "")
+					<div class="input-group mb-3 div-input-mall-square" id="{{str_replace(' ', '_', $loop_hari[$i])}}" style="width: 90%; background: white; border: 1px solid white;">
+						<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
+							<div style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
+								@for ($j = 0; $j < count($var_text); $j++) 
+								@if ($var_text[$j]==$loop_hari[$i])
+								{{$var_value[$j]}} 
+								@endif 
+								@endfor 
+							</div> 
+						</div> 
+						<div style="margin-left: 2%; width: 60%;">
+							<div style="margin-top: 0.5em; font-weight: 700; text-align: left;">
+								{{$loop_hari[$i]}}
+							</div>
+							<div style="font-size: 0.7em; text-align: left;">{{$loop_buka[$i]}} - {{$loop_tutup[$i]}}</div>
+						</div>
+						<div onclick='hapus_jadwal("{{$loop_hari[$i]}}")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
+							X
+						</div>
+					</div>
+					@endif
+					<?php
+				}
+				?>
 			</div>
 			<div id="jadwal_sample" style="width: 100%; display: flex; justify-content: center;" hidden>
 				<div class="input-group mb-3 div-input-mall-square" id="harinya" style="width: 90%; background: white; border: 1px solid white;">
 					<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
-						<div
-						style="width: 2.5em; height: 2.5em; background:#ffaa00; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">simbolnya</div>
+						<div style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">simbolnya</div>
 					</div>
 					<div style="margin-left: 2%; width: 60%;">
 						<div style="margin-top: 0.5em; font-weight: 700; text-align: left;">harinya</div>
 						<div style="font-size: 0.7em; text-align: left;">jamnya</div>
 					</div>
-					<div onclick='hapus_jadwal("harinya")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ffaa00; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
-						X
-					</div>
+					<div onclick='hapus_jadwal("harinya")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">X</div>
 				</div>
 			</div>
 			<hr style="border-top: 1px solid #c8d2dd; width: 100%;">
-			<div class="input-group mb-3 div-input-mall" id="div_jadwal" style="width: 90%;">
+			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 90%;">
 				<select type="text" class="form-control form-control-mall-modal" id="jadwal" name="jadwal" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="jadwal" aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
 					<option value="" disabled selected>--- Silahkan Pilih Hari ---</option>
-					<option value="SH">Setiap-Hari</option>
-					<option value="SS">Senin-Sabtu</option>
-					<option value="SJ">Senin-JUmat</option>
-					<option value="S">Senin</option>
-					<option value="S">Selasa</option>
-					<option value="R">Rabu</option>
-					<option value="K">Kamis</option>
-					<option value="J">Jumat</option>
-					<option value="S">Sabtu</option>
-					<option value="M">Minggu</option>
-				</select>
+						@for ($i = 0; $i < count($var_text); $i++)
+							@php $indikator = false; @endphp
+							@for ($j = 0; $j < count($loop_hari); $j++)
+								@if ($loop_hari[$j] == $var_text[$i]) 
+									@php $indikator = true; @endphp
+								@endif
+							@endfor
+							@if ($indikator == false)
+								<option value="{{$var_value[$i]}}">{{$var_text[$i]}}</option>
+							@endif
+						@endfor
+
+				</select>			
 			</div>
 			<div style="width: 90%; display: flex; justify-content: space-between;">
 				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 40%;">
@@ -465,9 +534,22 @@ if (!empty($_GET['deskripsi'])){
 					<i class="fa fa-plus"></i>
 				</div>
 			</div>
-			<button class="btn btn-secondary" id="simpan_disabled_jadwal" onclick="simpan_disabled_jadwal()" style="background: #6c757d;border: 1px solid #6c757d; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;"><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+			<?php 
+			$div_disabled = "";
+			$div_enabled = "";
+			if ($hari != ''){
+				$div_disabled = "hidden";            	
+
+			}
+			else {
+				$div_enabled = "hidden";
+
+
+			}
+			?>
+			<button class="btn btn-secondary" id="simpan_disabled_jadwal" onclick="simpan_disabled_jadwal()" style="background: #6c757d;border: 1px solid #6c757d; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" {{$div_disabled}}><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;" >&nbsp;&nbsp;Simpan
 			</button>
-			<button data-dismiss="modal" id="simpan_enabled_jadwal" class="btn btn-secondary" style="background: #80B918; border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" hidden><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+			<button data-dismiss="modal" id="simpan_enabled_jadwal" class="btn btn-secondary" style="background: #80B918; border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;"  {{$div_enabled}}><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
 			</button>
 		</div>
 	</div>
@@ -476,7 +558,7 @@ if (!empty($_GET['deskripsi'])){
 
 <header class="style__Container-sc-3fiysr-0 header" style="background:#353535; padding-top: 0.3em;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
-		<a href="<?=url('/')?>/akun/jadi-mitra" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
+		<a href="<?=url('/')?>/logout" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
 			<img src="<?=url('/')?>/public/img/back_white.svg">
 		</a>
 		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
@@ -504,21 +586,24 @@ if (!empty($_GET['deskripsi'])){
 					</div>
 					<input type="file" name="foto_toko" id="foto_toko" hidden>
 					<div style="display: flex; justify-content: center; flex-direction: column;">
-						<input type="text" id="nama_toko" name="nama_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Toko" aria-label="Nama Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1.5em; font-weight: 645;" required>
-						<input type="text" id="nama_pemilik" name="nama_pemilik" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Pemilik" aria-label="Nama Pemilik" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" required>
-
+						<input type="text" id="nama_toko" name="nama_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Toko" aria-label="Nama Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1.5em; font-weight: 645;" value="{{old('nama_toko')}}" required>
+						<input type="text" id="username" name="username" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Username Toko" class="@if($errors->first('username')) is-invalid-text @endif" aria-label="Username" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" value="{{old('username')}}" required>
 					</div>
 				</div>
-				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="height: 7.5em; justify-content: flex-start; background: #292929; border: none; border-radius: 0.5em;">
-					<span style="margin-top: 0px; color: white; font-weight: 600;">Deskripsi</span>
+				<div class="input-group mb-3 div-input-mall  @if($errors->first('deskripsi')) is-invalid @endif" id="div_no_hp" style="height: 7.5em; justify-content: flex-start; background: #292929; border: none; border-radius: 0.5em;">
+					<span style="margin-top: 0px; color: white; font-weight: 600;">Deskripsi Toko</span>
 					<div style="height: 5em; width: 100%;">
-						<textarea id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 6em; border-radius: 0px; margin: 1em 0.6em 1em 0.6em;  background: #292929; color: #dddddd; border: none; font-size: 0.7em; padding: 0.3em 1em 0.5em 1em; text-align: justify;" rows="5" required placeholder="Masukan deskripsi singkat tentang toko"></textarea>
+						<textarea id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 6em; border-radius: 0px; margin: 1em 0.6em 1em 0.6em;  background: #292929; color: #dddddd; border: none; font-size: 0.7em; padding: 0.3em 1em 0.5em 1em; text-align: justify;" rows="5" required placeholder="Masukan deskripsi singkat tentang toko">{{old('deskripsi')}}</textarea>
 					</div>
 				</div>
-				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+				<div class="input-group mb-3 st0 @if($errors->first('input_kategori')) is-invalid @endif" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kategori</div>
 					<div style="width: 100%; background: #292929; border-radius: 0.5em;margin-top: 0.3em; display: flex; justify-content: space-between;">
 						<div class="list-kategori" style="min-height: 5em; align-items: flex-start; padding: 0.5em 0.5em 0.5em 0.5em; width: 88%;">
+							@for ($i = 0; $i < count($loop_val); $i++)
+							<badge class='badge badge-secondary'>{{$loop_val[$i]}}</badge>
+							@endfor
+
 						</div>
 						<div style="width: 2em; height: 2em; font-size: 0.8em; background: #FFC331; color: #202020; border-radius: 50%; padding-top: 0.2em; padding-left: 0.5em; margin: 1em;" onclick="tambah_kategori_modal()">
 							<i class="fa fa-plus"></i>
@@ -526,16 +611,16 @@ if (!empty($_GET['deskripsi'])){
 					</div>
 				</div>
 
-				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+				<div class="input-group mb-3 st0 @if($errors->first('no_hp')) is-invalid @endif"  id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Nomor Handphone</div>
 					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
 						<span class="input-group-text-mall" style="width: 3em; background: #202020;">
 							<img src="<?=url('/')?>/public/img/icon_svg/handphone_white.svg" style="width: 60%;">
 						</span>						
-						<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nomor Handphone" aria-label="no_hp" aria-describedby="basic-addon1" style="width: 100%;" >
+						<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nomor Handphone" aria-label="no_hp" aria-describedby="basic-addon1" style="width: 100%;" value="{{old('no_hp')}}">
 					</div>
 				</div>
-				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+				<div class="input-group mb-3 st0 @if($errors->first('jadwal_hari')) is-invalid @endif" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Jadwal Toko</div>
 					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
 						<span class="input-group-text-mall" style="width: 3em; background: #202020;">
@@ -546,23 +631,23 @@ if (!empty($_GET['deskripsi'])){
 					</div>
 				</div>
 				<div hidden>
-					<input name="input_kategori" id="input_kategori">
-					<input name="input_id_kategori" id="input_id_kategori">
+					<input name="input_kategori" id="input_kategori" value="{{$kategori}}">
+					<input name="input_id_kategori" id="input_id_kategori" value="{{$id_kategori}}">
 					<input type="text" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
 					<input type="text" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
 					<input type="text" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
 				</div>
-				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+				<div class="input-group mb-3 st0 @if($errors->first('alamat')) is-invalid @endif" id="div_alamat" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Alamat</div>
 					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
 						<span class="input-group-text-mall" style="width: 3em; background: #202020;">
 							<img src="<?=url('/')?>/public/img/icon_svg/marker_white.svg" style="width: 60%;">
 						</span>
-						<input type="text" class="form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" style="width: 100%;">
+						<input type="text" class="form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" style="width: 100%;" value="{{old('alamat')}}">
 					</div>
 				</div>
 
-				<div class="input-group mb-3 st0" id="div_kelurahan" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+				<div class="input-group mb-3 st0 @if($errors->first('kelurahan')) is-invalid @endif" id="div_kelurahan" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kelurahan</div>
 					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
 						<span class="input-group-text-mall" style="width: 3em; background: #202020;">
@@ -571,7 +656,7 @@ if (!empty($_GET['deskripsi'])){
 						<select type="text" class="form-control-mall" id="kelurahan" name="kelurahan" style="height: 2.5em;" required>
 							<option value="" disabled selected>Pilih Kelurahan</option>
 							@foreach($kelurahan as $row)
-							<option value="{{$row->id}}">{{$row->kelurahan}}
+							<option value="{{$row->id}}" @if (old('kelurahan') == $row->id) selected @endif>{{$row->kelurahan}}
 							</option>
 							@endforeach
 						</select>
@@ -659,10 +744,25 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 	var jadwal_hari = [];
 	var jadwal_buka = [];
 	var jadwal_tutup = [];
+	<?php for ($i = 0; $i < count($loop_hari); $i++){?>
+		@if ($loop_hari[0] != "")
+		jadwal_hari.push("<?=$loop_hari[$i]?>");
+		jadwal_buka.push("<?=$loop_buka[$i]?>");
+		jadwal_tutup.push("<?=$loop_tutup[$i]?>");
+		@endif
+	<?php } ?>
 
-	var i_kategori = 0;
+
 	var value_kategori = [];
 	var value_id_kategori = [];
+	var i_kategori = 0;
+	<?php for ($i = 0; $i < count($loop_id_val); $i++){?>
+		@if ($loop_id_val[0] != "")
+		value_id_kategori.push("<?=$loop_id_val[$i]?>");
+		value_kategori.push("<?=$loop_val[$i]?>");
+		@endif
+	<?php } ?>
+
 
 	function input_focus(id){
 		$("#div_"+id).css('border', '1px solid #d1d2d4');
@@ -684,6 +784,22 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 	function tambah_foto_lokasi_toko(){
 		$("#foto_lokasi_toko").click();
 	}
+
+	// $("input#username").on({
+	// 	keydown: function(e) {
+	// 		if ((e.which === 32) || (e.which === 64) || (e.which === 37))
+	// 			return false;
+	// 	},
+	// 	change: function() {
+	// 		this.value = this.value.replace(/\s/g, "");
+	// 	}
+	// });
+	$("#username").keypress(function(e) {
+		if ((String.fromCharCode(e.which).match(/[^A-Za-z0-9_ ]/) || e.which === 32)) {
+			e.preventDefault();
+			// alert("Special characters are not allowed. Use 'A-Z', 'a-z' and '0-9'.");
+		}
+	});
 
 
 	function tambah_jadwal() {

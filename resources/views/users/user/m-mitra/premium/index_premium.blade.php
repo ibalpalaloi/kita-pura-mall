@@ -8,6 +8,7 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 <style type="text/css">
 	.banner {
 		max-width: 480px;
@@ -261,6 +262,15 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 	}  
 
+	.share_platform {
+		background: #DD9D25;
+		width: 3em;
+		height: 3em;
+		border-radius: 50%;
+		display: flex; 
+		justify-content: center;
+		align-items: center;		
+	}
 
 </style>
 @endsection
@@ -298,6 +308,35 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	</div>
 </div>
 @endif
+
+<div class="modal fade" id="modal-share-landing-page" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 3em 0em 3em; color: white;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -8em; right: -2em; z-index: 5;">
+				<img src="<?=url('/')?>/public/img/mitra/modal_product.svg" style="width: 100%; position: absolute; top: -16em;">
+				<div style="font-size: 1.5em; font-weight: 600; margin-top: 3.5em;">Bagikan Website Kamu!</div>
+				<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 0.5em;">
+					<div class="share_div" style="display: flex; justify-content: space-between; margin-top: 0.5em;">
+						<div class="share_platform">
+							<img src="<?=url('/')?>/public/img/icon_svg/copy_white.svg">
+						</div>
+						<div class="share_platform" style="background: #3b5998;">
+							<i class="fab fa-facebook-f" style="font-size: 1.5em;"></i>
+						</div>
+						<div class="share_platform" style="background: #25d366; padding-bottom: 0.1em; padding-left: 0.1em;">
+							<i class="fab fa-whatsapp" style="font-size: 2em;"></i>
+						</div>
+
+						<div class="share_platform" style="background: #1da1f2; padding-left: 0.1em;">
+							<i class="fab fa-twitter" style="font-size: 1.8em;"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 <div id="modal-atur-maps" class="modal fade" id="modal-trigger-location" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
@@ -362,7 +401,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 			</div>
 			<div style="width: 100%;">
 				<div class="statis" style="width: 100%; display: flex; justify-content: center; flex-direction: column; color: #a1a4a8;">
-					<div style="display: flex; justify-content: space-around;">
+					<div style="display: flex; justify-content: space-around;" hidden>
 						<div class="item-statis" style="display: flex; justify-content: center;">
 							<div style="margin-left: 0.5em;">
 								<hr style="border: 3px solid #dd9d25; border-radius: 1.5em; width: 1.5em; margin-bottom: 0em;">
@@ -384,8 +423,8 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		</div>
 		<div style="width: 100%; display: flex; justify-content: center;">
 			<div style="width: 80%; background: #1E1E1F; padding: 1em 1.5em; border-radius: 2em; position: relative; margin-top: 0.5em; margin-bottom: 0.5em;">
-				<input type="text" id="link_toko" style="color: white;width: 100%; background: #1E1E1F; font-weight: 500;" value="kitapura.com/warungmantap" readonly>
-				<div style="width: 2.5em; height: 2.5em; background: #DD9D25; border-radius: 50%; display: flex; justify-content: center; position: absolute; right: 0.6em; bottom: 0.6em;"><img src="<?=url('/')?>/public/img/icon_svg/copy_white.svg" style="width: 60%;"></div>
+				<input type="text" id="link_toko" style="color: white;width: 100%; background: #1E1E1F; font-weight: 500;" value="kitapura.com/{{$toko->username}}" readonly>
+				<div style="width: 2.5em; height: 2.5em; background: #DD9D25; border-radius: 50%; display: flex; justify-content: center; position: absolute; right: 0.6em; bottom: 0.6em;" onclick="share_button()"><img src="<?=url('/')?>/public/img/icon_svg/share.svg" style="width: 60%;"></div>
 			</div>
 		</div>
 		<div style="display: flex;justify-content:center;flex-direction: column; align-items: center; padding-bottom: 1.2em;">
@@ -398,7 +437,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 			<a href="<?=url('/')?>/akun/mitra/premium/atur-produk" style="padding-left: 0.4em;">
 				<img src="<?=url('/')?>/public/img/button/toko_premium/atur_landing_page.svg" style="width: 100%;">
 			</a>
-			<a href="<?=url('/')?>/akun/mitra/premium/list-pesanan" style="padding-left: 0.4em;">
+			<a href="<?=url('/')?>/akun/mitra/premium/list-pesanan" style="padding-left: 0.4em;" hidden>
 				<img src="<?=url('/')?>/public/img/button/toko_premium/list_pesanan.svg" style="width: 100%;">
 			</a>
 		</div>
@@ -433,6 +472,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/js/all.min.js"></script>
 <script type="text/javascript">
 
 
@@ -471,11 +511,15 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	jumlah_pekanan.push(0);
 	var maxJumlah_pekanan = Math.max.apply(Math, jumlah_pekanan)/2;
 	var color_pekanan = ["#ffaa00", "#ffaa00", "#ffaa00", "#ffaa00","#ffaa00", "#ffaa00", "#ffaa00"];
-	create_chart(label_bulanan, jumlah_bulanan, color_bulanan, "chart-bulanan", maxJumlah_bulanan, point_radius_bulanan, 13);
-	create_chart(label_pekanan, jumlah_pekanan, color_pekanan, "chart-pekanan", maxJumlah_pekanan, point_radius_pekanan, 8);
+	create_chart(label_bulanan, jumlah_bulanan, color_bulanan, "chart-bulanan", 10, point_radius_bulanan, 13);
+	create_chart(label_pekanan, jumlah_pekanan, color_pekanan, "chart-pekanan", 10, point_radius_pekanan, 8);
 
 	function atur_maps(){
 		$("#modal-atur-maps").modal('show');
+	}
+
+	function share_button(){
+		$("#modal-share-landing-page").modal('show')
 	}
 
 	function tambah_foto_toko(i){

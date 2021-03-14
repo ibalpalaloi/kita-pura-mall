@@ -69,7 +69,13 @@ class AuthController extends Controller
         $user = User::where('no_hp', $no_telp)->first();
 
         if(!empty($user)){
-
+            // $toko = Daftar_tunggu_toko::where('users_id', $user->id)->first();
+            // if ($toko){
+            //     $notification = array(
+            //         'message' => 'Masih Menunggu'
+            //     );     
+            //     return redirect()->back()->with($notification);
+            // }
             return redirect('/masuk/'.$no_telp);
 
         }

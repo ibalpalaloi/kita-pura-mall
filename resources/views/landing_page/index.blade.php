@@ -5,6 +5,28 @@
 @endsection
 
 @section('header-scripts')
+<!--  Social tags      -->
+<meta name="description" content="{{$toko->deskripsi}}">
+<!-- Schema.org markup for Google+ -->
+<meta itemprop="name" content="{{$toko->nama_toko}}">
+<meta itemprop="description" content="{{$toko->deskripsi}}">
+<meta itemprop="image" content="{{$toko->logo()}}">
+<!-- Twitter Card data -->
+<!--<meta name="twitter:card" content="product">-->
+<!--<meta name="twitter:site" content="@creativetim">-->
+<meta name="twitter:title" content="{{$toko->nama_toko}}">
+<meta name="twitter:description" content="{{$toko->deskripsi}}">
+<!--<meta name="twitter:creator" content="@creativetim">-->
+<meta name="twitter:image" content="{{$toko->logo()}}">
+<!-- Open Graph data -->
+<meta property="fb:app_id" content="655968634437471">
+<meta property="og:title" content="{{$toko->nama_toko}}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="<?=url('/')?>/{{$toko->username}}"/>
+<meta property="og:image" content="{{$toko->logo()}}" />
+<meta property="og:description" content="{{$toko->deskripsi}}"/>
+<meta property="og:site_name" content="Kitapura Mall" />
+
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
 <style type="text/css">
 	.banner {
@@ -321,10 +343,16 @@ style="padding: 1.5em; padding: 0px;">
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: flex-end;">
+		@if(Auth()->user()->id == $toko->users_id)
+		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/akun/mitra/premium">
+			<img src="<?=url('/')?>/public/img/icon_svg/landing_page.svg">
+		</a>
+		@else
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
 			<img src="<?=url('/')?>/public/img/icon_svg/bag_transparent.svg">
 			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
 		</a>
+		@endif
 	</div>	
 </header>
 
@@ -340,7 +368,7 @@ style="padding: 1.5em; padding: 0px;">
 		<div class="info-toko" style="display: flex; justify-content: space-between; width: 100%;">
 			<div class="nama-toko" style="width: 80%;">
 				<h3 style="color: white; font-weight: 500; word-wrap: break-word;">{{$toko->nama_toko}}</h3>
-				<h6 style="color: white; line-height: 0.5em;">@warungmantapmantap</h6>
+				<h6 style="color: white; line-height: 0.5em;">@<?=$toko->username?></h6>
 			</div>
 			<div class="lokasi" style="display: flex; align-items: center;">
 				<img src="<?=url('/')?>/public/img/icon_svg/location_circle_yellow.svg" style="width: 3em;"> 
@@ -407,7 +435,6 @@ style="padding: 1.5em; padding: 0px;">
 		<div class="row-mall" style="padding: 0.7em 8% 1.2em 8%; margin-top: 0em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em;">
 			<div>
 				<div style="font-size: 1.4em; font-weight: 1000; text-align: center;">Our Service</div>
-				<div style="font-size: 0.8em; text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
 			</div>
 			@if(!empty($foto_map[1]))
 			<div class="input-group mb-3" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
@@ -545,8 +572,8 @@ style="padding: 1.5em; padding: 0px;">
 	<div style="background: #720004; margin-top: -2em; border: none; position: absolute; z-index: 5; width: 100%;">
 		<div class="container-mall" style="padding-bottom: 3em;">
 			<div style="padding-top: 2em; text-align: center; color: white;">
-				<p style="font-weight: 700;">Alamat</p>
-				{{$toko->alamat}}
+				<p style="font-weight: 700; margin-bottom: 0px;">Alamat</p>
+				<p style="margin-top: 0px;">{{$toko->alamat}}</p>
 			</div>
 			<div style="padding-top: 2em; text-align: center; color: white;">
 				<p style="font-weight: 700;">Connect with us on social media</p>
