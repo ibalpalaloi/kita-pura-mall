@@ -522,6 +522,32 @@ if (!empty($_GET['deskripsi'])){
 		<div>
 			<div style="padding: 0px 16px 1em;">
 				<h3 style="color: white;">Atur Landing Page</h3>
+				<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Foto Cover</h6>
+				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+					<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">Masukkan foto cover landing page anda</div>
+				</div>
+				<form action="<?=url('/')?>/atur_landing_page/simpan_cover" id="upload_cover" enctype="multipart/form-data" method="post">
+					{{ csrf_field() }}
+					<div class="input-group mb-3 div-input-mall-square" id="div_video" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+						@if (!empty($toko->foto_cover))
+						<div id="div_preview_cover" style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 30em; cursor: pointer; border-radius: 1em;" id="div_pic_video_1">
+							<img id="preview_cover" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/cover/{{$toko->foto_cover}}" style="width: 100%; object-fit: cover;height: 29.7em; border-radius: 1em;">
+							<div style="position: absolute;top: 40%;">
+								<img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="pilih_foto_cover()" style=" width: 2.5em; margin-left: 40%; margin-bottom: 2em;">
+							</div>
+						</div>
+						@else
+						<div id="div_pilih_cover" style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 30em; cursor: pointer; border-radius: 1em;" onclick="pilih_foto_cover()" id="div_pic_video_1">
+							<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 3em; margin-top: 0.5em;">
+						</div>
+						<div id="div_preview_cover" hidden style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 30em; cursor: pointer; border-radius: 1em;" id="div_pic_video_1">
+							<img id="preview_cover" src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 100%; object-fit: cover;height: 29.7em; border-radius: 1em;">
+						</div>
+						@endif
+						<input hidden type="file" name="foto_cover" id="foto_cover">
+						<input type="submit" id="button_foto_cover" hidden>
+					</div>
+				</form>
 				<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Video</h6>
 				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
 					<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
@@ -913,6 +939,24 @@ if (!empty($_GET['deskripsi'])){
 			$('#judul_service').val(judul);
 			$('#keterangan_fasilitas').val(keterangan);
 			$('#id_ubah_fasilitas').val(id);
+		}
+
+		function pilih_foto_cover(){
+			$('#foto_cover').click();
+			$("#foto_cover").change(function () {
+				$('#button_foto_cover').click();
+				if (this.files && this.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+					$('#preview_cover').attr('src', e.target.result);
+					$("#div_preview_cover").prop('hidden', false);
+					$("#div_pilih_cover").prop('hidden', true);
+				}
+
+				reader.readAsDataURL(this.files[0]);
+				}
+			});
 		}
 
 	</script>
