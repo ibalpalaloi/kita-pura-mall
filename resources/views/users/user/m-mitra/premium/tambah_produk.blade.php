@@ -406,6 +406,17 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 						</select>
 					</div>
 				</div>
+				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex;justify-content: space-between;">
+					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Sub Kategori</div>
+					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+						<span class="input-group-text-mall" style="width: 3em; background: #202020;">
+							<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 40%;">
+						</span>
+						<select type="text" class="form-control-mall" id="sub_kategori_produk" name="sub_kategori_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;"  required>
+							<option value="" disabled selected>Pilih Sub Kategori Produk</option>
+						</select>
+					</div>
+				</div>
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Jenis Harga</div>
 					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
@@ -422,17 +433,6 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 				</div>
 				<div class="input-group mb-3 st0" id="div_harga_statis" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex;justify-content: space-between;">
-					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Sub Kategori</div>
-					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
-						<span class="input-group-text-mall" style="width: 3em; background: #202020;">
-							<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 40%;">
-						</span>
-						<select type="text" class="form-control-mall" id="sub_kategori_produk" name="sub_kategori_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;"  required>
-							<option value="" disabled selected>Pilih Sub Kategori Produk</option>
-						</select>
-					</div>
-				</div>
-				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex;justify-content: space-between;">
 					<div class="harga" style="width: 45%;">
 						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Harga</div>
 						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
