@@ -38,13 +38,24 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 		$produk = product::where('toko_id', $toko->id)->get();
 		$kategori_produk = Kategori::all();
-		return view('users/user/m-mitra/premium/tambah_produk', compact('produk', 'kategori_produk'));
+		$sub_kategori = array();
+		$index_ = 0;
+		foreach($kategori_produk as $data){
+			$index =0;
+			foreach($data->sub_kategori as $item){
+				$sub_kategori[$index_][$index]['id_kategori'] = $data->id;
+				$sub_kategori[$index_][$index]['id_sub_kategori'] = $item->id;
+				$sub_kategori[$index_][$index]['sub_kategori'] = $item->nama;
+				$index++;
+			}
+			$index_++;
+		}
+		return view('users/user/m-mitra/premium/tambah_produk', compact('produk', 'kategori_produk', 'sub_kategori'));
 	}
 
 	public function simpan_tambah_produk_premium(Request $request){
 
 		// dd($request->all());
-
 		$this->validate($request,[
 			'nama_produk' => 'required',
 			'kategori_produk' => 'required',
@@ -68,6 +79,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$produk->harga_terendah = $request->harga_terendah;
 		$produk->harga_tertinggi = $request->harga_tertinggi;
 		$produk->deskripsi = $request->deskripsi;
+		$produk->sub_kategori_id = $request->sub_kategori_produk;
 		if($request->stok == 'on'){
 			$produk->stok = "Tersedia";
 		}
