@@ -85,10 +85,15 @@ class Mitra_Premium_Produk_Controller extends Controller
 		}
 		// @Tambah Foto
 		$files = $request->file("foto_toko");
+		// echo $request->nama_foto_temp;
+		// echo $files;
 		$image_path = "img/toko/$toko->id/produk/$request->nama_foto_temp";
 		\Storage::disk('public')->put($image_path, file_get_contents($files));
 		\File::delete($image_path);			
+
+		// echo "berhasil";
 		File::move(public_path('img/temp_produk/'.$request->nama_foto_temp), public_path($image_path));
+
 		$produk->foto_produk = $request->nama_foto_temp;
 		$produk->save();
 
