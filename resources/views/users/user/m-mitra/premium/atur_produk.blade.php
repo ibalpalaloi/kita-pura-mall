@@ -526,7 +526,7 @@ if (!empty($_GET['deskripsi'])){
 				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
 					<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">Masukkan foto cover landing page anda</div>
 				</div>
-				<form action="<?=url('/')?>/atur_landing_page/simpan_cover" id="upload_cover" enctype="multipart/form-data" method="post">
+				<form id="upload_cover" enctype="multipart/form-data" method="post">
 					{{ csrf_field() }}
 					<div class="input-group mb-3 div-input-mall-square" id="div_video" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
 						@if (!empty($toko->foto_cover))
@@ -702,7 +702,7 @@ if (!empty($_GET['deskripsi'])){
 					@endforeach
 					<div class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-fasilitas" style="padding: 0px; background: transparent; border: none;">
-							<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_deskripsi.svg" style="width: 100%; margin: 0px;">
+							<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_deskripsi_gold.svg" style="width: 100%; margin: 0px;">
 						</button>	
 					</div>
 
@@ -758,6 +758,9 @@ if (!empty($_GET['deskripsi'])){
 						</div> 
 						@endforeach
 						@endif
+						<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
+							<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_produk_gold.svg" style="width: 100%; margin: 0px;">
+						</a>	
 					</div>
 				</div>
 			</div>
@@ -857,12 +860,12 @@ if (!empty($_GET['deskripsi'])){
 					var hapus = "<?=url('/')?>/public/img/icon_svg/trash_circle_red.svg";
 					$('#div_pic_video_'+nomor_div).html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+result+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 1em;"></iframe>'+
 						'<div style="position: absolute; right: 10px; top: -1em; display: flex;">'+
-							'<div style="width: 2.5em;  background: #262627; display: flex; justify-content: center; border-radius: 50%;">'+
-								'<img src="'+edit+'" style="width: 90%;">'+
-							'</div>'+
-							'<div style="width: 2.5em; background: #262627; display: flex; justify-content: center; border-radius: 50%;">'+
-								'<img src="'+hapus+'" style="width: 90%;">'+
-							'</div>'+
+						'<div style="width: 2.5em;  background: #262627; display: flex; justify-content: center; border-radius: 50%;">'+
+						'<img src="'+edit+'" style="width: 90%;">'+
+						'</div>'+
+						'<div style="width: 2.5em; background: #262627; display: flex; justify-content: center; border-radius: 50%;">'+
+						'<img src="'+hapus+'" style="width: 90%;">'+
+						'</div>'+
 						'</div>');
 				}
 			})
@@ -945,19 +948,43 @@ if (!empty($_GET['deskripsi'])){
 			$('#foto_cover').click();
 			$("#foto_cover").change(function () {
 				$('#button_foto_cover').click();
-				if (this.files && this.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function (e) {
-					$('#preview_cover').attr('src', e.target.result);
-					$("#div_preview_cover").prop('hidden', false);
-					$("#div_pilih_cover").prop('hidden', true);
-				}
-
-				reader.readAsDataURL(this.files[0]);
-				}
+				console.log(this);
+				tampilkan_cover(this);
 			});
 		}
 
+		var src_cover;
+		function tampilkan_cover(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					$('#preview_cover').attr('src', e.target.result);
+					src_cover = e.target.result;
+					$("#div_preview_cover").prop('hidden', false);
+					$("#div_pilih_cover").prop('hidden', true);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		$(document).ready(function(){
+			$('#upload_cover').on('submit', function(event){
+				event.preventDefault();
+				$.ajax({
+					url:"{{ route('simpan_cover_landing_page') }}",
+					method:"POST",
+					data:new FormData(this),
+					dataType:'JSON',
+					contentType: false,
+					cache: false,
+					processData: false,
+					success:function(data)
+					{
+						alert("data");
+						$('#preview_cover').attr('src', src_cover);
+					}
+				});
+			});
+		});
 	</script>
 	@endsection

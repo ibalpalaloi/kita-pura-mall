@@ -81,6 +81,7 @@ class Atur_Landing_Page_Controller extends Controller
 			$toko->foto_cover = $file_upload;
 			$toko->save();
 		}
-		return redirect()->back();
+        $iqbal = 'iqbal';
+        echo $iqbal;
     } 
 }
