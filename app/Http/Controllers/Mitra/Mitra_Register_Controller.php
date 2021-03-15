@@ -155,6 +155,8 @@ class Mitra_Register_Controller extends Controller
 
                 $toko->logo_toko = $file_upload;
             }
+
+            
         }
 
 		$toko->save();

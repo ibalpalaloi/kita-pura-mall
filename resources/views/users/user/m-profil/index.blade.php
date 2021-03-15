@@ -165,12 +165,15 @@ if (!empty($_GET['daftar_mitra_premium'])){
 @if($toko->notif == 0)
 <div class="modal fade" id="modal-notif-berhasil-toko" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
-		<div class="modal-content" style="border-radius: 1.2em; background: linear-gradient(180deg, #D4D700 20.31%, #80B918 100%); display: flex; justify-content: center; align-items: center; margin: 10em 1em 0em 1em; color: white;">
+		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
 			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: 0;">
-				<img src="<?=url('/')?>/public/img/mitra/modal_sukses_toko.svg" style="width: 80%; position: absolute; top: -17em;">
-				<div style="font-size: 2.5em; font-weight: 600; margin-top: 0.5em;">Selamat !!</div>
-				<div style="font-size: 1.1em; text-align: center; width: 60%; font-weight: 0;  line-height: 1.3em; color: #ffe6f1; margin-bottom: 1em;">anda sudah bergabung menjadi mitra <span style="font-weight: 600;">kitapuramall</span></div>
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
+				<img src="<?=url('/')?>/public/img/modal_assets/modal_berhasil_mitra.svg" style="width: 100%;">
+				<div style="position: absolute; margin: 2.5em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
+					<div style="font-size: 2em; font-weight: 600; text-align: center;">Selamat !!</div>
+					<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">anda sudah bergabung menjadi mitra <span style="font-weight: 600;">kitapuramall</span>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -178,21 +181,24 @@ if (!empty($_GET['daftar_mitra_premium'])){
 @endif
 @endif
 
-
-@if($biodata->notif == 1)
+	@if($biodata->notif == 1)
 <div class="modal fade" id="modal-notif-berhasil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
-		<div class="modal-content" style="border-radius: 1.2em; background: linear-gradient(180deg, #D4D700 20.31%, #80B918 100%); display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
 			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: 0;">
-				<img src="<?=url('/')?>/public/img/mitra/modal_berhasil_biodata.svg" style="width: 80%; position: absolute; top: -9.5em;">
-				<div style="font-size: 2em; font-weight: 600; margin-top: 2em;">Yeah, Hore!</div>
-				<div style="font-size: 1.1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1em;">selamat anda sudah bisa menikmati semua fitur kitapuramall</div>
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
+				<img src="<?=url('/')?>/public/img/modal_assets/modal_berhasil_biodata.svg" style="width: 100%;">
+				<div style="position: absolute; margin: 1em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
+					<div style="font-size: 2em; font-weight: 600; text-align: center;">Yeah, Hore!</div>
+					<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">selamat anda sudah bisa menikmati semua fitur <span style="font-weight: 600;">kitapuramall</span>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 @endif
+
 
 @if(Session::get('message') == 'Biodata Belum Lengkap')
 <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
@@ -332,7 +338,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	$('#modal-pemberitahuan').modal('show');
 	@endif
 
-	@if($biodata->notif == 1)
+
 	$('#modal-notif-berhasil').modal('show');
 	$.ajax({
 		url:"{{ route('notif_lengkap') }}",
@@ -343,7 +349,6 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 			// do something
 		}
 	})  
-	@endif
 
 	@if($toko)
 	@if($toko->notif == 0)

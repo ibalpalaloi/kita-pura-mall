@@ -3,7 +3,7 @@
 <head>
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="HandheldFriendly" content="true" />		
+    <meta name="HandheldFriendly" content="true" />     
     <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template/admin/dist/css/style.min.css">
     <style type="text/css">
 
@@ -41,7 +41,7 @@
             width: 100%;
             border-radius: 5px;
             margin-right: 15px;
-        }	
+        }   
         
         .svg-inline--fa, svg:not(:root).svg-inline--fa {
             overflow: visible;
@@ -137,16 +137,16 @@
             margin: 0px auto;
             padding: 0px 16px 1em;
             box-sizing: border-box;
-            min-height: calc(100vh - 60px);	
+            min-height: calc(100vh - 60px); 
 
-        }	
+        }   
 
         .container-mall {
             max-width: 480px;
             width: 100%;
             margin: 0px auto;
             padding: 0px 16px 0px;
-            box-sizing: border-box;	
+            box-sizing: border-box; 
         }
 
         .banner {
@@ -163,15 +163,15 @@
             top: 0px;
             left: 0px;
             right: 0px;
-            z-index: 11;				
+            z-index: 11;                
         }
 
 
         .card-mall {
             background: white;
             box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;
-            border-radius: 1.5em;	
-            /*border: 2px solid red;			*/
+            border-radius: 1.5em;   
+            /*border: 2px solid red;            */
             margin-bottom: 1em;
             /*margin-top: 1em;*/
         }
@@ -184,13 +184,13 @@
             margin-bottom: -2em;
             z-index: 2;   
             overflow-y: visible; 
-            overflow-x: auto; 			
+            overflow-x: auto;           
 
         }
 
         .nama-kategori {
             padding: 0.5em 0.5em 0.5em 0.5em;
-            display: flex; 				
+            display: flex;              
             justify-content: space-around;
         }
 
@@ -207,8 +207,8 @@
         .footer-mall-menu {
             background: white;
             box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;
-            border-radius: 3em;			
-            margin-bottom: 1em;	
+            border-radius: 3em;         
+            margin-bottom: 1em; 
 
         }
 
@@ -260,9 +260,9 @@
     <div class="wrapper" style="background: #EAF4FF; margin-top: 2em; display: flex; justify-content: center;">
         <div class="banner" style="display: flex;justify-content: center; flex-direction: column; align-items: center;">
             <img src="<?=url('/')?>/public/img/register/mitra_login.svg" style="width: 75%;">
-            <div style="color: white; text-align: center; padding-top: 0.5em; display: flex; justify-content: center; flex-direction: column; align-items: center; ">
-                <h3 style="color: black; font-weight: 500;">Spesial!! Jadilah Mitra <br>Pertama di kitapuramall</h3>
-                <div style="color: #7D7D7D; width: 80%; line-height: 1.3em;">buat kalian yang punya usaha, silahkan daftar sekarang. dan nikmati fitur mitra premium di kitapuramall gratis. kuota terbatas. kesempatan ini dibuka dari tanggal <span style="font-weight: 600; color: black;">21 - 30 Maret 2021</span> sebelum aplikasi kitapuramall Terbuka untuk umum. <span style="font-weight: 600; color: black;">Buruan daftar sekarang!!!</span></div>
+            <div style="color: white; text-align: center; padding-top: 0em; display: flex; justify-content: center; flex-direction: column; align-items: center; ">
+                <h4 style="color: black; font-weight: 500; margin-top:0px;">Spesial!! Jadilah Mitra <br>Pertama di kitapuramall</h4>
+                <div style="color: #7D7D7D; width: 80%; line-height: 1.3em; font-size:0.85em;">buat kalian yang punya usaha, silahkan daftar sekarang. dan nikmati fitur mitra premium di kitapuramall gratis. kuota terbatas. kesempatan ini dibuka dari tanggal <span style="font-weight: 600; color: black;">21 - 30 Maret 2021</span> sebelum aplikasi kitapuramall Terbuka untuk umum. <span style="font-weight: 600; color: black;"><br>Buruan daftar sekarang!!!</span></div>
             </div>
         </div>
     </div>
@@ -310,11 +310,11 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
                 $(this).trigger('click').trigger('click');
             });
         };
-    })(jQuery);		
+    })(jQuery);     
 
     $('#nomor_hp').keyup(function(){
         $(this).val($(this).val().replace(/(\d{3})\-?(\d{4})\-?(\d{4})/,'$1-$2-$3'))
-    });		
+    });     
 
     @if(Session::get('message') == 'Masih Menunggu')
     $('#modal-verifikasi').modal('show');
