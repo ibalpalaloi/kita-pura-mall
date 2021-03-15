@@ -410,17 +410,22 @@ if (!empty($_GET['deskripsi'])){
 					</a>
 					<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
 					<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori->nama}}</div>
-					@if($row->diskon == '0')
-					<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{number_format($row->harga,0,',','.')}}</span>
-					@else
-					<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-						<s>IDR. {{number_format($row->harga,0,',','.')}}</s>
-					</span>
-					@php
-					$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
-					@endphp
+					@if ($row->jenis_harga == 'Statis')
+						@if($row->diskon == '0')
+						<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{number_format($row->harga,0,',','.')}}</span>
+						@else
+						<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
+							<s>IDR. {{number_format($row->harga,0,',','.')}}</s>
+						</span>
+						@php
+						$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
+						@endphp
 
-					<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{number_format($hasil_diskon,0,',','.')}}</span>
+						<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{number_format($hasil_diskon,0,',','.')}}</span>
+						@endif
+					@else
+						<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{number_format($row->harga_terendah,0,',','.')}}</span> - <span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">{{number_format($row->harga_tertinggi,0,',','.')}}</span>
+
 					@endif
 
 					<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
