@@ -638,7 +638,6 @@ if (!empty($_GET['deskripsi'])){
 						</form>
 						<form enctype="multipart/form-data" action="{{route('simpan_foto_maps')}}" method="post" style="width: 56%;">
 							{{csrf_field()}}
-
 							@if($foto_3)
 							<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_3" style="background:transparent; border: none; border-radius: 1.2em; width: 100%;">
 								<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_3">
