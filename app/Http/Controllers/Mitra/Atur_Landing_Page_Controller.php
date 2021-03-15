@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Video_landing_page;
 use App\Models\Landing_page_fasilitas_toko;
+use App\Models\Toko;
+use Session;
 
 class Atur_Landing_Page_Controller extends Controller
 {
@@ -65,4 +67,21 @@ class Atur_Landing_Page_Controller extends Controller
 
         return back();
     }
+
+    public function simpan_cover(Request $request){
+        $id = $request->nomor_foto;
+
+		if($request->file("foto_cover")){
+			$toko = toko::where('users_id', Session::get('id_user'))->first();
+            \Storage::disk('public')->delete('img/toko/'.$toko->id.'/cover/'.$toko->foto_cover);
+			$files = $request->file('foto_cover');
+			$type = $request->file("foto_cover")->getClientOriginalExtension();
+			$file_upload = $toko->id.".".$type;
+			\Storage::disk('public')->put('img/toko/'.$toko->id.'/cover/'.$file_upload, file_get_contents($files));
+			$toko->foto_cover = $file_upload;
+			$toko->save();
+		}
+        $iqbal = 'iqbal';
+        echo $iqbal;
+    } 
 }

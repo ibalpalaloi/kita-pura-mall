@@ -515,408 +515,578 @@ if (!empty($_GET['deskripsi'])){
 
 <!-- <form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post" > -->
 
-	<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
-		<div>
-			<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em; z-index: -1;">
-		</div>
-		<div>
-			<div style="padding: 0px 16px 1em;">
-				<h3 style="color: white;">Atur Landing Page</h3>
-				<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Video</h6>
-				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
-					<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
-				</div>
-
+<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
+	<div>
+		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em; z-index: -1;">
+	</div>
+	<div>
+		<div style="padding: 0px 16px 1em;">
+			<h3 style="color: white;">Atur Landing Page</h3>
+			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Foto Cover</h6>
+			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+				<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">Masukkan foto cover landing page anda</div>
+			</div>
+			<form id="upload_cover" enctype="multipart/form-data" method="post">
+				{{ csrf_field() }}
 				<div class="input-group mb-3 div-input-mall-square" id="div_video" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-					<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 14em; cursor: pointer; border-radius: 1em;" onclick="tambah_video('1')" id="div_pic_video_1">
-						@if(!empty($video[1]))
-						<iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{$video[1]}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 1em;"></iframe>
-						<div style="position: absolute; right: 10px; top: -1em; display: flex;">
-							<div style="width: 2.5em;  background: #262627; display: flex; justify-content: center; border-radius: 50%;">
-								<img src="<?=url('/')?>/public/img/icon_svg/pencil_circle_white.svg" style="width: 90%;">
-							</div>
-							<div style="width: 2.5em; background: #262627; display: flex; justify-content: center; border-radius: 50%;">
-								<img src="<?=url('/')?>/public/img/icon_svg/trash_circle_red.svg" style="width: 90%;">
+					@if (!empty($toko->foto_cover))
+					<div id="div_preview_cover" style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 30em; cursor: pointer; border-radius: 1em;" id="div_pic_video_1">
+						<img id="preview_cover" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/cover/{{$toko->foto_cover}}" style="width: 100%; object-fit: cover;height: 29.7em; border-radius: 1em;">
+						<div style="position: absolute;top: 40%;">
+							<img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="pilih_foto_cover()" style=" width: 2.5em; margin-left: 40%; margin-bottom: 2em;">
+						</div>
+					</div>
+					@else
+					<div id="div_pilih_cover" style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 30em; cursor: pointer; border-radius: 1em;" onclick="pilih_foto_cover()" id="div_pic_video_1">
+						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 3em; margin-top: 0.5em;">
+					</div>
+					<div id="div_preview_cover" hidden style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 30em; cursor: pointer; border-radius: 1em;" id="div_pic_video_1">
+						<img id="preview_cover" src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 100%; object-fit: cover;height: 29.7em; border-radius: 1em;">
+					</div>
+					@endif
+					<input hidden type="file" name="foto_cover" id="foto_cover">
+					<input type="submit" id="button_foto_cover" hidden>
+				</div>
+			</form>
+			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Video</h6>
+			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+				<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
+			</div>
+
+			<div class="input-group mb-3 div-input-mall-square" id="div_video" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+				<div style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; height: 14em; cursor: pointer; border-radius: 1em;" onclick="tambah_video('1')" id="div_pic_video_1">
+					@if(!empty($video[1]))
+					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{$video[1]}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 1em;"></iframe>
+					<div style="position: absolute; right: 10px; top: -1em; display: flex;">
+						<div style="width: 2.5em;  background: #262627; display: flex; justify-content: center; border-radius: 50%;">
+							<img src="<?=url('/')?>/public/img/icon_svg/pencil_circle_white.svg" style="width: 90%;">
+						</div>
+						<div style="width: 2.5em; background: #262627; display: flex; justify-content: center; border-radius: 50%;">
+							<img src="<?=url('/')?>/public/img/icon_svg/trash_circle_red.svg" style="width: 90%;">
+						</div>
+					</div>
+					@else
+					<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 3em; margin-top: 0.5em;">
+					@endif
+				</div>
+			</div>
+
+			
+			<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Tampilan Maps</h6>
+			<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+				<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
+			</div>
+			<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; border:none;">
+				<form enctype="multipart/form-data" id="form_foto_maps_1" method="post">
+					{{csrf_field()}}
+					@if($foto_1)
+					<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+						<div style="position: relative; display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_1">
+							<img id="pic_toko_privew_1" src="<?=url('/')?>/public/img/toko/{{$foto_1->toko_id}}/maps/{{$foto_1->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+							<div style="position: absolute;top: 40%;">
+								<img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('1')" style=" width: 2.5em; margin-left: 40%; margin-bottom: 2em;">
+								<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Foto Depan Tempat Usaha</div>
 							</div>
 						</div>
+						<input type="hidden" name="id_foto_toko" id="id_foto_toko_1" value="{{$foto_1->id}}">
+					</div>
+					@else
+					<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
+						<div style="position: relative; display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_1">
+							<img id="pic_toko_privew_1" src="<?=url('/')?>/public/img/register/maps/tampak_depan.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+							<div style="position: absolute;top: 40%;">
+								<img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('1')" style=" width: 2.5em; margin-left: 40%; margin-bottom: 2em;">
+								<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Foto Depan Tempat Usaha</div>
+							</div>
+						</div>
+						<input type="hidden" name="id_foto_toko" id="id_foto_toko_1" value="null">
+					</div>
+					@endif
+					<input hidden type="file" name="foto_toko_1" id="foto_toko_1">
+					<input type="hidden" name="nomor_foto" value="1">
+					<input type="submit" id="button_foto_maps_1" hidden>
+				</form>
+				<div style="display: flex; justify-content: space-between; width: 100%;">
+					<form enctype="multipart/form-data" id="form_foto_maps_2" method="post" style="width: 40%;">
+						{{csrf_field()}}
+						@if($foto_2)
+						<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_2" style="background:transparent; border: none; border-radius: 1.2em; width: 100%;">
+							<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_2">
+								<img id="pic_toko_privew_2" src="<?=url('/')?>/public/img/toko/{{$foto_2->toko_id}}/maps/{{$foto_2->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+								<div style="position: absolute;top: 40%;">
+									<img id="pic_toko_2" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('2')" style=" width: 2.5em; margin-left: 20%; margin-bottom: 2em;">
+									<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" name="id_foto_toko" id="id_foto_toko_2" value="{{$foto_2->id}}">
 						@else
-						<img src="<?=url('/')?>/public/img/icon_svg/add_circle_white.svg" style="width: 3em; margin-top: 0.5em;">
+						<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_2" style="background:transparent; border: none; border-radius: 1.2em; width: 100%;">
+							<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_2">
+								<img id="pic_toko_privew_2" src="<?=url('/')?>/public/img/register/maps/produk.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+								<div style="position: absolute;top: 40%;">
+									<img id="pic_toko_2" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('2')" style=" width: 2.5em; margin-left: 20%; margin-bottom: 2em;">
+									<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
+								</div>
+							</div>
+							<input type="hidden" name="id_foto_toko" id="id_foto_toko_2" value="null">
+						</div>
 						@endif
+						<input hidden type="file" name="foto_toko_2" id="foto_toko_2">
+						<input type="hidden" name="nomor_foto" value="2">
+						<input type="submit" id="button_foto_maps_2" hidden>
+					</form>
+					<form enctype="multipart/form-data" id="form_foto_maps_3" method="post" style="width: 56%;">
+						{{csrf_field()}}
+						@if($foto_3)
+						<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_3" style="background:transparent; border: none; border-radius: 1.2em; width: 100%;">
+							<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_3">
+								<img id="pic_toko_privew_3" src="<?=url('/')?>/public/img/toko/{{$foto_3->toko_id}}/maps/{{$foto_3->foto}}	" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+								<div style="position: absolute;top: 40%;">
+									<img id="pic_toko_3" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('3')" style=" width: 2.5em; margin-left: 15%; margin-bottom: 2em;">
+									<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
+								</div>
+							</div>
+							<input type="hidden" name="id_foto_toko" id="id_foto_toko_3" value="{{$foto_3->id}}">
+						</div>
+						@else
+						<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_3" style="background:transparent; border: none; border-radius: 1.2em; width: 100%;">
+							<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_3">
+								<img id="pic_toko_privew_3" src="<?=url('/')?>/public/img/register/maps/bebas.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+								<div style="position: absolute;top: 40%;">
+									<img id="pic_toko_3" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('3')" style=" width: 2.5em; margin-left: 15%; margin-bottom: 2em;">
+									<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
+								</div>
+							</div>
+							<input type="hidden" name="id_foto_toko" id="id_foto_toko_3" value="null">
+						</div>
+						@endif
+						<input hidden type="file" name="foto_toko_3" id="foto_toko_3">
+						<input type="hidden" name="nomor_foto" value="3">
+						<input type="submit" id="button_foto_maps_3" hidden>
+
 					</div>
 				</div>
-
-				
-				<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Tampilan Maps</h6>
+				<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Deskripsi</h6>
 				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
 					<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
 				</div>
-				<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; border:none;">
-					<form enctype="multipart/form-data" action="{{route('simpan_foto_maps')}}" method="post">
-						{{csrf_field()}}
-						@if($foto_1)
-						<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-							<div style="position: relative; display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_1">
-								<img id="pic_toko_privew_1" src="<?=url('/')?>/public/img/toko/{{$foto_1->toko_id}}/maps/{{$foto_1->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-								<div style="position: absolute;top: 40%;">
-									<img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('1')" style=" width: 2.5em; margin-left: 40%; margin-bottom: 2em;">
-									<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Foto Depan Tempat Usaha</div>
-								</div>
-							</div>
-							<input type="hidden" name="id_foto_toko" id="id_foto_toko_1" value="{{$foto_1->id}}">
-						</div>
-						@else
-						<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-							<div style="position: relative; display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_1">
-								<img id="pic_toko_privew_1" src="<?=url('/')?>/public/img/register/maps/tampak_depan.jpg" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-								<div style="position: absolute;top: 40%;">
-									<img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('1')" style=" width: 2.5em; margin-left: 40%; margin-bottom: 2em;">
-									<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Foto Depan Tempat Usaha</div>
-								</div>
-							</div>
-							<input type="hidden" name="id_foto_toko" id="id_foto_toko_1" value="null">
-						</div>
-						@endif
-						<input hidden type="file" name="foto_toko_1" id="foto_toko_1">
-						<input type="hidden" name="nomor_foto" value="1">
-						<input type="submit" id="button_foto_maps_1" hidden>
-					</form>
-					<div style="display: flex; justify-content: space-between; width: 100%;">
-						<form enctype="multipart/form-data" action="{{route('simpan_foto_maps')}}" method="post" style="width: 40%;">
-							{{csrf_field()}}
-							@if($foto_2)
-							<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_2" style="background:transparent; border: none; border-radius: 1.2em; width: 100%;">
-								<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_2">
-									<img id="pic_toko_privew_2" src="<?=url('/')?>/public/img/toko/{{$foto_2->toko_id}}/maps/{{$foto_2->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-									<div style="position: absolute;top: 40%;">
-										<img id="pic_toko_2" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('2')" style=" width: 2.5em; margin-left: 20%; margin-bottom: 2em;">
-										<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
-									</div>
-								</div>
-							</div>
-							<input type="hidden" name="id_foto_toko" id="id_foto_toko_2" value="{{$foto_2->id}}">
-							@else
-							<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_2" style="background:transparent; border: none; border-radius: 1.2em; width: 100%;">
-								<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_2">
-									<img id="pic_toko_privew_2" src="<?=url('/')?>/public/img/register/maps/produk.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-									<div style="position: absolute;top: 40%;">
-										<img id="pic_toko_2" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('2')" style=" width: 2.5em; margin-left: 20%; margin-bottom: 2em;">
-										<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
-									</div>
-								</div>
-								<input type="hidden" name="id_foto_toko" id="id_foto_toko_2" value="null">
-							</div>
-							@endif
-							<input hidden type="file" name="foto_toko_2" id="foto_toko_2">
-							<input type="hidden" name="nomor_foto" value="2">
-							<input type="submit" id="button_foto_maps_2" hidden>
-						</form>
-						<form enctype="multipart/form-data" action="{{route('simpan_foto_maps')}}" method="post" style="width: 56%;">
-							{{csrf_field()}}
+				@foreach ($fasilitas_toko as $fasilitas)
+				<div class="input-group mb-3 div-input-mall-square st0" id="div_deskripsi" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
 
-							@if($foto_3)
-							<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_3" style="background:transparent; border: none; border-radius: 1.2em; width: 100%;">
-								<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_3">
-									<img id="pic_toko_privew_3" src="<?=url('/')?>/public/img/toko/{{$foto_3->toko_id}}/maps/{{$foto_3->foto}}	" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-									<div style="position: absolute;top: 40%;">
-										<img id="pic_toko_3" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('3')" style=" width: 2.5em; margin-left: 15%; margin-bottom: 2em;">
-										<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
-									</div>
-								</div>
-								<input type="hidden" name="id_foto_toko" id="id_foto_toko_3" value="{{$foto_3->id}}">
-							</div>
-							@else
-							<div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_3" style="background:transparent; border: none; border-radius: 1.2em; width: 100%;">
-								<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_toko_privew_3">
-									<img id="pic_toko_privew_3" src="<?=url('/')?>/public/img/register/maps/bebas.png" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
-									<div style="position: absolute;top: 40%;">
-										<img id="pic_toko_3" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="tambah_foto_toko('3')" style=" width: 2.5em; margin-left: 15%; margin-bottom: 2em;">
-										<div style="background: rgba(255, 255, 255, 0.85); padding: 0.2em 0.5em; color: #FF006E;">Bebas</div>
-									</div>
-								</div>
-								<input type="hidden" name="id_foto_toko" id="id_foto_toko_3" value="null">
-							</div>
-							@endif
-							<input hidden type="file" name="foto_toko_3" id="foto_toko_3">
-							<input type="hidden" name="nomor_foto" value="3">
-							<input type="submit" id="button_foto_maps_3" hidden>
-
-						</div>
-					</div>
-					<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Deskripsi</h6>
-					<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
-						<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">atur toko anda dan dapatkan ribuan pelanggan</div>
-					</div>
-					@foreach ($fasilitas_toko as $fasilitas)
-					<div class="input-group mb-3 div-input-mall-square st0" id="div_deskripsi" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-
-						<div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 0.8em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;" class="st0">
-							<div style="display: flex; position: absolute; right: 1em; top: -1em;">
-								<div onclick="modal_ubah_fasilitas('{{$fasilitas->judul}}', '{{$fasilitas->keterangan}}', '{{$fasilitas->id}}')" style="width: 2.5em; background: #3D3D3D; border-radius: 50%; height: 2.5em; display: flex; justify-content: center; margin-right: 0.5em;"><img src="<?=url('/')?>/public/img/icon_svg/pencil.svg" style="width: 50%;"></div>
-								<a href="<?=url('/')?>/akun/mitra/premium/atur-produk/hapus_fasilitas/{{$fasilitas->id}}" style="width: 2.5em; background: #3D3D3D; border-radius: 50%; height: 2.5em; display: flex; justify-content: center;"><img src="<?=url('/')?>/public/img/icon_svg/trash_white.svg" style="width: 50%;"></a>
-							</div>	
-							<div style="margin-top: 0.5em;">
-								<div>Judul</div>
-								<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
-									<div><img src="<?=url('/')?>/public/img/icon_svg/judul.svg" style="width: 100%;"></div>
-									<div>
-										<input value="{{$fasilitas->judul}}" type="text" name="judul" style="color: white; background: transparent; font-size: 1.15em; padding-left: 0.9em;" readonly>
-									</div>
-								</div>
-							</div>	
-							<div style="margin-top: 1em; padding-bottom: 0.5em;">
-								<div>Keterangan</div>
-								<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
-									<div style="width: 100%;">
-										<textarea name="keterangan" style="color: white; background: transparent; font-size: 0.9em; line-height: 1.15em; border: none; width: 100%;" rows="8" placeholder="Masukan keterangan service" readonly>{{$fasilitas->keterangan}}</textarea> 
-									</div>
-								</div>
-							</div>									
-						</div>
-					</div>
-					@endforeach
-					<div class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-fasilitas" style="padding: 0px; background: transparent; border: none;">
-							<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_deskripsi_gold.svg" style="width: 100%; margin: 0px;">
-						</button>	
-					</div>
-
-					<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Menu Favorit</h6>
-					<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
-						<div style="font-size: 0.8em; color: #dddddd; line-height: 1.3em;">pilih 3 menu favorit untuk ditampilkan di halaman depan landing page</div>
-					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
-						<div style="width: 100%; padding-right: 0.5em;">
-							<span class="input-group-text-mall">
-							</span>
-							<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em;">
-							<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center;">
-								<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
-							</div>
-						</div>
-					</div>
-					<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding-bottom: 1em;">
-						@if ($produk->count() > 0)
-						@foreach($produk as $row)
-						<div class="slider-toko" style="margin-bottom: 0em; margin-left: 0px;">
-							<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-							<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
-							<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative;' class="st0"> 
-								<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; right: 0.8em; display: flex; justify-content: center; align-items: center;">
-									<div class="togglebutton">
-										<label>
-											<a href="{{url()->current()}}/{{$row->id}}/ubah-status" >	
-												<input type="checkbox" @if($row->tampil == "Ya") checked @endif>
-												<span class="toggle"></span>
-											</a>
-										</label>
-
-									</div>
-								</div>
-								<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
-								<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori->nama}}</div>
-								@if($row->diskon == '0')
-								<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$row->harga}}</span>
-								@else
-								<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-									<s>IDR. {{$row->harga}}</s>
-								</span>
-								@php
-								$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
-								@endphp
-								<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$hasil_diskon}}</span>
-								@endif
-								<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
-									Stok : {{$row->stok}}
+					<div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 0.8em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;" class="st0">
+						<div style="display: flex; position: absolute; right: 1em; top: -1em;">
+							<div onclick="modal_ubah_fasilitas('{{$fasilitas->judul}}', '{{$fasilitas->keterangan}}', '{{$fasilitas->id}}')" style="width: 2.5em; background: #3D3D3D; border-radius: 50%; height: 2.5em; display: flex; justify-content: center; margin-right: 0.5em;"><img src="<?=url('/')?>/public/img/icon_svg/pencil.svg" style="width: 50%;"></div>
+							<a href="<?=url('/')?>/akun/mitra/premium/atur-produk/hapus_fasilitas/{{$fasilitas->id}}" style="width: 2.5em; background: #3D3D3D; border-radius: 50%; height: 2.5em; display: flex; justify-content: center;"><img src="<?=url('/')?>/public/img/icon_svg/trash_white.svg" style="width: 50%;"></a>
+						</div>	
+						<div style="margin-top: 0.5em;">
+							<div>Judul</div>
+							<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
+								<div><img src="<?=url('/')?>/public/img/icon_svg/judul.svg" style="width: 100%;"></div>
+								<div>
+									<input value="{{$fasilitas->judul}}" type="text" name="judul" style="color: white; background: transparent; font-size: 1.15em; padding-left: 0.9em;" readonly>
 								</div>
 							</div>
-						</div> 
-						@endforeach
-						@endif
-						<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
-							<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_produk_gold.svg" style="width: 100%; margin: 0px;">
-						</a>	
+						</div>	
+						<div style="margin-top: 1em; padding-bottom: 0.5em;">
+							<div>Keterangan</div>
+							<div style="padding: 1em; display: flex; background: #212020; border-radius: 0.5em; margin-top: 0.5em;">
+								<div style="width: 100%;">
+									<textarea name="keterangan" style="color: white; background: transparent; font-size: 0.9em; line-height: 1.15em; border: none; width: 100%;" rows="8" placeholder="Masukan keterangan service" readonly>{{$fasilitas->keterangan}}</textarea> 
+								</div>
+							</div>
+						</div>									
 					</div>
 				</div>
+				@endforeach
+				<div class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-fasilitas" style="padding: 0px; background: transparent; border: none;">
+						<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_deskripsi_gold.svg" style="width: 100%; margin: 0px;">
+					</button>	
+				</div>
+
+				<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Menu Favorit</h6>
+				<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+					<div style="font-size: 0.8em; color: #dddddd; line-height: 1.3em;">pilih 3 menu favorit untuk ditampilkan di halaman depan landing page</div>
+				</div>
+				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
+					<div style="width: 100%; padding-right: 0.5em;">
+						<span class="input-group-text-mall">
+						</span>
+						<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em;">
+						<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center;">
+							<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
+						</div>
+					</div>
+				</div>
+				<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding-bottom: 1em;">
+					@php
+						$index = 1;
+						$menu_tampil = 0;
+					@endphp
+					@if ($produk->count() > 0)
+					@foreach($produk as $row)
+					<div class="slider-toko" style="margin-bottom: 0em; margin-left: 0px;">
+						<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+						<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
+						<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative;' class="st0"> 
+							<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; right: 0.8em; display: flex; justify-content: center; align-items: center;">
+								<div class="togglebutton">
+									<label>	
+											<input id="menu_favorit_{{$index}}" onchange="menu_favorit('{{$row->id}}', '{{$index}}')" type="checkbox" @if($row->tampil == "Ya") checked @php $menu_tampil++ @endphp @endif>
+											<span class="toggle"></span>
+									</label>
+
+								</div>
+							</div>
+							<div style="font-weight: 500; margin-top: 0em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
+							<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">{{$row->kategori->nama}}</div>
+							@if($row->diskon == '0')
+							<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$row->harga}}</span>
+							@else
+							<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
+								<s>IDR. {{$row->harga}}</s>
+							</span>
+							@php
+							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
+							@endphp
+							<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{$hasil_diskon}}</span>
+							@endif
+							<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
+								Stok : {{$row->stok}}
+							</div>
+						</div>
+					</div> 
+					@php
+						$index++
+					@endphp
+					@endforeach
+					@endif
+					<input hidden type="text" id="jumlah_menu_favorit" value="{{$menu_tampil}}">
+					<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
+						<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_produk_gold.svg" style="width: 100%; margin: 0px;">
+					</a>	
+				</div>
 			</div>
-			<div class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
-				<a href="<?=url('/')?>/{{$toko->username}}" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
-					<img src="<?=url('/')?>/public/img/button/toko_premium/landing_page.svg" style="width: 100%; margin: 0px;">
-				</a>	
-			</div>
-		</main>
-		<!-- </form>			 -->
+		</div>
+		<div class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
+			<a href="<?=url('/')?>/{{$toko->username}}" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
+				<img src="<?=url('/')?>/public/img/button/toko_premium/landing_page.svg" style="width: 100%; margin: 0px;">
+			</a>	
+		</div>
+	</main>
+	<!-- </form>			 -->
 
-		@endsection
+	@endsection
 
-		@section('footer-scripts')
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-	</script>
-	<script type="text/javascript">
+	@section('footer-scripts')
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<script type="text/javascript">
 
-		@if(Session::has('message'))	
-		$('#modal-pemberitahuan').modal('show')
-		@endif
+	@if(Session::has('message'))	
+	$('#modal-pemberitahuan').modal('show')
+	@endif
 
-
-
-
-		function tambah_foto_toko(id) {
-			$("#foto_toko_"+id).click();
-			$("#foto_toko_"+id).change(function () {
-				readURL(this, id);
-			});
-
-		}
-
-
-
-		function readURL(input, id) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function (e) {
-					$('#pic_toko_privew_'+id).attr('src', e.target.result);
-					$("#div_pic_toko_privew_"+id).prop('hidden', false);
-					$("#div_pic_toko_"+id).prop('hidden', true);
-				}
-				reader.readAsDataURL(input.files[0]);
-				$("#button_foto_maps_"+id).click();
-			}
-		}
-
-		function tambah_video(i){
-			$('#tampil-video').empty();
-			$('#link_video').val('');
-			$('#modal-video').modal('show');
-			$('#nomor_div').val(i);
-		}
-
-
-
-		function input_focus(id){
-			$("#div_"+id).css('border', '1px solid #d1d2d4');
-		}
-
-		function input_blur(id){
-			$("#div_"+id).css('border', '1px solid white');		
-		}		
-
-		function tambah_produk(){
-			$('#modal-tambah').modal('show'); 
-		}
-
-		function edit_produk(id, gambar, nama, kategori, harga, stok, deskripsi){
-			$("#edit_id_produk").val(id);
-			$("#hapus_id_produk").val(id);
-			$("#pic_edit_toko_privew").attr('src', "<?=url('/')?>/public/img/toko/"+gambar);
-			$("#edit_nama_produk").val(nama);
-			$("#edit_kategori").val(kategori);
-			$("#edit_harga").val(harga);
-			$("#edit_stok").val(stok);
-			$("#edit_deskripsi").val(deskripsi);
-			$("#modal-ubah").modal('show');
-		}
-
-		function simpan_video(){
-			var link = $('#link_video').val();
-			var nomor_div = $('#nomor_div').val();
+	function menu_favorit(id, index){
+		var checkBox = document.getElementById("menu_favorit_"+index);
+		var jumlah_menu_favorit = $("#jumlah_menu_favorit").val();
+		if(jumlah_menu_favorit < 3 && checkBox.checked == true){
 			$.ajax({
-				url: "{{route('simpan_video_landing_page')}}",
+				url: "{{route('ubah_status_produk_premium')}}",
 				method: "post",
-				data : {link:link, no:nomor_div, _token:'{{csrf_token()}}'},
+				data : {id:id, _token:'{{csrf_token()}}'},
 				success:function(result)
 				{
-					$('#modal-video').modal("hide"); 
-					$('#link_video').val('');
-					$('#nomor_div').val('');
-					var edit = "<?=url('/')?>/public/img/icon_svg/pencil_circle_white.svg";
-					var hapus = "<?=url('/')?>/public/img/icon_svg/trash_circle_red.svg";
-					$('#div_pic_video_'+nomor_div).html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+result+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 1em;"></iframe>'+
-						'<div style="position: absolute; right: 10px; top: -1em; display: flex;">'+
-						'<div style="width: 2.5em;  background: #262627; display: flex; justify-content: center; border-radius: 50%;">'+
-						'<img src="'+edit+'" style="width: 90%;">'+
-						'</div>'+
-						'<div style="width: 2.5em; background: #262627; display: flex; justify-content: center; border-radius: 50%;">'+
-						'<img src="'+hapus+'" style="width: 90%;">'+
-						'</div>'+
-						'</div>');
+					document.getElementById("menu_favorit_"+index).checked = true;
+					jumlah_menu_favorit++;
+					$("#jumlah_menu_favorit").val(jumlah_menu_favorit);
 				}
 			})
 		}
+		else if(checkBox.checked == false){
+			$.ajax({
+				url: "{{route('ubah_status_produk_premium')}}",
+				method: "post",
+				data : {id:id, _token:'{{csrf_token()}}'},
+				success:function(result)
+				{
+					document.getElementById("menu_favorit_"+index).checked = false;
+					jumlah_menu_favorit--;
+					$("#jumlah_menu_favorit").val(jumlah_menu_favorit);
+				}
+			})
+		}
+		else{
+			document.getElementById("menu_favorit_"+index).checked = false;
+			alert('maksimal menu 3');
+			
+		}
+		
+	}
 
-		$(document).ready(function(){
-			$('#link_video').on('input', function(){
-				var link = $('#link_video').val();
-				$.ajax({
-					url: "{{route('get_video_link')}}",
-					method: "post",
-					data : {link:link, _token:'{{csrf_token()}}'},
-					success:function(result)
-					{
-						$('#tampil-video').empty();
-						$('#tampil-video').html('<iframe width="100%" height="200px" src="https://www.youtube.com/embed/'+result+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 1em;"></iframe>');
-					}
-				})
+
+	function tambah_foto_toko(id) {
+		$("#foto_toko_"+id).click();
+		$("#foto_toko_"+id).change(function () {
+			readURL(this, id);
+		});
+
+	}
+
+
+
+	function readURL(input, id) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				$('#pic_toko_privew_'+id).attr('src', e.target.result);
+				$("#div_pic_toko_privew_"+id).prop('hidden', false);
+				$("#div_pic_toko_"+id).prop('hidden', true);
+			}
+			reader.readAsDataURL(input.files[0]);
+			$("#button_foto_maps_"+id).click();
+		}
+	}
+
+	function tambah_video(i){
+		$('#tampil-video').empty();
+		$('#link_video').val('');
+		$('#modal-video').modal('show');
+		$('#nomor_div').val(i);
+	}
+
+
+
+	function input_focus(id){
+		$("#div_"+id).css('border', '1px solid #d1d2d4');
+	}
+
+	function input_blur(id){
+		$("#div_"+id).css('border', '1px solid white');		
+	}		
+
+	function tambah_produk(){
+		$('#modal-tambah').modal('show'); 
+	}
+
+	function edit_produk(id, gambar, nama, kategori, harga, stok, deskripsi){
+		$("#edit_id_produk").val(id);
+		$("#hapus_id_produk").val(id);
+		$("#pic_edit_toko_privew").attr('src', "<?=url('/')?>/public/img/toko/"+gambar);
+		$("#edit_nama_produk").val(nama);
+		$("#edit_kategori").val(kategori);
+		$("#edit_harga").val(harga);
+		$("#edit_stok").val(stok);
+		$("#edit_deskripsi").val(deskripsi);
+		$("#modal-ubah").modal('show');
+	}
+
+	function simpan_video(){
+		var link = $('#link_video').val();
+		var nomor_div = $('#nomor_div').val();
+		$.ajax({
+			url: "{{route('simpan_video_landing_page')}}",
+			method: "post",
+			data : {link:link, no:nomor_div, _token:'{{csrf_token()}}'},
+			success:function(result)
+			{
+				$('#modal-video').modal("hide"); 
+				$('#link_video').val('');
+				$('#nomor_div').val('');
+				var edit = "<?=url('/')?>/public/img/icon_svg/pencil_circle_white.svg";
+				var hapus = "<?=url('/')?>/public/img/icon_svg/trash_circle_red.svg";
+				$('#div_pic_video_'+nomor_div).html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+result+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 1em;"></iframe>'+
+					'<div style="position: absolute; right: 10px; top: -1em; display: flex;">'+
+					'<div style="width: 2.5em;  background: #262627; display: flex; justify-content: center; border-radius: 50%;">'+
+					'<img src="'+edit+'" style="width: 90%;">'+
+					'</div>'+
+					'<div style="width: 2.5em; background: #262627; display: flex; justify-content: center; border-radius: 50%;">'+
+					'<img src="'+hapus+'" style="width: 90%;">'+
+					'</div>'+
+					'</div>');
+			}
+		})
+	}
+
+	$(document).ready(function(){
+		$('#link_video').on('input', function(){
+			var link = $('#link_video').val();
+			$.ajax({
+				url: "{{route('get_video_link')}}",
+				method: "post",
+				data : {link:link, _token:'{{csrf_token()}}'},
+				success:function(result)
+				{
+					$('#tampil-video').empty();
+					$('#tampil-video').html('<iframe width="100%" height="200px" src="https://www.youtube.com/embed/'+result+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 1em;"></iframe>');
+				}
 			})
 		})
+	})
 
-		var toko = {!! json_encode($fasilitas_toko) !!};
-		var id_fasiltas_toko;
-		var index;
+	var toko = {!! json_encode($fasilitas_toko) !!};
+	var id_fasiltas_toko;
+	var index;
 
-		function tampilkan_fasiiltas(id){
-			$('#judul_service').val(toko[id]['judul']);
-			$('#keterangan_fasilitas').val(toko[id]['keterangan']);
-			id_fasiltas_toko = toko[id]['id'];
-			index = id;
-		}
+	function tampilkan_fasiiltas(id){
+		$('#judul_service').val(toko[id]['judul']);
+		$('#keterangan_fasilitas').val(toko[id]['keterangan']);
+		id_fasiltas_toko = toko[id]['id'];
+		index = id;
+	}
 
-		function simpan_fasilitas_toko(){
-			var judul = $('#judul_service').val();
-			var keterangan = $('#keterangan_fasilitas').val();
-			$.ajax({
-				url: "{{route('post_fasilitas_toko')}}",
-				method: "post",
-				data: {id:id_fasiltas_toko, judul:judul, keterangan:keterangan, _token:'{{csrf_token()}}'},
-				success:function(){
-					alert('tersimpan');
-					toko[index]['judul'] = judul;
-					toko[index]['keterangan'] = keterangan;
-				}
-			})
-		}
-
-		function tambah_icon(){
-			$('#modal-fasilitas').modal('show');
-		}
-
-		function tambah_icon_pilih(){
-			$('#icon').click();
-			$("#icon").change(function(){
-				tampilkan_icon_baru(this);
-			});
-		}
-
-		function tampilkan_icon_baru(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function (e) {
-					$('#icon_baru_preview').attr('src', e.target.result);
-					$("#div_icon_baru_preview").prop('hidden', false);
-				}
-
-				reader.readAsDataURL(input.files[0]);
+	function simpan_fasilitas_toko(){
+		var judul = $('#judul_service').val();
+		var keterangan = $('#keterangan_fasilitas').val();
+		$.ajax({
+			url: "{{route('post_fasilitas_toko')}}",
+			method: "post",
+			data: {id:id_fasiltas_toko, judul:judul, keterangan:keterangan, _token:'{{csrf_token()}}'},
+			success:function(){
+				alert('tersimpan');
+				toko[index]['judul'] = judul;
+				toko[index]['keterangan'] = keterangan;
 			}
-		}
+		})
+	}
 
-		function modal_ubah_fasilitas(judul, keterangan, id){
-			$('#modal-ubah-fasilitas').modal('show');
-			$('#judul_service').val(judul);
-			$('#keterangan_fasilitas').val(keterangan);
-			$('#id_ubah_fasilitas').val(id);
-		}
+	function tambah_icon(){
+		$('#modal-fasilitas').modal('show');
+	}
 
-	</script>
-	@endsection
+	function tambah_icon_pilih(){
+		$('#icon').click();
+		$("#icon").change(function(){
+			tampilkan_icon_baru(this);
+		});
+	}
+
+	function tampilkan_icon_baru(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				$('#icon_baru_preview').attr('src', e.target.result);
+				$("#div_icon_baru_preview").prop('hidden', false);
+			}
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	function modal_ubah_fasilitas(judul, keterangan, id){
+		$('#modal-ubah-fasilitas').modal('show');
+		$('#judul_service').val(judul);
+		$('#keterangan_fasilitas').val(keterangan);
+		$('#id_ubah_fasilitas').val(id);
+	}
+
+	function pilih_foto_cover(){
+		$('#foto_cover').click();
+		$("#foto_cover").change(function () {
+			$('#button_foto_cover').click();
+			console.log(this);
+			tampilkan_cover(this);
+		});
+	}
+
+	var src_cover;
+	function tampilkan_cover(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$('#preview_cover').attr('src', e.target.result);
+				src_cover = e.target.result;
+				$("#div_preview_cover").prop('hidden', false);
+				$("#div_pilih_cover").prop('hidden', true);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$(document).ready(function(){
+		$('#upload_cover').on('submit', function(event){
+			event.preventDefault();
+			$.ajax({
+				url:"{{ route('simpan_cover_landing_page') }}",
+				method:"POST",
+				data:new FormData(this),
+				dataType:'JSON',
+				contentType: false,
+				cache: false,
+				processData: false,
+				success:function(data)
+				{
+					alert("data");
+					$('#preview_cover').attr('src', src_cover);
+				}
+			});
+		});
+	});
+
+	$(document).ready(function(){
+		$('#form_foto_maps_1').on('submit', function(event){
+			event.preventDefault();
+			$.ajax({
+				url:"{{ route('simpan_foto_maps') }}",
+				method:"POST",
+				data:new FormData(this),
+				dataType:'JSON',
+				contentType: false,
+				cache: false,
+				processData: false,
+				success:function(data)
+				{
+					alert("data");
+					$('#preview_cover').attr('src', src_cover);
+				}
+			});
+		});
+	});
+
+	$(document).ready(function(){
+		$('#form_foto_maps_2').on('submit', function(event){
+			event.preventDefault();
+			$.ajax({
+				url:"{{ route('simpan_foto_maps') }}",
+				method:"POST",
+				data:new FormData(this),
+				dataType:'JSON',
+				contentType: false,
+				cache: false,
+				processData: false,
+				success:function(data)
+				{
+					alert("data");
+					$('#preview_cover').attr('src', src_cover);
+				}
+			});
+		});
+	});
+
+	$(document).ready(function(){
+		$('#form_foto_maps_3').on('submit', function(event){
+			event.preventDefault();
+			$.ajax({
+				url:"{{ route('simpan_foto_maps') }}",
+				method:"POST",
+				data:new FormData(this),
+				dataType:'JSON',
+				contentType: false,
+				cache: false,
+				processData: false,
+				success:function(data)
+				{
+					alert("data");
+					$('#preview_cover').attr('src', src_cover);
+				}
+			});
+		});
+	});
+
+	
+</script>
+@endsection

@@ -148,9 +148,10 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::get('/akun/mitra/premium/atur-produk', [Mitra_Premium_Produk_Controller::class, 'atur_produk_premium']);
             Route::put('/akun/mitra/premium/atur-produk/simpan', [Mitra_Premium_Produk_Controller::class, 'simpan_atur_produk_premium']);
             Route::post('/akun/mitra/premium/atur-produk/simpan-foto-maps', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_maps'])->name('simpan_foto_maps');
-            Route::get('/akun/mitra/premium/atur-produk/{id}/ubah-status', [Mitra_Premium_Produk_Controller::class, 'ubah_status_produk_premium']);
+            Route::post('/akun/mitra/premium/atur-produk/ubah-status', [Mitra_Premium_Produk_Controller::class, 'ubah_status_produk_premium'])->name('ubah_status_produk_premium');
 
             // atur landing page
+            Route::post('/atur_landing_page/simpan_cover', [Atur_Landing_Page_Controller::class, 'simpan_cover'])->name('simpan_cover_landing_page');
             Route::post('/atur_landing_page/simpan_video', [Atur_Landing_Page_Controller::class, 'simpan_video'])->name('simpan_video_landing_page');
             Route::post('/atur_landing_page/post_fasilitas_toko', [Atur_Landing_Page_Controller::class, 'post_fasilitas_toko'])->name('post_fasilitas_toko');
             Route::post('/akun/mitra/premium/atur-produk/post_fasilitas', [Atur_Landing_Page_Controller::class, 'post_fasilitas_baru']);
