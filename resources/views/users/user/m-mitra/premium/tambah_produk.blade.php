@@ -412,7 +412,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 						<span class="input-group-text-mall" style="width: 3em; background: #202020;">
 							<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 40%;">
 						</span>
-						<select type="text" class="form-control-mall" id="sub_kategori_produk" name="sub_kategori_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;"  required>
+						<select type="text" class="form-control-mall" id="sub_kategori_produk" name="sub_kategori_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" style="height: 2.5em;" >
 							<option value="" disabled selected>Pilih Sub Kategori Produk</option>
 						</select>
 					</div>
@@ -750,6 +750,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$('#sub_kategori_produk').empty();
 		var sub_kategori = {!!json_encode($sub_kategori)!!}
 		$('#sub_kategori_produk').append($('<option>', {
+			value: '',
 			text: 'Pilih Sub Kategori Produk'
 		}));
 		for(i=0; i<sub_kategori.length; i++){

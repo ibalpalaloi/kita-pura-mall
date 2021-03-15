@@ -286,8 +286,8 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 	}
 
-	public function ubah_status_produk_premium($id){
-
+	public function ubah_status_produk_premium(Request $request){
+		$id = $request->id;
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 
 		$produk = product::where('toko_id', $toko->id)->where('id', $id)->first();
@@ -320,7 +320,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 			}
 		}
 
-		return redirect()->back();
+		echo "menu favorit";
 	}
 
 	function generateRandomString($length = 10) {

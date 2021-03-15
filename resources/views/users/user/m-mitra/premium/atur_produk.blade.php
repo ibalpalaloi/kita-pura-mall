@@ -720,6 +720,10 @@ if (!empty($_GET['deskripsi'])){
 					</div>
 				</div>
 				<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding-bottom: 1em;">
+					@php
+						$index = 1;
+						$menu_tampil = 0;
+					@endphp
 					@if ($produk->count() > 0)
 					@foreach($produk as $row)
 					<div class="slider-toko" style="margin-bottom: 0em; margin-left: 0px;">
@@ -728,11 +732,9 @@ if (!empty($_GET['deskripsi'])){
 						<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative;' class="st0"> 
 							<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; right: 0.8em; display: flex; justify-content: center; align-items: center;">
 								<div class="togglebutton">
-									<label>
-										<a href="{{url()->current()}}/{{$row->id}}/ubah-status" >	
-											<input type="checkbox" @if($row->tampil == "Ya") checked @endif>
+									<label>	
+											<input id="menu_favorit_{{$index}}" onchange="menu_favorit('{{$row->id}}', '{{$index}}')" type="checkbox" @if($row->tampil == "Ya") checked @php $menu_tampil++ @endphp @endif>
 											<span class="toggle"></span>
-										</a>
 									</label>
 
 								</div>
@@ -755,8 +757,12 @@ if (!empty($_GET['deskripsi'])){
 							</div>
 						</div>
 					</div> 
+					@php
+						$index++
+					@endphp
 					@endforeach
 					@endif
+					<input hidden type="text" id="jumlah_menu_favorit" value="{{$menu_tampil}}">
 					<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
 						<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_produk_gold.svg" style="width: 100%; margin: 0px;">
 					</a>	
@@ -783,7 +789,42 @@ if (!empty($_GET['deskripsi'])){
 	$('#modal-pemberitahuan').modal('show')
 	@endif
 
-
+	function menu_favorit(id, index){
+		var checkBox = document.getElementById("menu_favorit_"+index);
+		var jumlah_menu_favorit = $("#jumlah_menu_favorit").val();
+		if(jumlah_menu_favorit < 3 && checkBox.checked == true){
+			$.ajax({
+				url: "{{route('ubah_status_produk_premium')}}",
+				method: "post",
+				data : {id:id, _token:'{{csrf_token()}}'},
+				success:function(result)
+				{
+					document.getElementById("menu_favorit_"+index).checked = true;
+					jumlah_menu_favorit++;
+					$("#jumlah_menu_favorit").val(jumlah_menu_favorit);
+				}
+			})
+		}
+		else if(checkBox.checked == false){
+			$.ajax({
+				url: "{{route('ubah_status_produk_premium')}}",
+				method: "post",
+				data : {id:id, _token:'{{csrf_token()}}'},
+				success:function(result)
+				{
+					document.getElementById("menu_favorit_"+index).checked = false;
+					jumlah_menu_favorit--;
+					$("#jumlah_menu_favorit").val(jumlah_menu_favorit);
+				}
+			})
+		}
+		else{
+			document.getElementById("menu_favorit_"+index).checked = false;
+			alert('maksimal menu 3');
+			
+		}
+		
+	}
 
 
 	function tambah_foto_toko(id) {
