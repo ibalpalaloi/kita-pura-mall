@@ -280,12 +280,14 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 @if(Session::get('message') == 'Data Toko Berhasil Diperbarui')
 <div class="modal fade" id="modal-berhasil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
-		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
 			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: -0.5em; z-index: 5;">
-				<img src="<?=url('/')?>/public/img/mitra/modal_simpan_toko_premium.svg" style="width: 95%; position: absolute; top: -10.5em;">
-				<div style="font-size: 2em; font-weight: 600;">Tersimpan</div>
-				<div style="font-size: 1.1em; text-align: center; width: 90%; font-weight: 0; color: #ffe6f1;">Perubahan Toko Telah berhasil disimpan</div>
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
+				<img src="<?=url('/')?>/public/img/modal_assets/modal_simpan_premium.svg" style="width: 100%;">
+				<div style="position: absolute; margin: 3% 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
+					<div style="font-size: 2em; font-weight: 600; text-align: center;">Tersimpan</div>
+					<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">Perubahan toko telah <br>berhasil disimpan</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -387,7 +389,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 			<div style=" display: flex; justify-content: space-between; align-items: center;">
 				<div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">Statistik</div>
 				<div style="display: flex; font-size: 0.7em;color: #a1a4a8;">
-					<div class="btn-menu-analitik analitik-active" id="menu_pekanan" onclick="lihat_chart('pekanan')">Pekanan</div>
+					<div class="btn-menu-analitik analitik-active" id="menu_pekanan" onclick="lihat_chart('pekanan')">Mingguan</div>
 					<div class="btn-menu-analitik" id="menu_bulanan" onclick="lihat_chart('bulanan')">Bulanan</div>
 				</div>				
 			</div>

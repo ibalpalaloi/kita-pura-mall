@@ -413,17 +413,17 @@ $status_ugrade = "";
 				<select type="text" class="form-control form-control-mall-modal" id="jadwal" name="jadwal" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="jadwal" aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
 					<option value="" disabled selected>--- Silahkan Pilih Hari ---</option>
 					@if($jadwal)
-						@for ($i = 0; $i < count($var_text); $i++)
-							@php $indikator = false; @endphp
-							@for ($j = 0; $j < count($loop_hari); $j++)
-								@if ($loop_hari[$j] == $var_text[$i]) 
-									@php $indikator = true; @endphp
-								@endif
-							@endfor
-							@if ($indikator == false)
-								<option value="{{$var_value[$i]}}">{{$var_text[$i]}}</option>
-							@endif
-						@endfor
+					@for ($i = 0; $i < count($var_text); $i++)
+					@php $indikator = false; @endphp
+					@for ($j = 0; $j < count($loop_hari); $j++)
+					@if ($loop_hari[$j] == $var_text[$i]) 
+					@php $indikator = true; @endphp
+					@endif
+					@endfor
+					@if ($indikator == false)
+					<option value="{{$var_value[$i]}}">{{$var_text[$i]}}</option>
+					@endif
+					@endfor
 					@endif
 
 				</select>			
@@ -510,8 +510,8 @@ $status_ugrade = "";
 						@for ($j = 0; $j < count($kategori_id_val); $j++) 
 						@if ($kategori_id_val[$j]==$loop_id_val[$i])
 						<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
-							<div style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
-								{{$kategori_id_val[$j]}}
+							<div style="width: 2.5em; height: 2.5em; background:#FFC331; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
+								{{substr($kategori_val[$j], 0, 1)}}
 							</div> 
 						</div> 
 						<div style="margin-left: 2%; width: 60%;">
@@ -520,7 +520,7 @@ $status_ugrade = "";
 								<?php $loop_val[$i] = $kategori_val[$j]; ?>
 							</div>
 						</div>
-						<div onclick='hapus_kategori("{{$loop_id_val[$i]}}")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
+						<div onclick='hapus_kategori("{{$loop_id_val[$i]}}")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #FFC331; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
 							X
 						</div>
 						@endif 
@@ -535,13 +535,13 @@ $status_ugrade = "";
 			<div id="kategori_sample" style="width: 100%; display: flex; justify-content: center;" hidden>
 				<div class="input-group mb-3 div-input-mall-square" id="kategorinya" style="width: 90%; background: white; border: 1px solid white;">
 					<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
-						<div style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
+						<div style="width: 2.5em; height: 2.5em; background:#FFC331; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
 						simbolnya</div>
 					</div>
 					<div style="margin-left: 2%; width: 60%;">
 						<div style="margin-top: 1em; font-weight: 700; text-align: left;">kategori_nya</div>
 					</div>
-					<div onclick='hapus_kategori("kategorinya")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
+					<div onclick='hapus_kategori("kategorinya")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #FFC331; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
 					X</div>
 				</div>
 			</div>
@@ -567,7 +567,7 @@ $status_ugrade = "";
 				</div>
 
 				<div style="width: 14%; display: flex; justify-content: space-between;">
-					<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 100%; background: #FF006E; display: flex; justify-content: center; color: white; align-items: center;"  onclick="tambah_kategori()">
+					<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 100%; background: #FFC331; display: flex; justify-content: center; color: white; align-items: center;"  onclick="tambah_kategori()">
 						<i class="fa fa-plus"></i>
 					</div>
 				</div>
@@ -632,10 +632,10 @@ $status_ugrade = "";
 						<input type="text" id="username_toko" name="username_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Username Toko" aria-label="Username Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" required value="{{$toko->username}}">
 					</div>
 				</div>
-				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="height: 7.5em; justify-content: flex-start; background: #292929; border: none; border-radius: 0.5em;">
-					<span style="margin-top: 0px; color: white; font-weight: 600;">Deskripsi</span>
-					<div style="height: 5em; width: 100%;">
-						<textarea id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 6em; border-radius: 0px; margin: 1em 0.6em 1em 0.6em;  background: #292929; color: #dddddd; border: none; font-size: 0.7em; padding: 0.3em 1em 0.5em 1em; text-align: justify;" rows="5" required>{{$toko->deskripsi}}</textarea>
+				<div class="input-group mb-3 st0 @if($errors->first('input_kategori')) is-invalid @endif" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; height: 8.5em;">
+					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em; margin-bottom: 0; padding-left: 0.2em; line-height: 0.1em; padding-top: 0.8em;">Deskripsi Toko</div>
+					<div style="height: 5em; width: 100%; padding: 0;">
+						<textarea id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 6em; border-radius: 0.5em; margin: 0em 0em 1em 0em;  background: #292929; color: #dddddd; border: none; font-size: 0.9em; padding: 0.3em 0.6em 0.5em 0.6em; text-align: justify;" rows="5" required placeholder="Masukan deskripsi singkat tentang toko">{{$toko->deskripsi}}</textarea>
 					</div>
 				</div>
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
@@ -1050,7 +1050,7 @@ crossorigin=""></script>
     };
 
     var food_icon = L.icon({
-    	iconUrl: "<?=url('/')?>/public/img/maps/food.svg",
+    	iconUrl: "<?=url('/')?>/public/img/maps/logo_maps.svg",
                 iconSize:     [38, 95], // size of the icon
                 shadowSize:   [50, 64], // size of the shadow
                 iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location

@@ -66,18 +66,24 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$produk_id = $this->autocode('PD-');
 
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
-
+		echo str_replace(',', '', $request->harga_produk);
 		// @Tambah Produk
 		$produk = new product;
 		$produk->id = $produk_id;
 		$produk->toko_id = $toko->id;
 		$produk->kategori_id = $request->kategori_produk;
 		$produk->nama = $request->nama_produk;
-		$produk->harga = $request->harga_produk;
-		$produk->diskon = $request->diskon_produk;
 		$produk->jenis_harga = $request->jenis_harga;
-		$produk->harga_terendah = $request->harga_terendah;
-		$produk->harga_tertinggi = $request->harga_tertinggi;
+		if ($produk->jenis_harga == 'Statis'){
+			$produk->harga = str_replace(',', '', $request->harga_produk);
+			$produk->diskon = $request->diskon_produk;			
+			$produk->harga_terendah = 0;
+		}
+		else {
+			$produk->harga = 0;
+			$produk->diskon = 0;			
+			$produk->harga_terendah = str_replace(',', '', $request->harga_terendah);
+		}
 		$produk->deskripsi = $request->deskripsi;
 		$produk->sub_kategori_id = $request->sub_kategori_produk;
 		if($request->stok == 'on'){
@@ -154,17 +160,14 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$produk->nama = $request->nama_produk;
 		$produk->jenis_harga = $request->jenis_harga;
 		if ($produk->jenis_harga == 'Statis'){
-			$produk->harga = $request->harga_produk;
+			$produk->harga = str_replace(',', '', $request->harga_produk);
 			$produk->diskon = $request->diskon_produk;			
 			$produk->harga_terendah = 0;
-			$produk->harga_tertinggi = 0;			
 		}
 		else {
 			$produk->harga = 0;
 			$produk->diskon = 0;			
-			$produk->harga_terendah = $request->harga_terendah;
-			$produk->harga_tertinggi = $request->harga_tertinggi;
-
+			$produk->harga_terendah = str_replace(',', '', $request->harga_terendah);
 		}
 		$produk->deskripsi = $request->deskripsi;
 		if($request->stok == 'on'){

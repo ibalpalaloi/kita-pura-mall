@@ -402,16 +402,16 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
 						<span class="input-group-text-mall" style="width: 100%; background: #202020; padding-top: 0.45em; padding-bottom: 0.65em; border-radius: 0.5em; display: flex; justify-content: flex-start; align-items: center; padding-left: 0.2em;">
 							@if ($produk->jenis_harga == 'Statis')
-							<span style="margin-left: 0.5em; margin-right: 2em; color:" id="option_statis" onclick="pilih_jenhar(this.id,'Statis')"><img id="img_statis" src="<?=url('/')?>/public/img/icon_svg/selected.svg">&nbsp;&nbsp;Statis
+							<span style="margin-left: 0.5em; margin-right: 2em; color:" id="option_statis" onclick="pilih_jenhar(this.id,'Statis')"><img id="img_statis" src="<?=url('/')?>/public/img/icon_svg/selected.svg">&nbsp;&nbsp;Tetap
 							</span>
 							<span style="margin-right: 0.5em; color:" id="option_range" onclick="pilih_jenhar(this.id, 'Range')">
-								<img id="img_range" src="<?=url('/')?>/public/img/icon_svg/not_select.svg">&nbsp;&nbsp;Range
+								<img id="img_range" src="<?=url('/')?>/public/img/icon_svg/not_select.svg">&nbsp;&nbsp;Custom
 							</span>
 							@else
-							<span style="margin-left: 0.5em; margin-right: 2em; color:" id="option_statis" onclick="pilih_jenhar(this.id,'Statis')"><img id="img_statis" src="<?=url('/')?>/public/img/icon_svg/not_select.svg">&nbsp;&nbsp;Statis
+							<span style="margin-left: 0.5em; margin-right: 2em; color:" id="option_statis" onclick="pilih_jenhar(this.id,'Statis')"><img id="img_statis" src="<?=url('/')?>/public/img/icon_svg/not_select.svg">&nbsp;&nbsp;Tetap
 							</span>
 							<span style="margin-right: 0.5em; color:" id="option_range" onclick="pilih_jenhar(this.id, 'Range')">
-								<img id="img_range" src="<?=url('/')?>/public/img/icon_svg/selected.svg">&nbsp;&nbsp;Range
+								<img id="img_range" src="<?=url('/')?>/public/img/icon_svg/selected.svg">&nbsp;&nbsp;Custom
 							</span>
 							@endif
 
@@ -421,51 +421,55 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 				</div>
 				<div class="input-group mb-3 st0" id="div_harga_statis" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex;justify-content: space-between;" @if ($produk->jenis_harga == 'Range') hidden @endif >
-					<div class="harga" style="width: 45%;">
+					<div class="harga" style="width: 70%;">
 						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Harga</div>
 						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
 							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
 								<img src="<?=url('/')?>/public/img/icon_svg/harga_white.svg" style="width: 70%;">
 							</span>
-							<input type="number" class="form-control-mall" id="harga_produk" name="harga_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Harga" aria-label="harga_produk" aria-describedby="basic-addon1" style="width: 100%;" value="{{$produk->harga}}">
+							<input type="text" class="form-control-mall" id="harga_produk" name="harga_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Harga" aria-label="harga_produk" aria-describedby="basic-addon1" onkeyup="harga_diskon()" style="width: 100%;" value="{{number_format($produk->harga,0,',',',')}}">
 						</div>
 					</div>
-					<div class="diskon" style="width: 45%;">
+					<div class="diskon" style="width: 25%;">
 						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Diskon</div>
 						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
 							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
 								<img src="<?=url('/')?>/public/img/icon_svg/percent_white.svg" style="width: 60%;">
 							</span>
-							<input type="number" class="form-control-mall" id="diskon_produk" name="diskon_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Diskon Produk" aria-label="diskon_produk" aria-describedby="basic-addon1" style="width: 100%;" value="{{$produk->diskon}}">
+							<input type="number" class="form-control-mall" id="diskon_produk" name="diskon_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Diskon Produk" aria-label="diskon_produk" aria-describedby="basic-addon1" onkeyup="harga_diskon()" style="width: 100%;" value="{{$produk->diskon}}">
 						</div>
 					</div>
+					<div class="harga" style="width: 100%;">
+						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em; margin-top: 0.5em;">Harga Setelah Diskon</div>
+						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
+								<img src="<?=url('/')?>/public/img/icon_svg/harga_white.svg" style="width: 70%;">
+							</span>
+							<?php
+								$temp_harga_diskon = $produk->harga*$produk->diskon/100;
+								$harga_diskon = $produk->harga-$temp_harga_diskon;				
+							?>
+							<input type="text" class="form-control-mall" id="harga_diskon_input" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Harga Setelah Diskon" aria-label="harga_diskon" aria-describedby="basic-addon1" style="width: 100%;" readonly value="{{number_format($harga_diskon,0,',',',')}}">
+						</div>
+					</div>	
 
 				</div>
 				<div class="input-group mb-3 st0" id="div_harga_range" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex;justify-content: space-between;" @if ($produk->jenis_harga == 'Statis') hidden @endif>
-					<div class="harga" style="width: 45%;">
-						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Harga Terendah</div>
+					<div class="harga" style="width: 100%;">
+						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Harga Mulai</div>
 						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
 							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
 								<img src="<?=url('/')?>/public/img/icon_svg/harga_white.svg" style="width: 70%;">
 							</span>
-							<input type="number" class="form-control-mall" id="harga_terendah" name="harga_terendah" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Harga" aria-label="harga_produk" aria-describedby="basic-addon1" style="width: 100%;" value="{{$produk->harga_terendah}}">
-						</div>
-					</div>
-					<div class="diskon" style="width: 45%;">
-						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Harga Tertinggi</div>
-						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
-							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
-								<img src="<?=url('/')?>/public/img/icon_svg/harga_white.svg" style="width: 70%;">
-							</span>
-							<input type="number" class="form-control-mall" id="harga_tertinggi" name="harga_tertinggi" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Harga" aria-label="diskon_produk" aria-describedby="basic-addon1" style="width: 100%;" value="{{$produk->harga_tertinggi}}">
+							<input type="text" class="form-control-mall" id="harga_terendah" name="harga_terendah" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Harga" aria-label="harga_produk" aria-describedby="basic-addon1" style="width: 100%;" value="{{number_format($produk->harga_terendah,0,',',',')}}">
 						</div>
 					</div>
 				</div>
 
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Deskripsi</div>
-					<div style="height: 11.5em; width: 100%;">
-						<textarea id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 15em; border-radius: 0px; margin-top: 0.5em; background: #292929; color: #dddddd; border: none; font-size: 0.7em; padding: 0.3em 1em 0.5em 1em; text-align: justify; border-radius: 0.5em;" rows="10" required placeholder="Silahkan Isi Deskripsi Produk...">{{$produk->deskripsi}}</textarea>
+					<div style="height: 16em; width: 100%;">
+						<textarea id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 15em; border-radius: 0px; margin-top: 0.5em; background: #292929; color: #dddddd; border: none; font-size: 1em; padding: 0.3em 1em 0.5em 1em; text-align: justify; border-radius: 0.5em;" rows="10" required placeholder="Silahkan Isi Deskripsi Produk...">{{$produk->deskripsi}}</textarea>
 					</div>
 				</div>
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.7em 1em 0.5em 1em; border-radius: 0.5em; display: flex; justify-content: space-between;">
@@ -546,6 +550,17 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		readURL(this);
 	});
 
+	function harga_diskon(){
+		// alert('tes');
+		var harga = $("#harga_produk").val().replaceAll(',', '');
+		var diskon = $("#diskon_produk").val();
+		var temp_harga_diskon = "";
+		var temp_harga_diskon = harga*diskon/100;
+		var harga_diskon = parseInt(harga)-parseInt(temp_harga_diskon);
+		$("#harga_diskon_input").val(harga_diskon.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+	}
+
+
 	function input_focus(id){
 		$("#div_"+id).css('border', '1px solid #d1d2d4');
 	}
@@ -554,86 +569,199 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$("#div_"+id).css('border', '1px solid white');		
 	}		
 
-
-	function pilih_lokasi(){
-		location.href="<?=url()->current()?>/pilih-lokasi?pemilik="+$("#nama_pemilik").val()+"&no_hp="+$("#no_hp").val()+"&kategori=" + $("#kategori_toko").val()+"&hari="+$("#jadwal_hari").val()+"&buka="+$("#jadwal_buka").val()+"&tutup="+$("#jadwal_tutup").val()+"&deskripsi="+$("#deskripsi").val();		
+	$("#harga_produk").on("keydown", function(e) {
+		var keycode = (event.which) ? event.which : event.keyCode;
+		if (e.shiftKey == true || e.ctrlKey == true) return false;
+		if ([8, 110, 39, 37, 46].indexOf(keycode) >= 0 || 
+    (keycode == 190 && this.value.indexOf('.') === -1) || // allow dot if not exists in the value
+    (keycode == 110 && this.value.indexOf('.') === -1) || // allow dot if not exists in the value
+    (keycode >= 48 && keycode <= 57) || // allow numbers
+    (keycode >= 96 && keycode <= 105)) { // allow numpad numbers
+    // check for the decimals after dot and prevent any digits
+var parts = this.value.split('.');
+    if (parts.length > 1 && // has decimals
+      parts[1].length >= 2 && // should limit this
+      (
+      	(keycode >= 48 && keycode <= 57) || (keycode >= 96 && keycode <= 105)
+      ) // requested key is a digit
+      ) {
+    	return false;
+} else {
+	if (keycode == 110) {
+		this.value += ".";
+		return false;
 	}
+	return true;
+}
+} else {
+	return false;
+}
+}).on("keyup", function() {
+	var parts = this.value.split('.');
+	parts[0] = parts[0].replace(/,/g, '').replace(/^0+/g, '');
+	if (parts[0] == "") parts[0] = "0";
+	var calculated = parts[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+	if (parts.length >= 2) calculated += "." + parts[1].substring(0, 2);
+	this.value = calculated;
+	if (this.value == "NaN" || this.value == "") this.value = 0;
+});
 
-	function pilih_jadwal(){
-		$('.modal').modal('show'); 
+
+$("#harga_diskon").on("keydown", function(e) {
+	var keycode = (event.which) ? event.which : event.keyCode;
+	if (e.shiftKey == true || e.ctrlKey == true) return false;
+	if ([8, 110, 39, 37, 46].indexOf(keycode) >= 0 || 
+    (keycode == 190 && this.value.indexOf('.') === -1) || // allow dot if not exists in the value
+    (keycode == 110 && this.value.indexOf('.') === -1) || // allow dot if not exists in the value
+    (keycode >= 48 && keycode <= 57) || // allow numbers
+    (keycode >= 96 && keycode <= 105)) { // allow numpad numbers
+    // check for the decimals after dot and prevent any digits
+var parts = this.value.split('.');
+    if (parts.length > 1 && // has decimals
+      parts[1].length >= 2 && // should limit this
+      (
+      	(keycode >= 48 && keycode <= 57) || (keycode >= 96 && keycode <= 105)
+      ) // requested key is a digit
+      ) {
+    	return false;
+} else {
+	if (keycode == 110) {
+		this.value += ".";
+		return false;
 	}
+	return true;
+}
+} else {
+	return false;
+}
+}).on("keyup", function() {
+	var parts = this.value.split('.');
+	parts[0] = parts[0].replace(/,/g, '').replace(/^0+/g, '');
+	if (parts[0] == "") parts[0] = "0";
+	var calculated = parts[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+	if (parts.length >= 2) calculated += "." + parts[1].substring(0, 2);
+	this.value = calculated;
+	if (this.value == "NaN" || this.value == "") this.value = 0;
+});
 
-
-	function tambah_jadwal(){
-		var simbol = $("#jadwal").val();
-		var hari = $("#jadwal option:selected").text();
-		var waktu_tutup = $("#waktu_tutup").val();
-		var waktu_buka = $("#waktu_buka").val();
-		var jadwal_sample = $("#jadwal_sample").html();
-		var fix_id = jadwal_sample.replaceAll(hari.replaceAll(" ", '_')).trim();
-		var fix_harinya = fix_id.replaceAll("harinya", hari).trim();
-		var fix_waktu = fix_harinya.replace("jamnya", waktu_buka+" - "+waktu_tutup).trim();
-		var fix_simbol = fix_waktu.replace("simbolnya", simbol).trim();
-		$("#jadwal_fix").append(fix_simbol);
-
-		jadwal_hari.push(hari);
-		jadwal_buka.push(waktu_buka);
-		jadwal_tutup.push(waktu_tutup);
-
-		check_select();		
-		i++;
+$("#harga_terendah").on("keydown", function(e) {
+	var keycode = (event.which) ? event.which : event.keyCode;
+	if (e.shiftKey == true || e.ctrlKey == true) return false;
+	if ([8, 110, 39, 37, 46].indexOf(keycode) >= 0 || 
+    (keycode == 190 && this.value.indexOf('.') === -1) || // allow dot if not exists in the value
+    (keycode == 110 && this.value.indexOf('.') === -1) || // allow dot if not exists in the value
+    (keycode >= 48 && keycode <= 57) || // allow numbers
+    (keycode >= 96 && keycode <= 105)) { // allow numpad numbers
+    // check for the decimals after dot and prevent any digits
+var parts = this.value.split('.');
+    if (parts.length > 1 && // has decimals
+      parts[1].length >= 2 && // should limit this
+      (
+      	(keycode >= 48 && keycode <= 57) || (keycode >= 96 && keycode <= 105)
+      ) // requested key is a digit
+      ) {
+    	return false;
+} else {
+	if (keycode == 110) {
+		this.value += ".";
+		return false;
 	}
+	return true;
+}
+} else {
+	return false;
+}
+}).on("keyup", function() {
+	var parts = this.value.split('.');
+	parts[0] = parts[0].replace(/,/g, '').replace(/^0+/g, '');
+	if (parts[0] == "") parts[0] = "0";
+	var calculated = parts[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+	if (parts.length >= 2) calculated += "." + parts[1].substring(0, 2);
+	this.value = calculated;
+	if (this.value == "NaN" || this.value == "") this.value = 0;
+});
 
-	function pilih_jenhar(id, jenhar){
-		$("#jenis_harga").val(jenhar);
-		if (id == 'option_statis'){
-			$("#img_statis").attr('src', "<?=url('/')?>/public/img/icon_svg/selected.svg");
-			$("#img_range").attr('src', "<?=url('/')?>/public/img/icon_svg/not_select.svg");
-			$("#div_harga_statis").prop('hidden', false);
-			$("#div_harga_range").prop('hidden', true);
-		}
-		else {
-			$("#img_statis").attr('src', "<?=url('/')?>/public/img/icon_svg/not_select.svg");
-			$("#img_range").attr('src', "<?=url('/')?>/public/img/icon_svg/selected.svg");
-			$("#div_harga_statis").prop('hidden', true);
-			$("#div_harga_range").prop('hidden', false);
-		}
+
+
+function pilih_lokasi(){
+	location.href="<?=url()->current()?>/pilih-lokasi?pemilik="+$("#nama_pemilik").val()+"&no_hp="+$("#no_hp").val()+"&kategori=" + $("#kategori_toko").val()+"&hari="+$("#jadwal_hari").val()+"&buka="+$("#jadwal_buka").val()+"&tutup="+$("#jadwal_tutup").val()+"&deskripsi="+$("#deskripsi").val();		
+}
+
+function pilih_jadwal(){
+	$('.modal').modal('show'); 
+}
+
+
+function tambah_jadwal(){
+	var simbol = $("#jadwal").val();
+	var hari = $("#jadwal option:selected").text();
+	var waktu_tutup = $("#waktu_tutup").val();
+	var waktu_buka = $("#waktu_buka").val();
+	var jadwal_sample = $("#jadwal_sample").html();
+	var fix_id = jadwal_sample.replaceAll(hari.replaceAll(" ", '_')).trim();
+	var fix_harinya = fix_id.replaceAll("harinya", hari).trim();
+	var fix_waktu = fix_harinya.replace("jamnya", waktu_buka+" - "+waktu_tutup).trim();
+	var fix_simbol = fix_waktu.replace("simbolnya", simbol).trim();
+	$("#jadwal_fix").append(fix_simbol);
+
+	jadwal_hari.push(hari);
+	jadwal_buka.push(waktu_buka);
+	jadwal_tutup.push(waktu_tutup);
+
+	check_select();		
+	i++;
+}
+
+function pilih_jenhar(id, jenhar){
+	$("#jenis_harga").val(jenhar);
+	if (id == 'option_statis'){
+		$("#img_statis").attr('src', "<?=url('/')?>/public/img/icon_svg/selected.svg");
+		$("#img_range").attr('src', "<?=url('/')?>/public/img/icon_svg/not_select.svg");
+		$("#div_harga_statis").prop('hidden', false);
+		$("#div_harga_range").prop('hidden', true);
 	}
+	else {
+		$("#img_statis").attr('src', "<?=url('/')?>/public/img/icon_svg/not_select.svg");
+		$("#img_range").attr('src', "<?=url('/')?>/public/img/icon_svg/selected.svg");
+		$("#div_harga_statis").prop('hidden', true);
+		$("#div_harga_range").prop('hidden', false);
+	}
+}
 
 
-	function check_select(){
-		var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
-		var option_text = ["Setiap-Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis","Jumat", "Sabtu", "Minggu"];
-		var option = "";
-		for (var i = 0; i < option_text.length; i++){
-			var indikator = false;
-			for (var j = 0; j < jadwal_hari.length; j++){
-				if (jadwal_hari[j] == option_text[i]){
-					indikator = true;
-				}
+function check_select(){
+	var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
+	var option_text = ["Setiap-Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis","Jumat", "Sabtu", "Minggu"];
+	var option = "";
+	for (var i = 0; i < option_text.length; i++){
+		var indikator = false;
+		for (var j = 0; j < jadwal_hari.length; j++){
+			if (jadwal_hari[j] == option_text[i]){
+				indikator = true;
 			}
-			if (indikator == false){
-				option += "<option value='"+option_value[i]+"' >"+option_text[i]+"</option>"; 				
-			}
 		}
-		$("#jadwal").html(option);		
-		var string_hari = jadwal_hari.toString();
-		var string_buka = jadwal_buka.toString();
-		var string_tutup = jadwal_tutup.toString();
-		$("#jadwal_hari").val(string_hari.replaceAll(",", "~"));
-		$("#jadwal_buka").val(string_buka.replaceAll(",", "~"));
-		$("#jadwal_tutup").val(string_tutup.replaceAll(",", "~"));
+		if (indikator == false){
+			option += "<option value='"+option_value[i]+"' >"+option_text[i]+"</option>"; 				
+		}
+	}
+	$("#jadwal").html(option);		
+	var string_hari = jadwal_hari.toString();
+	var string_buka = jadwal_buka.toString();
+	var string_tutup = jadwal_tutup.toString();
+	$("#jadwal_hari").val(string_hari.replaceAll(",", "~"));
+	$("#jadwal_buka").val(string_buka.replaceAll(",", "~"));
+	$("#jadwal_tutup").val(string_tutup.replaceAll(",", "~"));
 
-		if ($("#jadwal_hari").val() == ''){
-			$("#pilih_jadwal_buka_toko").html("Pilih Jadwal Buka Tutup Toko");
-		}
-		else {
-			$("#pilih_jadwal_buka_toko").html("Telah memilih Jadwal");			
-		}
-
+	if ($("#jadwal_hari").val() == ''){
+		$("#pilih_jadwal_buka_toko").html("Pilih Jadwal Buka Tutup Toko");
+	}
+	else {
+		$("#pilih_jadwal_buka_toko").html("Telah memilih Jadwal");			
 	}
 
-	function hapus_jadwal(hari){
+}
+
+function hapus_jadwal(hari){
 		// alert(id);
 		var temp;
 		for (var i = 0; i < jadwal_hari.length; i++){
