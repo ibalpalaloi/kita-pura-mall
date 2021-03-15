@@ -125,7 +125,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 			$foto->no_foto = $request->nomor_foto;
 			$foto->save();
 		}
-		return redirect()->back();
+		// return redirect()->back();
 	}
 
 	public function produk_premium($id){
