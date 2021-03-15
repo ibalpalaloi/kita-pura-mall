@@ -59,8 +59,6 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$this->validate($request,[
 			'nama_produk' => 'required',
 			'kategori_produk' => 'required',
-			'harga_produk' => 'required',
-			'diskon_produk' => 'required',
 			'deskripsi' => 'required',
 			'foto_toko' => 'required',
 		]);
@@ -77,14 +75,25 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$produk->nama = $request->nama_produk;
 		$produk->harga = $request->harga_produk;
 		$produk->diskon = $request->diskon_produk;
+		$produk->jenis_harga = $request->jenis_harga;
+		$produk->harga_terendah = $request->harga_terendah;
+		$produk->harga_tertinggi = $request->harga_tertinggi;
 		$produk->deskripsi = $request->deskripsi;
 		$produk->sub_kategori_id = $request->sub_kategori_produk;
 		if($request->stok == 'on'){
 			$produk->stok = "Tersedia";
 		}
 		// @Tambah Foto
-		// \Storage::disk('public')->put('img.$file_upload, file_get_contents($files));
-		File::move(public_path('img/temp_produk/'.$request->nama_foto_temp), public_path('img/toko/'.$toko->id.'/produk/'.$request->nama_foto_temp));
+		$files = $request->file("foto_toko");
+		// echo $request->nama_foto_temp;
+		// echo $files;
+		$image_path = "img/toko/$toko->id/produk/$request->nama_foto_temp";
+		\Storage::disk('public')->put($image_path, file_get_contents($files));
+		\File::delete($image_path);			
+
+		// echo "berhasil";
+		File::move(public_path('img/temp_produk/'.$request->nama_foto_temp), public_path($image_path));
+
 		$produk->foto_produk = $request->nama_foto_temp;
 		$produk->save();
 
@@ -136,8 +145,6 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$this->validate($request,[
 			'nama_produk' => 'required',
 			'kategori_produk' => 'required',
-			'harga_produk' => 'required',
-			'diskon_produk' => 'required',
 			'deskripsi' => 'required',
 		]);
 
@@ -145,8 +152,20 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$produk = product::where('id', $id)->where('toko_id', $toko->id)->first();
 		$produk->kategori_id = $request->kategori_produk;
 		$produk->nama = $request->nama_produk;
-		$produk->harga = $request->harga_produk;
-		$produk->diskon = $request->diskon_produk;
+		$produk->jenis_harga = $request->jenis_harga;
+		if ($produk->jenis_harga == 'Statis'){
+			$produk->harga = $request->harga_produk;
+			$produk->diskon = $request->diskon_produk;			
+			$produk->harga_terendah = 0;
+			$produk->harga_tertinggi = 0;			
+		}
+		else {
+			$produk->harga = 0;
+			$produk->diskon = 0;			
+			$produk->harga_terendah = $request->harga_terendah;
+			$produk->harga_tertinggi = $request->harga_tertinggi;
+
+		}
 		$produk->deskripsi = $request->deskripsi;
 		if($request->stok == 'on'){
 			$produk->stok = "Tersedia";

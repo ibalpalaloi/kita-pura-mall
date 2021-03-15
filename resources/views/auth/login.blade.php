@@ -215,9 +215,39 @@
         .sosmed > img {
             margin: 0px 0.6em 0px 0.6em !important;
         }
-    </style>
+
+        input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+          color: white !important;
+          opacity: 1; /* Firefox */
+      }
+
+      input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+          color: white !important;
+      }
+
+      input::-ms-input-placeholder { /* Microsoft Edge */
+          color: white !important;
+      }
+  </style>
 </head>
-<body style="margin: 0px; background: #fb036b;">
+<body style="margin: 0px; background: #EAF4FF;">
+    @if(Session::get('message') == 'Masih Menunggu')
+    <div class="modal fade" id="modal-verifikasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+            <div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+                <div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                    <img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: 0;">
+                    <img src="<?=url('/')?>/public/img/mitra/modal_daftar_register.svg" style="width: 80%; position: absolute; top: -16em;">
+                    <div style="font-size: 2em; font-weight: 600; margin-top: 1em;">Mohon Tunggu...</div>
+                    <div style="font-size: 1.1em; text-align: center; width: 90%; font-weight: 0; color: #ffe6f1;">kitapuramall akan mengkonfirmasi permintaan anda. mohon tunggu konfirmasi</div>
+                    <a href="<?=url('/')?>/akun/pengaturan-profil" style="margin-bottom: 1em; font-size: 1.1em;margin-top: 0.5em; text-align: center; text-decoration: underline; color: white;">Konfirmasi lama? Klik disini
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <header class="style__Container-sc-3fiysr-0 header">
         <div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
             <a id="defaultheader_logo" title="Kitapura Mall" href="/">
@@ -227,34 +257,34 @@
         </div>
     </header>
 
-    <div class="wrapper" style="background: #fb036b; margin-top: 2em; display: flex; justify-content: center;">
-        <div class="banner">
-            <img src="<?=url('/')?>/public/img/register/animasi_login.gif" style="width: 100%;">
-            <div style="color: white; text-align: center; padding-top: 0.5em; ">
-                <h3>Semuanya ada disini !</h3>
-                <span>Belanja, cari jasa dan apapun yang<br>kalian butuhkan. semuanya ada<br>di kitapura mall.</span>
+    <div class="wrapper" style="background: #EAF4FF; margin-top: 2em; display: flex; justify-content: center;">
+        <div class="banner" style="display: flex;justify-content: center; flex-direction: column; align-items: center;">
+            <img src="<?=url('/')?>/public/img/register/mitra_login.svg" style="width: 75%;">
+            <div style="color: white; text-align: center; padding-top: 0.5em; display: flex; justify-content: center; flex-direction: column; align-items: center; ">
+                <h3 style="color: black; font-weight: 500;">Spesial!! Jadilah Mitra <br>Pertama di kitapuramall</h3>
+                <div style="color: #7D7D7D; width: 80%; line-height: 1.3em;">buat kalian yang punya usaha, silahkan daftar sekarang. dan nikmati fitur mitra premium di kitapuramall gratis. kuota terbatas. kesempatan ini dibuka dari tanggal <span style="font-weight: 600; color: black;">21 - 30 Maret 2021</span> sebelum aplikasi kitapuramall Terbuka untuk umum. <span style="font-weight: 600; color: black;">Buruan daftar sekarang!!!</span></div>
             </div>
         </div>
     </div>
-    <div class="footer" style="background: #fb036b;">
-        <div style="text-align: center; width: 100%;">Masukan nomor hp kamu disini</div>
+    <div class="footer" style="background: #EAF4FF;">
+        <div style="color: #353535; font-weight: 500;">Silahkan daftarkan nomor hp anda</div>
         <form action="<?=url('/masuk')?>" method="post" class="container-mall" style="display: flex; justify-content: space-around; width: 100%;">
             {{csrf_field()}}
-            <div class="footer-mall-menu" style="width: 100%; height: 3.5em; display: flex; align-items: center; justify-content: space-around;">
+            <div class="footer-mall-menu" style="width: 100%; height: 3.5em; display: flex; align-items: center; justify-content: space-around; background: #fb036b;">
                 <div style="display: flex; justify-content: row; align-items: center; margin-left: 1.5em;">
                     <div style="padding-top: 0.5em;">
                         <img src="<?=url('/')?>/public/img/register/indonesia.svg">
                     </div>
                     <div>
-                        <span style="color: black;">+62&nbsp;</span>
+                        <span style="color: white;">+62&nbsp;</span>
                     </div>
                 </div>
                 <div>
-                    <input type="text" name="nomor_hp" id="nomor_hp" class="form-control" style="width: 90% !important; padding: .375rem; border: none;" placeholder="851-5628-9855" name="no_telp" required>
+                    <input type="text" name="nomor_hp" id="nomor_hp" class="form-control" style="width: 90% !important; padding: .375rem; border: none; background: #fb036b; color: white;" placeholder="851-5628-9855" name="no_telp" required>
                 </div>
                 <div style="display: flex; justify-content: row; align-items: center; margin-right: 1.5em;">
                     <button type="submit" class="btn" style="text-align: center;">
-                        <i class="fas fa-sign-in-alt" style="color: black; font-size: 1.5em;"></i>
+                        <i class="fas fa-sign-in-alt" style="color: white; font-size: 1.5em;"></i>
                     </button>
                 </div>
             </div> 
@@ -262,6 +292,10 @@
     </div>
 </body>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+
 <script type="text/javascript">
     (function($) {
         $.fn.nodoubletapzoom = function() {
@@ -281,5 +315,10 @@
     $('#nomor_hp').keyup(function(){
         $(this).val($(this).val().replace(/(\d{3})\-?(\d{4})\-?(\d{4})/,'$1-$2-$3'))
     });		
+
+    @if(Session::get('message') == 'Masih Menunggu')
+    $('#modal-verifikasi').modal('show');
+    @endif
+
 </script>
 </html>

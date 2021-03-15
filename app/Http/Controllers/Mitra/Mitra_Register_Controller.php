@@ -66,7 +66,7 @@ class Mitra_Register_Controller extends Controller
 
 		$this->validate($request,[
 			'nama_toko' => 'required',
-			// 'kategori_toko' => 'required',
+			// 'username' => 'required',
 			'no_hp' => 'required',
 			'jadwal_hari' => 'required',
 			'jadwal_buka' => 'required',
@@ -76,15 +76,23 @@ class Mitra_Register_Controller extends Controller
 		
 		if ($jenis_mitra == 'premium'){
 			$this->validate($request,[
-				'deskripsi' => 'required'
+                'deskripsi' => 'required',
+				'username' => 'required|unique:toko'
 			]);
 		};
         Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->delete();
 
 		$toko_id = $this->autocode('TK-');
 		// @Tambah Toko
-		$toko = new Daftar_tunggu_toko;
+		if ($request->username == ''){
+            $username = $this->autocode('MITRA_');
+        }
+        else {
+            $username = $request->username;
+        }
+        $toko = new Daftar_tunggu_toko;
 		$toko->toko_id = $toko_id;
+        $toko->username = $username;
 		$toko->users_id = Session::get('id_user');
 		$toko->jenis_mitra = $jenis_mitra;
 		$toko->kategori_toko_id = $request->kategori_toko;

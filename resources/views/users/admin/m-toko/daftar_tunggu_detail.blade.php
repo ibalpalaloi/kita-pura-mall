@@ -54,6 +54,12 @@ Detail Daftar Tunguu
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-md-12">Username</label>
+                            <div class="col-md-12">
+                                <input name="username" type="text" class="form-control form-control-line" value="{{$toko->username}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="example-email" class="col-md-12">No Hp</label>
                             <div class="col-md-12">
                                 <input name="no_hp" type="text" class="form-control form-control-line" value="{{$toko->no_hp}}">
