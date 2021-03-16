@@ -371,11 +371,11 @@ style="padding: 1.5em; padding: 0px;">
 </div>
 
 <main id="homepage" class="homepage" style="background: #eaf4ff; padding-bottom: -1.5em;">
-	<div class="kategori" style="background: #9d0208; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 2em 8%; display: flex; flex-direction: column;">
+	<div class="kategori" style="background: {{$landing_page->warna_header}}; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 2em 8%; display: flex; flex-direction: column;">
 		<div class="info-toko" style="display: flex; justify-content: space-between; width: 100%;">
 			<div class="nama-toko" style="width: 80%;">
-				<h3 style="color: white; font-weight: 500; word-wrap: break-word;">{{$toko->nama_toko}}</h3>
-				<h6 style="color: white; line-height: 0.5em;">@<?=$toko->username?></h6>
+				<h3 style="color: {{$landing_page->warna_tulisan_header}}; font-weight: 500; word-wrap: break-word;">{{$toko->nama_toko}}</h3>
+				<h6 style="color: {{$landing_page->warna_tulisan_header}}; line-height: 0.5em;">@<?=$toko->username?></h6>
 			</div>
 			@if (($toko->latitude == null) && ($toko->longitude == null))
 			<div href="https://www.google.com/maps/search/?api=1&query={{$toko->latitude}},{{$toko->longitude}}" class="lokasi" style="display: flex; align-items: center;">
@@ -408,22 +408,22 @@ style="padding: 1.5em; padding: 0px;">
 					@endforeach
 				</div>
 				<div>
-					<div style="color: white; font-size: 0.8em;">{{count($penilaian)}} Penilaian</div>
+					<div style="color: {{$landing_page->warna_tulisan_header}}; font-size: 0.8em;">{{count($penilaian)}} Penilaian</div>
 				</div>
 			</div>
 			@if(Auth()->user()->id != $toko->user->id)
-			<div style="color: white; font-size: 0.8em; margin-top: 1.2em;" onclick="menilai()">				
+			<div style="color: {{$landing_page->warna_tulisan_header}}; font-size: 0.8em; margin-top: 1.2em;" onclick="menilai()">				
 				<i class="far fa-star star-rating"></i>&nbsp;Saya ingin menilai
 			</div>
 			@endif
 			
-			<div class="deskripsi" style="color: white; font-size: 0.7em; margin-top: 0.8em;">{{$toko->deskripsi}}</div>
-			<hr style="width: 2em; margin-top: 1.5em; border: 1.5px solid white; background: white; border-radius: 1.5em;">
+			<div class="deskripsi" style="color: {{$landing_page->warna_tulisan_header}}; font-size: 0.7em; margin-top: 0.8em;">{{$toko->deskripsi}}</div>
+			<hr style="width: 2em; margin-top: 1.5em; border: 1.5px solid {{$landing_page->warna_tulisan_header}}; background: {{$landing_page->warna_tulisan_header}}; border-radius: 1.5em;">
 		</div>
 
 	</div>
 
-	<div class="landing_page" style="position: relative; top: -1.5em; z-index: 3; border-top-left-radius: 1.5em;border-top-right-radius: 1.5em; background: white;">
+	<div class="landing_page" style="position: relative; top: -1.5em; z-index: 3; border-top-left-radius: 1.5em;border-top-right-radius: 1.5em; background: {{$landing_page->warna_body}};">
 		<div class="row-mall" style="padding: 0.7em 4% 1.2em 4%; margin-top: -6em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em; padding: 2em 1em 1em 1em;">
 			@if ($video)
 			<div>
@@ -559,7 +559,7 @@ style="padding: 1.5em; padding: 0px;">
 					<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu" style="color: #111111;">Lihat lebih banyak</a>
 				</div>
 			</div>
-			<div style="background: #9d0208; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 2em 8%; display: flex; flex-direction: column; margin-top: 1em; width: 100%;">
+			<div style="background: {{$landing_page->warna_footer_1}}; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 2em 8%; display: flex; flex-direction: column; margin-top: 1em; width: 100%;">
 				<div class="info-toko" style="display: flex; justify-content: space-between; width: 100%;">
 					<div class="nama-toko" style="width: 100%;">
 						<h3 style="color: white; font-weight: 500; word-wrap: break-word; text-align: center;">Testimoni</h3>
@@ -571,7 +571,7 @@ style="padding: 1.5em; padding: 0px;">
 						<div style="width: 20%; border-radius: 50%;">
 							<img src="<?=url('/')?>/public/img/user/profile_picture/fathul.jpg" style="width: 100%; border-radius: 50%;">
 						</div>
-						<div style="color: white; width: 80%; padding-left: 1em;">
+						<div style="color: {{$landing_page->warna_tulisan_footer}}; width: 80%; padding-left: 1em;">
 							<div style="font-size: 1em; line-height: 1em; margin-bottom: 0.3em; font-weight: 500;">{{$item->user->biodata->nama}}</div>
 							<div style="font-size: 0.75em; line-height: 1.4em; font-weight: 0; color: #f9f0f0;">{{$item->komentar}}</div>
 						</div>
@@ -582,13 +582,13 @@ style="padding: 1.5em; padding: 0px;">
 			</div>
 		</div>
 	</div>
-	<div style="background: #720004; margin-top: -2em; border: none; position: absolute; z-index: 5; width: 100%;">
+	<div style="background: {{$landing_page->warna_footer_2}}; margin-top: -2em; border: none; position: absolute; z-index: 5; width: 100%;">
 		<div class="container-mall" style="padding-bottom: 3em;">
-			<div style="padding-top: 2em; text-align: center; color: white;">
+			<div style="padding-top: 2em; text-align: center; color: {{$landing_page->warna_tulisan_footer}};">
 				<p style="font-weight: 700; margin-bottom: 0px;">Alamat</p>
 				<p style="margin-top: 0px;">{{$toko->alamat}}</p>
 			</div>
-			<div style="padding-top: 2em; text-align: center; color: white;">
+			<div style="padding-top: 2em; text-align: center; color: {{$landing_page->warna_tulisan_footer}};">
 				<p style="font-weight: 700;">Connect with us on social media</p>
 				<div class="sosmed">
 					<img src="<?=url('/')?>/public/img/home/about/facebook.svg" style="width: 2.2em;">
