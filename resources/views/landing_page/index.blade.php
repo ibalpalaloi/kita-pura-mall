@@ -345,7 +345,7 @@ style="padding: 1.5em; padding: 0px;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: flex-end;">
 		@if(Auth()->user()->id == $toko->users_id)
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/akun/mitra/premium">
-			<img src="<?=url('/')?>/public/img/icon_svg/landing_page.svg">
+			<img src="<?=url('/')?>/public/img/icon_svg/setting_white_bg.svg">
 		</a>
 		@else
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
@@ -365,7 +365,7 @@ style="padding: 1.5em; padding: 0px;">
 		$product_bg = url('/')."/public/img/maps/template_maps.svg";
 	}
 	?>
-	<div class="banner" style='padding: 7em 0.5em 12em 0.5em; display: flex; justify-content: center; align-items: center; background-image: url("<?=$product_bg?>"); background-size: contain;'>
+	<div class="banner" style='padding: 7em 0.5em 12em 0.5em; display: flex; justify-content: center; align-items: center; @if ($toko->foto_cover != null) background-image: url("<?=$product_bg?>") @endif; background-size: contain;'>
 		<img src="{{$toko->logo()}}" style="width: 50%;">
 	</div>
 </div>
@@ -377,9 +377,15 @@ style="padding: 1.5em; padding: 0px;">
 				<h3 style="color: white; font-weight: 500; word-wrap: break-word;">{{$toko->nama_toko}}</h3>
 				<h6 style="color: white; line-height: 0.5em;">@<?=$toko->username?></h6>
 			</div>
-			<div class="lokasi" style="display: flex; align-items: center;">
+			@if (($toko->latitude == null) && ($toko->longitude == null))
+			<div href="https://www.google.com/maps/search/?api=1&query={{$toko->latitude}},{{$toko->longitude}}" class="lokasi" style="display: flex; align-items: center;">
 				<img src="<?=url('/')?>/public/img/icon_svg/location_circle_yellow.svg" style="width: 3em;"> 
 			</div>
+			@else
+			<a href="https://www.google.com/maps/search/?api=1&query={{$toko->latitude}},{{$toko->longitude}}" class="lokasi" style="display: flex; align-items: center;">
+				<img src="<?=url('/')?>/public/img/icon_svg/location_circle_yellow.svg" style="width: 3em;"> 
+			</a>
+			@endif
 		</div>
 		<div class="penilaian" style="margin-top: 0.5em;">
 			<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em;">

@@ -129,6 +129,10 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::post('/akun/mitra/premium/upload-ktp/simpan', [Mitra_Premium_Controller::class, 'simpan_ktp']);
 
             // @atur toko
+            Route::get('/akun/mitra/premium/ganti-landing-page', [Mitra_Premium_Controller::class, 'ganti_landing_page']);               
+
+
+            // @atur toko
             Route::get('/akun/mitra/premium/atur-toko', [Mitra_Premium_Controller::class, 'atur_toko_premium']);               
             Route::get('/akun/mitra/premium/atur-toko/kirim-lokasi', [Mitra_Premium_Controller::class, 'kirim_lokasi']);
             Route::get('/akun/mitra/premium/atur-toko/atur-lokasi', [Mitra_Premium_Controller::class, 'atur_lokasi']);
