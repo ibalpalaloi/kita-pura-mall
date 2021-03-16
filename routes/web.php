@@ -137,6 +137,10 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::post('/akun/mitra/premium/upload-ktp/simpan', [Mitra_Premium_Controller::class, 'simpan_ktp']);
 
             // @atur toko
+            Route::get('/akun/mitra/premium/ganti-landing-page', [Mitra_Premium_Controller::class, 'ganti_landing_page']);               
+
+
+            // @atur toko
             Route::get('/akun/mitra/premium/atur-toko', [Mitra_Premium_Controller::class, 'atur_toko_premium']);               
             Route::get('/akun/mitra/premium/atur-toko/kirim-lokasi', [Mitra_Premium_Controller::class, 'kirim_lokasi']);
             Route::get('/akun/mitra/premium/atur-toko/atur-lokasi', [Mitra_Premium_Controller::class, 'atur_lokasi']);
@@ -155,6 +159,7 @@ Route::group(['middleware'=> 'auth'], function() {
             // @atur produk
             Route::get('/akun/mitra/premium/atur-produk', [Mitra_Premium_Produk_Controller::class, 'atur_produk_premium']);
             Route::put('/akun/mitra/premium/atur-produk/simpan', [Mitra_Premium_Produk_Controller::class, 'simpan_atur_produk_premium']);
+            Route::post('/akun/mitra/premium/atur-produk/simpan-foto-cover', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_cover'])->name('simpan_foto_cover');            
             Route::post('/akun/mitra/premium/atur-produk/simpan-foto-maps', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_maps'])->name('simpan_foto_maps');
             Route::post('/akun/mitra/premium/atur-produk/ubah-status', [Mitra_Premium_Produk_Controller::class, 'ubah_status_produk_premium'])->name('ubah_status_produk_premium');
 

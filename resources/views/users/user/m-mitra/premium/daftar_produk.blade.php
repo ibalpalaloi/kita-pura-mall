@@ -424,7 +424,7 @@ if (!empty($_GET['deskripsi'])){
 						<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{number_format($hasil_diskon,0,',','.')}}</span>
 						@endif
 					@else
-						<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">IDR. {{number_format($row->harga_terendah,0,',','.')}}</span> - <span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">{{number_format($row->harga_tertinggi,0,',','.')}}</span>
+						<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.9em; line-height: 0.6em; font-weight: 500;">Harga Mulai IDR. {{number_format($row->harga_terendah,0,',','.')}}</span>
 
 					@endif
 
