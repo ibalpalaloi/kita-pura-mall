@@ -65,6 +65,8 @@ class Kernel extends HttpKernel
         'home' => \App\Http\Middleware\Home::class,
         'premium' => \App\Http\Middleware\Premium::class,
         'free' => \App\Http\Middleware\Free::class,
+        'admin' => \App\Http\Middleware\Admin::class,
+
 
     ];
 }

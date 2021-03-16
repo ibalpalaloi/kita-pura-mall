@@ -11,6 +11,7 @@ use App\Models\Foto_maps;
 use App\Models\Landing_page_fasilitas_toko;
 use App\Models\Video_landing_page;
 use App\Models\Pengunjung_toko;
+use App\Models\Landing_page_toko;
 
 class LandingPageController extends Controller
 {
@@ -39,7 +40,14 @@ class LandingPageController extends Controller
 		$rating = floor($rating);
 		foreach($video_ as $video_){
 			$link = $video_->link_video;
-			$link = trim(substr($link, strpos($link, '=')+1));
+			$cek = substr($link, 0, 11);
+			if(str_contains($link, 'youtu.be')){
+				$link = trim(substr($link, strpos($link, '/')+2));
+				$link = trim(substr($link, strpos($link, '/')+1));
+			}
+			else{
+				$link = trim(substr($link, strpos($link, '=')+1));
+			}
 			array_push($video, $link);
 		}
 		// pengunjung toko
@@ -50,7 +58,8 @@ class LandingPageController extends Controller
 			$pengunjung->save();
 		}
 
-		return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian', 'rating', 'foto_map', 'fasilitas', 'video'));
+		$landing_page = Landing_page_toko::where('toko_id', Auth()->user()->toko->id)->first();
+		return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian', 'rating', 'foto_map', 'fasilitas', 'video', 'landing_page'));
 	}
 
 	public function daftar_menu($mitra){
