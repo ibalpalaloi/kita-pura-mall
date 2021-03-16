@@ -12,7 +12,14 @@ class GetController extends Controller
     //
     function get_video_link(Request $request){
         $link = $request->link;
-        $link = trim(substr($link, strpos($link, '=')+1));
+        $cek = substr($link, 0, 11);
+        if(str_contains($link, 'youtu.be')){
+            $link = trim(substr($link, strpos($link, '/')+2));
+            $link = trim(substr($link, strpos($link, '/')+1));
+        }
+        else{
+            $link = trim(substr($link, strpos($link, '=')+1));
+        }
         // $link = substr($link, 0, strpos($link, '&'));
         echo $link;
     }
