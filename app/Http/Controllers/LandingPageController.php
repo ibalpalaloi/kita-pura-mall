@@ -40,7 +40,14 @@ class LandingPageController extends Controller
 		$rating = floor($rating);
 		foreach($video_ as $video_){
 			$link = $video_->link_video;
-			$link = trim(substr($link, strpos($link, '=')+1));
+			$cek = substr($link, 0, 11);
+			if(str_contains($link, 'youtu.be')){
+				$link = trim(substr($link, strpos($link, '/')+2));
+				$link = trim(substr($link, strpos($link, '/')+1));
+			}
+			else{
+				$link = trim(substr($link, strpos($link, '=')+1));
+			}
 			array_push($video, $link);
 		}
 		// pengunjung toko
