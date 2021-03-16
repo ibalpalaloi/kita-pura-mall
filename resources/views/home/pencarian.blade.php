@@ -87,62 +87,17 @@ Explore |
 <main id="homepage" class="homepage" style="background: #eaf4ff;">
 	<div class="card-pencarian" style="background: #eaf4ff;">
 		<div class="nama-kategori" style="background: #eaf4ff; padding-top: 0.6em; margin-top: 4em; display: flex; flex-direction: column; flex-wrap: wrap;">
-			@php
-			$product = array('product_1.jpg', 'product_2.jpg', 'product_3.jpg', 'product_4.jpg','product_5.jpg', 'product_6.jpg','product_7.jpg', 'product_8.jpg','product_9.jpg', 'product_10.jpg','product_11.jpg', 'product_12.jpg','product_13.jpg', 'product_14.jpg', 'product_15.jpg', 'product_16.jpg', 'product_17.jpg', 'product_18.jpg', 'product_19.jpg');
-			$rownya = count($product)/9;
-			$count_product = count($product);
-			$index = 0;
-			@endphp 
-			@for ($j = 0; $j < $rownya; $j++)
-			<div class="row" style="display: flex; flex-wrap: wrap; justify-content: space-around;" onclick='tampil_gambar("{{$product[$j]}}")'>
-				@for ($i = 0; $i < 6; $i++)
-				<div style="display: flex; justify-content: center; flex-direction: column;  width:30%; margin: 1.5%;">
-					<img src="<?=url('/')?>/public/img/product/thumbnail/{{$product[$index]}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
-				</div>
-				@php $index++; @endphp
-				<?php if ($index == $count_product){ break; } ?>
-				@endfor
-				<?php if ($index == $count_product){ break; } ?>
-				@if ($j%2 == 0)
-				<div style="display: flex; flex-direction: row;">
-					<div style="display: flex; justify-content: center; flex-direction: column;  width:63.7%; margin: 1.5% 2.5% 1.5% 1.5%;">
-						<img src="<?=url('/')?>/public/img/product/thumbnail/{{$product[$index]}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
-					</div>
-					@php $index++; @endphp
-					<?php if ($index == $count_product){ break; } ?>
-					<div style="width: 30%; display: flex; justify-content: space-around; flex-direction: column;">
-						@for ($i = 0; $i < 2; $i++)
-						<div style="display: flex; justify-content: center; flex-direction: column;  width:100%; margin: 1.5%;">
-							<img src="<?=url('/')?>/public/img/product/thumbnail/{{$product[$index]}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
-						</div>
-						@php $index++; @endphp
-						<?php if ($index == $count_product){ break; } ?>
-						@endfor
-					</div>
-				</div>
-				@else
-				<div style="display: flex; flex-direction: row;">
-					<div style="width: 30%; display: flex; justify-content: space-between; flex-direction: column; margin: 1.5% 1.5% 1.5% 1.5%;">
-						@for ($i = 0; $i < 2; $i++)
-						<div style="display: flex; justify-content: center; flex-direction: column;  width:100%;">
-							<img src="<?=url('/')?>/public/img/product/thumbnail/{{$product[$index]}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
-						</div>
-						@php $index++; @endphp
-						<?php if ($index == $count_product){ break; } ?>
-						@endfor
-					</div>
-					<div style="display: flex; justify-content: center; flex-direction: column;  width:63.7%; margin: 1.5% 1.5% 1.5% 2.3%;">
-						<img src="<?=url('/')?>/public/img/product/thumbnail/{{$product[$index]}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
-					</div>
-					@php $index++; @endphp
-					<?php if ($index == $count_product){ break; } ?>
-				</div>
-				@endif
-
-			</div>
-			@endfor
-
+			@include('home.data_pencarian')
 		</div> 
+		<div class="load text-center" style="display: none">
+			loading ......
+			<br><br><br><br><br>
+		</div>
+		<div class="no_more text-center" style="display: none">
+			No More ......
+			<input type="text" id="no_more_check" hidden value="0">
+			<br><br><br><br><br>
+		</div>
 	</div>
 </main>
 @endsection
@@ -153,6 +108,49 @@ Explore |
 		alert(gambarnya);
 		// body...
 	}
+</script>
+<script>
+	var page = 1;
+	// $(document).ready(function(){
+	// 	page = 1;
+	// 	loadMoreData(page);
+	// })
+
+	function loadMoreData(page){
+		$.ajax({
+			url: '?page=' + page,
+			type: 'get',
+			beforeSend: function(){
+				$(".load").show();
+			}
+		})
+		.done(function(data){
+			$('.load').hide();
+			if(!data.length){
+				$('.no_more').show();
+				$("#no_more_check").val('1');
+			}
+			else{
+				$('.nama-kategori').append(data.html);
+			}
+			
+			
+		})
+		.fail(function(jqXHR, ajaxOptions, thrownError){
+			alert("server errror");
+		}); 
+	}
+
+	$(window).scroll(function(){
+		if($(window).scrollTop() + $(window).height() >= $(document).height()){
+			var check = $("#no_more_check").val();
+			if(check == 0){
+				page++;
+				loadMoreData(page);
+				$(".load").show();
+			}
+		}
+	})
 </script>
 
 @endsection

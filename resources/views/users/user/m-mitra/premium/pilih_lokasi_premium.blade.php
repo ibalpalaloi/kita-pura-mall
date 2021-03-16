@@ -148,17 +148,20 @@ if (!empty($_GET['deskripsi'])){
 	$deskripsi = $_GET['deskripsi'];
 }
 ?>
-@if (($toko->latitude == 0) && ($toko->longitude == 0)) 
+@if (($toko->latitude == 1) && ($toko->longitude == 1)) 
 <div class="modal fade" id="modal-verifikasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
     <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
-        <div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+        <div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: -10em 0em 0em 0em; color: white; border: none; box-shadow: none;">
             <div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-                <img src="<?=url('/')?>/public/img/mitra/modal_daftar_register.svg" style="width: 80%; position: absolute; top: -16em;">
-                <div style="font-size: 2em; font-weight: 600; margin-top: 1em;">Mohon Tunggu...</div>
-                <div style="font-size: 1.1em; text-align: center; width: 90%; font-weight: 0; color: #ffe6f1;">anda telah mengirimkan lokasi kepada admin untuk ditambahkan oleh admin. Silahkan menunggu admin untuk mengkonfirmasi alamat anda</div>
-                <a class="btn btn-primary" href="<?=url('/')?>/akun/mitra/premium/atur-toko" style="margin-bottom: 0.7em; font-size: 1.1em;margin-top: 1em; text-align: center; color: white;">Kembali ke atur toko
-                </a>
-                <div data-dismiss="modal" href="<?=url('/')?>/akun/mitra/premium/atur-toko" style="margin-bottom: 1em; font-size: 1em; text-align: center; text-decoration: underline; color: white;">Atur Manual Koordinat Saya
+                <img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
+                <img src="<?=url('/')?>/public/img/modal_assets/modal_waiting2.svg" style="width: 100%;">
+                <div style="position: absolute; margin: 3% 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%; background: #FF006E; border-bottom-left-radius: 1em; display: flex; justify-content: center; flex-direction: column; align-items: center; border-bottom-right-radius: 1em; box-shadow: 0 0.25rem 0rem rgb(0 0 0 / 20%)">
+                    <div style="font-size: 2em; font-weight: 600; text-align: center;">Mohon Tunggu...</div>
+                    <div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">anda telah mengirimkan lokasi kepada admin untuk ditambahkan oleh admin. Silahkan menunggu admin untuk mengkonfirmasi alamat anda</div>
+                    <a class="btn btn-primary" href="<?=url('/')?>/akun/mitra/premium/atur-toko" style="margin-bottom: 0.7em; font-size: 1.1em;text-align: center; color: white;">Kembali ke atur toko
+                    </a>
+                    <div data-dismiss="modal" href="<?=url('/')?>/akun/mitra/premium/atur-toko" style="margin-bottom: 1em; font-size: 1em; text-align: center; text-decoration: underline; color: white;">Atur Manual Koordinat Saya
+                    </div>
                 </div>
             </div>
         </div>
@@ -205,12 +208,12 @@ if (!empty($_GET['deskripsi'])){
             </div>
             <input type="text" class="form-control form-control-mall" id="longitude" name="longitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Longitude" aria-label="longitude" aria-describedby="basic-addon1" style="font-size: 1em;" value="@if($toko->longitude != null){{$toko->longitude}} @endif">
         </div>
-        <div id="koordinat_belum_tersimpan" style="width: 100%;" @if (($toko->latitude != null) && ($toko->longitude != null)) hidden @endif>
+        <div id="koordinat_belum_tersimpan" style="width: 100%;" @if (($toko->latitude == null) && ($toko->longitude == null)) hidden @endif>
             <button onclick="simpan_koordinat()" id="btn_simpan_lokasi" class="btn btn-primary" style="background: #ffaa00;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Simpan Koordinat
             </button>
             <div onclick="batal_ubah()" class="btn btn-primary mt-2" style="background: #007bff;border: 1px solid #007bff; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Batal Ubah</div>
         </div>
-        <div id="koordinat_sudah_tersimpan" style="width: 100%;" @if (($toko->latitude != null) && ($toko->longitude != null)) @else hidden @endif>
+        <div id="koordinat_sudah_tersimpan" style="width: 100%;" @if (($toko->latitude == null) && ($toko->longitude == null)) @else hidden @endif>
             <div onclick="ubah_koordinat()" id="btn_simpan_lokasi" class="btn btn-primary" style="background: #ffaa00;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Ubah Koordinat
             </div>
             <a href="<?=url('/')?>/akun/mitra/premium/atur-toko" class="btn btn-primary mt-2" style="background: #007bff;border: 1px solid #007bff; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Kembali</a>

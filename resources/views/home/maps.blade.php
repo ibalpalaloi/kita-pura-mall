@@ -207,7 +207,8 @@ crossorigin=""></script>
 	@foreach ($foto_maps as $row)
 	@if (($row->latitude != null) && ($row->longitude != null))
 	var marker = L.marker([<?=$row->latitude?>, <?=$row->longitude?>], {icon: food_icon}).on('click', function(e) { markerClick(e, "<?=$row->nama_toko?>", "<?=$row->alamat?>", "<?=$row->foto?>", "<?=$row->id?>", "<?=$row->no_hp?>", "<?=$row->jenis_mitra?>", "<?=$row->username?>");});
-	marker.addTo(map);	
+	marker.addTo(map);
+	alert('tes');
 	@endif
 	@endforeach
 
