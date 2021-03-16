@@ -89,7 +89,7 @@ Rekomendasi |
 @section('content')
 <header class="style__Container-sc-3fiysr-0 header" style="background:#353535; padding-top: 0.3em;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
-		<a href="<?=url('/')?>/akun" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
+		<a href="<?=url('/')?>/akun/mitra/premium" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
 			<img src="<?=url('/')?>/public/img/back_white.svg">
 		</a>
 		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
@@ -108,14 +108,14 @@ Rekomendasi |
 		<div class="swiper-wrapper">
 			<?php
 			$kategori = array("Makanan", "Fashion", "Minuman");
-			$produk["Makanan"] = array("template_1.png", "template_2.png", "template_3.png");
+			$produk["Makanan"] = array("template_1.png", "template_2.png");
 			$produk["Minuman"] = array("product_14.jpg", "product_16.jpg", "product_7.jpg");
 			$produk["Fashion"] = array("product_5.jpg", "product_1.jpg", "product_3.jpg");
 			?>
-			@for ($i = 0; $i < count($produk["Makanan"]); $i++)
+			@for ($i = 0; $i < count($template); $i++)
 			<div class="swiper-slide" style="@if ($i == 0) margin-left: 1.5em; @endif position: relative; padding-bottom: 6em; z-index: 0;">
-				<img src="<?=url('/')?>/public/img/landing_page/template/{{$produk['Makanan'][$i]}}" style="height: 90%; width: 100%;">
-				<div style="background: #1D1D1D; color: white; text-align: center; padding: 0.8em; bottom: -5; position: absolute; z-index: 5; font-size: 1.2em; width: 100%; border-radius: 0.5em; margin-top: 1em;">Pilih</div>
+				<img src="<?=url('/')?>/public/img/landing_page/template/{{$template[$i]->foto}}" style="height: 90%; width: 100%;">
+				<a href="<?=url('/')?>/akun/mitra/premium/post_template/{{$template[$i]->id}}"><div style="background: #1D1D1D; color: white; text-align: center; padding: 0.8em; bottom: -5; position: absolute; z-index: 5; font-size: 1.2em; width: 100%; border-radius: 0.5em; margin-top: 1em;">Pilih</div></a>
 			</div>
 			@endfor
 		</div>
