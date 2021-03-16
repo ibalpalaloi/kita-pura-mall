@@ -107,32 +107,6 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 	}
 
-	public function simpan_foto_maps(Request $request){
-		$id = $request->nomor_foto;
-
-		if($request->file("foto_toko_".$id)){
-			$toko = toko::where('users_id', Session::get('id_user'))->first();
-			$foto = Foto_maps::where('id', $request->id_foto_toko)->first();
-			if(is_null($foto)){
-				$foto = new Foto_maps;
-				$foto->toko_id = $toko->id;
-				echo "ada";
-			}
-			else{
-				echo "t ada";
-
-				\Storage::disk('public')->delete('img/toko/'.$toko->id.'/maps/'.$foto->foto);
-			}
-			$files = $request->file('foto_toko_'.$id);
-			$type = $request->file('foto_toko_'.$id)->getClientOriginalExtension();
-			$file_upload = $this->autocode('IMG').".".$type;
-			\Storage::disk('public')->put('img/toko/'.$toko->id.'/maps/'.$file_upload, file_get_contents($files));
-			$foto->foto = $file_upload;
-			$foto->no_foto = $request->nomor_foto;
-			$foto->save();
-		}
-		// return redirect()->back();
-	}
 
 	public function produk_premium($id){
 
@@ -355,5 +329,50 @@ class Mitra_Premium_Produk_Controller extends Controller
 		// return response()->json(['status'=>$image_path]);		
 	}
 
+	public function simpan_foto_cover(Request $request){
+		$image = $request->image;
 
+		list($type, $image) = explode(';', $image);
+		list(, $image)      = explode(',', $image);
+		$image = base64_decode($image);
+		$image_name= time().$this->generateRandomString().'.png';
+        // $path = public_path('upload/'.$image_name);
+
+        // file_put_contents($path, $image);
+		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$image_path = "img/toko/$toko->id/cover/";
+		\Storage::disk('public')->put($image_path."/$image_name", file_get_contents($request->image));
+		\File::delete("public/".$image_path."/$toko->foto_cover");
+		$toko->foto_cover = $image_name;
+		$toko->save();
+		echo $image_path."$image_name";
+	}
+
+	public function simpan_foto_maps(Request $request){
+		$id = $request->jenis;
+
+		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$foto = Foto_maps::where('id', $toko->id)->where('no_foto', $id)->first();
+		if($foto){
+			\Storage::disk('public')->delete('img/toko/'.$toko->id.'/maps/'.$foto->foto);
+		}
+		else{
+			$foto = new Foto_maps;
+			$foto->toko_id = $toko->id;
+		}
+		$image = $request->image;
+
+		list($type, $image) = explode(';', $image);
+		list(, $image)      = explode(',', $image);
+		$image = base64_decode($image);
+		$image_name= time().$this->generateRandomString().'.png';
+
+		$image_path = "img/toko/$toko->id/maps/";
+		\Storage::disk('public')->put($image_path."/$image_name", file_get_contents($request->image));
+		$foto->foto = $image_name;
+		$foto->no_foto = $id;
+		$foto->save();
+		echo $image_path."$image_name";
+	}
+		// return redirect()->back();
 }
