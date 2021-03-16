@@ -31,6 +31,11 @@ class Mitra_Premium_Controller extends Controller
 		return $kode.$current_date;
 	}
 
+	public function ganti_landing_page(){
+		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		return view('users/user/m-mitra/premium/ganti_landing_page', compact('toko'));
+	}
+
 	public function index_premium(){
 		return $this->untuk_mitra();
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
