@@ -511,14 +511,14 @@ style="padding: 1.5em; padding: 0px;">
 				</div>
 				@foreach ($produk as $item)
 				<div class="input-group mb-3" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em; display: flex; justify-content: center;">
-					<div style="display: flex; justify-content: center; position:relative;width: 85%; margin: 0px; height: 13em;">
+					<div style="display: flex; justify-content: center; position:relative;width: 85%; margin: 0px;">
 						<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/{{$item->id}}" style="width: 100%;">
-							<img src="<?=url('/')?>/public/img/toko/{{$item->toko_id}}/produk/{{$item->foto_produk}}" style="width: 100%; object-fit: cover;height: 100%;border-radius: 1em;">
+							<img src="<?=url('/')?>/public/img/toko/{{$item->toko_id}}/produk/{{$item->foto_produk}}" style="width: 100%; height: 100%;border-radius: 1em;">
 						</a>
-						<div class="label-product" style="position: absolute; bottom: 0em; left: 0em; padding: 0.4em 0.5em 0.9em 1.2em; display: flex; width: 100%; background-color: rgba(0,0,0,0.15); justify-content: space-between;">
-							<div class="keterangan-product" style="display: flex;">
-								<div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: center; color: white; margin-left: 0.3em;">
-									<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/{{$item->id}}" style="color:white;font-size: 1em; line-height: 1.3em;">{{$item->nama}}</a>
+						<div class="label-product" style="position: absolute; bottom:0; padding: 0em; display: flex; width: 100%; height: 100%; justify-content: space-between; border-radius: 1em;">
+							<div class="keterangan-product" style="display: flex; width: 100%;">
+								<div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: flex-end; color: white; background: linear-gradient(180deg, rgba(255, 0, 7, 0) 32.25%, rgba(54, 1, 3, 0.53) 68.91%); width: 100%; border-radius: 1em; padding: 1em; ">
+									<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/{{$item->id}}" style="color:white;font-size: 2em; line-height: 1.3em; font-weight: 500;">{{$item->nama}}</a>
 									<div style="font-size: 0.7em; line-height: 1em;">{{$item->kategori->nama}}</div>
 									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.8em; line-height: 1em;">
 										<i class="fas fa-star star-rating"></i>
@@ -527,21 +527,21 @@ style="padding: 1.5em; padding: 0px;">
 										<i class="fas fa-star star-rating"></i>
 										<i class="far fa-star star-rating"></i>
 									</div>
+
+
+
+
 									@if($item->diskon != '0')
-									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.6em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
+									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
 										<s>IDR. {{number_format($item->harga)}}</s>
 									</div>
 									@php
 									$hasil_diskon = ($item->harga)-((($item->diskon)/100)*($item->harga));
 									@endphp
-									<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1em; line-height: 1em; font-weight: 500;">IDR. {{$hasil_diskon}}</div>
+									<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{$hasil_diskon}}</div>
 									@else
-									<div style="padding: 0; margin: 0.5em 0px 0px 0em; font-size: 1em; line-height: 1em; font-weight: 500;">IDR. {{$item->harga}}</div>
-									@endif
-
-									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.7em; line-height: 0.5em;">
-										Stok : {{$item->stok}}
-									</div>
+									<div style="padding: 0; margin: 0.5em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{$item->harga}}</div>
+									@endif	
 									
 									
 								</div>
