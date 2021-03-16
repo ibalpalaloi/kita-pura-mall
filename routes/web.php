@@ -147,6 +147,7 @@ Route::group(['middleware'=> 'auth'], function() {
             // @atur produk
             Route::get('/akun/mitra/premium/atur-produk', [Mitra_Premium_Produk_Controller::class, 'atur_produk_premium']);
             Route::put('/akun/mitra/premium/atur-produk/simpan', [Mitra_Premium_Produk_Controller::class, 'simpan_atur_produk_premium']);
+            Route::post('/akun/mitra/premium/atur-produk/simpan-foto-cover', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_cover'])->name('simpan_foto_cover');            
             Route::post('/akun/mitra/premium/atur-produk/simpan-foto-maps', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_maps'])->name('simpan_foto_maps');
             Route::post('/akun/mitra/premium/atur-produk/ubah-status', [Mitra_Premium_Produk_Controller::class, 'ubah_status_produk_premium'])->name('ubah_status_produk_premium');
 

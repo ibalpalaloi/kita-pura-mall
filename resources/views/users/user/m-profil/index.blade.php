@@ -338,7 +338,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	$('#modal-pemberitahuan').modal('show');
 	@endif
 
-
+	@if($biodata->notif == 1)
 	$('#modal-notif-berhasil').modal('show');
 	$.ajax({
 		url:"{{ route('notif_lengkap') }}",
@@ -349,6 +349,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 			// do something
 		}
 	})  
+	@endif
 
 	@if($toko)
 	@if($toko->notif == 0)

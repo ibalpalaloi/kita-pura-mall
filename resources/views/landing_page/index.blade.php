@@ -357,8 +357,15 @@ style="padding: 1.5em; padding: 0px;">
 </header>
 
 <div class="wrapper" style="background: transparent; position: relative; z-index: -1; border-bottom-right-radius: 7%; border-bottom-left-radius: 7%;">
-	@php $product_bg = url('/')."/public/img/toko/".$toko->id."/cover/".$toko->foto_cover; @endphp
-	<div class="banner" style='padding: 7em 0.5em 12em 0.5em; display: flex; justify-content: center; align-items: center; background-image: url("<?=$product_bg?>"); background-size: cover;'>
+	<?php 
+	if ($toko->foto_cover != null){
+		$product_bg = url('/')."/public/img/toko/".$toko->id."/cover/".$toko->foto_cover;
+	}
+	else {
+		$product_bg = url('/')."/public/img/maps/template_maps.svg";
+	}
+	?>
+	<div class="banner" style='padding: 7em 0.5em 12em 0.5em; display: flex; justify-content: center; align-items: center; background-image: url("<?=$product_bg?>"); background-size: contain;'>
 		<img src="{{$toko->logo()}}" style="width: 50%;">
 	</div>
 </div>
