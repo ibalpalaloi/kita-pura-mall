@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Kategori_toko;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\Toko;
+use App\Models\Landing_page_toko;
 
 class Admin_Manajemen_Toko_Controller extends Controller
 {
@@ -78,7 +79,18 @@ class Admin_Manajemen_Toko_Controller extends Controller
             $toko->save();
 
         }
-
+        $template = Template_landing_page::find(1);
+		Landing_page_toko::where('toko_id', Auth()->user()->toko->id)->delete();
+        $page = new landing_page_toko;
+        $page->toko_id = $request->toko_id;
+		$page->warna_header = $template->warna_header;
+		$page->warna_body = $template->warna_body;
+		$page->warna_footer_1 = $template->warna_footer_1;
+		$page->warna_footer_2 = $template->warna_footer_2;
+		$page->warna_tulisan_header = $template->warna_tulisan_header;
+		$page->warna_tulisan_body = $template->warna_tulisan_body;
+		$page->warna_tulisan_footer = $template->warna_tulisan_footer;
+		$page->save();
 
         Daftar_tunggu_toko::find($request->id)->delete();
 

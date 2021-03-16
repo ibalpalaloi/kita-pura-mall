@@ -955,9 +955,6 @@ if (!empty($_GET['deskripsi'])){
 
 		}
 
-
-
-
 		function tambah_video(i){
 			$('#tampil-video').empty();
 			$('#link_video').val('');
