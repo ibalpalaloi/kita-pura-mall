@@ -130,7 +130,7 @@ Route::group(['middleware'=> 'auth'], function() {
 
             // @atur toko
             Route::get('/akun/mitra/premium/ganti-landing-page', [Mitra_Premium_Controller::class, 'ganti_landing_page']);               
-
+            Route::get('/akun/mitra/premium/post_template/{id}', [Mitra_Premium_Controller::class, 'post_template']);
 
             // @atur toko
             Route::get('/akun/mitra/premium/atur-toko', [Mitra_Premium_Controller::class, 'atur_toko_premium']);               
