@@ -26,11 +26,11 @@ class Toko extends Model
     }
 
     public function logo(){
-        if(!$this->logo_toko){
-            return asset('public/img/toko/logo/premium.svg');
+        if($this->logo_toko){
+            return asset('public/img/toko/'.$this->id.'/logo/'.$this->logo_toko);
         }
+        return asset('public/img/toko/logo/premium.svg');
 
-        return asset('public/img/toko/'.$this->id.'/logo/'.$this->logo_toko);
     }
 
     public function video_landing_page(){
