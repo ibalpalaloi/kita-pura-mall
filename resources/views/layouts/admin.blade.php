@@ -55,23 +55,12 @@
                     <a class="navbar-brand" href="index.html">
                         <!-- Logo icon -->
                         <b class="logo-icon">
-                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            <!-- Dark Logo icon -->
-                            <img src="{{asset('public/template/admin/assets/images/logos/logo-icon.png')}}"
-                                alt="homepage" class="dark-logo" />
-                            <!-- Light Logo icon -->
-                            <img src="{{asset('public/template/admin/assets/images/logos/logo-light-icon.png')}}"
-                                alt="homepage" class="light-logo" />
+                            <img src="{{asset('public/img/logo_black.svg')}}">
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span class="logo-text">
-                            <!-- dark Logo text -->
-                            <img src="{{asset('public/template/admin/assets/images/logos/logo-text.png')}}"
-                                alt="homepage" class="dark-logo" />
-                            <!-- Light Logo text -->
-                            <img src="{{asset('public/template/admin/assets/images/logos/logo-light-text.png')}}"
-                                class="light-logo" alt="homepage" />
+                            <img src="{{asset('public/img/logo_text_black.svg')}}">
                         </span>
                     </a>
                     <!-- ============================================================== -->
@@ -98,7 +87,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{asset('public/template/admin/assets/images/users/1.jpg')}}" alt="user"
                                     class="rounded-circle" width="31">
-                                <span class="ml-2 user-text font-medium">Steve</span><span
+                                <span class="ml-2 user-text font-medium">{{strtoupper(Session::get('level_akses'))}}</span><span
                                     class="fas fa-angle-down ml-2 user-text"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -107,35 +96,15 @@
                                             src="{{asset('public/template/admin/assets/images/users/1.jpg')}}"
                                             alt="user" class="rounded" width="80"></div>
                                     <div class="ml-2">
-                                        <h4 class="mb-0">Steave Jobs</h4>
-                                        <p class=" mb-0 text-muted">varun@gmail.com</p>
+                                        <h4 class="mb-0">{{strtoupper(Session::get('username'))}}</h4>
                                         <a href="javascript:void(0)"
-                                            class="btn btn-sm btn-danger text-white mt-2 btn-rounded">View Profile</a>
+                                            class="btn btn-sm btn-danger text-white mt-2 btn-rounded">Ganti Password</a>
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user mr-1 ml-1"></i> My
-                                    Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet mr-1 ml-1"></i>
-                                    My Balance</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email mr-1 ml-1"></i>
-                                    Inbox</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings mr-1 ml-1"></i>
-                                    Account Setting</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i
-                                        class="fa fa-power-off mr-1 ml-1"></i> Logout</a>
+                                <a class="dropdown-item" href="{{url('/admin/logout')}}"><i
+                                        class="fa fa-power-off mr-1 ml-1"></i> Keluar</a>
                             </div>
                         </li>
-
-                        <li class="nav-item search-box">
-                            <form class="app-search d-none d-lg-block">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <a href="" class="active"><i class="fa fa-search"></i></a>
-                            </form>
-                        </li>
-
-
                     </ul>
                 </div>
             </nav>
@@ -153,18 +122,31 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
 
-                        <li class="sidebar-item selected"> <a
-                                class="sidebar-link waves-effect waves-dark sidebar-link active" href="starter-kit.html"
+                        <li class="sidebar-item"> <a
+                                class="sidebar-link waves-effect waves-dark sidebar-link " href="{{url('/admin/beranda')}}"
                                 aria-expanded="false"><i class="fa fa-home"></i><span
                                     class="hide-menu">Beranda</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link two-column has-arrow waves-effect waves-dark"
                                 href="javascript:void(0)" aria-expanded="false"><i
-                                    class="mdi mdi-format-color-fill"></i><span class="hide-menu">UI </span></a>
+                                    class="mdi mdi-account"></i><span class="hide-menu">Pengguna </span></a>
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
                                     <a href="<?=url('/')?>/admin/manajemen/pengguna" class="sidebar-link">
-                                        <i class="mdi mdi-toggle-switch"></i>
-                                        <span class="hide-menu">Pengguna</span>
+                                        <i class="mdi mdi-account-multiple"></i>
+                                        <span class="hide-menu">Daftar Pengguna</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link two-column has-arrow waves-effect waves-dark"
+                                href="javascript:void(0)" aria-expanded="false"><i
+                                    class="mdi mdi-window-maximize"></i><span class="hide-menu">Toko</span></a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                    <a href="<?=url('/')?>/admin/manajemen/toko" class="sidebar-link">
+                                        <i class="mdi mdi-window-open"></i>
+                                        <span class="hide-menu">Daftar Toko</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
@@ -173,162 +155,19 @@
                                         <span class="hide-menu">Kategori Toko</span>
                                     </a>
                                 </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link two-column has-arrow waves-effect waves-dark"
+                                href="javascript:void(0)" aria-expanded="false"><i
+                                    class="mdi mdi-shopping"></i><span class="hide-menu">Produk</span></a>
+                            <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
                                     <a href="<?=url('/')?>/admin/manajemen/kategori_produk" class="sidebar-link">
                                         <i class="mdi mdi-sort-variant"></i>
                                         <span class="hide-menu">Kategori Produk</span>
                                     </a>
                                 </li>
-                                <li class="sidebar-item">
-                                    <a href="<?=url('/')?>/admin/manajemen/toko" class="sidebar-link">
-                                        <i class="mdi mdi-image-filter-vintage"></i>
-                                        <span class="hide-menu">Manajemen Toko</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="ui-notification.html" class="sidebar-link">
-                                        <i class="mdi mdi-message-bulleted"></i>
-                                        <span class="hide-menu"> Notification</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="ui-progressbar.html" class="sidebar-link">
-                                        <i class="mdi mdi-poll"></i>
-                                        <span class="hide-menu"> Progressbar</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="ui-typography.html" class="sidebar-link">
-                                        <i class="mdi mdi-format-line-spacing"></i>
-                                        <span class="hide-menu"> Typography</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="ui-bootstrap.html" class="sidebar-link">
-                                        <i class="mdi mdi-bootstrap"></i>
-                                        <span class="hide-menu"> Bootstrap Ui</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="ui-breadcrumb.html" class="sidebar-link">
-                                        <i class="mdi mdi-equal"></i>
-                                        <span class="hide-menu"> Breadcrumb</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="ui-list-media.html" class="sidebar-link">
-                                        <i class="mdi mdi-file-video"></i>
-                                        <span class="hide-menu"> List Media</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="ui-grid.html" class="sidebar-link">
-                                        <i class="mdi mdi-view-module"></i>
-                                        <span class="hide-menu"> Grid</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="ui-carousel.html" class="sidebar-link">
-                                        <i class="mdi mdi-view-carousel"></i>
-                                        <span class="hide-menu"> Carousel</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="ui-scrollspy.html" class="sidebar-link">
-                                        <i class="mdi mdi-crop-free"></i>
-                                        <span class="hide-menu"> Scrollspy</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="ui-spinner.html" class="sidebar-link">
-                                        <i class="mdi mdi-application"></i>
-                                        <span class="hide-menu"> Spinner</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="ui-toasts.html" class="sidebar-link">
-                                        <i class="mdi mdi-apple-safari"></i>
-                                        <span class="hide-menu"> Toasts</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                        href="javascript:void(0)" aria-expanded="false"><i
-                                            class="mdi mdi-credit-card-multiple"></i><span
-                                            class="hide-menu">Cards</span></a>
-                                    <ul aria-expanded="false" class="collapse second-level">
-                                        <li class="sidebar-item">
-                                            <a href="ui-cards.html" class="sidebar-link">
-                                                <i class="mdi mdi-layers"></i>
-                                                <span class="hide-menu"> Basic Cards</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-item">
-                                            <a href="ui-card-customs.html" class="sidebar-link">
-                                                <i class="mdi mdi-credit-card-scan"></i>
-                                                <span class="hide-menu">Custom Cards</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-item">
-                                            <a href="ui-card-weather.html" class="sidebar-link">
-                                                <i class="mdi mdi-weather-fog"></i>
-                                                <span class="hide-menu">Weather Cards</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-item">
-                                            <a href="ui-card-draggable.html" class="sidebar-link">
-                                                <i class="mdi mdi-bandcamp"></i>
-                                                <span class="hide-menu">Draggable Cards</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                        href="javascript:void(0)" aria-expanded="false"><i
-                                            class="mdi mdi-credit-card-multiple"></i><span
-                                            class="hide-menu">Components</span></a>
-                                    <ul aria-expanded="false" class="collapse second-level">
-                                        <li class="sidebar-item">
-                                            <a href="component-sweetalert.html" class="sidebar-link">
-                                                <i class="mdi mdi-layers"></i>
-                                                <span class="hide-menu"> Sweet Alert</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-item">
-                                            <a href="component-nestable.html" class="sidebar-link">
-                                                <i class="mdi mdi-credit-card-scan"></i>
-                                                <span class="hide-menu">Nestable</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-item">
-                                            <a href="component-noui-slider.html" class="sidebar-link">
-                                                <i class="mdi mdi-weather-fog"></i>
-                                                <span class="hide-menu">Noui slider</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-item">
-                                            <a href="component-rating.html" class="sidebar-link">
-                                                <i class="mdi mdi-bandcamp"></i>
-                                                <span class="hide-menu">Rating</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-item">
-                                            <a href="component-toastr.html" class="sidebar-link">
-                                                <i class="mdi mdi-poll"></i>
-                                                <span class="hide-menu">Toastr</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
                             </ul>
-                        </li>
-
-
-
-
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="starter-kit.html" aria-expanded="false"><i class="far fa-lightbulb"></i><span
-                                    class="hide-menu">Keluar</span></a></li>
-
                         </li>
                     </ul>
                 </nav>
@@ -348,7 +187,8 @@
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
             <div class="page-breadcrumb border-bottom">
-                
+                @yield('page-title')
+
             </div>
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
@@ -360,7 +200,8 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                @yield("content")
+                @yield('content')
+
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
