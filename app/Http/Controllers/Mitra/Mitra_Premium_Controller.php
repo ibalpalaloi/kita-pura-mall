@@ -16,6 +16,8 @@ use App\Models\product;
 use App\Models\Pesanan;
 use App\Models\Jadwal_toko;
 use App\Models\Ktp_toko;
+use App\Models\Template_landing_page;
+use App\Models\Landing_page_toko;
 use DB;
 
 
@@ -32,8 +34,23 @@ class Mitra_Premium_Controller extends Controller
 	}
 
 	public function ganti_landing_page(){
+		$template = Template_landing_page::all();
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
-		return view('users/user/m-mitra/premium/ganti_landing_page', compact('toko'));
+		return view('users/user/m-mitra/premium/ganti_landing_page', compact('toko', 'template'));
+	}
+
+	public function post_template($id){
+		$template = Template_landing_page::find($id);
+		$page = Landing_page_toko::where('toko_id', Auth()->user()->toko->id)->first();
+		$page->warna_header = $template->warna_header;
+		$page->warna_body = $template->warna_body;
+		$page->warna_footer_1 = $template->warna_footer_1;
+		$page->warna_footer_2 = $template->warna_footer_2;
+		$page->warna_tulisan_header = $template->warna_tulisan_header;
+		$page->warna_tulisan_body = $template->warna_tulisan_body;
+		$page->warna_tulisan_footer = $template->warna_tulisan_footer;
+		$page->save();
+		return redirect('/akun/mitra/premium');
 	}
 
 	public function index_premium(){
