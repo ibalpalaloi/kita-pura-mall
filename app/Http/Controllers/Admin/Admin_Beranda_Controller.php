@@ -9,4 +9,10 @@ class Admin_Beranda_Controller extends Controller
 {
     //
 
+    public function index(){
+
+
+        return view('users/admin/beranda');
+    }
+
 }
