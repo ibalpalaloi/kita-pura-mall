@@ -14,6 +14,7 @@ use App\Models\toko;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\product;
 use App\Models\Jadwal_toko;
+use App\Models\Landing_page_toko;
 
 
 class MitraController extends Controller
@@ -29,7 +30,10 @@ class MitraController extends Controller
 	
 
 	public function mitra(){
-
+		$page = Landing_page_toko::where('toko_id', Auth()->user()->toko->id)->get();
+		if(count($page)==0){
+			return redirect('/akun/mitra/premium/ganti-landing-page');
+		}
 		$notification = array();
 		if(Session::get('progress_biodata') > '5'){
 		// if(Session::get('progress_biodata') != '5'){
