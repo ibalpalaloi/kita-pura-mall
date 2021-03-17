@@ -1198,13 +1198,13 @@ if (!empty($_GET['deskripsi'])){
 		boundary: { width: 240, height:162 }
 	});
 
-
+	var url_image;
 	$('#foto_toko_1').on('change', function () { 
 		$(".cr-slider-wrap").css("display", "block");
 		var reader1 = new FileReader();
 		reader1.onload = function (e) {
 			resize_maps_1.croppie('bind',{
-				url: e.target.result
+				url: e.target.result;
 			}).then(function(){
 				console.log('jQuery bind complete');
 			});
@@ -1213,7 +1213,7 @@ if (!empty($_GET['deskripsi'])){
 		$("#unggah_foto_maps_1").prop('hidden', true);
 		reader1.readAsDataURL(this.files[0]);
 	});
-
+	
 
 	var imageSize1 = { width: 800, height: 541, type: 'square'};
 
