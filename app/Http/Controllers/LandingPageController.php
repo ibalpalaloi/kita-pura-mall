@@ -12,6 +12,7 @@ use App\Models\Landing_page_fasilitas_toko;
 use App\Models\Video_landing_page;
 use App\Models\Pengunjung_toko;
 use App\Models\Landing_page_toko;
+use App\Models\Template_landing_page;
 
 class LandingPageController extends Controller
 {
@@ -58,7 +59,20 @@ class LandingPageController extends Controller
 			$pengunjung->save();
 		}
 
-		$landing_page = Landing_page_toko::where('toko_id', Auth()->user()->toko->id)->first();
+		$landing_page = Landing_page_toko::where('toko_id', $toko->id)->get();
+		if(count($landing_page)==0){
+			$template = Template_landing_page::find($id);
+			$page = new Landing_page_toko;
+			$page->warna_header = $template->warna_header;
+			$page->warna_body = $template->warna_body;
+			$page->warna_footer_1 = $template->warna_footer_1;
+			$page->warna_footer_2 = $template->warna_footer_2;
+			$page->warna_tulisan_header = $template->warna_tulisan_header;
+			$page->warna_tulisan_body = $template->warna_tulisan_body;
+			$page->warna_tulisan_footer = $template->warna_tulisan_footer;
+			$page->save();
+		}
+		$landing_page = Landing_page_toko::where('toko_id', $toko->id)->first();
 		return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian', 'rating', 'foto_map', 'fasilitas', 'video', 'landing_page'));
 	}
 
