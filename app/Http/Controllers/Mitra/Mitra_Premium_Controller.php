@@ -42,14 +42,29 @@ class Mitra_Premium_Controller extends Controller
 	public function post_template($id){
 		$template = Template_landing_page::find($id);
 		$page = Landing_page_toko::where('toko_id', Auth()->user()->toko->id)->first();
-		$page->warna_header = $template->warna_header;
-		$page->warna_body = $template->warna_body;
-		$page->warna_footer_1 = $template->warna_footer_1;
-		$page->warna_footer_2 = $template->warna_footer_2;
-		$page->warna_tulisan_header = $template->warna_tulisan_header;
-		$page->warna_tulisan_body = $template->warna_tulisan_body;
-		$page->warna_tulisan_footer = $template->warna_tulisan_footer;
-		$page->save();
+		if(!empty($page)){
+			$page->warna_header = $template->warna_header;
+			$page->warna_body = $template->warna_body;
+			$page->warna_footer_1 = $template->warna_footer_1;
+			$page->warna_footer_2 = $template->warna_footer_2;
+			$page->warna_tulisan_header = $template->warna_tulisan_header;
+			$page->warna_tulisan_body = $template->warna_tulisan_body;
+			$page->warna_tulisan_footer = $template->warna_tulisan_footer;
+			$page->save();
+		}
+		else{
+			$page = new Landing_page_toko;
+			$page->toko_id = Auth()->user()->toko->id;
+			$page->warna_header = $template->warna_header;
+			$page->warna_body = $template->warna_body;
+			$page->warna_footer_1 = $template->warna_footer_1;
+			$page->warna_footer_2 = $template->warna_footer_2;
+			$page->warna_tulisan_header = $template->warna_tulisan_header;
+			$page->warna_tulisan_body = $template->warna_tulisan_body;
+			$page->warna_tulisan_footer = $template->warna_tulisan_footer;
+			$page->save();
+		}
+		
 		return redirect('/akun/mitra/premium');
 	}
 
