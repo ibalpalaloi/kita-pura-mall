@@ -1,4 +1,4 @@
-@extends('layouts.home_no_menu')
+	@extends('layouts.home_no_menu')
 
 @section('title')
 
@@ -156,7 +156,7 @@
 }
 
 .active-kategori {
-	background: #9D0208;
+	background: {{$page->warna_header}};
 	color: white !important;
 }
 
@@ -200,13 +200,17 @@
 	color: #1c2645;
 	font-weight: 600;			
 }
+
+.svg_color{
+	fill: #efff3b;
+}
 </style>
 @endsection
 
 @section('content')
 <header class="style__Container-sc-3fiysr-0 header" style="background: white; padding-top: 0.3em;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
-		<a href="<?=url('/')?>/{{Request::segment(1)}}" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; margin-right: ">
+		<a class="svg_color" href="<?=url('/')?>/{{Request::segment(1)}}" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; margin-right: ">
 			<img src="<?=url('/')?>/public/img/icon_svg/back_red.svg" style="width: 28%;">
 		</a>
 		<a style="height: 100%; width: 80%; display: flex; justify-content: center; align-items: center; font-size: 1.5em; font-weight: 600;">
@@ -224,7 +228,7 @@
 <main id="homepage" class="homepage" style="background:white;">
 
 	<div class="row-mall" style="padding: 5em 0em 1.2em 0em;">
-		<h2 style="color: #9D0208; font-weight: 600; margin-bottom: 0px; margin-top: 1em;">Produk Kami</h2>
+		<h2 style="color: {{$page->warna_header}}; font-weight: 600; margin-bottom: 0px; margin-top: 1em;">Produk Kami</h2>
 		<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
 			<div style="width: 100%;">
 
@@ -234,7 +238,7 @@
 					</span>
 					<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em; background: #EAF4FF; color: grey !important;" required>
 				</div>
-				<div style="width: 3.4em; height: 3em; background: #9D0208; border-radius: 0.5em; display: flex; justify-content: center;align-items: center;">
+				<div style="width: 3.4em; height: 3em; background: {{$page->warna_header}}; border-radius: 0.5em; display: flex; justify-content: center;align-items: center;">
 					<img src="<?=url('/')?>/public/img/icon_svg/filter_white.svg" style="width: 50%;">
 				</div>
 			</div>
@@ -251,7 +255,7 @@
 			<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
 				<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
 				<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
-				<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative; background: #9D0208;'> 
+				<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative; background: {{$page->warna_header}};'> 
 					<div class="" style="width: 5em; position: absolute; height: 5em; bottom:3.5em; right:0.5em;">
 						<img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="width: 100%; height: 100%;" onclick="masukan_keranjang('{{$row->toko_id}}', '{{$row->id}}')">
 					</div>					
