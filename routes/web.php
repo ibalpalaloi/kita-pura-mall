@@ -141,35 +141,35 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::get('/akun/mitra/premium/post_template/{id}', [Mitra_Premium_Controller::class, 'post_template']);
 
             // @atur toko
-            Route::get('/akun/mitra/premium/atur-toko', [Mitra_Premium_Controller::class, 'atur_toko_premium']);               
-            Route::get('/akun/mitra/premium/atur-toko/kirim-lokasi', [Mitra_Premium_Controller::class, 'kirim_lokasi']);
-            Route::get('/akun/mitra/premium/atur-toko/atur-lokasi', [Mitra_Premium_Controller::class, 'atur_lokasi']);
+            Route::get('/akun/mitra/premium/ubah-toko', [Mitra_Premium_Controller::class, 'atur_toko_premium']);               
+            Route::get('/akun/mitra/premium/ubah-toko/kirim-lokasi', [Mitra_Premium_Controller::class, 'kirim_lokasi']);
+            Route::get('/akun/mitra/premium/ubah-toko/atur-lokasi', [Mitra_Premium_Controller::class, 'atur_lokasi']);
 
-            Route::put('/akun/mitra/premium/atur-toko/atur-lokasi/simpan', [Mitra_Premium_Controller::class, 'simpan_lokasi']);
+            Route::put('/akun/mitra/premium/ubah-toko/atur-lokasi/simpan', [Mitra_Premium_Controller::class, 'simpan_lokasi']);
 
             // @tambah produk
-            Route::get('/akun/mitra/premium/tambah-produk', [Mitra_Premium_Produk_Controller::class, 'daftar_produk_premium']);
-            Route::get('/akun/mitra/premium/tambah-produk/tambah', [Mitra_Premium_Produk_Controller::class, 'tambah_produk_premium']);
-            Route::post('/akun/mitra/premium/tambah-produk/simpan-foto', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_produk']);
-            Route::post('/akun/mitra/premium/tambah-produk/tambah/simpan', [Mitra_Premium_Produk_Controller::class, 'simpan_tambah_produk_premium']);
-            Route::get('/akun/mitra/premium/tambah-produk/{id}', [Mitra_Premium_Produk_Controller::class, 'produk_premium']);
-            Route::put('/akun/mitra/premium/tambah-produk/{id}/simpan', [Mitra_Premium_Produk_Controller::class, 'update_tambah_produk_premium']);
-            Route::get('/akun/mitra/premium/tambah-produk/{id}/hapus', [Mitra_Premium_Produk_Controller::class, 'hapus_tambah_produk_premium']);
+            Route::get('/akun/mitra/premium/atur-produk', [Mitra_Premium_Produk_Controller::class, 'daftar_produk_premium']);
+            Route::get('/akun/mitra/premium/atur-produk/tambah', [Mitra_Premium_Produk_Controller::class, 'tambah_produk_premium']);
+            Route::post('/akun/mitra/premium/atur-produk/simpan-foto', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_produk']);
+            Route::post('/akun/mitra/premium/atur-produk/tambah/simpan', [Mitra_Premium_Produk_Controller::class, 'simpan_tambah_produk_premium']);
+            Route::get('/akun/mitra/premium/atur-produk/{id}/ubah', [Mitra_Premium_Produk_Controller::class, 'produk_premium']);
+            Route::put('/akun/mitra/premium/atur-produk/{id}/simpan', [Mitra_Premium_Produk_Controller::class, 'update_tambah_produk_premium']);
+            Route::get('/akun/mitra/premium/atur-produk/{id}/hapus', [Mitra_Premium_Produk_Controller::class, 'hapus_tambah_produk_premium']);
 
             // @atur produk
-            Route::get('/akun/mitra/premium/atur-produk', [Mitra_Premium_Produk_Controller::class, 'atur_produk_premium']);
-            Route::put('/akun/mitra/premium/atur-produk/simpan', [Mitra_Premium_Produk_Controller::class, 'simpan_atur_produk_premium']);
-            Route::post('/akun/mitra/premium/atur-produk/simpan-foto-cover', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_cover'])->name('simpan_foto_cover');            
-            Route::post('/akun/mitra/premium/atur-produk/simpan-foto-maps', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_maps'])->name('simpan_foto_maps');
-            Route::post('/akun/mitra/premium/atur-produk/ubah-status', [Mitra_Premium_Produk_Controller::class, 'ubah_status_produk_premium'])->name('ubah_status_produk_premium');
+            Route::get('/akun/mitra/premium/ubah-landing-page', [Mitra_Premium_Produk_Controller::class, 'atur_landing_page']);
+            // Route::put('/akun/mitra/premium/atur-produk/simpan', [Mitra_Premium_Produk_Controller::class, 'simpan_atur_produk_premium']);
+            Route::post('/akun/mitra/premium/ubah-landing-page/simpan-foto-cover', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_cover'])->name('simpan_foto_cover');            
+            Route::post('/akun/mitra/premium/ubah-landing-page/simpan-foto-maps', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_maps'])->name('simpan_foto_maps');
+            Route::post('/akun/mitra/premium/ubah-landing-page/ubah-status', [Mitra_Premium_Produk_Controller::class, 'ubah_status_produk_premium'])->name('ubah_status_produk_premium');
 
             // atur landing page
             Route::post('/atur_landing_page/simpan_cover', [Atur_Landing_Page_Controller::class, 'simpan_cover'])->name('simpan_cover_landing_page');
             Route::post('/atur_landing_page/simpan_video', [Atur_Landing_Page_Controller::class, 'simpan_video'])->name('simpan_video_landing_page');
             Route::post('/atur_landing_page/post_fasilitas_toko', [Atur_Landing_Page_Controller::class, 'post_fasilitas_toko'])->name('post_fasilitas_toko');
-            Route::post('/akun/mitra/premium/atur-produk/post_fasilitas', [Atur_Landing_Page_Controller::class, 'post_fasilitas_baru']);
-            Route::post('/akun/mitra/premium/atur-produk/ubah_fasilitas', [Atur_Landing_Page_Controller::class, 'ubah_fasilitas']);
-            Route::get('/akun/mitra/premium/atur-produk/hapus_fasilitas/{id}', [Atur_Landing_Page_Controller::class, 'hapus_fasilitas']);
+            Route::post('/akun/mitra/premium/ubah-landing-page/post_fasilitas', [Atur_Landing_Page_Controller::class, 'post_fasilitas_baru']);
+            Route::post('/akun/mitra/premium/ubah-landing-page/ubah_fasilitas', [Atur_Landing_Page_Controller::class, 'ubah_fasilitas']);
+            Route::get('/akun/mitra/premium/ubah-landing-page/hapus_fasilitas/{id}', [Atur_Landing_Page_Controller::class, 'hapus_fasilitas']);
 
             // list pesananan
             Route::get('/akun/mitra/premium/list-pesanan', [PesananController::class, 'pesanan']);
