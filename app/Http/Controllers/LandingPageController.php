@@ -80,7 +80,7 @@ class LandingPageController extends Controller
 	public function daftar_menu($mitra){
 		$toko = Toko::where('username', $mitra)->first();
 		$produk = Product::where('toko_id', $toko->id)->get();
-		return view('landing_page/daftar_menu', compact('produk'));
+		return view('landing_page/daftar_menu', compact('produk', 'toko'));
 	}
 
 	public function detail_produk($mitra, $id_produk){

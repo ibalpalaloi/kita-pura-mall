@@ -1151,8 +1151,8 @@ if (!empty($_GET['deskripsi'])){
 
 
 		var imageSize = {
-			width: 600,
-			height: 600,
+			width: 700,
+			height: 700,
 			type: 'square'
 		};
 

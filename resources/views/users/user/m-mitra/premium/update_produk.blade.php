@@ -357,7 +357,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	<div>
 		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em;">
 	</div>	
-	<form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post">
+	<form enctype="multipart/form-data" action="<?=url('/')?>/akun/mitra/premium/atur-produk/{{Request::segment(5)}}/simpan" method="post">
 		{{csrf_field()}}
 		{{method_field('PUT')}}
 		<div style="display: flex; justify-content: center;">

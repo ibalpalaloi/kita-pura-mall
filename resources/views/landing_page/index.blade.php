@@ -342,14 +342,17 @@ style="padding: 1.5em; padding: 0px;">
 </div>
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: flex-end;">
+	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
+		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/">
+			<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
+		</a>
 		@if(Auth()->user()->id == $toko->users_id)
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/akun/mitra/premium">
-			<img src="<?=url('/')?>/public/img/icon_svg/setting_white_bg.svg">
+			<img src="<?=url('/')?>/public/img/icon_svg/setting_circle_transparent.svg">
 		</a>
 		@else
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
-			<img src="<?=url('/')?>/public/img/icon_svg/bag_transparent.svg">
+			<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
 			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
 		</a>
 		@endif
@@ -378,12 +381,12 @@ style="padding: 1.5em; padding: 0px;">
 				<h6 style="color: {{$landing_page->warna_tulisan_header}}; line-height: 0.5em;">@<?=$toko->username?></h6>
 			</div>
 			@if (($toko->latitude == null) && ($toko->longitude == null))
-			<div href="https://www.google.com/maps/search/?api=1&query={{$toko->latitude}},{{$toko->longitude}}" class="lokasi" style="display: flex; align-items: center;">
-				<img src="<?=url('/')?>/public/img/icon_svg/location_circle_yellow.svg" style="width: 3em;"> 
+			<div href="https://www.google.com/maps/search/?api=1&query={{$toko->latitude}},{{$toko->longitude}}" class="lokasi" style="display: flex; align-items: center; background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%); width: 3em; height: 3em; border-radius: 50%; justify-content: center; padding-top: 0.1em;">
+				<img src="<?=url('/')?>/public/img/icon_svg/maps_landing_white.svg" style="width: 1.4em;"> 
 			</div>
 			@else
-			<a href="https://www.google.com/maps/search/?api=1&query={{$toko->latitude}},{{$toko->longitude}}" class="lokasi" style="display: flex; align-items: center;">
-				<img src="<?=url('/')?>/public/img/icon_svg/location_circle_yellow.svg" style="width: 3em;"> 
+			<a href="https://www.google.com/maps/search/?api=1&query={{$toko->latitude}},{{$toko->longitude}}" class="lokasi" style="display: flex; align-items: center; background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%); width: 3em; height: 3em; border-radius: 50%; justify-content: center; padding-top: 0.1em;">
+				<img src="<?=url('/')?>/public/img/icon_svg/maps_landing_white.svg" style="width: 1.4em;"> 
 			</a>
 			@endif
 		</div>
@@ -398,6 +401,7 @@ style="padding: 1.5em; padding: 0px;">
 				@for ($i = 0; $i < $bintang; $i++)
 				<i class="far fa-star star-rating"></i>
 				@endfor
+				<span style="color: {{$landing_page->warna_tulisan_header}}; font-size: 0.8em;">&nbsp;({{count($penilaian)}} Penilaian)</span>
 			</div>
 			<div class="penilai" style="display: flex; justify-content: space-between; align-items: flex-end;">
 				<div class="foto-penilai" style="display: flex; justify-content: flex-start; margin-top: 0.2em;">
@@ -407,9 +411,7 @@ style="padding: 1.5em; padding: 0px;">
 					</div>
 					@endforeach
 				</div>
-				<div>
-					<div style="color: {{$landing_page->warna_tulisan_header}}; font-size: 0.8em;">{{count($penilaian)}} Penilaian</div>
-				</div>
+
 			</div>
 			@if(Auth()->user()->id != $toko->user->id)
 			<div style="color: {{$landing_page->warna_tulisan_header}}; font-size: 0.8em; margin-top: 1.2em;" onclick="menilai()">				
@@ -529,8 +531,7 @@ style="padding: 1.5em; padding: 0px;">
 									</div>
 
 
-
-
+									@if ($item->jenis_harga == 'Statis')
 									@if($item->diskon != '0')
 									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
 										<s>IDR. {{number_format($item->harga)}}</s>
@@ -538,11 +539,20 @@ style="padding: 1.5em; padding: 0px;">
 									@php
 									$hasil_diskon = ($item->harga)-((($item->diskon)/100)*($item->harga));
 									@endphp
-									<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{$hasil_diskon}}</div>
+									<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{number_format($hasil_diskon)}}</div>
 									@else
-									<div style="padding: 0; margin: 0.5em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{$item->harga}}</div>
+									<div style="padding: 0; margin: 0.5em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{number_format($item->harga)}}</div>
 									@endif	
-									
+
+									@else
+									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
+										Harga Mulai
+									</div>
+									<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{number_format($hasil_diskon)}}</div>
+
+									@endif
+
+
 									
 								</div>
 							</div>
@@ -583,26 +593,9 @@ style="padding: 1.5em; padding: 0px;">
 		</div>
 	</div>
 	<div style="background: {{$landing_page->warna_footer_2}}; margin-top: -2em; border: none; position: absolute; z-index: 5; width: 100%;">
-		<div class="container-mall" style="padding-bottom: 3em;">
-			<div style="padding-top: 2em; text-align: center; color: {{$landing_page->warna_tulisan_footer}};">
-				<p style="font-weight: 700; margin-bottom: 0px;">Alamat</p>
-				<p style="margin-top: 0px;">{{$toko->alamat}}</p>
-			</div>
-			<div style="padding-top: 2em; text-align: center; color: {{$landing_page->warna_tulisan_footer}};">
-				<p style="font-weight: 700;">Connect with us on social media</p>
-				<div class="sosmed">
-					<img src="<?=url('/')?>/public/img/home/about/facebook.svg" style="width: 2.2em;">
-					<img src="<?=url('/')?>/public/img/home/about/youtube.svg" style="width: 2.2em;">
-					<img src="<?=url('/')?>/public/img/home/about/instagram.svg" style="width: 2.2em;">
-					<img src="<?=url('/')?>/public/img/home/about/twitter.svg" style="width: 2.2em;">
-				</div>
-				<div><br>
-					<a href="<?=url('/')?>" style="margin: 0em 0.3em 0em 0.3em;">About Us</a>
-					<a href="<?=url('/')?>" style="margin: 0em 0.3em 0em 0.3em;">Privacy & Policy</a>
-				</div>
-				<div>
-					Copyright&nbsp;&copy;&nbsp;<script>document.write(new Date().getFullYear());</script>&nbsp;CV. Kaili Nusantara Production
-				</div>
+		<div class="container-mall" style="padding-bottom: 1em;">
+			<div style="padding-top: 1em; text-align: center; margin-bottom: 0em; color: {{$landing_page->warna_tulisan_footer}};">
+				<img src="<?=url('/')?>/public/img/logo.svg" style="width: 2em;">&nbsp;&nbsp;&copy;&nbsp;<script>document.write(new Date().getFullYear());</script>&nbsp;Kitapuramall
 			</div>
 		</div>
 	</div>
