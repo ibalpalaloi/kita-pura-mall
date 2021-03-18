@@ -367,6 +367,14 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	.cr-slider {
 		width: 100%;
 	}	
+	.loader-container{
+		width: 100%;
+		height: 100vh;
+		position: fixed;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 </style>
 @endsection
 
@@ -415,6 +423,17 @@ if (!empty($_GET['deskripsi'])){
 	$hari = $_GET['deskripsi'];
 }
 ?>
+<div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+			<div class="loader-container">
+				<div class="spinner-border text-danger" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
 
 <div class="modal fade" id="modal-sukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
@@ -1151,14 +1170,16 @@ if (!empty($_GET['deskripsi'])){
 
 
 		var imageSize = {
-			width: 600,
-			height: 600,
+			width: 700,
+			height: 700,
 			type: 'square'
 		};
 
 
 
 		$('.upload-image').on('click', function (ev) {
+			$("#modal-sukses").modal("hide");
+			show_loader();
 			resize.croppie('result', {
 				circle: false,
 				type: 'canvas',
@@ -1172,7 +1193,7 @@ if (!empty($_GET['deskripsi'])){
 					data: {"image":img},
 					success: function (data) {
 					// alert(data);
-					$("#modal-sukses").modal('hide');
+					setTimeout(hide_loader, 1000);
 					$('#preview_cover').attr('src', "<?=url('/')?>/public/"+data);
 
 				}
@@ -1182,6 +1203,15 @@ if (!empty($_GET['deskripsi'])){
 			status_ganti_foto = 1;
 
 		});
+		function show_loader(){
+			console.log('show');
+			$("#modal_loader").modal("show");
+		};
+
+		function hide_loader(){
+			console.log('hide');
+			$("#modal_loader").modal("hide");
+		};
 
 	</script>
 	<!-- maps -->
@@ -1223,6 +1253,8 @@ if (!empty($_GET['deskripsi'])){
 	var imageSize1 = { width: 800, height: 541, type: 'square'};
 
 	$('.upload-image-maps-1').on('click', function (ev) {
+		$("#modal-maps-1").modal('hide');
+		$("#modal_loader").modal('show');
 		resize_maps_1.croppie('result', {
 			circle: false, type: 'canvas', size: imageSize1, quality: 1
 		}).then(function (img) {
@@ -1231,7 +1263,7 @@ if (!empty($_GET['deskripsi'])){
 				type: "POST",
 				data: {"image":img, "jenis":"1"},
 				success: function (data) {
-					$("#modal-maps-1").modal('hide');
+					setTimeout(hide_loader, 1000);
 					$('#pic_toko_privew_1').attr('src', "<?=url('/')?>/public/"+data);
 				}
 			});
@@ -1264,6 +1296,8 @@ if (!empty($_GET['deskripsi'])){
 	var imageSize2 = { width: 506, height: 800, type: 'square'};
 
 	$('.upload-image-maps-2').on('click', function (ev) {
+		$("#modal-maps-2").modal('hide');
+		show_loader();
 		resize_maps_2.croppie('result', {
 			circle: false, type: 'canvas', size: imageSize2, quality: 1
 		}).then(function (img) {
@@ -1272,7 +1306,7 @@ if (!empty($_GET['deskripsi'])){
 				type: "POST",
 				data: {"image":img, "jenis":"2"},
 				success: function (data) {
-					$("#modal-maps-2").modal('hide');
+					setTimeout(hide_loader, 1000);
 					$('#pic_toko_privew_2').attr('src', "<?=url('/')?>/public/"+data);
 				}
 			});
@@ -1305,6 +1339,8 @@ if (!empty($_GET['deskripsi'])){
 	var imageSize3 = { width: 681, height: 800, type: 'square'};
 
 	$('.upload-image-maps-3').on('click', function (ev) {
+		$("#modal-maps-3").modal('hide');
+		show_loader()
 		resize_maps_3.croppie('result', {
 			circle: false, type: 'canvas', size: imageSize3, quality: 1
 		}).then(function (img) {
@@ -1313,7 +1349,8 @@ if (!empty($_GET['deskripsi'])){
 				type: "POST",
 				data: {"image":img, "jenis":"3"},
 				success: function (data) {
-					$("#modal-maps-3").modal('hide');
+					setTimeout(hide_loader, 1000);
+					
 					$('#pic_toko_privew_3').attr('src', "<?=url('/')?>/public/"+data);
 				}
 			});
