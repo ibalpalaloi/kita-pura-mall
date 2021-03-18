@@ -61,8 +61,9 @@ class LandingPageController extends Controller
 
 		$landing_page = Landing_page_toko::where('toko_id', $toko->id)->get();
 		if(count($landing_page)==0){
-			$template = Template_landing_page::find($id);
+			$template = Template_landing_page::find(1);
 			$page = new Landing_page_toko;
+			$page->toko_id = Auth()->user()->toko->id;
 			$page->warna_header = $template->warna_header;
 			$page->warna_body = $template->warna_body;
 			$page->warna_footer_1 = $template->warna_footer_1;
