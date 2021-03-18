@@ -278,6 +278,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		display: flex; 
 		justify-content: center;
 		align-items: center;		
+		margin: 0.5em 0.5em 0em 0.5em;
 	}
 
 </style>
@@ -312,7 +313,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 				<img src="<?=url('/')?>/public/img/mitra/modal_product.svg" style="width: 100%; position: absolute; top: -18.5em;">
 				<div style="font-size: 1.8em; font-weight: 600; margin-top: 3em;">Produk Belum Ada</div>
 				<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 0.5em;">Silahkan Masukan Produk Terlebh Dahulu</div>
-				<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk" class="btn btn-primary" style="margin-bottom: 0.5em; font-size: 1.1em;margin-top: 0em; text-align: center; color: white;">Atur Produk
+				<a href="<?=url('/')?>/akun/mitra/premium/daftar-produk" class="btn btn-primary" style="margin-bottom: 0.5em; font-size: 1.1em;margin-top: 0em; text-align: center; color: white;">Atur Produk
 				</a>
 			</div>
 		</div>
@@ -322,17 +323,16 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 <div class="modal fade" id="modal-share-landing-page" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
-		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 3em 0em 3em; color: white;">
-			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -8em; right: -2em; z-index: 5;">
-				<img src="<?=url('/')?>/public/img/mitra/modal_product.svg" style="width: 100%; position: absolute; top: -16em;">
-				<div style="font-size: 1.5em; font-weight: 600; margin-top: 3.5em;">Bagikan Website Kamu!</div>
+		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 2em 0em 2em; color: white;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0; width: 90%;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: -1em; z-index: 5;">
+				<div style="font-size: 1.5em; font-weight: 600; margin-top: 0em;">Bagikan Website Kamu!</div>
 				<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 0.5em;">
 
-					<div style="background: #1E1E1F; padding: 1em 1.5em; border-radius: 2em; position: relative; margin-top: 0.5em; margin-bottom: 0.5em;">
+					<div style="background: #1E1E1F; padding: 1em 1em; border-radius: 2em; position: relative; margin-top: 0.5em; margin-bottom: 0.5em;">
 						<input type="text" id="link_toko_2" style="cursor: pointer; color: white;width: 100%; background: #1E1E1F; font-weight: 500;" value="kitapura.com/{{$toko->username}}" readonly>
 					</div>
-					<div class="share_div" style="display: flex; justify-content: space-between; margin-top: 0.5em;">
+					<div class="share_div" style="display: flex; justify-content: center; margin-top: 0.5em;">
 						<div id="salin-link-2" class="share_platform" data-toggle="tooltip" data-placement="bottom" title="Salin Link" style="cursor: pointer;" onclick="copy_text('2')">
 							<img src="<?=url('/')?>/public/img/icon_svg/copy_white.svg">
 							<input type="hidden" id="link_toko_2" value="kitapura.com/{{$toko->username}}" readonly>
@@ -447,13 +447,13 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		</div>
 
 		<div style="display: flex;justify-content:center;flex-direction: column; align-items: center; padding-bottom: 1.2em;">
-			<a href="<?=url('/')?>/akun/mitra/premium/atur-toko" style="padding-left: 0.4em;">
+			<a href="<?=url('/')?>/akun/mitra/premium/ubah-toko" style="padding-left: 0.4em;">
 				<img src="<?=url('/')?>/public/img/button/toko_premium/atur_toko.svg" style="width: 100%;">
 			</a>
-			<a href="<?=url('/')?>/akun/mitra/premium/tambah-produk" style="padding-left: 0.4em;">
+			<a href="<?=url('/')?>/akun/mitra/premium/atur-produk" style="padding-left: 0.4em;">
 				<img src="<?=url('/')?>/public/img/button/toko_premium/atur_produk.svg" style="width: 100%;">
 			</a>
-			<a href="<?=url('/')?>/akun/mitra/premium/atur-produk" style="padding-left: 0.4em;">
+			<a href="<?=url('/')?>/akun/mitra/premium/ubah-landing-page" style="padding-left: 0.4em;">
 				<img src="<?=url('/')?>/public/img/button/toko_premium/atur_landing_page.svg" style="width: 100%;">
 			</a>
 			<a href="<?=url('/')?>/akun/mitra/premium/ganti-landing-page" style="padding-left: 0.4em;">

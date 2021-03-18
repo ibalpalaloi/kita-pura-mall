@@ -148,19 +148,21 @@ if (!empty($_GET['deskripsi'])){
 	$deskripsi = $_GET['deskripsi'];
 }
 ?>
+
+
 @if (($toko->latitude == 1) && ($toko->longitude == 1)) 
 <div class="modal fade" id="modal-verifikasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
     <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
-        <div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: -10em 0em 0em 0em; color: white; border: none; box-shadow: none;">
+        <div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: -8em 0em 0em 0em; color: white; border: none; box-shadow: none;">
             <div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
                 <img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
                 <img src="<?=url('/')?>/public/img/modal_assets/modal_waiting2.svg" style="width: 100%;">
-                <div style="position: absolute; margin: 3% 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%; background: #FF006E; border-bottom-left-radius: 1em; display: flex; justify-content: center; flex-direction: column; align-items: center; border-bottom-right-radius: 1em; box-shadow: 0 0.25rem 0rem rgb(0 0 0 / 20%)">
+                <div style="position: absolute; margin: 3% 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%; background: #FF006E; border-bottom-right-radius: 1em; border-bottom-left-radius: 1em; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); display: flex; justify-content: center; flex-direction: column;align-items: center;">
                     <div style="font-size: 2em; font-weight: 600; text-align: center;">Mohon Tunggu...</div>
                     <div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">anda telah mengirimkan lokasi kepada admin untuk ditambahkan oleh admin. Silahkan menunggu admin untuk mengkonfirmasi alamat anda</div>
-                    <a class="btn btn-primary" href="<?=url('/')?>/akun/mitra/premium/atur-toko" style="margin-bottom: 0.7em; font-size: 1.1em;text-align: center; color: white;">Kembali ke atur toko
+                    <a class="btn btn-primary" href="<?=url('/')?>/akun/mitra/premium/ubah-toko" style="margin-bottom: 0.7em; font-size: 1.1em;text-align: center; color: white;">Kembali ke atur toko
                     </a>
-                    <div data-dismiss="modal" href="<?=url('/')?>/akun/mitra/premium/atur-toko" style="margin-bottom: 1em; font-size: 1em; text-align: center; text-decoration: underline; color: white;">Atur Manual Koordinat Saya
+                    <div data-dismiss="modal" href="<?=url('/')?>/akun/mitra/premium/ubah-toko" style="margin-bottom: 1em; font-size: 1em; text-align: center; text-decoration: underline; color: white;">Atur Manual Koordinat Saya
                     </div>
                 </div>
             </div>
@@ -173,7 +175,7 @@ if (!empty($_GET['deskripsi'])){
     <div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: flex-end;">
         <div style="margin-right: 1em;" id="cari_lokasi" @if (($toko->latitude != null) && ($toko->longitude != null)) hidden @endif>
             <div class="btn btn-primary" onclick="cari_lokasi()" style="background: #ffaa00; border: 2px solid #ffaa00;">Cari Lokasi</div>
-            <a class="btn btn-primary" href="<?=url('/')?>/akun/mitra/premium/atur-toko/kirim-lokasi" id="kirim_lokasi" style="background: #35A500; border: 2px solid #35A500;" hidden>Tidak Menemukan Lokasi?</a>
+            <a class="btn btn-primary" href="<?=url('/')?>/akun/mitra/premium/ubah-toko/kirim-lokasi" id="kirim_lokasi" style="background: #35A500; border: 2px solid #35A500;" hidden>Tidak Menemukan Lokasi?</a>
         </div>
     </div>
 </header>
@@ -208,15 +210,15 @@ if (!empty($_GET['deskripsi'])){
             </div>
             <input type="text" class="form-control form-control-mall" id="longitude" name="longitude" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Longitude" aria-label="longitude" aria-describedby="basic-addon1" style="font-size: 1em;" value="@if($toko->longitude != null){{$toko->longitude}} @endif">
         </div>
-        <div id="koordinat_belum_tersimpan" style="width: 100%;" @if (($toko->latitude == null) && ($toko->longitude == null)) hidden @endif>
+        <div id="koordinat_belum_tersimpan" style="width: 100%;" @if (($toko->latitude == null) && ($toko->longitude == null)) @else hidden @endif>
             <button onclick="simpan_koordinat()" id="btn_simpan_lokasi" class="btn btn-primary" style="background: #ffaa00;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Simpan Koordinat
             </button>
             <div onclick="batal_ubah()" class="btn btn-primary mt-2" style="background: #007bff;border: 1px solid #007bff; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Batal Ubah</div>
         </div>
-        <div id="koordinat_sudah_tersimpan" style="width: 100%;" @if (($toko->latitude == null) && ($toko->longitude == null)) @else hidden @endif>
+        <div id="koordinat_sudah_tersimpan" style="width: 100%;" @if (($toko->latitude == null) && ($toko->longitude == null)) hidden @endif>
             <div onclick="ubah_koordinat()" id="btn_simpan_lokasi" class="btn btn-primary" style="background: #ffaa00;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Ubah Koordinat
             </div>
-            <a href="<?=url('/')?>/akun/mitra/premium/atur-toko" class="btn btn-primary mt-2" style="background: #007bff;border: 1px solid #007bff; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Kembali</a>
+            <a href="<?=url('/')?>/akun/mitra/premium/ubah-toko" class="btn btn-primary mt-2" style="background: #007bff;border: 1px solid #007bff; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 100%;">Kembali</a>
         </div>
 
     </form>
@@ -242,7 +244,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
     latitude = "<?=$toko->latitude?>"; 
     longitude = "<?=$toko->longitude?>";
     @endif
-    @if (($toko->latitude == 0) && ($toko->longitude == 0))
+    @if (($toko->latitude == 1) && ($toko->longitude == 1))
     $("#modal-verifikasi").modal('show');
     @endif
 
@@ -273,7 +275,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
     };
 
     var food_icon = L.icon({
-        iconUrl: "<?=url('/')?>/public/img/maps/food.svg",
+        iconUrl: "<?=url('/')?>/public/img/maps/logo_maps.svg",
                 iconSize:     [38, 95], // size of the icon
                 shadowSize:   [50, 64], // size of the shadow
                 iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
@@ -385,7 +387,8 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
             desiredAccuracy: 30 // defaults to 20
         });
         locate();
-
+        $("#koordinat_belum_tersimpan").prop('hidden', false);
+        $("#koordinat_sudah_tersimpan").prop('hidden', true);
     }
 
 

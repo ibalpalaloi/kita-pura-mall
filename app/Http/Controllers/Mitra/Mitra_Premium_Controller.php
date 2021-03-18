@@ -19,6 +19,7 @@ use App\Models\Ktp_toko;
 use App\Models\Template_landing_page;
 use App\Models\Landing_page_toko;
 use DB;
+use File;
 
 
 class Mitra_Premium_Controller extends Controller
@@ -229,8 +230,9 @@ class Mitra_Premium_Controller extends Controller
 			if($request->file("foto_toko")){
 				$files = $request->file("foto_toko");
 				$type = $request->file("foto_toko")->getClientOriginalExtension();
-				$file_upload = $toko->id.".".$type;
+				$file_upload = time().$this->generateRandomString().".".$type;
 				\Storage::disk('public')->put('img/toko/'.$toko->id.'/logo/'.$file_upload, file_get_contents($files));
+				\File::delete("public/img/toko/".$toko->id."/logo/".$toko->logo_toko);		
 				$toko->logo_toko = $file_upload;
 			}
 			$toko->save();
@@ -327,11 +329,22 @@ class Mitra_Premium_Controller extends Controller
 
 	public function kirim_lokasi(){
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
-		$toko->latitude = 0;
-		$toko->longitude = 0;
+		$toko->latitude = 1;
+		$toko->longitude = 1;
 		$toko->save();	
 		return redirect("https://api.whatsapp.com/send?phone=6285156100849&text=Saya%20Tidak%20Menemukan%20Lokasi%20Saya");		
 	}
+
+	function generateRandomString($length = 10) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
+	
 
 	public function simpan_lokasi(Request $request){
 
@@ -347,7 +360,7 @@ class Mitra_Premium_Controller extends Controller
 			'message' => 'Lokasi Berhasil Diperbarui'
 		);     
 
-		return redirect('/akun/mitra/premium/atur-toko')->with($notification);
+		return redirect('/akun/mitra/premium/ubah-toko')->with($notification);
 	}
 
 }
