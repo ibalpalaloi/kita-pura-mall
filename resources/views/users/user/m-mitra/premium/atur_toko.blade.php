@@ -315,6 +315,15 @@ crossorigin="" />
 		border-radius: 0.8em;
 	}
 
+	.loader-container{
+		width: 100%;
+		height: 100vh;
+		position: fixed;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
 
 </style>
 @endsection
@@ -459,6 +468,19 @@ $status_ugrade = "";
 			</button>
 		</div>
 	</div>
+</div>
+
+{{-- modal loader --}}
+<div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+			<div class="loader-container">
+				<div class="spinner-border text-danger" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+		</div>
+    </div>
 </div>
 
 <div class="modal fade" id="modal-kategori" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
@@ -607,7 +629,7 @@ $status_ugrade = "";
 
 
 <main id="homepage" class="homepage" style="padding-top: 4em; background: transparent;">
-	<form enctype="multipart/form-data" action="<?=url('/')?>/akun/mitra/{{$toko->jenis_mitra}}/simpan" method="post">
+	<form id="form_input" enctype="multipart/form-data" action="<?=url('/')?>/akun/mitra/{{$toko->jenis_mitra}}/simpan" method="post">
 		{{csrf_field()}}
 		{{method_field('PUT')}}
 		<div style="display: flex; justify-content: center;">
@@ -1020,9 +1042,19 @@ function hapus_jadwal(hari){
 			$(".list-kategori").append("<badge class='badge badge-secondary'>"+value_kategori[i]+"</badge>");
 		}
 
-
-
+		
 	}
+	$( "#form_input" ).submit(function( event ) {
+		show_loader();
+	});
+
+	function show_loader(){
+		$("#modal_loader").modal("show");
+	};
+
+	function hide_loader(){
+		$("#modal_loader").modal("hide");
+	};
 
 </script>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
@@ -1083,11 +1115,7 @@ crossorigin=""></script>
     }
     @endif
 
-
-
-
-
-
+	
 
 </script>
 

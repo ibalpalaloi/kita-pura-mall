@@ -310,6 +310,15 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	.cr-slider {
 		width: 100%;
 	}
+
+	.loader-container{
+		width: 100%;
+		height: 100vh;
+		position: fixed;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}	
 </style>
 
 @endsection
@@ -317,6 +326,18 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 
 @section('content')
+<div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+			<div class="loader-container">
+				<div class="spinner-border text-danger" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+
 <div class="modal fade" id="modal-sukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
 		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 5em 1em 0em 1em; background-color: #353535;">
@@ -367,7 +388,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	<div>
 		<img src="<?=url('/')?>/public/img/mitra/background_premium.svg" style="object-fit: cover; position: absolute; top: -2em; z-index: -5;">
 	</div>	
-	<form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post">
+	<form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post" id="form_input">
 		{{csrf_field()}}
 		<div style="display: flex; justify-content: center;">
 			<div style="width: 90%; margin-top: 0em; display: flex; flex-direction: column; align-items: center;">
@@ -854,6 +875,8 @@ function hapus_jadwal(hari){
 
 
 	$('.upload-image').on('click', function (ev) {
+		$("#modal-sukses").modal('hide');
+		show_loader();
 		resize.croppie('result', {
 			circle: false,
 			type: 'canvas',
@@ -862,12 +885,12 @@ function hapus_jadwal(hari){
 		}).then(function (img) {
 			$.ajax({
 
-				url: "<?=url('/')?>/akun/mitra/premium/tambah-produk/simpan-foto",
+				url: "<?=url('/')?>/akun/mitra/premium/atur-produk/simpan-foto",
 				type: "POST",
 				data: {"image":img},
 				success: function (data) {
 					// alert(data);
-					$("#modal-sukses").modal('hide');
+					hide_loader();
 					$('#pic_toko_privew').attr('src', "<?=url('/')?>/public/img/temp_produk/"+data);
 					$("#nama_foto_temp").val(data);
 					$("#div_pic_toko_privew").prop('hidden', false);
@@ -897,6 +920,18 @@ function hapus_jadwal(hari){
 		}
 
 	})
+
+	$( "#form_input" ).submit(function( event ) {
+		show_loader();
+	});
+
+	function show_loader(){
+		$("#modal_loader").modal("show");
+	};
+
+	function hide_loader(){
+		$("#modal_loader").modal("hide");
+	};
 
 </script>
 @endsection
