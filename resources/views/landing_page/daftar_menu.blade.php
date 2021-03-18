@@ -209,8 +209,8 @@
 		<a href="<?=url('/')?>/{{Request::segment(1)}}" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; margin-right: ">
 			<img src="<?=url('/')?>/public/img/icon_svg/back_red.svg" style="width: 28%;">
 		</a>
-		<a style="height: 100%; width: 80%; display: flex; justify-content: center; align-items: center;">
-			<img src="<?=url('/')?>/public/img/toko/logo/warung_mantap.png" style="width: 20%;">
+		<a style="height: 100%; width: 80%; display: flex; justify-content: center; align-items: center; font-size: 1.5em; font-weight: 600;">
+			@php echo "@".$toko->username @endphp
 		</a>
 		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; ">
 			<img src="<?=url('/')?>/public/img/icon_svg/keranjang_polos_red.svg" style="width: 50%;">

@@ -103,7 +103,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$produk->foto_produk = $request->nama_foto_temp;
 		$produk->save();
 
-		return redirect('/akun/mitra/premium/tambah-produk');
+		return redirect('/akun/mitra/premium/akun-produk');
 
 	}
 
@@ -158,7 +158,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$produk->save();
 
 
-		return redirect('/akun/mitra/premium/tambah-produk');
+		return redirect('/akun/mitra/premium/atur-produk');
 	}
 
 	public function hapus_tambah_produk_premium($id){
@@ -169,7 +169,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 		\Storage::disk('public')->delete('img/toko/'.$toko->id.'/produk/'.$id);
 
-		return redirect('/akun/mitra/premium/tambah-produk');
+		return redirect('/akun/mitra/premium/atur-produk');
 
 	}
 
