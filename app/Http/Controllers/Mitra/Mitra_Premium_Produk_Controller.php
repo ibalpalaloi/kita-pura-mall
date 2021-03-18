@@ -191,9 +191,9 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 		$produk = product::where('toko_id', $toko->id)->get();
 
-		$foto_1 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','1')->first();
-		$foto_2 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','2')->first();
-		$foto_3 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','3')->first();
+		$foto_1 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','1')->orderBy('created_at', 'desc')->first();
+		$foto_2 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','2')->orderBy('created_at', 'desc')first();
+		$foto_3 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','3')->orderBy('created_at', 'desc')first();
 		// dd($foto_maps);
 
 		return view('users/user/m-mitra/premium/atur_produk', compact('kategori_produk','produk','foto_1','foto_2','foto_3', 'video', 'fasilitas_toko', 'toko'));

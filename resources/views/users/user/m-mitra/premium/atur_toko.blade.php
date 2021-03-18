@@ -820,143 +820,160 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$("#div_"+id).css('border', '1px solid white');		
 	}		
 
+jQuery(function($) { // DOM ready and $ alias secured
 
-	function pilih_lokasi(){
-		location.href="<?=url()->current()?>/pilih-lokasi?pemilik="+$("#nama_pemilik").val()+"&no_hp="+$("#no_hp").val()+"&kategori=" + $("#kategori_toko").val()+"&hari="+$("#jadwal_hari").val()+"&buka="+$("#jadwal_buka").val()+"&tutup="+$("#jadwal_tutup").val()+"&deskripsi="+$("#deskripsi").val();		
-	}
-
-	function pilih_jadwal(){
-		$('#modal-trigger-location').modal('show'); 
-	}
-
-	function tambah_kategori_modal(){
-		$('#modal-kategori').modal('show');
-	}
-
-	function simpan_disabled_kategori(){
-		alert("Tambahkan data terlebih dahulu");
-	}
-
-	function simpan_disabled_jadwal(){
-		alert("Tambahkan data terlebih dahulu");        
-	}
-
-	function tambah_jadwal() {
-		var simbol = $("#jadwal").val();
-		var hari = $("#jadwal option:selected").text();
-		if (simbol == null){
-			alert("Silahkan Pilih Jadwal");
-		}
-		else {
-			var waktu_tutup = $("#waktu_tutup").val();
-			var waktu_buka = $("#waktu_buka").val();
-			var jadwal_sample = $("#jadwal_sample").html();
-			var fix_id = jadwal_sample.replaceAll(hari.replaceAll(" ", '_')).trim();
-			var fix_harinya = fix_id.replaceAll("harinya", hari).trim();
-			var fix_waktu = fix_harinya.replace("jamnya", waktu_buka + " - " + waktu_tutup).trim();
-			var fix_simbol = fix_waktu.replace("simbolnya", simbol).trim();
-			$("#jadwal_fix").append(fix_simbol);
-			jadwal_hari.push(hari);
-			jadwal_buka.push(waktu_buka);
-			jadwal_tutup.push(waktu_tutup);
-			check_select();
-			i++;
-			$("#simpan_disabled_jadwal").prop("hidden", true);
-			$("#simpan_enabled_jadwal").prop("hidden", false);
-
-		}
-
-	}
-
-	function check_select(){
-		var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
-		var option_text = ["Setiap-Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis","Jumat", "Sabtu", "Minggu"];
-		var option = "";
-		for (var i = 0; i < option_text.length; i++){
-			var indikator = false;
-			for (var j = 0; j < jadwal_hari.length; j++){
-				if (jadwal_hari[j] == option_text[i]){
-					indikator = true;
-				}
-			}
-			if (indikator == false){
-				option += "<option value='"+option_value[i]+"' >"+option_text[i]+"</option>"; 				
-			}
-		}
-		$("#jadwal").html(option);		
-		var string_hari = jadwal_hari.toString();
-		var string_buka = jadwal_buka.toString();
-		var string_tutup = jadwal_tutup.toString();
-		$("#jadwal_hari").val(string_hari.replaceAll(",", "~"));
-		$("#jadwal_buka").val(string_buka.replaceAll(",", "~"));
-		$("#jadwal_tutup").val(string_tutup.replaceAll(",", "~"));
-
-		if ($("#jadwal_hari").val() == ''){
-			$("#pilih_jadwal_buka_toko").html("Pilih Jadwal Buka Tutup Toko");
-		}
-		else {
-			$("#pilih_jadwal_buka_toko").html("Telah memilih Jadwal");			
-		}
-
-	}
-
-	function check_select_kategori() {
-		var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
-
-		var option_text = [];
-		var option_id = [];
-		@foreach ($daftar_kategori as $row)
-		option_id.push("<?=$row->id?>");
-		option_text.push("<?=$row->kategori?>");
-		@endforeach
-		var option = "";
-		for (var i = 0; i < option_id.length; i++) {
-			var indikator = false;
-			for (var j = 0; j < value_id_kategori.length; j++) {
-				if (value_id_kategori[j] == option_id[i]) {
-					indikator = true;
-				}
-			}
-			if (indikator == false) {
-				option += "<option value='" + option_id[i] + "' >" + option_text[i] + "</option>";
-			}
-		}
-		$("#kategori").html(option);
-		var string_kategori = value_kategori.toString();
-		var string_id_kategori = value_id_kategori.toString();
-		$("#input_kategori").val(string_kategori.replaceAll(",", "~"));
-		$("#input_id_kategori").val(string_id_kategori.replaceAll(",", "~"));
-	}
-
-
-	function tambah_kategori(){
-		var id_kategori = $("#kategori").val();
-		var kategorinya = $("#kategori option:selected").text();
-		if (id_kategori == null){
-			alert("Silahkan Pilih Kategori");
-		}
-		else {
-			var kategori_sample = $("#kategori_sample").html();
-			var fix_id = kategori_sample.replaceAll("kategorinya", id_kategori).trim();
-			var fix_kategorinya = fix_id.replaceAll("kategori_nya", kategorinya).trim();
-			var fix_simbol = fix_kategorinya.replace("simbolnya", kategorinya.substring(0,1)).trim();
-			$("#kategori_fix").append(fix_simbol);
-
-			value_kategori.push(kategorinya);
-			value_id_kategori.push(id_kategori);
-			$(".list-kategori").html('');
-			for (var i = 0; i < value_kategori.length; i++){
-				$(".list-kategori").append("<badge class='badge badge-secondary'>"+value_kategori[i]+"</badge>");
+	$('#username_toko').on('keydown', function(e){
+		if ((String.fromCharCode(e.which).match(/[^A-Za-z0-9_ ]/) || e.which === 32)) {
+			e.preventDefault();
+				// alert("Special characters are not allowed. Use 'A-Z', 'a-z' and '0-9'.");
 			}
 
-			check_select_kategori();
-			i_kategori++;
-			$("#simpan_disabled_kategori").prop("hidden", true);
-			$("#simpan_enabled_kategori").prop("hidden", false);
-		}
+		});
+});
+
+// $("#username_toko").keypress(function(e) {
+// 	if ((String.fromCharCode(e.which).match(/[^A-Za-z0-9_ ]/) || e.which === 32)) {
+// 		e.preventDefault();
+// 				// alert("Special characters are not allowed. Use 'A-Z', 'a-z' and '0-9'.");
+// 			}
+// 		});
+
+function pilih_lokasi(){
+	location.href="<?=url()->current()?>/pilih-lokasi?pemilik="+$("#nama_pemilik").val()+"&no_hp="+$("#no_hp").val()+"&kategori=" + $("#kategori_toko").val()+"&hari="+$("#jadwal_hari").val()+"&buka="+$("#jadwal_buka").val()+"&tutup="+$("#jadwal_tutup").val()+"&deskripsi="+$("#deskripsi").val();		
+}
+
+function pilih_jadwal(){
+	$('#modal-trigger-location').modal('show'); 
+}
+
+function tambah_kategori_modal(){
+	$('#modal-kategori').modal('show');
+}
+
+function simpan_disabled_kategori(){
+	alert("Tambahkan data terlebih dahulu");
+}
+
+function simpan_disabled_jadwal(){
+	alert("Tambahkan data terlebih dahulu");        
+}
+
+function tambah_jadwal() {
+	var simbol = $("#jadwal").val();
+	var hari = $("#jadwal option:selected").text();
+	if (simbol == null){
+		alert("Silahkan Pilih Jadwal");
+	}
+	else {
+		var waktu_tutup = $("#waktu_tutup").val();
+		var waktu_buka = $("#waktu_buka").val();
+		var jadwal_sample = $("#jadwal_sample").html();
+		var fix_id = jadwal_sample.replaceAll(hari.replaceAll(" ", '_')).trim();
+		var fix_harinya = fix_id.replaceAll("harinya", hari).trim();
+		var fix_waktu = fix_harinya.replace("jamnya", waktu_buka + " - " + waktu_tutup).trim();
+		var fix_simbol = fix_waktu.replace("simbolnya", simbol).trim();
+		$("#jadwal_fix").append(fix_simbol);
+		jadwal_hari.push(hari);
+		jadwal_buka.push(waktu_buka);
+		jadwal_tutup.push(waktu_tutup);
+		check_select();
+		i++;
+		$("#simpan_disabled_jadwal").prop("hidden", true);
+		$("#simpan_enabled_jadwal").prop("hidden", false);
+
 	}
 
-	function hapus_jadwal(hari){
+}
+
+function check_select(){
+	var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
+	var option_text = ["Setiap-Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis","Jumat", "Sabtu", "Minggu"];
+	var option = "";
+	for (var i = 0; i < option_text.length; i++){
+		var indikator = false;
+		for (var j = 0; j < jadwal_hari.length; j++){
+			if (jadwal_hari[j] == option_text[i]){
+				indikator = true;
+			}
+		}
+		if (indikator == false){
+			option += "<option value='"+option_value[i]+"' >"+option_text[i]+"</option>"; 				
+		}
+	}
+	$("#jadwal").html(option);		
+	var string_hari = jadwal_hari.toString();
+	var string_buka = jadwal_buka.toString();
+	var string_tutup = jadwal_tutup.toString();
+	$("#jadwal_hari").val(string_hari.replaceAll(",", "~"));
+	$("#jadwal_buka").val(string_buka.replaceAll(",", "~"));
+	$("#jadwal_tutup").val(string_tutup.replaceAll(",", "~"));
+
+	if ($("#jadwal_hari").val() == ''){
+		$("#pilih_jadwal_buka_toko").html("Pilih Jadwal Buka Tutup Toko");
+	}
+	else {
+		$("#pilih_jadwal_buka_toko").html("Telah memilih Jadwal");			
+	}
+
+}
+
+function check_select_kategori() {
+	var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
+
+	var option_text = [];
+	var option_id = [];
+	@foreach ($daftar_kategori as $row)
+	option_id.push("<?=$row->id?>");
+	option_text.push("<?=$row->kategori?>");
+	@endforeach
+	var option = "";
+	for (var i = 0; i < option_id.length; i++) {
+		var indikator = false;
+		for (var j = 0; j < value_id_kategori.length; j++) {
+			if (value_id_kategori[j] == option_id[i]) {
+				indikator = true;
+			}
+		}
+		if (indikator == false) {
+			option += "<option value='" + option_id[i] + "' >" + option_text[i] + "</option>";
+		}
+	}
+	$("#kategori").html(option);
+	var string_kategori = value_kategori.toString();
+	var string_id_kategori = value_id_kategori.toString();
+	$("#input_kategori").val(string_kategori.replaceAll(",", "~"));
+	$("#input_id_kategori").val(string_id_kategori.replaceAll(",", "~"));
+}
+
+
+function tambah_kategori(){
+	var id_kategori = $("#kategori").val();
+	var kategorinya = $("#kategori option:selected").text();
+	if (id_kategori == null){
+		alert("Silahkan Pilih Kategori");
+	}
+	else {
+		var kategori_sample = $("#kategori_sample").html();
+		var fix_id = kategori_sample.replaceAll("kategorinya", id_kategori).trim();
+		var fix_kategorinya = fix_id.replaceAll("kategori_nya", kategorinya).trim();
+		var fix_simbol = fix_kategorinya.replace("simbolnya", kategorinya.substring(0,1)).trim();
+		$("#kategori_fix").append(fix_simbol);
+
+		value_kategori.push(kategorinya);
+		value_id_kategori.push(id_kategori);
+		$(".list-kategori").html('');
+		for (var i = 0; i < value_kategori.length; i++){
+			$(".list-kategori").append("<badge class='badge badge-secondary'>"+value_kategori[i]+"</badge>");
+		}
+
+		check_select_kategori();
+		i_kategori++;
+		$("#simpan_disabled_kategori").prop("hidden", true);
+		$("#simpan_enabled_kategori").prop("hidden", false);
+	}
+}
+
+function hapus_jadwal(hari){
 		// alert(id);
 		var temp;
 		for (var i = 0; i < jadwal_hari.length; i++){
