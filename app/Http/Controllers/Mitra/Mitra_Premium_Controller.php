@@ -64,8 +64,9 @@ class Mitra_Premium_Controller extends Controller
 			$page->warna_tulisan_footer = $template->warna_tulisan_footer;
 			$page->save();
 		}
-		
-		return redirect('/akun/mitra/premium');
+		$toko = Toko::where('id', Auth()->user()->toko->id)->first();
+
+		return redirect(url('/')."/$toko->username");
 	}
 
 	public function index_premium(){
