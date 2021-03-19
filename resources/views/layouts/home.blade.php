@@ -17,9 +17,30 @@
       .countdown-period {
         /*display: none;*/
     }
+    .loader-container{
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 </style>
 @yield('header-scripts')
+
 </head>
+{{-- modal loader --}}
+<div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+			<div class="loader-container">
+				<div class="spinner-border text-danger" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
 
 <body style="background: #eaf4ff !important;">
     @php  $show = ""; @endphp
@@ -370,6 +391,16 @@ function secondsTimeSpanToHMS(s) {
     s -= m*60;
     return ""+(m < 10 ? '0'+m : m)+":"+(s < 10 ? '0'+s : s); //zero padding on minutes and seconds
 }
+
+function show_loader(){
+    console.log('show');
+    $("#modal_loader").modal("show");
+};
+
+function hide_loader(){
+    console.log('hide');
+    $("#modal_loader").modal("hide");
+};
 
 
 </script>
