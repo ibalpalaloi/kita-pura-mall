@@ -440,7 +440,7 @@ if (!empty($_GET['deskripsi'])){
 
 	</div>
 	<div class="footer">
-		<a href="<?=url('/')?>/akun/mitra/premium/atur-produk/tambah" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
+		<a onclick="show_loader()" href="<?=url('/')?>/akun/mitra/premium/atur-produk/tambah" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
 			<img src="<?=url('/')?>/public/img/button/toko_premium/tambah_produk.svg" style="width: 100%;">
 		</a>
 	</div>

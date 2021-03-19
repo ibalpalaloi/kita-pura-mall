@@ -270,6 +270,20 @@
 
 		$('#nomor_hp').keyup(function(){
 			$(this).val($(this).val().replace(/(\d{3})\-?(\d{3})\-?(\d{4})/,'$1-$2-$3'))
-		});		
+		});	
+
+		$( "#form_input").submit(function( event ) {
+			show_loader();
+		});
+
+		function show_loader(){
+			console.log('show');
+			$("#modal_loader").modal("show");
+		};
+
+		function hide_loader(){
+			console.log('hide');
+			$("#modal_loader").modal("hide");
+		};	
 	</script>
 	</html>
