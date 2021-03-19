@@ -13,11 +13,18 @@ use App\Models\Video_landing_page;
 use App\Models\Pengunjung_toko;
 use App\Models\Landing_page_toko;
 use App\Models\Template_landing_page;
+use Auth;
 
 class LandingPageController extends Controller
 {
 	public function landing_page_mitra($mitra){
-		$keranjang = Keranjang_belanja::where('user_id', Auth()->user()->id)->get();
+		if(Auth::user()){
+			$keranjang = Keranjang_belanja::where('user_id', Auth()->user()->id)->get();
+		}
+		else{
+			$keranjang = 0;
+		}
+		// 
 		$toko = Toko::where('username', $mitra)->first();
 		$produk = Product::where('toko_id', $toko->id)->where('tampil','ya')->get();
 		$penilaian = Penilaian_toko::where('toko_id', $toko->id)->take(4)->get();
@@ -51,13 +58,15 @@ class LandingPageController extends Controller
 			}
 			array_push($video, $link);
 		}
-		// pengunjung toko
-		if(Auth()->user()->id != $toko->user->id){
-			$pengunjung = new Pengunjung_toko;
-			$pengunjung->user_id = Auth()->user()->id;
-			$pengunjung->toko_id = $toko->user->id;
-			$pengunjung->save();
+		if(Auth::user()){
+			if(Auth()->user()->id != $toko->user->id){
+				$pengunjung = new Pengunjung_toko;
+				$pengunjung->user_id = Auth()->user()->id;
+				$pengunjung->toko_id = $toko->user->id;
+				$pengunjung->save();
+			}
 		}
+		
 
 		$landing_page = Landing_page_toko::where('toko_id', $toko->id)->get();
 		if(count($landing_page)==0){
