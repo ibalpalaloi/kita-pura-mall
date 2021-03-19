@@ -301,7 +301,7 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 	</div>
 	<div class="card-mall">
 		<div style="padding: 1.5em 2em 1.5em 2em;">
-			<a href="<?=url('/')?>/akun/pengaturan-profil">
+			<a onclick="show_loader()" href="<?=url('/')?>/akun/pengaturan-profil">
 				<span><img src="<?=url('/')?>/public/img/user/setting.svg"></span>
 				<span>&nbsp;&nbsp;&nbsp;Pengaturan Profil</span>
 			</a>
@@ -309,7 +309,7 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 	</div>
 	<div class="card-mall">
 		<div style="padding: 1.5em 2em 1.5em 2em;">
-			<a href="<?=url('/')?>/akun/mitra">
+			<a onclick="show_loader()" href="<?=url('/')?>/akun/mitra">
 				<span><img src="<?=url('/')?>/public/img/user/mitra.svg"></span>
 				<span>&nbsp;&nbsp;&nbsp;Mitra Kitapura</span>
 			</a>
@@ -318,7 +318,7 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 	</div>
 	<div class="card-mall">
 		<div style="padding: 1.5em 2em 1.5em 2em;">
-			<a href="<?=url('/')?>/logout">
+			<a onclick="show_loader()" href="<?=url('/')?>/logout">
 				<span>&nbsp;&nbsp;<img src="<?=url('/')?>/public/img/user/logout.svg"></span>
 				<span>&nbsp;&nbsp;&nbsp;Keluar</span>
 			</a>
