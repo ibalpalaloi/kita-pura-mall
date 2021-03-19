@@ -14,7 +14,7 @@
                     <img src="{{$toko->logo()}}" style="width: 100%; height: 100%; border-radius: 50%;">
                 </div>
                 <div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: center; color: white; margin-left: 0.3em;">
-                    <div style="font-size: 0.7em; line-height: 1em;">kategori</div>
+                    <div style="font-size: 0.7em; line-height: 1em;">{{$toko->kategorinya_toko[0]->kategori_toko->kategori}}</div>
                     <a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf" style="font-size: 1em; line-height: 1.3em; color: white;"><?=substr(strip_tags($toko->nama_toko), 0, 15)?>@if (strlen($toko->nama_toko) > 15)..@endif</a>
                     
                 </div>
