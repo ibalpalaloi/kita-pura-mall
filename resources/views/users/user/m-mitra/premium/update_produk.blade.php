@@ -310,7 +310,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 @section('content')
 <div class="modal fade" id="modal-sukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
-		<div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+		<div class="modal-content st0" style="border-radius: 1.2em;display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; background: #353535;">
 			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
 				<div class="container">
 					<div class="panel panel-info">

@@ -74,9 +74,9 @@ Route::group(['middleware'=> 'auth'], function() {
         // @home
         Route::get('/home_mitra', [HomeController::class, 'home_mitra']);
         Route::get('/home', [HomeController::class, 'index'])->name('home');
-        Route::get('/pencarian', [HomeController::class, 'rekomendasi']);
+        Route::get('/pencarian', [HomeController::class, 'pencarian']);
         Route::get('/pencarian/explore', [HomeController::class, 'pencarian']);
-        Route::get('/pencarian/rekomendasi', [HomeController::class, 'rekomendasi']);
+        Route::get('/pencarian/rekomendasi', [HomeController::class, 'pencarian']);
         Route::get('/pencarian/maps', [HomeController::class, 'maps']);
         Route::post('/pencarian/maps/get_jadwal', [HomeController::class, 'get_jadwal'])->name('get_jadwal');
 
