@@ -150,9 +150,6 @@ crossorigin=""/>
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center; flex-direction: column; height: 55px;">
 		<div class="pencarian-tabs" style="display: flex; justify-content: center; background: white; padding: 8px; border-radius: 1.5em;">
-			<a href="<?=url('/')?>/pencarian/rekomendasi">
-				Rekomendasi
-			</a>
 			<a class="active-mall" href="<?=url('/')?>/pencarian/maps">
 				Maps
 			</a>
@@ -208,8 +205,7 @@ crossorigin=""></script>
 	@if (($row->latitude != null) && ($row->longitude != null))
 	var marker = L.marker([<?=$row->latitude?>, <?=$row->longitude?>], {icon: food_icon}).on('click', function(e) { markerClick(e, "<?=$row->nama_toko?>", "<?=$row->alamat?>", "<?=$row->foto?>", "<?=$row->id?>", "<?=$row->no_hp?>", "<?=$row->jenis_mitra?>", "<?=$row->username?>");});
 	marker.addTo(map);
-	alert('tes');
-	@endif
+		@endif
 	@endforeach
 
 	function markerClick(e, nama_toko, alamat_toko, foto, toko_id, no_hp, jenis_mitra, username) {
