@@ -351,7 +351,7 @@ if (!empty($_GET['hari'])){
 <main id="homepage" class="homepage" style="padding: 0px; background: #eaf4ff !important;">
 	<div class="card-mall kategori" style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: #eaf4ff;">
 
-		<form action="<?=url('/')?>/akun/pengaturan-profil/simpan-biodata" method="post" style="width: 90%;">
+		<form id="form_input" action="<?=url('/')?>/akun/pengaturan-profil/simpan-biodata" method="post" style="width: 90%;">
 			{{csrf_field()}}
 			<input type="hidden" value="PUT" name="_method">
 			<div class="input-group mb-3 div-input-mall" id="div_nama_lengkap" style="margin-top: 0.5em;">
@@ -602,6 +602,10 @@ if (!empty($_GET['hari'])){
 		status_ganti_foto = 1;
 
 	});
+	
+	$( "#form_input").submit(function( event ) {
+        show_loader();
+    });
 
 </script>
 @endsection
