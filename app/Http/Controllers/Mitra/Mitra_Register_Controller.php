@@ -32,6 +32,10 @@ class Mitra_Register_Controller extends Controller
 		
 	}
 
+    public function register_redirect($mitra){
+        return redirect('akun/jadi-mitra/'.$mitra."/tambah");
+    }
+
 	public function register($mitra){
 
 		$kategori = Kategori_toko::all();

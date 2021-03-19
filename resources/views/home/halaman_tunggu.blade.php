@@ -263,7 +263,7 @@
 	</header>
 
 	<div class="wrapper" style="background: #EAF4FF; margin-top: 2em; display: flex; justify-content: center;">
-		<div class="banner" style="display: flex;justify-content: center; flex-direction: column; align-items: center;">
+		<div class="banner" style="display: flex;justify-content: center; flex-direction: column; align-items: center; padding-bottom: 5em;">
 			<img src="<?=url('/')?>/public/img/register/mitra_login.svg" style="width: 75%;">
 			<div style="color: white; text-align: center; padding-top: 0.5em; display: flex; justify-content: center; flex-direction: column; align-items: center; ">
 				<h3 style="color: black; font-weight: 500;">Spesial!! Jadilah Mitra <br>Pertama di kitapuramall</h3>
