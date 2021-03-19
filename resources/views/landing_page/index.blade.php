@@ -346,16 +346,19 @@ style="padding: 1.5em; padding: 0px;">
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/">
 			<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
 		</a>
-		@if(Auth()->user()->id == $toko->users_id)
-		<a onclick="show_loader()" id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/akun/mitra/premium">
-			<img src="<?=url('/')?>/public/img/icon_svg/setting_white_bg.svg">
-		</a>
-		@else
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
-			<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
-			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
-		</a>
+		@if (Auth::user())
+			@if(Auth()->user()->id == $toko->users_id)
+			<a onclick="show_loader()" id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/akun/mitra/premium">
+				<img src="<?=url('/')?>/public/img/icon_svg/setting_white_bg.svg">
+			</a>
+			@else
+			<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
+				<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
+				<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
+			</a>
+			@endif
 		@endif
+		
 	</div>	
 </header>
 
@@ -413,11 +416,14 @@ style="padding: 1.5em; padding: 0px;">
 				</div>
 
 			</div>
-			@if(Auth()->user()->id != $toko->user->id)
-			<div style="color: {{$landing_page->warna_tulisan_header}}; font-size: 0.8em; margin-top: 1.2em;" onclick="menilai()">				
-				<i class="far fa-star star-rating"></i>&nbsp;Saya ingin menilai
-			</div>
+			@if (Auth::user())
+				@if(Auth()->user()->id != $toko->user->id)
+				<div style="color: {{$landing_page->warna_tulisan_header}}; font-size: 0.8em; margin-top: 1.2em;" onclick="menilai()">				
+					<i class="far fa-star star-rating"></i>&nbsp;Saya ingin menilai
+				</div>
+				@endif
 			@endif
+			
 			
 			<div class="deskripsi" style="color: {{$landing_page->warna_tulisan_header}}; font-size: 0.7em; margin-top: 0.8em;">{{$toko->deskripsi}}</div>
 			<hr style="width: 2em; margin-top: 1.5em; border: 1.5px solid {{$landing_page->warna_tulisan_header}}; background: {{$landing_page->warna_tulisan_header}}; border-radius: 1.5em;">
