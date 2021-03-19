@@ -154,13 +154,15 @@ $show = "finish";
 @endif  
 
 <div class="modal fade" id="modal-cooming-soon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative; display: flex; justify-content: center;">
-        <div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 8em 0em 0em 0em; color: white; width: 80%;">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+        <div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
             <div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-                <img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -10em; right: 0; z-index: 5;">
-                <img src="<?=url('/')?>/public/img/mitra/modal_cooming_soon.svg" style="width: 90%; position: absolute; top: -16em;">
-                <div style="font-size: 2em; font-weight: 600; margin-top: 0.5em;">Sabar Yaa...</div>
-                <div style="font-size: 1.1em; text-align: center; width: 90%; font-weight: 0; color: #ffe6f1; margin-bottom: 1em;">Untuk Sekarang Fitur ini masih belum bisa ditampilkan</div>
+                <img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
+                <img src="<?=url('/')?>/public/img/modal_assets/modal_cooming_soon.svg" style="width: 100%;">
+                <div style="position: absolute; margin: 2.5em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
+                    <div style="font-size: 2em; font-weight: 600; text-align: center;">Sabar Yaa...</div>
+                    <div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">Untuk Sekarang Fitur ini masih belum bisa ditampilkan</div>
+                </div>
             </div>
         </div>
     </div>
@@ -369,13 +371,13 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
         }
 
         this.start = function () {
-           clearInterval(timer);
-           timer = 0;
-           seconds = options.seconds;
-           timer = setInterval(decrementCounter, 1000);
-       };
+         clearInterval(timer);
+         timer = 0;
+         seconds = options.seconds;
+         timer = setInterval(decrementCounter, 1000);
+     };
 
-       this.stop = function () {
+     this.stop = function () {
         clearInterval(timer);
     };
 }

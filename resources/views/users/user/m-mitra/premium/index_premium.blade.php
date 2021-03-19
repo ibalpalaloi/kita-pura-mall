@@ -330,7 +330,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 				<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 0.5em;">
 
 					<div style="background: #1E1E1F; padding: 1em 1em; border-radius: 2em; position: relative; margin-top: 0.5em; margin-bottom: 0.5em;">
-						<input type="text" id="link_toko_2" style="cursor: pointer; color: white;width: 100%; background: #1E1E1F; font-weight: 500;" value="kitapura.com/{{$toko->username}}" readonly>
+						<input type="text" id="link_toko_2" style="cursor: pointer; color: white;width: 100%; background: #1E1E1F; font-weight: 500;" value="kitapuramall.com/{{$toko->username}}" readonly>
 					</div>
 					<div class="share_div" style="display: flex; justify-content: center; margin-top: 0.5em;">
 						<div id="salin-link-2" class="share_platform" data-toggle="tooltip" data-placement="bottom" title="Salin Link" style="cursor: pointer;" onclick="copy_text('2')">
@@ -440,7 +440,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		<div style="width: 100%; display: flex; justify-content: center;">
 			<div style="width: 80%; background: #1E1E1F; padding: 1em 1.5em; border-radius: 2em; position: relative; margin-top: 0.5em; margin-bottom: 0.5em;" >
 				<div id="salin-link-1" data-toggle="tooltip" data-placement="bottom" title="Salin Link" style="cursor: pointer;" onclick="copy_text('1')">
-					<input type="text" id="link_toko_1" style="cursor: pointer; color: white;width: 100%; background: #1E1E1F; font-weight: 500;" value="kitapura.com/{{$toko->username}}" readonly>
+					<input type="text" id="link_toko_1" style="cursor: pointer; color: white;width: 100%; background: #1E1E1F; font-weight: 500;" value="kitapuramall.com/{{$toko->username}}" readonly>
 				</div>
 				<div style="cursor: pointer; width: 2.5em; height: 2.5em; background: #DD9D25; border-radius: 50%; display: flex; justify-content: center; position: absolute; right: 0.6em; bottom: 0.6em;" onclick="share_button()"><img src="<?=url('/')?>/public/img/icon_svg/share.svg" style="width: 60%;"></div>
 			</div>
@@ -684,7 +684,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		var text = "Halo, Silahkan kunjungi toko saya di link berikut: "
     	var url = document.getElementById("link_toko_"+id).value;
 		var copyurl = document.getElementById("link_toko_"+id);
-		copyurl.value = text + "https://www.m." + url;   
+		copyurl.value = text + "https://" + url;   
 		// alert(copyurl.value);
 		copyurl.select();
 		copyurl.setSelectionRange(0, 99999); /* For mobile devices */
@@ -722,7 +722,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		var text = "Halo, Silahkan kunjungi toko saya di link berikut: "
     	var url = document.getElementById("link_toko_2").value;
 		var copyurl = document.getElementById("link_toko_2");
-		var url = text + "https://www.m." + url;   
+		var url = text + "https://" + url;   
 		var apilink = 'http://';
 		var message = url;
 		apilink += isMobile ? 'api' : 'web';
@@ -735,7 +735,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		var text = "Halo, Silahkan kunjungi toko saya di link berikut: "
     	var url = document.getElementById("link_toko_2").value;
 		var copyurl = document.getElementById("link_toko_2");
-		copyurl.value = text + "https://www.m." + url;   
+		copyurl.value = text + "https://" + url;   
 		// alert(copyurl.value);
 		copyurl.select();
 		copyurl.setSelectionRange(0, 99999); /* For mobile devices */
