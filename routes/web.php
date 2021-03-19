@@ -247,7 +247,7 @@ Route::post('/toko/get_sub_kategori', [Produk_controller::class, 'get_sub_katego
 
 
 
-Route::get('/{username_mitra}/daftar-menu/{produk}', [LandingPageController::class, 'detail_produk']);
+Route::get('/{username_mitra}/daftar-menu/{produk}' , [LandingPageController::class, 'detail_produk']);
 Route::get('/{username_mitra}/daftar-menu', [LandingPageController::class, 'daftar_menu']);
 Route::get('/{username_mitra}', [LandingPageController::class, 'landing_page_mitra']);
 

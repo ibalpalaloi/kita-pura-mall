@@ -80,7 +80,7 @@ class Admin_Manajemen_Toko_Controller extends Controller
 
         }
         $template = Template_landing_page::find(1);
-		Landing_page_toko::where('toko_id', Auth()->user()->toko->id)->delete();
+		Landing_page_toko::where('toko_id', $toko->id)->delete();
         $page = new landing_page_toko;
         $page->toko_id = $request->toko_id;
 		$page->warna_header = $template->warna_header;
