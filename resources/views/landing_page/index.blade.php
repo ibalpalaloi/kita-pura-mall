@@ -311,6 +311,21 @@
 </style>
 @endsection
 @section('content')
+<div class="modal fade" id="modal-cooming-soon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+        <div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
+            <div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
+                <img src="<?=url('/')?>/public/img/modal_assets/modal_cooming_soon.svg" style="width: 100%;">
+                <div style="position: absolute; margin: 2.5em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
+                    <div style="font-size: 2em; font-weight: 600; text-align: center;">Sabar Yaa...</div>
+                    <div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">Untuk Sekarang Fitur ini masih belum bisa ditampilkan</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
 style="padding: 1.5em; padding: 0px;">
 <form action="<?=url('')?>/user/post_penilaian" method="post">
@@ -350,6 +365,10 @@ style="padding: 1.5em; padding: 0px;">
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/akun/mitra/premium">
 			<img src="<?=url('/')?>/public/img/icon_svg/setting_circle_transparent.svg">
 		</a>
+		<div id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang" onclick="cooming_soon()">
+			<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
+			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
+		</div>		
 		@else
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
 			<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
@@ -624,6 +643,10 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 			}
 		})
 		
+	}
+
+	function cooming_soon(){
+		$("#modal-cooming-soon").modal('show');		
 	}
 
 	function nilai_toko(index){

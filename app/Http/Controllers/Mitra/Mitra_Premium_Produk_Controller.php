@@ -103,7 +103,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$produk->foto_produk = $request->nama_foto_temp;
 		$produk->save();
 
-		return redirect('/akun/mitra/premium/akun-produk');
+		return redirect('/akun/mitra/premium/atur-produk');
 
 	}
 
@@ -352,7 +352,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$id = $request->jenis;
 
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
-		$foto = Foto_maps::where('id', $toko->id)->where('no_foto', $id)->first();
+		$foto = Foto_maps::where('toko_id', $toko->id)->where('no_foto', $id)->first();
 		if($foto){
 			\Storage::disk('public')->delete('img/toko/'.$toko->id.'/maps/'.$foto->foto);
 		}
