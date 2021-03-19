@@ -347,8 +347,8 @@ style="padding: 1.5em; padding: 0px;">
 			<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
 		</a>
 		@if(Auth()->user()->id == $toko->users_id)
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/akun/mitra/premium">
-			<img src="<?=url('/')?>/public/img/icon_svg/setting_circle_transparent.svg">
+		<a onclick="show_loader()" id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/akun/mitra/premium">
+			<img src="<?=url('/')?>/public/img/icon_svg/setting_white_bg.svg">
 		</a>
 		@else
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
@@ -566,7 +566,7 @@ style="padding: 1.5em; padding: 0px;">
 				@endforeach
 				
 				<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">
-					<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu" style="color: #111111;">Lihat lebih banyak</a>
+					<a onclick="show_loader()" href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu" style="color: #111111;">Lihat lebih banyak</a>
 				</div>
 			</div>
 			<div style="background: {{$landing_page->warna_footer_1}}; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 2em 8%; display: flex; flex-direction: column; margin-top: 1em; width: 100%;">

