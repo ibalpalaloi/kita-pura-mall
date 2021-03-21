@@ -486,7 +486,7 @@ if (!empty($_GET['deskripsi'])){
 					<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex; justify-content:space-between;">
 						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Stok</div>
 						<div class="custom-control custom-switch">
-							<input type="checkbox" class="custom-control-input" id="customSwitches">
+							<input type="checkbox" class="custom-control-input" id="customSwitches" checked>
 							<label class="custom-control-label" for="customSwitches"></label>
 						</div>
 					</div>

@@ -10,14 +10,15 @@
         </a>
         <div class="label-product" style="position: absolute; bottom: 0em; left: 0em; padding: 0.9em 0.5em 0.9em 1.2em; display: flex; width: 100%; background-color: rgba(0,0,0,0.3); justify-content: space-between; border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
             <div class="keterangan-product" style="display: flex;">
-                <div style="width: 2em; height: 2em; border-radius: 50%;">
-                    <img src="{{$toko->logo()}}" style="width: 100%; height: 100%; border-radius: 50%;">
+                <div style="width: 2em; height: 2em; border-radius: 50%; border:1px solid white;">
+                    <img src="{{$toko->logo()}}" style="width: 100%; height: 100%; border-radius: 50%; object-fit:cover; ">
                 </div>
                 <div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: center; color: white; margin-left: 0.3em;">
                     @if (count($toko->kategorinya_toko) != 0 )
                         <div style="font-size: 0.7em; line-height: 1em;">{{$toko->kategorinya_toko[0]->kategori_toko->kategori}}</div>
                     @endif
                     <a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/alkflakf" style="font-size: 1em; line-height: 1.3em; color: white;"><?=substr(strip_tags($toko->nama_toko), 0, 15)?>@if (strlen($toko->nama_toko) > 15)..@endif</a>
+                    
                 </div>
             </div>
             @if ($toko->jenis_mitra == 'premium')

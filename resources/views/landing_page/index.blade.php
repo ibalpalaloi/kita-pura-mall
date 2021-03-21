@@ -10,20 +10,34 @@
 <!-- Schema.org markup for Google+ -->
 <meta itemprop="name" content="{{$toko->nama_toko}}">
 <meta itemprop="description" content="{{$toko->deskripsi}}">
+@if ($toko->logo())
 <meta itemprop="image" content="{{$toko->logo()}}">
+@else
+<meta itemprop="image" content="<?=url('/')?>/public/img/toko/logo/premium.png">
+@endif
+
 <!-- Twitter Card data -->
 <!--<meta name="twitter:card" content="product">-->
 <!--<meta name="twitter:site" content="@creativetim">-->
 <meta name="twitter:title" content="{{$toko->nama_toko}}">
 <meta name="twitter:description" content="{{$toko->deskripsi}}">
 <!--<meta name="twitter:creator" content="@creativetim">-->
+@if ($toko->logo())
 <meta name="twitter:image" content="{{$toko->logo()}}">
+@else
+<meta name="twitter:image" content="<?=url('/')?>/public/img/toko/logo/premium.png">
+@endif
+
 <!-- Open Graph data -->
 <meta property="fb:app_id" content="655968634437471">
 <meta property="og:title" content="{{$toko->nama_toko}}" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="<?=url('/')?>/{{$toko->username}}"/>
-<meta property="og:image" content="{{$toko->logo()}}" />
+@if ($toko->logo())
+<meta property="og:image" content="{{$toko->logo()}}"/>
+@else
+<meta property="og:image" content="<?=url('/')?>/public/img/toko/logo/premium.png"/>
+@endif
 <meta property="og:description" content="{{$toko->deskripsi}}"/>
 <meta property="og:site_name" content="Kitapura Mall" />
 
@@ -364,13 +378,14 @@ style="padding: 1.5em; padding: 0px;">
 		@if (Auth::user())
 			@if(Auth()->user()->id == $toko->users_id)
 			<a onclick="show_loader()" id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/akun/mitra/premium">
-				<img src="<?=url('/')?>/public/img/icon_svg/setting_white_bg.svg">
+				<img src="<?=url('/')?>/public/img/icon_svg/setting_circle_transparent.svg">
 			</a>
+
 			@else
-			<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
+			<div onclick="cooming_soon()" id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
 				<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
 				<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
-			</a>
+			</div>
 			@endif
 		@endif
 		
@@ -470,7 +485,7 @@ style="padding: 1.5em; padding: 0px;">
 		</div>
 		<div class="row-mall" style="padding: 0.7em 8% 1.2em 8%; margin-top: 0em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em;">
 			<div>
-				<div style="font-size: 1.4em; font-weight: 1000; text-align: center;">Our Service</div>
+				<div style="font-size: 1.4em; font-weight: 1000; text-align: center;">Layanan Kami</div>
 			</div>
 			@if(!empty($foto_map[1]))
 			<div class="input-group mb-3" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
@@ -506,18 +521,14 @@ style="padding: 1.5em; padding: 0px;">
 			@foreach ($fasilitas as $data)
 			<div class="service_1" style="display:  flex; flex-direction: column; margin-bottom: 2em;">
 				<div style="display: flex; align-items: center;">
-					<div style="width: 20%;">
-					</div>
-					<div style="width: 80%">
+					<div style="width: 100%">
 						<div style="word-wrap: break-word;">
 							<div style="font-weight: 500; color: black; font-size: 1.2em; display: flex; align-items: center; text-align: justify;">{{$data->judul}}</div>
 						</div>
 					</div>
 				</div>
 				<div style="display: flex;">
-					<div style="width: 20%;">
-					</div>
-					<div style="width: 80%">
+					<div style="width: 100%">
 						<div style="word-wrap: break-word;">
 							<div style="font-size: 0.8em; text-align: justify;">{{$data->keterangan}}</div>	
 						</div>
@@ -530,7 +541,7 @@ style="padding: 1.5em; padding: 0px;">
 		<div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
 			<div class="row-mall" style="border-radius: 1.5em; box-shadow: 4px 4px 28px #C9D2DA; width: 90%;">
 				<div style="width: 100%; margin-top: 1.5em;">
-					<div style="font-size: 1.4em; font-weight: 1000; text-align: center;">Menu</div>
+					<div style="font-size: 1.4em; font-weight: 1000; text-align: center;">Produk Kami</div>
 				</div>
 				@foreach ($produk as $item)
 				<div class="input-group mb-3" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em; display: flex; justify-content: center;">
@@ -569,9 +580,10 @@ style="padding: 1.5em; padding: 0px;">
 									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
 										Harga Mulai
 									</div>
-									<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{number_format($hasil_diskon)}}</div>
+									<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{number_format($item->harga_terendah)}}</div>
 
 									@endif
+
 
 
 									

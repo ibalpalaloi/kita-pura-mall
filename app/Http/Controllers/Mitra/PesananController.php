@@ -33,6 +33,7 @@ class PesananController extends Controller
             foreach($pesanan as $data){
                 $total_pesanan += $data->harga_total;
             }
+            // dd($pesanan);
             return view('/users.user.m-mitra.premium.pesanan', compact('pesanan', 'total_pesanan'));
         }
     }
