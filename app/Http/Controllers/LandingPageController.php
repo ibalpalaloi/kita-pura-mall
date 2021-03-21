@@ -83,6 +83,11 @@ class LandingPageController extends Controller
 			$page->save();
 		}
 		$landing_page = Landing_page_toko::where('toko_id', $toko->id)->first();
+		$color_status_bar = $request->get('colorStatusBar');
+		$color_code = $str = ltrim($landing_page->warna_header, '#'); 
+		if(is_null($color_status_bar)){
+			return redirect(url()->current()."?colorStatusBar=".$color_code);
+		}
 		return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian', 'rating', 'foto_map', 'fasilitas', 'video', 'landing_page'));
 	}
 
