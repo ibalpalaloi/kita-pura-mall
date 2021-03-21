@@ -310,6 +310,46 @@ if (!empty($_GET['hari'])){
 	</div>
 </div>
 
+<div class="modal fade" id="modal-ganti-pass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<form action="{{url()->current()}}/ubah-password" method="post">
+	@csrf
+	@method('PUT')
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+		<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
+	
+				<div class="modal-body">
+					<div>
+						<div style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em;">Silahkan Masukan Password Baru</div>
+					</div>
+				</div>
+				<hr style="border-top: 1px solid #c8d2dd; width: 100%;">
+				@if(Session::has('pass_message'))
+				<div class="mb-3">
+					<span class="badge badge-pill badge-danger">{{Session::get('pass_message')}}</span>	
+				</div>
+				@endif
+				<div style="width: 90%;">
+				<label for="">Password Lama</label>
+					<div class="input-group mb-3 div-input-mall" id="div_no_hp">
+						<input type="password" class="form-control form-control-mall-modal" id="password_old"  name="password_old" required style="width: 100%; height: auto !important;" >
+					</div>
+					<label for="">Password Baru</label>
+					<div class="input-group mb-3 div-input-mall" id="div_no_hp">
+						<input type="password" class="form-control form-control-mall-modal" id="password"  name="password" required style="width: 100%; height: auto !important;">
+					</div>
+					<label for="">Ulangi Password Baru</label>
+					<div class="input-group mb-3 div-input-mall" id="div_no_hp">
+						<input type="password" class="form-control form-control-mall-modal" id="konfirmasi_password" name="konfirmasi_password" required style="width: 100%; height: auto !important;" >
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary" style="background: #ffaa00;;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;">Ubah Password
+				</button>
+		</div>
+	</div>
+	</form>
+
+</div>
+
 <header class="style__Container-sc-3fiysr-0 header" >
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
 		<a href="<?=url('/')?>/akun" style="padding-left: 1em;">
@@ -319,8 +359,8 @@ if (!empty($_GET['hari'])){
 			<img src="<?=url('/')?>/public/img/logo.svg">
 			<img src="<?=url('/')?>/public/img/logo_text.svg">
 		</a>
-		<div style="margin-right: 2.5em;">
-			<img src="<?=url('/')?>/public/img/back.svg" hidden>
+		<div data-toggle="modal" data-target="#modal-ganti-pass" style="cursor:pointer;padding-right: 1em;">
+			<img src="<?=url('/')?>/public/img/back_white.svg">
 		</div>
 	</div>
 </header>
@@ -501,6 +541,10 @@ if (!empty($_GET['hari'])){
 
 	@if(Session::has('message'))
 	$('#modal-pemberitahuan').modal('show');
+	@endif
+
+	@if(Session::has('pass_message'))
+	$('#modal-ganti-pass').modal('show');
 	@endif
 
 

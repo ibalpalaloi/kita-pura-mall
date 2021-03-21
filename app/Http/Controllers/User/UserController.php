@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\toko;
 use App\Models\Ktp_toko;
+use Auth;
 use Session;
 
 class UserController extends Controller
@@ -92,6 +93,67 @@ class UserController extends Controller
 		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
 
 		return view('users/user/m-profil/biodata', ['biodata'=>$biodata]);
+	}
+
+	public function ubah_password(Request $request){
+		// dd($request->all());
+
+		$validation = \Validator::make($request->all(),[
+            'password_old' => 'required',
+            'password' => 'required',
+            'konfirmasi_password' => 'required'
+        ])->validate();    
+
+		
+		$password_old = Auth::user()->password;
+
+		if (\Hash::check($request->password_old , $password_old )) {
+
+			if($request->password == $request->konfirmasi_password){
+
+				if (!\Hash::check($request->password , $password_old)) {
+
+					$user = User::find(Session::get('id_user'));
+					$user->password = bcrypt($request->get('password'));
+					$user->save();
+
+					$notification = array(
+						'message' => 'Password Berhasil Diperbarui'
+					);     
+			
+					return redirect()->back()->with($notification);
+
+				}
+				else{
+	
+					$notification = array(
+						'pass_message' => 'Password Baru Sama Dengan Password Lama'
+					);     
+		
+					return redirect()->back()->with($notification);
+				}
+
+			}
+			else{
+
+					$notification = array(
+						'pass_message' => 'Konfirmasi Password Tidak Cocok'
+					);     
+		
+					return redirect()->back()->with($notification);
+			}
+		
+		}
+		else{
+
+			$notification = array(
+				'pass_message' => 'Password Lama Tidak Cocok'
+			);     
+
+        	return redirect()->back()->with($notification);
+		}
+      
+
 	}
 	
 	public function simpan_biodata(Request $request){
