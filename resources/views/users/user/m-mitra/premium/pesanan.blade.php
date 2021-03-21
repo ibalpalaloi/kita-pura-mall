@@ -519,7 +519,7 @@ if (!empty($_GET['deskripsi'])){
 				<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px; width: 100%; background: radial-gradient(131.25% 1072.4% at -7.42% 138.67%, #232323 0%, #353535 42.71%, #1C1C1D 77.6%, #252526 100%); border-radius: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83); position: relative;">
 					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
 					<div style="width: 27%; margin: 0.5em; height: 7em;">
-						<img src="<?=url('/')?>/public/img/toko/{{$item->toko_id}}/produk/{{$item->product_id}}">
+						<img src="<?=url('/')?>/public/img/toko/{{$item->toko_id}}/produk/{{$item->foto_product}}">
 					</div>
 					<div style='text-align: left; font-size: 0.75em; width:60%; color: white; background-size: cover; position: relative; margin-left: 0.5em; display: flex; justify-content: space-between;'> 
 						<div>
