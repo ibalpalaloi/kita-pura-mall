@@ -9,12 +9,6 @@
 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 -->
 
-<meta property="og:url"           content="https://www.m.kitapura.com/{{$toko->username}}" />
-<meta property="og:type"          content="website" />
-<meta property="og:title"         content="KitaPura Mall | {{$toko->username}}" />
-<meta property="og:description"   content="KitaPura Mall" />
-<meta property="og:image"         content="{{asset('public/img/icon.png')}" />
-
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 <style type="text/css">
@@ -459,7 +453,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 			<a onclick="show_loader()" href="<?=url('/')?>/akun/mitra/premium/ganti-landing-page" style="padding-left: 0.4em;">
 				<img src="<?=url('/')?>/public/img/button/toko_premium/ganti_landing_page.svg" style="width: 100%;">
 			</a>
-			<a onclick="show_loader()" href="<?=url('/')?>/akun/mitra/premium/list-pesanan" style="padding-left: 0.4em;">
+			<a onclick="show_loader()" href="<?=url('/')?>/akun/mitra/premium/list-pesanan" style="padding-left: 0.4em;" hidden>
 				<img src="<?=url('/')?>/public/img/button/toko_premium/list_pesanan.svg" style="width: 100%;">
 			</a>
 		</div>
