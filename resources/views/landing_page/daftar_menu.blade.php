@@ -1,4 +1,4 @@
-	@extends('layouts.home_no_menu')
+@extends('layouts.home_no_menu')
 
 @section('title')
 
@@ -208,6 +208,21 @@
 @endsection
 
 @section('content')
+<div class="modal fade" id="modal-cooming-soon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+        <div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
+            <div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
+                <img src="<?=url('/')?>/public/img/modal_assets/modal_cooming_soon.svg" style="width: 100%;">
+                <div style="position: absolute; margin: 2.5em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
+                    <div style="font-size: 2em; font-weight: 600; text-align: center;">Sabar Yaa...</div>
+                    <div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">Untuk Sekarang Fitur ini masih belum bisa ditampilkan</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <header class="style__Container-sc-3fiysr-0 header" style="background: white; padding-top: 0.3em;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
 		<a class="svg_color" href="<?=url('/')?>/{{Request::segment(1)}}" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; margin-right: ">
@@ -305,6 +320,10 @@
 			get_produk(produk);
 		});
 	})
+
+	function cooming_soon(){
+		$("#modal-cooming-soon").modal('show');		
+	}
 </script>
 
 @endsection
