@@ -250,45 +250,8 @@
 				<a class="active-kategori" style="padding: 0.3em 0.7em;">paling dicari</a>
 			</div>
 		</div>
-		<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
-			@foreach($produk as $row)
-			<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
-				<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-				<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
-				<div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative; background: {{$page->warna_header}};'> 
-					<div class="" style="width: 5em; position: absolute; height: 5em; bottom:3.5em; right:0.5em;">
-						<img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="width: 100%; height: 100%;" onclick="masukan_keranjang('{{$row->toko_id}}', '{{$row->id}}')">
-					</div>					
-					<div style="font-weight: 500; margin-top: 0em; font-size: 1.5em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
-					<div style="font-size: 0.8em; line-height: 1.2em; font-weight: 0;">{{$row->kategori->nama}}</div>
-					<div style="padding: 0; margin: 0.5em 0px 0.7em 0px; font-size: 0.8em; line-height: 1em;">
-						<i class="fas fa-star star-rating"></i>
-						<i class="fas fa-star star-rating"></i>
-						<i class="fas fa-star star-rating"></i>
-						<i class="fas fa-star star-rating"></i>
-						<i class="far fa-star star-rating"></i>
-					</div>
-					@if ($row->jenis_harga == 'Statis')
-					@if($row->diskon == '0')
-					<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 1.2em; line-height: 0.6em; font-weight: 500;">IDR. {{number_format($row->harga,0,',','.')}}</span>
-					@else
-					<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 0.7em; vertical-align: center;">
-						<s>IDR. {{number_format($row->harga,0,',','.')}}</s>
-					</span>
-					@php
-					$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
-					@endphp
-
-					<span style="padding: 0; margin: 0.1em 0px 0px 0.5em; font-size: 1.2em; line-height: 0.6em; font-weight: 500;">IDR. {{number_format($hasil_diskon,0,',','.')}}</span>
-					@endif
-					@else
-					<span style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 1.2em; line-height: 0.6em; font-weight: 500;"><span style="font-size: 0.7em;">Harga Mulai</span> IDR. {{number_format($row->harga_terendah,0,',','.')}}</span>
-
-					@endif
-
-				</div>
-			</div> 
-			@endforeach
+		<div id="daftar_menu" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
+			@include('landing_page.data_daftar_menu')
 		</div>
 	</div>
 </main>
@@ -302,6 +265,28 @@
 		jumlah_keranjang = parseInt(jumlah_keranjang)+1;
 		$("#jumlah_keranjang").html(jumlah_keranjang);
 	}
+
+	var produk;
+	var id_toko = {!! json_encode($toko->id) !!}
+	
+	function get_produk(produk){
+		$.ajax({
+			url:"{{ route('get_produk') }}",
+			method: "post",
+			data : {id_toko:id_toko, produk:produk, _token:'{{csrf_token()}}'},
+		})
+		.done(function(data){
+			$('#daftar_menu').empty();
+			$('#daftar_menu').append(data.html);
+		})
+	}
+
+	$(document).ready(function(){
+		$('#cari_produk').on('input', function(){
+			var produk = $('#cari_produk').val();
+			get_produk(produk);
+		});
+	})
 </script>
 
 @endsection
