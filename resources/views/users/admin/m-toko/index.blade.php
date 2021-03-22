@@ -43,7 +43,11 @@ Toko
                                     <td>{{$data->nama_toko}}</td>
                                     <td>{{$data->no_hp}}</td>
                                     <td>{{$data->alamat}}</td>
-                                    <td>{{$data->kategori_toko->kategori}}</td>
+                                    <td>
+                                        @foreach ($data->kategorinya_toko as $kategori)
+                                            {{$kategori->kategori_toko->kategori}},
+                                        @endforeach
+                                    </td>
                                     <td>{{$data->nama_pemilik}}</td>
                                 </tr>
                             @endforeach
