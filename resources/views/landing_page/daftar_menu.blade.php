@@ -227,6 +227,7 @@
 <header class="style__Container-sc-3fiysr-0 header" style="background: white; padding-top: 0.3em;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
 		<a class="svg_color" href="<?=url('/')?>/{{Request::segment(1)}}" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; margin-right: ">
+<<<<<<< HEAD
 			<svg width="13" height="21" viewBox="0 0 13 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path fill-rule="evenodd" clip-rule="evenodd" d="M1.09413 11.5312C0.524614 10.9617 0.524613 10.0383 1.09413 9.46882L9.84413 0.718824C10.4136 0.149308 11.337 0.149308 11.9065 0.718824C12.476 1.28834 12.476 2.2117 11.9065 2.78122L4.18772 10.5L11.9065 18.2188C12.476 18.7883 12.476 19.7117 11.9065 20.2812C11.337 20.8507 10.4136 20.8507 9.84413 20.2812L1.09413 11.5312Z" fill="{{$page->warna_header}}"/>
 				</svg>
@@ -258,8 +259,87 @@
 
 				</div>
 			</header>
+=======
+			<img src="<?=url('/')?>/public/img/icon_svg/back_red.svg" style="width: 28%;">
+		</a>
+		<a style="height: 100%; width: 80%; display: flex; justify-content: center; align-items: center;">
+			<img src="<?=url('/')?>/public/img/toko/logo/warung_mantap.png" style="width: 20%;">
+		</a>
+		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; ">
+			<img src="<?=url('/')?>/public/img/icon_svg/keranjang_polos_red.svg" style="width: 50%;">
+			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: 7px; right: 7px; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">0</div>
+		</a>
+	</div>
+</header>
 
 
+
+<main id="homepage" class="homepage" style="background:white;">
+
+	<div class="row-mall" style="padding: 5em 0em 1.2em 0em;">
+		<h2 style="color: {{$page->warna_header}}; font-weight: 600; margin-bottom: 0px; margin-top: 1em;">Produk Kami</h2>
+		<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
+			<div style="width: 100%;">
+
+				<div class="div-input-mall-square" style="background: #eaf4ff; display: flex; align-items: center; margin-right: 0.5em;"> 
+					<span class="input-group-text-mall" style="margin-left: 0.8em;">
+						<img src="<?=url('/')?>/public/img/icon_svg/search_grey.svg">
+					</span>
+					<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em; background: #EAF4FF; color: grey !important;" required>
+				</div>
+				<div style="width: 3.4em; height: 3em; background: {{$page->warna_header}}; border-radius: 0.5em; display: flex; justify-content: center;align-items: center;">
+					<img src="<?=url('/')?>/public/img/icon_svg/filter_white.svg" style="width: 50%;">
+				</div>
+			</div>
+		</div>
+		<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">
+			<div class="kategori-tabs" style="margin-top: 5px; font-size: 0.85em;">
+				<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">General</a>
+				<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">terbaru</a>
+				<a class="active-kategori" style="padding: 0.3em 0.7em;">paling dicari</a>
+			</div>
+		</div>
+		<div id="daftar_menu" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
+			@include('landing_page.data_daftar_menu')
+		</div>
+	</div>
+</main>
+>>>>>>> iqbal
+
+
+<<<<<<< HEAD
+=======
+@section('footer-scripts')
+<script type="text/javascript">
+	function masukan_keranjang(){
+		var jumlah_keranjang = $("#jumlah_keranjang").html();
+		jumlah_keranjang = parseInt(jumlah_keranjang)+1;
+		$("#jumlah_keranjang").html(jumlah_keranjang);
+	}
+
+	var produk;
+	var id_toko = {!! json_encode($toko->id) !!}
+	
+	function get_produk(produk){
+		$.ajax({
+			url:"{{ route('get_produk') }}",
+			method: "post",
+			data : {id_toko:id_toko, produk:produk, _token:'{{csrf_token()}}'},
+		})
+		.done(function(data){
+			$('#daftar_menu').empty();
+			$('#daftar_menu').append(data.html);
+		})
+	}
+
+	$(document).ready(function(){
+		$('#cari_produk').on('input', function(){
+			var produk = $('#cari_produk').val();
+			get_produk(produk);
+		});
+	})
+</script>
+>>>>>>> iqbal
 
 			<main id="homepage" class="homepage" style="background:white;">
 
