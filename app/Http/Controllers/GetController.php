@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Video_landing_page;
 use App\Models\Toko;
+use App\Models\Product;
+use App\Models\Landing_page_toko;
 
 class GetController extends Controller
 {
@@ -22,5 +24,21 @@ class GetController extends Controller
         }
         // $link = substr($link, 0, strpos($link, '&'));
         echo $link;
+    }
+
+    function get_produk(Request $request){
+        $cari = $request->produk;
+        if($cari == ''){
+            $produk = Product::where('toko_id', 'TK-031220211434')->get();
+        }
+        else{
+            $produk = Product::where([
+                                        ['nama', 'like', '%'.$cari.'%'],
+                                        ['toko_id', $request->id_toko]
+                                        ])->get();
+        }
+		$page = Landing_page_toko::where('toko_id', $request->id_toko)->first();
+        $view = view('landing_page.data_daftar_menu', compact('produk', 'page'))->render();
+        return response()->json(['html'=>$view]);
     }
 }

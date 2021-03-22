@@ -80,6 +80,7 @@ class LandingPageController extends Controller
 		if(is_null($color_status_bar)){
 			return redirect(url()->current()."?colorStatusBar=".$color_code);
 		}
+		
 		return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian', 'rating', 'foto_map', 'fasilitas', 'video', 'landing_page'));
 	}
 
@@ -87,7 +88,8 @@ class LandingPageController extends Controller
 		$toko = Toko::where('username', $mitra)->first();
 		$produk = Product::where('toko_id', $toko->id)->get();
 		$page = Landing_page_toko::where('toko_id', $toko->id)->first();
-		return view('landing_page/daftar_menu', compact('produk', 'page'));
+		return view('landing_page/daftar_menu', compact('produk', 'page', 'toko'));
+		// return view('landing_page.data_daftar_menu', compact('produk', 'page'));
 	}
 
 	public function detail_produk($mitra, $id_produk){

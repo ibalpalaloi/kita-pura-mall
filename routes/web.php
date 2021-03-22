@@ -233,6 +233,7 @@ Route::get('crop-image-before-upload-using-croppie', [MitraController::class, 'i
 Route::post('crop-image-before-upload-using-croppie', [MitraController::class, 'uploadCropImage']);
 // get
 Route::post('/get_video_link', [GetController::class, 'get_video_link'])->name('get_video_link');
+Route::post('/get/get_produk', [GetController::class, 'get_produk'])->name('get_produk');
 
 // toko
 Route::get('/toko', [Toko_controller::class, 'index']);
