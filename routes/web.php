@@ -237,6 +237,8 @@ Route::post('crop-image-before-upload-using-croppie', [MitraController::class, '
 // get
 Route::post('/get_video_link', [GetController::class, 'get_video_link'])->name('get_video_link');
 Route::post('/get/get_produk', [GetController::class, 'get_produk'])->name('get_produk');
+Route::get('/get/get_kecamatan', [GetController::class, 'get_kecamatan'])->name('get_kecamatan');
+Route::get('/get/get_kelurahan', [GetController::class, 'get_kelurahan'])->name('get_kelurahan');
 
 // toko
 Route::get('/toko', [Toko_controller::class, 'index']);

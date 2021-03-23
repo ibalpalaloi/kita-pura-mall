@@ -648,6 +648,34 @@
 					</div>
 
 					<div class="input-group mb-3 st0 @if($errors->first('kelurahan')) is-invalid @endif" id="div_kelurahan" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kabupaten / Kota</div>
+						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
+								<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 40%;">
+							</span>
+							<select type="text" class="form-control-mall" id="kota" name="kota" style="height: 2.5em;" required>
+								<option value="" disabled selected>Pilih Kabupaten / Kota</option>
+								@foreach($kota as $row)
+								<option value="{{$row->id}}" @if (old('kota') == $row->id) selected @endif>{{$row->nama}}
+								</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+
+					<div class="input-group mb-3 st0 @if($errors->first('kelurahan')) is-invalid @endif" id="div_kelurahan" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kecamatan</div>
+						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
+								<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 40%;">
+							</span>
+							<select type="text" class="form-control-mall" id="kecamatan" name="kecamatan" style="height: 2.5em;" required>
+								<option value="" disabled selected>Pilih Kecamatan</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="input-group mb-3 st0 @if($errors->first('kelurahan')) is-invalid @endif" id="div_kelurahan" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kelurahan</div>
 						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
 							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
@@ -655,10 +683,6 @@
 							</span>
 							<select type="text" class="form-control-mall" id="kelurahan" name="kelurahan" style="height: 2.5em;" required>
 								<option value="" disabled selected>Pilih Kelurahan</option>
-								@foreach($kelurahan as $row)
-								<option value="{{$row->id}}" @if (old('kelurahan') == $row->id) selected @endif>{{$row->kelurahan}}
-								</option>
-								@endforeach
 							</select>
 						</div>
 					</div>
@@ -724,7 +748,37 @@
 	@section('footer-scripts')
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="<?=url('/')?>/public/plugins/select2/js/select2.full.min.js"></script>
+	<script>
+		$('#kota').change(function(){
+			$('#kecamatan').empty();
+			$('#kecamatan').append($('<option>', {
+				text: 'Memuat'
+			}));
+			$.ajax({
+				url: "{{ route('get_kecamatan') }}?id_kota="+$(this).val(),
+				method: 'GET', 
+				success: function(data){
+					$('#kecamatan').empty();
+					$('#kecamatan').html(data.html);
+				}
+			})
+		})
 
+		$('#kecamatan').change(function(){
+			$('#kelurahan').empty();
+			$('#kelurahan').append($('<option>', {
+				text: 'Memuat'
+			}));
+			$.ajax({
+				url: "{{ route('get_kelurahan') }}?id_kecamatan="+$(this).val(),
+				method: 'GET', 
+				success: function(data){
+					$('#kelurahan').empty();
+					$('#kelurahan').html(data.html);
+				}
+			})
+		})
+	</script>
 	<script type="text/javascript">
 		@if(Session::has('message'))
 		$('#modal-pemberitahuan').modal('show')
