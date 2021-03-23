@@ -8,7 +8,10 @@ use Session;
 use App\Models\Kategori_toko;
 use App\Models\Kategorinya_toko;
 use App\Models\Foto_maps;
-use App\Models\kelurahan;
+use App\Models\Provinsi;
+use App\Models\Kabupaten_kota;
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use App\Models\Kategori;
 use App\Models\toko;
 use App\Models\Daftar_tunggu_toko;
@@ -39,18 +42,17 @@ class Mitra_Register_Controller extends Controller
 	public function register($mitra){
 
 		$kategori = Kategori_toko::all();
-
-		$kelurahan = kelurahan::all();
-		// dd($kategori);
+        $kota = Provinsi::find(72)->kabupaten_kota;
+		$kelurahan = Kelurahan::all();
 
 		if ($mitra == 'free'){
 
-			return view('users/user/m-mitra/register/register_free', ['daftar_kategori'=>$kategori,'kelurahan'=>$kelurahan]);
+			return view('users/user/m-mitra/register/register_free', ['daftar_kategori'=>$kategori,'kelurahan'=>$kelurahan, 'kota'=>$kota]);
 			
 		}
 		else {
 
-			return view('users/user/m-mitra/register/register_premium', ['daftar_kategori'=>$kategori,'kelurahan'=>$kelurahan]);
+			return view('users/user/m-mitra/register/register_premium', ['daftar_kategori'=>$kategori,'kelurahan'=>$kelurahan, 'kota'=>$kota]);
 			
 		}
 	}
@@ -66,7 +68,7 @@ class Mitra_Register_Controller extends Controller
 
 	public function simpan_mitra(Request $request, $jenis_mitra){
 
-		// dd($request->all());
+		dd($request->all());
 
 		$this->validate($request,[
 			'nama_toko' => 'required',

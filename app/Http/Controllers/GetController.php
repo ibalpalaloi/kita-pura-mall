@@ -8,6 +8,8 @@ use App\Models\Video_landing_page;
 use App\Models\Toko;
 use App\Models\Product;
 use App\Models\Landing_page_toko;
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 
 class GetController extends Controller
 {
@@ -40,5 +42,25 @@ class GetController extends Controller
 		$page = Landing_page_toko::where('toko_id', $request->id_toko)->first();
         $view = view('landing_page.data_daftar_menu', compact('produk', 'page'))->render();
         return response()->json(['html'=>$view]);
+    }
+
+    public function get_kecamatan(Request $request){
+        $id_kota = $request->id_kota;
+        $kecamatan = Kecamatan::where('kabupaten_kota_id', $id_kota)->get();
+        $html = '<option value="" disabled selected>Pilih Kecamatan</option>';
+        foreach($kecamatan as $data){
+            $html .= '<option value="'.$data->id.'">'.$data->nama.'</option>';
+        }
+        return response()->json(['html' => $html]);
+    }
+
+    public function get_kelurahan(Request $request){
+        $id_kecamatan = $request->id_kecamatan;
+        $kelurahan = Kelurahan::where('kecamatan_id', $id_kecamatan)->get();
+        $html = '<option value="" disabled selected>Pilih Kelurahan</option>';
+        foreach($kelurahan as $data){
+            $html .= '<option value="'.$data->id.'">'.$data->kelurahan.'</option>';
+        }
+        return response()->json(['html' => $html]);
     }
 }
