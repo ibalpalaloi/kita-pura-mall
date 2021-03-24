@@ -68,8 +68,6 @@ class Mitra_Register_Controller extends Controller
 
 	public function simpan_mitra(Request $request, $jenis_mitra){
 
-		dd($request->all());
-
 		$this->validate($request,[
 			'nama_toko' => 'required',
 			// 'username' => 'required',
