@@ -15,7 +15,26 @@ Detail Daftar Tunguu
 
 
 @section('content')
-
+<?php
+function tgl_indo($tanggal){
+  $bulan = array (
+    1 =>   'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember'
+  );
+  $pecahkan = explode('-', $tanggal);     
+  return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+}
+?>
 <div class="row">
     <div class="col-lg-4 col-xlg-3 col-md-5">
         <div class="card">
@@ -106,6 +125,12 @@ Detail Daftar Tunguu
                             <label for="example-email" class="col-md-12">longitude</label>
                             <div class="col-md-12">
                                 <input name="longitude" type="text" class="form-control form-control-line" value="{{$toko->longitude}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="example-email" class="col-md-12">Waktu Pendaftaran</label>
+                            <div class="col-md-12">
+                                <input name="latitude" type="text" class="form-control form-control-line" value="{{tgl_indo(date('Y-m-d h:i', strtotime($toko->created_at)))}}">
                             </div>
                         </div>
                         <div class="form-group">

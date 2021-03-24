@@ -20,6 +20,7 @@ class AuthController extends Controller
 {
     //
     public function login(){
+        
         // return view('auth.daftar_mitra.daftar_mitra');
         return view('auth.login');
     }
@@ -170,6 +171,7 @@ class AuthController extends Controller
         if(Auth::attempt(['no_hp' => $request->no_telp, 'password' => $request->password])){
 
             Session::put('id_user', $id_user);
+            Session::put('level_akes', 'user');
             Session::put('no_telp', $request->no_telp);
             Session::put('status_nomor', "Belum Terverifikasi");
             
@@ -201,6 +203,7 @@ class AuthController extends Controller
             // dd($user->id);
             Session::put('id_user', $user->id);
             Session::put('no_telp', $request->no_telp);
+            Session::put('level_akes', 'user');
             Session::put('status_nomor', $user->status_nomor);
             return redirect('/home');
         }

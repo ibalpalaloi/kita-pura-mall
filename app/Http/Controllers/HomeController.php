@@ -106,6 +106,8 @@ class HomeController extends Controller
 		return view('home/rekomendasi', compact('produk'));
 	}
 
+
+
 	public function home(){
 		return view('home/home');
 	}
