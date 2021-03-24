@@ -571,7 +571,7 @@
 
 
 	<main id="homepage" class="homepage" style="padding-top: 4em; background: transparent;">
-		<form enctype="multipart/form-data" action="{{url()->current()}}/simpan" method="post">
+		<form enctype="multipart/form-data" action="<?=url('/')?>/akun/jadi-mitra/premium/simpan" method="post">
 			{{csrf_field()}}
 			<div style="display: flex; justify-content: center;">
 				<div style="width: 90%; margin-top: 1em; display: flex; flex-direction: column; align-items: center;">

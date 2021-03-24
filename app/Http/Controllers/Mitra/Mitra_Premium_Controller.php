@@ -26,6 +26,24 @@ class Mitra_Premium_Controller extends Controller
 {
     //
 
+	public function tgl_indo($tanggal){
+		$bulan = array (
+			1 =>   'Januari',
+			'Februari',
+			'Maret',
+			'April',
+			'Mei',
+			'Juni',
+			'Juli',
+			'Agustus',
+			'September',
+			'Oktober',
+			'November',
+			'Desember'
+		);
+		$pecahkan = explode('-', $tanggal);     
+		return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+	}
 
 	public function autocode($kode){
 		$timestamp = time(); 
@@ -152,7 +170,7 @@ class Mitra_Premium_Controller extends Controller
 			$data_bulanan_transaksi[$i] = $jumlah_transaksi;
 		}
 		return view('users/user/m-mitra/premium/index_premium', compact('toko', 'data_pekanan_hari', 'data_pekanan_transaksi', 'data_bulanan_bulan', 'data_bulanan_transaksi'));
-			
+
 	}
 
 	public function upload_ktp(){
@@ -293,6 +311,7 @@ class Mitra_Premium_Controller extends Controller
 			'message' => 'Data Toko Berhasil Diperbarui'
 		);     
 
+		$this->notif_telegram();
 		if($toko->status == "Aktif"){
 
 			return redirect('/akun/mitra/premium')->with($notification);
@@ -362,5 +381,18 @@ class Mitra_Premium_Controller extends Controller
 
 		return redirect('/akun/mitra/premium/ubah-toko')->with($notification);
 	}
+
+	public function notif_telegram(){
+		$token = "1732361789:AAFvHgC5XYNODxYqLt-YTZK4x5XGE-VH9Vg";
+		$user_id = 1732361789;
+		$mesg = "--- DAFTAR BARU ---   Hai Admin Kitapuramall, telah bergabung menjadi agen kebaikan di bersamakami.com sebagai ";
+		$request_params = [
+			'chat_id' => $user_id,
+			'text' => $mesg
+		];
+		$request_url = 'https://api.telegram.org/bot'.$token.'/sendMessage?'.http_build_query($request_params);
+		file_get_contents($request_url);	
+	}
+
 
 }

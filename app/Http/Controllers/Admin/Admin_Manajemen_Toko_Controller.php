@@ -8,6 +8,7 @@ use App\Models\Kategori_toko;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\Toko;
 use App\Models\Landing_page_toko;
+use App\Models\Template_landing_page;
 
 class Admin_Manajemen_Toko_Controller extends Controller
 {

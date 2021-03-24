@@ -406,8 +406,8 @@ style="padding: 1.5em; padding: 0px;">
 	</div>
 </div>
 
-<main id="homepage" class="homepage" style="background: #eaf4ff; padding-bottom: -1.5em;">
-	<div class="kategori" style="background: {{$landing_page->warna_header}}; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 2em 8%; display: flex; flex-direction: column;">
+<main id="homepage" class="homepage" style="background: {{$landing_page->warna_header}}; padding-bottom: -1.5em;">
+	<div class="kategori" style="background: {{$landing_page->warna_header}}; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 3em 8%; display: flex; flex-direction: column;">
 		<div class="info-toko" style="display: flex; justify-content: space-between; width: 100%;">
 			<div class="nama-toko" style="width: 80%;">
 				<h3 style="color: {{$landing_page->warna_tulisan_header}}; font-weight: 500; word-wrap: break-word;">{{$toko->nama_toko}}</h3>
@@ -461,7 +461,7 @@ style="padding: 1.5em; padding: 0px;">
 
 	</div>
 
-	<div class="landing_page" style="position: relative; top: -1.5em; z-index: 3; border-top-left-radius: 1.5em;border-top-right-radius: 1.5em; background: {{$landing_page->warna_body}};">
+	<div class="landing_page" style="position: relative; top: -3em; z-index: 3; border-top-left-radius: 1.5em;border-top-right-radius: 1.5em; background: {{$landing_page->warna_body}};">
 		<div class="row-mall" style="padding: 0.7em 4% 1.2em 4%; margin-top: -6em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em; padding: 2em 1em 1em 1em;">
 			@if ($video)
 			<div>

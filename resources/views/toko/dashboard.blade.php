@@ -201,7 +201,7 @@
 
 			<div style="width: 100%; margin-bottom: 0px;">
 				<div class="div-input-mall-square" style="background: white; display: flex; align-items: center; margin-right: 0.5em;"> 
-					<span class="input-group-text-mall" style="margin-left: 0.8em;">
+					<span class="input-group-text-mall" style="margin-left: 0.8em; ">
 							<img src="<?=url('/')?>/public/img/icon_svg/search_grey.svg">
 					</span>
 					<input type="text" class="form-control-mall" id="cari_toko" name="cari_produk" placeholder="Cari Toko" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em; background: white; color: grey !important;" required>
