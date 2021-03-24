@@ -97,4 +97,9 @@ class Admin_Manajemen_Toko_Controller extends Controller
 
         return redirect('/admin/manajemen/daftar_tunggu_toko');
     }
+
+    public function detail_toko($id){
+        $toko = Toko::find($id);
+        return view('users.admin.m-toko.detail_toko');
+    }
 }

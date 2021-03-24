@@ -34,7 +34,7 @@ Toko
                                 <th>Alamat</th>
                                 <th>Kategori Toko</th>
                                 <th>Nama Pemilik</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,6 +49,10 @@ Toko
                                         @endforeach
                                     </td>
                                     <td>{{$data->nama_pemilik}}</td>
+                                    <td>
+                                        <a href="<?=url('/')?>/admin/manajemen/toko/{{$data->id}}" type="button" class="btn btn-primary">Ubah</a>
+                                        <a type="button" class="btn btn-danger">Hapus</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
