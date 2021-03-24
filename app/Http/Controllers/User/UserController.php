@@ -99,7 +99,7 @@ class UserController extends Controller
 	public function notif_telegram(){
 		$token = "1732361789:AAFvHgC5XYNODxYqLt-YTZK4x5XGE-VH9Vg";
 		$user_id = 1732361789;
-		$mesg = "--- DAFTAR BARU ---   Hai Admin Kitapuramall, telah bergabung menjadi agen kebaikan di bersamakami.com sebagai ";
+		$mesg = "--- DAFTAR BARU ---   Hai Admin Kasfitapuramall, telah bergabung menjadi agen kebaikan di bersamakami.com sebagai ";
 		$request_params = [
 			'chat_id' => $user_id,
 			'text' => $mesg
