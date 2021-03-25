@@ -254,10 +254,10 @@ function tgl_indo($tanggal){
                       'Pastikan data di atas telah benar '
                         ;
 
-        apilink += isMobile ? 'api' : 'web';
-        apilink += '.whatsapp.com/send?phone=' + phone + '&text=' + encodeURI(message);
-
-        window.open(apilink);
+        // apilink += isMobile ? 'api' : 'web';
+        // apilink += '.whatsapp.com/send?phone=' + phone + '&text=' + encodeURI(message);
+        var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
+        window.open(walink);
     } 
 </script>
 @endsection
