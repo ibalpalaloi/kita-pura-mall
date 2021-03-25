@@ -247,6 +247,8 @@ Route::post('/get_video_link', [GetController::class, 'get_video_link'])->name('
 Route::post('/get/get_produk', [GetController::class, 'get_produk'])->name('get_produk');
 Route::get('/get/get_kecamatan', [GetController::class, 'get_kecamatan'])->name('get_kecamatan');
 Route::get('/get/get_kelurahan', [GetController::class, 'get_kelurahan'])->name('get_kelurahan');
+Route::post('/post/hapus_kategorinya_toko', [GetController::class, 'hapus_kategorinya_toko'])->name('hapus_kategorinya_toko');
+Route::post('/post/simpan_kategorinya_toko', [GetController::class, 'simpan_kategorinya_toko'])->name('simpan_kategorinya_toko');
 
 // toko
 Route::get('/toko', [Toko_controller::class, 'index']);
