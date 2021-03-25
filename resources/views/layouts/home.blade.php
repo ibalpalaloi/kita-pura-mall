@@ -31,14 +31,14 @@
 </head>
 {{-- modal loader --}}
 <div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
-		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
-			<div class="loader-container">
-				<div class="spinner-border text-danger" role="status">
-					<span class="sr-only">Loading...</span>
-				</div>
-			</div>
-		</div>
+    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+        <div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+            <div class="loader-container">
+                <div class="spinner-border text-danger" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -187,9 +187,25 @@ $show = "finish";
                 <div style="text-align: center; font-size: 0.7em; color: #5b5b5b;">Beranda</div>
             </div>
         </div> 
-        @for ($i = 0; $i < count($menu)-1; $i++)  
         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;">
-            <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;" >
+            <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;" onclick="cooming_soon()">
+                <div style="background: #6c757d; border: 2px solid #6c757d; width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;" >
+                    <img src="<?=url('/')?>/public/img/menu/pencarian.svg" style="width: 60%;">
+                </div>
+                <div style="text-align: center; font-size: 0.7em; color: #5b5b5b;">Pencarian</div>
+            </div>
+        </div> 
+        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;">
+            <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;" onclick="cooming_soon()">
+                <div style="background: #6c757d; border: 2px solid #6c757d; width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;">
+                    <img src="<?=url('/')?>/public/img/menu/emergency_disabled.svg" style="width: 70%;">
+                </div>
+                <div style="text-align: center; font-size: 0.7em; color: #5b5b5b;">Emergency</div>
+            </div>
+        </div> 
+        @for ($i = 1; $i < count($menu)-1; $i++)  
+        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;" onclick="show_loader()">
+            <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;">
                 <a style="@if ($link_menu[$i] == $link_now) background: #ff006e; @else background: white; border: 2px solid #ff006e; @endif width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;" href="<?=url('/')?>/{{$link_menu[$i]}}">
                     @if ($link_menu[$i] == $link_now)
                     <img src="<?=url('/')?>/public/img/menu/{{$menu[$i]}}" style="width: 60%;">
@@ -201,16 +217,8 @@ $show = "finish";
             </div>
         </div> 
         @endfor
-        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;">
-            <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;" onclick="cooming_soon()">
-                <div style="background: #6c757d; border: 2px solid #6c757d; width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;">
-                    <img src="<?=url('/')?>/public/img/menu/emergency_disabled.svg" style="width: 70%;">
-                </div>
-                <div style="text-align: center; font-size: 0.7em; color: #5b5b5b;">Emergency</div>
-            </div>
-        </div> 
         @for ($i = 2; $i < count($menu); $i++)  
-        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;">
+        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;" onclick="show_loader()">
             <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;">
                 <a style="@if ($link_menu[$i] == $link_now) background: #ff006e; @else background: white; border: 2px solid #ff006e; @endif width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;" href="<?=url('/')?>/{{$link_menu[$i]}}">
                     @if ($link_menu[$i] == $link_now)

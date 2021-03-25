@@ -8,12 +8,14 @@ use Session;
 use App\Models\Kategori_toko;
 use App\Models\Foto_maps;
 use App\Models\kelurahan;
+use App\Models\Kabupaten_kota;
 use App\Models\Kategori;
 use App\Models\Kategorinya_toko;
 use App\Models\toko;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\product;
 use App\Models\Pesanan;
+use App\Models\Provinsi;
 use App\Models\Jadwal_toko;
 use App\Models\Ktp_toko;
 use App\Models\Template_landing_page;
@@ -311,7 +313,6 @@ class Mitra_Premium_Controller extends Controller
 			'message' => 'Data Toko Berhasil Diperbarui'
 		);     
 
-		$this->notif_telegram();
 		if($toko->status == "Aktif"){
 
 			return redirect('/akun/mitra/premium')->with($notification);
@@ -329,6 +330,7 @@ class Mitra_Premium_Controller extends Controller
 
 
 
+
 	public function atur_toko_premium(){
 
 		$kategori = Kategori_toko::all();
@@ -337,8 +339,16 @@ class Mitra_Premium_Controller extends Controller
 		$jadwal = Jadwal_toko::where('toko_id', $toko->id)->get();
 		$kategorinya_toko = Kategorinya_toko::where('toko_id', $toko->id)->get();
 		// dd($kategorinya_toko);
+        $kota = Provinsi::find(72)->kabupaten_kota;
+        $kota_selected = $toko->kelurahan->kecamatan->kabupaten_kota->id;
+        // dd($kota_selected);
+		$kelurahan = DB::table('kelurahan')->select('kelurahan.id', 'kelurahan.kelurahan')->leftJoin('kecamatan', 'kecamatan.id', '=', 'kelurahan.kecamatan_id')->where('kecamatan.kabupaten_kota_id', $kota_selected)->get();
+		// dd($kelurahan);
+		// dd($kelurahan);
 
-		return view('users/user/m-mitra/premium/atur_toko', ['daftar_kategori'=>$kategori,'kelurahan'=>$kelurahan ,'toko'=>$toko,'jadwal'=>$jadwal, 'kategorinya_toko'=>$kategorinya_toko]);
+		// dd($kota_selected);
+
+		return view('users/user/m-mitra/premium/atur-toko/index', ['daftar_kategori'=>$kategori,'kelurahan'=>$kelurahan ,'toko'=>$toko,'jadwal'=>$jadwal, 'kategorinya_toko'=>$kategorinya_toko, 'kota'=>$kota, 'kelurahan'=>$kelurahan, 'kota_selected'=>$kota_selected]);
 	}
 
 	public function atur_lokasi(){

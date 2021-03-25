@@ -18,6 +18,7 @@ use App\Models\Daftar_tunggu_toko;
 use App\Models\product;
 use App\Models\Jadwal_toko;
 use App\Models\Ktp_toko;
+// use App\Models\PRovins
 
 
 class Mitra_Register_Controller extends Controller
@@ -43,6 +44,7 @@ class Mitra_Register_Controller extends Controller
 
 		$kategori = Kategori_toko::all();
         $kota = Provinsi::find(72)->kabupaten_kota;
+        // dd($kota);
 		$kelurahan = Kelurahan::all();
 
 		if ($mitra == 'free'){
@@ -186,8 +188,13 @@ class Mitra_Register_Controller extends Controller
             $db->kategori_toko_id = $kategori_toko[$i];
             $db->save();
         }
+        $this->notif_telegram($request->nama_toko, $request->no_hp, Auth()->user()->no_hp);
+
 		return redirect('/akun/jadi-mitra/'.$jenis_mitra.'/pilih-lokasi');
 	}
+
+
+
 
 	public function pilih_lokasi($jenis_mitra){
         $daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
@@ -207,6 +214,22 @@ class Mitra_Register_Controller extends Controller
         return redirect('akun')->with($notification);
 
 	}
+
+    public function notif_telegram($nama_toko, $nomor_hp, $nomor_login){
+        $founder = [894149404, 508980088, 1766032289];
+        for ($i = 0; $i < count($founder); $i++){
+            $token = "1732361789:AAFvHgC5XYNODxYqLt-YTZK4x5XGE-VH9Vg";
+            $user_id = $founder[$i];
+            $mesg = "--- DAFTAR BARU ----<br>Halo admin kitapuramall!!, toko $nama_toko telah mendaftar loh, harap segara di konfirmasi, biar dia tidak meraju...Nomor HP tokonya adalah $nomor_hp.. Nomor Loginnya : $nomor_login";
+            $request_params = [
+                'chat_id' => $user_id,
+                'text' => $mesg
+            ];
+            $request_url = 'https://api.telegram.org/bot'.$token.'/sendMessage?'.http_build_query($request_params);
+            file_get_contents($request_url);    
+
+        }
+    }    
 
     public function simpan_lokasi($jenis_mitra, Request $request){
 

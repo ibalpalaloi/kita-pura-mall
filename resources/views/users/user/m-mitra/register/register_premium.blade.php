@@ -501,37 +501,54 @@
 						<div onclick='hapus_jadwal("harinya")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">X</div>
 					</div>
 				</div>
-				<hr style="border-top: 1px solid #c8d2dd; width: 100%;">
-				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 90%;">
-					<select type="text" class="form-control form-control-mall-modal" id="jadwal" name="jadwal" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" aria-label="jadwal" aria-describedby="basic-addon1" style="width: 100%; text-align: center !important;">
-						<option value="" disabled selected>--- Silahkan Pilih Hari ---</option>
-							@for ($i = 0; $i < count($var_text); $i++)
-								@php $indikator = false; @endphp
-								@for ($j = 0; $j < count($loop_hari); $j++)
-									@if ($loop_hari[$j] == $var_text[$i]) 
-										@php $indikator = true; @endphp
-									@endif
-								@endfor
-								@if ($indikator == false)
-									<option value="{{$var_value[$i]}}">{{$var_text[$i]}}</option>
-								@endif
-							@endfor
 
-					</select>			
-				</div>
-				<div style="width: 90%; display: flex; justify-content: space-between;">
-					<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 40%;">
-						<small style="margin-left: 2em;">Waktu Buka</small>
-						<input type="time" class="form-control form-control-mall-modal" id="waktu_buka" value="07:00" min="09:00"
-						max="18:00" required style="width: 100%; height: auto !important;">
+				<hr style="border-top: 1px solid #c8d2dd; width: 100%;">
+				<div style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;" id="input_jadwal">
+					<div style="width: 90%; display: flex; justify-content: space-between; border-top-right-radius: 0em; border-bottom-right-radius: 0em;">
+
+						<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 40%; border-top-right-radius: 0em; border-bottom-right-radius: 0em;">
+							<small style="margin-left: 2em;">Jadwal Buka</small>
+							<select type="text" class="form-control form-control-mall-modal" id="jadwal_mulai" aria-label="jadwal" aria-describedby="basic-addon1" style="width: 90%; text-align: center !important;  padding-left: 1.2em;">
+								<option value="Senin" selected>Senin</option>
+								<option value="Selasa">Selasa</option>
+								<option value="Rabu">Rabu</option>
+								<option value="Kamis">Kamis</option>
+								<option value="Jumat">Jumat</option>
+								<option value="Sabtu">Sabtu</option>
+								<option value="Minggu">Minggu</option>
+							</select>			
+						</div>
+						<div class="div-input-mall input-group mb-3" style="padding-left: 1em; width: 20%; border-radius: 0; background: white; text-align: center; padding-top: 1.5em;">
+							<i style="text-align: center;">s/d</i>
+						</div> 
+						<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 40%; border-top-left-radius: 0em; border-bottom-left-radius: 0em;">
+							<small style="margin-left: 2em; color: white;">Jadwal Buka</small>
+							<select type="text" class="form-control form-control-mall-modal" id="jadwal_akhir" aria-label="jadwal" aria-describedby="basic-addon1" style="width: 90%; text-align: center !important; padding-left: 1.2em;">
+								<option value="Senin">Senin</option>
+								<option value="Selasa">Selasa</option>
+								<option value="Rabu">Rabu</option>
+								<option value="Kamis">Kamis</option>
+								<option value="Jumat">Jumat</option>
+								<option value="Sabtu">Sabtu</option>
+								<option value="Minggu" selected>Minggu</option>
+							</select>	
+						</div>
 					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 40%;">
-						<small style="margin-left: 2em;">Waktu Tutup</small>
-						<input type="time" class="form-control form-control-mall-modal" id="waktu_tutup" value="16:00" min="09:00"
-						max="18:00" required style="width: 100%; height: auto !important;">
-					</div>
-					<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 15%; background: #FF006E; display: flex; justify-content: center; color: white; align-items: center;"  onclick="tambah_jadwal()">
-						<i class="fa fa-plus"></i>
+
+					<div style="width: 90%; display: flex; justify-content: space-between;">
+						<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 48%;">
+							<small style="margin-left: 2em;">Waktu Buka</small>
+							<input type="time" class="form-control form-control-mall-modal" id="waktu_buka" value="07:00" min="09:00"
+							max="18:00" required style="width: 100%; height: auto !important;">
+						</div>
+						<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 48%;">
+							<small style="margin-left: 2em;">Waktu Tutup</small>
+							<input type="time" class="form-control form-control-mall-modal" id="waktu_tutup" value="16:00" min="09:00"
+							max="18:00" required style="width: 100%; height: auto !important;">
+						</div>
+						<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 15%; background: #FF006E; display: flex; justify-content: center; color: white; align-items: center;"  onclick="tambah_jadwal()" hidden>
+							<i class="fa fa-plus"></i>
+						</div>
 					</div>
 				</div>
 				<?php 
@@ -547,9 +564,11 @@
 
 				}
 				?>
-				<button class="btn btn-secondary" id="simpan_disabled_jadwal" onclick="simpan_disabled_jadwal()" style="background: #6c757d;border: 1px solid #6c757d; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" {{$div_disabled}}><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;" >&nbsp;&nbsp;Simpan
+				<button class="btn btn-primary" id="tambah_jadwal_lain" onclick="tambah_jadwal_lain()" style="background: #6c757d;border: 1px solid #6c757d; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" {{$div_enabled}}><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Tambah Jadwal Lain
 				</button>
-				<button data-dismiss="modal" id="simpan_enabled_jadwal" class="btn btn-secondary" style="background: #80B918; border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;"  {{$div_enabled}}><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
+				<button class="btn btn-primary" id="simpan_disabled_jadwal" onclick="tambah_jadwal()" style="background: #6c757d;border: 1px solid #6c757d; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" {{$div_disabled}}><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;" >&nbsp;&nbsp;Tambah Jadwal
+				</button>
+				<button data-dismiss="modal" id="simpan_enabled_jadwal" class="btn btn-primary" style="background: #80B918; border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;"  {{$div_enabled}}><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
 				</button>
 			</div>
 		</div>
@@ -687,7 +706,8 @@
 						</div>
 					</div>
 
-					<button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
+
+					<button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;" onclick="cek_data()">
 						<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
 					</button>	
 				</div>
@@ -715,129 +735,148 @@
 	@endif
 
 
-	</main>
+</main>
 
 
 
-	@if ($errors->any())
-	<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-	aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
-	<div class="modal-dialog modal-sm modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-body text-center font-weight-bold py-3">
-				@if($errors->first('foto_toko'))
-				Harus memasukkan logo toko
-				@else
-				Semua form harus diisi
-				@endif
-				<div class="row mt-2 p-2">
-					<button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
-					data-dismiss="modal">Tutup</button>
+@if ($errors->any())
+<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+<div class="modal-dialog modal-sm modal-dialog-centered">
+	<div class="modal-content">
+		<div class="modal-body text-center font-weight-bold py-3">
+			@if($errors->first('foto_toko'))
+			Harus memasukkan logo toko
+			@else
+			Semua form harus diisi
+			@endif
+			<div class="row mt-2 p-2">
+				<button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
+				data-dismiss="modal">Tutup</button>
 
-				</div>
 			</div>
-			<!-- /.modal-content -->
 		</div>
-		<!-- /.modal-dialog -->
+		<!-- /.modal-content -->
 	</div>
-	</div>
+	<!-- /.modal-dialog -->
+</div>
+</div>
+@endif
+
+@endsection
+
+@section('footer-scripts')
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="<?=url('/')?>/public/plugins/select2/js/select2.full.min.js"></script>
+<script>
+	$('#kota').change(function(){
+		// show_loader();
+		$('#kecamatan').empty();
+		$('#kecamatan').append($('<option>', {
+			text: 'Memuat'
+		}));
+		$.ajax({
+			url: "{{ route('get_kecamatan') }}?id_kota="+$(this).val(),
+			method: 'GET', 
+			success: function(data){
+				// hide_loader();
+				$('#kecamatan').empty();
+				$('#kecamatan').html(data.html);
+			}
+		})
+	})
+
+	$('#kecamatan').change(function(){
+		$('#kelurahan').empty();
+		$('#kelurahan').append($('<option>', {
+			text: 'Memuat'
+		}));
+		$.ajax({
+			url: "{{ route('get_kelurahan') }}?id_kecamatan="+$(this).val(),
+			method: 'GET', 
+			success: function(data){
+				$('#kelurahan').empty();
+				$('#kelurahan').html(data.html);
+			}
+		})
+	})
+</script>
+<script type="text/javascript">
+	@if(Session::has('message'))
+	$('#modal-pemberitahuan').modal('show')
 	@endif
 
-	@endsection
+	$("input[required], select[required]").attr("oninvalid",
+		"this.setCustomValidity('Harap Dimasukkan')");
+	$("input[required], select[required]").attr("oninput", "setCustomValidity('')");
 
-	@section('footer-scripts')
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<script src="<?=url('/')?>/public/plugins/select2/js/select2.full.min.js"></script>
-	<script>
-		$('#kota').change(function(){
-			$('#kecamatan').empty();
-			$('#kecamatan').append($('<option>', {
-				text: 'Memuat'
-			}));
-			$.ajax({
-				url: "{{ route('get_kecamatan') }}?id_kota="+$(this).val(),
-				method: 'GET', 
-				success: function(data){
-					$('#kecamatan').empty();
-					$('#kecamatan').html(data.html);
-				}
-			})
-		})
+	function tambah_kategori_modal(){
+		$('#modal-kategori').modal('show');
+	}
 
-		$('#kecamatan').change(function(){
-			$('#kelurahan').empty();
-			$('#kelurahan').append($('<option>', {
-				text: 'Memuat'
-			}));
-			$.ajax({
-				url: "{{ route('get_kelurahan') }}?id_kecamatan="+$(this).val(),
-				method: 'GET', 
-				success: function(data){
-					$('#kelurahan').empty();
-					$('#kelurahan').html(data.html);
-				}
-			})
-		})
-	</script>
-	<script type="text/javascript">
-		@if(Session::has('message'))
-		$('#modal-pemberitahuan').modal('show')
+	function tambah_jadwal_lain(){
+		$("#tambah_jadwal_lain").prop('hidden', true);
+		$("#input_jadwal").prop('hidden', false);
+		$("#simpan_disabled_jadwal").prop("hidden", false);
+		$("#simpan_enabled_jadwal").prop("hidden", true);
+
+	}
+
+	$("#kelurahan").select2();
+
+	var i = 0;
+	var jadwal_hari = [];
+	var jadwal_buka = [];
+	var jadwal_tutup = [];
+	<?php for ($i = 0; $i < count($loop_hari); $i++){?>
+		@if ($loop_hari[0] != "")
+		jadwal_hari.push("<?=$loop_hari[$i]?>");
+		jadwal_buka.push("<?=$loop_buka[$i]?>");
+		jadwal_tutup.push("<?=$loop_tutup[$i]?>");
 		@endif
+	<?php } ?>
 
-		$("input[required], select[required]").attr("oninvalid",
-			"this.setCustomValidity('Harap Dimasukkan')");
-		$("input[required], select[required]").attr("oninput", "setCustomValidity('')");
 
-		function tambah_kategori_modal(){
-			$('#modal-kategori').modal('show');
+	var value_kategori = [];
+	var value_id_kategori = [];
+	var i_kategori = 0;
+	<?php for ($i = 0; $i < count($loop_id_val); $i++){?>
+		@if ($loop_id_val[0] != "")
+		value_id_kategori.push("<?=$loop_id_val[$i]?>");
+		value_kategori.push("<?=$loop_val[$i]?>");
+		@endif
+	<?php } ?>
+
+
+	function input_focus(id){
+		$("#div_"+id).css('border', '1px solid #d1d2d4');
+	}
+
+	function input_blur(id){
+		$("#div_"+id).css('border', '1px solid white');		
+	}		
+
+
+	function pilih_jadwal(){
+		$("#modal-jadwal").modal('show');
+	}
+
+	function tambah_foto_toko(){
+		$("#foto_toko").click();
+	}
+
+	function tambah_foto_lokasi_toko(){
+		$("#foto_lokasi_toko").click();
+	}
+
+	function cek_data(){
+		if (($("#nama_toko").val() == '') || ($("#username").val() == '') || ($("#no_hp").val() == '') || ($("#input_kategori").val() == '') || ($("#input_id_kategori").val() == '') || ($("#jadwal_hari").val() == '') || ($("#jadwal_buka").val() == '') || ($("#jadwal_tutup").val() == '') || ($("#kota").val() == '') || ($("#kecamatan").val() == '') || ($("#kelurahan").val() == '')){
+
 		}
-
-		$("#kelurahan").select2();
-
-		var i = 0;
-		var jadwal_hari = [];
-		var jadwal_buka = [];
-		var jadwal_tutup = [];
-		<?php for ($i = 0; $i < count($loop_hari); $i++){?>
-			@if ($loop_hari[0] != "")
-			jadwal_hari.push("<?=$loop_hari[$i]?>");
-			jadwal_buka.push("<?=$loop_buka[$i]?>");
-			jadwal_tutup.push("<?=$loop_tutup[$i]?>");
-			@endif
-		<?php } ?>
-
-
-		var value_kategori = [];
-		var value_id_kategori = [];
-		var i_kategori = 0;
-		<?php for ($i = 0; $i < count($loop_id_val); $i++){?>
-			@if ($loop_id_val[0] != "")
-			value_id_kategori.push("<?=$loop_id_val[$i]?>");
-			value_kategori.push("<?=$loop_val[$i]?>");
-			@endif
-		<?php } ?>
-
-
-		function input_focus(id){
-			$("#div_"+id).css('border', '1px solid #d1d2d4');
+		else {
+			show_loader();
 		}
-
-		function input_blur(id){
-			$("#div_"+id).css('border', '1px solid white');		
-		}		
-
-
-		function pilih_jadwal(){
-			$("#modal-jadwal").modal('show');
-		}
-
-		function tambah_foto_toko(){
-			$("#foto_toko").click();
-		}
-
-		function tambah_foto_lokasi_toko(){
-			$("#foto_lokasi_toko").click();
-		}
+	}
 
 		// $("input#username").on({
 		// 	keydown: function(e) {
@@ -857,8 +896,16 @@
 
 
 		function tambah_jadwal() {
-			var simbol = $("#jadwal").val();
-			var hari = $("#jadwal option:selected").text();
+			var jadwal_awal = $("#jadwal_mulai").val();
+			var jadwal_akhir = $("#jadwal_akhir").val();
+			var simbol = jadwal_awal.substring(1, 0)+jadwal_akhir.substring(1, 0);
+			if (jadwal_awal == jadwal_akhir){
+				var hari = jadwal_awal;				
+			}
+			else {
+				var hari = jadwal_awal+"-"+jadwal_akhir;
+
+			}
 			if (simbol == null){
 				alert("Silahkan Pilih Jadwal");
 			}
@@ -878,7 +925,8 @@
 				i++;
 				$("#simpan_disabled_jadwal").prop("hidden", true);
 				$("#simpan_enabled_jadwal").prop("hidden", false);
-
+				$("#tambah_jadwal_lain").prop("hidden", false);
+				$("#input_jadwal").prop('hidden', true);
 			}
 
 		}

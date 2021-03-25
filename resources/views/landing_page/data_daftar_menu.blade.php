@@ -6,8 +6,8 @@
             <div class="" style="width: 5em; position: absolute; height: 5em; bottom:3.5em; right:0.5em;">
                 <img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="width: 100%; height: 100%;" onclick="masukan_keranjang('{{$row->toko_id}}', '{{$row->id}}')">
             </div>					
-            <div style="font-weight: 500; margin-top: 0em; font-size: 1.5em;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
-            <div style="font-size: 0.8em; line-height: 1.2em; font-weight: 0;">{{$row->kategori->nama}}</div>
+            <a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/{{$row->id}}" style="font-weight: 500; margin-top: 0em; color: white; font-size: 1.5em;"><?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 10)))?>@if (strlen($row->nama) > 10)..@endif</a>
+            <div style="font-size: 0.8em; line-height: 1.2em; font-weight: 0;">{{ucwords(strtolower($row->kategori->nama))}}</div>
             <div style="padding: 0; margin: 0.5em 0px 0.7em 0px; font-size: 0.8em; line-height: 1em;">
                 <i class="fas fa-star star-rating"></i>
                 <i class="fas fa-star star-rating"></i>

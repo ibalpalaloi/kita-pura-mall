@@ -40,8 +40,12 @@ class Toko extends Model
     public function user(){
         return $this->belongsTo(User::class, 'users_id');
     }
-
+    
     public function kategorinya_toko(){
         return $this->hasMany(Kategorinya_toko::class);
+    }
+
+    public function kelurahan(){
+        return $this->belongsTo(kelurahan::class);
     }
 }

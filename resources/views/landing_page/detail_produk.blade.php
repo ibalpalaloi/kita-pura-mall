@@ -212,13 +212,13 @@ style="padding: 1.5em; padding: 0px;">
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent; padding-top: 0.3em;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
 		<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu" style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; margin-left:1em;">
-			<img src="<?=url('/')?>/public/img/icon_svg/back_circle_white.svg" style="width: 80%;">
+			<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
 		</a>
-		<a style="height: 100%; width: 80%; display: flex; justify-content: center; align-items: center;">
-			<img src="<?=url('/')?>/public/img/toko/logo/warung_mantap.png" style="width: 20%;">
+		<a href="<?=url('/')?>/{{Request::segment(1)}}" style="height: 100%; width: 80%; display: flex; justify-content: center; align-items: center; font-size: 1.5em; font-weight: 600;">
+			<span style="background: rgba(0, 0, 0, 0.2); padding: 0.2em 0.5em; color:#EAF4FF;">{{Request::segment(1)}}</span>
 		</a>
 		<a style="width: 15%; position: relative; right: 1em;">
-			<img src="<?=url('/')?>/public/img/icon_svg/bag_transparent.svg" style="width: 90%;">
+			<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
 			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: 0px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
 		</a>
 	</div>
@@ -250,7 +250,7 @@ style="padding: 1.5em; padding: 0px;">
 				<i class="far fa-star star-rating"></i>
 				&nbsp;(100 Penilaian)
 			</div>			
-			<div style="color: white; font-size: 0.8em; margin-top: 1.2em;" onclick="menilai()">				
+			<div style="color: white; font-size: 0.8em; margin-top: 1.2em;" onclick="menilai()" hidden>				
 				<i class="far fa-star star-rating"></i>&nbsp;Saya ingin menilai
 			</div>
 			<div class="deskripsi-and-rating" style="display: flex; justify-content: space-between; width: 100%;">
