@@ -24,7 +24,6 @@ use App\Http\Controllers\Mitra\Mitra_Register_Controller;
 use App\Http\Controllers\Mitra\Mitra_Free_Controller;
 use App\Http\Controllers\Mitra\Mitra_Premium_Controller;
 use App\Http\Controllers\Mitra\Mitra_Premium_Produk_Controller;
-use App\Http\Controllers\Mitra\Mitra_Premium_Landingpage_Controller;
 use App\Http\Controllers\Mitra\PesananController;
 use App\Http\Controllers\Mitra\TransaksiController;
 /*
@@ -41,7 +40,7 @@ use App\Http\Controllers\Mitra\TransaksiController;
 
 Route::group(['middleware'=> 'guest'], function() {
 
-
+    
     Route::get('/', [AuthController::class, 'login'])->name('login');
     Route::post('/masuk', [AuthController::class, 'post_login']);
 
@@ -71,8 +70,8 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/home/halaman_tunggu', [HomeController::class, 'untuk_mitra']);
 
     Route::group(['middleware'=> 'home'], function() {
-
-
+        
+        
         // @home
         Route::get('/home_mitra', [HomeController::class, 'home_mitra']);
         Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -129,7 +128,7 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::get('/akun/mitra/free/upgrade-premium/upload-ktp', [Mitra_Free_Controller::class, 'upgrade_upload_ktp']);
             Route::post('/akun/mitra/free/upgrade-premium/upload-ktp/simpan', [Mitra_Free_Controller::class, 'upgrade_simpan_ktp']);
 
-
+        
             
 
         });
@@ -161,22 +160,20 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::put('/akun/mitra/premium/atur-produk/{id}/simpan', [Mitra_Premium_Produk_Controller::class, 'update_tambah_produk_premium']);
             Route::get('/akun/mitra/premium/atur-produk/{id}/hapus', [Mitra_Premium_Produk_Controller::class, 'hapus_tambah_produk_premium']);
 
-            // @atur landingpage
-            Route::get('/akun/mitra/premium/ubah-landing-page', [Mitra_Premium_Landingpage_Controller::class, 'atur_landing_page']);
-            // Route::put('/akun/mitra/premium/atur-produk/simpan', [Mitra_Premium_Landingpage_Controller::class, 'simpan_atur_produk_premium']);
-            Route::post('/akun/mitra/premium/ubah-landing-page/hapus-foto-maps', [Mitra_Premium_Landingpage_Controller::class, 'hapus_foto_maps']);
-            Route::post('/akun/mitra/premium/ubah-landing-page/hapus-video', [Mitra_Premium_Landingpage_Controller::class, 'hapus_video']);
-            Route::post('/akun/mitra/premium/ubah-landing-page/simpan-foto-cover', [Mitra_Premium_Landingpage_Controller::class, 'simpan_foto_cover'])->name('simpan_foto_cover');            
-            Route::post('/akun/mitra/premium/ubah-landing-page/simpan-foto-maps', [Mitra_Premium_Landingpage_Controller::class, 'simpan_foto_maps'])->name('simpan_foto_maps');
-            Route::post('/akun/mitra/premium/ubah-landing-page/ubah-status', [Mitra_Premium_Landingpage_Controller::class, 'ubah_status_produk_premium'])->name('ubah_status_produk_premium');
+            // @atur produk
+            Route::get('/akun/mitra/premium/ubah-landing-page', [Mitra_Premium_Produk_Controller::class, 'atur_landing_page']);
+            // Route::put('/akun/mitra/premium/atur-produk/simpan', [Mitra_Premium_Produk_Controller::class, 'simpan_atur_produk_premium']);
+            Route::post('/akun/mitra/premium/ubah-landing-page/simpan-foto-cover', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_cover'])->name('simpan_foto_cover');            
+            Route::post('/akun/mitra/premium/ubah-landing-page/simpan-foto-maps', [Mitra_Premium_Produk_Controller::class, 'simpan_foto_maps'])->name('simpan_foto_maps');
+            Route::post('/akun/mitra/premium/ubah-landing-page/ubah-status', [Mitra_Premium_Produk_Controller::class, 'ubah_status_produk_premium'])->name('ubah_status_produk_premium');
 
             // atur landing page
-            Route::post('/atur_landing_page/simpan_cover', [Mitra_Premium_Landingpage_Controller::class, 'simpan_cover'])->name('simpan_cover_landing_page');
-            Route::post('/atur_landing_page/simpan_video', [Mitra_Premium_Landingpage_Controller::class, 'simpan_video'])->name('simpan_video_landing_page');
-            Route::post('/atur_landing_page/post_fasilitas_toko', [Mitra_Premium_Landingpage_Controller::class, 'post_fasilitas_toko'])->name('post_fasilitas_toko');
-            Route::post('/akun/mitra/premium/ubah-landing-page/post_fasilitas', [Mitra_Premium_Landingpage_Controller::class, 'post_fasilitas_baru']);
-            Route::post('/akun/mitra/premium/ubah-landing-page/ubah_fasilitas', [Mitra_Premium_Landingpage_Controller::class, 'ubah_fasilitas']);
-            Route::get('/akun/mitra/premium/ubah-landing-page/hapus_fasilitas/{id}', [Mitra_Premium_Landingpage_Controller::class, 'hapus_fasilitas']);
+            Route::post('/atur_landing_page/simpan_cover', [Atur_Landing_Page_Controller::class, 'simpan_cover'])->name('simpan_cover_landing_page');
+            Route::post('/atur_landing_page/simpan_video', [Atur_Landing_Page_Controller::class, 'simpan_video'])->name('simpan_video_landing_page');
+            Route::post('/atur_landing_page/post_fasilitas_toko', [Atur_Landing_Page_Controller::class, 'post_fasilitas_toko'])->name('post_fasilitas_toko');
+            Route::post('/akun/mitra/premium/ubah-landing-page/post_fasilitas', [Atur_Landing_Page_Controller::class, 'post_fasilitas_baru']);
+            Route::post('/akun/mitra/premium/ubah-landing-page/ubah_fasilitas', [Atur_Landing_Page_Controller::class, 'ubah_fasilitas']);
+            Route::get('/akun/mitra/premium/ubah-landing-page/hapus_fasilitas/{id}', [Atur_Landing_Page_Controller::class, 'hapus_fasilitas']);
 
             // list pesananan
             Route::get('/akun/mitra/premium/list-pesanan', [PesananController::class, 'pesanan']);
@@ -198,50 +195,48 @@ Route::group(['middleware'=> 'auth'], function() {
 
         });
 
+        
+
+    });
 
 
-});
+    Route::group(['middleware'=> 'admin'], function() {
+
+        Route::get('/admin/logout', [Admin_Auth_Controller::class, 'logout']);
 
 
-Route::group(['middleware'=> 'admin'], function() {
-
-    Route::get('/admin/logout', [Admin_Auth_Controller::class, 'logout']);
-
-
-    Route::get('/admin/beranda', [Admin_Beranda_Controller::class, 'index']);
-
+        Route::get('/admin/beranda', [Admin_Beranda_Controller::class, 'index']);
+        
         // manajemen pengguna
-    Route::get('/admin/manajemen/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'index']);
-    Route::post('/admin/ubah_password/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'ubah_password']);
-    Route::get('/admin/delete/pengguna/{id}', [Admin_Manajemen_Pengguna_Controller::class, 'hapus_pengguna']);
+        Route::get('/admin/manajemen/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'index']);
+        Route::post('/admin/ubah_password/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'ubah_password']);
+        Route::get('/admin/delete/pengguna/{id}', [Admin_Manajemen_Pengguna_Controller::class, 'hapus_pengguna']);
     
         // manajemen kategori toko
-    Route::get('/admin/manajemen/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'kategori_toko']);
-    Route::get('/admin/delete/kategori_toko/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_kategori_toko']);
-    Route::post('/admin/tambah/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'tambah_kategori_toko']);
-    Route::post('/admin/ubah/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'ubah_kategori_toko']);
+        Route::get('/admin/manajemen/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'kategori_toko']);
+        Route::get('/admin/delete/kategori_toko/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_kategori_toko']);
+        Route::post('/admin/tambah/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'tambah_kategori_toko']);
+        Route::post('/admin/ubah/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'ubah_kategori_toko']);
     
         // manajemen kategori produk
-    Route::get('/admin/manajemen/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'kategori_produk']);
-    Route::post('/admin/manajemen/get_sub_kategori', [Admin_Manajemen_Kategori_Controller::class, 'get_sub_kategori'])->name('get_sub_kategori');
-    Route::post('/admin/ubah/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'ubah_kategori_produk']);
-    Route::get('/admin/delete/kategori_produk/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_kategori_produk']);
-    Route::post('/admin/ubah/sub_kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'ubah_sub_kategori_produk']);
-    Route::get('/admin/delete/sub_kategori_produk/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_sub_kategori_produk']);
-    Route::post('/admin/tambah/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'tambah_kategori_produk']);
-    Route::post('/admin/tambah/sub_kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'tambah_sub_kategori_produk']);
+        Route::get('/admin/manajemen/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'kategori_produk']);
+        Route::post('/admin/manajemen/get_sub_kategori', [Admin_Manajemen_Kategori_Controller::class, 'get_sub_kategori'])->name('get_sub_kategori');
+        Route::post('/admin/ubah/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'ubah_kategori_produk']);
+        Route::get('/admin/delete/kategori_produk/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_kategori_produk']);
+        Route::post('/admin/ubah/sub_kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'ubah_sub_kategori_produk']);
+        Route::get('/admin/delete/sub_kategori_produk/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_sub_kategori_produk']);
+        Route::post('/admin/tambah/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'tambah_kategori_produk']);
+        Route::post('/admin/tambah/sub_kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'tambah_sub_kategori_produk']);
     
         // manajemen toko
-    Route::get('/admin/manajemen/toko', [Admin_Manajemen_Toko_Controller::class, 'index']);
-    Route::get('/admin/manajemen/daftar_tunggu_toko', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko']);
-    Route::get('/admin/manajemen/daftar_tunggu_toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko_detail']);
-    Route::post('/admin/manajemen/daftar_tunggu_toko/post', [Admin_Manajemen_Toko_Controller::class, 'post_daftar_tunggu_toko']);
-    Route::get('/admin/manajemen/toko', [Admin_Manajemen_Toko_Controller::class, 'index']);
-    Route::get('/admin/manajemen/toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'detail_toko']);
-    Route::get('/admin/manajemen/daftar_tunggu_toko', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko']);
-    Route::get('/admin/manajemen/daftar_tunggu_toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko_detail']);
-    Route::post('/admin/manajemen/daftar_tunggu_toko/post', [Admin_Manajemen_Toko_Controller::class, 'post_daftar_tunggu_toko']);
+        Route::get('/admin/manajemen/toko', [Admin_Manajemen_Toko_Controller::class, 'index']);
+        Route::get('/admin/manajemen/toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'detail_toko']);
+        Route::get('/admin/manajemen/daftar_tunggu_toko', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko']);
+        Route::get('/admin/manajemen/daftar_tunggu_toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko_detail']);
+        Route::post('/admin/manajemen/daftar_tunggu_toko/post', [Admin_Manajemen_Toko_Controller::class, 'post_daftar_tunggu_toko']);
     
+    });
+   
 });
 
 
