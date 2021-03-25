@@ -10,6 +10,8 @@ use App\Models\Product;
 use App\Models\Landing_page_toko;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
+use App\Models\Kategorinya_toko;
+use App\Models\kategori_toko;
 
 class GetController extends Controller
 {
@@ -62,5 +64,21 @@ class GetController extends Controller
             $html .= '<option value="'.$data->id.'">'.$data->kelurahan.'</option>';
         }
         return response()->json(['html' => $html]);
+    }
+
+    public function hapus_kategorinya_toko(Request $request){
+        Kategorinya_toko::find($request->id)->delete();
+    }
+
+    public function simpan_kategorinya_toko(Request $request){
+        $kategori = Kategori_toko::find($request->id);
+
+        $kategorinya_toko = new Kategorinya_toko;
+        $kategorinya_toko->toko_id = $request->toko_id;
+        $kategorinya_toko->kategori_toko_id = $request->id;
+        $kategorinya_toko->save();
+
+        $result = '<li id=kategori_"'.$kategorinya_toko->id.'">'.$kategori->kategori.'<i onclick="hapus_kategori_toko("{{'.$kategorinya_toko->id.'}}")" class="far fa-trash-alt remove-note"></i></li>';
+        echo $result;
     }
 }
