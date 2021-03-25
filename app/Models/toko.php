@@ -46,6 +46,6 @@ class Toko extends Model
     }
 
     public function kelurahan(){
-        return $this->belongsTo(kelurahan::class);
+        return $this->belongsTo(Kelurahan::class);
     }
 }
