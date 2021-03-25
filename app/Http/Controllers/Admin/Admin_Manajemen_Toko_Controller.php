@@ -9,6 +9,8 @@ use App\Models\Daftar_tunggu_toko;
 use App\Models\Toko;
 use App\Models\Landing_page_toko;
 use App\Models\Template_landing_page;
+use App\Models\User;
+use App\Models\Kategorinya_toko;
 
 class Admin_Manajemen_Toko_Controller extends Controller
 {
@@ -27,13 +29,16 @@ class Admin_Manajemen_Toko_Controller extends Controller
 
     public function daftar_tunggu_toko(){
         $daftar_tunggu = Daftar_tunggu_toko::all();
+        
         return view('users.admin.m-toko.daftar_tunggu', ['daftar_toko'=>$daftar_tunggu]);
     }
 
     public function daftar_tunggu_toko_detail($id){
         $toko = Daftar_tunggu_toko::find($id);
+        $user = User::where('id', $toko->users_id)->first();
+        $kategorinya_toko = Kategorinya_toko::where('toko_id', $toko->toko_id)->get();
         $kategori_toko = Kategori_toko::all();
-        return view('users.admin.m-toko.daftar_tunggu_detail', ['toko'=>$toko, 'kategori_toko'=>$kategori_toko]);
+        return view('users.admin.m-toko.daftar_tunggu_detail', ['toko'=>$toko, 'kategori_toko'=>$kategori_toko, 'user'=>$user, 'kategori'=>$kategorinya_toko]);
     }
 
     public function post_daftar_tunggu_toko(Request $request){
@@ -96,5 +101,10 @@ class Admin_Manajemen_Toko_Controller extends Controller
         Daftar_tunggu_toko::find($request->id)->delete();
 
         return redirect('/admin/manajemen/daftar_tunggu_toko');
+    }
+
+    public function detail_toko($id){
+        $toko = Toko::find($id);
+        return view('users.admin.m-toko.detail_toko', compact('toko'));
     }
 }
