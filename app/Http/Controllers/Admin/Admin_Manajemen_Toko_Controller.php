@@ -105,6 +105,8 @@ class Admin_Manajemen_Toko_Controller extends Controller
 
     public function detail_toko($id){
         $toko = Toko::find($id);
-        return view('users.admin.m-toko.detail_toko', compact('toko'));
+        $kategori_toko = Kategori_toko::all();
+        $kategorinya_toko = Kategorinya_toko::where('toko_id', $id)->get();
+        return view('users.admin.m-toko.detail_toko', compact('toko', 'kategorinya_toko'));
     }
 }
