@@ -163,7 +163,7 @@ function tgl_indo($tanggal){
                         <div class="form-group">
                             <label for="example-email" class="col-md-12">Waktu Pendaftaran</label>
                             <div class="col-md-12">
-                                <input type="text" class="form-control form-control-line" value="{{tgl_indo(date('Y-m-d h:i', strtotime($toko->created_at)))}}">
+                                <input name="" type="text" class="form-control form-control-line" value="{{tgl_indo(date('Y-m-d h:i', strtotime($toko->created_at)))}}">
                             </div>
                         </div>
                         <div class="form-group">
