@@ -23,7 +23,7 @@ class Toko_controller extends Controller
         for($i = 0; $i < count($tokos); $i++){
             $foto = Foto_maps::where([
                                         ['toko_id', $tokos[$i]->id],
-                                        ['no_foto', 3]
+                                        ['no_foto', 1]
                                     ])->first();
             if(!empty($foto)){
                 $tokos[$i]->setAttribute('foto', $foto->foto);

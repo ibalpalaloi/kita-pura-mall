@@ -89,34 +89,20 @@ class UserController extends Controller
 	}
 
 	public function biodata(){
-
 		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
-		$this->notif_telegram();
-
 		return view('users/user/m-profil/biodata', ['biodata'=>$biodata]);
 	}
 
-	public function notif_telegram(){
-		$token = "1732361789:AAFvHgC5XYNODxYqLt-YTZK4x5XGE-VH9Vg";
-		$user_id = 1732361789;
-		$mesg = "--- DAFTAR BARU ---   Hai Admin Kasfitapuramall, telah bergabung menjadi agen kebaikan di bersamakami.com sebagai ";
-		$request_params = [
-			'chat_id' => $user_id,
-			'text' => $mesg
-		];
-		$request_url = 'https://api.telegram.org/bot'.$token.'/sendMessage?'.http_build_query($request_params);
-		file_get_contents($request_url);	
-	}
 
 
 	public function ubah_password(Request $request){
 		// dd($request->all());
 
 		$validation = \Validator::make($request->all(),[
-            'password_old' => 'required',
-            'password' => 'required',
-            'konfirmasi_password' => 'required'
-        ])->validate();    
+			'password_old' => 'required',
+			'password' => 'required',
+			'konfirmasi_password' => 'required'
+		])->validate();    
 
 		
 		$password_old = Auth::user()->password;
@@ -134,29 +120,29 @@ class UserController extends Controller
 					$notification = array(
 						'message' => 'Password Berhasil Diperbarui'
 					);     
-			
+
 					return redirect()->back()->with($notification);
 
 				}
 				else{
-	
+
 					$notification = array(
 						'pass_message' => 'Password Baru Sama Dengan Password Lama'
 					);     
-		
+
 					return redirect()->back()->with($notification);
 				}
 
 			}
 			else{
 
-					$notification = array(
-						'pass_message' => 'Konfirmasi Password Tidak Cocok'
-					);     
-		
-					return redirect()->back()->with($notification);
+				$notification = array(
+					'pass_message' => 'Konfirmasi Password Tidak Cocok'
+				);     
+
+				return redirect()->back()->with($notification);
 			}
-		
+
 		}
 		else{
 
@@ -164,9 +150,9 @@ class UserController extends Controller
 				'pass_message' => 'Password Lama Tidak Cocok'
 			);     
 
-        	return redirect()->back()->with($notification);
+			return redirect()->back()->with($notification);
 		}
-      
+
 
 	}
 	

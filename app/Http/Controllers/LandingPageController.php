@@ -25,6 +25,10 @@ class LandingPageController extends Controller
 			$keranjang = 0;
 		}
 		// 
+		$previous = "";
+		if (!empty($_GET['previous'])){
+			$previous = $_GET['previous'];			
+		}
 		$toko = Toko::where('username', $mitra)->first();
 		if ($toko){
 			$produk = Product::where('toko_id', $toko->id)->where('tampil','ya')->get();
@@ -87,7 +91,12 @@ class LandingPageController extends Controller
 			$color_status_bar = $request->get('colorStatusBar');
 			$color_code = $str = ltrim($landing_page->warna_header, '#'); 
 			if(is_null($color_status_bar)){
-				return redirect(url()->current()."?colorStatusBar=".$color_code);
+				if ($previous != ""){
+					return redirect(url()->current()."?colorStatusBar=".$color_code."&previous=".$previous);					
+				}
+				else {
+					return redirect(url()->current()."?colorStatusBar=".$color_code);		
+				}
 			}
 			return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian', 'rating', 'foto_map', 'fasilitas', 'video', 'landing_page'));
 
@@ -99,7 +108,12 @@ class LandingPageController extends Controller
 		$color_status_bar = $request->get('colorStatusBar');
 		$color_code = $str = ltrim($landing_page->warna_header, '#'); 
 		if(is_null($color_status_bar)){
-			return redirect(url()->current()."?colorStatusBar=".$color_code);
+			if ($previous != ""){
+				return redirect(url()->current()."?colorStatusBar=".$color_code."&previous=".$previous);					
+			}
+			else {
+				return redirect(url()->current()."?colorStatusBar=".$color_code);		
+			}
 		}
 		
 		return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian', 'rating', 'foto_map', 'fasilitas', 'video', 'landing_page'));

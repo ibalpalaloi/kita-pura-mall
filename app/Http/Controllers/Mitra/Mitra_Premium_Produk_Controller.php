@@ -109,9 +109,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 
 	public function produk_premium($id){
-
 		$kategori_produk = Kategori::all();
-
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 		$produk = product::where('id', $id)->where('toko_id', $toko->id)->first();
 
@@ -121,7 +119,6 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 	public function update_tambah_produk_premium($id ,Request $request){
 
-        // dd($request->all());
 		$this->validate($request,[
 			'nama_produk' => 'required',
 			'kategori_produk' => 'required',
@@ -173,37 +170,39 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 	}
 
-	public function atur_landing_page(){
-		$video = array();
-		$video_ = Video_landing_page::where('toko_id', Auth()->user()->toko->id)->get();
-		if(!empty($video_)){
-			foreach($video_ as $video_){
-				$link = $video_->link_video;
-				$link = trim(substr($link, strpos($link, '=')+1));
-				$video[$video_->no_video] = $link;
-			}
+	public function generateRandomString($length = 10) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
 		}
-		$fasilitas_toko = Landing_page_fasilitas_toko::where('toko_id', Auth()->user()->toko->id)->get();
-		
-		$kategori_produk = Kategori::all();
+		return $randomString;
+	}
 
+	public function simpan_foto_produk(Request $request){
+		$image = $request->image;
+
+		list($type, $image) = explode(';', $image);
+		list(, $image)      = explode(',', $image);
+		$image = base64_decode($image);
+		$image_name= time().$this->generateRandomString().'.png';
+        // $path = public_path('upload/'.$image_name);
+
+        // file_put_contents($path, $image);
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
-
-		$produk = product::where('toko_id', $toko->id)->get();
-
-		$foto_1 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','1')->orderBy('created_at', 'desc')->first();
-		$foto_2 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','2')->orderBy('created_at', 'desc')->first();
-		$foto_3 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','3')->orderBy('created_at', 'desc')->first();
-		// dd($foto_maps);
-
-		return view('users/user/m-mitra/premium/atur_landing_page', compact('kategori_produk','produk','foto_1','foto_2','foto_3', 'video', 'fasilitas_toko', 'toko'));
-
+		\Storage::disk('public')->put('img/temp_produk/'.$image_name, file_get_contents($request->image));
+		$image_path = url('/')."/public/img/temp_produk/$image_name";
+		// $biodata->foto = $image_name;
+		// $biodata->save();
+		echo $image_name;
+		// return response()->json(['status'=>$image_path]);		
 	}
 
 	// public function simpan_atur_produk_premium(Request $request){
-		
+
 	// 	$toko = toko::where('users_id', Session::get('id_user'))->first();
-		
+
 	// 	if($request->file("foto_maps_1")){
 	// 		$foto = Foto_maps::where('id', $request->id_foto_maps_1)->first();
 	// 		if(is_null($foto)){
@@ -223,7 +222,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 	// 		$foto->save();
 	// 	}
 
-		
+
 	// 	if($request->file("foto_maps_2")){
 	// 		$foto = Foto_maps::where('id', $request->id_foto_maps_2)->first();
 	// 		if(is_null($foto)){
@@ -263,116 +262,13 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 	// }
 
-	public function ubah_status_produk_premium(Request $request){
-		$id = $request->id;
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
 
-		$produk = product::where('toko_id', $toko->id)->where('id', $id)->first();
 
-		if($produk->tampil == 'Ya'){
 
-			$new_produk = product::where('toko_id', $toko->id)->where('id', $id)->first();
-			$new_produk->tampil = "Tidak";
-			$new_produk->save();
-		}
-		else{
 
-			$cek_produk = product::where('toko_id', $toko->id)->where('tampil','Ya')->get()->count();
+	// atur landing_page
 
-			if($cek_produk == '3'){
 
-				
-				$notification = array(
-					'message' => 'Maaf, Produk Untuk Tampil Landing Page Telah Maksimal'
-				);     
 
-				//  dd($notification);
-				return redirect()->back()->with($notification);
-
-			}
-			else{
-				$new_produk = product::where('toko_id', $toko->id)->where('id', $id)->first();
-				$new_produk->tampil = "Ya";
-				$new_produk->save();
-			}
-		}
-
-		echo "menu favorit";
-	}
-
-	function generateRandomString($length = 10) {
-		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$charactersLength = strlen($characters);
-		$randomString = '';
-		for ($i = 0; $i < $length; $i++) {
-			$randomString .= $characters[rand(0, $charactersLength - 1)];
-		}
-		return $randomString;
-	}
-
-	public function simpan_foto_produk(Request $request){
-		$image = $request->image;
-
-		list($type, $image) = explode(';', $image);
-		list(, $image)      = explode(',', $image);
-		$image = base64_decode($image);
-		$image_name= time().$this->generateRandomString().'.png';
-        // $path = public_path('upload/'.$image_name);
-
-        // file_put_contents($path, $image);
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
-		\Storage::disk('public')->put('img/temp_produk/'.$image_name, file_get_contents($request->image));
-		$image_path = url('/')."/public/img/temp_produk/$image_name";
-		// $biodata->foto = $image_name;
-		// $biodata->save();
-		echo $image_name;
-		// return response()->json(['status'=>$image_path]);		
-	}
-
-	public function simpan_foto_cover(Request $request){
-		$image = $request->image;
-
-		list($type, $image) = explode(';', $image);
-		list(, $image)      = explode(',', $image);
-		$image = base64_decode($image);
-		$image_name= time().$this->generateRandomString().'.png';
-        // $path = public_path('upload/'.$image_name);
-
-        // file_put_contents($path, $image);
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
-		$image_path = "img/toko/$toko->id/cover/";
-		\Storage::disk('public')->put($image_path."/$image_name", file_get_contents($request->image));
-		\File::delete("public/".$image_path."/$toko->foto_cover");
-		$toko->foto_cover = $image_name;
-		$toko->save();
-		echo $image_path."$image_name";
-	}
-
-	public function simpan_foto_maps(Request $request){
-		$id = $request->jenis;
-
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
-		$foto = Foto_maps::where('toko_id', $toko->id)->where('no_foto', $id)->first();
-		if($foto){
-			\Storage::disk('public')->delete('img/toko/'.$toko->id.'/maps/'.$foto->foto);
-		}
-		else{
-			$foto = new Foto_maps;
-			$foto->toko_id = $toko->id;
-		}
-		$image = $request->image;
-
-		list($type, $image) = explode(';', $image);
-		list(, $image)      = explode(',', $image);
-		$image = base64_decode($image);
-		$image_name= time().$this->generateRandomString().'.png';
-
-		$image_path = "img/toko/$toko->id/maps/";
-		\Storage::disk('public')->put($image_path."/$image_name", file_get_contents($request->image));
-		$foto->foto = $image_name;
-		$foto->no_foto = $id;
-		$foto->save();
-		echo $image_path."$image_name";
-	}
 		// return redirect()->back();
 }

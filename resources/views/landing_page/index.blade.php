@@ -137,6 +137,7 @@
 
 .homepage {
 	padding: 0px;
+	min-height: calc(100vh - 100vh);	
 }
 
 .slider {
@@ -326,18 +327,18 @@
 @endsection
 @section('content')
 <div class="modal fade" id="modal-cooming-soon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
-        <div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
-            <div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-                <img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
-                <img src="<?=url('/')?>/public/img/modal_assets/modal_cooming_soon.svg" style="width: 100%;">
-                <div style="position: absolute; margin: 2.5em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
-                    <div style="font-size: 2em; font-weight: 600; text-align: center;">Sabar Yaa...</div>
-                    <div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">Untuk Sekarang Fitur ini masih belum bisa ditampilkan</div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
+				<img src="<?=url('/')?>/public/img/modal_assets/modal_cooming_soon.svg" style="width: 100%;">
+				<div style="position: absolute; margin: 2.5em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
+					<div style="font-size: 2em; font-weight: 600; text-align: center;">Sabar Yaa...</div>
+					<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">Untuk Sekarang Fitur ini masih belum bisa ditampilkan</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
@@ -372,24 +373,32 @@ style="padding: 1.5em; padding: 0px;">
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/">
+		<?php if (!empty($_GET['previous'])){ ?>
+		<div id="defaultheader_logo" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" onclick='back_preivous()'>
+			<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
+		</div>
+	<?php } else { ?>
+		<a id="defaultheader_logo" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/">
 			<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
 		</a>
-		@if (Auth::user())
-			@if(Auth()->user()->id == $toko->users_id)
-			<a onclick="show_loader()" id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/akun/mitra/premium">
-				<img src="<?=url('/')?>/public/img/icon_svg/setting_circle_transparent.svg">
-			</a>
+	<?php } ?>
+	@if (Auth::user())
+	@php $penjual = ""; @endphp
+	@if(Auth()->user()->id == $toko->users_id)
+	<a onclick="show_loader()" id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/akun/mitra/premium">
+		<img src="<?=url('/')?>/public/img/icon_svg/setting_circle_transparent.svg">
+	</a>
+	@php $penjual = 'yes'; @endphp
+	@else
+	<div onclick="cooming_soon()" id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
+		<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
+		<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
+	</div>
+	@php $penjual = 'no'; @endphp
+	@endif
+	@endif
 
-			@else
-			<div onclick="cooming_soon()" id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
-				<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
-				<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
-			</div>
-			@endif
-		@endif
-		
-	</div>	
+</div>	
 </header>
 
 <div class="wrapper" style="background: transparent; position: relative; z-index: -1; border-bottom-right-radius: 7%; border-bottom-left-radius: 7%;">
@@ -436,7 +445,7 @@ style="padding: 1.5em; padding: 0px;">
 				@endfor
 				<span style="color: {{$landing_page->warna_tulisan_header}}; font-size: 0.8em;">&nbsp;({{count($penilaian)}} Penilaian)</span>
 			</div>
-			<div class="penilai" style="display: flex; justify-content: space-between; align-items: flex-end;">
+			<div class="penilai" style="display: flex; justify-content: space-between; align-items: flex-end;" hidden>
 				<div class="foto-penilai" style="display: flex; justify-content: flex-start; margin-top: 0.2em;">
 					@foreach ($penilaian as $data)
 					<div style="width: 1.2em; height: 1.2em; border-radius: 50%;">
@@ -447,11 +456,11 @@ style="padding: 1.5em; padding: 0px;">
 
 			</div>
 			@if (Auth::user())
-				@if(Auth()->user()->id != $toko->user->id)
-				<div style="color: {{$landing_page->warna_tulisan_header}}; font-size: 0.8em; margin-top: 1.2em;" onclick="menilai()">				
-					<i class="far fa-star star-rating"></i>&nbsp;Saya ingin menilai
-				</div>
-				@endif
+			@if(Auth()->user()->id != $toko->user->id)
+			<div style="color: {{$landing_page->warna_tulisan_header}}; font-size: 0.8em; margin-top: 1.2em;" onclick="menilai()" hidden>				
+				<i class="far fa-star star-rating"></i>&nbsp;Saya ingin menilai
+			</div>
+			@endif
 			@endif
 			
 			
@@ -461,8 +470,8 @@ style="padding: 1.5em; padding: 0px;">
 
 	</div>
 
-	<div class="landing_page" style="position: relative; top: -3em; z-index: 3; border-top-left-radius: 1.5em;border-top-right-radius: 1.5em; background: {{$landing_page->warna_body}};">
-		<div class="row-mall" style="padding: 0.7em 4% 1.2em 4%; margin-top: -6em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em; padding: 2em 1em 1em 1em;">
+	<div class="landing_page" style="position: relative; top: -3em; padding-bottom: 3em; z-index: 3; border-top-left-radius: 1.5em;border-top-right-radius: 1.5em; background: {{$landing_page->warna_body}};">
+		<div class="row-mall" style="margin-top: -6em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em; padding: 2em 1em 2em 1em; ">
 			@if ($video)
 			<div>
 				<div style="font-size: 1.4em; font-weight: 1000; text-align: center;">Video</div>
@@ -483,11 +492,12 @@ style="padding: 1.5em; padding: 0px;">
 			</div>
 			@endif
 		</div>
-		<div class="row-mall" style="padding: 0.7em 8% 1.2em 8%; margin-top: 0em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em;">
+		@if ((empty($foto_maps[1])) && (empty($foto_maps[2])) && (empty($foto_maps[3])))
+		<div class="row-mall" style="padding: 0.7em 8% 0em 8%; margin-top: 0em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em;">
+			@if(!empty($foto_map[1]))
 			<div>
 				<div style="font-size: 1.4em; font-weight: 1000; text-align: center;">Layanan Kami</div>
 			</div>
-			@if(!empty($foto_map[1]))
 			<div class="input-group mb-3" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
 				<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
 					<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[1]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
@@ -517,6 +527,8 @@ style="padding: 1.5em; padding: 0px;">
 				
 			</div>
 		</div>
+		@endif
+		@if (count($fasilitas) > 0)
 		<div class="row-mall" style="padding: 0em 8% 1.2em 8%; margin-top: 0em; border-top-left-radius:1.5em; border-top-right-radius: 1.5em;">
 			@foreach ($fasilitas as $data)
 			<div class="service_1" style="display:  flex; flex-direction: column; margin-bottom: 2em;">
@@ -536,8 +548,8 @@ style="padding: 1.5em; padding: 0px;">
 				</div>
 			</div>
 			@endforeach
-			
 		</div>
+		@endif
 		<div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
 			<div class="row-mall" style="border-radius: 1.5em; box-shadow: 4px 4px 28px #C9D2DA; width: 90%;">
 				<div style="width: 100%; margin-top: 1.5em;">
@@ -552,8 +564,8 @@ style="padding: 1.5em; padding: 0px;">
 						<div class="label-product" style="position: absolute; bottom:0; padding: 0em; display: flex; width: 100%; height: 100%; justify-content: space-between; border-radius: 1em;">
 							<div class="keterangan-product" style="display: flex; width: 100%;">
 								<div class="detail-keterangan-product" style="display: flex; flex-direction: column; justify-content: flex-end; color: white; background: linear-gradient(180deg, rgba(255, 0, 7, 0) 32.25%, rgba(54, 1, 3, 0.53) 68.91%); width: 100%; border-radius: 1em; padding: 1em; ">
-									<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/{{$item->id}}" style="color:white;font-size: 2em; line-height: 1.3em; font-weight: 500;">{{$item->nama}}</a>
-									<div style="font-size: 0.7em; line-height: 1em;">{{$item->kategori->nama}}</div>
+									<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/{{$item->id}}" style="color:white;font-size: 2em; line-height: 1.3em; font-weight: 500;">{{ucwords(strtolower($item->nama))}}</a>
+									<div style="font-size: 0.7em; line-height: 1em;">{{ucwords(strtolower($item->kategori->nama))}}</div>
 									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.8em; line-height: 1em;">
 										<i class="fas fa-star star-rating"></i>
 										<i class="fas fa-star star-rating"></i>
@@ -583,15 +595,17 @@ style="padding: 1.5em; padding: 0px;">
 									<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{number_format($item->harga_terendah)}}</div>
 
 									@endif
-
-
-
-									
 								</div>
 							</div>
+							@if ($penjual == 'no')
 							<div class="">
 								<img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="position: absolute; bottom: -0.8em; right: -0.5em; width: 5em;" onclick="masukan_keranjang('{{$item->toko_id}}', '{{$item->id}}')">
 							</div>
+							@else
+							<div class="">
+								<img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="position: absolute; bottom: -0.8em; right: -0.5em; width: 5em;" onclick="gagal_masukan_keranjang()">
+							</div>
+							@endif
 						</div>
 
 					</div>
@@ -602,7 +616,7 @@ style="padding: 1.5em; padding: 0px;">
 					<a onclick="show_loader()" href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu" style="color: #111111;">Lihat lebih banyak</a>
 				</div>
 			</div>
-			<div style="background: {{$landing_page->warna_footer_1}}; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 2em 8%; display: flex; flex-direction: column; margin-top: 1em; width: 100%;">
+			<div style="background: {{$landing_page->warna_footer_1}}; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 2em 8%; display: flex; flex-direction: column; margin-top: 1em; width: 100%;" hidden>
 				<div class="info-toko" style="display: flex; justify-content: space-between; width: 100%;">
 					<div class="nama-toko" style="width: 100%;">
 						<h3 style="color: white; font-weight: 500; word-wrap: break-word; text-align: center;">Testimoni</h3>
@@ -625,7 +639,7 @@ style="padding: 1.5em; padding: 0px;">
 			</div>
 		</div>
 	</div>
-	<div style="background: {{$landing_page->warna_footer_2}}; margin-top: -2em; border: none; position: absolute; z-index: 5; width: 100%;">
+	<div style="background: {{$landing_page->warna_footer_2}}; margin-top: -3.5em; border: none; position: absolute; z-index: 5; width: 100%;">
 		<div class="container-mall" style="padding-bottom: 1em;">
 			<div style="padding-top: 1em; text-align: center; margin-bottom: 0em; color: {{$landing_page->warna_tulisan_footer}};">
 				<img src="<?=url('/')?>/public/img/logo.svg" style="width: 2em;">&nbsp;&nbsp;&copy;&nbsp;<script>document.write(new Date().getFullYear());</script>&nbsp;Kitapuramall
@@ -659,6 +673,10 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		
 	}
 
+	function gagal_masukan_keranjang(){
+		$("#modal-cooming-soon").modal('show');
+	}
+
 	function cooming_soon(){
 		$("#modal-cooming-soon").modal('show');		
 	}
@@ -679,6 +697,10 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 	function menilai(){
 		$('#modal-jadwal').modal('show');
+	}
+
+	function back_preivous(){
+		window.location.replace("<?=url('/')?>/toko");		
 	}
 </script>
 @endsection
