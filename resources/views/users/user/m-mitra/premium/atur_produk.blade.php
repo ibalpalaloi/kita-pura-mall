@@ -281,14 +281,12 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 	.slider-toko img {
 		width: 100%;
-		height: 8em;
 		object-fit: cover;
 		border-top-left-radius: 1em;
 		border-top-right-radius: 1em;
 	}
 
 	.slider-toko > div {
-		height: 6.3em;
 		border-bottom-left-radius: 1em;
 		border-bottom-right-radius: 1em;
 	}

@@ -283,14 +283,12 @@
 
 		.slider-toko img {
 			width: 100%;
-			height: 7.5em;
 			object-fit: cover;
 			border-top-left-radius: 1em;
 			border-top-right-radius: 1em;
 		}
 
 		.slider-toko > div {
-			height: 6.3em;
 			border-bottom-left-radius: 1em;
 			border-bottom-right-radius: 1em;
 		}
@@ -633,6 +631,25 @@
 			</form>
 		</div>
 	</div>
+	<div class="modal fade" id="modal-cover-hapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+			<form style="width: 100%; margin-bottom: 0px;" action="<?=url('/')?>/akun/mitra/premium/ubah-landing-page/hapus-foto-cover" method="post">
+				@csrf
+				<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+					<div class="modal-body" style="width: 100%; padding-bottom: 0px;">
+						<input type="text" name="id_cover" id="id_cover" hidden>
+						<div class="form-group" style="width: 100%;">
+							<label for="recipient-name" class="col-form-label" style="text-align: center;">Apakah anda ingin menghapus cover ini?</label>
+						</div>
+					</div>
+					<div style="margin-bottom: 1.5em;">
+						<button type="submit" class="btn btn-secondary">Hapus</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Tidak</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 
 	{{-- modal tambah icon --}}
 	<div class="modal fade" id="modal-fasilitas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
@@ -717,7 +734,7 @@
 				<div style="padding: 0px 16px 1em;">
 					<h3 style="color: white;">Atur Landing Page</h3>
 					<h6 style="color: white; line-height: 1em; margin-top: 1em;">Atur Foto Cover</h6>
-					<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;">
+					<div class="mb-3" style=" display: flex; justify-content: space-between; align-items: center;" >
 						<div style="font-size: 0.8em; color: #dddddd; line-height: 1em;">Masukkan foto cover landing page anda</div>
 					</div>
 					<form id="upload_cover" enctype="multipart/form-data" method="post">
@@ -728,6 +745,11 @@
 								<img id="preview_cover" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/cover/{{$toko->foto_cover}}" style="width: 100%;  border-radius: 1em;">
 								<div style="position: absolute;top: 45%;">
 									<img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="pilih_foto_cover()" style=" width: 2.5em; margin-left: 40%; margin-bottom: 2em;">
+								</div>
+								<div style="position: absolute; right: 10px; top: -1em; display: flex;">
+									<div style="width: 2.5em; background: #262627; display: flex; justify-content: center; border-radius: 50%;">
+										<img src="<?=url('/')?>/public/img/icon_svg/trash_circle_red.svg" style="width: 90%;" onclick='hapus_foto_cover()'>
+									</div>
 								</div>
 							</div>
 							@else
@@ -1040,6 +1062,11 @@
 				$('#link_video').val('');
 				$('#modal-video').modal('show');
 				$('#nomor_div').val(i);
+			}
+
+			function hapus_foto_cover(){
+				$('#modal-cover-hapus').modal('show');
+
 			}
 
 			function hapus_video(i){

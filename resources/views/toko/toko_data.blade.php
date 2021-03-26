@@ -3,7 +3,7 @@
     <div style="display: flex; justify-content: center; position:relative;width: 90%; margin: 0px; height: 13em;border-radius: 1em; ">
         <a href="<?=url('/')?>/{{$toko->username}}?previous=toko" style="background: #FB036B; width: 100%; border-radius: 1em;">
             @if ($toko->foto != '')
-            <img src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$toko->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+            <img src="<?=url('/')?>/public/img/toko/{{$toko->id}}/cover/{{$toko->foto_cover}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
             @else
             <img src="<?=url('/')?>/public/img/maps/template_maps.svg" style="width: 100%; height: 100%; border-radius: 1em;">
             @endif

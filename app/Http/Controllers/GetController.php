@@ -12,6 +12,7 @@ use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Kategorinya_toko;
 use App\Models\kategori_toko;
+use DB;
 
 class GetController extends Controller
 {
@@ -65,6 +66,17 @@ class GetController extends Controller
         }
         return response()->json(['html' => $html]);
     }
+
+    public function get_kelurahan_from_kota(Request $request){
+        $id_kota = $request->id_kota;
+        $kelurahan = DB::table('kelurahan')->select('kelurahan.id', 'kelurahan.kelurahan')->leftJoin('kecamatan', 'kecamatan.id', '=', 'kelurahan.kecamatan_id')->where('kecamatan.kabupaten_kota_id', $id_kota)->get();
+        $html = '<option value="" disabled selected>Pilih Kelurahan</option>';
+        foreach($kelurahan as $data){
+            $html .= '<option value="'.$data->id.'">'.$data->kelurahan.'</option>';
+        }
+        return response()->json(['html' => $html]);
+    }
+
 
     public function hapus_kategorinya_toko(Request $request){
         Kategorinya_toko::find($request->id)->delete();
