@@ -11,6 +11,7 @@ use App\Models\Landing_page_toko;
 use App\Models\Template_landing_page;
 use App\Models\User;
 use App\Models\Kategorinya_toko;
+use App\Models\Provinsi;
 
 class Admin_Manajemen_Toko_Controller extends Controller
 {
@@ -104,9 +105,31 @@ class Admin_Manajemen_Toko_Controller extends Controller
     }
 
     public function detail_toko($id){
+        $kabupaten = Provinsi::find(72)->kabupaten_kota;
         $toko = Toko::find($id);
         $kategori_toko = Kategori_toko::all();
         $kategorinya_toko = Kategorinya_toko::where('toko_id', $id)->get();
-        return view('users.admin.m-toko.detail_toko', compact('toko', 'kategorinya_toko'));
+        return view('users.admin.m-toko.detail_toko', compact('toko', 'kategorinya_toko', 'kabupaten', 'kategori_toko'));
+    }
+
+    public function post_ubah_toko(Request $request, $id){
+        $toko = Toko::find($id);
+        $toko->nama_toko = $request->nama_toko;
+        $toko->username = $request->username;
+        $toko->jenis_mitra = $request->jenis_mitra;
+        $toko->no_hp = $request->no_hp;
+        $toko->deskripsi = $request->deskripsi;
+        $toko->save();
+
+        return back();
+    }
+
+    public function post_ubah_alamat_toko(Request $request, $id){
+        $toko = Toko::find($id);
+        $toko->alamat = $request->alamat;
+        $toko->kelurahan_id = $request->kelurahan;
+        $toko->save();
+
+        return back();
     }
 }
