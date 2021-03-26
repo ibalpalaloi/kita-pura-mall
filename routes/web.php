@@ -234,6 +234,7 @@ Route::group(['middleware'=> 'auth'], function() {
         // manajemen toko
         Route::get('/admin/manajemen/toko', [Admin_Manajemen_Toko_Controller::class, 'index']);
         Route::get('/admin/manajemen/toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'detail_toko']);
+        Route::post('/admin/manajemen/toko/{id}/ubah_logo', [Admin_Manajemen_Toko_Controller::class, 'ubah_logo']);
         Route::post('/admin/manajemen/toko/{id}/post_ubah', [Admin_Manajemen_Toko_Controller::class, 'post_ubah_toko']);
         Route::post('/admin/manajemen/toko/{id}/post_ubah_alamat', [Admin_Manajemen_Toko_Controller::class, 'post_ubah_alamat_toko']);
         Route::get('/admin/manajemen/daftar_tunggu_toko', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko']);

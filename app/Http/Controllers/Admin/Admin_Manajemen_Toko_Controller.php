@@ -132,4 +132,28 @@ class Admin_Manajemen_Toko_Controller extends Controller
 
         return back();
     }
+
+    public function ubah_logo(Request $request, $id){
+        $toko = Toko::where('id', $id)->first();
+        if($request->file("foto_logo")){
+            $files = $request->file("foto_logo");
+            $type = $request->file("foto_logo")->getClientOriginalExtension();
+            $file_upload = time().$this->generateRandomString().".".$type;
+            \Storage::disk('public')->put('img/toko/'.$toko->id.'/logo/'.$file_upload, file_get_contents($files));
+            \File::delete("public/img/toko/".$toko->id."/logo/".$toko->logo_toko);		
+            $toko->logo_toko = $file_upload;
+        }
+        $toko->save();
+        return back();
+    }
+
+    function generateRandomString($length = 10) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
 }

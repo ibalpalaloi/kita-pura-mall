@@ -145,8 +145,33 @@ Toko
     </div>
     <!-- /.modal-dialog -->
 </div>
-
+<div class="row el-element-overlay">
+    <form action="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/ubah_logo" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="el-card-item">
+                    <div class="el-card-avatar el-overlay-1"> <img id="preview_logo" src="{{$toko->logo()}}" alt="user" />
+                        <div class="el-overlay">
+                            <ul class="list-style-none el-info">
+                                <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="{{$toko->logo()}}"><i class="icon-magnifier"></i></a></li>
+                                <li class="el-item"><a class="btn default btn-outline el-link" href="{{$toko->logo()}}" download=""><i class="icon-link"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <input type="file" name="foto_logo" id="foto_logo" hidden>
+                    <div class="el-card-content">
+                        <button onclick="upload_gambar()" type="button" class="btn btn-primary">Upload</button>
+                        <button type="submit" class="btn btn-danger">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 <div class="row">
+    
+
     <div class="col-12">
         <div class="card">
             <div class="card-body">
@@ -258,6 +283,26 @@ Toko
 
 @section('footer-scripts')
 <script>
+    function upload_gambar(){
+		$("#foto_logo").click();
+	}
+
+    $("#foto_logo").change(function(){
+        readURL(this);
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#preview_logo').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
     function simpan_kategori(toko_id){
         var id = $('#kategori_toko').val();
         $.ajax({
