@@ -79,12 +79,17 @@ class GetController extends Controller
 
 
     public function hapus_kategorinya_toko(Request $request){
-        Kategorinya_toko::find($request->id)->delete();
+        $cek = Kategorinya_toko::where('toko_id', $request->id_toko)->get();
+        if(count($cek) == 1){
+            echo 'false';
+        }
+        else{
+            Kategorinya_toko::find($request->id)->delete();
+        }
     }
 
     public function simpan_kategorinya_toko(Request $request){
         $kategori = Kategori_toko::find($request->id);
-
         $kategorinya_toko = new Kategorinya_toko;
         $kategorinya_toko->toko_id = $request->toko_id;
         $kategorinya_toko->kategori_toko_id = $request->id;
