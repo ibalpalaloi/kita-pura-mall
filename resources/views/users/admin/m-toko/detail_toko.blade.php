@@ -117,12 +117,41 @@ Toko
     <!-- /.modal-dialog -->
 </div>
 
+{{-- modal kategori toko --}}
+<div id="modal_kategori_toko" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center">
+                <h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
+                <button type="button" class="close ml-auto" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-12">Kategori</label>
+                    <div class="col-sm-12">
+                        <select id="kategori_toko" name="" class="form-control form-control-line">
+                            @foreach ($kategori_toko as $data)
+                                <option value="{{$data->id}}">{{$data->kategori}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="simpan_kategori('{{$toko->id}}')" type="button" class="btn btn-info waves-effect" data-dismiss="modal">simpan</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Project Assinging</h4>
-                <h6 class="card-subtitle">To use add <code>.r-separator</code> class in the form with form styling.</h6>
+                <h4 class="card-title">Data Toko</h4>
+                {{-- <h6 class="card-subtitle">To use add <code>.r-separator</code> class in the form with form styling.</h6> --}}
             </div>
             <hr class="mt-0">
             <div class="card-body">
@@ -145,14 +174,18 @@ Toko
                         <input readonly value="{{$toko->jenis_mitra}}" type="email" class="form-control" id="jenis_mitra" name="jenis_mitra">
                     </div>
                 </div>
+                <br>
                 <div class="form-group row align-items-center mb-0">
                     <label for="inputEmail3" class="col-3 text-right control-label col-form-label">Kategori Toko</label>
-                    <div class="col-9 border-left pb-2 pt-2">
+                    <div class="col-9 border-left pb-2 pt-2" id="list_kategorinya_toko">
+                        <button data-toggle="modal" data-target="#modal_kategori_toko" type="button" class="btn btn-primary">Tambah Kategori Toko</button>
+                        <br><br>
                         @foreach ($kategorinya_toko as $data)
-                            <li>{{$data->kategori_toko->kategori}}</li>
+                        <li id="kategori_{{$data->id}}">{{$data->kategori_toko->kategori}} &nbsp;&nbsp;&nbsp;&nbsp; <i onclick="hapus_kategori_toko('{{$data->id}}', '{{$toko->id}}')" class="far fa-trash-alt remove-note"></i></li>
                         @endforeach
                     </div>
                 </div>
+                <br>
                 <div class="form-group row align-items-center mb-0">
                     <label for="inputEmail3" class="col-3 text-right control-label col-form-label">No HP Toko</label>
                     <div class="col-9 border-left pb-2 pt-2">
@@ -225,6 +258,39 @@ Toko
 
 @section('footer-scripts')
 <script>
+    function simpan_kategori(toko_id){
+        var id = $('#kategori_toko').val();
+        $.ajax({
+            url: "{{route('simpan_kategorinya_toko')}}",
+            method: "post",
+            data : {id:id, toko_id:toko_id, _token:'{{csrf_token()}}'},
+            success:function(result)
+            {
+                $('#list_kategorinya_toko').append(result);
+                $('#modal_kategori').modal('hide');
+            }
+        })
+    }
+
+    function hapus_kategori_toko(id, id_toko){
+        $.ajax({
+            url: "{{route('hapus_kategorinya_toko')}}",
+            method: "post",
+            data : {id:id, id_toko:id_toko, _token:'{{csrf_token()}}'},
+            success:function(result)
+            {
+                if(result == 'false'){
+                    alert('kategori toko harus terisi')
+                }
+                else{
+                    $("#kategori_"+id).remove();
+                }
+                
+            }
+        })
+        
+    }
+    
     $('#select_kota').change(function(){
 		// show_loader();
 		$('#select_kecamatan').empty();
