@@ -15,6 +15,39 @@ Toko
 
 
 @section('content')
+{{-- modal hapus toko --}}
+{{-- modal kategori toko --}}
+<div id="modal_hapus_toko" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center">
+                <h4 class="modal-title" id="myModalLabel">Hapus Toko</h4>
+                <button type="button" class="close ml-auto" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form action="<?=url('/')?>/admin/manajemen/hapus_toko" method="post">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        Ketikkan untuk menghapus toko <b>"kitapuramallpalu"</b> 
+                        <p style="color: red" id="pass_salah"></p>
+                        <input name="ketikan" id="ketikan" type="text" hidden value="kitapuramallpalu">
+                        <input name="id_toko" id="id_toko" type="text" hidden>
+                        <div class="col-sm-12">
+                            <input name="pass" id="pass" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="cek_pass()" class="btn btn-info waves-effect">Hapus Toko</button>
+                        <button id="submit" type="submit" hidden class="btn btn-info waves-effect">hidden</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
 <div class="row">
     <div class="col-12">
@@ -51,7 +84,7 @@ Toko
                                     <td>{{$data->nama_pemilik}}</td>
                                     <td>
                                         <a href="<?=url('/')?>/admin/manajemen/toko/{{$data->id}}" type="button" class="btn btn-primary">Ubah</a>
-                                        <a type="button" class="btn btn-danger">Hapus</a>
+                                        <a onclick="modal_hapus('{{$data->id}}')" type="button" class="btn btn-danger">Hapus</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -66,4 +99,20 @@ Toko
 @endsection
 
 @section('footer-scripts')
+<script>
+    function modal_hapus(id_toko){
+        $('#modal_hapus_toko').modal('show');
+        $('#id_toko').val(id_toko);
+    }
+
+    function cek_pass(){
+        if($('#ketikan').val() != $('#pass').val()){
+            $('#pass_salah').empty();
+            $('#pass_salah').append("Inputan salah");
+        }
+        else{
+            $("#submit").click();
+        }
+    }
+</script>
 @endsection

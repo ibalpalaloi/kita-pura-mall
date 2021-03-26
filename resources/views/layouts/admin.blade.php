@@ -237,6 +237,7 @@
 
     <!-- All Jquery -->
     <!-- ============================================================== -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{asset('public/template/admin/assets/libs/jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="{{asset('public/template/admin/assets/libs/popper.js/dist/umd/popper.min.js')}}"></script>

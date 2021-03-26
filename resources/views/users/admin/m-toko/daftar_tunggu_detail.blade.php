@@ -87,7 +87,7 @@ function tgl_indo($tanggal){
                         <div class="form-group">
                             <label class="col-md-12">Nomor Akun</label>
                             <div class="col-md-12">
-                                <input readonly name="nama_toko" type="text" class="form-control form-control-line" value="{{$user->no_hp}}">
+                                <input id="no_akun" readonly name="nama_toko" type="text" class="form-control form-control-line" value="{{$user->no_hp}}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -172,7 +172,8 @@ function tgl_indo($tanggal){
                                     <button onclick="WhatsappMessage('{{$user->no_hp}}')" type="submit" class="btn btn-success">Konfirmasi WA</button>
                                 </div>
                                 <div class="col-sm-4">
-                                    <button type="submit" class="btn btn-primary">Verifikasi</button>
+                                    <button onclick="tampil_alert()" type="button" class="btn btn-primary">Verifikasi</button>
+                                    <button id="submit" type="submit" class="btn btn-primary" hidden>hidden</button>
                                 </div>
                             </div>
                             
@@ -187,7 +188,9 @@ function tgl_indo($tanggal){
 @endsection
 
 @section('footer-scripts')
+
 <script>
+
     function hapus_kategori_toko(id){
         $.ajax({
             url: "{{route('hapus_kategorinya_toko')}}",
@@ -259,5 +262,43 @@ function tgl_indo($tanggal){
         var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
         window.open(walink);
     } 
+
+    function tampil_alert(){
+        swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            $('#submit').click();
+        } else {
+            swal("Your imaginary file is safe!");
+        }
+        });
+    }
+
+    $( "#submit" ).click(function() {
+        var data = {!! json_encode($toko) !!};
+        var user = {!! json_encode($user) !!};
+        var apilink = 'http://';
+        var phone = user['no_hp'];
+        var message = 'Hallo kak akun Toko ' + data['nama_toko'] + ' telah aktif\n' +
+                      'sekarang kaka sudah bisa menggunakan semua layanan kami, silahkan menambahakan produk dan mengatur landing page toko kaka\n\n'+
+                      'jika ada kendala atau hal yang tidak dipahami silahkan hubungi admin kitapuramall\n'+
+                      '-----------------------\n'+
+                      'Informasi dan konfirmasi (0851-5836-2224)\n\n'+
+                      'Official Account:\n'+
+                      'IG : @kitapuramall\n\n'+
+                      'Kantor Pemasaran Kitapuramall\n'+
+                      'Jln. Gelatik, No. 29, Birobuli Utara, Palu Selatan, Palu - Sulawesi Tengah';
+
+        // apilink += isMobile ? 'api' : 'web';
+        // apilink += '.whatsapp.com/send?phone=' + phone + '&text=' + encodeURI(message);
+        var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
+        window.open(walink);
+    });
 </script>
 @endsection
