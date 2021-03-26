@@ -27,26 +27,26 @@ Toko
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Nama Toko:</label>
-                        <input type="text" class="form-control" id="nama_toko" name="nama_toko">
+                        <input value="{{$toko->nama_toko}}" type="text" class="form-control" id="nama_toko" name="nama_toko">
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Username:</label>
-                        <input type="text" class="form-control" id="username" name="username">
+                        <input value="{{$toko->username}}" type="text" class="form-control" id="username" name="username">
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Jenis Mitra:</label>
                         <select class="form-control" name="jenis_mitra" id="jenis_mitra">
-                            <option value="Premium">Premium</option>
-                            <option value="Free">Free</option>
+                            <option @if($toko->jenis_mitra == 'premium') selected @endif value="premium">Premium</option>
+                            <option @if($toko->jenis_mitra == 'free') selected @endif value="free">Free</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">No Hp:</label>
-                        <input type="text" class="form-control" id="no_hp" name="no_hp">
+                        <input value="{{$toko->no_hp}}" type="text" class="form-control" id="no_hp" name="no_hp">
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Deskripsi:</label>
-                        <textarea class="form-control" name="deskripsi" id="" cols="30" rows="10"></textarea>
+                        <textarea class="form-control" name="deskripsi" id="" cols="30" rows="10">{{$toko->deskripsi}}</textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-info waves-effect">Ubah</button>
