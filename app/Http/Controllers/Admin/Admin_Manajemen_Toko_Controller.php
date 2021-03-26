@@ -128,6 +128,8 @@ class Admin_Manajemen_Toko_Controller extends Controller
         $toko = Toko::find($id);
         $toko->alamat = $request->alamat;
         $toko->kelurahan_id = $request->kelurahan;
+        $toko->latitude = $request->latitude;
+        $toko->longitude = $request->longitude;
         $toko->save();
 
         return back();
@@ -156,4 +158,9 @@ class Admin_Manajemen_Toko_Controller extends Controller
 		}
 		return $randomString;
 	}
+
+    public function hapus_toko(Request $request){
+        Toko::where('id', $request->id_toko)->delete();;
+        return back();
+    }
 }

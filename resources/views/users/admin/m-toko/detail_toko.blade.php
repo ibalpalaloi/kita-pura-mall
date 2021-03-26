@@ -81,29 +81,29 @@ Toko
                         <select class="form-control" name="kota" id="select_kota">
                             <option value="">Pilih Kabupaten / Kota</option>
                             @foreach ($kabupaten as $item)
-                                <option value="{{$item->id}}">{{$item->nama}}</option>
+                                <option value="{{$item->id}}" @if ($toko->kelurahan->kecamatan->kabupaten_kota->id == $item->id) selected @endif>{{$item->nama}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Kecamatan:</label>
                         <select class="form-control" name="kecamatan" id="select_kecamatan">
-                            <option value="" disabled>Kecamatan</option>
+                            <option value=""> {{$toko->kelurahan->kecamatan->nama}} </option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Kelurahan:</label>
                         <select class="form-control" name="kelurahan" id="select_kelurahan">
-                            <option value="" disabled>Kelurahan</option>
+                            <option value=""> {{$toko->kelurahan->kelurahan}} </option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Latitude:</label>
-                        <input value="{{$toko->latitude}}" type="text" class="form-control" id="username" name="latitude">
+                        <input value="{{$toko->latitude}}" type="text" class="form-control" id="latitude" name="latitude">
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Longitude:</label>
-                        <input value="{{$toko->longitude}}" type="text" class="form-control" id="username" name="longitude">
+                        <input value="{{$toko->longitude}}" type="text" class="form-control" id="longitude" name="longitude">
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-info waves-effect">Ubah</button>
