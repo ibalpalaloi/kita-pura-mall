@@ -109,4 +109,16 @@ class Admin_Manajemen_Toko_Controller extends Controller
         $kategorinya_toko = Kategorinya_toko::where('toko_id', $id)->get();
         return view('users.admin.m-toko.detail_toko', compact('toko', 'kategorinya_toko'));
     }
+
+    public function post_ubah_toko(Request $request, $id){
+        $toko = Toko::find($id);
+        $toko->nama_toko = $request->nama_toko;
+        $toko->username = $request->username;
+        $toko->jenis_mitra = $request->jenis_mitra;
+        $toko->no_hp = $request->no_hp;
+        $toko->deskripsi = $request->deskripsi;
+        $toko->save();
+
+        return back();
+    }
 }
