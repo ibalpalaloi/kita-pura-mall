@@ -235,6 +235,7 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::get('/admin/manajemen/toko', [Admin_Manajemen_Toko_Controller::class, 'index']);
         Route::post('/admin/manajemen/hapus_toko', [Admin_Manajemen_Toko_Controller::class, 'hapus_toko']);
         Route::get('/admin/manajemen/toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'detail_toko']);
+        Route::post('/admin/manajemen/toko/{id}/post_password_baru', [Admin_Manajemen_Toko_Controller::class, 'post_password_baru']);
         Route::post('/admin/manajemen/toko/{id}/ubah_logo', [Admin_Manajemen_Toko_Controller::class, 'ubah_logo']);
         Route::post('/admin/manajemen/toko/{id}/post_ubah', [Admin_Manajemen_Toko_Controller::class, 'post_ubah_toko']);
         Route::post('/admin/manajemen/toko/{id}/post_ubah_alamat', [Admin_Manajemen_Toko_Controller::class, 'post_ubah_alamat_toko']);

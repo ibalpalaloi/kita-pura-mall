@@ -16,7 +16,8 @@ Toko
 
 @section('content')
 {{-- modal hapus toko --}}
-{{-- modal kategori toko --}}
+
+{{-- hapus toko --}}
 <div id="modal_hapus_toko" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

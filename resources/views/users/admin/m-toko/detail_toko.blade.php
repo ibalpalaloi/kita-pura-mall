@@ -145,6 +145,45 @@ Toko
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+{{-- hapus toko --}}
+<div id="modal_ubah_password" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center">
+                <h4 class="modal-title" id="myModalLabel">Hapus Toko</h4>
+                <button type="button" class="close ml-auto" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form action="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/post_password_baru" method="post">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        Ketikkan untuk menghapus toko <b>"kitapuramallpalu"</b> 
+                        <p style="color: red" id="pass_salah"></p>
+                        <input name="ketikan" id="ketikan" type="text" hidden value="kitapuramallpalu">
+                        <input name="id_toko" type="text" hidden value="{{$toko->id}}">
+                        <div class="col-sm-12">
+                            <input name="pass_ketik" id="pass_ketik" type="text" class="form-control">
+                        </div>
+                        <br>
+                        <label for="">Password Baru</label>
+                        <div class="col-sm-12">
+                            <input name="pass" id="pass" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="cek_pass()" class="btn btn-info waves-effect">Ubah Password</button>
+                        <button id="submit" type="submit" hidden class="btn btn-info waves-effect">hidden</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <div class="row el-element-overlay">
     <form action="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/ubah_logo" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
@@ -176,11 +215,18 @@ Toko
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Data Toko</h4>
+                <a onclick="modal_ubah_password('{{$toko->id}}')" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_ubah_password">Ubah Password</a>
                 {{-- <h6 class="card-subtitle">To use add <code>.r-separator</code> class in the form with form styling.</h6> --}}
             </div>
             <hr class="mt-0">
             <div class="card-body">
                 <h4 class="card-title">Personal Info</h4>
+                <div class="form-group row align-items-center mb-0">
+                    <label for="inputEmail3" class="col-3 text-right control-label col-form-label">Nomor Akun</label>
+                    <div class="col-9 border-left pb-2 pt-2">
+                        <input readonly value="{{$toko->user->no_hp}}" type="text" class="form-control" id="no_akun" name="no_akun" placeholder="First Name Here">
+                    </div>
+                </div>
                 <div class="form-group row align-items-center mb-0">
                     <label for="inputEmail3" class="col-3 text-right control-label col-form-label">Nama Toko</label>
                     <div class="col-9 border-left pb-2 pt-2">
@@ -283,6 +329,29 @@ Toko
 
 @section('footer-scripts')
 <script>
+    function cek_pass(){
+        if($('#pass_ketik').val() != $('#ketikan').val()){
+            $('#pass_salah').empty();
+            $('#pass_salah').append("Inputan salah");
+        }
+        else{
+            $("#submit").click();
+            kirim_wa_password();
+        }
+    }
+
+    function kirim_wa_password(){
+        var data = {!! json_encode($toko) !!};
+        var apilink = 'http://';
+        var phone = $('#no_akun').val();
+        var message = 'password baru akun anda "'+$('#pass').val()+'"';
+
+        // apilink += isMobile ? 'api' : 'web';
+        // apilink += '.whatsapp.com/send?phone=' + phone + '&text=' + encodeURI(message);
+        var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
+        window.open(walink);
+    }
+
     function upload_gambar(){
 		$("#foto_logo").click();
 	}

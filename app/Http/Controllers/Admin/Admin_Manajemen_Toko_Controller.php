@@ -163,4 +163,12 @@ class Admin_Manajemen_Toko_Controller extends Controller
         Toko::where('id', $request->id_toko)->delete();;
         return back();
     }
+
+    public function post_password_baru(Request $request){
+        $toko = Toko::where('id', $request->id_toko)->first();
+        $user = User::where('id', $toko->users_id)->first();
+        $user->password = bcrypt($request->pass);
+        $user->save();
+        return back();
+    }
 }
