@@ -15,6 +15,7 @@ Toko
 
 
 @section('content')
+{{-- modal data toko --}}
 <div id="modal_data_toko" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -47,6 +48,62 @@ Toko
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Deskripsi:</label>
                         <textarea class="form-control" name="deskripsi" id="" cols="30" rows="10">{{$toko->deskripsi}}</textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info waves-effect">Ubah</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+{{-- modal data toko --}}
+<div id="modal_alamat_toko" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center">
+                <h4 class="modal-title" id="myModalLabel">Alamat Toko</h4>
+                <button type="button" class="close ml-auto" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form action="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/post_ubah_alamat" method="post">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Alamat:</label>
+                        <textarea class="form-control" name="alamat" id="" cols="30" rows="10">{{$toko->alamat}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Kabupaten Kota:</label>
+                        <select class="form-control" name="kota" id="select_kota">
+                            <option value="">Pilih Kabupaten / Kota</option>
+                            @foreach ($kabupaten as $item)
+                                <option value="{{$item->id}}">{{$item->nama}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Kecamatan:</label>
+                        <select class="form-control" name="kecamatan" id="select_kecamatan">
+                            <option value="" disabled>Kecamatan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Kelurahan:</label>
+                        <select class="form-control" name="kelurahan" id="select_kelurahan">
+                            <option value="" disabled>Kelurahan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Latitude:</label>
+                        <input value="{{$toko->latitude}}" type="text" class="form-control" id="username" name="latitude">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Longitude:</label>
+                        <input value="{{$toko->longitude}}" type="text" class="form-control" id="username" name="longitude">
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-info waves-effect">Ubah</button>
@@ -123,40 +180,42 @@ Toko
                 <div class="form-group row align-items-center mb-0">
                     <label for="inputEmail3" class="col-3 text-right control-label col-form-label">Alamat</label>
                     <div class="col-9 border-left pb-2 pt-2">
-                        <textarea name="alamat" id="alamat" cols="30" rows="10" class="form-control"></textarea>
+                        <textarea readonly name="alamat" id="alamat" cols="30" rows="10" class="form-control">{{$toko->alamat}}</textarea>
                     </div>
                 </div>
                 <div class="form-group row align-items-center mb-0">
                     <label for="inputEmail3" class="col-3 text-right control-label col-form-label">Kabupaten / Kota</label>
                     <div class="col-9 border-left pb-2 pt-2">
-                        <input type="text" class="form-control" id="kabupaten" name="kota">
+                        <input readonly value="{{$toko->kelurahan->kecamatan->kabupaten_kota->nama}}" type="text" class="form-control" id="kabupaten" name="kota">
                     </div>
                 </div>
                 <div class="form-group row align-items-center mb-0">
                     <label for="inputEmail3" class="col-3 text-right control-label col-form-label">Kecamatan</label>
                     <div class="col-9 border-left pb-2 pt-2">
-                        <input type="text" class="form-control" id="kecamatan" name="kecamatan">
+                        <input readonly value="{{$toko->kelurahan->kecamatan->nama}}" type="text" class="form-control" id="kecamatan" name="kecamatan">
                     </div>
                 </div>
                 <div class="form-group row align-items-center mb-0">
                     <label for="inputEmail3" class="col-3 text-right control-label col-form-label">Kelurahan</label>
                     <div class="col-9 border-left pb-2 pt-2">
-                        <input type="text" class="form-control" id="kelurahan" name="kelurahan">
+                        <input readonly value="{{$toko->kelurahan->kelurahan}}" type="text" class="form-control" id="kelurahan" name="kelurahan">
                     </div>
                 </div>
                 <div class="form-group row align-items-center mb-0">
                     <label for="inputEmail3" class="col-3 text-right control-label col-form-label">Latitude</label>
                     <div class="col-9 border-left pb-2 pt-2">
-                        <input type="text" class="form-control" id="latitude" name="latitude">
+                        <input readonly value="{{$toko->latitude}}" type="text" class="form-control" id="latitude" name="latitude">
                     </div>
                 </div>
                 <div class="form-group row align-items-center mb-0">
                     <label for="inputEmail3" class="col-3 text-right control-label col-form-label">longitude</label>
                     <div class="col-9 border-left pb-2 pt-2">
-                        <input type="text" class="form-control" id="longitude" name="longitude">
+                        <input readonly value="{{$toko->longitude}}" type="text" class="form-control" id="longitude" name="longitude">
                     </div>
                 </div>
-                
+                <div class="form-group mb-0 text-right">
+                    <button data-toggle="modal" data-target="#modal_alamat_toko" type="button" class="btn btn-info waves-effect waves-light">ubah</button>
+                </div>
             </div>
         </div>
     </div>
@@ -165,4 +224,37 @@ Toko
 @endsection
 
 @section('footer-scripts')
+<script>
+    $('#select_kota').change(function(){
+		// show_loader();
+		$('#select_kecamatan').empty();
+		$('#select_kecamatan').append($('<option>', {
+			text: 'Memuat'
+		}));
+		$.ajax({
+			url: "{{ route('get_kecamatan') }}?id_kota="+$(this).val(),
+			method: 'GET', 
+			success: function(data){
+				// hide_loader();
+				$('#select_kecamatan').empty();
+				$('#select_kecamatan').html(data.html);
+			}
+		})
+	})
+
+    $('#select_kecamatan').change(function(){
+		$('#select_kelurahan').empty();
+		$('#select_kelurahan').append($('<option>', {
+			text: 'Memuat'
+		}));
+		$.ajax({
+			url: "{{ route('get_kelurahan') }}?id_kecamatan="+$(this).val(),
+			method: 'GET', 
+			success: function(data){
+				$('#select_kelurahan').empty();
+				$('#select_kelurahan').html(data.html);
+			}
+		})
+	})
+</script>
 @endsection
