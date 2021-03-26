@@ -313,19 +313,7 @@ class Mitra_Premium_Controller extends Controller
 			'message' => 'Data Toko Berhasil Diperbarui'
 		);     
 
-		if($toko->status == "Aktif"){
-
-			return redirect('/akun/mitra/premium')->with($notification);
-		}
-		else{
-
-			$notification = array(
-				'message' => 'Belum Terverifikasi',
-				'jenis_mitra' => 'premium'
-			);     
-
-			return redirect('/akun')->with($notification);
-		}
+		return redirect('/akun/mitra/premium?cantBack')->with($notification);
 	}
 
 
@@ -339,14 +327,10 @@ class Mitra_Premium_Controller extends Controller
 		$jadwal = Jadwal_toko::where('toko_id', $toko->id)->get();
 		$kategorinya_toko = Kategorinya_toko::where('toko_id', $toko->id)->get();
 		// dd($kategorinya_toko);
-        $kota = Provinsi::find(72)->kabupaten_kota;
-        $kota_selected = $toko->kelurahan->kecamatan->kabupaten_kota->id;
+		$kota = Provinsi::find(72)->kabupaten_kota;
+		$kota_selected = $toko->kelurahan->kecamatan->kabupaten_kota->id;
         // dd($kota_selected);
 		$kelurahan = DB::table('kelurahan')->select('kelurahan.id', 'kelurahan.kelurahan')->leftJoin('kecamatan', 'kecamatan.id', '=', 'kelurahan.kecamatan_id')->where('kecamatan.kabupaten_kota_id', $kota_selected)->get();
-		// dd($kelurahan);
-		// dd($kelurahan);
-
-		// dd($kota_selected);
 
 		return view('users/user/m-mitra/premium/atur-toko/index', ['daftar_kategori'=>$kategori,'kelurahan'=>$kelurahan ,'toko'=>$toko,'jadwal'=>$jadwal, 'kategorinya_toko'=>$kategorinya_toko, 'kota'=>$kota, 'kelurahan'=>$kelurahan, 'kota_selected'=>$kota_selected]);
 	}

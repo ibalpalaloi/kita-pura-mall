@@ -284,6 +284,10 @@
                 <h4 style="color: black; font-weight: 500; margin-top:0px;">Spesial!! Jadilah Mitra <br>Pertama di kitapuramall</h4>
                 <div style="color: #7D7D7D; width: 80%; line-height: 1.3em; font-size:0.85em;">buat kalian yang punya usaha, silahkan daftar sekarang. dan nikmati fitur mitra premium di kitapuramall gratis. kuota terbatas. kesempatan ini dibuka dari tanggal <span style="font-weight: 600; color: black;">21 - 30 Maret 2021</span> sebelum aplikasi kitapuramall Terbuka untuk umum. <span style="font-weight: 600; color: black;"><br>Buruan daftar sekarang!!!</span></div>
             </div>
+            <a href="https://chat.whatsapp.com/F7zMpAx6ELO5RBp8f7XYg5" style="position: relative;">
+                <img src="<?=url('/')?>/public/img/button/button_admin.svg">
+                <img src="<?=url('/')?>/public/img/button/finger_admin.svg" style="position: absolute; right: -1.5em;">
+            </a>
         </div>
     </div>
     <div class="footer" style="background: #EAF4FF;">

@@ -309,10 +309,13 @@
 			color: red !important;
 		}
 
+		.select2-selection--single {
+			padding-left: 0em;
+			padding-bottom: 0.5em;
+		}
 	</style>
 	@endsection
 
-	@section('content')
 
 
 	@section('content')
@@ -324,8 +327,6 @@
 	$input_id_kategori = "";
 	$status_ugrade = "";
 	?>
-	@endphp
-	@section('content')
 
 	<div class="modal fade" id="modal-kategori" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
@@ -612,7 +613,7 @@
 
 	<header class="style__Container-sc-3fiysr-0 header" style="background:#353535; padding-top: 0.3em;">
 		<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
-			<a href="<?=url('/')?>/logout" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
+			<a href="<?=url('/')?>/akun/mitra/premium" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
 				<img src="<?=url('/')?>/public/img/back_white.svg">
 			</a>
 			<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
@@ -635,7 +636,11 @@
 						@php $url = url('/')."/public/img/button/toko_premium/bg-photo-profile.svg"; @endphp
 						<div style='background-image: url("<?=$url?>"); padding: 1.5em;'>
 							<div id="div_pic_toko_privew" style="position: relative; padding: auto 0; display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 9rem; height: 9rem; background: #1c1c1c;">
+								@if ($toko->logo_toko)
+								<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/logo/{{$toko->logo_toko}}" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
+								@else
 								<img id="pic_toko_privew" src="<?=url('/')?>/public/img/mitra/logo/premium.svg" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
+								@endif
 								<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_yellow.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 0px; bottom: 0px;">
 							</div>
 						</div>
@@ -667,12 +672,12 @@
 					</div>
 
 					<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
-						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Nomor Handphone</div>
+						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Nomor Whatsapp Business</div>
 						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
 							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
 								<img src="<?=url('/')?>/public/img/icon_svg/handphone_white.svg" style="width: 60%;">
 							</span>
-							<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nomor Handphone" aria-label="no_hp" aria-describedby="basic-addon1" style="width: 100%;" value="{{$toko->no_hp}}">
+							<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nomor Handphone" aria-label="no_hp" aria-describedby="basic-addon1" style="width: 100%;" value="{{$toko->no_hp}}" required>
 						</div>
 					</div>
 					<div class="input-group mb-3 st0 @if($errors->first('jadwal_hari')) is-invalid @endif" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
@@ -702,7 +707,7 @@
 						</div>
 					</div>
 
-					<div class="input-group mb-3 st0 @if($errors->first('kelurahan')) is-invalid @endif" id="div_kelurahan" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+					<div class="input-group mb-3 st0 @if($errors->first('kab_kota')) is-invalid @endif" id="div_kab_kota" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kabupaten / Kota</div>
 						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
 							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
@@ -720,8 +725,8 @@
 					<div class="input-group mb-3 st0 @if($errors->first('kelurahan')) is-invalid @endif" id="div_kelurahan" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
 						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kelurahan</div>
 						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
-							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
-								<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 40%;">
+							<span class="input-group-text-mall" style="width: 2.5em; background: #202020;">
+								<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 42%;">
 							</span>
 							<select type="text" class="form-control-mall" id="kelurahan" name="kelurahan" style="height: 2.5em;" required>
 								@foreach($kelurahan as $row)
@@ -797,17 +802,17 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 <script>
 	$('#kota').change(function(){
 		// show_loader();
-		$('#kecamatan').empty();
-		$('#kecamatan').append($('<option>', {
+		$('#kelurahan').empty();
+		$('#kelurahan').append($('<option>', {
 			text: 'Memuat'
 		}));
 		$.ajax({
-			url: "{{ route('get_kecamatan') }}?id_kota="+$(this).val(),
+			url: "{{ route('get_kelurahan_from_kota') }}?id_kota="+$(this).val(),
 			method: 'GET', 
 			success: function(data){
 				// hide_loader();
-				$('#kecamatan').empty();
-				$('#kecamatan').html(data.html);
+				$('#kelurahan').empty();
+				$('#kelurahan').html(data.html);
 			}
 		})
 	})
@@ -895,15 +900,9 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 		$("#foto_lokasi_toko").click();
 	}
 
-	function cek_data(){
-		if (($("#nama_toko").val() == '') || ($("#username").val() == '') || ($("#no_hp").val() == '') || ($("#input_kategori").val() == '') || ($("#input_id_kategori").val() == '') || ($("#jadwal_hari").val() == '') || ($("#jadwal_buka").val() == '') || ($("#jadwal_tutup").val() == '') || ($("#kota").val() == '') || ($("#kecamatan").val() == '') || ($("#kelurahan").val() == '')){
-
-		}
-		else {
-			show_loader();
-		}
-	}
-
+	$( "#form_input" ).submit(function( event ) {
+		show_loader();
+	});
 		// $("input#username").on({
 		// 	keydown: function(e) {
 		// 		if ((e.which === 32) || (e.which === 64) || (e.which === 37))

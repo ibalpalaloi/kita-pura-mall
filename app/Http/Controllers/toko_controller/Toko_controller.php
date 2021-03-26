@@ -14,10 +14,10 @@ class Toko_controller extends Controller
         
         $cari = $request->get('cari');
         if ($cari == 'all'){
-            $tokos = Toko::paginate(5);
+            $tokos = Toko::where('status', 'Aktif')->orWhere('status', 'Libur')->paginate(5);
         }
         else{
-            $tokos = Toko::where('nama_toko', 'like', '%'.$cari.'%')->paginate(5);
+            $tokos = Toko::where('nama_toko', 'like', '%'.$cari.'%')->where('status', 'Aktif')->orWhere('status', 'Libur')->paginate(5);
         }
         $index = 0;
         for($i = 0; $i < count($tokos); $i++){
