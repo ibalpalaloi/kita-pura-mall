@@ -15,6 +15,9 @@ use App\Models\Provinsi;
 use App\Models\Product;
 use App\Models\Kategori;
 use App\Models\Sub_kategori;
+use App\Models\Video_landing_page;
+use App\Models\Landing_page_fasilitas_toko;
+use App\Models\Foto_maps;
 
 class Admin_Manajemen_Toko_Controller extends Controller
 {
@@ -194,6 +197,26 @@ class Admin_Manajemen_Toko_Controller extends Controller
     }
 
     public function landing_page($id){
-        dd('Landing page');
+        $toko = toko::where('id', $id)->first();
+        $video = array();
+		$video_ = Video_landing_page::where('toko_id', $id)->get();
+		if(!empty($video_)){
+			foreach($video_ as $video_){
+				$link = $video_->link_video;
+				$link = trim(substr($link, strpos($link, '=')+1));
+				$video[$video_->no_video] = $link;
+			}
+		}
+		$fasilitas_toko = Landing_page_fasilitas_toko::where('toko_id', $toko->id)->get();
+		
+		$kategori_produk = Kategori::all();
+		$produk = product::where('toko_id', $toko->id)->get();
+
+		$foto_1 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','1')->orderBy('created_at', 'desc')->first();
+		$foto_2 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','2')->orderBy('created_at', 'desc')->first();
+		$foto_3 = Foto_maps::where('toko_id', $toko->id)->where('no_foto','3')->orderBy('created_at', 'desc')->first();
+		// dd($foto_maps);
+
+		return view('users/admin/m-toko/atur_landing_page', compact('kategori_produk','produk','foto_1','foto_2','foto_3', 'video', 'fasilitas_toko', 'toko'));
     }
 }
