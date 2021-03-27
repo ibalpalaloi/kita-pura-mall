@@ -37,7 +37,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 	public function tambah_produk_premium(){
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 		$produk = product::where('toko_id', $toko->id)->get();
-		$kategori_produk = Kategori::all();
+		$kategori_produk = Kategori::where('nama', '!=', 'LAINNYA')->get();
 		$sub_kategori = array();
 		$index_ = 0;
 		foreach($kategori_produk as $data){
@@ -68,10 +68,17 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 		echo str_replace(',', '', $request->harga_produk);
 		// @Tambah Produk
+		if($request->kategori_lain != ''){
+			$kategori = "20";
+		}
+		else{
+			$kategori = $request->kategori_produk;
+		}
+
 		$produk = new product;
 		$produk->id = $produk_id;
 		$produk->toko_id = $toko->id;
-		$produk->kategori_id = $request->kategori_produk;
+		$produk->kategori_id = $kategori;
 		$produk->nama = $request->nama_produk;
 		$produk->jenis_harga = $request->jenis_harga;
 		if ($produk->jenis_harga == 'Statis'){
