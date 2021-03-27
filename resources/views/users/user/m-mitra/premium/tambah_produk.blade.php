@@ -335,7 +335,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 				</div>
 			</div>
 		</div>
-    </div>
+	</div>
 </div>
 
 <div class="modal fade" id="modal-sukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
@@ -592,7 +592,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	$("#harga_produk").on("keydown", function(e) {
 		var keycode = (event.which) ? event.which : event.keyCode;
 		if (e.shiftKey == true || e.ctrlKey == true) return false;
-  if ([8, 110, 39, 37, 46].indexOf(keycode) >= 0 || 
+		if ([8, 110, 39, 37, 46].indexOf(keycode) >= 0 || 
     (keycode == 190 && this.value.indexOf('.') === -1) || // allow dot if not exists in the value
     (keycode == 110 && this.value.indexOf('.') === -1) || // allow dot if not exists in the value
     (keycode >= 48 && keycode <= 57) || // allow numbers
@@ -627,10 +627,10 @@ var parts = this.value.split('.');
 });
 
 
-	$("#harga_diskon").on("keydown", function(e) {
-		var keycode = (event.which) ? event.which : event.keyCode;
-		if (e.shiftKey == true || e.ctrlKey == true) return false;
-  if ([8, 110, 39, 37, 46].indexOf(keycode) >= 0 || 
+$("#harga_diskon").on("keydown", function(e) {
+	var keycode = (event.which) ? event.which : event.keyCode;
+	if (e.shiftKey == true || e.ctrlKey == true) return false;
+	if ([8, 110, 39, 37, 46].indexOf(keycode) >= 0 || 
     (keycode == 190 && this.value.indexOf('.') === -1) || // allow dot if not exists in the value
     (keycode == 110 && this.value.indexOf('.') === -1) || // allow dot if not exists in the value
     (keycode >= 48 && keycode <= 57) || // allow numbers
@@ -664,10 +664,10 @@ var parts = this.value.split('.');
 	if (this.value == "NaN" || this.value == "") this.value = 0;
 });
 
-	$("#harga_terendah").on("keydown", function(e) {
-		var keycode = (event.which) ? event.which : event.keyCode;
-		if (e.shiftKey == true || e.ctrlKey == true) return false;
-  if ([8, 110, 39, 37, 46].indexOf(keycode) >= 0 || 
+$("#harga_terendah").on("keydown", function(e) {
+	var keycode = (event.which) ? event.which : event.keyCode;
+	if (e.shiftKey == true || e.ctrlKey == true) return false;
+	if ([8, 110, 39, 37, 46].indexOf(keycode) >= 0 || 
     (keycode == 190 && this.value.indexOf('.') === -1) || // allow dot if not exists in the value
     (keycode == 110 && this.value.indexOf('.') === -1) || // allow dot if not exists in the value
     (keycode >= 48 && keycode <= 57) || // allow numbers
@@ -836,7 +836,7 @@ function hapus_jadwal(hari){
 
 	var resize = $('#upload-demo').croppie({
 		enableExif: true,
-		enableOrientation: true,    
+		enableOrientation: true,
     viewport: { // Default { width: 100, height: 100, type: 'square' } 
     width: 240,
     height: 200,

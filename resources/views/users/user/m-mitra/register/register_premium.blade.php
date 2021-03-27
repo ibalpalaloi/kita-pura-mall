@@ -5,10 +5,12 @@
 	@endsection
 
 	@section('header-scripts')
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/lunar/css/lunar.css">
 	<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/select2/css/select2.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
 
 	<style type="text/css">
 		.banner {
@@ -276,16 +278,6 @@
 		}
 
 
-		.modal-content {
-			position: fixed;
-			padding: 0;
-			margin: 0;
-			top: auto;
-			right: auto;
-			left: auto;
-			bottom: 0;
-		}
-
 		.list-kategori {
 			display: flex; justify-content: flex-start; flex-wrap: wrap;
 		}
@@ -323,9 +315,55 @@
 
 	@endphp
 	@section('content')
+	<div class="modal fade" id="modal-notif-error-toko" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+			<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
+				<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+					<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
+					<img src="<?=url('/')?>/public/img/modal_assets/modal_error_input.svg" style="width: 100%;">
+					<div style="position: absolute; margin: 0em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
+						<div style="font-size: 2em; font-weight: 600; text-align: center;">Gagal</div>
+						<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">username hanya boleh menggunakan huruf, angka, garis bawah dan titik.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="modal-sukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+			<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 5em 1em 0em 1em; background-color: #353535;">
+				<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+					<div class="container">
+						<div class="panel panel-info">
+							<div class="panel-body">
+								<div class="row" style="display: flex; flex-direction: column;">
+									<div>
+										<div id="upload-demo">
+
+										</div>
+									</div>
+									<div>
+										<div class="btn btn-primary btn-block" id="unggah_foto" onclick="unggah_foto()" style="margin-top: 5%;">Unggah Foto</div>
+									</div>
+									<div class="div_upload">
+										<div class="btn btn-primary btn-block upload-image" style="margin-top:2%" >Upload Image</div>
+										<div class="btn btn-secondary btn-block" onclick="unggah_foto()">Unggah Foto
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="modal fade" id="modal-kategori" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
-			<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
+			<div class="modal-content modal-content-jadwal" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
 				<div class="modal-body">
 					<div>
 						<div class="nama-toko"
@@ -443,7 +481,7 @@
 
 	<div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
-			<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
+			<div class="modal-content modal-content-jadwal" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
 				<div class="modal-body">
 					<div>
 						<div class="nama-toko"
@@ -590,7 +628,7 @@
 
 
 	<main id="homepage" class="homepage" style="padding-top: 4em; background: transparent;">
-		<form enctype="multipart/form-data" action="<?=url('/')?>/akun/jadi-mitra/premium/simpan" method="post">
+		<form id="form_input" enctype="multipart/form-data" action="<?=url('/')?>/akun/jadi-mitra/premium/simpan" method="post">
 			{{csrf_field()}}
 			<div style="display: flex; justify-content: center;">
 				<div style="width: 90%; margin-top: 1em; display: flex; flex-direction: column; align-items: center;">
@@ -603,7 +641,7 @@
 								<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_yellow.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 0px; bottom: 0px;">
 							</div>
 						</div>
-						<input type="file" name="foto_toko" id="foto_toko" hidden>
+						<input type="file" name="foto_toko" id="image" hidden>
 						<div style="display: flex; justify-content: center; flex-direction: column;">
 							<input type="text" id="nama_toko" name="nama_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Toko" aria-label="Nama Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1.5em; font-weight: 645;" value="{{old('nama_toko')}}" required>
 							<input type="text" id="username" name="username" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Username Toko" class="@if($errors->first('username')) is-invalid-text @endif" aria-label="Username" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" value="{{old('username')}}" required>
@@ -862,21 +900,16 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 	}
 
 	function tambah_foto_toko(){
-		$("#foto_toko").click();
+		$(".div_upload").prop('hidden', true);
+		$("#unggah_foto").prop('hidden', false);
+		$('#modal-sukses').modal('show');
+		// $("#foto_toko").click();
 	}
 
 	function tambah_foto_lokasi_toko(){
 		$("#foto_lokasi_toko").click();
 	}
 
-	function cek_data(){
-		if (($("#nama_toko").val() == '') || ($("#username").val() == '') || ($("#no_hp").val() == '') || ($("#input_kategori").val() == '') || ($("#input_id_kategori").val() == '') || ($("#jadwal_hari").val() == '') || ($("#jadwal_buka").val() == '') || ($("#jadwal_tutup").val() == '') || ($("#kota").val() == '') || ($("#kecamatan").val() == '') || ($("#kelurahan").val() == '')){
-
-		}
-		else {
-			show_loader();
-		}
-	}
 
 		// $("input#username").on({
 		// 	keydown: function(e) {
@@ -887,13 +920,6 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 		// 		this.value = this.value.replace(/\s/g, "");
 		// 	}
 		// });
-		$("#username").keypress(function(e) {
-			if ((String.fromCharCode(e.which).match(/[^A-Za-z0-9_ ]/) || e.which === 32)) {
-				e.preventDefault();
-				// alert("Special characters are not allowed. Use 'A-Z', 'a-z' and '0-9'.");
-			}
-		});
-
 
 		function tambah_jadwal() {
 			var jadwal_awal = $("#jadwal_mulai").val();
@@ -1121,4 +1147,130 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 		}
 
 	</script>
-	@endsection
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
+
+	<script type="text/javascript">
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+		function ubah_foto(){
+			$(".div_upload").prop('hidden', true);
+			$("#unggah_foto").prop('hidden', false);
+			$('#modal-sukses').modal('show');
+		}
+
+		function unggah_foto(){
+			$("#image").click();
+		}
+
+
+		function input_focus_username(id){
+			// alert(id);
+			$("#"+id).css('color', 'white');
+			$("#"+id).css('text-decoration', 'none');			
+		}
+
+		var resize = $('#upload-demo').croppie({
+			enableExif: true,
+			enableOrientation: true,
+    viewport: { // Default { width: 100, height: 100, type: 'square' } 
+    width: 240,
+    height: 240,
+        type: 'circle' //square
+    },
+    boundary: {
+    	width: 240,
+    	height:240
+    }
+});
+
+
+		$('#image').on('change', function () { 
+			$(".cr-slider-wrap").css("display", "block");
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				resize.croppie('bind',{
+					url: e.target.result
+				}).then(function(){
+					console.log('jQuery bind complete');
+				});
+			}
+			$(".div_upload").prop('hidden', false);
+			$("#unggah_foto").prop('hidden', true);
+			$("#prev_image").remove();
+			reader.readAsDataURL(this.files[0]);
+		});
+
+
+		var imageSize = {
+			width: 600,
+			height: 600,
+			type: 'circle'
+		};
+
+
+
+		$('.upload-image').on('click', function (ev) {
+			$("#modal-sukses").modal('hide');
+			resize.croppie('result', {
+				circle: false,
+				type: 'canvas',
+				size: imageSize,
+				quality: 1
+			}).then(function (img) {
+				$.ajax({
+
+					url: "<?=url('/')?>/akun/jadi-mitra/premium/simpan-foto-register",
+					type: "POST",
+					data: {"image":img},
+					success: function (data) {
+						$('#pic_toko_privew').attr('src', "<?=url('/')?>/public/img/temp_produk/"+data);
+						$("#modal_loader").modal('hide');
+						$("#nama_foto_temp").val(data);
+						$("#div_pic_toko_privew").prop('hidden', false);
+						$("#div_pic_toko").prop('hidden', true);
+
+					}
+				});
+
+			});
+			status_ganti_foto = 1;
+
+		});
+
+
+		$("#form_input").submit(function(e) {
+
+			var respon = false;
+			var username = $("#username").val();
+			for (i = 0; i < username.length; i++) {
+				code = username.charCodeAt(i);
+		    if ((code > 47 && code < 58) || // numeric (0-9)
+		        (code > 64 && code < 91) || // upper alpha (A-Z)
+		        (code > 96 && code < 123)) { // lower alpha (a-z)
+		    }
+		else {
+			$("#modal-notif-error-toko").modal('show');
+			$("#username").css('color', '#ED0D0D');
+			$("#username").css('text-decoration', 'underline');
+			$("#username").focus();
+			respon = true;
+			break;
+		}
+	}
+
+	if (respon == false){
+		show_loader();
+	}
+	else {
+		e.preventDefault();			
+
+	}
+
+});
+</script>
+
+@endsection

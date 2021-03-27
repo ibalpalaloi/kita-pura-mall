@@ -199,6 +199,24 @@ if (!empty($_GET['daftar_mitra_premium'])){
 </div>
 @endif
 
+@if(Session::get('message') == 'Password Berhasil Diperbarui')
+<div class="modal fade" id="modal-reset-password-berhasil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
+				<img src="<?=url('/')?>/public/img/modal_assets/modal_berhasil_biodata.svg" style="width: 100%;">
+				<div style="position: absolute; margin: 1em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
+					<div style="font-size: 2em; font-weight: 600; text-align: center;">Berhasil!</div>
+					<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">selamat anda telah berhasil mengganti password anda 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+
 
 @if(Session::get('message') == 'Biodata Belum Lengkap')
 <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
@@ -244,6 +262,47 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 </div>
 @endif
 
+<div class="modal fade" id="modal-ganti-pass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<form action="{{url()->current()}}/ubah-password" method="post">
+	@csrf
+	@method('PUT')
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+		<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
+	
+				<div class="modal-body">
+					<div>
+						<div style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em;">Silahkan Masukan Password Baru</div>
+					</div>
+				</div>
+				<hr style="border-top: 1px solid #c8d2dd; width: 100%;">
+				@if(Session::has('pass_message'))
+				<div class="mb-3">
+					<span class="badge badge-pill badge-danger">{{Session::get('pass_message')}}</span>	
+				</div>
+				@endif
+				<div style="width: 90%;">
+				<label for="">Password Lama</label>
+					<div class="input-group mb-3 div-input-mall" id="div_no_hp">
+						<input type="password" class="form-control form-control-mall-modal" id="password_old"  name="password_old" required style="width: 100%; height: auto !important;" >
+					</div>
+					<label for="">Password Baru</label>
+					<div class="input-group mb-3 div-input-mall" id="div_no_hp">
+						<input type="password" class="form-control form-control-mall-modal" id="password"  name="password" required style="width: 100%; height: auto !important;">
+					</div>
+					<label for="">Ulangi Password Baru</label>
+					<div class="input-group mb-3 div-input-mall" id="div_no_hp">
+						<input type="password" class="form-control form-control-mall-modal" id="konfirmasi_password" name="konfirmasi_password" required style="width: 100%; height: auto !important;" >
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary" style="background: #ffaa00;;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;">Ubah Password
+				</button>
+		</div>
+	</div>
+	</form>
+
+</div>
+
+
 <div class="wrapper" style="background: #ff006e; position: relative; z-index: -1">
 	<div class="banner" style="display: flex; justify-content: flex-end;">
 		<div class="" style="width: 30%; display: flex; align-items: flex-start; flex-direction: column; padding-top: 4em; padding-left: 2em;">
@@ -279,33 +338,24 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 			<div style="width: 63%; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 2%;">
 				<div class="container">
 					@if(Session::get('progress_biodata') == '5')
-					<div style="line-height: 1.1em;">Semoga Harimu <strong>Menyenangkan!</strong></div>
+					<div style="font-size: 0.85em;">Selamat bergabung di <strong>kitapuramall</strong> !</div>			
 					@else
-					<div>Lengkapi akun anda!</div>			
+					<div style="font-size: 0.85em;">Selamat bergabung di <strong>kitapuramall</strong> !</div>			
 					@endif
 					<div style="display: flex; justify-content: center; align-items: center;">
-						<div class="progress" style="border-radius: 1.5em; width: 90%; height: 1rem;">
-							<div class="progress-bar" role="progressbar" aria-valuenow="{{Session::get('progress_biodata')*20}}" aria-valuemin="0" aria-valuemax="100" style="width:{{Session::get('progress_biodata')*20}}%; border-radius: 1.5em; background: #ff006e;">
+						<div class="progress" style="border-radius: 1.5em; width: 100%; height: 1rem;">
+							<div class="progress-bar" role="progressbar" aria-valuenow="{{Session::get('progress_biodata')*20}}" aria-valuemin="0" aria-valuemax="100" style="width:100%; border-radius: 1.5em; background: #ff006e;">
 							</div>
 						</div>
-						<div style="width: 5%; margin-left: 0.5em;"><b>{{Session::get('progress_biodata')}}/5</b></div>
 					</div>
 					@if(Session::get('progress_biodata') == '5')
-					<div style="font-size: 0.60em; text-align: center; width: 90%;"><b>Data Anda Sudah Lengkap </b>anda bisa melakukan transaksi pada aplikasi ini</div>
+					<div style="font-size: 0.75em; text-align: center; width: 90%;"><b>Data Anda Sudah Lengkap </b>anda bisa melakukan transaksi pada aplikasi ini</div>
 					@else
-					<div style="font-size: 0.60em; text-align: center; width: 90%;"><b>Lengkapi akun </b>anda, Untuk bisa melakukan transaksi pada aplikasi ini</div>
+					<div style="font-size: 0.75em; text-align: center; width: 90%;"><b>Ceritakan usahamu ke dunia</b> bersama <br>kitapura mall !!</div>
 					@endif
 				</div>
 			</div>
 		</div> 
-	</div>
-	<div class="card-mall">
-		<div style="padding: 1.5em 2em 1.5em 2em;">
-			<a onclick="show_loader()" href="<?=url('/')?>/akun/pengaturan-profil">
-				<span><img src="<?=url('/')?>/public/img/user/setting.svg"></span>
-				<span>&nbsp;&nbsp;&nbsp;Pengaturan Profil</span>
-			</a>
-		</div>
 	</div>
 	<div class="card-mall">
 		<div style="padding: 1.5em 2em 1.5em 2em;">
@@ -314,6 +364,14 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 				<span>&nbsp;&nbsp;&nbsp;Mitra Kitapura</span>
 			</a>
 
+		</div>
+	</div>
+	<div class="card-mall">
+		<div style="padding: 1.5em 2em 1.5em 2em;">
+			<div onclick="ganti_pass()">
+				<span><img src="<?=url('/')?>/public/img/user/setting.svg"></span>
+				<span>&nbsp;&nbsp;&nbsp;Ganti Password</span>
+			</div>
 		</div>
 	</div>
 	<div class="card-mall">
@@ -338,6 +396,14 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	$('#modal-pemberitahuan').modal('show');
 	@endif
 
+
+
+
+	@if(Session::get('message') == 'Password Berhasil Diperbarui')
+	$('#modal-reset-password-berhasil').modal('show');
+	@endif
+
+
 	@if($biodata->notif == 1)
 	$('#modal-notif-berhasil').modal('show');
 	$.ajax({
@@ -350,6 +416,10 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		}
 	})  
 	@endif
+
+	function ganti_pass(){
+		$('#modal-ganti-pass').modal('show');
+	}
 
 	@if($toko)
 	@if($toko->notif == 0)

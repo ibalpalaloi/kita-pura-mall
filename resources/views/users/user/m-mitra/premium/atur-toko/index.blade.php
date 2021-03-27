@@ -5,10 +5,12 @@
 	@endsection
 
 	@section('header-scripts')
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/lunar/css/lunar.css">
 	<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/select2/css/select2.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
 
 	<style type="text/css">
 		.banner {
@@ -275,17 +277,6 @@
 			right: -1.3em !important;
 		}
 
-
-		.modal-content {
-			position: fixed;
-			padding: 0;
-			margin: 0;
-			top: auto;
-			right: auto;
-			left: auto;
-			bottom: 0;
-		}
-
 		.list-kategori {
 			display: flex; justify-content: flex-start; flex-wrap: wrap;
 		}
@@ -313,6 +304,30 @@
 			padding-left: 0em;
 			padding-bottom: 0.5em;
 		}
+
+		.cr-slider-wrap {
+			display: none;
+			margin-bottom: 0px;
+			margin-top: 2em;
+			width: 100% !important;
+		}
+
+		.cr-slider {
+			width: 100%;
+		}
+
+		.loader-container{
+			width: 100%;
+			height: 100vh;
+			position: fixed;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}	
+
+		croppie-container .cr-resizer, .croppie-container .cr-viewport {
+			/*box-shadow: none;*/
+		}		
 	</style>
 	@endsection
 
@@ -330,7 +345,7 @@
 
 	<div class="modal fade" id="modal-kategori" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
-			<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
+			<div class="modal-content modal-content-jadwal" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
 				<div class="modal-body">
 					<div>
 						<div class="nama-toko"
@@ -458,9 +473,55 @@
 		</div>
 	</div>
 
+	<div class="modal fade" id="modal-sukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+			<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 5em 1em 0em 1em; background-color: #353535;">
+				<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+					<div class="container">
+						<div class="panel panel-info">
+							<div class="panel-body">
+								<div class="row" style="display: flex; flex-direction: column;">
+									<div>
+										<div id="upload-demo">
+
+										</div>
+									</div>
+									<div>
+										<div class="btn btn-primary btn-block" id="unggah_foto" onclick="unggah_foto()" style="margin-top: 5%;">Unggah Foto</div>
+									</div>
+									<div class="div_upload">
+										<div class="btn btn-primary btn-block upload-image" style="margin-top:2%" >Upload Image</div>
+										<div class="btn btn-secondary btn-block" onclick="unggah_foto()">Unggah Foto
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modal-notif-error-toko" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+			<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
+				<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+					<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
+					<img src="<?=url('/')?>/public/img/modal_assets/modal_error_input.svg" style="width: 100%;">
+					<div style="position: absolute; margin: 0em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
+						<div style="font-size: 2em; font-weight: 600; text-align: center;">Gagal</div>
+						<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">username hanya boleh menggunakan huruf, angka, garis bawah dan titik.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
 	<div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
-			<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
+			<div class="modal-content modal-content-jadwal" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
 				<div class="modal-body">
 					<div>
 						<div class="nama-toko"
@@ -500,7 +561,7 @@
 							@if ($loop_hari[0] != "")
 							<div class="input-group mb-3 div-input-mall-square" id="{{str_replace(' ', '_', $loop_hari[$i])}}" style="width: 90%; background: white; border: 1px solid white;">
 								<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
-									<div style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
+									<div style="width: 2.5em; height: 2.5em; background:#FFC331; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">
 										@for ($j = 0; $j < count($var_text); $j++) 
 										@if ($var_text[$j]==$loop_hari[$i])
 										{{$var_value[$j]}} 
@@ -514,7 +575,7 @@
 									</div>
 									<div style="font-size: 0.7em; text-align: left;">{{$loop_buka[$i]}} - {{$loop_tutup[$i]}}</div>
 								</div>
-								<div onclick='hapus_jadwal("{{$loop_hari[$i]}}")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
+								<div onclick='hapus_jadwal("{{$loop_hari[$i]}}")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #FFC331; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">
 									X
 								</div>
 							</div>
@@ -527,13 +588,13 @@
 				<div id="jadwal_sample" style="width: 100%; display: flex; justify-content: center;" hidden>
 					<div class="input-group mb-3 div-input-mall-square" id="harinya" style="width: 90%; background: white; border: 1px solid white;">
 						<div style="width: 20%; display: flex; justify-content: center; margin-left: 3%;">
-							<div style="width: 2.5em; height: 2.5em; background:#ff006e; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">simbolnya</div>
+							<div style="width: 2.5em; height: 2.5em; background:#FFC331; margin: 0.5em; border-radius: 50%; vertical-align: middle; color: white; padding: 0;line-height: 2.3em; text-align: center;">simbolnya</div>
 						</div>
 						<div style="margin-left: 2%; width: 60%;">
 							<div style="margin-top: 0.5em; font-weight: 700; text-align: left;">harinya</div>
 							<div style="font-size: 0.7em; text-align: left;">jamnya</div>
 						</div>
-						<div onclick='hapus_jadwal("harinya")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #ff006e; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">X</div>
+						<div onclick='hapus_jadwal("harinya")' style="width: 15%; cursor: pointer; display: flex; align-items: center; background: #FFC331; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; color: white; font-weight:700; font-size: 1.2em;">X</div>
 					</div>
 				</div>
 
@@ -594,15 +655,15 @@
 							<input type="time" class="form-control form-control-mall-modal" id="waktu_tutup" value="16:00" min="09:00"
 							max="18:00" required style="width: 100%; height: auto !important;">
 						</div>
-						<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 15%; background: #FF006E; display: flex; justify-content: center; color: white; align-items: center;"  onclick="tambah_jadwal()" hidden>
+						<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="width: 15%; background: #FFC331; display: flex; justify-content: center; color: white; align-items: center;"  onclick="tambah_jadwal()" hidden>
 							<i class="fa fa-plus"></i>
 						</div>
 					</div>
 				</div>
 
-				<button class="btn btn-primary" id="tambah_jadwal_lain" onclick="tambah_jadwal_lain()" style="background: #6c757d;border: 1px solid #6c757d; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" {{$div_enabled}}><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Tambah Jadwal Lain
+				<button class="btn btn-primary" id="tambah_jadwal_lain" onclick="tambah_jadwal_lain()" style="background: #80B918;border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" {{$div_enabled}}><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Tambah Jadwal Lain
 				</button>
-				<button class="btn btn-primary" id="simpan_disabled_jadwal" onclick="tambah_jadwal()" style="background: #6c757d;border: 1px solid #6c757d; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" {{$div_disabled}}><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;" >&nbsp;&nbsp;Tambah Jadwal
+				<button class="btn btn-primary" id="simpan_disabled_jadwal" onclick="tambah_jadwal()" style="background: #80B918;border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;" {{$div_disabled}}><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;" >&nbsp;&nbsp;Tambah Jadwal
 				</button>
 				<button data-dismiss="modal" id="simpan_enabled_jadwal" class="btn btn-primary" style="background: #80B918; border: 1px solid #80B918; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;"  {{$div_enabled}}><img src="<?=url('/')?>/public/img/icon_svg/simpan_file.svg" style="width: 1em;">&nbsp;&nbsp;Simpan
 				</button>
@@ -644,126 +705,128 @@
 								<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/add_circle_yellow.svg" onclick="tambah_foto_toko()" style="position: absolute; right: 0px; bottom: 0px;">
 							</div>
 						</div>
-						<input type="file" name="foto_toko" id="foto_toko" hidden>
+						<input type="file" name="foto_toko" id="image" hidden>
 						<div style="display: flex; justify-content: center; flex-direction: column;">
 							<input type="text" id="nama_toko" name="nama_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Toko" aria-label="Nama Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1.5em; font-weight: 645;" required value="{{$toko->nama_toko}}">
-							<input type="text" id="username_toko" name="username_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Username Toko" aria-label="Username Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" required value="{{$toko->username}}">
-						</div>
-					</div>
-					<div class="input-group mb-3 st0 @if($errors->first('input_kategori')) is-invalid @endif" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; height: 8.5em;">
-						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em; margin-bottom: 0; padding-left: 0.2em;">Deskripsi Toko</div>
-						<div style="height: 5em; width: 100%; padding: 0;">
-							<textarea id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 6em; border-radius: 0.5em; margin: 0em 0em 1em 0em;  background: #292929; color: #dddddd; border: none; font-size: 0.9em; padding: 0.3em 0.6em 0.5em 0.6em; text-align: justify;" rows="5" required placeholder="Masukan deskripsi singkat tentang toko">{{$toko->deskripsi}}</textarea>
-						</div>
-					</div>
-					<div class="input-group mb-3 st0 @if($errors->first('input_kategori')) is-invalid @endif" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
-						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kategori</div>
-						<div style="width: 100%; background: #292929; border-radius: 0.5em;margin-top: 0.3em; display: flex; justify-content: space-between;">
-							<div class="list-kategori" style="min-height: 5em; align-items: flex-start; padding: 0.5em 0.5em 0.5em 0.5em; width: 88%;">
-								@for ($i = 0; $i < count($loop_val); $i++)
-								<badge class='badge badge-secondary'>{{$loop_val[$i]}}</badge>
-								@endfor
+							<input type="tel" id="username_toko" name="username_toko" class="" onchange="input_focus_username(this.id)" placeholder="Username Toko" aria-label="Username Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" required value="{{$toko->username}}">
+<!-- 							<input type="text" id="username_toko_error" name="username_toko" class="" placeholder="Username Toko" onfocus="input_focus_username(this.id)" aria-label="Username Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645; text-decoration: underline; color: #ED0D0D;" required value="{{$toko->username}}">
+-->
+</div>
+</div>
+<div class="input-group mb-3 st0 @if($errors->first('input_kategori')) is-invalid @endif" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; height: 8.5em;">
+	<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em; margin-bottom: 0; padding-left: 0.2em;">Deskripsi Toko</div>
+	<div style="height: 5em; width: 100%; padding: 0;">
+		<textarea id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 6em; border-radius: 0.5em; margin: 0em 0em 1em 0em;  background: #292929; color: #dddddd; border: none; font-size: 0.9em; padding: 0.3em 0.6em 0.5em 0.6em; text-align: justify;" rows="5" required placeholder="Masukan deskripsi singkat tentang toko">{{$toko->deskripsi}}</textarea>
+	</div>
+</div>
+<div class="input-group mb-3 st0 @if($errors->first('input_kategori')) is-invalid @endif" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+	<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kategori</div>
+	<div style="width: 100%; background: #292929; border-radius: 0.5em;margin-top: 0.3em; display: flex; justify-content: space-between;">
+		<div class="list-kategori" style="min-height: 5em; align-items: flex-start; padding: 0.5em 0.5em 0.5em 0.5em; width: 88%;">
+			@for ($i = 0; $i < count($loop_val); $i++)
+			<badge class='badge badge-secondary'>{{$loop_val[$i]}}</badge>
+			@endfor
 
-							</div>
-							<div style="width: 2em; height: 2em; font-size: 0.8em; background: #FFC331; color: #202020; border-radius: 50%; padding-top: 0.2em; padding-left: 0.5em; margin: 1em;" onclick="tambah_kategori_modal()">
-								<i class="fa fa-plus"></i>
-							</div>
-						</div>
-					</div>
-
-					<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
-						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Nomor Whatsapp Business</div>
-						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
-							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
-								<img src="<?=url('/')?>/public/img/icon_svg/handphone_white.svg" style="width: 60%;">
-							</span>
-							<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nomor Handphone" aria-label="no_hp" aria-describedby="basic-addon1" style="width: 100%;" value="{{$toko->no_hp}}" required>
-						</div>
-					</div>
-					<div class="input-group mb-3 st0 @if($errors->first('jadwal_hari')) is-invalid @endif" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
-						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Jadwal Toko</div>
-						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
-							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
-								<img src="<?=url('/')?>/public/img/icon_svg/jadwal_white.svg" style="width: 50%;">
-							</span>
-							<div onclick="pilih_jadwal()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" id="pilih_jadwal_buka_toko">Pilih Jadwal Toko</div>
-
-						</div>
-					</div>
-					<div hidden> 
-						<input name="input_kategori" id="input_kategori">
-						<input name="input_id_kategori" id="input_id_kategori" value="{{$input_id_kategori}}">					
-						<input type="hidden" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
-						<input type="hidden" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
-						<input type="hidden" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
-					</div>
-					<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
-						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Alamat</div>
-						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
-							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
-								<img src="<?=url('/')?>/public/img/icon_svg/marker_white.svg" style="width: 60%;">
-							</span>
-							<input type="text" class="form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" style="width: 100%;" value="{{$toko->alamat}}">
-						</div>
-					</div>
-
-					<div class="input-group mb-3 st0 @if($errors->first('kab_kota')) is-invalid @endif" id="div_kab_kota" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
-						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kabupaten / Kota</div>
-						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
-							<span class="input-group-text-mall" style="width: 3em; background: #202020;">
-								<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 40%;">
-							</span>
-							<select type="text" class="form-control-mall" id="kota" name="kota" style="height: 2.5em;" required>
-								<option value="" disabled selected>Pilih Kabupaten / Kota</option>
-								@foreach($kota as $row)
-								<option value="{{$row->id}}" @if ($kota_selected == $row->id) selected @endif>{{$row->nama}}
-								</option>
-								@endforeach
-							</select>
-						</div>
-					</div>
-					<div class="input-group mb-3 st0 @if($errors->first('kelurahan')) is-invalid @endif" id="div_kelurahan" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
-						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kelurahan</div>
-						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
-							<span class="input-group-text-mall" style="width: 2.5em; background: #202020;">
-								<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 42%;">
-							</span>
-							<select type="text" class="form-control-mall" id="kelurahan" name="kelurahan" style="height: 2.5em;" required>
-								@foreach($kelurahan as $row)
-								<option value="{{$row->id}}" @if ($toko->kelurahan_id == $row->id) selected @endif>{{$row->kelurahan}}
-								</option>
-								@endforeach
-							</select>
-						</div>
-					</div>
-
-
-					<button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;" onclick="cek_data()">
-						<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
-					</button>	
-				</div>
-			</div>
-		</form>
-
-		@if(Session::has('message'))
-		<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-		aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
-		<div class="modal-dialog modal-sm modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-body text-center font-weight-bold py-3">
-					{{Session::get('message')}}
-					<div class="row mt-2 p-2">
-						<button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
-						data-dismiss="modal">Tutup</button>
-
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
+		</div>
+		<div style="width: 2em; height: 2em; font-size: 0.8em; background: #FFC331; color: #202020; border-radius: 50%; padding-top: 0.2em; padding-left: 0.5em; margin: 1em;" onclick="tambah_kategori_modal()">
+			<i class="fa fa-plus"></i>
 		</div>
 	</div>
-	@endif
+</div>
+
+<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+	<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Nomor Whatsapp Business</div>
+	<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+		<span class="input-group-text-mall" style="width: 3em; background: #202020;">
+			<img src="<?=url('/')?>/public/img/icon_svg/handphone_white.svg" style="width: 60%;">
+		</span>
+		<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nomor Handphone" aria-label="no_hp" aria-describedby="basic-addon1" style="width: 100%;" value="{{$toko->no_hp}}" required>
+	</div>
+</div>
+<div class="input-group mb-3 st0 @if($errors->first('jadwal_hari')) is-invalid @endif" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+	<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Jadwal Toko</div>
+	<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+		<span class="input-group-text-mall" style="width: 3em; background: #202020;">
+			<img src="<?=url('/')?>/public/img/icon_svg/jadwal_white.svg" style="width: 50%;">
+		</span>
+		<div onclick="pilih_jadwal()" class="form-control form-control-mall" style="vertical-align: center;display: flex; align-items: center; justify-content: flex-start; cursor: pointer; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" id="pilih_jadwal_buka_toko">Pilih Jadwal Toko</div>
+
+	</div>
+</div>
+<div hidden> 
+	<input name="input_kategori" id="input_kategori">
+	<input name="input_id_kategori" id="input_id_kategori" value="{{$input_id_kategori}}">					
+	<input type="hidden" name="jadwal_hari" id="jadwal_hari" value="{{$hari}}">
+	<input type="hidden" name="jadwal_buka" id="jadwal_buka" value="{{$buka}}">
+	<input type="hidden" name="jadwal_tutup" id="jadwal_tutup" value="{{$tutup}}">
+</div>
+<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+	<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Alamat</div>
+	<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+		<span class="input-group-text-mall" style="width: 3em; background: #202020;">
+			<img src="<?=url('/')?>/public/img/icon_svg/marker_white.svg" style="width: 60%;">
+		</span>
+		<input type="text" class="form-control-mall" id="alamat" name="alamat" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" style="width: 100%;" value="{{$toko->alamat}}">
+	</div>
+</div>
+
+<div class="input-group mb-3 st0 @if($errors->first('kab_kota')) is-invalid @endif" id="div_kab_kota" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+	<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kabupaten / Kota</div>
+	<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+		<span class="input-group-text-mall" style="width: 3em; background: #202020;">
+			<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 40%;">
+		</span>
+		<select type="text" class="form-control-mall" id="kota" name="kota" style="height: 2.5em;" required>
+			<option value="" disabled selected>Pilih Kabupaten / Kota</option>
+			@foreach($kota as $row)
+			<option value="{{$row->id}}" @if ($kota_selected == $row->id) selected @endif>{{$row->nama}}
+			</option>
+			@endforeach
+		</select>
+	</div>
+</div>
+<div class="input-group mb-3 st0 @if($errors->first('kelurahan')) is-invalid @endif" id="div_kelurahan" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
+	<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Kelurahan</div>
+	<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+		<span class="input-group-text-mall" style="width: 2.5em; background: #202020;">
+			<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 42%;">
+		</span>
+		<select type="text" class="form-control-mall" id="kelurahan" name="kelurahan" style="height: 2.5em;" required>
+			@foreach($kelurahan as $row)
+			<option value="{{$row->id}}" @if ($toko->kelurahan_id == $row->id) selected @endif>{{$row->kelurahan}}
+			</option>
+			@endforeach
+		</select>
+	</div>
+</div>
+
+
+<button class="btn btn-primary" type="submit" style="padding: 0px; background: transparent; border: none;">
+	<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
+</button>	
+</div>
+</div>
+</form>
+
+@if(Session::has('message'))
+<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+<div class="modal-dialog modal-sm modal-dialog-centered">
+	<div class="modal-content">
+		<div class="modal-body text-center font-weight-bold py-3">
+			{{Session::get('message')}}
+			<div class="row mt-2 p-2">
+				<button type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary"
+				data-dismiss="modal">Tutup</button>
+
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+</div>
+@endif
 
 
 </main>
@@ -893,210 +956,211 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 	}
 
 	function tambah_foto_toko(){
-		$("#foto_toko").click();
+		$(".div_upload").prop('hidden', true);
+		$("#unggah_foto").prop('hidden', false);
+		$('#modal-sukses').modal('show');
+		// $("#foto_toko").click();
 	}
 
 	function tambah_foto_lokasi_toko(){
 		$("#foto_lokasi_toko").click();
 	}
 
-	$( "#form_input" ).submit(function( event ) {
+
+
+	$("#form_input").submit(function(e) {
+
+		var respon = false;
+		var username = $("#username_toko").val();
+		for (i = 0; i < username.length; i++) {
+			code = username.charCodeAt(i);
+		    if ((code > 47 && code < 58) || // numeric (0-9)
+		        (code > 64 && code < 91) || // upper alpha (A-Z)
+		        (code > 96 && code < 123)) { // lower alpha (a-z)
+		    }
+		else {
+			$("#modal-notif-error-toko").modal('show');
+			$("#username_toko").css('color', '#ED0D0D');
+			$("#username_toko").css('text-decoration', 'underline');
+			$("#username_toko").focus();
+			respon = true;
+			break;
+		}
+	}
+
+	if (respon == false){
 		show_loader();
+	}
+	else {
+		e.preventDefault();			
+
+	}
+
+});
+
+
+
+	function tambah_jadwal() {
+		var jadwal_awal = $("#jadwal_mulai").val();
+		var jadwal_akhir = $("#jadwal_akhir").val();
+		var simbol = jadwal_awal.substring(1, 0)+jadwal_akhir.substring(1, 0);
+		if (jadwal_awal == jadwal_akhir){
+			var hari = jadwal_awal;				
+		}
+		else {
+			var hari = jadwal_awal+"-"+jadwal_akhir;
+
+		}
+		if (simbol == null){
+			alert("Silahkan Pilih Jadwal");
+		}
+		else {
+			var waktu_tutup = $("#waktu_tutup").val();
+			var waktu_buka = $("#waktu_buka").val();
+			var jadwal_sample = $("#jadwal_sample").html();
+			var fix_id = jadwal_sample.replaceAll(hari.replaceAll(" ", '_')).trim();
+			var fix_harinya = fix_id.replaceAll("harinya", hari).trim();
+			var fix_waktu = fix_harinya.replace("jamnya", waktu_buka + " - " + waktu_tutup).trim();
+			var fix_simbol = fix_waktu.replace("simbolnya", simbol).trim();
+			$("#jadwal_fix").append(fix_simbol);
+			jadwal_hari.push(hari);
+			jadwal_buka.push(waktu_buka);
+			jadwal_tutup.push(waktu_tutup);
+			check_select();
+			i++;
+			$("#simpan_disabled_jadwal").prop("hidden", true);
+			$("#simpan_enabled_jadwal").prop("hidden", false);
+			$("#tambah_jadwal_lain").prop("hidden", false);
+			$("#input_jadwal").prop('hidden', true);
+		}
+
+	}
+
+	function tambah_kategori(){
+		var id_kategori = $("#kategori").val();
+		var kategorinya = $("#kategori option:selected").text();
+		if (id_kategori == null){
+			alert("Silahkan Pilih Kategori");
+		}
+		else {
+			var kategori_sample = $("#kategori_sample").html();
+			var fix_id = kategori_sample.replaceAll("kategorinya", id_kategori).trim();
+			var fix_kategorinya = fix_id.replaceAll("kategori_nya", kategorinya).trim();
+			var fix_simbol = fix_kategorinya.replace("simbolnya", kategorinya.substring(0,1)).trim();
+			$("#kategori_fix").append(fix_simbol);
+
+			value_kategori.push(kategorinya);
+			value_id_kategori.push(id_kategori);
+			$(".list-kategori").html('');
+			for (var i = 0; i < value_kategori.length; i++){
+				$(".list-kategori").append("<badge class='badge badge-secondary'>"+value_kategori[i]+"</badge>");
+			}
+
+			check_select_kategori();
+			i_kategori++;
+			$("#simpan_disabled_kategori").prop("hidden", true);
+			$("#simpan_enabled_kategori").prop("hidden", false);
+		}
+	}
+
+	function check_select(){
+		var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
+		var option_text = ["Setiap-Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis","Jumat", "Sabtu", "Minggu"];
+		var option = "<option disabled selected>--- Silahkan Pilih Hari ---</option>";
+		for (var i = 0; i < option_text.length; i++){
+			var indikator = false;
+			for (var j = 0; j < jadwal_hari.length; j++){
+				if (jadwal_hari[j] == option_text[i]){
+					indikator = true;
+				}
+			}
+			if (indikator == false){
+				option += "<option value='"+option_value[i]+"' >"+option_text[i]+"</option>"; 				
+			}
+		}
+		$("#jadwal").html(option);		
+		var string_hari = jadwal_hari.toString();
+		var string_buka = jadwal_buka.toString();
+		var string_tutup = jadwal_tutup.toString();
+		$("#jadwal_hari").val(string_hari.replaceAll(",", "~"));
+		$("#jadwal_buka").val(string_buka.replaceAll(",", "~"));
+		$("#jadwal_tutup").val(string_tutup.replaceAll(",", "~"));
+
+		if ($("#jadwal_hari").val() == ''){
+			$("#pilih_jadwal_buka_toko").html("Pilih Jadwal Buka Tutup Toko");
+		}
+		else {
+			$("#pilih_jadwal_buka_toko").html("Telah memilih Jadwal");			
+		}
+
+	}
+
+	function simpan_disabled_kategori(){
+		alert("Tambahkan data terlebih dahulu");
+	}
+
+	function simpan_disabled_jadwal(){
+		alert("Tambahkan data terlebih dahulu");        
+	}
+
+
+	function check_select_kategori() {
+		var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
+
+		var option_text = [];
+		var option_id = [];
+		@foreach ($daftar_kategori as $row)
+		option_id.push("<?=$row->id?>");
+		option_text.push("<?=$row->kategori?>");
+		@endforeach
+		var option = "";
+		for (var i = 0; i < option_text.length; i++) {
+			var indikator = false;
+			for (var j = 0; j < value_kategori.length; j++) {
+				if (value_kategori[j] == option_text[i]) {
+					indikator = true;
+				}
+			}
+			if (indikator == false) {
+				option += "<option value='" + option_id[i] + "' >" + option_text[i] + "</option>";
+			}
+		}
+		$("#kategori").html(option);
+		var string_kategori = value_kategori.toString();
+		var string_id_kategori = value_id_kategori.toString();
+		$("#input_kategori").val(string_kategori.replaceAll(",", "~"));
+		$("#input_id_kategori").val(string_id_kategori.replaceAll(",", "~"));
+	}
+
+
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				$('#pic_toko_privew').attr('src', e.target.result);
+				$("#div_pic_toko_privew").prop('hidden', false);
+				$("#div_pic_toko").prop('hidden', true);
+				var gambarnya = $("#foto_toko").val();
+				$("#gambar_toko").val(gambarnya);
+			}
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+
+
+	$("#foto_lokasi_toko").change(function(){
+		readURLlokasi(this);
 	});
-		// $("input#username").on({
-		// 	keydown: function(e) {
-		// 		if ((e.which === 32) || (e.which === 64) || (e.which === 37))
-		// 			return false;
-		// 	},
-		// 	change: function() {
-		// 		this.value = this.value.replace(/\s/g, "");
-		// 	}
-		// });
-		$("#username").keypress(function(e) {
-			if ((String.fromCharCode(e.which).match(/[^A-Za-z0-9_ ]/) || e.which === 32)) {
-				e.preventDefault();
-				// alert("Special characters are not allowed. Use 'A-Z', 'a-z' and '0-9'.");
-			}
-		});
 
+	function ubah_nama_toko(){
+		$("#div_nama_toko").prop('hidden', true);
+		$("#nama_toko").prop('hidden', false);
+	}
 
-		function tambah_jadwal() {
-			var jadwal_awal = $("#jadwal_mulai").val();
-			var jadwal_akhir = $("#jadwal_akhir").val();
-			var simbol = jadwal_awal.substring(1, 0)+jadwal_akhir.substring(1, 0);
-			if (jadwal_awal == jadwal_akhir){
-				var hari = jadwal_awal;				
-			}
-			else {
-				var hari = jadwal_awal+"-"+jadwal_akhir;
-
-			}
-			if (simbol == null){
-				alert("Silahkan Pilih Jadwal");
-			}
-			else {
-				var waktu_tutup = $("#waktu_tutup").val();
-				var waktu_buka = $("#waktu_buka").val();
-				var jadwal_sample = $("#jadwal_sample").html();
-				var fix_id = jadwal_sample.replaceAll(hari.replaceAll(" ", '_')).trim();
-				var fix_harinya = fix_id.replaceAll("harinya", hari).trim();
-				var fix_waktu = fix_harinya.replace("jamnya", waktu_buka + " - " + waktu_tutup).trim();
-				var fix_simbol = fix_waktu.replace("simbolnya", simbol).trim();
-				$("#jadwal_fix").append(fix_simbol);
-				jadwal_hari.push(hari);
-				jadwal_buka.push(waktu_buka);
-				jadwal_tutup.push(waktu_tutup);
-				check_select();
-				i++;
-				$("#simpan_disabled_jadwal").prop("hidden", true);
-				$("#simpan_enabled_jadwal").prop("hidden", false);
-				$("#tambah_jadwal_lain").prop("hidden", false);
-				$("#input_jadwal").prop('hidden', true);
-			}
-
-		}
-
-		function tambah_kategori(){
-			var id_kategori = $("#kategori").val();
-			var kategorinya = $("#kategori option:selected").text();
-			if (id_kategori == null){
-				alert("Silahkan Pilih Kategori");
-			}
-			else {
-				var kategori_sample = $("#kategori_sample").html();
-				var fix_id = kategori_sample.replaceAll("kategorinya", id_kategori).trim();
-				var fix_kategorinya = fix_id.replaceAll("kategori_nya", kategorinya).trim();
-				var fix_simbol = fix_kategorinya.replace("simbolnya", kategorinya.substring(0,1)).trim();
-				$("#kategori_fix").append(fix_simbol);
-
-				value_kategori.push(kategorinya);
-				value_id_kategori.push(id_kategori);
-				$(".list-kategori").html('');
-				for (var i = 0; i < value_kategori.length; i++){
-					$(".list-kategori").append("<badge class='badge badge-secondary'>"+value_kategori[i]+"</badge>");
-				}
-
-				check_select_kategori();
-				i_kategori++;
-				$("#simpan_disabled_kategori").prop("hidden", true);
-				$("#simpan_enabled_kategori").prop("hidden", false);
-			}
-		}
-
-		function check_select(){
-			var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
-			var option_text = ["Setiap-Hari", "Senin-Sabtu", "Senin-Jumat", "Senin", "Selasa", "Rabu", "Kamis","Jumat", "Sabtu", "Minggu"];
-			var option = "<option disabled selected>--- Silahkan Pilih Hari ---</option>";
-			for (var i = 0; i < option_text.length; i++){
-				var indikator = false;
-				for (var j = 0; j < jadwal_hari.length; j++){
-					if (jadwal_hari[j] == option_text[i]){
-						indikator = true;
-					}
-				}
-				if (indikator == false){
-					option += "<option value='"+option_value[i]+"' >"+option_text[i]+"</option>"; 				
-				}
-			}
-			$("#jadwal").html(option);		
-			var string_hari = jadwal_hari.toString();
-			var string_buka = jadwal_buka.toString();
-			var string_tutup = jadwal_tutup.toString();
-			$("#jadwal_hari").val(string_hari.replaceAll(",", "~"));
-			$("#jadwal_buka").val(string_buka.replaceAll(",", "~"));
-			$("#jadwal_tutup").val(string_tutup.replaceAll(",", "~"));
-
-			if ($("#jadwal_hari").val() == ''){
-				$("#pilih_jadwal_buka_toko").html("Pilih Jadwal Buka Tutup Toko");
-			}
-			else {
-				$("#pilih_jadwal_buka_toko").html("Telah memilih Jadwal");			
-			}
-
-		}
-
-		function simpan_disabled_kategori(){
-			alert("Tambahkan data terlebih dahulu");
-		}
-
-		function simpan_disabled_jadwal(){
-			alert("Tambahkan data terlebih dahulu");        
-		}
-
-
-		function check_select_kategori() {
-			var option_value = ["SH", "SS", "SJ", "S", "S", "R", "K", "J", "S", "M"];
-
-			var option_text = [];
-			var option_id = [];
-			@foreach ($daftar_kategori as $row)
-			option_id.push("<?=$row->id?>");
-			option_text.push("<?=$row->kategori?>");
-			@endforeach
-			var option = "";
-			for (var i = 0; i < option_text.length; i++) {
-				var indikator = false;
-				for (var j = 0; j < value_kategori.length; j++) {
-					if (value_kategori[j] == option_text[i]) {
-						indikator = true;
-					}
-				}
-				if (indikator == false) {
-					option += "<option value='" + option_id[i] + "' >" + option_text[i] + "</option>";
-				}
-			}
-			$("#kategori").html(option);
-			var string_kategori = value_kategori.toString();
-			var string_id_kategori = value_id_kategori.toString();
-			$("#input_kategori").val(string_kategori.replaceAll(",", "~"));
-			$("#input_id_kategori").val(string_id_kategori.replaceAll(",", "~"));
-		}
-
-
-		function readURL(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function (e) {
-					$('#pic_toko_privew').attr('src', e.target.result);
-					$("#div_pic_toko_privew").prop('hidden', false);
-					$("#div_pic_toko").prop('hidden', true);
-					var gambarnya = $("#foto_toko").val();
-					$("#gambar_toko").val(gambarnya);
-				}
-
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
-
-		$("#foto_toko").change(function(){
-			readURL(this);
-		});
-
-
-		function readURLlokasi(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function (e) {
-					$('#pic_lokasi_toko_privew').attr('src', e.target.result);
-					$("#div_pic_lokasi_toko_privew").prop('hidden', false);
-					$("#div_pic_lokasi_toko").prop('hidden', true);
-				}
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
-
-		$("#foto_lokasi_toko").change(function(){
-			readURLlokasi(this);
-		});
-
-		function ubah_nama_toko(){
-			$("#div_nama_toko").prop('hidden', true);
-			$("#nama_toko").prop('hidden', false);
-		}
-
-		function hapus_jadwal(hari){
+	function hapus_jadwal(hari){
 			// alert(id);
 			var temp;
 			for (var i = 0; i < jadwal_hari.length; i++){
@@ -1144,6 +1208,101 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 
 
 		}
+
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
+
+	<script type="text/javascript">
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+		function ubah_foto(){
+			$(".div_upload").prop('hidden', true);
+			$("#unggah_foto").prop('hidden', false);
+			$('#modal-sukses').modal('show');
+		}
+
+		function unggah_foto(){
+			$("#image").click();
+		}
+
+
+		function input_focus_username(id){
+			// alert(id);
+			$("#"+id).css('color', 'white');
+			$("#"+id).css('text-decoration', 'none');			
+		}
+
+		var resize = $('#upload-demo').croppie({
+			enableExif: true,
+			enableOrientation: true,
+    viewport: { // Default { width: 100, height: 100, type: 'square' } 
+    width: 240,
+    height: 240,
+        type: 'circle' //square
+    },
+    boundary: {
+    	width: 240,
+    	height:240
+    }
+});
+
+
+		$('#image').on('change', function () { 
+			$(".cr-slider-wrap").css("display", "block");
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				resize.croppie('bind',{
+					url: e.target.result
+				}).then(function(){
+					console.log('jQuery bind complete');
+				});
+			}
+			$(".div_upload").prop('hidden', false);
+			$("#unggah_foto").prop('hidden', true);
+			$("#prev_image").remove();
+			reader.readAsDataURL(this.files[0]);
+		});
+
+
+		var imageSize = {
+			width: 600,
+			height: 600,
+			type: 'circle'
+		};
+
+
+
+		$('.upload-image').on('click', function (ev) {
+			$("#modal-sukses").modal('hide');
+			resize.croppie('result', {
+				circle: false,
+				type: 'canvas',
+				size: imageSize,
+				quality: 1
+			}).then(function (img) {
+				$.ajax({
+
+					url: "<?=url('/')?>/akun/mitra/premium/ubah-toko/simpan-foto",
+					type: "POST",
+					data: {"image":img},
+					success: function (data) {
+						$('#pic_toko_privew').attr('src', "<?=url('/')?>/public/img/temp_produk/"+data);
+						$("#modal_loader").modal('hide');
+						$("#nama_foto_temp").val(data);
+						$("#div_pic_toko_privew").prop('hidden', false);
+						$("#div_pic_toko").prop('hidden', true);
+
+					}
+				});
+
+			});
+			status_ganti_foto = 1;
+
+		});
 
 	</script>
 	@endsection
