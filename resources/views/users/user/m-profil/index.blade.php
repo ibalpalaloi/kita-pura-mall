@@ -181,7 +181,7 @@ if (!empty($_GET['daftar_mitra_premium'])){
 @endif
 @endif
 
-	@if($biodata->notif == 1)
+@if($biodata->notif == 1)
 <div class="modal fade" id="modal-notif-berhasil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
 		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
@@ -192,23 +192,8 @@ if (!empty($_GET['daftar_mitra_premium'])){
 					<div style="font-size: 2em; font-weight: 600; text-align: center;">Yeah, Hore!</div>
 					<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">selamat anda sudah bisa menikmati semua fitur <span style="font-weight: 600;">kitapuramall</span>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-@endif
-
-@if(Session::get('message') == 'Password Berhasil Diperbarui')
-<div class="modal fade" id="modal-reset-password-berhasil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
-		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
-			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
-				<img src="<?=url('/')?>/public/img/modal_assets/modal_berhasil_biodata.svg" style="width: 100%;">
-				<div style="position: absolute; margin: 1em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
-					<div style="font-size: 2em; font-weight: 600; text-align: center;">Berhasil!</div>
-					<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">selamat anda telah berhasil mengganti password anda 
+					<div style="width: 100%; display: flex; justify-content: center;">
+						<div data-dismiss="modal" style="background: white;padding: 0.5em 3em;border-radius: 1.5em; width: auto; color: #027B32; font-size: 1.2em;">Okey</div>
 					</div>
 				</div>
 			</div>
@@ -217,6 +202,47 @@ if (!empty($_GET['daftar_mitra_premium'])){
 </div>
 @endif
 
+@if(Session::get('status_password') == 'sukses')
+<div class="modal fade" id="modal-ubah-password-sukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
+				<img src="<?=url('/')?>/public/img/modal_assets/modal_sukses_input.svg" style="width: 100%;">
+				<div style="position: absolute; margin: 1em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 50%;">
+					<div style="font-size: 2em; font-weight: 600; text-align: center;">Berhasil!</div>
+					<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">selamat anda telah berhasil mengganti password anda 
+					</div>
+					<div style="width: 100%; display: flex; justify-content: center;">
+						<div data-dismiss="modal" style="background: white;padding: 0.5em 3em;border-radius: 1.5em; width: auto; color: #027B32; font-size: 1.2em;">Okey</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+
+@if(Session::get('status_password') == 'gagal');
+<div class="modal fade" id="modal-ubah-password-gagal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
+				<img src="<?=url('/')?>/public/img/modal_assets/modal_error_input.svg" style="width: 100%;">
+				<div style="position: absolute; margin: 1em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 50%;">
+					<div style="font-size: 2em; font-weight: 600; text-align: center;">Gagal!</div>
+					<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">{{Session::get('pass_message')}}
+					</div>
+					<div style="width: 100%; display: flex; justify-content: center;">
+						<div data-dismiss="modal" style="background: white;padding: 0.5em 3em;border-radius: 1.5em; width: auto; color: white; font-size: 1.2em; background: #FFBD03;">Okey</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
 
 @if(Session::get('message') == 'Biodata Belum Lengkap')
 <div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
@@ -262,13 +288,14 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 </div>
 @endif
 
+
 <div class="modal fade" id="modal-ganti-pass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<form action="{{url()->current()}}/ubah-password" method="post">
-	@csrf
-	@method('PUT')
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
 		<div class="modal-content" style="border-radius: 1.2em; background: #eaf4ff; display: flex; justify-content: center; align-items: center;">
-	
+
+			<form action="{{url()->current()}}/ubah-password" method="post">
+				@csrf
+				@method('PUT')
 				<div class="modal-body">
 					<div>
 						<div style="font-weight: 600; font-size: 1em; line-height: 1.1em; font-size: 1.2em;">Silahkan Masukan Password Baru</div>
@@ -281,7 +308,7 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 				</div>
 				@endif
 				<div style="width: 90%;">
-				<label for="">Password Lama</label>
+					<label for="">Password Lama</label>
 					<div class="input-group mb-3 div-input-mall" id="div_no_hp">
 						<input type="password" class="form-control form-control-mall-modal" id="password_old"  name="password_old" required style="width: 100%; height: auto !important;" >
 					</div>
@@ -296,10 +323,9 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 				</div>
 				<button type="submit" class="btn btn-primary" style="background: #ffaa00;;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;">Ubah Password
 				</button>
+			</form>
 		</div>
 	</div>
-	</form>
-
 </div>
 
 
@@ -396,13 +422,13 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	$('#modal-pemberitahuan').modal('show');
 	@endif
 
-
-
-
-	@if(Session::get('message') == 'Password Berhasil Diperbarui')
-	$('#modal-reset-password-berhasil').modal('show');
+	@if(Session::get('status_password') == 'sukses');
+	$('#modal-ubah-password-sukses').modal('show');
 	@endif
 
+	@if(Session::get('status_password') == 'gagal');
+	$('#modal-ubah-password-gagal').modal('show');
+	@endif
 
 	@if($biodata->notif == 1)
 	$('#modal-notif-berhasil').modal('show');
