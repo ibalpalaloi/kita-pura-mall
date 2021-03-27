@@ -243,7 +243,12 @@ class Mitra_Premium_Controller extends Controller
 			$toko->nama_toko = $request->nama_toko;
 			$toko->username = $request->username_toko;
 			$toko->kategori_toko_id = $request->kategori_toko;
-			$toko->no_hp = $request->no_hp;
+			$no_telp = $request->no_hp;
+			if ($no_telp[0] == 0){
+				$no_telp = substr($no_telp, 1);
+			}
+			$no_telp = substr_replace($no_telp, "+62", 0, 0);
+			$toko->no_hp = $no_telp;
 			$toko->alamat = $request->alamat;
 			$toko->kelurahan_id = $request->kelurahan;
 			$toko->deskripsi = $request->deskripsi;
@@ -316,7 +321,22 @@ class Mitra_Premium_Controller extends Controller
 		return redirect('/akun/mitra/premium?cantBack')->with($notification);
 	}
 
+	public function simpan_foto_toko(Request $request){
+		$image = $request->image;
+		list($type, $image) = explode(';', $image);
+		list(, $image)      = explode(',', $image);
+		$image = base64_decode($image);
+		$image_name= time().$this->generateRandomString().'.png';
+        // $path = public_path('upload/'.$image_name);
 
+        // file_put_contents($path, $image);
+		\Storage::disk('public')->put('img/temp_produk/'.$image_name, file_get_contents($request->image));
+		$image_path = url('/')."/public/img/temp_produk/$image_name";
+		// $biodata->foto = $image_name;
+		// $biodata->save();
+		echo $image_name;
+		// return response()->json(['status'=>$image_path]);		
+	}
 
 
 	public function atur_toko_premium(){

@@ -127,11 +127,11 @@ class LandingPageController extends Controller
 	}
 
 	public function detail_produk($mitra, $id_produk){
-		
-		$keranjang = Keranjang_belanja::where('user_id', Auth()->user()->id)->get();
+		$toko = Toko::where('username', $mitra)->first();
+		// $keranjang = Keranjang_belanja::where('user_id', Auth()->user()->id)->get();
 		$produk = Product::whereId($id_produk)->first();
 		
-		return view('landing_page/detail_produk', compact('produk', 'keranjang'));
+		return view('landing_page/detail_produk', compact('produk', 'toko'));
 	}
     //
 }

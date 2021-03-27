@@ -103,7 +103,12 @@ class Mitra_Register_Controller extends Controller
 		$toko->jenis_mitra = $jenis_mitra;
 		$toko->kategori_toko_id = $request->kategori_toko;
 		$toko->nama_toko = $request->nama_toko;
-		$toko->no_hp = $request->no_hp;
+            $no_telp = $request->no_hp;
+            if ($no_telp[0] == 0){
+                $no_telp = substr($no_telp, 1);
+            }
+            $no_telp = substr_replace($no_telp, "+62", 0, 0);
+            $toko->no_hp = $no_telp;
 		$toko->alamat = $request->alamat;
 		$toko->kelurahan_id = $request->kelurahan;
         // @Tambah Foto
@@ -196,7 +201,35 @@ class Mitra_Register_Controller extends Controller
 
 
 
-	public function pilih_lokasi($jenis_mitra){
+    public function simpan_foto_register(Request $request){
+        $image = $request->image;
+        list($type, $image) = explode(';', $image);
+        list(, $image)      = explode(',', $image);
+        $image = base64_decode($image);
+        $image_name= time().$this->generateRandomString().'.png';
+        // $path = public_path('upload/'.$image_name);
+
+        // file_put_contents($path, $image);
+        \Storage::disk('public')->put('img/temp_produk/'.$image_name, file_get_contents($request->image));
+        $image_path = url('/')."/public/img/temp_produk/$image_name";
+        // $biodata->foto = $image_name;
+        // $biodata->save();
+        echo $image_name;
+        // return response()->json(['status'=>$image_path]);        
+    }
+
+	   function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+
+    public function pilih_lokasi($jenis_mitra){
         $daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
         if (($daftar_tunggu->latitude == null) && ($daftar_tunggu->longitude == null)){
             if ($jenis_mitra == 'free'){

@@ -374,34 +374,33 @@ style="padding: 1.5em; padding: 0px;">
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
 		<?php if (!empty($_GET['previous'])){ ?>
-		<div id="defaultheader_logo" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" onclick='back_preivous()'>
-			<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
-		</div>
-	<?php } else { ?>
-		<a id="defaultheader_logo" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/">
-			<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
+			<div id="defaultheader_logo" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" onclick='back_preivous()'>
+				<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
+			</div>
+		<?php } else { ?>
+			<a id="defaultheader_logo" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/">
+				<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
+			</a>
+		<?php } ?>
+		@if (Auth::user())
+		@php $penjual = ""; @endphp
+		@if(Auth()->user()->id == $toko->users_id)
+		<a onclick="show_loader()" id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/akun/mitra/premium">
+			<img src="<?=url('/')?>/public/img/icon_svg/setting_circle_transparent.svg">
 		</a>
-	<?php } ?>
-	@if (Auth::user())
-	@php $penjual = ""; @endphp
-	@if(Auth()->user()->id == $toko->users_id)
-	<a onclick="show_loader()" id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/akun/mitra/premium">
-		<img src="<?=url('/')?>/public/img/icon_svg/setting_circle_transparent.svg">
-	</a>
+		
+		@php $penjual = 'yes'; @endphp
+		@else
 
-	@php $penjual = 'yes'; @endphp
-	@else
-	<a href="https://api.whatsapp.com/
-	send?phone={{$toko->no_hp}}&text=Halo%20{{$toko->nama_toko}},%20Saya%20Ingin%20Memesan%20product%20yang%20ada%20di%20kitapuraa%20mall" id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
-		<img src="<?=url('/')?>/public/img/icon_svg/whatsapp_circle.svg">
-		<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang" hidden>{{count($keranjang)}}</div>
-	</a>
+		
+		@php $penjual = 'no'; @endphp
+		@endif
+		@else
 
-	@php $penjual = 'no'; @endphp
-	@endif
-	@endif
+		@endif
+		
 
-</div>	
+	</div>	
 </header>
 
 <div class="wrapper" style="background: transparent; position: relative; z-index: -1; border-bottom-right-radius: 7%; border-bottom-left-radius: 7%;">
@@ -577,7 +576,7 @@ style="padding: 1.5em; padding: 0px;">
 										<i class="far fa-star star-rating"></i>
 									</div>
 
-
+									@php $hasil_diskon_string = ""; @endphp
 									@if ($item->jenis_harga == 'Statis')
 									@if($item->diskon != '0')
 									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
@@ -587,6 +586,7 @@ style="padding: 1.5em; padding: 0px;">
 									$hasil_diskon = ($item->harga)-((($item->diskon)/100)*($item->harga));
 									@endphp
 									<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{number_format($hasil_diskon)}}</div>
+									@php $hasil_diskon_string = number_format($hasil_diskon); @endphp
 									@else
 									<div style="padding: 0; margin: 0.5em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{number_format($item->harga)}}</div>
 									@endif	
@@ -600,14 +600,38 @@ style="padding: 1.5em; padding: 0px;">
 									@endif
 								</div>
 							</div>
+							@if (Auth::user())
 							@if ($penjual == 'no')
-							<div class="">
-								<img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="position: absolute; bottom: -0.8em; right: -0.5em; width: 5em;" onclick="masukan_keranjang('{{$item->toko_id}}', '{{$item->id}}')">
-							</div>
+							@if ($item->jenis_harga == 'Statis')
+							@if($item->diskon != '0')
+
+							<a href="https://api.whatsapp.com/send?phone={{$toko->no_hp}}&text=[Order Masuk Dari Kitapura Mall]%20Halo%20{{$toko->nama_toko}},%20Saya%20ingin%20memesan%20{{ucwords(strtolower($item->nama))}}%20Rp.%20{{$hasil_diskon_string}}">
+								<img src="<?=url('/')?>/public/img/icon_svg/whatsapp_ori_circle.svg" style="position: absolute; bottom: -0.8em; right: -0.5em; width: 5em;" onclick="masukan_keranjang('{{$item->toko_id}}', '{{$item->id}}')">
+							</a>
+
+							@php $hasil_diskon_string = number_format($hasil_diskon); @endphp
 							@else
-							<div class="">
-								<img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="position: absolute; bottom: -0.8em; right: -0.5em; width: 5em;" onclick="gagal_masukan_keranjang()">
-							</div>
+							<a href="https://api.whatsapp.com/send?phone={{$toko->no_hp}}&text=[Order Masuk Dari Kitapura Mall]%20Halo%20{{$toko->nama_toko}},%20Saya%20ingin%20memesan%20{{ucwords(strtolower($item->nama))}}%20Rp.%20{{$item->harga}}">
+								<img src="<?=url('/')?>/public/img/icon_svg/whatsapp_ori_circle.svg" style="position: absolute; bottom: -0.8em; right: -0.5em; width: 5em;" onclick="masukan_keranjang('{{$item->toko_id}}', '{{$item->id}}')">
+							</a>
+							@endif	
+
+							@else
+							<a href="https://api.whatsapp.com/send?phone={{$toko->no_hp}}&text=[Order Masuk Dari Kitapura Mall]%20Halo%20{{$toko->nama_toko}},%20Saya%20ingin%20memesan%20{{ucwords(strtolower($item->nama))}}%20Rp.%20{{$item->harga_terendah}}">
+								<img src="<?=url('/')?>/public/img/icon_svg/whatsapp_ori_circle.svg" style="position: absolute; bottom: -0.8em; right: -0.5em; width: 5em;" onclick="masukan_keranjang('{{$item->toko_id}}', '{{$item->id}}')">
+							</a>
+
+							@endif
+
+							@else
+							<a href="https://api.whatsapp.com/send?phone={{$toko->no_hp}}&text=[Order Masuk Dari Kitapura Mall]%20Halo%20{{$toko->nama_toko}},%20Saya%20ingin%20memesan%20{{ucwords(strtolower($item->nama))}}%20Rp.%20{{$hasil_diskon_string}}">
+								<img src="<?=url('/')?>/public/img/icon_svg/whatsapp_ori_circle.svg" style="position: absolute; bottom: -0.8em; right: -0.5em; width: 5em;">
+							</a>
+							@endif
+							@else
+							<a href="https://api.whatsapp.com/send?phone={{$toko->no_hp}}&text=Halo%20{{$toko->nama_toko}},%20Saya%20ingin%20memesan%20{{ucwords(strtolower($item->nama))}}">
+								<img src="<?=url('/')?>/public/img/icon_svg/whatsapp_ori_circle.svg" style="position: absolute; bottom: -0.8em; right: -0.5em; width: 5em;">
+							</a>
 							@endif
 						</div>
 

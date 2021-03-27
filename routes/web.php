@@ -87,7 +87,7 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::get('/akun/pengaturan-profil', [UserController::class, 'biodata']);
         Route::post('/akun/pengaturan-profil/simpan-foto', [UserController::class, 'simpan_foto']);
         Route::put('/akun/pengaturan-profil/simpan-biodata', [UserController::class, 'simpan_biodata']);
-        Route::put('/akun/pengaturan-profil/ubah-password', [UserController::class, 'ubah_password']);
+        Route::put('/akun/ubah-password', [UserController::class, 'ubah_password']);
 
 
         // @mitra
@@ -95,6 +95,7 @@ Route::group(['middleware'=> 'auth'], function() {
         
         // @belum jadi mitra
         Route::get('/akun/jadi-mitra', [Mitra_Register_Controller::class, 'jadi_mitra']);
+        Route::post('/akun/jadi-mitra/{jenis_mitra}/simpan-foto-register', [Mitra_Register_Controller::class, 'simpan_foto_register']);
         Route::get('/akun/jadi-mitra/{jenis_mitra}/tambah', [Mitra_Register_Controller::class, 'register']);
         Route::get('/akun/jadi-mitra/{jenis_mitra}', [Mitra_Register_Controller::class, 'register_redirect']);
         Route::post('/akun/jadi-mitra/{jenis_mitra}/simpan', [Mitra_Register_Controller::class, 'simpan_mitra']);
@@ -146,6 +147,7 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::get('/akun/mitra/premium/post_template/{id}', [Mitra_Premium_Controller::class, 'post_template']);
 
             // @atur toko
+            Route::post('/akun/mitra/premium/ubah-toko/simpan-foto', [Mitra_Premium_Controller::class, 'simpan_foto_toko']);    
             Route::get('/akun/mitra/premium/ubah-toko', [Mitra_Premium_Controller::class, 'atur_toko_premium']);               
             Route::get('/akun/mitra/premium/ubah-toko/kirim-lokasi', [Mitra_Premium_Controller::class, 'kirim_lokasi']);
             Route::get('/akun/mitra/premium/ubah-toko/atur-lokasi', [Mitra_Premium_Controller::class, 'atur_lokasi']);
