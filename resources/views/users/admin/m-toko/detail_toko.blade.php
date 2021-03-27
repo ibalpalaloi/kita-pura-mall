@@ -81,29 +81,29 @@ Toko
                         <select class="form-control" name="kota" id="select_kota">
                             <option value="">Pilih Kabupaten / Kota</option>
                             @foreach ($kabupaten as $item)
-                                <option value="{{$item->id}}">{{$item->nama}}</option>
+                                <option value="{{$item->id}}" @if ($toko->kelurahan->kecamatan->kabupaten_kota->id == $item->id) selected @endif>{{$item->nama}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Kecamatan:</label>
                         <select class="form-control" name="kecamatan" id="select_kecamatan">
-                            <option value="" disabled>Kecamatan</option>
+                            <option value=""> {{$toko->kelurahan->kecamatan->nama}} </option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Kelurahan:</label>
                         <select class="form-control" name="kelurahan" id="select_kelurahan">
-                            <option value="" disabled>Kelurahan</option>
+                            <option value=""> {{$toko->kelurahan->kelurahan}} </option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Latitude:</label>
-                        <input value="{{$toko->latitude}}" type="text" class="form-control" id="username" name="latitude">
+                        <input value="{{$toko->latitude}}" type="text" class="form-control" id="latitude" name="latitude">
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Longitude:</label>
-                        <input value="{{$toko->longitude}}" type="text" class="form-control" id="username" name="longitude">
+                        <input value="{{$toko->longitude}}" type="text" class="form-control" id="longitude" name="longitude">
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-info waves-effect">Ubah</button>
@@ -146,16 +146,88 @@ Toko
     <!-- /.modal-dialog -->
 </div>
 
+{{-- hapus toko --}}
+<div id="modal_ubah_password" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center">
+                <h4 class="modal-title" id="myModalLabel">Hapus Toko</h4>
+                <button type="button" class="close ml-auto" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form action="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/post_password_baru" method="post">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        Ketikkan untuk ubah password mitra <b>"kitapuramallpalu"</b> 
+                        <p style="color: red" id="pass_salah"></p>
+                        <input name="ketikan" id="ketikan" type="text" hidden value="kitapuramallpalu">
+                        <input name="id_toko" type="text" hidden value="{{$toko->id}}">
+                        <div class="col-sm-12">
+                            <input name="pass_ketik" id="pass_ketik" type="text" class="form-control">
+                        </div>
+                        <br>
+                        <label for="">Password Baru</label>
+                        <div class="col-sm-12">
+                            <input name="pass" id="pass" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="cek_pass()" class="btn btn-info waves-effect">Ubah Password</button>
+                        <button id="submit" type="submit" hidden class="btn btn-info waves-effect">hidden</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="row el-element-overlay">
+    <form action="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/ubah_logo" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="el-card-item">
+                    <div class="el-card-avatar el-overlay-1"> <img id="preview_logo" src="{{$toko->logo()}}" alt="user" />
+                        <div class="el-overlay">
+                            <ul class="list-style-none el-info">
+                                <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="{{$toko->logo()}}"><i class="icon-magnifier"></i></a></li>
+                                <li class="el-item"><a class="btn default btn-outline el-link" href="{{$toko->logo()}}" download=""><i class="icon-link"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <input type="file" name="foto_logo" id="foto_logo" hidden>
+                    <div class="el-card-content">
+                        <button onclick="upload_gambar()" type="button" class="btn btn-primary">Upload</button>
+                        <button type="submit" class="btn btn-danger">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 <div class="row">
+    
+
     <div class="col-12">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Data Toko</h4>
-                {{-- <h6 class="card-subtitle">To use add <code>.r-separator</code> class in the form with form styling.</h6> --}}
+                <a href="#" onclick="modal_ubah_password('{{$toko->id}}')" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_ubah_password">Ubah Password</a>
+                <a href="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/daftar_produk" type="button" class="btn btn-danger" >Landing Page</a>
+
             </div>
             <hr class="mt-0">
             <div class="card-body">
                 <h4 class="card-title">Personal Info</h4>
+                <div class="form-group row align-items-center mb-0">
+                    <label for="inputEmail3" class="col-3 text-right control-label col-form-label">Nomor Akun</label>
+                    <div class="col-9 border-left pb-2 pt-2">
+                        <input readonly value="{{$toko->user->no_hp}}" type="text" class="form-control" id="no_akun" name="no_akun" placeholder="First Name Here">
+                    </div>
+                </div>
                 <div class="form-group row align-items-center mb-0">
                     <label for="inputEmail3" class="col-3 text-right control-label col-form-label">Nama Toko</label>
                     <div class="col-9 border-left pb-2 pt-2">
@@ -258,6 +330,50 @@ Toko
 
 @section('footer-scripts')
 <script>
+    function cek_pass(){
+        if($('#pass_ketik').val() != $('#ketikan').val()){
+            $('#pass_salah').empty();
+            $('#pass_salah').append("Inputan salah");
+        }
+        else{
+            $("#submit").click();
+            kirim_wa_password();
+        }
+    }
+
+    function kirim_wa_password(){
+        var data = {!! json_encode($toko) !!};
+        var apilink = 'http://';
+        var phone = $('#no_akun').val();
+        var message = 'password baru akun anda "'+$('#pass').val()+'" \n'+
+                        'Silahkan login dan ubah password akun anda';
+
+        // apilink += isMobile ? 'api' : 'web';
+        // apilink += '.whatsapp.com/send?phone=' + phone + '&text=' + encodeURI(message);
+        var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
+        window.open(walink);
+    }
+
+    function upload_gambar(){
+		$("#foto_logo").click();
+	}
+
+    $("#foto_logo").change(function(){
+        readURL(this);
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#preview_logo').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
     function simpan_kategori(toko_id){
         var id = $('#kategori_toko').val();
         $.ajax({
