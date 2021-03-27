@@ -118,7 +118,8 @@ class UserController extends Controller
 					$user->save();
 
 					$notification = array(
-						'message' => 'Password Berhasil Diperbarui'
+						'pass_message' => 'Password Berhasil Diperbarui',
+						'status_password' => 'sukses'
 					);     
 
 					return redirect()->back()->with($notification);
@@ -127,7 +128,8 @@ class UserController extends Controller
 				else{
 
 					$notification = array(
-						'pass_message' => 'Password Baru Sama Dengan Password Lama'
+						'pass_message' => 'Password Baru Sama Dengan Password Lama',
+						'status_password' => 'gagal'
 					);     
 
 					return redirect()->back()->with($notification);
@@ -137,7 +139,8 @@ class UserController extends Controller
 			else{
 
 				$notification = array(
-					'pass_message' => 'Konfirmasi Password Tidak Cocok'
+					'pass_message' => 'Konfirmasi Password Tidak Cocok',
+					'status_password' => 'gagal'
 				);     
 
 				return redirect()->back()->with($notification);
@@ -147,7 +150,9 @@ class UserController extends Controller
 		else{
 
 			$notification = array(
-				'pass_message' => 'Password Lama Tidak Cocok'
+				'pass_message' => 'Password Lama Tidak Cocok',
+				'status_password' => 'gagal'
+
 			);     
 
 			return redirect()->back()->with($notification);
