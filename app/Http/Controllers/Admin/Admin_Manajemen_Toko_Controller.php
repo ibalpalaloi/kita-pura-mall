@@ -12,6 +12,9 @@ use App\Models\Template_landing_page;
 use App\Models\User;
 use App\Models\Kategorinya_toko;
 use App\Models\Provinsi;
+use App\Models\Product;
+use App\Models\Kategori;
+use App\Models\Sub_kategori;
 
 class Admin_Manajemen_Toko_Controller extends Controller
 {
@@ -128,7 +131,64 @@ class Admin_Manajemen_Toko_Controller extends Controller
         $toko = Toko::find($id);
         $toko->alamat = $request->alamat;
         $toko->kelurahan_id = $request->kelurahan;
+        $toko->latitude = $request->latitude;
+        $toko->longitude = $request->longitude;
         $toko->save();
+
+        return back();
+    }
+
+    public function ubah_logo(Request $request, $id){
+        $toko = Toko::where('id', $id)->first();
+        if($request->file("foto_logo")){
+            $files = $request->file("foto_logo");
+            $type = $request->file("foto_logo")->getClientOriginalExtension();
+            $file_upload = time().$this->generateRandomString().".".$type;
+            \Storage::disk('public')->put('img/toko/'.$toko->id.'/logo/'.$file_upload, file_get_contents($files));
+            \File::delete("public/img/toko/".$toko->id."/logo/".$toko->logo_toko);		
+            $toko->logo_toko = $file_upload;
+        }
+        $toko->save();
+        return back();
+    }
+
+    function generateRandomString($length = 10) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
+
+    public function hapus_toko(Request $request){
+        Toko::where('id', $request->id_toko)->delete();;
+        return back();
+    }
+
+    public function post_password_baru(Request $request){
+        $toko = Toko::where('id', $request->id_toko)->first();
+        $user = User::where('id', $toko->users_id)->first();
+        $user->password = bcrypt($request->pass);
+        $user->save();
+        return back();
+    }
+
+    public function daftar_produk_toko($id){
+        $kategori = Kategori::all();
+        $toko = Toko::where('id', $id)->first();
+        $produk = Product::where('toko_id', $toko->id)->get();
+        return view('users.admin.m-toko.data_produk_toko', compact('toko', 'produk', 'kategori'));
+    }
+
+    public function post_ubah_produk(Request $request){
+        $produk = Product::where('id', $request->id_produk)->first();
+        $produk->nama = $request->nama_produk;
+        $produk->kategori_id = $request->kategori;
+        $produk->sub_kategori_id = $request->sub_kategori;
+        $produk->harga = $request->harga;
+        $produk->save();
 
         return back();
     }
