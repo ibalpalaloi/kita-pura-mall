@@ -370,7 +370,7 @@ style="padding: 1.5em; padding: 0px;">
 	</div>
 </form>
 </div>
-
+	
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
 		<?php if (!empty($_GET['previous'])){ ?>
