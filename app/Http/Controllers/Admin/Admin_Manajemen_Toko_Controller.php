@@ -12,6 +12,9 @@ use App\Models\Template_landing_page;
 use App\Models\User;
 use App\Models\Kategorinya_toko;
 use App\Models\Provinsi;
+use App\Models\Product;
+use App\Models\Kategori;
+use App\Models\Sub_kategori;
 
 class Admin_Manajemen_Toko_Controller extends Controller
 {
@@ -169,6 +172,24 @@ class Admin_Manajemen_Toko_Controller extends Controller
         $user = User::where('id', $toko->users_id)->first();
         $user->password = bcrypt($request->pass);
         $user->save();
+        return back();
+    }
+
+    public function daftar_produk_toko($id){
+        $kategori = Kategori::all();
+        $toko = Toko::where('id', $id)->first();
+        $produk = Product::where('toko_id', $toko->id)->get();
+        return view('users.admin.m-toko.data_produk_toko', compact('toko', 'produk', 'kategori'));
+    }
+
+    public function post_ubah_produk(Request $request){
+        $produk = Product::where('id', $request->id_produk)->first();
+        $produk->nama = $request->nama_produk;
+        $produk->kategori_id = $request->kategori;
+        $produk->sub_kategori_id = $request->sub_kategori;
+        $produk->harga = $request->harga;
+        $produk->save();
+
         return back();
     }
 }
