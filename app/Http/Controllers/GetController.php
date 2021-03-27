@@ -98,4 +98,54 @@ class GetController extends Controller
         $result = '<li id=kategori_"'.$kategorinya_toko->id.'">'.$kategori->kategori.'<i onclick="hapus_kategori_toko("{{'.$kategorinya_toko->id.'}}")" class="far fa-trash-alt remove-note"></i></li>';
         echo $result;
     }
+
+    public function input_cover(Request $request, $id){
+        $image = $request->image;
+
+		list($type, $image) = explode(';', $image);
+		list(, $image)      = explode(',', $image);
+		$image = base64_decode($image);
+		$image_name= time().$this->generateRandomString().'.png';
+        // $path = public_path('upload/'.$image_name);
+
+        // file_put_contents($path, $image);
+		$toko = toko::where('users_id', $id)->first();
+		$image_path = "img/toko/$toko->id/cover/";
+		\Storage::disk('public')->put($image_path."/$image_name", file_get_contents($request->image));
+		\File::delete("public/".$image_path."/$toko->foto_cover");
+		$toko->foto_cover = $image_name;
+		$toko->save();
+		echo $image_path."$image_name";
+    }
+
+    public function input_video(Request $request, $id){
+        $cek_video = Video_landing_page::where([
+			['toko_id', $id],
+			['no_video', $request->no]
+		])->get();
+		if(!empty($cek_video)){
+			Video_landing_page::where([
+				['toko_id', $id],
+				['no_video', $request->no]
+			])->delete();
+		}
+
+		$video = new Video_landing_page;
+		$video->toko_id = $id;
+		$video->link_video = $request->link;
+		$video->no_video = $request->no;
+		$video->save();
+
+		$link = $request->link;
+		$cek = substr($link, 0, 11);
+		if(str_contains($link, 'youtu.be')){
+			$link = trim(substr($link, strpos($link, '/')+2));
+			$link = trim(substr($link, strpos($link, '/')+1));
+		}
+		else{
+			$link = trim(substr($link, strpos($link, '=')+1));
+		}
+        // $link = substr($link, 0, strpos($link, '&'));
+		echo $link;
+    }
 }
