@@ -215,8 +215,9 @@ Toko
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Data Toko</h4>
-                <a onclick="modal_ubah_password('{{$toko->id}}')" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_ubah_password">Ubah Password</a>
-                {{-- <h6 class="card-subtitle">To use add <code>.r-separator</code> class in the form with form styling.</h6> --}}
+                <a href="#" onclick="modal_ubah_password('{{$toko->id}}')" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_ubah_password">Ubah Password</a>
+                <a href="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/daftar_produk" type="button" class="btn btn-danger" >Landing Page</a>
+
             </div>
             <hr class="mt-0">
             <div class="card-body">

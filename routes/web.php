@@ -242,7 +242,10 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::get('/admin/manajemen/daftar_tunggu_toko', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko']);
         Route::get('/admin/manajemen/daftar_tunggu_toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko_detail']);
         Route::post('/admin/manajemen/daftar_tunggu_toko/post', [Admin_Manajemen_Toko_Controller::class, 'post_daftar_tunggu_toko']);
-    
+        
+        // manajemen toko (produk dan landing page)
+        Route::get('/admin/manajemen/toko/{id_toko}/daftar_produk', [Admin_Manajemen_Toko_Controller::class, 'daftar_produk_toko']);
+        Route::post('/admin/manajemen/toko/{id_toko}/post_ubah_produk', [Admin_Manajemen_Toko_Controller::class, 'post_ubah_produk']);
     });
    
 });
