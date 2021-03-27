@@ -192,4 +192,8 @@ class Admin_Manajemen_Toko_Controller extends Controller
 
         return back();
     }
+
+    public function landing_page($id){
+        dd('Landing page');
+    }
 }
