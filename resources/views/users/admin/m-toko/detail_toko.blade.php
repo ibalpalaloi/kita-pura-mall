@@ -216,8 +216,8 @@ Toko
             <div class="card-body">
                 <h4 class="card-title">Data Toko</h4>
                 <a href="#" onclick="modal_ubah_password('{{$toko->id}}')" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_ubah_password">Ubah Password</a>
-                <a href="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/daftar_produk" type="button" class="btn btn-danger" >Landing Page</a>
-
+                <a href="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/daftar_produk" type="button" class="btn btn-danger" >Data Produk</a>
+                <a href="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/landing_page" type="button" class="btn btn-danger" >Landing Page</a>
             </div>
             <hr class="mt-0">
             <div class="card-body">
