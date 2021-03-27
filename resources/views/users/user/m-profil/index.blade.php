@@ -192,6 +192,9 @@ if (!empty($_GET['daftar_mitra_premium'])){
 					<div style="font-size: 2em; font-weight: 600; text-align: center;">Yeah, Hore!</div>
 					<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">selamat anda sudah bisa menikmati semua fitur <span style="font-weight: 600;">kitapuramall</span>
 					</div>
+					<div style="width: 100%; display: flex; justify-content: center;">
+						<div data-dismiss="modal" style="background: white;padding: 0.5em 3em;border-radius: 1.5em; width: auto; color: #027B32; font-size: 1.2em;">Okey</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -206,9 +209,12 @@ if (!empty($_GET['daftar_mitra_premium'])){
 			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
 				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
 				<img src="<?=url('/')?>/public/img/modal_assets/modal_sukses_input.svg" style="width: 100%;">
-				<div style="position: absolute; margin: 1em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
+				<div style="position: absolute; margin: 1em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 50%;">
 					<div style="font-size: 2em; font-weight: 600; text-align: center;">Berhasil!</div>
 					<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">selamat anda telah berhasil mengganti password anda 
+					</div>
+					<div style="width: 100%; display: flex; justify-content: center;">
+						<div data-dismiss="modal" style="background: white;padding: 0.5em 3em;border-radius: 1.5em; width: auto; color: #027B32; font-size: 1.2em;">Okey</div>
 					</div>
 				</div>
 			</div>
@@ -224,9 +230,12 @@ if (!empty($_GET['daftar_mitra_premium'])){
 			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
 				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
 				<img src="<?=url('/')?>/public/img/modal_assets/modal_error_input.svg" style="width: 100%;">
-				<div style="position: absolute; margin: 1em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
+				<div style="position: absolute; margin: 1em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 50%;">
 					<div style="font-size: 2em; font-weight: 600; text-align: center;">Gagal!</div>
 					<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">{{Session::get('pass_message')}}
+					</div>
+					<div style="width: 100%; display: flex; justify-content: center;">
+						<div data-dismiss="modal" style="background: white;padding: 0.5em 3em;border-radius: 1.5em; width: auto; color: white; font-size: 1.2em; background: #FFBD03;">Okey</div>
 					</div>
 				</div>
 			</div>
@@ -413,12 +422,11 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	$('#modal-pemberitahuan').modal('show');
 	@endif
 
-
-	@if(Session::get('status_password') == 'sukses')
+	@if(Session::get('status_password') == 'sukses');
 	$('#modal-ubah-password-sukses').modal('show');
 	@endif
 
-	@if(Session::get('status_password') == 'gagal')
+	@if(Session::get('status_password') == 'gagal');
 	$('#modal-ubah-password-gagal').modal('show');
 	@endif
 

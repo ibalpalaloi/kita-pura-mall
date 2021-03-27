@@ -453,9 +453,11 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 			<a onclick="show_loader()" href="<?=url('/')?>/akun/mitra/premium/ganti-landing-page" style="padding-left: 0.4em;">
 				<img src="<?=url('/')?>/public/img/button/toko_premium/ganti_landing_page.svg" style="width: 100%;">
 			</a>
-			<a onclick="show_loader()" href="<?=url('/')?>/akun/mitra/premium/transaksi" style="padding-left: 0.4em;" hidden>
+			@if ($toko->status == 'Tester')
+			<a onclick="show_loader()" href="<?=url('/')?>/akun/mitra/premium/transaksi" style="padding-left: 0.4em;">
 				<img src="<?=url('/')?>/public/img/button/toko_premium/list_pesanan.svg" style="width: 100%;">
 			</a>
+			@endif
 		</div>
 	</div>
 
@@ -676,7 +678,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 <script>
 	function copy_text(id) {
 		var text = "Halo, Silahkan kunjungi toko saya di link berikut: "
-    	var url = document.getElementById("link_toko_"+id).value;
+		var url = document.getElementById("link_toko_"+id).value;
 		var copyurl = document.getElementById("link_toko_"+id);
 		copyurl.value = text + "https://" + url;   
 		// alert(copyurl.value);
@@ -686,10 +688,10 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		document.getElementById("link_toko_"+id).value = url;
 
 		$(document).ready(function(){
-            $('#salin-link-'+id).attr('title', 'Link Berhasil Disalin !')
-                  .tooltip('dispose')
-                  .tooltip({ title: 'Link Berhasil Disalin'});
-            $('#salin-link-'+id).tooltip('show');
+			$('#salin-link-'+id).attr('title', 'Link Berhasil Disalin !')
+			.tooltip('dispose')
+			.tooltip({ title: 'Link Berhasil Disalin'});
+			$('#salin-link-'+id).tooltip('show');
 		});
 
 	}
@@ -714,7 +716,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	function WhatsappMessage() {
 
 		var text = "Halo, Silahkan kunjungi toko saya di link berikut: "
-    	var url = document.getElementById("link_toko_2").value;
+		var url = document.getElementById("link_toko_2").value;
 		var copyurl = document.getElementById("link_toko_2");
 		var url = text + "https://" + url;   
 		var apilink = 'http://';
@@ -727,7 +729,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 	function link_fb() {
 		var text = "Halo, Silahkan kunjungi toko saya di link berikut: "
-    	var url = document.getElementById("link_toko_2").value;
+		var url = document.getElementById("link_toko_2").value;
 		var copyurl = document.getElementById("link_toko_2");
 		copyurl.value = text + "https://" + url;   
 		// alert(copyurl.value);
