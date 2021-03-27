@@ -429,8 +429,10 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 							@foreach($kategori_produk as $row)
 							<option data-index="{{$index++}}" value="{{$row->id}}">{{$row->nama}}</option>
 							@endforeach
+							<option data-index="lainnya" value="lainnya">LAINNYA</option>
 						</select>
 					</div>
+					<input hidden type="text" class="form-control-mall" id="kategori_lain" name="kategori_lain"  placeholder="Isi Kategori Lainnya" aria-label="" aria-describedby="basic-addon1" style="width: 100%;">
 				</div>
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex;justify-content: space-between;">
 					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Sub Kategori</div>
@@ -906,18 +908,25 @@ function hapus_jadwal(hari){
 
 	$('#kategori_produk').on('change', function(){
 		var index = $('#kategori_produk').find(':selected').data('index');
-		$('#sub_kategori_produk').empty();
-		var sub_kategori = {!!json_encode($sub_kategori)!!}
-		$('#sub_kategori_produk').append($('<option>', {
-			value: '',
-			text: 'Pilih Sub Kategori Produk'
-		}));
-		for(i=0; i<sub_kategori.length; i++){
+		if(index != "lainnya"){
+			$("#kategori_lain").prop('hidden', true);
+			$('#sub_kategori_produk').empty();
+			var sub_kategori = {!!json_encode($sub_kategori)!!}
 			$('#sub_kategori_produk').append($('<option>', {
-				value: sub_kategori[index][i]['id_sub_kategori'],
-				text: sub_kategori[index][i]['sub_kategori']
+				value: '',
+				text: 'Pilih Sub Kategori Produk'
 			}));
+			for(i=0; i<sub_kategori.length; i++){
+				$('#sub_kategori_produk').append($('<option>', {
+					value: sub_kategori[index][i]['id_sub_kategori'],
+					text: sub_kategori[index][i]['sub_kategori']
+				}));
+			}
 		}
+		else{
+			$("#kategori_lain").prop('hidden', false);
+		}
+		
 
 	})
 

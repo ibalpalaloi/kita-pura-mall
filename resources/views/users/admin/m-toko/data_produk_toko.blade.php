@@ -72,7 +72,8 @@ Produk Toko
                     <div class="ml-3">
                         <h4 class="mb-0">{{$data->nama}}</h4>
                         <span class="text-muted">Kategori : {{$data->kategori->nama}}</span><br>
-                        <span class="text-muted">Kategori : {{$data->sub_kategori->nama}}</span><br>
+                        
+                        <span class="text-muted">sub_Kategori : {{$data->get_nama_sub_kategori()}}</span><br>
                         @if ($data->jenis_harga == "Statis")
                             <span class="text-muted">Harga : {{$data->harga}}</span>
                         @else
@@ -81,7 +82,7 @@ Produk Toko
                         
                     </div>
                     <div class="ml-auto mr-3">
-                        <button onclick="modal_ubah_produk('{{$data->nama}}', '{{$data->harga}}', '{{$data->kategori->id}}', '{{$data->sub_kategori->id}}', '{{$data->sub_kategori->nama}}', '{{$data->id}}')" type="button" class="btn btn-dark btn-circle" >
+                        <button onclick="modal_ubah_produk('{{$data->nama}}', '{{$data->harga}}', '{{$data->kategori->id}}', '{{$data->get_id_sub_kategori()}}', '{{$data->get_nama_sub_kategori()}}', '{{$data->id}}')" type="button" class="btn btn-dark btn-circle" >
                             <i class="fas fa-pencil-alt"></i>
                         </button>
                     </div>

@@ -25,4 +25,20 @@ class Product extends Model
     public function toko(){
         return $this->belongsTo(Toko::class);
     }
+    public function get_nama_sub_kategori(){
+        if(empty($this->sub_kategori_id)){
+            return "";
+        }
+        else{
+            return $this->sub_kategori->nama;
+        }
+    }
+    public function get_id_sub_kategori(){
+        if(empty($this->sub_kategori_id)){
+            return "";
+        }
+        else{
+            return $this->sub_kategori->id;
+        }
+    }
 }
