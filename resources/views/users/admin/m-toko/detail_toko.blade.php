@@ -158,7 +158,7 @@ Toko
                 <form action="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/post_password_baru" method="post">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        Ketikkan untuk menghapus toko <b>"kitapuramallpalu"</b> 
+                        Ketikkan untuk ubah password mitra <b>"kitapuramallpalu"</b> 
                         <p style="color: red" id="pass_salah"></p>
                         <input name="ketikan" id="ketikan" type="text" hidden value="kitapuramallpalu">
                         <input name="id_toko" type="text" hidden value="{{$toko->id}}">
@@ -344,7 +344,8 @@ Toko
         var data = {!! json_encode($toko) !!};
         var apilink = 'http://';
         var phone = $('#no_akun').val();
-        var message = 'password baru akun anda "'+$('#pass').val()+'"';
+        var message = 'password baru akun anda "'+$('#pass').val()+'" \n'+
+                        'Silahkan login dan ubah password akun anda';
 
         // apilink += isMobile ? 'api' : 'web';
         // apilink += '.whatsapp.com/send?phone=' + phone + '&text=' + encodeURI(message);
