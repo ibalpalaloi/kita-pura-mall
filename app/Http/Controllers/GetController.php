@@ -99,6 +99,16 @@ class GetController extends Controller
         echo $result;
     }
 
+    public function generateRandomString($length = 10) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
+
     public function input_cover(Request $request, $id){
         $image = $request->image;
 
@@ -109,7 +119,7 @@ class GetController extends Controller
         // $path = public_path('upload/'.$image_name);
 
         // file_put_contents($path, $image);
-		$toko = toko::where('users_id', $id)->first();
+		$toko = toko::where('id', $id)->first();
 		$image_path = "img/toko/$toko->id/cover/";
 		\Storage::disk('public')->put($image_path."/$image_name", file_get_contents($request->image));
 		\File::delete("public/".$image_path."/$toko->foto_cover");
