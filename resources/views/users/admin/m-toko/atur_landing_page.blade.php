@@ -1271,7 +1271,7 @@ if (!empty($_GET['deskripsi'])){
             }).then(function (img) {
                 $.ajax({
 
-                    url: "<?=url('/')?>/admin/manajemen/toko/+"toko_id"+/landing_page_ganti_cover",
+                    url: "<?=url('/')?>/admin/manajemen/toko/"+toko_id+"/landing_page_ganti_cover",
                     type: "POST",
                     data: {"image":img},
                     success: function (data) {
