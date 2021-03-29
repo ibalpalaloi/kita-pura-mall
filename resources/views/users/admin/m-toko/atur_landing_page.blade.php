@@ -658,7 +658,7 @@ if (!empty($_GET['deskripsi'])){
             <div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
                 <img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: -0.5em; z-index: 5;">
                 <img src="<?=url('/')?>/public/img/mitra/modal_simpan_toko_premium.svg" style="width: 95%; position: absolute; top: -10.5em;">
-                <form action="<?=url('/')?>/akun/mitra/premium/ubah-landing-page/post_fasilitas" method="post">
+                <form action="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/landing_page_tambah_fasiltas_toko" method="post">
                     {{csrf_field()}}
                     <div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 0.8em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;">
                         <div style="margin-top: 1em;">
@@ -693,7 +693,7 @@ if (!empty($_GET['deskripsi'])){
             <div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
                 <img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: -0.5em; z-index: 5;">
                 <img src="<?=url('/')?>/public/img/mitra/modal_simpan_toko_premium.svg" style="width: 95%; position: absolute; top: -10.5em;">
-                <form action="<?=url('/')?>/akun/mitra/premium/ubah-landing-page/ubah_fasilitas" method="post">
+                <form action="<?=url('/')?>/admin/manajemen/toko/landing_page_ubah_fasiltas_toko" method="post">
                     {{csrf_field()}}
                     <div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 0.8em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;">
                         <div style="margin-top: 1em;">
@@ -713,7 +713,7 @@ if (!empty($_GET['deskripsi'])){
                                 </div>
                             </div>
                         </div>
-                        <input type="text" id="id_ubah_fasilitas" name="id" hidden >	
+                        <input type="text" id="id_ubah_fasilitas" name="id" hidden>	
                         <button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
                             <img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
                         </button>									
@@ -902,7 +902,7 @@ if (!empty($_GET['deskripsi'])){
                         <div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 0.8em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;" class="st0">
                             <div style="display: flex; position: absolute; right: 1em; top: -1em;">
                                 <div onclick="modal_ubah_fasilitas('{{$fasilitas->judul}}', '{{$fasilitas->keterangan}}', '{{$fasilitas->id}}')" style="width: 2.5em; background: #3D3D3D; border-radius: 50%; height: 2.5em; display: flex; justify-content: center; margin-right: 0.5em;"><img src="<?=url('/')?>/public/img/icon_svg/pencil.svg" style="width: 50%;"></div>
-                                <a href="<?=url('/')?>/akun/mitra/premium/ubah-landing-page/hapus_fasilitas/{{$fasilitas->id}}" style="width: 2.5em; background: #3D3D3D; border-radius: 50%; height: 2.5em; display: flex; justify-content: center;"><img src="<?=url('/')?>/public/img/icon_svg/trash_white.svg" style="width: 50%;"></a>
+                                <a href="<?=url('/')?>/admin/manajemen/toko/landing_page_hapus_fasiltas_toko/{{$fasilitas->id}}" style="width: 2.5em; background: #3D3D3D; border-radius: 50%; height: 2.5em; display: flex; justify-content: center;"><img src="<?=url('/')?>/public/img/icon_svg/trash_white.svg" style="width: 50%;"></a>
                             </div>	
                             <div style="margin-top: 0.5em;">
                                 <div>Judul</div>
@@ -989,6 +989,9 @@ if (!empty($_GET['deskripsi'])){
                                 </div>
                             </div>
                         </div> 
+                        @php
+                            $index++;
+                        @endphp
                         @endforeach
                         @else
                         @endif
@@ -1019,7 +1022,7 @@ if (!empty($_GET['deskripsi'])){
             var jumlah_menu_favorit = $("#jumlah_menu_favorit").val();
             if(jumlah_menu_favorit < 3 && checkBox.checked == true){
                 $.ajax({
-                    url: "{{route('ubah_status_produk_premium')}}",
+                    url: "<?=url('/')?>/admin/manajemen/toko/"+toko_id+"/landing_page_ubah_status_produk",
                     method: "post",
                     data : {id:id, _token:'{{csrf_token()}}'},
                     success:function(result)
@@ -1032,7 +1035,7 @@ if (!empty($_GET['deskripsi'])){
             }
             else if(checkBox.checked == false){
                 $.ajax({
-                    url: "{{route('ubah_status_produk_premium')}}",
+                    url: "<?=url('/')?>/admin/manajemen/toko/"+toko_id+"/landing_page_ubah_status_produk",
                     method: "post",
                     data : {id:id, _token:'{{csrf_token()}}'},
                     success:function(result)
@@ -1044,6 +1047,7 @@ if (!empty($_GET['deskripsi'])){
                 })
             }
             else{
+                alert(index);
                 document.getElementById("menu_favorit_"+index).checked = false;
                 alert('maksimal menu 3');
 
@@ -1153,7 +1157,7 @@ if (!empty($_GET['deskripsi'])){
             var judul = $('#judul_service').val();
             var keterangan = $('#keterangan_fasilitas').val();
             $.ajax({
-                url: "{{route('post_fasilitas_toko')}}",
+                url: "admin/manajemen/toko/"+toko_id+"/landing_page_ubah_fasiltas_toko",
                 method: "post",
                 data: {id:id_fasiltas_toko, judul:judul, keterangan:keterangan, _token:'{{csrf_token()}}'},
                 success:function(){
