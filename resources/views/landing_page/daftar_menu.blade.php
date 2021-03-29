@@ -285,6 +285,7 @@
 							</span>
 							<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em; background: #EAF4FF; color: grey !important;" required>
 						</div>
+<<<<<<< HEAD
 						<div style="width: 3.4em; height: 3em; background: {{$page->warna_header}}; border-radius: 0.5em; display: flex; justify-content: center;align-items: center;">
 							<img src="<?=url('/')?>/public/img/icon_svg/filter_white.svg" style="width: 50%;">
 						</div>
@@ -295,6 +296,18 @@
 						<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">General</a>
 						<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">terbaru</a>
 						<a class="active-kategori" style="padding: 0.3em 0.7em;">paling dicari</a>
+=======
+					</div>
+					{{-- <div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">
+						<div class="kategori-tabs" style="margin-top: 5px; font-size: 0.85em;">
+							<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">General</a>
+							<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">terbaru</a>
+							<a class="active-kategori" style="padding: 0.3em 0.7em;">paling dicari</a>
+						</div>
+					</div> --}}
+					<div id="daftar_menu" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
+						@include('landing_page.data_daftar_menu')
+>>>>>>> iqbal
 					</div>
 				</div>
 				<div id="daftar_menu" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
