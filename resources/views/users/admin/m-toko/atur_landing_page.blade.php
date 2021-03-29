@@ -1008,6 +1008,7 @@ if (!empty($_GET['deskripsi'])){
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <script type="text/javascript">
+        var toko_id = {!! json_encode($toko->id) !!}
 
         @if(Session::has('message'))	
         $('#modal-pemberitahuan').modal('show')
@@ -1260,7 +1261,6 @@ if (!empty($_GET['deskripsi'])){
 
 
         $('.upload-image').on('click', function (ev) {
-            var toko_id = {!! json_encode($toko->id) !!}
             $("#modal-sukses").modal("hide");
             show_loader();
             resize.croppie('result', {
@@ -1342,7 +1342,7 @@ $('.upload-image-maps-1').on('click', function (ev) {
         circle: false, type: 'canvas', size: imageSize1, quality: 1
     }).then(function (img) {
         $.ajax({
-            url: "<?=url('/')?>/akun/mitra/premium/ubah-landing-page/simpan-foto-maps",
+            url: "<?=url('/')?>/admin/manajemen/toko/"+toko_id+"/landing_page_ganti_foto_maps",
             type: "POST",
             data: {"image":img, "jenis":"1"},
             success: function (data) {
@@ -1385,7 +1385,7 @@ $('.upload-image-maps-2').on('click', function (ev) {
         circle: false, type: 'canvas', size: imageSize2, quality: 1
     }).then(function (img) {
         $.ajax({
-            url: "<?=url('/')?>/akun/mitra/premium/ubah-landing-page/simpan-foto-maps",
+            url: "<?=url('/')?>/admin/manajemen/toko/"+toko_id+"/landing_page_ganti_foto_maps",
             type: "POST",
             data: {"image":img, "jenis":"2"},
             success: function (data) {
@@ -1428,7 +1428,7 @@ $('.upload-image-maps-3').on('click', function (ev) {
         circle: false, type: 'canvas', size: imageSize3, quality: 1
     }).then(function (img) {
         $.ajax({
-            url: "<?=url('/')?>/akun/mitra/premium/ubah-landing-page/simpan-foto-maps",
+            url: "<?=url('/')?>/admin/manajemen/toko/"+toko_id+"/landing_page_ganti_foto_maps",
             type: "POST",
             data: {"image":img, "jenis":"3"},
             success: function (data) {

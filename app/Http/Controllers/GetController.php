@@ -12,6 +12,7 @@ use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Kategorinya_toko;
 use App\Models\kategori_toko;
+use App\Models\Foto_maps;
 use DB;
 
 class GetController extends Controller
@@ -157,5 +158,32 @@ class GetController extends Controller
 		}
         // $link = substr($link, 0, strpos($link, '&'));
 		echo $link;
+    }
+
+    public function input_foto_maps(Request $request, $id_toko){
+        $id = $request->jenis;
+
+		$toko = toko::where('id', $id_toko)->first();
+		$foto = Foto_maps::where('toko_id', $toko->id)->where('no_foto', $id)->first();
+		if($foto){
+			\Storage::disk('public')->delete('img/toko/'.$toko->id.'/maps/'.$foto->foto);
+		}
+		else{
+			$foto = new Foto_maps;
+			$foto->toko_id = $toko->id;
+		}
+		$image = $request->image;
+
+		list($type, $image) = explode(';', $image);
+		list(, $image)      = explode(',', $image);
+		$image = base64_decode($image);
+		$image_name= time().$this->generateRandomString().'.png';
+
+		$image_path = "img/toko/$toko->id/maps/";
+		\Storage::disk('public')->put($image_path."/$image_name", file_get_contents($request->image));
+		$foto->foto = $image_name;
+		$foto->no_foto = $id;
+		$foto->save();
+		echo $image_path."$image_name";
     }
 }
