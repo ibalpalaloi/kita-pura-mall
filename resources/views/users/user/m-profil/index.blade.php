@@ -279,7 +279,7 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 			<div style="width: 63%; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 2%;">
 				<div class="container">
 					@if(Session::get('progress_biodata') == '5')
-					<div style="line-height: 1.1em;">Semoga Harimu <strong>Menyenangkan!</strong></div>
+					<div style="line-height: 1.1em; text-align: center;">Semoga Harimu <strong>Menyenangkan!</strong></div>
 					@else
 					<div>Lengkapi akun anda!</div>			
 					@endif
