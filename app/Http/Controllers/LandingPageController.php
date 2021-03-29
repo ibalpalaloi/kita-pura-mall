@@ -119,10 +119,15 @@ class LandingPageController extends Controller
 		return view('landing_page/index', compact('toko', 'produk', 'keranjang', 'penilaian', 'rating', 'foto_map', 'fasilitas', 'video', 'landing_page'));
 	}
 
-	public function daftar_menu($mitra){
+	public function daftar_menu(Request $request, $mitra){
 		$toko = Toko::where('username', $mitra)->first();
 		$produk = Product::where('toko_id', $toko->id)->get();
 		$page = Landing_page_toko::where('toko_id', $toko->id)->first();
+		$color_status_bar = substr($page->warna_header, 1);
+		$get_color_status_bar = $request->get('colorStatusBar');
+		if(empty($get_color_status_bar)){
+			return redirect('/'.$mitra.'/daftar-menu?colorStatusBar='.$color_status_bar);
+		}
 		return view('landing_page/daftar_menu', compact('produk', 'page', 'toko'));
 	}
 

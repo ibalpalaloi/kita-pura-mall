@@ -35,7 +35,7 @@ class GetController extends Controller
     function get_produk(Request $request){
         $cari = $request->produk;
         if($cari == ''){
-            $produk = Product::where('toko_id', 'TK-031220211434')->get();
+            $produk = Product::where('toko_id', $request->id_toko)->get();
         }
         else{
             $produk = Product::where([

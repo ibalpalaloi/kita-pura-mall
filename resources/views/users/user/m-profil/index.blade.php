@@ -364,7 +364,7 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 			<div style="width: 63%; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 2%;">
 				<div class="container">
 					@if(Session::get('progress_biodata') == '5')
-					<div style="font-size: 0.85em;">Selamat bergabung di <strong>kitapuramall</strong> !</div>			
+					<div style="line-height: 1.1em; text-align: center;">Semoga Harimu <strong>Menyenangkan!</strong></div>
 					@else
 					<div style="font-size: 0.85em;">Selamat bergabung di <strong>kitapuramall</strong> !</div>			
 					@endif
