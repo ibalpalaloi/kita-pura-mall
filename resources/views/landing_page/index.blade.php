@@ -341,6 +341,18 @@
 	</div>
 </div>
 
+<div class="modal fade" id="modal-open-image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/close_btn.svg" style="position: absolute; top: 2em; right: 2em;">
+				<img id="modal-image" src="" style="width: 100%; border-radius: 1em;">
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <div class="modal fade" id="modal-jadwal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
 style="padding: 1.5em; padding: 0px;">
 <form action="<?=url('')?>/user/post_penilaian" method="post">
@@ -437,15 +449,15 @@ style="padding: 1.5em; padding: 0px;">
 		<div class="penilaian" style="margin-top: 0.5em;">
 			<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em;">
 				@php
-				$bintang = 5-$rating;
+				$bintang = 1;
 				@endphp
-				@for ($i = 0; $i < $rating; $i++)
+				@for ($i = 0; $i < 4; $i++)
 				<i class="fas fa-star star-rating"></i>
 				@endfor
 				@for ($i = 0; $i < $bintang; $i++)
 				<i class="far fa-star star-rating"></i>
 				@endfor
-				<span style="color: {{$landing_page->warna_tulisan_header}}; font-size: 0.8em;">&nbsp;({{count($penilaian)}} Penilaian)</span>
+				<span style="color: {{$landing_page->warna_tulisan_header}}; font-size: 0.8em;">&nbsp;(8 Penilaian)</span>
 			</div>
 			<div class="penilai" style="display: flex; justify-content: space-between; align-items: flex-end;" hidden>
 				<div class="foto-penilai" style="display: flex; justify-content: flex-start; margin-top: 0.2em;">
@@ -501,7 +513,7 @@ style="padding: 1.5em; padding: 0px;">
 				<div style="font-size: 1.4em; font-weight: 1000; text-align: center;">Layanan Kami</div>
 			</div>
 			<div class="input-group mb-3" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-				<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
+				<div onclick='open_modal_image("<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[1]}}")' style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
 					<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[1]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 				</div>
 
@@ -510,7 +522,7 @@ style="padding: 1.5em; padding: 0px;">
 			@endif
 			<div style="display: flex; justify-content: space-between;">
 				@if(!empty($foto_map[2]))
-				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
+				<div onclick='open_modal_image("<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[2]}}")' class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
 					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew">
 						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[2]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 					</div>
@@ -519,7 +531,7 @@ style="padding: 1.5em; padding: 0px;">
 				</div>
 				@endif
 				@if (!empty($foto_map[3]))
-				<div class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
+				<div onclick='open_modal_image("<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[3]}}")' class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
 					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew">
 						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[3]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 					</div>
@@ -698,6 +710,11 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 			}
 		})
 		
+	}
+
+	function open_modal_image(img){
+		$("#modal-image").attr('src', img);
+		$("#modal-open-image").modal('show');
 	}
 
 	function gagal_masukan_keranjang(){
