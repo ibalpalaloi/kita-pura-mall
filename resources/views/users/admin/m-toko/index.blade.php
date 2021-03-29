@@ -60,7 +60,7 @@ Toko
                 </a>
                 <br><br>
                 <div class="table-responsive">
-                    <table id="zero_config" class="table table-striped border">
+                    <table id="config-table" class="table display table-bordered table-striped no-wrap">
                         <thead>
                             <tr>
                                 <th>Nama Toko</th>
@@ -100,6 +100,11 @@ Toko
 @endsection
 
 @section('footer-scripts')
+<script src="<?=url('/')?>/public/template/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?=url('/')?>/public/template/admin/assets/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js">
+</script>
+<script src="<?=url('/')?>/public/template/admin/dist/js/pages/datatable/datatable-basic.init.js"></script>
+
 <script>
     function modal_hapus(id_toko){
         $('#modal_hapus_toko').modal('show');
