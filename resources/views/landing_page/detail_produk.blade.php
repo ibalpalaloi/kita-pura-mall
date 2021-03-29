@@ -278,8 +278,10 @@ style="padding: 1.5em; padding: 0px;">
 			@endif
 
 
+			@php $penjual = ""; @endphp
 
 			@if (Auth::user())
+			
 			@if ($penjual == 'no')
 			@if ($produk->jenis_harga == 'Statis')
 			@if($produk->diskon != '0')
