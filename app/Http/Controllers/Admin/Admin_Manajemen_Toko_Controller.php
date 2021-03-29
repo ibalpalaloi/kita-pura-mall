@@ -219,4 +219,19 @@ class Admin_Manajemen_Toko_Controller extends Controller
 
 		return view('users/admin/m-toko/atur_landing_page', compact('kategori_produk','produk','foto_1','foto_2','foto_3', 'video', 'fasilitas_toko', 'toko'));
     }
+
+    public function ubah_fasilitas_toko(Request $request){
+		$post = Landing_page_fasilitas_toko::find($request->id);
+		$post->judul = $request->judul;
+		$post->keterangan = $request->keterangan;
+		$post->save();
+
+		return back();
+	}
+
+    public function hapus_fasilitas_toko($id){
+		Landing_page_fasilitas_toko::find($id)->delete();
+
+		return back();
+	}
 }
