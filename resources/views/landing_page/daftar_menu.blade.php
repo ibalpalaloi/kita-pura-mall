@@ -277,13 +277,13 @@
 							</div>
 						</div>
 					</div>
-					<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">
+					{{-- <div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">
 						<div class="kategori-tabs" style="margin-top: 5px; font-size: 0.85em;">
 							<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">General</a>
 							<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">terbaru</a>
 							<a class="active-kategori" style="padding: 0.3em 0.7em;">paling dicari</a>
 						</div>
-					</div>
+					</div> --}}
 					<div id="daftar_menu" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
 						@include('landing_page.data_daftar_menu')
 					</div>
