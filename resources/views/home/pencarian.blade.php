@@ -85,14 +85,13 @@ Explore |
 	<div class="card-pencarian" style="background: #eaf4ff;">
 		<div class="nama-kategori" style="background: #eaf4ff; padding-top: 0.6em; margin-top: 4em; display: flex; flex-direction: column; flex-wrap: wrap;">
 			@include('home.data_pencarian')
-		</div> 
-		<div class="load text-center" style="display: none">
-			loading ......
-			<br><br><br><br><br>
 		</div>
+		<div id="loading" class="spinner-border text-primary" role="status">
+			<span class="sr-only">Loading...</span>
+		  </div>
 		<div class="no_more text-center" style="display: none">
 			No More ......
-			<input type="text" id="no_more_check" hidden value="0">
+			<input type="text" id="no_more_check" hidden value="1">
 			<br><br><br><br><br>
 		</div>
 	</div>
@@ -118,20 +117,12 @@ Explore |
 			url: '?page=' + page,
 			type: 'get',
 			beforeSend: function(){
-				$(".load").show();
+				$("#loading").show();
 			}
 		})
 		.done(function(data){
-			$('.load').hide();
-			if(!data.length){
-				$('.no_more').show();
-				$("#no_more_check").val('1');
-			}
-			else{
+			$('#loading').hide();
 				$('.nama-kategori').append(data.html);
-			}
-			
-			
 		})
 		.fail(function(jqXHR, ajaxOptions, thrownError){
 			alert("server errror");
@@ -141,10 +132,10 @@ Explore |
 	$(window).scroll(function(){
 		if($(window).scrollTop() + $(window).height() >= $(document).height()){
 			var check = $("#no_more_check").val();
-			if(check == 0){
+			if(check == 1){
 				page++;
 				loadMoreData(page);
-				$(".load").show();
+				$("#loading").show();
 			}
 		}
 	})
