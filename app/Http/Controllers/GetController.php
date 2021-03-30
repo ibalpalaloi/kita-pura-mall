@@ -13,6 +13,7 @@ use App\Models\Kelurahan;
 use App\Models\Kategorinya_toko;
 use App\Models\kategori_toko;
 use App\Models\Foto_maps;
+use App\Models\Landing_page_fasilitas_toko;
 use DB;
 
 class GetController extends Controller
@@ -186,4 +187,51 @@ class GetController extends Controller
 		$foto->save();
 		echo $image_path."$image_name";
     }
+
+    public function ubah_status_produk_premium(Request $request, $id_toko){
+		$id = $request->id;
+		$toko = toko::where('id', $id_toko)->first();
+
+		$produk = product::where('toko_id', $toko->id)->where('id', $id)->first();
+
+		if($produk->tampil == 'Ya'){
+
+			$new_produk = product::where('toko_id', $toko->id)->where('id', $id)->first();
+			$new_produk->tampil = "Tidak";
+			$new_produk->save();
+		}
+		else{
+
+			$cek_produk = product::where('toko_id', $toko->id)->where('tampil','Ya')->get()->count();
+
+			if($cek_produk == '3'){
+
+				
+				$notification = array(
+					'message' => 'Maaf, Produk Untuk Tampil Landing Page Telah Maksimal'
+				);     
+
+				//  dd($notification);
+				return redirect()->back()->with($notification);
+
+			}
+			else{
+				$new_produk = product::where('toko_id', $toko->id)->where('id', $id)->first();
+				$new_produk->tampil = "Ya";
+				$new_produk->save();
+			}
+		}
+
+		echo "menu favorit";
+	}
+
+    function post_fasilitas_baru(Request $request, $id_toko){
+		$post = new Landing_page_fasilitas_toko;
+		$post->judul = $request->judul;
+		$post->keterangan = $request->keterangan;
+		$post->toko_id =$id_toko;
+		$post->save();
+
+        return back();
+	}
 }
