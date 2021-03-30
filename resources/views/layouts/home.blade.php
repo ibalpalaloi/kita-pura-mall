@@ -187,14 +187,20 @@ $show = "finish";
                 <div style="text-align: center; font-size: 0.7em; color: #5b5b5b;">Beranda</div>
             </div>
         </div> 
-        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;">
-            <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;" onclick="cooming_soon()">
-                <div style="background: #6c757d; border: 2px solid #6c757d; width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;" >
-                    <img src="<?=url('/')?>/public/img/menu/pencarian.svg" style="width: 60%;">
-                </div>
-                <div style="text-align: center; font-size: 0.7em; color: #5b5b5b;">Pencarian</div>
+        @for ($i = 0; $i < count($menu)-2; $i++)  
+        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;" onclick="show_loader()">
+            <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;">
+                <a style="@if ($link_menu[$i] == $link_now) background: #ff006e; @else background: white; border: 2px solid #ff006e; @endif width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;" href="<?=url('/')?>/{{$link_menu[$i]}}">
+                    @if ($link_menu[$i] == $link_now)
+                    <img src="<?=url('/')?>/public/img/menu/{{$menu[$i]}}" style="width: 60%;">
+                    @else
+                    <img src="<?=url('/')?>/public/img/menu/{{$menu_color[$i]}}" style="width: 60%;">
+                    @endif
+                </a>
+                <div style="text-align: center; font-size: 0.7em; color: #5b5b5b;">{{$nama_menu[$i]}}</div>
             </div>
         </div> 
+        @endfor
         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;">
             <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;" onclick="cooming_soon()">
                 <div style="background: #6c757d; border: 2px solid #6c757d; width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;">
@@ -217,6 +223,14 @@ $show = "finish";
             </div>
         </div> 
         @endfor
+        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;">
+            <a href="https://lprmsulteng.com/mobile/mobil" style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;">
+                <div style="background: white; border: 2px solid #ff006e; width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;">
+                    <img src="<?=url('/')?>/public/img/menu/rental_mobil.svg" style="width: 60%;">
+                </div>
+                <div style="text-align: center; font-size: 0.7em; color: #5b5b5b; white-space: nowrap;">Rental Mobil</div>
+            </a>
+        </div>        
         @for ($i = 2; $i < count($menu); $i++)  
         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;" onclick="show_loader()">
             <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;">
