@@ -78,6 +78,9 @@ class HomeController extends Controller
             $view = view('home.data_pencarian', compact('product'))->render();
             return response()->json(['html'=>$view]);
         }
+        // dd();
+        // echo "<pre>";
+        // print_r($product);
 		return view('home/pencarian', compact('product'));
 	}
 
