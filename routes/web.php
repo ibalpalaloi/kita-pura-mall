@@ -41,9 +41,12 @@ use App\Http\Controllers\Mitra\TransaksiController;
 
 Route::group(['middleware'=> 'guest'], function() {
 
-    
-    Route::get('/', [AuthController::class, 'login'])->name('login');
+
     Route::post('/masuk', [AuthController::class, 'post_login']);
+    Route::get('/register', [AuthController::class, 'register']);
+    Route::get('/register-api', [AuthController::class, 'register_api']);
+    Route::get('/buat-akun', [AuthController::class, 'buat_akun']);
+    Route::post('/buat-akun/simpan-foto', [UserController::class, 'simpan_foto']);
 
     // @Jika Belum Memiliki Akun
     Route::get('/verifikasi-otp/{id}', [AuthController::class, 'verifikasi_otp']);
@@ -60,6 +63,7 @@ Route::group(['middleware'=> 'guest'], function() {
 
     Route::get('/admin', [Admin_Auth_Controller::class, 'login'])->name('login_admin');
     Route::post('/admin/masuk', [Admin_Auth_Controller::class, 'post_login']);
+    Route::get('/', [AuthController::class, 'login'])->name('login');
 
 
 });
@@ -71,8 +75,8 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/home/halaman_tunggu', [HomeController::class, 'untuk_mitra']);
 
     Route::group(['middleware'=> 'home'], function() {
-        
-        
+
+
         // @home
         Route::get('/home_mitra', [HomeController::class, 'home_mitra']);
         Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -130,7 +134,7 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::get('/akun/mitra/free/upgrade-premium/upload-ktp', [Mitra_Free_Controller::class, 'upgrade_upload_ktp']);
             Route::post('/akun/mitra/free/upgrade-premium/upload-ktp/simpan', [Mitra_Free_Controller::class, 'upgrade_simpan_ktp']);
 
-        
+
             
 
         });
@@ -200,64 +204,64 @@ Route::group(['middleware'=> 'auth'], function() {
 
         });
 
-        
-
-    });
 
 
-    Route::group(['middleware'=> 'admin'], function() {
-
-        Route::get('/admin/logout', [Admin_Auth_Controller::class, 'logout']);
+});
 
 
-        Route::get('/admin/beranda', [Admin_Beranda_Controller::class, 'index']);
-        
+Route::group(['middleware'=> 'admin'], function() {
+
+    Route::get('/admin/logout', [Admin_Auth_Controller::class, 'logout']);
+
+
+    Route::get('/admin/beranda', [Admin_Beranda_Controller::class, 'index']);
+
         // manajemen pengguna
-        Route::get('/admin/manajemen/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'index']);
-        Route::post('/admin/ubah_password/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'ubah_password']);
-        Route::get('/admin/delete/pengguna/{id}', [Admin_Manajemen_Pengguna_Controller::class, 'hapus_pengguna']);
+    Route::get('/admin/manajemen/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'index']);
+    Route::post('/admin/ubah_password/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'ubah_password']);
+    Route::get('/admin/delete/pengguna/{id}', [Admin_Manajemen_Pengguna_Controller::class, 'hapus_pengguna']);
     
         // manajemen kategori toko
-        Route::get('/admin/manajemen/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'kategori_toko']);
-        Route::get('/admin/delete/kategori_toko/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_kategori_toko']);
-        Route::post('/admin/tambah/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'tambah_kategori_toko']);
-        Route::post('/admin/ubah/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'ubah_kategori_toko']);
+    Route::get('/admin/manajemen/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'kategori_toko']);
+    Route::get('/admin/delete/kategori_toko/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_kategori_toko']);
+    Route::post('/admin/tambah/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'tambah_kategori_toko']);
+    Route::post('/admin/ubah/kategori_toko', [Admin_Manajemen_Kategori_Controller::class, 'ubah_kategori_toko']);
     
         // manajemen kategori produk
-        Route::get('/admin/manajemen/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'kategori_produk']);
-        Route::post('/admin/manajemen/get_sub_kategori', [Admin_Manajemen_Kategori_Controller::class, 'get_sub_kategori'])->name('get_sub_kategori');
-        Route::post('/admin/ubah/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'ubah_kategori_produk']);
-        Route::get('/admin/delete/kategori_produk/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_kategori_produk']);
-        Route::post('/admin/ubah/sub_kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'ubah_sub_kategori_produk']);
-        Route::get('/admin/delete/sub_kategori_produk/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_sub_kategori_produk']);
-        Route::post('/admin/tambah/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'tambah_kategori_produk']);
-        Route::post('/admin/tambah/sub_kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'tambah_sub_kategori_produk']);
+    Route::get('/admin/manajemen/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'kategori_produk']);
+    Route::post('/admin/manajemen/get_sub_kategori', [Admin_Manajemen_Kategori_Controller::class, 'get_sub_kategori'])->name('get_sub_kategori');
+    Route::post('/admin/ubah/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'ubah_kategori_produk']);
+    Route::get('/admin/delete/kategori_produk/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_kategori_produk']);
+    Route::post('/admin/ubah/sub_kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'ubah_sub_kategori_produk']);
+    Route::get('/admin/delete/sub_kategori_produk/{id}', [Admin_Manajemen_Kategori_Controller::class, 'hapus_sub_kategori_produk']);
+    Route::post('/admin/tambah/kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'tambah_kategori_produk']);
+    Route::post('/admin/tambah/sub_kategori_produk', [Admin_Manajemen_Kategori_Controller::class, 'tambah_sub_kategori_produk']);
     
         // manajemen toko
-        Route::get('/admin/manajemen/toko', [Admin_Manajemen_Toko_Controller::class, 'index']);
-        Route::post('/admin/manajemen/hapus_toko', [Admin_Manajemen_Toko_Controller::class, 'hapus_toko']);
-        Route::get('/admin/manajemen/toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'detail_toko']);
-        Route::post('/admin/manajemen/toko/{id}/post_password_baru', [Admin_Manajemen_Toko_Controller::class, 'post_password_baru']);
-        Route::post('/admin/manajemen/toko/{id}/ubah_logo', [Admin_Manajemen_Toko_Controller::class, 'ubah_logo']);
-        Route::post('/admin/manajemen/toko/{id}/post_ubah', [Admin_Manajemen_Toko_Controller::class, 'post_ubah_toko']);
-        Route::post('/admin/manajemen/toko/{id}/post_ubah_alamat', [Admin_Manajemen_Toko_Controller::class, 'post_ubah_alamat_toko']);
-        Route::get('/admin/manajemen/daftar_tunggu_toko', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko']);
-        Route::get('/admin/manajemen/daftar_tunggu_toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko_detail']);
-        Route::post('/admin/manajemen/daftar_tunggu_toko/post', [Admin_Manajemen_Toko_Controller::class, 'post_daftar_tunggu_toko']);
-        
+    Route::get('/admin/manajemen/toko', [Admin_Manajemen_Toko_Controller::class, 'index']);
+    Route::post('/admin/manajemen/hapus_toko', [Admin_Manajemen_Toko_Controller::class, 'hapus_toko']);
+    Route::get('/admin/manajemen/toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'detail_toko']);
+    Route::post('/admin/manajemen/toko/{id}/post_password_baru', [Admin_Manajemen_Toko_Controller::class, 'post_password_baru']);
+    Route::post('/admin/manajemen/toko/{id}/ubah_logo', [Admin_Manajemen_Toko_Controller::class, 'ubah_logo']);
+    Route::post('/admin/manajemen/toko/{id}/post_ubah', [Admin_Manajemen_Toko_Controller::class, 'post_ubah_toko']);
+    Route::post('/admin/manajemen/toko/{id}/post_ubah_alamat', [Admin_Manajemen_Toko_Controller::class, 'post_ubah_alamat_toko']);
+    Route::get('/admin/manajemen/daftar_tunggu_toko', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko']);
+    Route::get('/admin/manajemen/daftar_tunggu_toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'daftar_tunggu_toko_detail']);
+    Route::post('/admin/manajemen/daftar_tunggu_toko/post', [Admin_Manajemen_Toko_Controller::class, 'post_daftar_tunggu_toko']);
+
         // manajemen toko (produk dan landing page)
-        Route::get('/admin/manajemen/toko/landing_page_hapus_fasiltas_toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'hapus_fasilitas_toko']);
-        Route::post('/admin/manajemen/toko/landing_page_ubah_fasiltas_toko', [Admin_Manajemen_Toko_Controller::class, 'ubah_fasilitas_toko']);
-        Route::post('/admin/manajemen/toko/{id_toko}/landing_page_tambah_fasiltas_toko', [GetController::class, 'post_fasilitas_baru']);
-        Route::post('/admin/manajemen/toko/{id_toko}/landing_page_ubah_status_produk', [GetController::class, 'ubah_status_produk_premium']);
-        Route::post('/admin/manajemen/toko/{id_toko}/landing_page_ganti_cover', [GetController::class, 'input_cover']);
-        Route::post('/admin/manajemen/toko/{id_toko}/landing_page_ganti_foto_maps', [GetController::class, 'input_foto_maps']);
-        Route::post('/admin/manajemen/toko/{id_toko}/landing_page_ganti_video', [GetController::class, 'input_video']);
-        Route::get('/admin/manajemen/toko/{id_toko}/daftar_produk', [Admin_Manajemen_Toko_Controller::class, 'daftar_produk_toko']);
-        Route::get('/admin/manajemen/toko/{id_toko}/landing_page', [Admin_Manajemen_Toko_Controller::class, 'landing_page']);
-        Route::post('/admin/manajemen/toko/{id_toko}/post_ubah_produk', [Admin_Manajemen_Toko_Controller::class, 'post_ubah_produk']);
-    });
-   
+    Route::get('/admin/manajemen/toko/landing_page_hapus_fasiltas_toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'hapus_fasilitas_toko']);
+    Route::post('/admin/manajemen/toko/landing_page_ubah_fasiltas_toko', [Admin_Manajemen_Toko_Controller::class, 'ubah_fasilitas_toko']);
+    Route::post('/admin/manajemen/toko/{id_toko}/landing_page_tambah_fasiltas_toko', [GetController::class, 'post_fasilitas_baru']);
+    Route::post('/admin/manajemen/toko/{id_toko}/landing_page_ubah_status_produk', [GetController::class, 'ubah_status_produk_premium']);
+    Route::post('/admin/manajemen/toko/{id_toko}/landing_page_ganti_cover', [GetController::class, 'input_cover']);
+    Route::post('/admin/manajemen/toko/{id_toko}/landing_page_ganti_foto_maps', [GetController::class, 'input_foto_maps']);
+    Route::post('/admin/manajemen/toko/{id_toko}/landing_page_ganti_video', [GetController::class, 'input_video']);
+    Route::get('/admin/manajemen/toko/{id_toko}/daftar_produk', [Admin_Manajemen_Toko_Controller::class, 'daftar_produk_toko']);
+    Route::get('/admin/manajemen/toko/{id_toko}/landing_page', [Admin_Manajemen_Toko_Controller::class, 'landing_page']);
+    Route::post('/admin/manajemen/toko/{id_toko}/post_ubah_produk', [Admin_Manajemen_Toko_Controller::class, 'post_ubah_produk']);
+});
+
 });
 
 
