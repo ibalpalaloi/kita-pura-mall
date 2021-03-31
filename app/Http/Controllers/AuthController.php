@@ -19,6 +19,22 @@ use Session;
 class AuthController extends Controller
 {
     //
+    public function register(){
+        return view('auth.register');
+    }
+
+    public function register_api(){
+        return view('auth.register_api');
+    }
+
+    public function buat_akun(){
+        return view('auth.buat_akun');
+    }
+
+    public function simpan_foto(){
+        
+    }
+
     public function login(){
         
         // return view('auth.daftar_mitra.daftar_mitra');

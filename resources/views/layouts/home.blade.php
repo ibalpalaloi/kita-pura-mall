@@ -236,7 +236,7 @@ $show = "finish";
             <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;">
                 <a style="@if ($link_menu[$i] == $link_now) background: #ff006e; @else background: white; border: 2px solid #ff006e; @endif width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;" href="<?=url('/')?>/{{$link_menu[$i]}}">
                     @if ($link_menu[$i] == $link_now)
-                    <img src="<?=url('/')?>/public/img/menu/{{$menu[$i]}}" style="width: 60%;">
+                    <img src="<?=url('/')?>/public/importantg/menu/{{$menu[$i]}}" style="width: 60%;">
                     @else
                     <img src="<?=url('/')?>/public/img/menu/{{$menu_color[$i]}}" style="width: 60%;">
                     @endif
