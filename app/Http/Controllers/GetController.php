@@ -14,6 +14,7 @@ use App\Models\Kategorinya_toko;
 use App\Models\kategori_toko;
 use App\Models\Foto_maps;
 use App\Models\Landing_page_fasilitas_toko;
+use App\Models\User;
 use DB;
 
 class GetController extends Controller
@@ -248,4 +249,51 @@ class GetController extends Controller
 		$toko->save();
 
 	}
+
+	public function cek_email(Request $request){
+		$user = User::where('email', $request->email)->get();
+		if(count($user) > 0){
+			$data = [
+						"status" => "false"
+			];
+			return response()->json(['data'=>$data]);
+		}
+		else{
+			$data = [
+				"status" => "true"
+			];
+			return response()->json(['data'=>$data]);
+		}
+	}
+
+	public function cek_no_hp(Request $request){
+		$no_hp = $this->generate_no_telp($request->no_hp);
+		$user = User::where('no_hp', $no_hp)->get();
+		if(count($user) > 0){
+			$data = [
+						"status" => "false",
+						"no_hp" => $request->no_hp
+			];
+			return response()->json(['data'=>$data]);
+		}
+		else{
+			$data = [
+				"status" => "true",
+				"no_hp" => $request->no_hp
+			];
+			return response()->json(['data'=>$data]);
+		}
+	}
+
+	public function generate_no_telp($no_hp){
+        $no_telp = $no_hp;
+        $no_telp = str_replace("-","", $no_telp);
+        $no_telp = str_replace(" ","", $no_telp);
+        if ($no_telp[0] == 0){
+            $no_telp = substr($no_telp, 1);
+        }
+        $no_telp = substr_replace($no_telp, "+62", 0, 0);
+
+        return $no_telp;
+    }
 }

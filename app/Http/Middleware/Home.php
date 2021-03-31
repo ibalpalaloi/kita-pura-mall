@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Session;
+use Auth;
+
 
 class Home
 {
@@ -18,7 +20,7 @@ class Home
     public function handle(Request $request, Closure $next)
     {
 
-        if (Session::has('no_telp')){
+        if (Auth()->user()->no_hp){
             return $next($request);        
         }
         else {

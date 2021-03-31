@@ -290,24 +290,25 @@
     <main id="homepage" class="homepage">
         <div class="card-mall">
             <div class="card-body" style="padding-top: 2em;">
-                <form method="#" action="#">
+                <form method="post" action="<?=url('/')?>/buat-akun" id="form_input">
+                    {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="exampleEmail" class="bmd-label-floating">Email Address</label>
-                        <input type="email" class="form-control" id="exampleEmail"/>
+                        <label for="exampleEmail" class="bmd-label-floating" id="label_email" style="color: #999797">Alamat Email</label>
+                        <input type="email" name="email" id="email" class="form-control" id="exampleEmail"/>
                     </div>
                     <div class="form-group">
-                        <label for="exampleEmail" class="bmd-label-floating">Nomor Whatsapp</label>
-                        <input type="email" class="form-control" id="exampleEmail"/>
+                        <label for="exampleEmail" class="bmd-label-floating" id="label_no_hp" style="color: #999797">Nomor Whatsapp</label>
+                        <input type="number" name="no_hp" id="no_hp" class="form-control" id="exampleEmail"/>
                     </div>
                     <div class="form-group">
-                        <label for="examplePass" class="bmd-label-floating">Password</label>
-                        <input type="password" class="form-control" id="examplePass">
+                        <label for="examplePass" class="bmd-label-floating" id="label_password" style="color: #999797">Password</label>
+                        <input type="password" name="password" id="password" class="form-control" id="examplePass">
                     </div>
                     <div class="form-group">
 
-                        <a href="<?=url('/')?>/buat-akun"  class="btn" style="width: 100%; background: #0CA437;">
+                        <button onclick="cek_submit()" type="button" class="btn" style="width: 100%; background: #0CA437;">
                             Daftar
-                        </a>
+                        </button>
                     </div>
                 </form>
                 <div style="display: flex;justify-content: center; align-items: center;">
@@ -346,8 +347,94 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 <script src="<?=url('/')?>/public/plugins/material-design/js/material-dashboard.min.js?v=2.1.0"></script>
 
+<script>
+    var status_email = 0;
+    var status_no_hp = 0;
+    var status_password = 0;
+    var result_no_hp = "";
+    var result_email = "";
+    
+    $('#email').change(function(){
+        var email = $(this).val();
+        if(email != "" && email != result_email){
+            $.ajax({
+            url: "<?=url('/')?>/register/cek_email",
+            method: "post",
+            data : {email:email, _token:'{{csrf_token()}}'},
+            success:function(result)
+            {
+                if(result.data['status'] == "false"){
+                    $('#label_email').css('color', 'red');
+                    $('#label_email').text('Email Telah Tersedia');
+                    status_email = 0;
+                }
+                else{
+                    $('#label_email').css('color', '#999797');
+                    $('#label_email').text('Alamat Email');
+                    status_email = 1;
+                }
+            }
+            })
+            result_email = email;
+            // console.log(result_email);
+        }
+        
+    });
 
+    $('#no_hp').change(function(){
+        var no_hp = $(this).val();
+        if(no_hp != result_no_hp && no_hp != ""){
+            result_no_hp = no_hp;
+            $.ajax({
+                url: "<?=url('/')?>/register/cek_no_hp",
+                method: "post",
+                data : {no_hp:no_hp, _token:'{{csrf_token()}}'},
+                success:function(result)
+                {
+                    if(result.data['status'] == "false"){
+                        result_no_hp = no_hp;
+                        status_no_hp = 0;
+                        $('#label_no_hp').css('color', 'red');
+                        $('#label_no_hp').text('Nomor Telah Tersedia');
+                    }
+                    else{
+                        result_no_hp = no_hp;
+                        status_no_hp = 1;
+                        $('#label_no_hp').css('color', '#999797')
+                        $('#label_no_hp').text('Nomor Whatsapp')
+                    }
+                }
+            })
+            // console.log(result_no_hp);
+        }
+        
+    });
+</script>
 <script type="text/javascript">
+    function cek_submit(){
+        cek_password();
+        var cek_status = status_password + status_email + status_no_hp;
+        if(cek_status == 3){
+            $('#form_input').submit();
+        }
+        else{
+            alert('Periksa Kembali Data Anda')
+        }
+        
+    }
+
+    function cek_password(){
+        var password = $('#password').val();
+        if(password.length >= 8){
+            status_password = 1;
+        }
+        else{
+            $('#label_password').text('Password (Minimal 8 Karakter)');
+            $('#label_password').css('color', 'red')
+            status_password = 0;
+        }
+    }
+
     (function($) {
         $.fn.nodoubletapzoom = function() {
             $(this).bind('touchstart', function preventZoom(e) {

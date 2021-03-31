@@ -10,57 +10,68 @@ use App\Models\Toko;
 use App\Models\Penilaian_toko;
 use App\Models\Product;
 use App\Models\Daftar_tunggu_toko;
+use App\Models\Biodata;
 
 class HomeController extends Controller
 {
     //
 	public function index(){
-		$kategori_nama = ['makanan', 'kesehatan'];
-		$list_toko= array();
-		$kategori = [1,4];
-		for($j = 0; $j < count($kategori_nama); $j++){
-			$toko = Toko::where([
-										['jenis_mitra', 'premium'],
-										['kategori_toko_id', $kategori[$j]]
-										])->get();
-			$i=0;
-			foreach($toko as $data){
-				$penilaian = Penilaian_toko::where('toko_id', $data->id)->get();
-				$produk = Product::where('toko_id', $data->id)->get();
-				$produk = Product::where('toko_id', $data->id)->selectRaw('min(harga) as harga')->first();
-				$bintang = 0;
-				$rating = 0;
-				foreach($penilaian as $item){
-					$bintang += $item->bintang;
-				}
-				if(count($penilaian) != 0){
-					$rating = $bintang / count($penilaian);
-				}
-				$list_toko[$kategori_nama[$j]][$i]['nama_toko'] = $data->nama_toko;
-				$list_toko[$kategori_nama[$j]][$i]['kategori'] = $data->kategori_toko->kategori;
-				$list_toko[$kategori_nama[$j]][$i]['jumlah_penilaian'] = count($penilaian);
-				$list_toko[$kategori_nama[$j]][$i]['rating'] = $rating;
-				$list_toko[$kategori_nama[$j]][$i]['harga'] = $produk->harga;
-				$list_toko[$kategori_nama[$j]][$i]['foto'] = $data->logo_toko;
-				$list_toko[$kategori_nama[$j]][$i]['logo'] = $data->logo();
-				$i++;
-			}
-		}
+		// $kategori_nama = ['makanan', 'kesehatan'];
+		// $list_toko= array();
+		// $kategori = [1,4];
+		// for($j = 0; $j < count($kategori_nama); $j++){
+		// 	$toko = Toko::where([
+		// 								['jenis_mitra', 'premium'],
+		// 								['kategori_toko_id', $kategori[$j]]
+		// 								])->get();
+		// 	$i=0;
+		// 	foreach($toko as $data){
+		// 		$penilaian = Penilaian_toko::where('toko_id', $data->id)->get();
+		// 		$produk = Product::where('toko_id', $data->id)->get();
+		// 		$produk = Product::where('toko_id', $data->id)->selectRaw('min(harga) as harga')->first();
+		// 		$bintang = 0;
+		// 		$rating = 0;
+		// 		foreach($penilaian as $item){
+		// 			$bintang += $item->bintang;
+		// 		}
+		// 		if(count($penilaian) != 0){
+		// 			$rating = $bintang / count($penilaian);
+		// 		}
+		// 		$list_toko[$kategori_nama[$j]][$i]['nama_toko'] = $data->nama_toko;
+		// 		$list_toko[$kategori_nama[$j]][$i]['kategori'] = $data->kategori_toko->kategori;
+		// 		$list_toko[$kategori_nama[$j]][$i]['jumlah_penilaian'] = count($penilaian);
+		// 		$list_toko[$kategori_nama[$j]][$i]['rating'] = $rating;
+		// 		$list_toko[$kategori_nama[$j]][$i]['harga'] = $produk->harga;
+		// 		$list_toko[$kategori_nama[$j]][$i]['foto'] = $data->logo_toko;
+		// 		$list_toko[$kategori_nama[$j]][$i]['logo'] = $data->logo();
+		// 		$i++;
+		// 	}
+		// }
 		return $this->untuk_mitra();
 		// return view('home/index', ['toko'=>$list_toko]);
 		
 	}
 
 	public function untuk_mitra(){
-		$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Auth()->user()->id)->get();
-		if(count($daftar_tunggu) != 0){
-			return view('home.halaman_tunggu');
+		// $daftar_tunggu = Daftar_tunggu_toko::where('users_id', Auth()->user()->id)->get();
+		// if(count($daftar_tunggu) != 0){
+		// 	return view('home.halaman_tunggu');
+		// }
+		// $toko = Toko::where('users_id', Auth()->user()->id)->get();
+		// if(count($toko) != 0){
+		// 	return redirect('akun');
+		// }
+		$biodata = Biodata::where('users_id', Auth()->user()->id)->first();
+		if(is_null($biodata->nama) or $biodata->nama == ""){
+			return redirect('/buat_akun_biodata');
 		}
-		$toko = Toko::where('users_id', Auth()->user()->id)->get();
-		if(count($toko) != 0){
-			return redirect('akun');
+		elseif(is_null($biodata->jenis_kelamin) or $biodata->jenis_kelamin == ""){
+			return redirect('/buat_akun_biodata');
 		}
-		return redirect('/akun/jadi-mitra/premium');
+		else{
+			return redirect('/akun');
+		}
+		return redirect('/akun');
 	}
 
 	public function home_mitra(){
