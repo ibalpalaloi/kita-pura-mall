@@ -290,14 +290,15 @@
     <main id="homepage" class="homepage">
         <div class="card-mall">
             <div class="card-body" style="padding-top: 2em;">
-                <form method="#" action="#">
+                <form method="post" action="<?=url('/')?>/masuk">
+                    {{csrf_field()}}
                     <div class="form-group">
                         <label for="exampleEmail" class="bmd-label-floating">Email Address / No. Whatsapp</label>
-                        <input type="email" class="form-control" id="exampleEmail"/>
+                        <input type="text" name="email" class="form-control" id="exampleEmail" required/>
                     </div>
                     <div class="form-group">
                         <label for="examplePass" class="bmd-label-floating">Password</label>
-                        <input type="password" class="form-control" id="examplePass">
+                        <input type="password" name="password" class="form-control" id="examplePass" required>
                     </div>
                     <div class="form-group">
                         <input type="submit" name="submit" class="btn" style="width: 100%; background: #FB036B;" value="Masuk">

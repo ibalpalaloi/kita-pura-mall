@@ -16,10 +16,11 @@ class UserController extends Controller
 {
     //
 	public function index(){
+		// dd(Session::get('id_user'));
 		// return redirect('/akun/mitra/premium');
 		$progress = 2;
 		$cek_ktp = "";
-		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
+		$biodata = Biodata::where('users_id', Auth()->User()->id)->first();
 
 		if(!empty($biodata->nama)){
 
@@ -41,6 +42,7 @@ class UserController extends Controller
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 
 		if($toko){
+			
 
 			$toko_id = $toko->id;
 			$status_aktif_mitra = $toko->jenis_mitra;
@@ -49,7 +51,7 @@ class UserController extends Controller
 		}
 		else {
 			$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
-
+			
 			if ($daftar_tunggu){
 				if($toko){
 					$toko_id = $toko->id;
@@ -66,8 +68,8 @@ class UserController extends Controller
 				$status_aktif_mitra = "bukan_mitra";
 				Session::put('status_mitra', "Belum jadi mitra");	
 			}
-
-			return redirect('/home');
+			
+			// return redirect('/home');
 
 		}
 
@@ -79,7 +81,7 @@ class UserController extends Controller
 		// 		$cek_ktp = "KTP Belum Lengkap";
 		// 	}
 		// }
-
+		
 		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 		// dd($toko);
