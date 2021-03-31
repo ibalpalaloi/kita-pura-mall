@@ -60,7 +60,7 @@ Toko
                 </a>
                 <br><br>
                 <div class="table-responsive">
-                    <table id="config-table" class="table display table-bordered table-striped no-wrap">
+                    <table style="width: 100%" id="config-table" class="table display table-bordered table-striped no-wrap">
                         <thead>
                             <tr>
                                 <th>Nama Toko</th>

@@ -272,9 +272,9 @@
 								</span>
 								<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em; background: #EAF4FF; color: grey !important;" required>
 							</div>
-							<div style="width: 3.4em; height: 3em; background: {{$page->warna_header}}; border-radius: 0.5em; display: flex; justify-content: center;align-items: center;">
+							{{-- <div style="width: 3.4em; height: 3em; background: {{$page->warna_header}}; border-radius: 0.5em; display: flex; justify-content: center;align-items: center;">
 								<img src="<?=url('/')?>/public/img/icon_svg/filter_white.svg" style="width: 50%;">
-							</div>
+							</div> --}}
 						</div>
 					</div>
 					{{-- <div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">

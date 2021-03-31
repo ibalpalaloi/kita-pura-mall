@@ -234,4 +234,18 @@ class GetController extends Controller
 
         return back();
 	}
+
+	function ubah_status_toko($id){
+		$toko = Toko::where('id', $id)->first();
+		if($toko->status = 'Aktif' or $toko->status = 'aktif'){
+			$status = "non-aktif";
+		}
+		else{
+			$status = "Aktif";
+		}
+		$toko = Toko::where('id', $id)->first();
+		$toko->status = $status;
+		$toko->save();
+
+	}
 }

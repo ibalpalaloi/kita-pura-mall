@@ -218,6 +218,13 @@ Toko
                 <a href="#" onclick="modal_ubah_password('{{$toko->id}}')" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_ubah_password">Ubah Password</a>
                 <a href="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/daftar_produk" type="button" class="btn btn-danger" >Data Produk</a>
                 <a href="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/landing_page" type="button" class="btn btn-danger" >Landing Page</a>
+                
+                    @if ($toko->status == "Aktif" or $toko->status == "aktif")
+                    <a href="#" id="btn_ubah_status_toko" onclick="ubah_status_toko()" type="button" class="btn btn-primary" >Aktif</a>
+                    @else
+                    <a href="#" id="btn_ubah_status_toko" onclick="ubah_status_toko()" type="button" class="btn btn-danger" >Tidak Aktif</a>
+                    @endif
+
             </div>
             <hr class="mt-0">
             <div class="card-body">
@@ -330,6 +337,19 @@ Toko
 
 @section('footer-scripts')
 <script>
+    var id_toko = {!! json_encode($toko->id) !!}
+    function ubah_status_toko(){
+        $.ajax({
+            url: "<?=url('/')?>/admin/manajemen/toko/"+id_toko+"/ubah_status_toko",
+            method: "get",
+            data : {_token:'{{csrf_token()}}'},
+            success:function(result)
+            {   
+                alert($('#btn_ubah_status_toko').text());
+            }
+        })
+    }
+
     function cek_pass(){
         if($('#pass_ketik').val() != $('#ketikan').val()){
             $('#pass_salah').empty();

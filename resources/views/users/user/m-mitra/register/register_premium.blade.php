@@ -612,6 +612,18 @@
 		</div>
 	</div>
 
+	<div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+			<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+				<div class="loader-container">
+					<div class="spinner-border text-danger" role="status">
+						<span class="sr-only">Loading...</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	<header class="style__Container-sc-3fiysr-0 header" style="background:#353535; padding-top: 0.3em;">
 		<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
@@ -807,6 +819,10 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="<?=url('/')?>/public/plugins/select2/js/select2.full.min.js"></script>
 <script>
+	$( "#form_input" ).submit(function( event ) {
+		show_loader();
+	});
+
 	$('#kota').change(function(){
 		// show_loader();
 		$('#kecamatan').empty();
