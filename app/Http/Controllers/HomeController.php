@@ -53,14 +53,6 @@ class HomeController extends Controller
 	}
 
 	public function untuk_mitra(){
-		// $daftar_tunggu = Daftar_tunggu_toko::where('users_id', Auth()->user()->id)->get();
-		// if(count($daftar_tunggu) != 0){
-		// 	return view('home.halaman_tunggu');
-		// }
-		// $toko = Toko::where('users_id', Auth()->user()->id)->get();
-		// if(count($toko) != 0){
-		// 	return redirect('akun');
-		// }
 		$biodata = Biodata::where('users_id', Auth()->user()->id)->first();
 		if(is_null($biodata->nama) or $biodata->nama == ""){
 			return redirect('/buat_akun_biodata');

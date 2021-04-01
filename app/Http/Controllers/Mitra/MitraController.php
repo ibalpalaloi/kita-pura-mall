@@ -30,81 +30,37 @@ class MitraController extends Controller
 	
 
 	public function mitra(){
-		$page = Landing_page_toko::where('toko_id', Auth()->user()->toko->id)->get();
-		if(count($page)==0){
-			return redirect('/akun/mitra/premium/ganti-landing-page');
+		$cek_status_mitra = $this->cek_status_mitra(Auth()->user()->id);
+		if($cek_status_mitra == "false"){
+			return redirect('/akun/jadi-mitra/premium');
 		}
-		$notification = array();
-		if(Session::get('progress_biodata') > '5'){
-		// if(Session::get('progress_biodata') != '5'){
-
+		elseif($cek_status_mitra == "daftar_tunggu"){
 			$notification = array(
-				'message' => 'Biodata Belum Lengkap'
-			);     
-
-			return redirect()->back()->with($notification);
+				'message' => 'Belum Terverifikasi'
+			);
+			return redirect('/akun')->with($notification);
+		}
+		elseif($cek_status_mitra == "premium" or $cek_status_mitra == "Premium"){
+			return redirect('/akun/mitra/premium');
 		}
 		else{
-
-			if(Session::get('status_mitra') == "Belum jadi mitra"){
-
-				return redirect('/akun/jadi-mitra');
-
-			}
-			else{
-
-				$toko = toko::where('users_id', Session::get('id_user'))->first();
-
-				// dd($toko->jenis_mitra);
-
-				if($toko){
-					$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
-					if ($daftar_tunggu){
-						$ktp_toko = Ktp_toko::where('toko_id', $toko->id)->first();
-						if ($ktp_toko){
-							$notification = array(
-								'message' => 'Belum Terverifikasi Upgrade',
-								'jenis_mitra' => $daftar_tunggu->jenis_mitra
-							);     
-							return redirect('/akun')->with($notification);														
-
-						}
-						else {
-							$notification = array(
-								'message' => 'Belum Terverifikasi KTP',
-								'jenis_mitra' => $daftar_tunggu->jenis_mitra
-							);     
-							return redirect('/akun')->with($notification);							
-
-						}
-					}
-					else {
-						if(is_null($toko->longitude) && is_null($toko->latitude)){
-							$notification = array(
-								'message' => 'Lokasi Maps Belum Ditentukan'
-							);     
-						}
-						return redirect('/akun/mitra/'.$toko->jenis_mitra)->with($notification);						
-					}
-
-				}
-				else{
-
-					$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
-
-					$notification = array(
-						'message' => 'Belum Terverifikasi',
-						'jenis_mitra' => $daftar_tunggu->jenis_mitra
-					);     
-
-					return redirect('/akun')->with($notification);
-					
-				}
-
-			}
-
+			return back();
 		}
 
+	}
+
+	public function cek_status_mitra($user_id){
+		$toko = Toko::where('users_id', $user_id)->first();
+		$daftar_tunggu = Daftar_tunggu_toko::where('users_id', $user_id)->first();
+		if(!empty($toko)){
+			return $toko->jenis_mitra;
+		}
+		elseif(!empty($daftar_tunggu)){
+			return "daftar_tunggu";
+		}
+		else{
+			return "false";
+		}
 	}
 
 	public function uploadCropImage(Request $request)

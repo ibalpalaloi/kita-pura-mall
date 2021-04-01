@@ -1269,6 +1269,7 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 		        (code > 96 && code < 123)) { // lower alpha (a-z)
 		    }
 		else {
+			hide_loader();
 			$("#modal-notif-error-toko").modal('show');
 			$("#username").css('color', '#ED0D0D');
 			$("#username").css('text-decoration', 'underline');
