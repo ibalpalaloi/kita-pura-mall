@@ -311,7 +311,7 @@
                         </button>
                     </div>
                 </form>
-                <div style="display: flex;justify-content: center; align-items: center;">
+                {{-- <div style="display: flex;justify-content: center; align-items: center;">
                     <hr style="width: 100%; margin-right: 1em;">
                     <span style="color: #9D9D9D;">Atau</span>
                     <hr style="width: 100%; margin-left: 1em;">
@@ -331,7 +331,7 @@
                         <span style="width: 70%;">Facebook</span>
                         <span style="width: 15%; color: #00A3FF">a</span>
                     </a>
-                </div>
+                </div> --}}
 
             </div>
         </div>
