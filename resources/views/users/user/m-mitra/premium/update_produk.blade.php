@@ -364,7 +364,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 			<div style="width: 90%; margin-top: 0em; display: flex; flex-direction: column; align-items: center;">
 				<div class="input-group mb-4 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
 					<div style="display: flex; justify-content: center; width: 100%; margin: 0px;" id="div_pic_toko_privew">
-						<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/{{$produk->toko_id}}/produk/{{$produk->foto_produk}}" style="width: 100%; border-radius: 1em;">
+						<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/{{$produk->toko_id}}/produk/600x600/{{$produk->foto_produk}}" style="width: 100%; border-radius: 1em;">
 						<div style="position: absolute; right: 0.5em; bottom: 0.5em; width: 3em; height: 3em; border-radius: 50%; display: flex; justify-content: center;" class="st0">
 							<img id="pic_toko" src="<?=url('/')?>/public/img/icon_svg/pencil_circle_white.svg" onclick="ubah_foto()" style="width: 90%">
 						</div>
@@ -795,7 +795,7 @@ function hapus_jadwal(hari){
 	function ubah_foto(){
 		@php $url = ""; @endphp
 		@if ($produk->foto_produk)
-		var url = "<?=url('/')?>/public/img/toko/{{$produk->toko_id}}/produk/{{$produk->foto_produk}}";
+		var url = "<?=url('/')?>/public/img/toko/{{$produk->toko_id}}/produk/240x240/{{$produk->foto_produk}}";
 		@endif
 		if (status_ganti_foto == 0){
 			$(".cr-boundary").append("<img id='prev_image' src='"+url+"' style='width: 100%'; position: absolute; left:0;'>");
@@ -816,16 +816,28 @@ function hapus_jadwal(hari){
 		enableExif: true,
 		enableOrientation: true,    
     viewport: { // Default { width: 100, height: 100, type: 'square' } 
-    width: 300,
-    height: 250,
+    width: 240,
+    height: 240,
         type: 'square' //square
     },
     boundary: {
-    	width: 300,
-    	height:250
+    	width: 240,
+    	height:240
     }
 });
 
+
+	var imageSize = {
+		width: 600,
+		height: 600,
+		type: 'square'
+	};
+
+	var imageSize2 = {
+		width: 240,
+		height: 240,
+		type: 'square'
+	};
 
 	$('#image').on('change', function () { 
 		$(".cr-slider-wrap").css("display", "block");
@@ -844,32 +856,57 @@ function hapus_jadwal(hari){
 	});
 
 
-	$('.upload-image').on('click', function (ev) {
+	$('.upload-image').on('click', function (ev){ 
+		$("#modal-sukses").modal('hide');		
+		var rString = randomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 		resize.croppie('result', {
 			circle: false,
 			type: 'canvas',
-			size: 'viewport'
+			size: imageSize,
 		}).then(function (img) {
 			$.ajax({
-
 				url: "<?=url('/')?>/akun/mitra/premium/atur-produk/simpan-foto",
 				type: "POST",
-				data: {"image":img},
+				data: {"image":img, "size":"600x600", "nama":rString},
 				success: function (data) {
-					// alert(data);
-					$("#modal-sukses").modal('hide');
-					$('#pic_toko_privew').attr('src', "<?=url('/')?>/public/img/temp_produk/"+data);
+					$('#pic_toko_privew').attr('src', "<?=url('/')?>/public/img/temp_produk/600x600/"+data);
 					$("#nama_foto_temp").val(data);
 					$("#div_pic_toko_privew").prop('hidden', false);
 					$("#div_pic_toko").prop('hidden', true);
-					$(".cr-slider-wrap").css("display", 'none');
+					
+
 				}
 			});
 
 		});
 		status_ganti_foto = 1;
+		resize.croppie('result', {
+			circle: false,
+			type: 'canvas',
+			size: imageSize2,
+			quality: 1
+		}).then(function (img) {
+			$.ajax({
 
+				url: "<?=url('/')?>/akun/mitra/premium/atur-produk/simpan-foto",
+				type: "POST",
+				data: {"image":img, "size":"240x240", "nama":rString},
+				success: function (data) {
+
+				}
+			});
+
+		});
 	});
+
+	function randomString(length, chars) {
+		var d = new Date();
+		var milliseconds  = Date.parse(d);
+		var result = '';
+		for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+			return milliseconds+result;
+	}
+
 
 </script>
 
