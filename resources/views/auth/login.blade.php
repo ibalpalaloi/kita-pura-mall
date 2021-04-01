@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="HandheldFriendly" content="true" />     
     <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template/admin/dist/css/style.min.css">
+    <link href="<?=url('/')?>/public/plugins/material-design/css/material-design.min.css" rel="stylesheet">
+    <link href="<?=url('/')?>/public/plugins/material-design/demo/demo.css" rel="stylesheet">
+
     <style type="text/css">
 
         .hBSxmh {
@@ -137,7 +140,6 @@
             margin: 0px auto;
             padding: 0px 16px 1em;
             box-sizing: border-box;
-            min-height: calc(100vh - 60px); 
 
         }   
 
@@ -153,7 +155,7 @@
             max-width: 480px;
             width: 100%;
             margin: 0px auto;
-            padding: 4em 0em 4em 0em;
+            padding: 2em 0em 1em 0em;
         }
 
         .header {
@@ -168,8 +170,6 @@
 
 
         .card-mall {
-            background: white;
-            box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px;
             border-radius: 1.5em;   
             /*border: 2px solid red;            */
             margin-bottom: 1em;
@@ -237,7 +237,16 @@
       input::-ms-input-placeholder { /* Microsoft Edge */
           color: white !important;
       }
-  </style>
+
+      body {
+        background: white !important;
+    }
+
+        .btn {
+            text-transform: none;
+            font-size: 0.9em;
+        }
+</style>
 </head>
 <div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
     <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
@@ -268,57 +277,77 @@
     </div>
     @endif
 
-    <header class="style__Container-sc-3fiysr-0 header">
-        <div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
-            <a id="defaultheader_logo" title="Kitapura Mall" href="/">
-                <img src="<?=url('/')?>/public/img/logo.svg">&nbsp;
+    <div class="wrapper" style="background: #FB036B; position: relative; z-index: -1; height: 100%;">
+        <div class="banner" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+            <div >
+                <img src="<?=url('/')?>/public/img/logo.svg">
                 <img src="<?=url('/')?>/public/img/logo_text.svg">
-            </a>
-        </div>
-    </header>
-
-    <div class="wrapper" style="background: #EAF4FF; margin-top: 2em; display: flex; justify-content: center;">
-        <div class="banner" style="display: flex;justify-content: center; flex-direction: column; align-items: center;">
-            <img src="<?=url('/')?>/public/img/register/mitra_login.svg" style="width: 75%;">
-            <div style="color: white; text-align: center; padding-top: 0em; display: flex; justify-content: center; flex-direction: column; align-items: center; ">
-                <h4 style="color: black; font-weight: 500; margin-top:0px;">Spesial!! Jadilah Mitra <br>Pertama di kitapuramall</h4>
-                <div style="color: #7D7D7D; width: 80%; line-height: 1.3em; font-size:0.85em;">buat kalian yang punya usaha, silahkan daftar sekarang. dan nikmati fitur mitra premium di kitapuramall gratis. kuota terbatas. kesempatan ini dibuka dari tanggal <span style="font-weight: 600; color: black;">21 - 30 Maret 2021</span> sebelum aplikasi kitapuramall Terbuka untuk umum. <span style="font-weight: 600; color: black;"><br>Buruan daftar sekarang!!!</span></div>
             </div>
-            <a href="https://chat.whatsapp.com/F7zMpAx6ELO5RBp8f7XYg5" style="position: relative;">
-                <img src="<?=url('/')?>/public/img/button/button_admin.svg">
-                <img src="<?=url('/')?>/public/img/button/finger_admin.svg" style="position: absolute; right: -1.5em;">
-            </a>
+            <img src="<?=url('/')?>/public/img/home/animasi_login.gif" style="width: 100%;">
         </div>
     </div>
-    <div class="footer" style="background: #EAF4FF;">
-        <div style="color: #353535; font-weight: 500;">Silahkan daftarkan nomor hp anda</div>
-        <form action="<?=url('/masuk')?>" method="post" class="container-mall" style="display: flex; justify-content: space-around; width: 100%;" id="form_input">
-            {{csrf_field()}}
-            <div class="footer-mall-menu" style="width: 100%; height: 3.5em; display: flex; align-items: center; justify-content: space-around; background: #fb036b;">
-                <div style="display: flex; justify-content: row; align-items: center; margin-left: 1.5em;">
-                    <div style="padding-top: 0.5em;">
-                        <img src="<?=url('/')?>/public/img/register/indonesia.svg">
+
+    <main id="homepage" class="homepage">
+        <div class="card-mall">
+            <div class="card-body" style="padding-top: 2em;">
+                <form method="post" action="<?=url('/')?>/masuk">
+                    {{csrf_field()}}
+                    <div class="form-group">
+                        <label for="exampleEmail" class="bmd-label-floating">Email Address / No. Whatsapp</label>
+                        <input type="text" name="email" class="form-control" id="exampleEmail" required/>
                     </div>
-                    <div>
-                        <span style="color: white;">+62&nbsp;</span>
+                    <div class="form-group">
+                        <label for="examplePass" class="bmd-label-floating">Password</label>
+                        <input type="password" name="password" class="form-control" id="examplePass" required>
                     </div>
+                    <div class="form-group">
+                        <input type="submit" name="submit" class="btn" style="width: 100%; background: #FB036B;" value="Masuk">
+                    </div>
+                </form>
+                <div class="form-group" style="display: flex; justify-content: center;">
+                    <a href="#" style="text-align: center; color: #FB036B; font-weight: 700;">Lupa Kata Sandi?</a>
                 </div>
-                <div>
-                    <input type="text" name="nomor_hp" id="nomor_hp" class="form-control" style="width: 90% !important; padding: .375rem; border: none; background: #fb036b; color: white;" placeholder="851-5628-9855" name="no_telp" required>
+                <div style="display: flex;justify-content: center; align-items: center;">
+                    <hr style="width: 100%; margin-right: 1em;">
+                    <span style="color: #9D9D9D;">Atau</span>
+                    <hr style="width: 100%; margin-left: 1em;">
                 </div>
-                <div style="display: flex; justify-content: row; align-items: center; margin-right: 1.5em;">
-                    <button type="submit" class="btn" style="text-align: center;">
-                        <i class="fas fa-sign-in-alt" style="color: white; font-size: 1.5em;"></i>
-                    </button>
+                <div class="form-group">
+                    <a href="<?=url('/')?>/register" class="btn" style="width: 100%; background: #0CA437;">
+                        Buat Akun kitapura <i>mall</i>
+                    </a>
+                    {{-- <a href="<?=url('/')?>/redirectToGoogle">
+                        <div class="btn" style="width: 100%; background: #EAF4FF; color: #575757; display: flex;">
+                            <span class="" style="width: 15%; display: flex; justify-content: center;">
+                                <img src="<?=url('/')?>/public/img/home/google-icon.svg" style="width: 1.5em;">
+                            </span>
+                            <span style="width: 70%;">Google</span>
+                            <span style="width: 15%; color: #EAF4FF">a</span>
+                        </div>
+                    </a>
+                    <div class="btn" style="width: 100%; background: #00A3FF; display: flex; margin-top: 0.8em;">
+                        <span class="" style="width: 15%; display: flex; justify-content: center;">
+                            <img src="<?=url('/')?>/public/img/home/facebook-icon.svg" style="width: 1.5em;">
+                        </span>
+                        <span style="width: 70%;">Facebook</span>
+                        <span style="width: 15%; color: #00A3FF">a</span>
+                    </div> --}}
                 </div>
-            </div> 
-        </form>
-    </div>
+
+            </div>
+        </div>
+    </main>
 </body>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
+<script src="<?=url('/')?>/public/plugins/material-design/js/core/popper.min.js"></script>
+<script src="<?=url('/')?>/public/plugins/material-design/js/core/bootstrap-material-design.min.js"></script>
+<script src="<?=url('/')?>/public/plugins/material-design/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
+<script src="<?=url('/')?>/public/plugins/material-design/js/material-dashboard.min.js?v=2.1.0"></script>
+
 
 <script type="text/javascript">
     (function($) {

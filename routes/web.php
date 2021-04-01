@@ -42,10 +42,12 @@ use App\Http\Controllers\Mitra\TransaksiController;
 Route::group(['middleware'=> 'guest'], function() {
 
 
-    Route::post('/masuk', [AuthController::class, 'post_login']);
+    Route::post('/masuk', [AuthController::class, 'post_login_v2']);
+    Route::get('/redirectToGoogle', [AuthController::class, 'redirectToGoogle']);
     Route::get('/register', [AuthController::class, 'register']);
     Route::get('/register-api', [AuthController::class, 'register_api']);
-    Route::get('/buat-akun', [AuthController::class, 'buat_akun']);
+    
+    Route::post('/buat-akun', [AuthController::class, 'buat_akun']);
     Route::post('/buat-akun/simpan-foto', [UserController::class, 'simpan_foto']);
 
     // @Jika Belum Memiliki Akun
@@ -71,6 +73,8 @@ Route::group(['middleware'=> 'guest'], function() {
 Route::group(['middleware'=> 'auth'], function() {
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/buat_akun_biodata', [AuthController::class, 'buat_akun_biodata']);
+    Route::post('/register/post_biodata_awal', [AuthController::class, 'post_biodata_awal']);
     // Halaman Tunggu 
     Route::get('/home/halaman_tunggu', [HomeController::class, 'untuk_mitra']);
 
@@ -269,6 +273,8 @@ Route::group(['middleware'=> 'admin'], function() {
 Route::get('crop-image-before-upload-using-croppie', [MitraController::class, 'index']);
 Route::post('crop-image-before-upload-using-croppie', [MitraController::class, 'uploadCropImage']);
 // get
+Route::post('/register/cek_email', [GetController::class, 'cek_email']);
+Route::post('/register/cek_no_hp', [GetController::class, 'cek_no_hp']);
 Route::post('/get_video_link', [GetController::class, 'get_video_link'])->name('get_video_link');
 Route::post('/get/get_produk', [GetController::class, 'get_produk'])->name('get_produk');
 Route::get('/get/get_kecamatan', [GetController::class, 'get_kecamatan'])->name('get_kecamatan');

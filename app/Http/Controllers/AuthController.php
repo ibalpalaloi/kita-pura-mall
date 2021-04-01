@@ -14,11 +14,16 @@ use Illuminate\Support\Str;
 use Auth;
 use GuzzleHttp;
 use Session;
+use Laravel\Socialite\Facades\Socialite;
 
 
 class AuthController extends Controller
 {
     //
+    public function redirectToGoogle(){
+        return Socialite::driver('google')->redirect();
+    }
+
     public function register(){
         return view('auth.register');
     }
@@ -27,8 +32,61 @@ class AuthController extends Controller
         return view('auth.register_api');
     }
 
-    public function buat_akun(){
-        return view('auth.buat_akun');
+    public function buat_akun(Request $request){
+        $validated = $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+            'no_hp' => 'required|min:8'
+        ]);
+
+        $id_user = $this->autocode('USR-');
+
+        $user = new User;
+        $user->id = $id_user;
+        $user->password = bcrypt($request->password);
+        $user->no_hp = $this->generate_no_telp($request->no_hp);
+        $user->email = $request->email;
+        $user->remember_token = str::random(60);
+        $user->level_akses = 'user';
+        $user->status = "aktif";
+        $user->save();
+        
+        $biodata = new Biodata;
+        $biodata->users_id = $id_user;
+        $biodata->username = $this->autocode('user');
+        $biodata->save();
+
+        if(Auth::attempt(['no_hp' => $request->no_hp, 'password' => $request->password])){
+
+            Session::put('id_user', $id_user);
+            Session::put('level_akes', 'user');
+            Session::put('no_telp', $request->no_hp);
+            Session::put('email', $request->email);
+            Session::put('status_nomor', "Belum Terverifikasi");
+            
+            // dd(Session::has('no_telp'));
+
+            
+        }
+
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+
+            Session::put('id_user', $id_user);
+            Session::put('level_akes', 'user');
+            Session::put('no_telp', $request->no_hp);
+            Session::put('email', $request->email);
+            Session::put('status_nomor', "Belum Terverifikasi");
+            
+            // dd(Session::has('no_telp'));
+        }   
+
+        return redirect('/buat_akun_biodata');
+        
+    }
+
+    public function buat_akun_biodata(){
+        $biodata = Biodata::where('users_id', Auth()->user()->id)->first();
+        return view('auth.buat_akun', compact('biodata'));
     }
 
     public function simpan_foto(){
@@ -105,6 +163,70 @@ class AuthController extends Controller
 
         return redirect('daftar/'.$no_telp);
     }
+
+    public function post_login_v2(Request $request){
+        $validated = $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        if(str_contains($request->email, '@')){
+            if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            
+
+                $user = User::where('email', $request->email)->first();
+                
+                // dd($user->id);
+                Session::put('id_user', $user->id);
+                Session::put('no_telp', $request->no_telp);
+                Session::put('level_akes', 'user');
+                Session::put('status_nomor', $user->status_nomor);
+            }
+        }
+        else{
+            $no_hp = $this->generate_no_telp($request->email);
+            if(Auth::attempt(['no_hp' => $no_hp, 'password' => $request->password])){
+            
+
+                $user = User::where('no_hp', $no_hp)->first();
+                
+                // dd($user->id);
+                Session::put('id_user', $user->id);
+                Session::put('no_telp', $request->no_telp);
+                Session::put('level_akes', 'user');
+                Session::put('status_nomor', $user->status_nomor);
+                Session::get('id_user');
+                
+            }
+        }
+        
+        if(Auth()->user()){
+            return redirect('/home');
+        }
+        return redirect()->back();
+
+    }
+
+    public function post_biodata_awal(Request $request){
+        $biodata = Biodata::where('users_id', Auth()->user()->id)->first();
+        $biodata->nama = $request->nama_lengkap;
+        $biodata->jenis_kelamin = $request->jenis_kelamin;
+        $biodata->save();
+        return redirect('/home');
+    }
+
+    public function generate_no_telp($no_hp){
+        $no_telp = $no_hp;
+        $no_telp = str_replace("-","", $no_telp);
+        $no_telp = str_replace(" ","", $no_telp);
+        if ($no_telp[0] == 0){
+            $no_telp = substr($no_telp, 1);
+        }
+        $no_telp = substr_replace($no_telp, "+62", 0, 0);
+
+        return $no_telp;
+    }
+
+
 
     public function refresh_otp($id){
 
