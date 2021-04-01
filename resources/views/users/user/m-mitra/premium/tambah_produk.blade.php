@@ -394,7 +394,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 			<div style="width: 90%; margin-top: 0em; display: flex; flex-direction: column; align-items: center;">
 				<div class="input-group mb-4 div-input-mall-square" id="div_foto_toko" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
 					<div style="display: flex; justify-content: center; width: 100%; margin: 0em; cursor: pointer;" onclick="ubah_foto()" id="div_pic_toko">
-						<img src="<?=url('/')?>/public/img/temp_produk/default.svg" style="width: 100%; border-radius: 1em;">
+						<img src="<?=url('/')?>/public/img/temp_produk/default/default.svg" style="width: 100%; border-radius: 1em;">
 					</div>
 					<div style="display: flex; justify-content: center; width: 100%; margin: 0px;" id="div_pic_toko_privew" hidden>
 						<img id="pic_toko_privew" src="<?=url('/')?>/public/img/img.jpg" style="width: 100%; border-radius: 1em;">
@@ -404,6 +404,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 					</div>
 
 					<input hidden type="file" name="foto_toko" id="image">
+					<input hidden type="file" name="dummy_foto" id="dummy_foto">
 					<input type="hidden" name="nama_foto_temp" id="nama_foto_temp">
 				</div>
 				<div class="input-group mb-3 st0" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
@@ -576,19 +577,6 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$("#harga_diskon_input").val(harga_diskon.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
 	}
 
-	function readURL(input) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-
-			reader.onload = function (e) {
-				$('#pic_toko_privew').attr('src', e.target.result);
-				$("#div_pic_toko_privew").prop('hidden', false);
-				$("#div_pic_toko").prop('hidden', true);
-			}
-
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
 
 
 	$("#harga_produk").on("keydown", function(e) {
@@ -841,12 +829,12 @@ function hapus_jadwal(hari){
 		enableOrientation: true,
     viewport: { // Default { width: 100, height: 100, type: 'square' } 
     width: 240,
-    height: 200,
+    height: 240,
         type: 'square' //square
     },
     boundary: {
     	width: 240,
-    	height:200
+    	height:240
     }
 });
 
@@ -870,15 +858,21 @@ function hapus_jadwal(hari){
 
 	var imageSize = {
 		width: 600,
-		height: 500,
+		height: 600,
+		type: 'square'
+	};
+
+	var imageSize2 = {
+		width: 240,
+		height: 240,
 		type: 'square'
 	};
 
 
-
 	$('.upload-image').on('click', function (ev) {
 		$("#modal-sukses").modal('hide');
-		show_loader();
+		var rString = randomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+		// show_loader();
 		resize.croppie('result', {
 			circle: false,
 			type: 'canvas',
@@ -889,22 +883,46 @@ function hapus_jadwal(hari){
 
 				url: "<?=url('/')?>/akun/mitra/premium/atur-produk/simpan-foto",
 				type: "POST",
-				data: {"image":img},
+				data: {"image":img, "size":"600x600", "nama":rString},
 				success: function (data) {
-					// alert(data);
-					hide_loader();
-					$('#pic_toko_privew').attr('src', "<?=url('/')?>/public/img/temp_produk/"+data);
+					$('#pic_toko_privew').attr('src', "<?=url('/')?>/public/img/temp_produk/600x600/"+data);
 					$("#nama_foto_temp").val(data);
 					$("#div_pic_toko_privew").prop('hidden', false);
 					$("#div_pic_toko").prop('hidden', true);
+					
 
 				}
 			});
 
 		});
 		status_ganti_foto = 1;
+		resize.croppie('result', {
+			circle: false,
+			type: 'canvas',
+			size: imageSize2,
+			quality: 1
+		}).then(function (img) {
+			$.ajax({
 
+				url: "<?=url('/')?>/akun/mitra/premium/atur-produk/simpan-foto",
+				type: "POST",
+				data: {"image":img, "size":"240x240", "nama":rString},
+				success: function (data) {
+
+				}
+			});
+
+		});
 	});
+
+
+	function randomString(length, chars) {
+		var d = new Date();
+		var milliseconds  = Date.parse(d);
+		var result = '';
+		for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+			return milliseconds+result;
+	}
 
 	$('#kategori_produk').on('change', function(){
 		var index = $('#kategori_produk').find(':selected').data('index');
@@ -934,13 +952,6 @@ function hapus_jadwal(hari){
 		show_loader();
 	});
 
-	function show_loader(){
-		$("#modal_loader").modal("show");
-	};
-
-	function hide_loader(){
-		$("#modal_loader").modal("hide");
-	};
 
 </script>
 @endsection

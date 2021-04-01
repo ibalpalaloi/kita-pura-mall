@@ -738,9 +738,9 @@
 	<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Nomor Whatsapp Business</div>
 	<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
 		<span class="input-group-text-mall" style="width: 3em; background: #202020;">
-			<img src="<?=url('/')?>/public/img/icon_svg/handphone_white.svg" style="width: 60%;">
+			+62
 		</span>
-		<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nomor Handphone" aria-label="no_hp" aria-describedby="basic-addon1" style="width: 100%;" value="{{$toko->no_hp}}" required>
+		<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nomor Handphone" aria-label="no_hp" aria-describedby="basic-addon1" style="width: 100%;" value="@if(substr($toko->no_hp, 0, 3) == '+62'){{substr($toko->no_hp,3)}}@else{{$toko->no_hp}}@endif" required>
 	</div>
 </div>
 <div class="input-group mb-3 st0 @if($errors->first('jadwal_hari')) is-invalid @endif" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">

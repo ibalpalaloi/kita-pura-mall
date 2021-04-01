@@ -30,13 +30,13 @@
 		}
 
 		.loader-container{
-            width: 100%;
-            height: 100vh;
-            position: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+			width: 100%;
+			height: 100vh;
+			position: fixed;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
 	</style>
 	@yield('header-scripts')
 
@@ -50,8 +50,10 @@
 					<span class="sr-only">Loading...</span>
 				</div>
 			</div>
+			<div class="btn btn-primary" data-dismiss="modal" hidden id="modal_close">Close</div>
+
 		</div>
-    </div>
+	</div>
 </div>
 
 <body style="min-height: 100%;" class="hold-transition sidebar-mini layout-fixed st0">
@@ -60,14 +62,14 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 	function show_loader(){
-        console.log('show');
-        $("#modal_loader").modal("show");
-    };
+		console.log('show');
+		$("#modal_loader").modal("show");
+	};
 
-    function hide_loader(){
-        console.log('hide');
-        $("#modal_loader").modal("hide");
-    };
+	function hide_loader(){
+		console.log('hide');
+		$("#modal_loader").modal("hide");
+	};
 </script>
 @yield('footer-scripts')
 

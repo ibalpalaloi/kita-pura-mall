@@ -12,6 +12,7 @@ use App\Models\Foto_maps;
 use App\Models\Video_landing_page;
 use App\Models\Landing_page_fasilitas_toko;
 use File;
+use Image;
 
 class Mitra_Premium_Produk_Controller extends Controller
 {
@@ -66,7 +67,6 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$produk_id = $this->autocode('PD-');
 
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
-		echo str_replace(',', '', $request->harga_produk);
 		// @Tambah Produk
 		if($request->kategori_lain != ''){
 			$kategori = "20";
@@ -98,14 +98,33 @@ class Mitra_Premium_Produk_Controller extends Controller
 		}
 		// @Tambah Foto
 		$files = $request->file("foto_toko");
+		// $files = $request->file("foto_toko");
+		// $files = $request->file("foto_toko");
+
 		// echo $request->nama_foto_temp;
 		// echo $files;
-		$image_path = "img/toko/$toko->id/produk/$request->nama_foto_temp";
-		\Storage::disk('public')->put($image_path, file_get_contents($files));
-		\File::delete($image_path);			
+		$image_path_ori = "img/toko/$toko->id/produk/original/$request->nama_foto_temp";
+		$image_path_600x600 = "img/toko/$toko->id/produk/600x600/$request->nama_foto_temp";
+		$image_path_240x240 = "img/toko/$toko->id/produk/240x240/$request->nama_foto_temp";
+		$image_path_240x200 = "img/toko/$toko->id/produk/240x200/$request->nama_foto_temp";
+
+		\Storage::disk('public')->put($image_path_ori, file_get_contents($files));
+		\Storage::disk('public')->put($image_path_600x600, file_get_contents($files));
+		\Storage::disk('public')->put($image_path_240x240, file_get_contents($files));
+		\Storage::disk('public')->put($image_path_240x200, file_get_contents($files));		
+
+		\File::delete("public/$image_path_600x600");			
+		\File::delete("public/$image_path_240x240");			
+		// \File::delete("public/$image_path_240x200");			
 
 		// echo "berhasil";
-		File::move(public_path('img/temp_produk/'.$request->nama_foto_temp), public_path($image_path));
+		File::move(public_path('img/temp_produk/600x600/'.$request->nama_foto_temp), public_path($image_path_600x600));
+		File::move(public_path('img/temp_produk/240x240/'.$request->nama_foto_temp), public_path($image_path_240x240));
+		$image_resize = Image::make(file_get_contents(url('/')."/public/$image_path_240x240"));              
+		$image_resize->crop(240, 200);
+		$image_resize->save(public_path($image_path_240x200));
+
+		// File::move(public_path('img/temp_produk/240x200/'.$request->nama_foto_temp), public_path($image_path_240x200));
 
 		$produk->foto_produk = $request->nama_foto_temp;
 		$produk->save();
@@ -155,56 +174,87 @@ class Mitra_Premium_Produk_Controller extends Controller
 			$produk->stok = "Habis";
 		}
 		if($request->file("foto_toko")){
-			File::move(public_path('img/temp_produk/'.$request->nama_foto_temp), public_path('img/toko/'.$toko->id.'/produk/'.$request->nama_foto_temp));
-			$produk->foto_produk = $request->nama_foto_temp;
+			$files = $request->file("foto_toko");
+
+			$image_path_ori = "img/toko/$toko->id/produk/original/$request->nama_foto_temp";
+			$image_path_600x600 = "img/toko/$toko->id/produk/600x600/$request->nama_foto_temp";
+			$image_path_240x240 = "img/toko/$toko->id/produk/240x240/$request->nama_foto_temp";
+			$image_path_240x200 = "img/toko/$toko->id/produk/240x200/$request->nama_foto_temp";
+
+			\Storage::disk('public')->put($image_path_ori, file_get_contents($files));
+			\Storage::disk('public')->put($image_path_600x600, file_get_contents($files));
+			\Storage::disk('public')->put($image_path_240x240, file_get_contents($files));
+			\Storage::disk('public')->put($image_path_240x200, file_get_contents($files));		
+
+			\File::delete("public/$image_path_600x600");			
+			\File::delete("public/$image_path_240x240");			
+
+			File::move(public_path('img/temp_produk/600x600/'.$request->nama_foto_temp), public_path($image_path_600x600));
+			File::move(public_path('img/temp_produk/240x240/'.$request->nama_foto_temp), public_path($image_path_240x240));
+			$image_resize = Image::make(file_get_contents(url('/')."/public/$image_path_240x240"));              
+			$image_resize->crop(240, 200);
+			$image_resize->save(public_path($image_path_240x200));
+
+
+			$produk->foto_produk = $request->nama_foto_temp;		}
+
+			$produk->save();
+
+
+			return redirect('/akun/mitra/premium/atur-produk');
 		}
 
-		$produk->save();
+		public function hapus_tambah_produk_premium($id){
 
+			$toko = toko::where('users_id', Session::get('id_user'))->first();
 
-		return redirect('/akun/mitra/premium/atur-produk');
-	}
+			product::where('id', $id)->where('toko_id', $toko->id)->delete();
 
-	public function hapus_tambah_produk_premium($id){
+			\Storage::disk('public')->delete('img/toko/'.$toko->id.'/produk/'.$id);
 
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+			return redirect('/akun/mitra/premium/atur-produk');
 
-		product::where('id', $id)->where('toko_id', $toko->id)->delete();
-
-		\Storage::disk('public')->delete('img/toko/'.$toko->id.'/produk/'.$id);
-
-		return redirect('/akun/mitra/premium/atur-produk');
-
-	}
-
-	public function generateRandomString($length = 10) {
-		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$charactersLength = strlen($characters);
-		$randomString = '';
-		for ($i = 0; $i < $length; $i++) {
-			$randomString .= $characters[rand(0, $charactersLength - 1)];
 		}
-		return $randomString;
-	}
 
-	public function simpan_foto_produk(Request $request){
-		$image = $request->image;
+		public function generateRandomString($length = 10) {
+			$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			$charactersLength = strlen($characters);
+			$randomString = '';
+			for ($i = 0; $i < $length; $i++) {
+				$randomString .= $characters[rand(0, $charactersLength - 1)];
+			}
+			return $randomString;
+		}
 
-		list($type, $image) = explode(';', $image);
-		list(, $image)      = explode(',', $image);
-		$image = base64_decode($image);
-		$image_name= time().$this->generateRandomString().'.png';
+		public function simpan_foto_produk(Request $request){
+			$image = $request->image;
+			$size = $request->size;
+
+			list($type, $image) = explode(';', $image);
+			list(, $image)      = explode(',', $image);
+			$image = base64_decode($image);
+			$image_name= $request->nama.'.png';
         // $path = public_path('upload/'.$image_name);
 
         // file_put_contents($path, $image);
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
-		\Storage::disk('public')->put('img/temp_produk/'.$image_name, file_get_contents($request->image));
-		$image_path = url('/')."/public/img/temp_produk/$image_name";
+			$toko = toko::where('users_id', Session::get('id_user'))->first();
+			\Storage::disk('public')->put("img/temp_produk/".$size."/".$image_name, file_get_contents($request->image));
+			$image_path = url('/')."/public/img/temp_produk/".$size."/$image_name";
+
+		// }
+		// else {
+		// 	$image_name = $request->nama;
+		// 	\Storage::disk('public')->put("img/temp_produk/".$size."/".$image_name, file_get_contents($request->image));
+		// 	$image_path = url('/')."/public/img/temp_produk/".$size."/$image_name";
+		// }
+
+
 		// $biodata->foto = $image_name;
 		// $biodata->save();
-		echo $image_name;
+			echo $image_name;
 		// return response()->json(['status'=>$image_path]);		
-	}
+		}
+
 
 	// public function simpan_atur_produk_premium(Request $request){
 
@@ -278,4 +328,4 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 
 		// return redirect()->back();
-}
+	}
