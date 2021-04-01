@@ -6,15 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Toko;
 use App\Models\Foto_maps;
+use DB;
 
 class Toko_controller extends Controller
 {
     //
     public function index(Request $request){
-        
         $cari = $request->get('cari');
-        if ($cari == 'all'){
-            $tokos = Toko::where('status', 'Aktif')->orWhere('status', 'Libur')->paginate(5);
+        if ($cari == 'all' or $cari==""){
+            $tokos = Toko::where('status', 'Aktif')->orWhere('status', 'Libur')->orderByRaw('RAND()')->paginate(5);
         }
         else{
             $tokos = Toko::where('nama_toko', 'like', '%'.$cari.'%')->where('status', 'Aktif')->orWhere('status', 'Libur')->paginate(5);

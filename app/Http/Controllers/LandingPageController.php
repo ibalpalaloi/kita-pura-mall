@@ -32,6 +32,9 @@ class LandingPageController extends Controller
 		$toko = Toko::where('username', $mitra)->first();
 		if ($toko){
 			$produk = Product::where('toko_id', $toko->id)->where('tampil','ya')->get();
+			if(count($produk) == 0){
+				$produk = Product::where('toko_id', $toko->id)->take(3)->get();
+			}
 			$penilaian = Penilaian_toko::where('toko_id', $toko->id)->take(4)->get();
 			$fasilitas = Landing_page_fasilitas_toko::where('toko_id', $toko->id)->get();
 			$foto_maps = Foto_maps::where('toko_id', $toko->id)->get();

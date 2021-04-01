@@ -385,9 +385,8 @@ if (!empty($_GET['hari'])){
 <main id="homepage" class="homepage" style="padding: 0px; background: #eaf4ff !important;">
     <div class="card-mall kategori" style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: #eaf4ff;">
 
-        <form id="form_input" action="<?=url('/')?>/akun/pengaturan-profil/simpan-biodata" method="post" style="width: 90%;">
+        <form id="form_input" action="<?=url('/')?>/register/post_biodata_awal" method="POST" style="width: 90%;">
             {{csrf_field()}}
-            <input type="hidden" value="PUT" name="_method">
             <div class="input-group mb-3 div-input-mall" id="div_nama_lengkap" style="margin-top: 0.5em;">
                 <div style="display: flex; align-items: center;">
                     <span class="label-mall" style="padding-bottom: 0.4em;">Nama Lengkap</span>&nbsp;
@@ -404,7 +403,7 @@ if (!empty($_GET['hari'])){
                         onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nama lengkap"
                         aria-label="Nama lengkap" aria-describedby="basic-addon1" required
                         oninvalid="this.setCustomValidity('Harap Masukkan Nama Lengkap')" oninput="setCustomValidity('')"
-                        value style="width: 100%;">
+                        style="width: 100%;" value="{{$biodata->nama}}" required>
                     </div>
                 </div>
             </div>
@@ -418,7 +417,7 @@ if (!empty($_GET['hari'])){
                 <div style="width: 100%; display: flex;justify-content: center;">
                     <div style="width: 90%;">
                         <div class="input-group-text input-group-text-mall" style="border-radius: 1.5em; width: auto; background: white; padding-bottom: 0.8em; margin-top: 0.4em;">
-                            <span style="margin-left: 0.5em; margin-right: 2em; color: #1c2645;" id="option_pria" onclick="pilih_jenkel(this.id,'Pria')">  <i class="fas fa-circle" style="font-size: 0.8em;"></i>&nbsp;&nbsp;Pria
+                            <span style="margin-left: 0.5em; margin-right: 2em; color: #b3b7c0;" id="option_pria" onclick="pilih_jenkel(this.id,'Pria')">  <i class="fas fa-circle" style="font-size: 0.8em;"></i>&nbsp;&nbsp;Pria
                             </span>
                             <span style="margin-right: 0.5em; color:#b3b7c0" id="option_wanita" onclick="pilih_jenkel(this.id, 'Wanita')">
                                 <i class="fas fa-circle" style="font-size: 0.8em;"></i>&nbsp;&nbsp;Wanita
@@ -426,7 +425,7 @@ if (!empty($_GET['hari'])){
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="jenis_kelamin" id="jenis_kelamin" value="Laki-Laki">
+                <input type="hidden" name="jenis_kelamin" id="jenis_kelamin" value="{{$biodata->jenis_kelamin}}">
             </div>
 
             <div style="display: flex;justify-content: center;">

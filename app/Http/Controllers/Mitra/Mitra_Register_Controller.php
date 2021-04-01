@@ -281,18 +281,16 @@ class Mitra_Register_Controller extends Controller
     }
 
     public function selesai($jenis_mitra){
+        $notification = array(
+            'message' => 'Belum Terverifikasi',
+            'jenis_mitra' => $jenis_mitra
+        ); 
 
         if ($jenis_mitra == 'premium'){
-            return redirect('/home/halaman_tunggu');
+            return redirect('/akun')->with($notification);
             // return redirect('/akun/jadi-mitra/'.$jenis_mitra.'/upload-ktp');
         }
         else{
-
-            $notification = array(
-                'message' => 'Belum Terverifikasi',
-                'jenis_mitra' => $jenis_mitra
-            );     
-    
             return redirect('/akun')->with($notification);
         }
     }
