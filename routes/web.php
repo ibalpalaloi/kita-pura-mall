@@ -43,6 +43,7 @@ Route::group(['middleware'=> 'guest'], function() {
 
 
     Route::post('/masuk', [AuthController::class, 'post_login_v2']);
+    Route::get('/redirectToGoogle', [AuthController::class, 'redirectToGoogle']);
     Route::get('/register', [AuthController::class, 'register']);
     Route::get('/register-api', [AuthController::class, 'register_api']);
     

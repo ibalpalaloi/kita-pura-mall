@@ -14,11 +14,16 @@ use Illuminate\Support\Str;
 use Auth;
 use GuzzleHttp;
 use Session;
+use Laravel\Socialite\Facades\Socialite;
 
 
 class AuthController extends Controller
 {
     //
+    public function redirectToGoogle(){
+        return Socialite::driver('google')->redirect();
+    }
+
     public function register(){
         return view('auth.register');
     }

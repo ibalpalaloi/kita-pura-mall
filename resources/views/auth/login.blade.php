@@ -316,13 +316,15 @@
                     <a href="<?=url('/')?>/register" class="btn" style="width: 100%; background: #0CA437;">
                         Buat Akun kitapura <i>mall</i>
                     </a>
-                    <div class="btn" style="width: 100%; background: #EAF4FF; color: #575757; display: flex;">
-                        <span class="" style="width: 15%; display: flex; justify-content: center;">
-                            <img src="<?=url('/')?>/public/img/home/google-icon.svg" style="width: 1.5em;">
-                        </span>
-                        <span style="width: 70%;">Google</span>
-                        <span style="width: 15%; color: #EAF4FF">a</span>
-                    </div>
+                    <a href="<?=url('/')?>/redirectToGoogle">
+                        <div class="btn" style="width: 100%; background: #EAF4FF; color: #575757; display: flex;">
+                            <span class="" style="width: 15%; display: flex; justify-content: center;">
+                                <img src="<?=url('/')?>/public/img/home/google-icon.svg" style="width: 1.5em;">
+                            </span>
+                            <span style="width: 70%;">Google</span>
+                            <span style="width: 15%; color: #EAF4FF">a</span>
+                        </div>
+                    </a>
                     <div class="btn" style="width: 100%; background: #00A3FF; display: flex; margin-top: 0.8em;">
                         <span class="" style="width: 15%; display: flex; justify-content: center;">
                             <img src="<?=url('/')?>/public/img/home/facebook-icon.svg" style="width: 1.5em;">
