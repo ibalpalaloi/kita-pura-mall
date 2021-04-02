@@ -39,7 +39,7 @@ class UserController extends Controller
 		
 		Session::put('progress_biodata', $progress);
 
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->user()->id)->first();
 
 		if($toko){
 			
@@ -50,7 +50,7 @@ class UserController extends Controller
 
 		}
 		else {
-			$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+			$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Auth()->user()->id)->first();
 			
 			if ($daftar_tunggu){
 				if($toko){
@@ -82,8 +82,8 @@ class UserController extends Controller
 		// 	}
 		// }
 		
-		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$biodata = Biodata::where('users_id', Auth()->user()->id)->first();
+		$toko = toko::where('users_id', Auth()->user()->id)->first();
 		// dd($toko);
 		return view('users/user/m-profil/index', 
 			['status_aktif_mitra' => $status_aktif_mitra, 'cek_ktp' => $cek_ktp, 'biodata' => $biodata, 'toko'=>$toko]
@@ -91,7 +91,7 @@ class UserController extends Controller
 	}
 
 	public function biodata(){
-		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
+		$biodata = Biodata::where('users_id', Auth()->user()->id)->first();
 		return view('users/user/m-profil/biodata', ['biodata'=>$biodata]);
 	}
 
@@ -115,7 +115,7 @@ class UserController extends Controller
 
 				if (!\Hash::check($request->password , $password_old)) {
 
-					$user = User::find(Session::get('id_user'));
+					$user = User::find(Auth()->User()->id);
 					$user->password = bcrypt($request->get('password'));
 					$user->save();
 
@@ -173,7 +173,7 @@ class UserController extends Controller
 			'username' => 'required'
 		]);
 		
-		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
+		$biodata = Biodata::where('users_id', Auth()->User()->id)->first();
 		// dd($biodata);
 		$biodata->nama = $request->nama_lengkap;
 		$biodata->jenis_kelamin = $request->jenis_kelamin;
@@ -183,7 +183,7 @@ class UserController extends Controller
 		if($request->file('foto')){
 			$files = $request->file("foto");
 			$type = $request->file("foto")->getClientOriginalExtension();
-			$file_upload = Session::get('id_user').".".$type;
+			$file_upload = Auth()->User()->id.".".$type;
 			\Storage::disk('public')->put('img/biodata/'.$file_upload, file_get_contents($files));
 			$biodata->foto = $file_upload;
 		}
@@ -217,7 +217,7 @@ class UserController extends Controller
         // file_put_contents($path, $image);
 
 		\Storage::disk('public')->put('img/user/profile_picture/'.$image_name, file_get_contents($request->image));
-		$biodata = Biodata::where('users_id', Session::get('id_user'))->first();
+		$biodata = Biodata::where('users_id', Auth()->User()->id)->first();
 		$image_path = "public/img/user/profile_picture/".$biodata->foto;
 		if(\File::exists($image_path)) {
 			\File::delete($image_path);
