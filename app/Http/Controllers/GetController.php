@@ -238,7 +238,7 @@ class GetController extends Controller
 
 	function ubah_status_toko($id){
 		$toko = Toko::where('id', $id)->first();
-		if($toko->status = 'Aktif' or $toko->status = 'aktif'){
+		if($toko->status == 'Aktif'){
 			$status = "non-aktif";
 		}
 		else{
@@ -247,7 +247,7 @@ class GetController extends Controller
 		$toko = Toko::where('id', $id)->first();
 		$toko->status = $status;
 		$toko->save();
-
+		echo $status;
 	}
 
 	public function cek_email(Request $request){

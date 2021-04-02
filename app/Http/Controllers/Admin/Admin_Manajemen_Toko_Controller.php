@@ -31,7 +31,8 @@ class Admin_Manajemen_Toko_Controller extends Controller
 
     public function index(){
         $toko = Toko::all();
-        return view('users.admin.m-toko.index', ['toko'=> $toko]);
+        $toko_non_aktif = Toko::where('status', 'non-aktif')->get();
+        return view('users.admin.m-toko.index', ['toko'=> $toko, 'toko_non_aktif'=>$toko_non_aktif]);
     }
 
     public function daftar_tunggu_toko(){
