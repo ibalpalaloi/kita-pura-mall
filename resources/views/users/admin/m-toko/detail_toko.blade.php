@@ -345,7 +345,15 @@ Toko
             data : {_token:'{{csrf_token()}}'},
             success:function(result)
             {   
-                alert($('#btn_ubah_status_toko').text());
+                if(result == "Aktif"){
+                    $('#btn_ubah_status_toko').removeClass()
+                    $('#btn_ubah_status_toko').addClass('btn btn-primary')
+                    $('#btn_ubah_status_toko').text('Aktif')
+                }else{
+                    $('#btn_ubah_status_toko').removeClass()
+                    $('#btn_ubah_status_toko').addClass('btn btn-danger')
+                    $('#btn_ubah_status_toko').text('Tidak Aktif')
+                }
             }
         })
     }
