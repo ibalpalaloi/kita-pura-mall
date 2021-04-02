@@ -34,7 +34,7 @@ class Mitra_Free_Controller extends Controller
 
 		$kelurahan = kelurahan::all();
 
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 
 		if($toko){
 
@@ -63,7 +63,7 @@ class Mitra_Free_Controller extends Controller
 		}
 		else{
 
-			$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+			$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
 			$jadwal_toko = Jadwal_toko::where('toko_id', $daftar_tunggu->toko_id)->get();
 
 			$foto_1 = Foto_maps::where('toko_id', $daftar_tunggu->toko_id)->where('no_foto','1')->first();
@@ -99,7 +99,7 @@ class Mitra_Free_Controller extends Controller
 			'alamat' => 'required',
 		]);
 
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		if($toko){
 			$toko->nama_toko = $request->nama_toko;
 			$toko->kategori_toko_id = $request->kategori_toko;
@@ -113,7 +113,7 @@ class Mitra_Free_Controller extends Controller
 		}
 		else{
 
-			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+			$toko = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
 			$toko->nama_toko = $request->nama_toko;
 			$toko->kategori_toko_id = $request->kategori_toko;
 			$toko->no_hp = $request->no_hp;
@@ -216,7 +216,7 @@ class Mitra_Free_Controller extends Controller
 	}
 
 	public function atur_lokasi(){
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		return view('users/user/m-mitra/free/pilih_lokasi_free', ['toko'=>$toko]);
 	}
 
@@ -224,7 +224,7 @@ class Mitra_Free_Controller extends Controller
 
 		// dd($request->all());
 
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 
 		if($toko){
 
@@ -235,7 +235,7 @@ class Mitra_Free_Controller extends Controller
 		}
 		else{
 
-			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+			$toko = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
 			$toko->latitude = $request->latitude;
 			$toko->longitude = $request->longitude;
 			$toko->save();
@@ -254,7 +254,7 @@ class Mitra_Free_Controller extends Controller
 		$daftar_kategori = Kategori_toko::all();
 		$kelurahan = kelurahan::all();
 
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		if($toko){
 
 			$jadwal = Jadwal_toko::where('toko_id', $toko->id)->get();
@@ -262,7 +262,7 @@ class Mitra_Free_Controller extends Controller
 		}
 		else{
 
-			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+			$toko = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
 			$jadwal = Jadwal_toko::where('toko_id', $toko->toko_id)->get();
 			$foto_toko = Foto_maps::where('toko_id', $toko->toko_id)->get();
 		}
@@ -287,13 +287,13 @@ class Mitra_Free_Controller extends Controller
 		]);
 
 
-		$old_toko = toko::where('users_id', Session::get('id_user'))->first();
+		$old_toko = toko::where('users_id', Auth()->User()->id)->first();
 
 		if($old_toko){
 
 			$toko = new Daftar_tunggu_toko;
 			$toko->nama_toko = $request->nama_toko;
-			$toko->users_id = Session::get('id_user');
+			$toko->users_id = Auth()->User()->id;
 			$toko->toko_id = $old_toko->id;
 			$toko->jenis_mitra = "premium";
 			$toko->kategori_toko_id = $request->kategori_toko;
@@ -319,9 +319,9 @@ class Mitra_Free_Controller extends Controller
 		}
 		else{
 
-			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();;
+			$toko = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();;
 			$toko->nama_toko = $request->nama_toko;
-			$toko->users_id = Session::get('id_user');
+			$toko->users_id = Auth()->User()->id;
 			$toko->jenis_mitra = "premium";
 			$toko->kategori_toko_id = $request->kategori_toko;
 			$toko->no_hp = $request->no_hp;
@@ -430,12 +430,12 @@ class Mitra_Free_Controller extends Controller
 	}
 
 	public function upgrade_atur_lokasi(){
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		return view('users/user/m-mitra/free/pilih_lokasi_premium', ['toko'=>$toko]);
 	}
 
 	public function batalkan_upgrade(){
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		Ktp_toko::where('toko_id', $toko->id)->delete();		
 		Daftar_tunggu_toko::where('toko_id', $toko->id)->delete();
 		$notification = array(
@@ -446,7 +446,7 @@ class Mitra_Free_Controller extends Controller
 	}
 
 	public function upgrade_kirim_lokasi(){
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		$toko->latitude = 1;
 		$toko->longitude = 1;
 		$toko->save();  
@@ -454,7 +454,7 @@ class Mitra_Free_Controller extends Controller
 	}
 
 	public function kirim_lokasi(){
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		$toko->latitude = 1;
 		$toko->longitude = 1;
 		$toko->save();  
@@ -464,7 +464,7 @@ class Mitra_Free_Controller extends Controller
 	public function upgrade_simpan_lokasi(Request $request){
 
 		// dd($request->all());
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		$toko->latitude = $request->latitude;
 		$toko->longitude = $request->longitude;
 		$toko->save();
@@ -488,7 +488,7 @@ class Mitra_Free_Controller extends Controller
 			'foto_toko' => 'required'
 		]);
 
-		$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+		$toko = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
 
 		$ktp = new Ktp_toko;
 		$ktp->toko_id = $toko->toko_id;

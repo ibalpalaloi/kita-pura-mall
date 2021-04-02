@@ -27,7 +27,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 	public function daftar_produk_premium(){
 		$kategori_produk = Kategori::all();
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 
 		$produk = product::where('toko_id', $toko->id)->get();
 
@@ -36,7 +36,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 
 	public function tambah_produk_premium(){
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		$produk = product::where('toko_id', $toko->id)->get();
 		$kategori_produk = Kategori::where('nama', '!=', 'LAINNYA')->get();
 		$sub_kategori = array();
@@ -66,7 +66,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 		$produk_id = $this->autocode('PD-');
 
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		// @Tambah Produk
 		if($request->kategori_lain != ''){
 			$kategori = "20";
@@ -136,7 +136,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 	public function produk_premium($id){
 		$kategori_produk = Kategori::all();
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		$produk = product::where('id', $id)->where('toko_id', $toko->id)->first();
 
 		return view('users/user/m-mitra/premium/update_produk', compact('produk', 'kategori_produk'));
@@ -151,7 +151,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 			'deskripsi' => 'required',
 		]);
 
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		$produk = product::where('id', $id)->where('toko_id', $toko->id)->first();
 		$produk->kategori_id = $request->kategori_produk;
 		$produk->nama = $request->nama_produk;
@@ -206,7 +206,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 		public function hapus_tambah_produk_premium($id){
 
-			$toko = toko::where('users_id', Session::get('id_user'))->first();
+			$toko = toko::where('users_id', Auth()->User()->id)->first();
 
 			product::where('id', $id)->where('toko_id', $toko->id)->delete();
 
@@ -237,7 +237,7 @@ class Mitra_Premium_Produk_Controller extends Controller
         // $path = public_path('upload/'.$image_name);
 
         // file_put_contents($path, $image);
-			$toko = toko::where('users_id', Session::get('id_user'))->first();
+			$toko = toko::where('users_id', Auth()->User()->id)->first();
 			\Storage::disk('public')->put("img/temp_produk/".$size."/".$image_name, file_get_contents($request->image));
 			$image_path = url('/')."/public/img/temp_produk/".$size."/$image_name";
 
@@ -258,7 +258,7 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 	// public function simpan_atur_produk_premium(Request $request){
 
-	// 	$toko = toko::where('users_id', Session::get('id_user'))->first();
+	// 	$toko = toko::where('users_id', Auth()->User()->id)->first();
 
 	// 	if($request->file("foto_maps_1")){
 	// 		$foto = Foto_maps::where('id', $request->id_foto_maps_1)->first();

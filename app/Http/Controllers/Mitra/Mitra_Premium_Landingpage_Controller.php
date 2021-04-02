@@ -30,7 +30,7 @@ class Mitra_Premium_Landingpage_Controller extends Controller
 		
 		$kategori_produk = Kategori::all();
 
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 
 		$produk = product::where('toko_id', $toko->id)->get();
 
@@ -44,7 +44,7 @@ class Mitra_Premium_Landingpage_Controller extends Controller
 	}
 
 	public function hapus_video(Request $request){
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		Video_landing_page::where('toko_id', $toko->id)->where('no_video', $request->nomor_div_hapus)->delete();
 		$notification = array(
 			'message' => 'Video landing page berhasil'
@@ -65,7 +65,7 @@ class Mitra_Premium_Landingpage_Controller extends Controller
 	}
 
 	public function hapus_foto_cover(){
-		$toko = Toko::where('users_id', Session::get('id_user'))->first();
+		$toko = Toko::where('users_id', Auth()->User()->id)->first();
 		if ($toko->foto_cover){
 			$image_path = "img/toko/$toko->id/cover/";
 			\File::delete("public/".$image_path."/$toko->foto_cover");
@@ -89,7 +89,7 @@ class Mitra_Premium_Landingpage_Controller extends Controller
         // $path = public_path('upload/'.$image_name);
 
         // file_put_contents($path, $image);
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		$image_path = "img/toko/$toko->id/cover/";
 		\Storage::disk('public')->put($image_path."/$image_name", file_get_contents($request->image));
 		\File::delete("public/".$image_path."/$toko->foto_cover");
@@ -101,7 +101,7 @@ class Mitra_Premium_Landingpage_Controller extends Controller
 	public function simpan_foto_maps(Request $request){
 		$id = $request->jenis;
 
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		$foto = Foto_maps::where('toko_id', $toko->id)->where('no_foto', $id)->first();
 		if($foto){
 			\Storage::disk('public')->delete('img/toko/'.$toko->id.'/maps/'.$foto->foto);
@@ -128,7 +128,7 @@ class Mitra_Premium_Landingpage_Controller extends Controller
 
 	public function ubah_status_produk_premium(Request $request){
 		$id = $request->id;
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 
 		$produk = product::where('toko_id', $toko->id)->where('id', $id)->first();
 
@@ -210,7 +210,7 @@ class Mitra_Premium_Landingpage_Controller extends Controller
 		$id = $request->nomor_foto;
 
 		if($request->file("foto_cover")){
-			$toko = toko::where('users_id', Session::get('id_user'))->first();
+			$toko = toko::where('users_id', Auth()->User()->id)->first();
 			\Storage::disk('public')->delete('img/toko/'.$toko->id.'/cover/'.$toko->foto_cover);
 			$files = $request->file('foto_cover');
 			$type = $request->file("foto_cover")->getClientOriginalExtension();

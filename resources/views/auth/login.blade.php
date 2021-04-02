@@ -316,7 +316,7 @@
                     <a href="<?=url('/')?>/register" class="btn" style="width: 100%; background: #0CA437;">
                         Buat Akun kitapura <i>mall</i>
                     </a>
-                    {{-- <a href="<?=url('/')?>/redirectToGoogle">
+                    <a href="<?=url('/')?>/redirectToGoogle">
                         <div class="btn" style="width: 100%; background: #EAF4FF; color: #575757; display: flex;">
                             <span class="" style="width: 15%; display: flex; justify-content: center;">
                                 <img src="<?=url('/')?>/public/img/home/google-icon.svg" style="width: 1.5em;">
@@ -331,7 +331,7 @@
                         </span>
                         <span style="width: 70%;">Facebook</span>
                         <span style="width: 15%; color: #00A3FF">a</span>
-                    </div> --}}
+                    </div>
                 </div>
 
             </div>
