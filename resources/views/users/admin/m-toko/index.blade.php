@@ -54,7 +54,7 @@ Toko
     <div class="col-12">
         <div class="material-card card">
             <div class="card-body">
-                <h4 class="card-title">Toko</h4>
+                <h4 class="card-title">Daftar Semua Toko</h4>
                 <a type="button" class="btn btn-primary" href="<?=url('/')?>/admin/manajemen/daftar_tunggu_toko">
                     Daftar Tunggu
                 </a>
@@ -67,7 +67,7 @@ Toko
                                 <th>No Telp</th>
                                 <th>Alamat</th>
                                 <th>Kategori Toko</th>
-                                <th>Nama Pemilik</th>
+                                <th>Jumlah Produk</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -82,7 +82,54 @@ Toko
                                             {{$kategori->kategori_toko->kategori}},
                                         @endforeach
                                     </td>
-                                    <td>{{$data->nama_pemilik}}</td>
+                                    <td><a href="<?=url('/')?>/admin/manajemen/toko/{{$data->id}}/daftar_produk">{{count($data->product)}}</a></td>
+                                    <td>
+                                        <a href="<?=url('/')?>/admin/manajemen/toko/{{$data->id}}" type="button" class="btn btn-primary">Ubah</a>
+                                        <a onclick="modal_hapus('{{$data->id}}')" type="button" class="btn btn-danger">Hapus</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="material-card card">
+            <div class="card-body">
+                <h4 class="card-title">Daftar Toko Non-Aktif</h4>
+                <a type="button" class="btn btn-primary" href="<?=url('/')?>/admin/manajemen/daftar_tunggu_toko">
+                    Daftar Tunggu
+                </a>
+                <br><br>
+                <div class="table-responsive">
+                    <table style="width: 100%" id="config-table" class="table display table-bordered table-striped no-wrap">
+                        <thead>
+                            <tr>
+                                <th>Nama Toko</th>
+                                <th>No Telp</th>
+                                <th>Alamat</th>
+                                <th>Kategori Toko</th>
+                                <th>Jumlah Produk</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($toko_non_aktif as $data)
+                                <tr>
+                                    <td>{{$data->nama_toko}}</td>
+                                    <td>{{$data->no_hp}}</td>
+                                    <td>{{$data->alamat}}</td>
+                                    <td>
+                                        @foreach ($data->kategorinya_toko as $kategori)
+                                            {{$kategori->kategori_toko->kategori}},
+                                        @endforeach
+                                    </td>
+                                    <td><a href="<?=url('/')?>/admin/manajemen/toko/{{$data->id}}/daftar_produk">{{count($data->product)}}</a></td>
                                     <td>
                                         <a href="<?=url('/')?>/admin/manajemen/toko/{{$data->id}}" type="button" class="btn btn-primary">Ubah</a>
                                         <a onclick="modal_hapus('{{$data->id}}')" type="button" class="btn btn-danger">Hapus</a>
