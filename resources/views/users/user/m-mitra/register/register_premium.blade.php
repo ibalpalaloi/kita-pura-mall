@@ -627,7 +627,7 @@
 
 	<header class="style__Container-sc-3fiysr-0 header" style="background:#353535; padding-top: 0.3em;">
 		<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
-			<a href="<?=url('/')?>/logout" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
+			<a href="<?=url('/')?>/akun" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
 				<img src="<?=url('/')?>/public/img/back_white.svg">
 			</a>
 			<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
@@ -654,6 +654,7 @@
 							</div>
 						</div>
 						<input type="file" name="foto_toko" id="image" hidden>
+						<input type="hidden" name="nama_foto_temp" id="nama_foto_temp">
 						<div style="display: flex; justify-content: center; flex-direction: column;">
 							<input type="text" id="nama_toko" name="nama_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Toko" aria-label="Nama Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1.5em; font-weight: 645;" value="{{old('nama_toko')}}" required>
 							<input type="text" id="username" name="username" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Username Toko" class="@if($errors->first('username')) is-invalid-text @endif" aria-label="Username" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" value="{{old('username')}}" required>
@@ -757,7 +758,7 @@
 					</div>
 
 
-					<button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;" onclick="cek_data()">
+					<button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
 						<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
 					</button>	
 				</div>
@@ -819,9 +820,6 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="<?=url('/')?>/public/plugins/select2/js/select2.full.min.js"></script>
 <script>
-	$( "#form_input" ).submit(function( event ) {
-		show_loader();
-	});
 
 	$('#kota').change(function(){
 		// show_loader();
@@ -1222,15 +1220,22 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 
 
 		var imageSize = {
-			width: 600,
-			height: 600,
-			type: 'circle'
+			width: 400,
+			height: 400,
+			type: 'square'
 		};
+
+		var imageSize2 = {
+			width: 200,
+			height: 200,
+			type: 'square'
+		};		
 
 
 
 		$('.upload-image').on('click', function (ev) {
 			$("#modal-sukses").modal('hide');
+			var rString = randomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 			resize.croppie('result', {
 				circle: false,
 				type: 'canvas',
@@ -1241,9 +1246,9 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 
 					url: "<?=url('/')?>/akun/jadi-mitra/premium/simpan-foto-register",
 					type: "POST",
-					data: {"image":img},
+					data: {"image":img, "size":"400x400", "nama":rString},
 					success: function (data) {
-						$('#pic_toko_privew').attr('src', "<?=url('/')?>/public/img/temp_produk/"+data);
+						$('#pic_toko_privew').attr('src', "<?=url('/')?>/public/img/temp_produk/400x400/"+data);
 						$("#modal_loader").modal('hide');
 						$("#nama_foto_temp").val(data);
 						$("#div_pic_toko_privew").prop('hidden', false);
@@ -1254,8 +1259,30 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 
 			});
 			status_ganti_foto = 1;
+			resize.croppie('result', {
+				circle: false,
+				type: 'canvas',
+				size: imageSize2,
+				quality: 1
+			}).then(function (img) {
+				$.ajax({
+					url: "<?=url('/')?>/akun/jadi-mitra/premium/simpan-foto-register",
+					type: "POST",
+					data: {"image":img, "size":"200x200", "nama":rString},
+					success: function (data) {
 
+					}
+				});
+			});
 		});
+
+		function randomString(length, chars) {
+			var d = new Date();
+			var milliseconds  = Date.parse(d);
+			var result = '';
+			for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+				return milliseconds+result;
+		}
 
 
 		$("#form_input").submit(function(e) {
@@ -1264,30 +1291,29 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 			var username = $("#username").val();
 			for (i = 0; i < username.length; i++) {
 				code = username.charCodeAt(i);
-		    if ((code > 47 && code < 58) || // numeric (0-9)
-		        (code > 64 && code < 91) || // upper alpha (A-Z)
-		        (code > 96 && code < 123)) { // lower alpha (a-z)
-		    }
-		else {
-			hide_loader();
-			$("#modal-notif-error-toko").modal('show');
-			$("#username").css('color', '#ED0D0D');
-			$("#username").css('text-decoration', 'underline');
-			$("#username").focus();
-			respon = true;
-			break;
-		}
-	}
+				if ((code > 47 && code < 58) || (code > 64 && code < 91) || (code > 96 && code < 123)) { 
+			
+				}
+				else {
+					// hide_loader();
+					respon = true;
+					// alert(respon);
+					$("#modal-notif-error-toko").modal('show');
+					$("#username").css('color', '#ED0D0D');
+					$("#username").css('text-decoration', 'underline');
+					$("#username").focus();
+					break;
+				}
+			}
 
-	if (respon == false){
-		show_loader();
-	}
-	else {
-		e.preventDefault();			
+			if (respon == false){
+				show_loader();
+			}
+			else {
+				e.preventDefault();			
 
-	}
+			}
+		});
+	</script>
 
-});
-</script>
-
-@endsection
+	@endsection

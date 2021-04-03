@@ -254,11 +254,21 @@ class Mitra_Premium_Controller extends Controller
 			$toko->deskripsi = $request->deskripsi;
 			if($request->file("foto_toko")){
 				$files = $request->file("foto_toko");
-				$type = $request->file("foto_toko")->getClientOriginalExtension();
-				$file_upload = time().$this->generateRandomString().".".$type;
-				\Storage::disk('public')->put('img/toko/'.$toko->id.'/logo/'.$file_upload, file_get_contents($files));
-				\File::delete("public/img/toko/".$toko->id."/logo/".$toko->logo_toko);		
-				$toko->logo_toko = $file_upload;
+                $image_path_ori = "img/toko/$toko->id/logo/original/$request->nama_foto_temp";
+                $image_path_400x400 = "img/toko/$toko->id/logo/400x400/$request->nama_foto_temp";
+                $image_path_200x200 = "img/toko/$toko->id/logo/200x200/$request->nama_foto_temp";
+
+                \Storage::disk('public')->put($image_path_ori, file_get_contents($files));
+                \Storage::disk('public')->put($image_path_400x400, file_get_contents($files));
+                \Storage::disk('public')->put($image_path_200x200, file_get_contents($files));
+
+                \File::delete("public/$image_path_400x400");            
+                \File::delete("public/$image_path_200x200");            
+
+                File::move(public_path('img/temp_produk/400x400/'.$request->nama_foto_temp), public_path($image_path_400x400));
+                File::move(public_path('img/temp_produk/200x200/'.$request->nama_foto_temp), public_path($image_path_200x200));
+
+                $toko->logo_toko = $request->nama_foto_temp;   
 			}
 			$toko->save();
 
@@ -278,10 +288,23 @@ class Mitra_Premium_Controller extends Controller
 			$toko->deskripsi = $request->deskripsi;
 			if($request->file("foto_toko")){
 				$files = $request->file("foto_toko");
-				$type = $request->file("foto_toko")->getClientOriginalExtension();
-				$file_upload = $toko->id.".".$type;
-				\Storage::disk('public')->put('img/toko/'.$toko->toko_id.'/logo/'.$file_upload, file_get_contents($files));
-				$toko->logo_toko = $file_upload;
+                $image_path_ori = "img/toko/$toko->toko_id/logo/original/$request->nama_foto_temp";
+                $image_path_400x400 = "img/toko/$toko->toko_id/logo/400x400/$request->nama_foto_temp";
+                $image_path_200x200 = "img/toko/$toko->toko_id/logo/200x200/$request->nama_foto_temp";
+
+                \Storage::disk('public')->put($image_path_ori, file_get_contents($files));
+                \Storage::disk('public')->put($image_path_400x400, file_get_contents($files));
+                \Storage::disk('public')->put($image_path_200x200, file_get_contents($files));
+
+                \File::delete("public/$image_path_400x400");            
+                \File::delete("public/$image_path_200x200");            
+
+                File::move(public_path('img/temp_produk/400x400/'.$request->nama_foto_temp), public_path($image_path_400x400));
+                File::move(public_path('img/temp_produk/200x200/'.$request->nama_foto_temp), public_path($image_path_200x200));
+
+                $toko->logo_toko = $request->nama_foto_temp;    
+
+
 			}
 			$toko->save();
 
@@ -322,27 +345,22 @@ class Mitra_Premium_Controller extends Controller
 	}
 
 	public function simpan_foto_toko(Request $request){
-		$image = $request->image;
-		list($type, $image) = explode(';', $image);
-		list(, $image)      = explode(',', $image);
-		$image = base64_decode($image);
-		$image_name= time().$this->generateRandomString().'.png';
-        // $path = public_path('upload/'.$image_name);
-
-        // file_put_contents($path, $image);
-		\Storage::disk('public')->put('img/temp_produk/'.$image_name, file_get_contents($request->image));
-		$image_path = url('/')."/public/img/temp_produk/$image_name";
-		// $biodata->foto = $image_name;
-		// $biodata->save();
-		echo $image_name;
-		// return response()->json(['status'=>$image_path]);		
+        $image = $request->image;
+        $size = $request->size;
+        list($type, $image) = explode(';', $image);
+        list(, $image)      = explode(',', $image);
+        $image = base64_decode($image);
+        $image_name= $request->nama.'.png';
+        $toko = toko::where('users_id', Session::get('id_user'))->first();
+        \Storage::disk('public')->put("img/temp_produk/".$size."/".$image_name, file_get_contents($request->image));
+        $image_path = url('/')."/public/img/temp_produk/".$size."/$image_name";
+        echo $image_name;
 	}
 
 
 	public function atur_toko_premium(){
 
 		$kategori = Kategori_toko::all();
-		$kelurahan = kelurahan::all();
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 		$jadwal = Jadwal_toko::where('toko_id', $toko->id)->get();
 		$kategorinya_toko = Kategorinya_toko::where('toko_id', $toko->id)->get();

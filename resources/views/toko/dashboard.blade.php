@@ -174,7 +174,7 @@
 
 .div-input-mall div {
 	display: flex; justify-content: center; flex-direction: row;
-	width: 90%;
+	width: 100%;
 }
 
 
@@ -197,7 +197,7 @@
 	<div class="container-mall">
 		<h1 style="color: #FF006E; font-weight: 600; margin-top: 0.6em; margin-bottom: 0px; line-height: 0.8em;">Toko</h1>
 		<h7 style="color: #B3B6BC; margin-top: 0px;">Temukan toko anda</h7>
-		<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em; margin-bottom: 0.5em;">
+		<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="margin-bottom: 0.5em; ">
 
 			<div style="width: 100%; margin-bottom: 0px;">
 				<div class="div-input-mall-square" style="background: white; display: flex; align-items: center; margin-right: 0.5em;"> 

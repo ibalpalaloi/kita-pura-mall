@@ -304,11 +304,12 @@
                         <label for="examplePass" class="bmd-label-floating" id="label_password" style="color: #999797">Password</label>
                         <input type="password" name="password" id="password" class="form-control" id="examplePass">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: flex;justify-content: center; flex-direction: column;">
 
                         <button onclick="cek_submit()" type="button" class="btn" style="width: 100%; background: #0CA437;">
                             Daftar
                         </button>
+                        <a href="<?=url('/')?>" style="color:#353535;width: 100%; text-align: center; font-size: 0.9em; margin-top: 0.5em;">Sudah punya akun? <span style="color: #FB036B; font-weight: 600; text-decoration: underline;">Masuk disini</span></a>
                     </div>
                 </form>
                 {{-- <div style="display: flex;justify-content: center; align-items: center;">

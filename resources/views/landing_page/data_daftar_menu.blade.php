@@ -1,7 +1,7 @@
 @foreach($produk as $row)
 <div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
     <?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-    <img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/{{$row->foto_produk}}">
+    <img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/240x200/{{$row->foto_produk}}">
     <div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative; background: {{$page->warna_header}};'> 
         @php $hasil_diskon_string = ""; @endphp
         @if ($row->jenis_harga == 'Statis')

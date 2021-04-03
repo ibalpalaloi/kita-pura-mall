@@ -305,7 +305,7 @@
                     </div>
                 </form>
                 <div class="form-group" style="display: flex; justify-content: center;">
-                    <a href="#" style="text-align: center; color: #FB036B; font-weight: 700;">Lupa Kata Sandi?</a>
+                    <a href="https://api.whatsapp.com/send?phone=6285158362224&text=Halo%20admin,%20Saya%20lupa%20password%20saya"  style="text-align: center; color: #FB036B; font-weight: 700;">Lupa Kata Sandi?</a>
                 </div>
                 <div style="display: flex;justify-content: center; align-items: center;">
                     <hr style="width: 100%; margin-right: 1em;">

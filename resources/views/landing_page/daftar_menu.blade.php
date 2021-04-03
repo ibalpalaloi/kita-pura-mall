@@ -190,7 +190,7 @@
 
 .div-input-mall div {
 	display: flex; justify-content: center; flex-direction: row;
-	width: 90%;
+	width: 100%;
 }
 
 

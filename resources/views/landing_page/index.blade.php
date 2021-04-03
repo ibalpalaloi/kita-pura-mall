@@ -418,14 +418,16 @@ style="padding: 1.5em; padding: 0px;">
 <div class="wrapper" style="background: transparent; position: relative; z-index: -1; border-bottom-right-radius: 7%; border-bottom-left-radius: 7%;">
 	<?php 
 	if ($toko->foto_cover != null){
-		$product_bg = url('/')."/public/img/toko/".$toko->id."/cover/".$toko->foto_cover;
+		// $product_bg = url('/')."/public/img/toko/".$toko->id."/cover/240x240/".$toko->foto_cover;
+		$product_bg = url('/')."/public/img/toko/".$toko->id."/cover/600x600/".$toko->foto_cover;
+
 	}
 	else {
 		$product_bg = url('/')."/public/img/maps/template_maps.svg";
 	}
 	?>
 	<div class="banner" style='padding: 7em 0.5em 12em 0.5em; display: flex; justify-content: center; align-items: center; @if ($toko->foto_cover != null) background-image: url("<?=$product_bg?>") @endif; background-size: contain;'>
-		<img src="{{$toko->logo()}}" style="width: 50%;">
+		<img src="<?=url('/')?>/public/img/toko/{{$toko->id}}/logo/200x200/{{$toko->logo_toko}}" style="width: 50%; border-radius: 50%;">
 	</div>
 </div>
 
@@ -513,8 +515,10 @@ style="padding: 1.5em; padding: 0px;">
 				<div style="font-size: 1.4em; font-weight: 1000; text-align: center;">Layanan Kami</div>
 			</div>
 			<div class="input-group mb-3" id="div_foto_maps_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
-				<div onclick='open_modal_image("<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[1]}}")' style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
-					<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[1]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+				<div onclick='open_modal_image("<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/1/800x541/{{$foto_map[1]}}")' style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_1_privew">
+					<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/1/320x216/{{$foto_map[1]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+					<!-- <img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/1/800x541/{{$foto_map[1]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;"> -->
+
 				</div>
 
 				<input hidden type="file" name="foto_maps_1" id="foto_maps_1" required>
@@ -522,18 +526,20 @@ style="padding: 1.5em; padding: 0px;">
 			@endif
 			<div style="display: flex; justify-content: space-between;">
 				@if(!empty($foto_map[2]))
-				<div onclick='open_modal_image("<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[2]}}")' class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
+				<div onclick='open_modal_image("<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/2/506x800/{{$foto_map[2]}}")' class="input-group mb-3 div-input-mall-square" id="div_foto_maps_2" style="background:transparent; border: none; border-radius: 1.2em; width: 40%;">
 					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_2_privew">
-						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[2]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<!-- <img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/2/506x800/{{$foto_map[2]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;"> -->
+						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/2/202x320/{{$foto_map[2]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 					</div>
 
 					<input hidden type="file" name="foto_maps_2" id="foto_maps_2" required>
 				</div>
 				@endif
 				@if (!empty($foto_map[3]))
-				<div onclick='open_modal_image("<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[3]}}")' class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
+				<div onclick='open_modal_image("<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/3/681x800/{{$foto_map[3]}}")' class="input-group mb-3 div-input-mall-square" id="div_foto_maps_3" style="background:transparent; border: none; border-radius: 1.2em; width: 56%;">
 					<div style="display: flex; justify-content: center; width: 100%; margin: 0px; height: 12.5em;" id="div_pic_maps_3_privew">
-						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/{{$foto_map[3]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+						<!-- <img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/3/681x800/{{$foto_map[3]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;"> -->
+						<img id="pic_maps_1_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/maps/3/272x320/{{$foto_map[3]}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
 					</div>
 
 				</div>
@@ -573,7 +579,7 @@ style="padding: 1.5em; padding: 0px;">
 				<div class="input-group mb-3" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em; display: flex; justify-content: center;">
 					<div style="display: flex; justify-content: center; position:relative;width: 85%; margin: 0px;">
 						<a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/{{$item->id}}" style="width: 100%;">
-							<img src="<?=url('/')?>/public/img/toko/{{$item->toko_id}}/produk/{{$item->foto_produk}}" style="width: 100%; height: 100%;border-radius: 1em;">
+							<img src="<?=url('/')?>/public/img/toko/{{$item->toko_id}}/produk/240x200/{{$item->foto_produk}}" style="width: 100%; height: 100%;border-radius: 1em;">
 						</a>
 						<div class="label-product" style="position: absolute; bottom:0; padding: 0em; display: flex; width: 100%; height: 100%; justify-content: space-between; border-radius: 1em;">
 							<div class="keterangan-product" style="display: flex; width: 100%;">
