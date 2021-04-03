@@ -29,7 +29,6 @@ class AuthController extends Controller
         $find_user = User::where('google_id', $user->id)->first();
         if($find_user){
             Auth::login($find_user);
-            dd(Auth()->user());
             return redirect('/home');
         }else{
             $id_user = $this->autocode('USR-');
