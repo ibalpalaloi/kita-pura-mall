@@ -17,8 +17,8 @@ class Free
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Session::has('status_mitra')){
-            if ((Session::get('status_mitra') == 'free') ){
+        if (Auth()->user()->toko->jenis_mitra){
+            if ((Auth()->user()->toko->jenis_mitra == 'free') ){
                 return $next($request);        
             }    
             return redirect()->back();

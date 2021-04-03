@@ -24,6 +24,33 @@ class AuthController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
+    public function callbackGoogle(){
+        $user = Socialite::driver('google')->user();
+        $find_user = User::where('google_id', $user->id)->first();
+        if($find_user){
+            Auth::login($find_user);
+            dd(Auth()->user());
+            return redirect('/home');
+        }else{
+            $id_user = $this->autocode('USR-');
+            $new_user = User::create([
+                'id' => $id_user,
+                'level_akses' => 'user',
+                'password' => bcrypt("kitapuramall18091997"),
+                'status' => 'aktif',
+                'google_id' => $user->id,
+                'email' => $user->email,
+                'remember_token' => str::random(60)
+            ]);
+            $biodata = new Biodata;
+            $biodata->users_id = $id_user;
+            $biodata->username = $this->autocode('user');
+            $biodata->save();
+            Auth::login($new_user);
+            return redirect('/buat_akun_biodata');
+        }
+    }
+
     public function register(){
         return view('auth.register');
     }
@@ -362,7 +389,7 @@ class AuthController extends Controller
     // }
 
     public function ganti_nomor_hp(Request $request){
-        $user = User::where('id', Session::get('id_user'))->first();
+        $user = User::where('id', Auth()->User()->id)->first();
         $user->no_hp = $request->nomor;
         $user->save();
         Session::put('no_telp', $request->nomor);
@@ -374,7 +401,7 @@ class AuthController extends Controller
         // sampai sini
         date_default_timezone_set('Asia/Makassar');
         $waktu = date('Y-m-d H:i:s');
-        $user = User::where('id', Session::get('id_user'))->first();
+        $user = User::where('id', Auth()->User()->id)->first();
         if ($user->waktu_validasi == null){
             $user->waktu_validasi = $waktu;
             $user->save();
@@ -405,20 +432,20 @@ class AuthController extends Controller
     }
 
     public function set_null(){
-        $user = User::where('id', Session::get('id_user'))->first();
+        $user = User::where('id', Auth()->User()->id)->first();
         $user->waktu_validasi = null;
         $user->save();
     }
 
     public function notif_biodata_lengkap(Request $request){
-        $biodata = Biodata::where('users_id', Session::get('id_user'))->first();
+        $biodata = Biodata::where('users_id', Auth()->User()->id)->first();
         $biodata->notif = 2;
         $biodata->save();
 
     }
 
     public function notif_toko_lengkap(Request $request){
-        $toko = Toko::where('users_id', Session::get('id_user'))->first();
+        $toko = Toko::where('users_id', Auth()->User()->id)->first();
         $toko->notif = 2;
         $toko->save();
 
