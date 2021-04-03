@@ -18,6 +18,7 @@ use App\Models\Daftar_tunggu_toko;
 use App\Models\product;
 use App\Models\Jadwal_toko;
 use App\Models\Ktp_toko;
+use File;
 // use App\Models\PRovins
 
 
@@ -45,7 +46,7 @@ class Mitra_Register_Controller extends Controller
 		$kategori = Kategori_toko::all();
         $kota = Provinsi::find(72)->kabupaten_kota;
         // dd($kota);
-		$kelurahan = Kelurahan::all();
+		// $kelurahan = Kelurahan::all();
 
 		if ($mitra == 'free'){
 
@@ -54,7 +55,7 @@ class Mitra_Register_Controller extends Controller
 		}
 		else {
 
-			return view('users/user/m-mitra/register/register_premium', ['daftar_kategori'=>$kategori,'kelurahan'=>$kelurahan, 'kota'=>$kota]);
+			return view('users/user/m-mitra/register/register_premium', ['daftar_kategori'=>$kategori,'kota'=>$kota]);
 			
 		}
 	}
@@ -160,11 +161,24 @@ class Mitra_Register_Controller extends Controller
             if($request->file("foto_toko")){
 
                 $files = $request->file("foto_toko");
-                $type = $request->file("foto_toko")->getClientOriginalExtension();
-                $file_upload = $this->autocode('Logo').".".$type;
-                \Storage::disk('public')->put('img/toko/'.$toko_id.'/logo/'.$file_upload, file_get_contents($files));
 
-                $toko->logo_toko = $file_upload;
+
+                $image_path_ori = "img/toko/$toko_id/logo/original/$request->nama_foto_temp";
+                $image_path_400x400 = "img/toko/$toko_id/logo/400x400/$request->nama_foto_temp";
+                $image_path_200x200 = "img/toko/$toko_id/logo/200x200/$request->nama_foto_temp";
+
+                \Storage::disk('public')->put($image_path_ori, file_get_contents($files));
+                \Storage::disk('public')->put($image_path_400x400, file_get_contents($files));
+                \Storage::disk('public')->put($image_path_200x200, file_get_contents($files));
+
+                \File::delete("public/$image_path_400x400");            
+                \File::delete("public/$image_path_200x200");            
+
+                File::move(public_path('img/temp_produk/400x400/'.$request->nama_foto_temp), public_path($image_path_400x400));
+                File::move(public_path('img/temp_produk/200x200/'.$request->nama_foto_temp), public_path($image_path_200x200));
+
+                $toko->logo_toko = $request->nama_foto_temp;    
+
             }
 
             
@@ -198,27 +212,20 @@ class Mitra_Register_Controller extends Controller
 		return redirect('/akun/jadi-mitra/'.$jenis_mitra.'/pilih-lokasi');
 	}
 
-
-
-
     public function simpan_foto_register(Request $request){
         $image = $request->image;
+        $size = $request->size;
         list($type, $image) = explode(';', $image);
         list(, $image)      = explode(',', $image);
         $image = base64_decode($image);
-        $image_name= time().$this->generateRandomString().'.png';
-        // $path = public_path('upload/'.$image_name);
-
-        // file_put_contents($path, $image);
-        \Storage::disk('public')->put('img/temp_produk/'.$image_name, file_get_contents($request->image));
-        $image_path = url('/')."/public/img/temp_produk/$image_name";
-        // $biodata->foto = $image_name;
-        // $biodata->save();
+        $image_name= $request->nama.'.png';
+        $toko = toko::where('users_id', Session::get('id_user'))->first();
+        \Storage::disk('public')->put("img/temp_produk/".$size."/".$image_name, file_get_contents($request->image));
+        $image_path = url('/')."/public/img/temp_produk/".$size."/$image_name";
         echo $image_name;
-        // return response()->json(['status'=>$image_path]);        
     }
 
-	   function generateRandomString($length = 10) {
+	public function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';

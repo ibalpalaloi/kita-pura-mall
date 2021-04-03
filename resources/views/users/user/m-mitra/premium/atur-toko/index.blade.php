@@ -698,7 +698,7 @@
 						<div style='background-image: url("<?=$url?>"); padding: 1.5em;'>
 							<div id="div_pic_toko_privew" style="position: relative; padding: auto 0; display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 9rem; height: 9rem; background: #1c1c1c;">
 								@if ($toko->logo_toko)
-								<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/logo/{{$toko->logo_toko}}" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
+								<img id="pic_toko_privew" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/logo/400x400/{{$toko->logo_toko}}" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
 								@else
 								<img id="pic_toko_privew" src="<?=url('/')?>/public/img/mitra/logo/premium.svg" style="width: 100%; border-radius: 50%; object-fit: cover;height: 100%;">
 								@endif
@@ -706,6 +706,7 @@
 							</div>
 						</div>
 						<input type="file" name="foto_toko" id="image" hidden>
+						<input type="hidden" name="nama_foto_temp" id="nama_foto_temp">
 						<div style="display: flex; justify-content: center; flex-direction: column;">
 							<input type="text" id="nama_toko" name="nama_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Toko" aria-label="Nama Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1.5em; font-weight: 645;" required value="{{$toko->nama_toko}}">
 							<input type="tel" id="username_toko" name="username_toko" class="" onchange="input_focus_username(this.id)" placeholder="Username Toko" aria-label="Username Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" required value="{{$toko->username}}">
@@ -1269,15 +1270,21 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 
 
 		var imageSize = {
-			width: 600,
-			height: 600,
-			type: 'circle'
+			width: 400,
+			height: 400,
+			type: 'square'
 		};
 
+		var imageSize2 = {
+			width: 200,
+			height: 200,
+			type: 'square'
+		};		
 
 
 		$('.upload-image').on('click', function (ev) {
 			$("#modal-sukses").modal('hide');
+			var rString = randomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 			resize.croppie('result', {
 				circle: false,
 				type: 'canvas',
@@ -1288,9 +1295,9 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 
 					url: "<?=url('/')?>/akun/mitra/premium/ubah-toko/simpan-foto",
 					type: "POST",
-					data: {"image":img},
+					data: {"image":img, "size":"400x400", "nama":rString},
 					success: function (data) {
-						$('#pic_toko_privew').attr('src', "<?=url('/')?>/public/img/temp_produk/"+data);
+						$('#pic_toko_privew').attr('src', "<?=url('/')?>/public/img/temp_produk/400x400/"+data);
 						$("#modal_loader").modal('hide');
 						$("#nama_foto_temp").val(data);
 						$("#div_pic_toko_privew").prop('hidden', false);
@@ -1301,8 +1308,32 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 
 			});
 			status_ganti_foto = 1;
+			resize.croppie('result', {
+				circle: false,
+				type: 'canvas',
+				size: imageSize2,
+				quality: 1
+			}).then(function (img) {
+				$.ajax({
+					url: "<?=url('/')?>/akun/mitra/premium/ubah-toko/simpan-foto",
+					type: "POST",
+					data: {"image":img, "size":"200x200", "nama":rString},
+					success: function (data) {
+
+					}
+				});
+			});
 
 		});
+
+		function randomString(length, chars) {
+			var d = new Date();
+			var milliseconds  = Date.parse(d);
+			var result = '';
+			for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+				return milliseconds+result;
+		}
+
 
 	</script>
 	@endsection

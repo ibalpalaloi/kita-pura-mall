@@ -377,7 +377,7 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 					@if(Session::get('progress_biodata') == '5')
 					<div style="font-size: 0.75em; text-align: center; width: 90%;"><b>Data Anda Sudah Lengkap </b>anda bisa melakukan transaksi pada aplikasi ini</div>
 					@else
-					<div style="font-size: 0.75em; text-align: center; width: 90%;"><b>Ceritakan usahamu ke dunia</b> bersama <br>kitapura mall !!</div>
+					<div style="font-size: 0.75em; text-align: center; width: 90%;"><b>Data Anda Sudah Lengkap </b>anda bisa melakukan transaksi pada aplikasi ini</div>
 					@endif
 				</div>
 			</div>
