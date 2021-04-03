@@ -18,7 +18,8 @@ use App\Models\Sub_kategori;
 use App\Models\Video_landing_page;
 use App\Models\Landing_page_fasilitas_toko;
 use App\Models\Foto_maps;
-
+use File;
+use Image;
 class Admin_Manajemen_Toko_Controller extends Controller
 {
     //
@@ -117,6 +118,34 @@ class Admin_Manajemen_Toko_Controller extends Controller
         $kategori_toko = Kategori_toko::all();
         $kategorinya_toko = Kategorinya_toko::where('toko_id', $id)->get();
         return view('users.admin.m-toko.detail_toko', compact('toko', 'kategorinya_toko', 'kabupaten', 'kategori_toko'));
+    }
+
+    public function ganti_foto_produk(Request $request){
+            $image = $request->image;
+            $size = $request->size;
+
+            list($type, $image) = explode(';', $image);
+            list(, $image)      = explode(',', $image);
+            $image = base64_decode($image);
+            $image_name= $request->nama.'.png';
+            \Storage::disk('public')->put("img/toko/".$request->id_toko."/produk/".$size."/".$image_name, file_get_contents($request->image));
+            $image_path = url('/')."/public/img/toko/".$request->id_toko."/produk/".$size."/".$image_name;
+            $produk = product::where('id', $request->id_produk)->first();
+            $produk->foto_produk = $image_name;
+            $produk->save();
+
+            if ($size == "240x240"){
+                \Storage::disk('public')->put("img/toko/".$request->id_toko."/produk/240x200/".$image_name, file_get_contents($request->image));
+                $image_path_240x240 = "img/toko/".$request->id_toko."/produk/240x240/$image_name";
+                $image_path_240x200 = "img/toko/".$request->id_toko."/produk/240x200/$image_name";
+                $image_resize = Image::make(file_get_contents(url('/')."/public/$image_path_240x240"));              
+                $image_resize->crop(240, 200);
+                $image_resize->save(public_path($image_path_240x200));  
+                // echo $image_path_240x240;              
+            }
+
+            echo $image_path;
+
     }
 
     public function post_ubah_toko(Request $request, $id){
