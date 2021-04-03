@@ -67,6 +67,17 @@ Explore |
 @endsection
 
 @section('content')
+<div class="modal fade" id="modal-open-image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/close_btn.svg" style="position: absolute; top: 2em; right: 2em;">
+				<img id="modal-image" src="" style="width: 100%; border-radius: 1em;">
+			</div>
+		</div>
+	</div>
+</div>
+
 <header class="style__Container-sc-3fiysr-0 header" style="background: #eaf4ff;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center; flex-direction: column; height: 55px;">
 		<div class="pencarian-tabs" style="display: flex; justify-content: center; background: white; padding: 8px; border-radius: 1.5em;">
@@ -101,8 +112,8 @@ Explore |
 @section('footer-scripts')
 <script type="text/javascript">
 	function tampil_gambar(gambarnya) {
-		alert(gambarnya);
-		// body...
+		$("#modal-image").attr('src', gambarnya);
+		$("#modal-open-image").modal('show');
 	}
 </script>
 <script>
