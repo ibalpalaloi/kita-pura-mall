@@ -18,8 +18,8 @@ class Premium
     public function handle(Request $request, Closure $next)
     {
    
-        if (Session::has('status_mitra')){
-            if ((Session::get('status_mitra') == 'premium') ){
+        if (Auth()->user()->toko->jenis_mitra){
+            if ((Auth()->user()->toko->jenis_mitra == 'premium') ){
                 return $next($request);        
             }    
             return redirect()->back();

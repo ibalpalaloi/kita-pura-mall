@@ -20,7 +20,7 @@ class Home
     public function handle(Request $request, Closure $next)
     {
 
-        if (Auth()->user()->no_hp){
+        if (Auth()->user()->no_hp or Auth()->user()->email){
             return $next($request);        
         }
         else {

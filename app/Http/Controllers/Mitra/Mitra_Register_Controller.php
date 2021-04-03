@@ -62,7 +62,7 @@ class Mitra_Register_Controller extends Controller
 	
 
     public function kirim_lokasi(){
-        $toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+        $toko = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
         $toko->latitude = 1;
         $toko->longitude = 1;
         $toko->save();  
@@ -87,7 +87,7 @@ class Mitra_Register_Controller extends Controller
 				'username' => 'required|unique:toko'
 			]);
 		};
-        Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->delete();
+        Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->delete();
 
 		$toko_id = $this->autocode('TK-');
 		// @Tambah Toko
@@ -100,7 +100,7 @@ class Mitra_Register_Controller extends Controller
         $toko = new Daftar_tunggu_toko;
 		$toko->toko_id = $toko_id;
         $toko->username = $username;
-		$toko->users_id = Session::get('id_user');
+		$toko->users_id = Auth()->User()->id;
 		$toko->jenis_mitra = $jenis_mitra;
 		$toko->kategori_toko_id = $request->kategori_toko;
 		$toko->nama_toko = $request->nama_toko;
@@ -237,7 +237,7 @@ class Mitra_Register_Controller extends Controller
 
 
     public function pilih_lokasi($jenis_mitra){
-        $daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+        $daftar_tunggu = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
         if (($daftar_tunggu->latitude == null) && ($daftar_tunggu->longitude == null)){
             if ($jenis_mitra == 'free'){
                 return view('users/user/m-mitra/register/pilih_lokasi_free');
@@ -274,7 +274,7 @@ class Mitra_Register_Controller extends Controller
     public function simpan_lokasi($jenis_mitra, Request $request){
 
         // dd($request->all());
-		$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+		$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
         $daftar_tunggu->latitude = $request->latitude;
         $daftar_tunggu->longitude = $request->longitude;
         $daftar_tunggu->save();
@@ -318,7 +318,7 @@ class Mitra_Register_Controller extends Controller
 			'foto_toko' => 'required'
 		]);
 
-		$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+		$toko = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
 
         $ktp = new Ktp_toko;
 		$ktp->toko_id = $toko->toko_id;

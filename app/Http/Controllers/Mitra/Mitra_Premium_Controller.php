@@ -56,7 +56,7 @@ class Mitra_Premium_Controller extends Controller
 
 	public function ganti_landing_page(){
 		$template = Template_landing_page::all();
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		return view('users/user/m-mitra/premium/ganti_landing_page', compact('toko', 'template'));
 	}
 
@@ -92,7 +92,7 @@ class Mitra_Premium_Controller extends Controller
 
 	public function index_premium(){
 		return $this->untuk_mitra();
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 
 		if($toko){
 			$ktp = Ktp_toko::where('toko_id', $toko->id)->first();
@@ -135,7 +135,7 @@ class Mitra_Premium_Controller extends Controller
 
 			$daftar_kategori = Kategori_toko::all();
 			$kelurahan = kelurahan::all();
-			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+			$toko = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
 
 			$jadwal = Jadwal_toko::where('toko_id', $toko->toko_id)->get();
 			$foto_1 = Foto_maps::where('toko_id', $toko->toko_id)->where('no_foto','1')->first();
@@ -148,7 +148,7 @@ class Mitra_Premium_Controller extends Controller
 	}
 
 	public function untuk_mitra(){
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		$ktp = Ktp_toko::where('toko_id', $toko->id)->first();
 		$hari = array("Mon"=>0, "Tue"=>1, "Wed"=>2, "Thu"=>3, "Fri"=>4, "Sat"=>5, "Sun"=>6);
 		date_default_timezone_set('Asia/Makassar');
@@ -191,12 +191,12 @@ class Mitra_Premium_Controller extends Controller
 			'foto_toko' => 'required'
 		]);
 
-		$toko = Toko::where('users_id', Session::get('id_user'))->first();
+		$toko = Toko::where('users_id', Auth()->User()->id)->first();
 		if($toko){
 			$toko_id = $toko->id;
 		}
 		else{
-			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+			$toko = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
 			$toko_id = $toko->toko_id;
 		}
 
@@ -236,7 +236,7 @@ class Mitra_Premium_Controller extends Controller
 			'deskripsi' => 'required'
 		]);
 
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 
 		if($toko){
 
@@ -278,7 +278,7 @@ class Mitra_Premium_Controller extends Controller
 		}
 		else{
 
-			$toko = Daftar_tunggu_toko::where('users_id', Session::get('id_user'))->first();
+			$toko = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
 			$toko->nama_toko = $request->nama_toko;
 			$toko->username = $request->username_toko;
 			$toko->kategori_toko_id = $request->kategori_toko;
@@ -361,7 +361,7 @@ class Mitra_Premium_Controller extends Controller
 	public function atur_toko_premium(){
 
 		$kategori = Kategori_toko::all();
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		$jadwal = Jadwal_toko::where('toko_id', $toko->id)->get();
 		$kategorinya_toko = Kategorinya_toko::where('toko_id', $toko->id)->get();
 		// dd($kategorinya_toko);
@@ -374,12 +374,12 @@ class Mitra_Premium_Controller extends Controller
 	}
 
 	public function atur_lokasi(){
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		return view('users/user/m-mitra/premium/pilih_lokasi_premium', ['toko'=>$toko]);
 	}
 
 	public function kirim_lokasi(){
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		$toko->latitude = 1;
 		$toko->longitude = 1;
 		$toko->save();	
@@ -401,7 +401,7 @@ class Mitra_Premium_Controller extends Controller
 
 		// dd($request->all());
 
-		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		$toko->latitude = $request->latitude;
 		$toko->longitude = $request->longitude;
 		$toko->save();
