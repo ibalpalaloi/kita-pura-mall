@@ -99,7 +99,7 @@ class Mitra_Register_Controller extends Controller
         }
         $toko = new Daftar_tunggu_toko;
 		$toko->toko_id = $toko_id;
-        $toko->username = $username;
+        $toko->username = $this->get_username($request->nama_toko);
 		$toko->users_id = Auth()->User()->id;
 		$toko->jenis_mitra = $jenis_mitra;
 		$toko->kategori_toko_id = $request->kategori_toko;
@@ -341,5 +341,55 @@ class Mitra_Register_Controller extends Controller
         return redirect('/akun')->with($notification);
 
 
+    }
+
+    public function get_username($nama_toko){
+        $jumlah_kata = str_word_count($nama_toko);
+        // 1
+        if($jumlah_kata == 1){
+            $username = $nama_toko;
+            $toko = Toko::where('username', $username)->get();
+            if(count($toko)==0){
+                return $username;
+            }
+            $angka = 1;
+            $bool = "false";
+            while($bool == "false"){
+                $username = $nama_toko.$angka;
+                $toko = Toko::where('username', $username)->get();
+                if(count($toko)==0){
+                    return $username;
+                    $bool = "true";
+                }
+                else{
+                    $angka++;
+                }
+            }
+        }
+        // 2
+        $username = str_replace(' ', '_', $nama_toko);
+        $toko = Toko::where('username', $username)->get();
+        if(count($toko)==0){
+            return $username;
+        }
+        $username = str_replace(' ', '', $nama_toko);
+        $toko = Toko::where('username', $username)->get();
+        if(count($toko)==0){
+            return $username;
+        }
+
+        $angka = 1;
+        $bool = "false";
+        while($bool == "false"){
+            $username = $username.$angka;
+            $toko = Toko::where('username', $username)->get();
+            if(count($toko)==0){
+                return $username;
+                $bool = "true";
+            }
+            else{
+                $angka++;
+            }
+        }
     }
 }

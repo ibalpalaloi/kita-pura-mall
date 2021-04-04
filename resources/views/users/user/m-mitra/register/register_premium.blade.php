@@ -657,7 +657,7 @@
 						<input type="hidden" name="nama_foto_temp" id="nama_foto_temp">
 						<div style="display: flex; justify-content: center; flex-direction: column;">
 							<input type="text" id="nama_toko" name="nama_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Toko" aria-label="Nama Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1.5em; font-weight: 645;" value="{{old('nama_toko')}}" required>
-							<input type="text" id="username" name="username" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Username Toko" class="@if($errors->first('username')) is-invalid-text @endif" aria-label="Username" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" value="{{old('username')}}" required>
+							{{-- <input type="text" id="username" name="username" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Username Toko" class="@if($errors->first('username')) is-invalid-text @endif" aria-label="Username" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" value="{{old('username')}}" required> --}}
 						</div>
 					</div>
 					<div class="input-group mb-3 st0 @if($errors->first('input_kategori')) is-invalid @endif" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; height: 8.5em;">
