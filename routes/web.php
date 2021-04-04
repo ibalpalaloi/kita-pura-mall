@@ -249,10 +249,7 @@ Route::group(['middleware'=> 'admin'], function() {
     Route::get('/admin/manajemen/toko', [Admin_Manajemen_Toko_Controller::class, 'index']);
     Route::post('/admin/manajemen/hapus_toko', [Admin_Manajemen_Toko_Controller::class, 'hapus_toko']);
     Route::get('/admin/manajemen/toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'detail_toko']);
-<<<<<<< HEAD
     Route::post('/admin/manajemen/toko/{id}/ganti-foto-logo', [Admin_Manajemen_Toko_Controller::class, 'ganti_foto_logo']);
-=======
->>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
     Route::post('/admin/manajemen/toko/{id}/post_password_baru', [Admin_Manajemen_Toko_Controller::class, 'post_password_baru']);
     Route::post('/admin/manajemen/toko/{id}/ubah_logo', [Admin_Manajemen_Toko_Controller::class, 'ubah_logo']);
     Route::post('/admin/manajemen/toko/{id}/post_ubah', [Admin_Manajemen_Toko_Controller::class, 'post_ubah_toko']);

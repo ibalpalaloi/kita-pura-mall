@@ -30,7 +30,6 @@ class Admin_Manajemen_Toko_Controller extends Controller
 		return $kode.$current_date;
 	}
 
-<<<<<<< HEAD
     public function ganti_foto_logo(Request $request){
             $image = $request->image;
             $size = $request->size;
@@ -47,8 +46,6 @@ class Admin_Manajemen_Toko_Controller extends Controller
             echo $image_path;
     }
 
-=======
->>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
     public function index(){
         $toko = Toko::all();
         $toko_non_aktif = Toko::where('status', 'non-aktif')->get();

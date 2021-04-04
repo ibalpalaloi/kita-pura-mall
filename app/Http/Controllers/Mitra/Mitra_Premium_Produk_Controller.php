@@ -196,7 +196,6 @@ class Mitra_Premium_Produk_Controller extends Controller
 			$image_resize->save(public_path($image_path_240x200));
 
 
-<<<<<<< HEAD
 			$produk->foto_produk = $request->nama_foto_temp;		
 		}
 
@@ -242,52 +241,6 @@ class Mitra_Premium_Produk_Controller extends Controller
 		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		\Storage::disk('public')->put("img/temp_produk/".$size."/".$image_name, file_get_contents($request->image));
 		$image_path = url('/')."/public/img/temp_produk/".$size."/$image_name";
-=======
-			$produk->foto_produk = $request->nama_foto_temp;		}
-
-			$produk->save();
-
-
-			return redirect('/akun/mitra/premium/atur-produk');
-		}
-
-		public function hapus_tambah_produk_premium($id){
-
-			$toko = toko::where('users_id', Auth()->User()->id)->first();
-
-			product::where('id', $id)->where('toko_id', $toko->id)->delete();
-
-			\Storage::disk('public')->delete('img/toko/'.$toko->id.'/produk/'.$id);
-
-			return redirect('/akun/mitra/premium/atur-produk');
-
-		}
-
-		public function generateRandomString($length = 10) {
-			$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-			$charactersLength = strlen($characters);
-			$randomString = '';
-			for ($i = 0; $i < $length; $i++) {
-				$randomString .= $characters[rand(0, $charactersLength - 1)];
-			}
-			return $randomString;
-		}
-
-		public function simpan_foto_produk(Request $request){
-			$image = $request->image;
-			$size = $request->size;
-
-			list($type, $image) = explode(';', $image);
-			list(, $image)      = explode(',', $image);
-			$image = base64_decode($image);
-			$image_name= $request->nama.'.png';
-        // $path = public_path('upload/'.$image_name);
-
-        // file_put_contents($path, $image);
-			$toko = toko::where('users_id', Auth()->User()->id)->first();
-			\Storage::disk('public')->put("img/temp_produk/".$size."/".$image_name, file_get_contents($request->image));
-			$image_path = url('/')."/public/img/temp_produk/".$size."/$image_name";
->>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
 
 		// }
 		// else {
@@ -299,15 +252,9 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 		// $biodata->foto = $image_name;
 		// $biodata->save();
-<<<<<<< HEAD
 		echo $image_name;
 		// return response()->json(['status'=>$image_path]);		
 	}
-=======
-			echo $image_name;
-		// return response()->json(['status'=>$image_path]);		
-		}
->>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
 
 
 	// public function simpan_atur_produk_premium(Request $request){
@@ -382,8 +329,4 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 
 		// return redirect()->back();
-<<<<<<< HEAD
 }
-=======
-	}
->>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5

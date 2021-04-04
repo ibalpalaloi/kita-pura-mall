@@ -114,7 +114,6 @@ class GetController extends Controller
 	}
 
     public function input_cover(Request $request, $id){
-<<<<<<< HEAD
 
         // $path = public_path('upload/'.$image_name);
 
@@ -136,24 +135,6 @@ class GetController extends Controller
 			$toko->save();			
 		}
 		echo $image_path;
-=======
-        $image = $request->image;
-
-		list($type, $image) = explode(';', $image);
-		list(, $image)      = explode(',', $image);
-		$image = base64_decode($image);
-		$image_name= time().$this->generateRandomString().'.png';
-        // $path = public_path('upload/'.$image_name);
-
-        // file_put_contents($path, $image);
-		$toko = toko::where('id', $id)->first();
-		$image_path = "img/toko/$toko->id/cover/";
-		\Storage::disk('public')->put($image_path."/$image_name", file_get_contents($request->image));
-		\File::delete("public/".$image_path."/$toko->foto_cover");
-		$toko->foto_cover = $image_name;
-		$toko->save();
-		echo $image_path."$image_name";
->>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
     }
 
     public function input_video(Request $request, $id){
@@ -188,7 +169,6 @@ class GetController extends Controller
     }
 
     public function input_foto_maps(Request $request, $id_toko){
-<<<<<<< HEAD
 		$id = $request->jenis;
 		$image = $request->image;
 		$size = $request->size;
@@ -196,44 +176,22 @@ class GetController extends Controller
 		list(, $image)      = explode(',', $image);
 		$image = base64_decode($image);
 		$image_name= $request->nama.".png";
-=======
-        $id = $request->jenis;
->>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
 
 		$toko = toko::where('id', $id_toko)->first();
 		$foto = Foto_maps::where('toko_id', $toko->id)->where('no_foto', $id)->first();
 		if($foto){
-<<<<<<< HEAD
 			\Storage::disk('public')->delete('img/toko/'.$toko->id.'/maps/$id/'.$size.'/'.$foto->foto);
-=======
-			\Storage::disk('public')->delete('img/toko/'.$toko->id.'/maps/'.$foto->foto);
->>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
 		}
 		else{
 			$foto = new Foto_maps;
 			$foto->toko_id = $toko->id;
 		}
-<<<<<<< HEAD
 		$image_path = "img/toko/$toko->id/maps/$id/".$size;
-=======
-		$image = $request->image;
-
-		list($type, $image) = explode(';', $image);
-		list(, $image)      = explode(',', $image);
-		$image = base64_decode($image);
-		$image_name= time().$this->generateRandomString().'.png';
-
-		$image_path = "img/toko/$toko->id/maps/";
->>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
 		\Storage::disk('public')->put($image_path."/$image_name", file_get_contents($request->image));
 		$foto->foto = $image_name;
 		$foto->no_foto = $id;
 		$foto->save();
-<<<<<<< HEAD
 		echo $image_path."/$image_name";
-=======
-		echo $image_path."$image_name";
->>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
     }
 
     public function ubah_status_produk_premium(Request $request, $id_toko){
