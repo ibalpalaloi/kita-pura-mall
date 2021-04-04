@@ -88,12 +88,19 @@ class Mitra_Premium_Landingpage_Controller extends Controller
 		$image_name= $request->nama.".png";
 		$toko = toko::where('users_id', Session::get('id_user'))->first();
 		\Storage::disk('public')->put("img/toko/$toko->id/cover/".$size."/".$image_name, file_get_contents($request->image));
+<<<<<<< HEAD
 		$image_path = "img/toko/$toko->id/cover/".$size."/$image_name";
 		\File::delete("public/".$image_path."/$toko->foto_cover");
 		if ($size == '600x600'){
 			$toko->foto_cover = $image_name;
 			$toko->save();			
 		}
+=======
+		\File::delete("public/".$image_path."/$toko->foto_cover");
+		$toko->foto_cover = $image_name;
+		$toko->save();
+		$image_path = "img/toko/$toko->id/cover/".$size."/$image_name";
+>>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
 		echo $image_path;
 	}
 

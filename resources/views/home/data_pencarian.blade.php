@@ -8,7 +8,11 @@ $index = 0;
 <div class="row" style="display: flex; flex-wrap: wrap; justify-content: space-around;" onclick='tampil_gambar("{{$product[$j]->foto_produk}}")'>
     @for ($i = 0; $i < 6; $i++)
     <div style="display: flex; justify-content: center; flex-direction: column; width:30%; margin: 1.5%;">
+<<<<<<< HEAD
         <img src="<?=url('/')?>/public/img/toko/{{$product[$index]->toko_id}}/produk/240x240/{{$product[$index]->foto_produk}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
+=======
+        <img src="<?=url('/')?>/public/img/toko/{{$product[$index]->toko_id}}/produk/{{$product[$index]->foto_produk}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
+>>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
     </div>
     @php $index++; @endphp
     <?php if ($index == $count_product){ break; } ?>
@@ -17,14 +21,22 @@ $index = 0;
     @if ($j%2 == 0)
     <div style="display: flex; flex-direction: row;">
         <div style="display: flex; justify-content: center; flex-direction: column;  width:63.7%; margin: 1.5% 2.5% 1.5% 1.5%;">
+<<<<<<< HEAD
             <img src="<?=url('/')?>/public/img/toko/{{$product[$index]->toko_id}}/produk/600x600/{{$product[$index]->foto_produk}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
+=======
+            <img src="<?=url('/')?>/public/img/toko/{{$product[$index]->toko_id}}/produk/{{$product[$index]->foto_produk}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
+>>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
         </div>
         @php $index++; @endphp
         <?php if ($index == $count_product){ break; } ?>
         <div style="width: 30%; display: flex; justify-content: space-around; flex-direction: column;">
             @for ($i = 0; $i < 2; $i++)
             <div style="display: flex; justify-content: center; flex-direction: column;  width:100%; margin: 1.5%;">
+<<<<<<< HEAD
                 <img src="<?=url('/')?>/public/img/toko/{{$product[$index]->toko_id}}/produk/240x240/{{$product[$index]->foto_produk}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
+=======
+                <img src="<?=url('/')?>/public/img/toko/{{$product[$index]->toko_id}}/produk/{{$product[$index]->foto_produk}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
+>>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
             </div>
             @php $index++; @endphp
             <?php if ($index == $count_product){ break; } ?>
@@ -36,14 +48,22 @@ $index = 0;
         <div style="width: 30%; display: flex; justify-content: space-between; flex-direction: column; margin: 1.5% 1.5% 1.5% 1.5%;">
             @for ($i = 0; $i < 2; $i++)
             <div style="display: flex; justify-content: center; flex-direction: column;  width:100%;">
+<<<<<<< HEAD
                 <img src="<?=url('/')?>/public/img/toko/{{$product[$index]->toko_id}}/produk/240x240/{{$product[$index]->foto_produk}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
+=======
+                <img src="<?=url('/')?>/public/img/toko/{{$product[$index]->toko_id}}/produk/{{$product[$index]->foto_produk}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
+>>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
             </div>
             @php $index++; @endphp
             <?php if ($index == $count_product){ break; } ?>
             @endfor
         </div>
         <div style="display: flex; justify-content: center; flex-direction: column;  width:63.7%; margin: 1.5% 1.5% 1.5% 2.3%;">
+<<<<<<< HEAD
             <img src="<?=url('/')?>/public/img/toko/{{$product[$index]->toko_id}}/produk/600x600/{{$product[$index]->foto_produk}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
+=======
+            <img src="<?=url('/')?>/public/img/toko/{{$product[$index]->toko_id}}/produk/{{$product[$index]->foto_produk}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
+>>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
         </div>
         @php $index++; @endphp
         <?php if ($index == $count_product){ break; } ?>

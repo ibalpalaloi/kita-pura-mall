@@ -14,12 +14,20 @@ use App\Models\Pengunjung_toko;
 use App\Models\Landing_page_toko;
 use App\Models\Template_landing_page;
 use Auth;
+<<<<<<< HEAD
 use DB;
+=======
+
+>>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
 class LandingPageController extends Controller
 {
 	public function landing_page_mitra($mitra, Request $request){
 		if(Auth::user()){
+<<<<<<< HEAD
 			$keranjang = DB::table('keranjang_belanja')->select('product.nama', 'jenis_harga', 'harga', 'harga_terendah', 'harga_tertinggi', 'diskon', 'foto_produk', 'toko.nama_toko')->join('product', 'product.id', '=', 'keranjang_belanja.product_id')->join('toko', 'toko.id', '=', 'keranjang_belanja.toko_id')->where('user_id', Auth()->user()->id)->get();		
+=======
+			$keranjang = Keranjang_belanja::where('user_id', Auth()->user()->id)->get();
+>>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
 		}
 		else{
 			$keranjang = 0;
@@ -123,12 +131,15 @@ class LandingPageController extends Controller
 	}
 
 	public function daftar_menu(Request $request, $mitra){
+<<<<<<< HEAD
 		if(Auth::user()){
 			$keranjang = keranjang_belanja::where('user_id', Auth()->user()->id)->get();
 		}
 		else{
 			$keranjang = 0;
 		}
+=======
+>>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
 		$toko = Toko::where('username', $mitra)->first();
 		$produk = Product::where('toko_id', $toko->id)->get();
 		$page = Landing_page_toko::where('toko_id', $toko->id)->first();
@@ -137,12 +148,20 @@ class LandingPageController extends Controller
 		if(empty($get_color_status_bar)){
 			return redirect('/'.$mitra.'/daftar-menu?colorStatusBar='.$color_status_bar);
 		}
+<<<<<<< HEAD
 		return view('landing_page/daftar_menu', compact('produk', 'page', 'toko', 'keranjang'));
+=======
+		return view('landing_page/daftar_menu', compact('produk', 'page', 'toko'));
+>>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
 	}
 
 	public function detail_produk($mitra, $id_produk){
 		$toko = Toko::where('username', $mitra)->first();
+<<<<<<< HEAD
 		// $keranjang = keranjang_belanja::where('user_id', Auth()->user()->id)->get();
+=======
+		// $keranjang = Keranjang_belanja::where('user_id', Auth()->user()->id)->get();
+>>>>>>> 08ddb32d41cb796e8b9e7c5db954b58d1cf466f5
 		$produk = Product::whereId($id_produk)->first();
 		
 		return view('landing_page/detail_produk', compact('produk', 'toko'));
