@@ -75,7 +75,7 @@ class HomeController extends Controller
 	}
 
 	public function pencarian(Request $request){
-		$product = Product::paginate(18);
+		$product = Product::orderByRaw('RAND()')->paginate(54);
 		// dd(count($product));
 		if($request->ajax()){
             $view = view('home.data_pencarian', compact('product'))->render();

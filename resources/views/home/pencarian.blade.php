@@ -94,16 +94,19 @@ Explore |
 
 <main id="homepage" class="homepage" style="background: #eaf4ff;">
 	<div class="card-pencarian" style="background: #eaf4ff;">
-		<div class="nama-kategori" style="background: #eaf4ff; padding-top: 0.6em; margin-top: 4em; display: flex; flex-direction: column; flex-wrap: wrap;">
+		<div class="nama-kategori" style="background: #eaf4ff; padding-top: 0.6em; margin-top: 4em; display: flex; flex-direction: column; flex-wrap: wrap; margin-bottom: 4em;">
 			@include('home.data_pencarian')
+			<br><br><br><br>
 		</div>
 		<div id="loading" class="spinner-border text-primary" role="status">
-			<span class="sr-only">Loading...</span>
-		  </div>
+			<div class="spinner-border text-danger" role="status">
+				<span class="sr-only">Loading...</span>
+			  </div>
+			  <br><br><br><br><br><br><br>
+		</div>
 		<div class="no_more text-center" style="display: none">
 			No More ......
 			<input type="text" id="no_more_check" hidden value="1">
-			<br><br><br><br><br>
 		</div>
 	</div>
 </main>
@@ -117,11 +120,9 @@ Explore |
 	}
 </script>
 <script>
-	var page = 1;
-	// $(document).ready(function(){
-	// 	page = 1;
-	// 	loadMoreData(page);
-	// })
+	var page = 2;
+	var status = 1;
+	var reload = 1;
 
 	function loadMoreData(page){
 		$.ajax({
@@ -132,24 +133,37 @@ Explore |
 			}
 		})
 		.done(function(data){
+			if(data.html == ""){
+				reload = 0;
+			}
 			$('#loading').hide();
 				$('.nama-kategori').append(data.html);
+				status = 1;
+				console.log(page);
 		})
 		.fail(function(jqXHR, ajaxOptions, thrownError){
-			alert("server errror");
+			// alert("server errror");
 		}); 
 	}
 
 	$(window).scroll(function(){
 		if($(window).scrollTop() + $(window).height() >= $(document).height()){
 			var check = $("#no_more_check").val();
-			if(check == 1){
-				page++;
+			if(status == 1){
 				loadMoreData(page);
+				status = 0;
+				if(reload == 1){
+					page++;
+				}
 				$("#loading").show();
 			}
+				
 		}
 	})
+
+	function minus_page(){
+		page--;
+	}
 </script>
 
 @endsection

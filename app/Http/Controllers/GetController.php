@@ -45,8 +45,9 @@ class GetController extends Controller
                                         ['toko_id', $request->id_toko]
                                         ])->get();
         }
+		$toko = Toko::where('id', $request->id_toko)->first();
 		$page = Landing_page_toko::where('toko_id', $request->id_toko)->first();
-        $view = view('landing_page.data_daftar_menu', compact('produk', 'page'))->render();
+        $view = view('landing_page.data_daftar_menu', compact('produk', 'page', 'toko'))->render();
         return response()->json(['html'=>$view]);
     }
 
