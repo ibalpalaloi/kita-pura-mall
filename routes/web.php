@@ -223,6 +223,9 @@ Route::group(['middleware'=> 'admin'], function() {
 
         // manajemen pengguna
     Route::get('/admin/manajemen/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'index']);
+    Route::get('/admin/manajemen/buat_toko/{id}', [Admin_Manajemen_Pengguna_Controller::class, 'buat_toko']);
+    Route::post('/admin/manajemen/post_buat_toko/{id}', [Admin_Manajemen_Pengguna_Controller::class, 'post_buat_toko']);
+    Route::get('/admin/manajemen/detail_pengguna/{id}', [Admin_Manajemen_Pengguna_Controller::class, 'detail_pengguna']);
     Route::post('/admin/ubah_password/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'ubah_password']);
     Route::get('/admin/delete/pengguna/{id}', [Admin_Manajemen_Pengguna_Controller::class, 'hapus_pengguna']);
     

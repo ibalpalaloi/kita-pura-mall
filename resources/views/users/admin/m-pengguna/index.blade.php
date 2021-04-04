@@ -88,7 +88,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 @endsection
 
 @section('content')
-<div class="row">
+{{-- <div class="row">
     <div class="col-12">
         <div class="material-card card">
             <div class="card-body">
@@ -131,7 +131,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -162,7 +162,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                             @foreach ($user as $data)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td><a href="">{{$data->no_hp}}</a></td>
+                                <td><a href="<?=url('/')?>/admin/manajemen/detail_pengguna/{{$data->id}}">{{$data->no_hp}}</a></td>
                                 @if (!empty($data->biodata->nama))
                                 <td>{{$data->biodata->nama}}</td>
                                 @else
@@ -174,8 +174,13 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                 <td>
                                     <a class="btn btn-danger btn-circle delete" data-id="{{$data->id}}"><i
                                             class="fa fa-trash"></i> </a>
-                                    <a class="btn btn-info btn-circle editPassBtn"><i class="fa fa-pencil-square"></i>
+                                    @if ($data->google_id)
+                                    @else
+                                    <a class="btn btn-info btn-circle editPassBtn">
+                                        <i class="fa fa-pencil-square"></i>
                                     </a>
+                                    @endif
+                                    
                                 </td>
                             </tr>
                             @endforeach
