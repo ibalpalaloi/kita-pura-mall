@@ -217,7 +217,7 @@
 
 <main id="homepage" class="homepage" style="background: #eaf4ff;">
 	<div class="row-mall" style="padding: 0em 0em 5.5em 0em; margin-top: 10em; background: #eaf4ff;">
-		<div id="post-data">
+		<div id="post-data" style="margin-bottom: 4em">
 			@include('toko.toko_data')
 		</div>
 		<div class="load text-center" style="display: none">
