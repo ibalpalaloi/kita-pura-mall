@@ -6,8 +6,11 @@ Toko
 @endsection
 
 @section('header-scripts')
-
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/plugins/lunar/css/lunar.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
 @endsection
 
 @section('modal')
@@ -81,7 +84,7 @@ Toko
                         <select class="form-control" name="kota" id="select_kota">
                             <option value="">Pilih Kabupaten / Kota</option>
                             @foreach ($kabupaten as $item)
-                                <option value="{{$item->id}}" @if ($toko->kelurahan->kecamatan->kabupaten_kota->id == $item->id) selected @endif>{{$item->nama}}</option>
+                            <option value="{{$item->id}}" @if ($toko->kelurahan->kecamatan->kabupaten_kota->id == $item->id) selected @endif>{{$item->nama}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -131,7 +134,7 @@ Toko
                     <div class="col-sm-12">
                         <select id="kategori_toko" name="" class="form-control form-control-line">
                             @foreach ($kategori_toko as $data)
-                                <option value="{{$data->id}}">{{$data->kategori}}</option>
+                            <option value="{{$data->id}}">{{$data->kategori}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -184,23 +187,58 @@ Toko
     <!-- /.modal-dialog -->
 </div>
 
+<div class="modal fade" id="modal-sukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+        <div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 5em 1em 0em 1em; background-color: #353535;">
+            <div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <div class="container">
+                    <div class="panel panel-info">
+                        <div class="panel-body">
+                            <div class="row" style="display: flex; flex-direction: column;">
+                                <div>
+                                    <div id="upload-demo">
+
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="btn btn-primary btn-block" id="unggah_foto" onclick="unggah_foto()" style="margin-top: 5%;">Unggah Foto</div>
+                                </div>
+                                <div class="div_upload">
+                                    <input type="file" name="foto_toko" id="image" hidden>
+                                    <div class="btn btn-primary btn-block upload-image" style="margin-top:2%" >Upload Image</div>
+                                    <div class="btn btn-secondary btn-block" onclick="unggah_foto()">Unggah Foto
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row el-element-overlay">
     <form action="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/ubah_logo" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-6 col-md-6">
             <div class="card">
                 <div class="el-card-item">
-                    <div class="el-card-avatar el-overlay-1"> <img id="preview_logo" src="{{$toko->logo()}}" alt="user" />
+                    <div class="el-card-avatar el-overlay-1"> 
+                        @if ($toko->logo_toko)
+                        <img id="preview_logo" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/logo/400x400/{{$toko->logo_toko}}" alt="user" />
+                        @else
+                        <img id="preview_logo" src="<?=url('/')?>/public/img/toko/premium.svg">
+                        @endif
                         <div class="el-overlay">
                             <ul class="list-style-none el-info">
-                                <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="{{$toko->logo()}}"><i class="icon-magnifier"></i></a></li>
+                                <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="<?=url('/')?>/public/img/toko/{{$toko->id}}/logo/400x400/{{$toko->logo_toko}}"><i class="icon-magnifier"></i></a></li>
                                 <li class="el-item"><a class="btn default btn-outline el-link" href="{{$toko->logo()}}" download=""><i class="icon-link"></i></a></li>
                             </ul>
                         </div>
                     </div>
-                    <input type="file" name="foto_logo" id="foto_logo" hidden>
                     <div class="el-card-content">
-                        <button onclick="upload_gambar()" type="button" class="btn btn-primary">Upload</button>
+                        <button onclick="tambah_foto_toko()" type="button" class="btn btn-primary">Upload</button>
                         <button type="submit" class="btn btn-danger">Simpan</button>
                     </div>
                 </div>
@@ -209,7 +247,7 @@ Toko
     </form>
 </div>
 <div class="row">
-    
+
 
     <div class="col-12">
         <div class="card">
@@ -219,11 +257,11 @@ Toko
                 <a href="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/daftar_produk" type="button" class="btn btn-danger" >Data Produk</a>
                 <a href="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/landing_page" type="button" class="btn btn-danger" >Landing Page</a>
                 
-                    @if ($toko->status == "Aktif" or $toko->status == "aktif")
-                    <a href="#" id="btn_ubah_status_toko" onclick="ubah_status_toko()" type="button" class="btn btn-primary" >Aktif</a>
-                    @else
-                    <a href="#" id="btn_ubah_status_toko" onclick="ubah_status_toko()" type="button" class="btn btn-danger" >Tidak Aktif</a>
-                    @endif
+                @if ($toko->status == "Aktif" or $toko->status == "aktif")
+                <a href="#" id="btn_ubah_status_toko" onclick="ubah_status_toko()" type="button" class="btn btn-primary" >Aktif</a>
+                @else
+                <a href="#" id="btn_ubah_status_toko" onclick="ubah_status_toko()" type="button" class="btn btn-danger" >Tidak Aktif</a>
+                @endif
 
             </div>
             <hr class="mt-0">
@@ -285,7 +323,7 @@ Toko
             </div>
             <hr class="mt-0">
             <div class="car-body">
-                
+
             </div>
             <div class="card-body">
                 <h4 class="card-title">Lokasi</h4>
@@ -336,6 +374,9 @@ Toko
 @endsection
 
 @section('footer-scripts')
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="<?=url('/')?>/public/plugins/select2/js/select2.full.min.js"></script>
+
 <script>
     var id_toko = {!! json_encode($toko->id) !!}
     function ubah_status_toko(){
@@ -374,7 +415,7 @@ Toko
         var apilink = 'http://';
         var phone = $('#no_akun').val();
         var message = 'password baru akun anda "'+$('#pass').val()+'" \n'+
-                        'Silahkan login dan ubah password akun anda';
+        'Silahkan login dan ubah password akun anda';
 
         // apilink += isMobile ? 'api' : 'web';
         // apilink += '.whatsapp.com/send?phone=' + phone + '&text=' + encodeURI(message);
@@ -383,59 +424,59 @@ Toko
     }
 
     function upload_gambar(){
-		$("#foto_logo").click();
-	}
+      $("#foto_logo").click();
+  }
 
-    $("#foto_logo").change(function(){
-        readURL(this);
-    });
+  $("#foto_logo").change(function(){
+    readURL(this);
+});
 
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
 
-            reader.onload = function (e) {
-                $('#preview_logo').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
+        reader.onload = function (e) {
+            $('#preview_logo').attr('src', e.target.result);
         }
-    }
 
-    function simpan_kategori(toko_id){
-        var id = $('#kategori_toko').val();
-        $.ajax({
-            url: "{{route('simpan_kategorinya_toko')}}",
-            method: "post",
-            data : {id:id, toko_id:toko_id, _token:'{{csrf_token()}}'},
-            success:function(result)
-            {
-                $('#list_kategorinya_toko').append(result);
-                $('#modal_kategori').modal('hide');
-            }
-        })
+        reader.readAsDataURL(input.files[0]);
     }
+}
 
-    function hapus_kategori_toko(id, id_toko){
-        $.ajax({
-            url: "{{route('hapus_kategorinya_toko')}}",
-            method: "post",
-            data : {id:id, id_toko:id_toko, _token:'{{csrf_token()}}'},
-            success:function(result)
-            {
-                if(result == 'false'){
-                    alert('kategori toko harus terisi')
-                }
-                else{
-                    $("#kategori_"+id).remove();
-                }
-                
+function simpan_kategori(toko_id){
+    var id = $('#kategori_toko').val();
+    $.ajax({
+        url: "{{route('simpan_kategorinya_toko')}}",
+        method: "post",
+        data : {id:id, toko_id:toko_id, _token:'{{csrf_token()}}'},
+        success:function(result)
+        {
+            $('#list_kategorinya_toko').append(result);
+            $('#modal_kategori').modal('hide');
+        }
+    })
+}
+
+function hapus_kategori_toko(id, id_toko){
+    $.ajax({
+        url: "{{route('hapus_kategorinya_toko')}}",
+        method: "post",
+        data : {id:id, id_toko:id_toko, _token:'{{csrf_token()}}'},
+        success:function(result)
+        {
+            if(result == 'false'){
+                alert('kategori toko harus terisi')
             }
-        })
-        
-    }
-    
-    $('#select_kota').change(function(){
+            else{
+                $("#kategori_"+id).remove();
+            }
+
+        }
+    })
+
+}
+
+$('#select_kota').change(function(){
 		// show_loader();
 		$('#select_kecamatan').empty();
 		$('#select_kecamatan').append($('<option>', {
@@ -452,19 +493,146 @@ Toko
 		})
 	})
 
-    $('#select_kecamatan').change(function(){
-		$('#select_kelurahan').empty();
-		$('#select_kelurahan').append($('<option>', {
-			text: 'Memuat'
-		}));
-		$.ajax({
-			url: "{{ route('get_kelurahan') }}?id_kecamatan="+$(this).val(),
-			method: 'GET', 
-			success: function(data){
-				$('#select_kelurahan').empty();
-				$('#select_kelurahan').html(data.html);
-			}
-		})
-	})
+$('#select_kecamatan').change(function(){
+  $('#select_kelurahan').empty();
+  $('#select_kelurahan').append($('<option>', {
+     text: 'Memuat'
+ }));
+  $.ajax({
+     url: "{{ route('get_kelurahan') }}?id_kecamatan="+$(this).val(),
+     method: 'GET', 
+     success: function(data){
+        $('#select_kelurahan').empty();
+        $('#select_kelurahan').html(data.html);
+    }
+})
+})
+
+function tambah_foto_toko(){
+    $(".div_upload").prop('hidden', true);
+    $("#unggah_foto").prop('hidden', false);
+    $('#modal-sukses').modal('show');
+        // $("#foto_toko").click();
+    }    
 </script>
-@endsection
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    function unggah_foto(){
+        $("#image").click();
+    }
+
+    function input_focus_username(id){
+            // alert(id);
+            $("#"+id).css('color', 'white');
+            $("#"+id).css('text-decoration', 'none');           
+        }
+
+        var resize = $('#upload-demo').croppie({
+            enableExif: true,
+            enableOrientation: true,
+    viewport: { // Default { width: 100, height: 100, type: 'square' } 
+    width: 240,
+    height: 240,
+        type: 'circle' //square
+    },
+    boundary: {
+        width: 240,
+        height:240
+    }
+});
+
+
+        $('#image').on('change', function () { 
+            $(".cr-slider-wrap").css("display", "block");
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                resize.croppie('bind',{
+                    url: e.target.result
+                }).then(function(){
+                    console.log('jQuery bind complete');
+                });
+            }
+            $(".div_upload").prop('hidden', false);
+            $("#unggah_foto").prop('hidden', true);
+            $("#prev_image").remove();
+            reader.readAsDataURL(this.files[0]);
+        });
+
+
+        var imageSize = {
+            width: 400,
+            height: 400,
+            type: 'square'
+        };
+
+        var imageSize2 = {
+            width: 200,
+            height: 200,
+            type: 'square'
+        };      
+
+
+        $('.upload-image').on('click', function (ev) {
+            $("#modal-sukses").modal('hide');
+            var id_toko = "<?=Request::segment(4)?>";
+            var rString = randomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+            resize.croppie('result', {
+                circle: false,
+                type: 'canvas',
+                size: imageSize,
+                quality: 1
+            }).then(function (img) {
+                $.ajax({
+
+                    url: "<?=url('/')?>/admin/manajemen/toko/"+id_toko+"/ganti-foto-logo",
+                    type: "POST",
+                    data: {"image":img, "size":"400x400", "id_toko":id_toko, "nama":rString},
+                    success: function (data) {
+                     setTimeout(
+                      function() 
+                      {
+                        location.reload();
+                    }, 1500);
+                 }
+             });
+
+            });
+            status_ganti_foto = 1;
+            resize.croppie('result', {
+                circle: false,
+                type: 'canvas',
+                size: imageSize2,
+                quality: 1
+            }).then(function (img) {
+                $.ajax({
+                    url: "<?=url('/')?>/admin/manajemen/toko/"+id_toko+"/ganti-foto-logo",
+                    type: "POST",
+                    data: {"image":img, "size":"200x200", "id_toko":id_toko, "nama":rString},
+                    success: function (data) {
+
+                    }
+                });
+            });
+
+        });
+
+        function randomString(length, chars) {
+            var d = new Date();
+            var milliseconds  = Date.parse(d);
+            var result = '';
+            for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+                return milliseconds+result;
+        }
+
+
+    </script>
+
+
+
+    @endsection

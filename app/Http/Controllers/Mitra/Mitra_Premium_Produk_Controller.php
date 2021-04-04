@@ -196,50 +196,51 @@ class Mitra_Premium_Produk_Controller extends Controller
 			$image_resize->save(public_path($image_path_240x200));
 
 
-			$produk->foto_produk = $request->nama_foto_temp;		}
-
-			$produk->save();
-
-
-			return redirect('/akun/mitra/premium/atur-produk');
+			$produk->foto_produk = $request->nama_foto_temp;		
 		}
 
-		public function hapus_tambah_produk_premium($id){
+		$produk->save();
 
-			$toko = toko::where('users_id', Auth()->User()->id)->first();
 
-			product::where('id', $id)->where('toko_id', $toko->id)->delete();
+		return redirect('/akun/mitra/premium/atur-produk');
+	}
 
-			\Storage::disk('public')->delete('img/toko/'.$toko->id.'/produk/'.$id);
+	public function hapus_tambah_produk_premium($id){
 
-			return redirect('/akun/mitra/premium/atur-produk');
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
 
+		product::where('id', $id)->where('toko_id', $toko->id)->delete();
+
+		\Storage::disk('public')->delete('img/toko/'.$toko->id.'/produk/'.$id);
+
+		return redirect('/akun/mitra/premium/atur-produk');
+
+	}
+
+	public function generateRandomString($length = 10) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
 		}
+		return $randomString;
+	}
 
-		public function generateRandomString($length = 10) {
-			$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-			$charactersLength = strlen($characters);
-			$randomString = '';
-			for ($i = 0; $i < $length; $i++) {
-				$randomString .= $characters[rand(0, $charactersLength - 1)];
-			}
-			return $randomString;
-		}
+	public function simpan_foto_produk(Request $request){
+		$image = $request->image;
+		$size = $request->size;
 
-		public function simpan_foto_produk(Request $request){
-			$image = $request->image;
-			$size = $request->size;
-
-			list($type, $image) = explode(';', $image);
-			list(, $image)      = explode(',', $image);
-			$image = base64_decode($image);
-			$image_name= $request->nama.'.png';
+		list($type, $image) = explode(';', $image);
+		list(, $image)      = explode(',', $image);
+		$image = base64_decode($image);
+		$image_name= $request->nama.'.png';
         // $path = public_path('upload/'.$image_name);
 
         // file_put_contents($path, $image);
-			$toko = toko::where('users_id', Auth()->User()->id)->first();
-			\Storage::disk('public')->put("img/temp_produk/".$size."/".$image_name, file_get_contents($request->image));
-			$image_path = url('/')."/public/img/temp_produk/".$size."/$image_name";
+		$toko = toko::where('users_id', Auth()->User()->id)->first();
+		\Storage::disk('public')->put("img/temp_produk/".$size."/".$image_name, file_get_contents($request->image));
+		$image_path = url('/')."/public/img/temp_produk/".$size."/$image_name";
 
 		// }
 		// else {
@@ -251,9 +252,9 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 		// $biodata->foto = $image_name;
 		// $biodata->save();
-			echo $image_name;
+		echo $image_name;
 		// return response()->json(['status'=>$image_path]);		
-		}
+	}
 
 
 	// public function simpan_atur_produk_premium(Request $request){
@@ -328,4 +329,4 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 
 		// return redirect()->back();
-	}
+}

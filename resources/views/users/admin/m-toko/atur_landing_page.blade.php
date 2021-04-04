@@ -560,7 +560,7 @@ if (!empty($_GET['deskripsi'])){
             <img src="<?=url('/')?>/public/img/back_white.svg">
         </a>
         <a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
-            
+
         </a>
         <a href="<?=url('/')?>/{{$toko->username}}" target="_blank" style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
             <img src="<?=url('/')?>/public/img/icon_svg/landing_page.svg" style="width: 90%;">
@@ -739,12 +739,12 @@ if (!empty($_GET['deskripsi'])){
                     <div class="input-group mb-3 div-input-mall-square" id="div_video" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
                         @if (!empty($toko->foto_cover))
                         <div id="div_preview_cover" style="display: flex; justify-content: center; width: 100%; border: 2px dashed white; margin: 0em; cursor: pointer; border-radius: 1em;" id="div_pic_video_1">
-                            <img id="preview_cover" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/cover/{{$toko->foto_cover}}" style="width: 100%;  border-radius: 1em;">
+                            <img id="preview_cover" src="<?=url('/')?>/public/img/toko/{{$toko->id}}/cover/600x600/{{$toko->foto_cover}}" style="width: 100%;  border-radius: 1em;">
                             <div style="position: absolute;top: 45%;">
                                 <img id="pic_maps_1" src="<?=url('/')?>/public/img/icon_svg/plus_with_background.svg" onclick="pilih_foto_cover()" style=" width: 2.5em; margin-left: 40%; margin-bottom: 2em;">
                             </div>
                             <div style="position: absolute; right: 10px; top: -1em; display: flex;">
-                                
+
                             </div>
                         </div>
                         @else
@@ -791,7 +791,7 @@ if (!empty($_GET['deskripsi'])){
                         @if($foto_1)
                         <div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_1" style="margin-top: 1em; background:transparent; border: none; border-radius: 1.2em;">
                             <div style="position: relative; display: flex; justify-content: center; width: 100%; margin: 0px;" id="div_pic_toko_privew_1">
-                                <img id="pic_toko_privew_1" src="<?=url('/')?>/public/img/toko/{{$foto_1->toko_id}}/maps/{{$foto_1->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
+                                <img id="pic_toko_privew_1" src="<?=url('/')?>/public/img/toko/{{$foto_1->toko_id}}/maps/1/800x541/{{$foto_1->foto}}" style="width: 100%; object-fit: cover;height: 100%; border-radius: 1em;">
                                 <div style="position: absolute; right: 10px; top: -1em; display: flex;">
                                     <div style="width: 2.5em; background: #262627; display: flex; justify-content: center; border-radius: 50%;">
                                         <img src="<?=url('/')?>/public/img/icon_svg/trash_circle_red.svg" style="width: 90%;" onclick='hapus_foto_maps("<?=$foto_1->id?>")'>
@@ -827,7 +827,7 @@ if (!empty($_GET['deskripsi'])){
                             @if($foto_2)
                             <div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_2" style="background:transparent; border: none; border-radius: 1.2em; width: 100%;">
                                 <div style="display: flex; justify-content: center; width: 100%; margin: 0px;" id="div_pic_toko_privew_2">
-                                    <img id="pic_toko_privew_2" src="<?=url('/')?>/public/img/toko/{{$foto_2->toko_id}}/maps/{{$foto_2->foto}}" style="border-radius: 1em; height: 100%; width: 100%; background-size: cover;">
+                                    <img id="pic_toko_privew_2" src="<?=url('/')?>/public/img/toko/{{$foto_2->toko_id}}/maps/2/506x800/{{$foto_2->foto}}" style="border-radius: 1em; height: 100%; width: 100%; background-size: cover;">
                                     <div style="position: absolute; right: 10px; top: -1em; display: flex;">
                                         <div style="width: 2.5em; background: #262627; display: flex; justify-content: center; border-radius: 50%;">
                                             <img src="<?=url('/')?>/public/img/icon_svg/trash_circle_red.svg" style="width: 90%;" onclick='hapus_foto_maps("<?=$foto_2->id?>")'>
@@ -861,7 +861,7 @@ if (!empty($_GET['deskripsi'])){
                             @if($foto_3)
                             <div class="input-group mb-3 div-input-mall-square" id="div_foto_toko_3" style="background:transparent; border: none; border-radius: 1.2em; width: 100%;">
                                 <div style="display: flex; justify-content: center; width: 100%; margin: 0px;" id="div_pic_toko_privew_3">
-                                    <img id="pic_toko_privew_3" src="<?=url('/')?>/public/img/toko/{{$foto_3->toko_id}}/maps/{{$foto_3->foto}}" style="width: 100%; height: 100%; border-radius: 1em;">
+                                    <img id="pic_toko_privew_3" src="<?=url('/')?>/public/img/toko/{{$foto_3->toko_id}}/maps/3/681x800/{{$foto_3->foto}}" style="width: 100%; height: 100%; border-radius: 1em;">
                                     <div style="position: absolute; right: 10px; top: -1em; display: flex;">
                                         <div style="width: 2.5em; background: #262627; display: flex; justify-content: center; border-radius: 50%;">
                                             <img src="<?=url('/')?>/public/img/icon_svg/trash_circle_red.svg" style="width: 90%;" onclick='hapus_foto_maps("<?=$foto_3->id?>")'>
@@ -990,7 +990,7 @@ if (!empty($_GET['deskripsi'])){
                             </div>
                         </div> 
                         @php
-                            $index++;
+                        $index++;
                         @endphp
                         @endforeach
                         @else
@@ -1098,7 +1098,7 @@ if (!empty($_GET['deskripsi'])){
         }
 
         function simpan_video(){
-            
+
             var toko_id = {!! json_encode($toko->id) !!};
             var link = $('#link_video').val();
             var nomor_div = $('#nomor_div').val();
@@ -1256,40 +1256,68 @@ if (!empty($_GET['deskripsi'])){
         });
 
 
-        var imageSize = {
-            width: 700,
-            height: 700,
+        var cover_imageSize = {
+            width: 600,
+            height: 600,
             type: 'square'
         };
 
+        var cover_imageSize2 = {
+            width: 240,
+            height: 240,
+            type: 'square'
+        };
 
 
         $('.upload-image').on('click', function (ev) {
             $("#modal-sukses").modal("hide");
             show_loader();
+            var rString = randomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
             resize.croppie('result', {
                 circle: false,
                 type: 'canvas',
-                size: imageSize,
+                size: cover_imageSize,
                 quality: 1
             }).then(function (img) {
                 $.ajax({
-
                     url: "<?=url('/')?>/admin/manajemen/toko/"+toko_id+"/landing_page_ganti_cover",
                     type: "POST",
-                    data: {"image":img},
+                    data: {"image":img, "size":"600x600", "nama":rString},
                     success: function (data) {
-                // alert(data);
-                setTimeout(hide_loader, 1000);
-                $('#preview_cover').attr('src', "<?=url('/')?>/public/"+data);
-
-            }
-        });
+                        setTimeout(hide_loader, 1000);
+                        $('#preview_cover').attr('src', "<?=url('/')?>/public/"+data);
+                    }
+                });
 
             });
-            status_ganti_foto = 1;
+            resize.croppie('result', {
+                circle: false,
+                type: 'canvas',
+                size: cover_imageSize2,
+                quality: 1
+            }).then(function (img) {
+                $.ajax({
+                    url: "<?=url('/')?>/admin/manajemen/toko/"+toko_id+"/landing_page_ganti_cover",
+                    type: "POST",
+                    data: {"image":img, "size":"240x240", "nama":rString},
+                    success: function (data) {
+
+                    }
+                });
+            });
 
         });
+
+
+
+        function randomString(length, chars) {
+            var d = new Date();
+            var milliseconds  = Date.parse(d);
+            var result = '';
+            for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+                return milliseconds+result;
+        }
+
         function show_loader(){
             console.log('show');
             $("#modal_loader").modal("show");
@@ -1337,18 +1365,21 @@ $('#foto_toko_1').on('change', function () {
 });
 
 
-var imageSize1 = { width: 800, height: 541, type: 'square'};
+var foto_1_imageSize1 = { width: 800, height: 541, type: 'square'};
+var foto_1_imageSize2 = { width: 320, height: 216, type: 'square'};
 
 $('.upload-image-maps-1').on('click', function (ev) {
     $("#modal-maps-1").modal('hide');
     $("#modal_loader").modal('show');
+    var rString = randomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+
     resize_maps_1.croppie('result', {
-        circle: false, type: 'canvas', size: imageSize1, quality: 1
+        circle: false, type: 'canvas', size: foto_1_imageSize1, quality: 1
     }).then(function (img) {
         $.ajax({
             url: "<?=url('/')?>/admin/manajemen/toko/"+toko_id+"/landing_page_ganti_foto_maps",
             type: "POST",
-            data: {"image":img, "jenis":"1"},
+            data: {"image":img, "jenis":"1", "size":"800x541", "nama":rString},
             success: function (data) {
                 setTimeout(hide_loader, 1000);
                 $('#pic_toko_privew_1').attr('src', "<?=url('/')?>/public/"+data);
@@ -1356,6 +1387,20 @@ $('.upload-image-maps-1').on('click', function (ev) {
         });
     });
     status_ganti_foto = 1;
+    resize_maps_1.croppie('result', {
+        circle: false,
+        type: 'canvas',
+        size: foto_1_imageSize2,
+        quality: 1
+    }).then(function (img) {
+        $.ajax({
+            url: "<?=url('/')?>/admin/manajemen/toko/"+toko_id+"/landing_page_ganti_foto_maps",
+            type: "POST",
+            data: {"image":img, "jenis":"1", "size":"320x216", "nama":rString},
+            success: function (data) {
+            }
+        });
+    });
 });
 //foto_2
 var resize_maps_2 = $('#upload-demo-maps-2').croppie({enableExif: true, enableOrientation: true,    
@@ -1380,18 +1425,19 @@ $('#foto_toko_2').on('change', function () {
 });
 
 
-var imageSize2 = { width: 506, height: 800, type: 'square'};
-
+var foto_2_imageSize1 = { width: 506, height: 800, type: 'square'};
+var foto_2_imageSize2 = { width: 202, height: 320, type: 'square'};
 $('.upload-image-maps-2').on('click', function (ev) {
     $("#modal-maps-2").modal('hide');
     show_loader();
+    var rString = randomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
     resize_maps_2.croppie('result', {
-        circle: false, type: 'canvas', size: imageSize2, quality: 1
+        circle: false, type: 'canvas', size: foto_2_imageSize1, quality: 1
     }).then(function (img) {
         $.ajax({
             url: "<?=url('/')?>/admin/manajemen/toko/"+toko_id+"/landing_page_ganti_foto_maps",
             type: "POST",
-            data: {"image":img, "jenis":"2"},
+            data: {"image":img, "jenis":"2", "size":"506x800", "nama":rString},
             success: function (data) {
                 setTimeout(hide_loader, 1000);
                 $('#pic_toko_privew_2').attr('src', "<?=url('/')?>/public/"+data);
@@ -1399,6 +1445,20 @@ $('.upload-image-maps-2').on('click', function (ev) {
         });
     });
     status_ganti_foto = 1;
+    resize_maps_2.croppie('result', {
+        circle: false,
+        type: 'canvas',
+        size: foto_2_imageSize2,
+        quality: 1
+    }).then(function (img) {
+        $.ajax({
+            url: "<?=url('/')?>/admin/manajemen/toko/"+toko_id+"/landing_page_ganti_foto_maps",
+            type: "POST",
+            data: {"image":img, "jenis":"2", "size":"202x320", "nama":rString},
+            success: function (data) {
+            }
+        });
+    });
 });
 //foto_3
 var resize_maps_3 = $('#upload-demo-maps-3').croppie({enableExif: true, enableOrientation: true,    
@@ -1423,18 +1483,20 @@ $('#foto_toko_3').on('change', function () {
 });
 
 
-var imageSize3 = { width: 681, height: 800, type: 'square'};
+var foto_3_imageSize1 = { width: 681, height: 800, type: 'square'};
+var foto_3_imageSize2 = { width: 272, height: 320, type: 'square'};
 
 $('.upload-image-maps-3').on('click', function (ev) {
     $("#modal-maps-3").modal('hide');
     show_loader()
+    var rString = randomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
     resize_maps_3.croppie('result', {
-        circle: false, type: 'canvas', size: imageSize3, quality: 1
+        circle: false, type: 'canvas', size: foto_3_imageSize1, quality: 1
     }).then(function (img) {
         $.ajax({
             url: "<?=url('/')?>/admin/manajemen/toko/"+toko_id+"/landing_page_ganti_foto_maps",
             type: "POST",
-            data: {"image":img, "jenis":"3"},
+            data: {"image":img, "jenis":"3", "size":"681x800", "nama":rString},
             success: function (data) {
                 setTimeout(hide_loader, 1000);
                 
@@ -1443,6 +1505,21 @@ $('.upload-image-maps-3').on('click', function (ev) {
         });
     });
     status_ganti_foto = 1;
+    resize_maps_3.croppie('result', {
+        circle: false,
+        type: 'canvas',
+        size: foto_3_imageSize2,
+        quality: 1
+    }).then(function (img) {
+        $.ajax({
+            url: "<?=url('/')?>/admin/manajemen/toko/"+toko_id+"/landing_page_ganti_foto_maps",
+            type: "POST",
+            data: {"image":img, "jenis":"3", "size":"272x320", "nama":rString},
+            success: function (data) {
+            }
+        });
+    });
+
 });
 
 function hapus_foto_maps(id_foto){

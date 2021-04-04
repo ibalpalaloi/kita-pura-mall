@@ -30,6 +30,22 @@ class Admin_Manajemen_Toko_Controller extends Controller
 		return $kode.$current_date;
 	}
 
+    public function ganti_foto_logo(Request $request){
+            $image = $request->image;
+            $size = $request->size;
+
+            list($type, $image) = explode(';', $image);
+            list(, $image)      = explode(',', $image);
+            $image = base64_decode($image);
+            $image_name= $request->nama.'.png';
+            \Storage::disk('public')->put("img/toko/".$request->id_toko."/logo/".$size."/".$image_name, file_get_contents($request->image));
+            $image_path = url('/')."/public/img/toko/".$request->id_toko."/logo/".$size."/".$image_name;
+            $toko = Toko::where('id', $request->id_toko)->first();
+            $toko->logo_toko = $image_name;
+            $toko->save();
+            echo $image_path;
+    }
+
     public function index(){
         $toko = Toko::all();
         $toko_non_aktif = Toko::where('status', 'non-aktif')->get();
