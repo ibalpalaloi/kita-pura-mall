@@ -1,21 +1,15 @@
-@extends('layouts.home_premium')
+@extends('layouts.home_no_menu')
 
 @section('title')
-
 @endsection
 
 @section('header-scripts')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
+
 <style type="text/css">
-
-	.row-mall {
-		background: white;
-		margin-bottom: 1em;
-		width: 100%;	
-	}
-
 	.banner {
 		max-width: 480px;
 		width: 100%;
@@ -24,7 +18,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	}
 
 	.header {
-		background: #ffaa00;
+		background: #ff006e;
 		position: fixed;
 		width: 100%;
 		top: 0px;
@@ -79,59 +73,63 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	}
 
 	.div-input-mall {
-		border-radius: 1em; border:1px solid white;		
-		display: flex; justify-content: center; flex-direction: column; align-items: flex-start;
+		border-radius: 1.5em;
+		border: 1px solid white;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: flex-start;
 		background: white;
-		width: 100%;
 		padding-top: 0.3em;
 		padding-bottom: 0.3em;
 	}
 
-	.div-input-mall > span {
+	.div-input-mall .label-mall {
 		color: #b3b6bc;
-		padding: 0em 0em 0em 1.5em; 
+		padding: 0em 0em 0em 1.5em;
 		font-size: 0.75em;
 		position: relative;
 		top: 0.5em;
 	}
 
 	.div-input-mall div {
-		display: flex; justify-content: center; flex-direction: row;
+		display: flex;
+		justify-content: flex-start;
+		flex-direction: row;
 		width: 90%;
 	}
 
 
 
 	.div-input-mall-square {
-		border-radius: 0.5em; border:1px solid white;	
+		border-radius: 0.5em;
+		border: 1px solid white;
 		color: #1c2645;
-		font-weight: 600;			
+		font-weight: 600;
 	}
 
 	.form-control-mall-square {
 		border-radius: 1.5em !important;
-		padding-left: 1.5em;
+		padding-left: 1.5em;	
 	}
+
 
 
 	.input-group-text-mall {
 		border: none;
-		display: flex;justify-content: center;
-		border-bottom-left-radius: 1.5em; 
-		border-top-left-radius: 1.5em; 
-		padding-left: 1.2em;
+		display: flex;
+		justify-content: center;
+		border-bottom-left-radius: 1.5em;
+		border-top-left-radius: 1.5em;
+		padding-left: 0.2em;
 	}
 
-
 	.form-control-mall {
-		height: 2.5em; 
-		border-bottom-right-radius: 1.5em; 
-		border-top-right-radius: 1.5em; 
-		border:  none;	
+		height: 3em; 
+		border-left: none;	
+		padding-left: 1em;	
 		color: #1c2645;
 		font-weight: 600;
-		padding: 0em 0em 0em 0.6em;	
-
 	}
 
 	.form-control-mall-modal {
@@ -149,12 +147,13 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 
 	.animate-bottom {
+		position: relative;
 		animation: animatebottom 0.4s;
 	}
 
 	@keyframes animatebottom {
 		from {
-			bottom: -300px;
+			bottom: -200px;
 			opacity: 0;
 		}
 
@@ -164,15 +163,22 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		}
 	}
 
-	.modal-dialog-bottom{
-		margin: 0;
+	input:focus {
+		border: none;
+	}
+
+	.form-control {
+		border: none;
+	}
+
+
+	.profile-picture {
+		background: transparent;
+		border-radius: 50%;
 		display: flex;
-		align-items: flex-end;
-		height: 100%;
-
-	}  
-
-
+		width: 100%;
+		border: 2px dashed white;
+	}
 
 
 	.select2-container--default .select2-selection--multiple .select2-selection__choice {
@@ -180,11 +186,11 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		border-color: #006fe6;
 		color: #fff;
 		padding: 0 10px;
-		margin-top: .31rem;        
+		margin-top: .31rem;
 	}
 
 	.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-		color: rgba(255,255,255,.7);
+		color: rgba(255, 255, 255, .7);
 		float: right;
 		margin-left: 5px;
 		margin-right: -2px;
@@ -196,7 +202,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 	.select2-container .select2-selection--single {
 		height: auto !important;
-	}   
+	}
 
 	select {
 		-webkit-appearance: none;
@@ -212,184 +218,47 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		border: none;
 	}
 
-	.div-feature {
-		display: flex; justify-content: center; flex-direction: column; align-items: center;
+
+	body {
+		background: #eaf4ff;
 	}
 
-	.feature {
-		background: #d9e1eb; 
-		width: 75%; 
-		padding: 0.3em 0.3em 0.3em 1.2em; 
-		border-radius: 1.5em;
-		margin: 0.25em;
-		font-size: 0.7em;
-		text-align: left;
+	.form-group label {
+		color: #b3b6bc;
+		font-weight: 600;
+		margin-bottom: 0.4em;	
+		font-size: 0.9em;	
 	}
 
-	.feature-premium {
-		background: #d9e1eb; 
-		width: 75%; 
-		padding: 0.3em 0.3em 0.3em 1.2em; 
-		border-radius: 1.5em;
-		margin: 0.25em;
-		font-size: 0.7em;
-	}
+	input[type="text"]:disabled{background-color:white;}	
 
-	.btn-menu-analitik {
-		color: #a1a4a8; 
-		margin: 0em 0.3em 0em 0.3em; 
-		background: white; 
-		padding: 0.3em 1.3em 0.3em 1.3em; 
-		border-radius: 2em;		
-	}
-
-	.analitik-active {
-		color: white;
-		background: #ffaa00;
-	}
-
-	.card-menu-premium {
-		background: white; 
-		display: flex; 
-		justify-content: center; 
-		margin-top: .5em; 
-		flex-direction: column; 
-		align-items: center;		
-		border-radius: 1.5em;
-	}
-
-	.modal .close {
-		right: -1.3em !important;
-	}
-
-	.slider {
-		display: flex; 
-		overflow-y: visible; 
-		margin: 0px; 			
-		overflow-x: scroll;
-		scrollbar-width: none; /* Firefox */
-		-ms-overflow-style: none;  /* Internet Explorer 10+ */
-	}
-	.slider::-webkit-scrollbar { /* WebKit */
-		width: 0;
-		height: 0;
-	}
-
-	.slider-toko {
-		display: flex; 
-		justify-content: center; 
-		flex-direction: column; 
-		align-items: center; 
-		margin: 0em 0em 0em 0.5em; 
-		width: 8.5em;		
-	}
-
-	.slider-toko img {
-		width: 8.5em;
-		height: 7.5em;
-		object-fit: cover;
-		border-top-left-radius: 1em;
-		border-top-right-radius: 1em;
-	}
-
-	.slider-toko > div {
-		height: 6.3em;
-		border-bottom-left-radius: 1em;
-		border-bottom-right-radius: 1em;
-	}
-
-
-	.star-rating {
-		color: #efff3b;
-	}
-
-	.star-no-rating {
-		color: #c1c3be;
-	}
-
-	.modal .fade:not(.in).bottom .modal-dialog {
-		-webkit-transform: translate3d(0, 25%, 0);
-		transform: translate3d(0, 25%, 0);
+	.cr-slider-wrap {
+		display: none;
 	}
 
 	.homepage {
-		min-height: calc(80vh - 60px); 
-
+		min-height: calc(50vh - 60px);
 	}
-
-	.togglebutton,.togglebutton .toggle,.togglebutton input,.togglebutton label{user-select:none}
-	.togglebutton label{cursor:pointer}
-	.form-group.is-focused .togglebutton label,.togglebutton label{color:rgba(0,0,0,.26)}
-	.form-group.is-focused .togglebutton label:focus,.form-group.is-focused .togglebutton label:hover{
-		color:rgba(0,0,0,.54)
-	}
-	fieldset[disabled] .form-group.is-focused .togglebutton label{color:rgba(0,0,0,.26)}
-	.togglebutton label input[type=checkbox]{opacity:0;width:0;height:0}
-	.togglebutton label .toggle{text-align:left;margin-left:5px}
-	.togglebutton label .toggle,.togglebutton label input[type=checkbox][disabled]+.toggle{
-		content:"";
-		display:inline-block;
-		width:55px;
-		height:25px;
-		background-color:rgba(80,80,80,.7);
-		border-radius:15px;
-		margin-right:0px;
-		transition:background .8s ease;vertical-align:middle
-	}
-	.togglebutton label .toggle:after{
-		content:"";
-		display:inline-block;
-		width:22px;
-		height:22px;
-		background-color:#fff;
-		border-radius:20px;
-		position:relative;
-		box-shadow:0 1px 3px 1px rgba(0,0,0,.4);
-		margin-left: 0.3em;
-		top:1px;
-		border:1px solid rgba(0,0,0,.54);
-		transition:left .8s ease,background .8s ease,box-shadow .1s ease
-	}
-	.togglebutton label input[type=checkbox][disabled]+.toggle:after,.togglebutton label input[type=checkbox][disabled]:checked+.toggle:after{background-color:#bdbdbd}
-	.togglebutton label input[type=checkbox]+.toggle:active:after,.togglebutton label input[type=checkbox][disabled]+.toggle:active:after{box-shadow:0 1px 3px 1px rgba(0,0,0,.4),0 0 0 15px rgba(0,0,0,.1)}
-	.togglebutton label input[type=checkbox]:checked+.toggle:after{left:25px}
-	.togglebutton label input[type=checkbox]:checked+.toggle{background-color:#8a6614}
-	.togglebutton label input[type=checkbox]:checked+.toggle:after{border-color:#8a6614}
-	.togglebutton label input[type=checkbox]:checked+.toggle:active:after{box-shadow:0 1px 3px 1px #8a6614,0 0 0 15px rgba(156,39,176,.1)}
-
-	.button-detail {
-		display: flex;	
-	}
-
-	.button-detail > div{
-		margin-right: 0.3em;
-	}	
 </style>
 @endsection
-
-
 
 @section('content')
 <?php
 $pemilik = "";
 $no_hp = "";
-$kategori="";
 $latitude = "";
 $longitude = "";
 $alamat = "";
 $buka = "";
 $tutup = "";
 $hari = "";
-$deskripsi = "";
 if (!empty($_GET['pemilik'])){
 	$pemilik = $_GET['pemilik'];
 }
 if (!empty($_GET['no_hp'])){
 	$no_hp = $_GET['no_hp'];
 }
-if (!empty($_GET['kategori'])){
-	$kategori = $_GET['kategori'];
-}
+
 if (!empty($_GET['x'])){
 	$latitude = $_GET['x'];
 }
@@ -408,88 +277,208 @@ if (!empty($_GET['tutup'])){
 if (!empty($_GET['hari'])){
 	$hari = $_GET['hari'];
 }
-if (!empty($_GET['deskripsi'])){
-	$hari = $_GET['deskripsi'];
-}
+
 ?>
 
+<div class="modal fade" id="modal-sukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
+		<div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<div class="container">
+					<div class="panel panel-info">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-4 text-center">
+									<div id="upload-demo">
 
-<header class="style__Container-sc-3fiysr-0 header" style="background: transparent;  padding-top: 0.3em">
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh">
-		<a href="<?=url('/')?>/akun/mitra/premium" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 0.3em; padding-right: 0.7em;">
+									</div>
+								</div>
+								<div class="col-md-4" style="padding:5%;">
+									<input type="file" id="image" hidden>
+									<div class="btn btn-primary btn-block" id="unggah_foto" onclick="unggah_foto()">Unggah Foto</div>
+									<div id="div_upload" hidden>
+										<button class="btn btn-primary btn-block upload-image" style="margin-top:2%" >Upload Image</button>
+										<button class="btn btn-secondary btn-block" onclick="unggah_foto()">Unggah Foto</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<header class="style__Container-sc-3fiysr-0 header" >
+	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
+		<a href="<?=url('/')?>/akun" style="padding-left: 1em;">
 			<img src="<?=url('/')?>/public/img/back_white.svg">
 		</a>
-		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
-			<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
+		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px" href="/">
+			<img src="<?=url('/')?>/public/img/logo.svg">
+			<img src="<?=url('/')?>/public/img/logo_text.svg">
 		</a>
-		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
-		</a>
+		<div data-toggle="modal" data-target="#modal-ganti-pass" style="cursor:pointer;padding-right: 1em;">
+			<img src="<?=url('/')?>/public/img/back_white.svg" hidden>
+		</div>
 	</div>
 </header>
 
 
-
-<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
-	
-	<div>
-		@php
-			$index_toko = 1;
-		@endphp
-		@foreach ($data_keranjang as $key=>$data)
-		
-			<div style="padding: 0px 16px 1em;">
-				<input type="checkbox" id="toko-{{$index_toko}}" name="vehicle1" value="Bike" >
-				<label style="color: white; font-size: 20px; font-weight: bold" for="toko">{{$data[0]->toko->nama_toko}}</label><br>
-				<h5 style="color: white;"></h5>
-				<hr style="height:2px;border-width:0;color:rgb(255, 255, 255);background-color:rgb(255, 255, 255)">
-				@php
-					$index_makanan = 1;
-				@endphp
-				@foreach ($data as $item)
-				<input type="checkbox" id="produk-{{$index_toko}}-{{$index_makanan++}}" name="produk" value="Bike" onclick="fungsi(this, {{$item->product->harga}})">
-				<label style="color: white; font-size: 16px; font-weight: bold" for="toko">{{$item->product->nama}}</label><br>
-				<p style="color: white;">{{number_format($item->product->harga, 0, '.', '.')}}</p>
-				<div class="button-detail">
-					<div style="width: 2em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick="kurangi_pesanan()"><i class="fa fa-minus"></i></div>
-					<div style="width: 3em; height: 2em; background: white; border-radius: 2em; color: #9d0208; display: flex; justify-content: center; align-items: center; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan">1</div>
-					<div style="width: 2.1em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick="tambah_pesanan()"><i class="fa fa-plus"></i></div>
+<main id="homepage" class="homepage" style="padding: 0px; background: #eaf4ff !important;">
+	<div class="card-mall" style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: #eaf4ff; margin-top: 5em;">	
+		@for ($i = 0; $i < count($data_keranjang); $i++)
+		<div class="toko card-mall" style="width: 90%;">
+			<div class="nama-toko">{{$data_keranjang[$i]['nama_toko']}}</div>
+			<div class="daftar-product">
+				@foreach ($data_keranjang[$i]['product'] as $row)
+				<div class="product">
+					<div class="deskripsi-product"> 
+						<div class="nama">{{$row->nama}}</div>
+						<div class="harga">{{$row->harga}}</div>
+					</div>
+					<div class="foto-product">
+						<img src="<?=url('/')?>/public/img/toko/{{$data_keranjang[$i]['id_toko']}}/produk/240x240/{{$row->foto_produk}}">
+					</div>
 				</div>
-				<br>
 				@endforeach
 			</div>
-			@php
-				$index_toko++;
-			@endphp
-			<br><br>
-		@endforeach
+		</div>
+		@endfor
 	</div>
-	<div style="width: 100%; margin-bottom: 1em; background-color: transparent;">
-		<p id="total_pesanan" style="color: white; font-size: 20px;">Total Pesanan = </p>
-	</div>
+
+
 </main>
+
+
+@if(Session::has('message'))
+<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+	<div class="modal-dialog modal-sm modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body text-center font-weight-bold py-3">
+				{{Session::get('message')}}
+				<div class="row mt-2 p-2">
+					<a href="<?=url('/')?>/akun" type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary">Tutup</a>
+
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+</div>
+@endif
+
 @endsection
 
 @section('footer-scripts')
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-</script>
-<script>
-	var total = 0;
-	
-	$(document).ready(function(){
-		document.getElementById("total_pesanan").innerHTML = "Total Pesanan = " + total;
-	})
+<script src="<?=url('/')?>/public/template/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 
-	function fungsi(checkbox, harga){
-		if(checkbox.checked == true){
-        	total +=harga;
-			document.getElementById("total_pesanan").innerHTML = "Total Pesanan = " + total;
-    	}
-		else{
-			total -=harga;
-			document.getElementById("total_pesanan").innerHTML = "Total Pesanan = " + total;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
+
+
+<script type="text/javascript">
+
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+
+	var status_ganti_foto = 0;
+
+	@if(Session::has('message'))
+	$('#modal-pemberitahuan').modal('show');
+	@endif
+
+	@if(Session::has('pass_message'))
+	$('#modal-ganti-pass').modal('show');
+	@endif
+
+
+	function pilih_jenkel(id, jenkel){
+		$("#jenis_kelamin").val(jenkel);
+		if (id == 'option_pria'){
+			$("#option_pria").css('color', '#1c2645');
+			$("#option_wanita").css('color', '#b3b7c0');
+		}
+		else {
+			$("#option_wanita").css('color', '#1c2645');
+			$("#option_pria").css('color', '#b3b7c0');
 		}
 	}
-</script>
 
+	function input_focus(id){
+		$("#div_"+id).css('border', '1px solid #d1d2d4');
+	}
+
+	function input_blur(id){
+		$("#div_"+id).css('border', '1px solid white');		
+	}
+
+
+
+
+
+	var resize = $('#upload-demo').croppie({
+		enableExif: true,
+		enableOrientation: true,    
+    viewport: { // Default { width: 100, height: 100, type: 'square' } 
+    width: 300,
+    height: 300,
+        type: 'circle' //square
+    },
+    boundary: {
+    	width: 300,
+    	height: 300
+    }
+});
+
+
+	$('#image').on('change', function () { 
+		$(".cr-slider-wrap").css("display", "block");
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			resize.croppie('bind',{
+				url: e.target.result
+			}).then(function(){
+				console.log('jQuery bind complete');
+			});
+		}
+		$("#div_upload").prop('hidden', false);
+		$("#unggah_foto").prop('hidden', true);
+		$("#prev_image").remove();
+		reader.readAsDataURL(this.files[0]);
+	});
+
+
+	$('.upload-image').on('click', function (ev) {
+		resize.croppie('result', {
+			circle: false,
+			type: 'canvas',
+			size: 'viewport'
+		}).then(function (img) {
+			$.ajax({
+
+				url: "<?=url('/')?>/akun/pengaturan-profil/simpan-foto",
+				type: "POST",
+				data: {"image":img},
+				success: function (data) {
+					$('#pic_toko_privew').attr('src', img);
+					$("#modal-sukses").modal('hide');
+
+				}
+			});
+
+		});
+		status_ganti_foto = 1;
+
+	});
+	
+	$( "#form_input").submit(function( event ) {
+		show_loader();
+	});
+
+</script>
 @endsection

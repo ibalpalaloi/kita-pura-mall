@@ -68,7 +68,7 @@ Route::group(['middleware'=> 'guest'], function() {
     Route::post('/admin/masuk', [Admin_Auth_Controller::class, 'post_login']);
     Route::get('/', [AuthController::class, 'login'])->name('login');
 
-
+    
 });
 
 Route::group(['middleware'=> 'auth'], function() {
