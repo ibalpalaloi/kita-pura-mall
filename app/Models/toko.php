@@ -44,11 +44,11 @@ class Toko extends Model
     public function kategorinya_toko(){
         return $this->hasMany(Kategorinya_toko::class);
     }
-
+    
     public function kelurahan(){
         return $this->belongsTo(Kelurahan::class);
     }
-
+    
     public function product(){
         return $this->hasMany(Product::class);
     }
