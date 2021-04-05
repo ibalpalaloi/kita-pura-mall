@@ -405,10 +405,10 @@ style="padding: 1.5em; padding: 0px;">
 		@else
 		@php $penjual = 'no'; @endphp
 
-		<div id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
+		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
 			<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
 			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
-		</div>
+		</a>
 		@endif
 		@endif
 
