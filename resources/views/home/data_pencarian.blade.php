@@ -5,9 +5,9 @@ $count_product = count($product);
 $index = 0;
 @endphp 
 @for ($j = 0; $j < $rownya; $j++)
-<div class="row" style="display: flex; flex-wrap: wrap; justify-content: space-around;" onclick='tampil_gambar("{{$product[$j]->foto_produk}}")'>
+<div class="row" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
     @for ($i = 0; $i < 6; $i++)
-    <div style="display: flex; justify-content: center; flex-direction: column; width:30%; margin: 1.5%;">
+    <div style="display: flex; justify-content: center; flex-direction: column; width:30%; margin: 1.5%;" href="">
         <img src="<?=url('/')?>/public/img/toko/{{$product[$index]->toko_id}}/produk/240x240/{{$product[$index]->foto_produk}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
     </div>
     @php $index++; @endphp

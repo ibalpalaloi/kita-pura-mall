@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use DB;
 use Session;
 use Image;
@@ -75,7 +76,11 @@ class HomeController extends Controller
 	}
 
 	public function pencarian(Request $request){
-		$product = Product::orderByRaw('RAND()')->paginate(54);
+		$product = Product::whereHas('toko', function (Builder $q){
+			$q->where('status', '=', 'Aktif');
+		})->orderByRaw('RAND()')->paginate(54);
+		// dd($produk);
+		// $product = Product::orderByRaw('RAND()')->paginate(54);
 		// dd(count($product));
 		if($request->ajax()){
             $view = view('home.data_pencarian', compact('product'))->render();

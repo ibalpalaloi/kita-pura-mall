@@ -114,10 +114,10 @@ Explore |
 
 @section('footer-scripts')
 <script type="text/javascript">
-	function tampil_gambar(gambarnya) {
-		$("#modal-image").attr('src', gambarnya);
-		$("#modal-open-image").modal('show');
-	}
+	// function tampil_gambar(gambarnya) {
+	// 	$("#modal-image").attr('src', gambarnya);
+	// 	$("#modal-open-image").modal('show');
+	// }
 </script>
 <script>
 	var page = 2;
@@ -147,7 +147,7 @@ Explore |
 	}
 
 	$(window).scroll(function(){
-		if($(window).scrollTop() + $(window).height() >= $(document).height()){
+		if($(window).scrollTop() + $(window).height() + 30 >= $(document).height()){
 			var check = $("#no_more_check").val();
 			if(status == 1){
 				loadMoreData(page);
@@ -155,7 +155,7 @@ Explore |
 				if(reload == 1){
 					page++;
 				}
-				$("#loading").show();
+				// $("#loading").show();
 			}
 				
 		}
