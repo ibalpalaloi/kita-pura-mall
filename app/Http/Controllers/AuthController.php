@@ -25,7 +25,7 @@ class AuthController extends Controller
     }
 
     public function callbackGoogle(){
-        $user = Socialite::driver('google')->user();
+        $user = Socialite::driver('google')->stateless()->user();
         $find_user = User::where('google_id', $user->id)->first();
         if($find_user){
             Auth::login($find_user);
