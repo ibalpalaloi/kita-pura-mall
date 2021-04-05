@@ -94,12 +94,12 @@ Explore |
 
 <main id="homepage" class="homepage" style="background: #eaf4ff;">
 	<div class="card-pencarian" style="background: #eaf4ff;">
-		<div class="nama-kategori" style="background: #eaf4ff; padding-top: 0.6em; margin-top: 4em; display: flex; flex-direction: column; flex-wrap: wrap; margin-bottom: 4em;">
+		<div class="nama-kategori" style="background: #eaf4ff; padding-top: 0.6em; margin-top: 4em; display: flex; flex-direction: column; flex-wrap: wrap; margin-bottom: 7em;">
 			@include('home.data_pencarian')
 			<br><br><br><br>
 		</div>
-		<div id="loading" class="spinner-border text-primary" role="status">
-			<div class="spinner-border text-danger" role="status">
+		<div id="loading" class="spinner-border text-danger" role="status" style="display: none; margin-bottom: 8em;">
+			<div role="status">
 				<span class="sr-only">Loading...</span>
 			  </div>
 			  <br><br><br><br><br><br><br>
@@ -114,10 +114,10 @@ Explore |
 
 @section('footer-scripts')
 <script type="text/javascript">
-	// function tampil_gambar(gambarnya) {
-	// 	$("#modal-image").attr('src', gambarnya);
-	// 	$("#modal-open-image").modal('show');
-	// }
+	function tampil_gambar(gambarnya) {
+		$("#modal-image").attr('src', gambarnya);
+		$("#modal-open-image").modal('show');
+	}
 </script>
 <script>
 	var page = 2;
@@ -137,9 +137,9 @@ Explore |
 				reload = 0;
 			}
 			$('#loading').hide();
-				$('.nama-kategori').append(data.html);
-				status = 1;
-				console.log(page);
+			$('.nama-kategori').append(data.html);
+			status = 1;
+			console.log(page);
 		})
 		.fail(function(jqXHR, ajaxOptions, thrownError){
 			// alert("server errror");
@@ -155,11 +155,23 @@ Explore |
 				if(reload == 1){
 					page++;
 				}
-				// $("#loading").show();
+				$("#loading").show();
 			}
 				
 		}
 	})
+
+	function trigger(){
+		var check = $("#no_more_check").val();
+		if(status == 1){
+			loadMoreData(page);
+			status = 0;
+			if(reload == 1){
+				page++;
+			}
+			$("#loading").show();
+		}
+	}
 
 	function minus_page(){
 		page--;
