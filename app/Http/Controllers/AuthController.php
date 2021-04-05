@@ -25,11 +25,17 @@ class AuthController extends Controller
     }
 
     public function callbackGoogle(){
-        $user = Socialite::driver('google')->user();
+        // $user = Socialite::driver('google')->user();
+        $user = Socialite::driver('google')->stateless()->user();
         $find_user = User::where('google_id', $user->id)->first();
         if($find_user){
-            Auth::login($find_user);
-            return redirect('/home');
+            if(Auth::attempt(['email' => $find_user->email, 'password' => "kitapuramall18091997"])){
+                Session::put('id_user', $find_user->id);
+                Session::put('level_akes', $find_user->level_akses);
+                Session::put('no_telp', $find_user->no_hp);
+                Session::put('email', $find_user->email);
+                Session::put('status_nomor', "Belum Terverifikasi");
+            }
         }else{
             $id_user = $this->autocode('USR-');
             $new_user = User::create([
@@ -46,8 +52,11 @@ class AuthController extends Controller
             $biodata->username = $this->autocode('user');
             $biodata->save();
             Auth::login($new_user);
-            return redirect('/buat_akun_biodata');
         }
+        if(Auth()->user()){
+            return redirect('/home');
+        }
+        return redirect()->back();
     }
 
     public function register(){
