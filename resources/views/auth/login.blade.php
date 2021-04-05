@@ -301,7 +301,7 @@
                         <input type="password" name="password" class="form-control" id="examplePass" required>
                     </div>
                     <div class="form-group">
-                        <input type="submit" name="submit" class="btn" style="width: 100%; background: #FB036B;" value="Masuk">
+                        <input onclick="show_loader()" type="submit" name="submit" class="btn" style="width: 100%; background: #FB036B;" value="Masuk">
                     </div>
                 </form>
                 <div class="form-group" style="display: flex; justify-content: center;">
@@ -316,7 +316,7 @@
                     <a href="<?=url('/')?>/register" class="btn" style="width: 100%; background: #0CA437;">
                         Buat Akun kitapura <i>mall</i>
                     </a>
-                    <a href="<?=url('/')?>/redirectToGoogle">
+                    <a href="<?=url('/')?>/redirectToGoogle" onclick="show_loader()">
                         <div class="btn" style="width: 100%; background: #EAF4FF; color: #575757; display: flex;">
                             <span class="" style="width: 15%; display: flex; justify-content: center;">
                                 <img src="<?=url('/')?>/public/img/home/google-icon.svg" style="width: 1.5em;">
