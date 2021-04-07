@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GetController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingPageController;
@@ -275,6 +276,7 @@ Route::group(['middleware'=> 'admin'], function() {
    
 });
 
+Route::get('/verifikasi/send_email', [MailController::class, 'send_email']);
 
 Route::get('crop-image-before-upload-using-croppie', [MitraController::class, 'index']);
 Route::post('crop-image-before-upload-using-croppie', [MitraController::class, 'uploadCropImage']);
