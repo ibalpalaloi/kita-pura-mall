@@ -282,7 +282,7 @@
 	</div>
 </div>
 <main id="homepage" class="homepage" style="padding-bottom: -1.5em;">
-	<div class="kategori" style="background: #121617; color: white; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 3em 8%; display: flex; flex-direction: column;">
+	<div class="kategori" style="background: {{$landing_page_toko->warna_header}}; color: white; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 3em 8%; display: flex; flex-direction: column;">
 		<div class="info-toko" style="display: flex; justify-content: space-between; width: 100%;">
 			<div class="nama-toko" style="width: 80%;">
 				@php $hasil_diskon_string = ""; @endphp

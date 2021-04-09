@@ -52,4 +52,8 @@ class Toko extends Model
     public function product(){
         return $this->hasMany(Product::class);
     }
+
+    public function landing_page_toko(){
+        return $this->hasone(Landing_page_toko::class);
+    }
 }

@@ -2,7 +2,7 @@
     <div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
         <?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
         <img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/240x200/{{$row->foto_produk}}">
-        <div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative; background:#121617;'> 
+        <div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative; background:{{$landing_page_toko->warna_header}};'> 
             <div class="" style="width: 5em; position: absolute; height: 5em; bottom:3.5em; right:0.5em;">
                 <img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="width: 100%; height: 100%;" onclick="masukan_keranjang('{{$row->toko_id}}', '{{$row->id}}')">
             </div>              
