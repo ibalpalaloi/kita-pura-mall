@@ -15,6 +15,8 @@ use Auth;
 use GuzzleHttp;
 use Session;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Gmail;
 
 
 class AuthController extends Controller
@@ -139,32 +141,66 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function buat_kode_otp($no_telp){
-        Otp::where('no_hp', $no_telp)->delete();
-        $kode_otp = rand();
-        $kode_otp = substr($kode_otp, 0, 6);
+    public function buat_kode_otp(){
+        $status = 0;
+        while($status == 0){
+            $kode_otp = rand();
+            $kode_otp = substr($kode_otp, 0, 6);
+            $cek_kode = Otp::where('kode_otp', $kode_otp)->get();
+            if(count($cek_kode) == 0){
+                $status = 1;
+            }
+        }
+        return $kode_otp;
+    }
 
-        $json = [
-            "token"=>"3a5be6424cbf00451c8e3a91fe339437",
-            "source"=>628114588477,
-            "destination"=>$no_telp,
-            "type"=>"text",
-            "body"=>[
-                "text"=>"Kode OTP Login Anda ".$kode_otp
-            ]
-        ];
-        $client = new GuzzleHttp\Client();
-        $response = $client->request('POST', 'http://waping.es/api/send',
-           ['header'=>['Content-Type'=>'application/json'],
-           'json'=>$json
-       ]
-   );
-        
+    public function input_otp(Request $request){
+        Otp::where('no_hp', $this->generate_no_telp($request->no_hp))->delete();
+        Otp::where('email', $request->email)->delete();
+
         $otp = new Otp;
-        $otp->no_hp = $no_telp;
-        $otp->kode_otp = $kode_otp;
+        $otp->no_hp = $this->generate_no_telp($request->no_hp);
+        $otp->email = $request->email;
+        $otp->kode_otp = $this->buat_kode_otp();
+        $otp->status = "belum dikirim";
         $otp->save();
+        
+        $this->send_email_otp($otp->email, $otp->kode_otp);
+        return redirect('/input_otp/'.$otp->email.'/'.$otp->no_hp);
+    }
 
+    public function send_email_otp($email, $otp){
+        $data = [
+            'title' => 'Kode Otp Akun Anda',
+            'body' => '',
+            'otp' => $otp
+        ];
+
+        Mail::to($email)->send(new Gmail($data));
+    }
+
+    public function view_input_otp($email, $no_hp){
+        $otp = Otp::where([
+            ['email', $email],
+            ['no_hp', $no_hp]
+        ])->get();
+        if(count($otp)>0){
+            return view('auth.input_otp', ['email'=>$email, 'no_hp'=>$no_hp]);
+        }
+        return redirect('/');
+        
+    }
+
+    public function view_input_password($email, $no_hp){
+        $otp = Otp::where([
+            ['email', $email],
+            ['no_hp', $no_hp]
+        ])->get();
+        if(count($otp)>0){
+            return view('auth.input_password', ['email'=>$email, 'no_hp'=>$no_hp]);
+        }
+        return redirect('/');
+        
     }
 
 
@@ -254,8 +290,12 @@ class AuthController extends Controller
         $no_telp = str_replace(" ","", $no_telp);
         if ($no_telp[0] == 0){
             $no_telp = substr($no_telp, 1);
+            $no_telp = substr_replace($no_telp, "+62", 0, 0);
         }
-        $no_telp = substr_replace($no_telp, "+62", 0, 0);
+        elseif($no_telp[0] == "+"){
+            $no_telp = $no_telp;
+        }
+        
 
         return $no_telp;
     }
@@ -285,22 +325,15 @@ class AuthController extends Controller
     }
 
     public function post_otp(Request $request){
-
         $otp = Otp::where([
-            ['no_hp', $request->no_telp],
-            ['kode_otp', $request->kode_otp]
-        ])->first();
-
-        if(!empty($otp)){
-
-            return redirect('/daftar/'.$request->no_telp);
+                            ['email', $request->email],
+                            ['no_hp', $request->no_hp],
+                            ['kode_otp', $request->kode_otp]
+        ])->get();
+        if(count($otp)>0){
+            return redirect('/input_password/'.$request->email.'/'.$request->no_hp);
         }
-
-        $notification = array(
-            'message' => 'Maaf Kode OTP Dimasukkan Salah, Silahkan Masukkan Kembali Kode OTP Yang Benar'
-        );     
-
-        return redirect()->back()->with($notification);
+        return redirect('/input_otp/'.$request->email.'/'.$request->no_hp);
     }
 
 
@@ -364,27 +397,39 @@ class AuthController extends Controller
     public function post_password(Request $request){
         // dd($request->all());
         $this->validate($request,[
-            'password' => 'required'
+            'password' => 'required',
+            'email' => 'required',
+            'no_hp' => 'required'
         ]);
+        
 
-        if(Auth::attempt(['no_hp' => $request->no_telp, 'password' => $request->password])){
-            
+        $id_user = $this->autocode('USR-');
+        $user = new User;
+        $user->id = $id_user;
+        $user->password = bcrypt($request->password);
+        $user->no_hp = $this->generate_no_telp($request->no_hp);
+        $user->email = $request->email;
+        $user->remember_token = str::random(60);
+        $user->level_akses = 'user';
+        $user->status = "aktif";
+        $user->save();
 
-            $user = User::where('no_hp', $request->no_telp)->first();
-            
-            // dd($user->id);
-            Session::put('id_user', $user->id);
-            Session::put('no_telp', $request->no_telp);
-            Session::put('level_akes', 'user');
-            Session::put('status_nomor', $user->status_nomor);
-            return redirect('/home');
-        }
+        $biodata = new Biodata;
+        $biodata->users_id = $id_user;
+        $biodata->nama = "";
+        $biodata->jenis_kelamin = "";
+        $biodata->alamat = "$request->alamat";
+        $biodata->username = $this->autocode('user');
+        $biodata->save();
 
-        $notification = array(
-            'message' => 'Maaf Password Salah'
-        );     
+        $otp = Otp::where([
+            ['email', $request->email],
+            ['no_hp', $this->generate_no_telp($request->no_hp)]
+        ])->delete();
+        
+        Auth::login($user);
+        return redirect('/');
 
-        return redirect()->back()->with($notification);
     }
 
     // public function untuk_mitra(){

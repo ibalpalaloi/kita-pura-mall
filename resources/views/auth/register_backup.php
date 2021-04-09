@@ -290,7 +290,7 @@
     <main id="homepage" class="homepage">
         <div class="card-mall">
             <div class="card-body" style="padding-top: 2em;">
-                <form method="post" action="<?=url('/')?>/buat-akun/input_otp" id="form_input">
+                <form method="post" action="<?=url('/')?>/buat-akun" id="form_input">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleEmail" class="bmd-label-floating" id="label_email" style="color: #999797">Alamat Email</label>
@@ -299,6 +299,10 @@
                     <div class="form-group">
                         <label for="exampleEmail" class="bmd-label-floating" id="label_no_hp" style="color: #999797">Nomor Whatsapp</label>
                         <input type="number" name="no_hp" id="no_hp" class="form-control" id="exampleEmail"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="examplePass" class="bmd-label-floating" id="label_password" style="color: #999797">Password</label>
+                        <input type="password" name="password" id="password" class="form-control" id="examplePass">
                     </div>
                     <div class="form-group" style="display: flex;justify-content: center; flex-direction: column;">
 
@@ -409,8 +413,9 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 </script>
 <script type="text/javascript">
     function cek_submit(){
-        var cek_status = status_email + status_no_hp;
-        if(cek_status == 2){
+        cek_password();
+        var cek_status = status_password + status_email + status_no_hp;
+        if(cek_status == 3){
             $('#form_input').submit();
         }
         else{
