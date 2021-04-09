@@ -290,46 +290,21 @@
     <main id="homepage" class="homepage">
         <div class="card-mall">
             <div class="card-body" style="padding-top: 2em;">
-                <form method="post" action="<?=url('/')?>/buat-akun/input_otp" id="form_input">
+                <form method="post" action="<?=url('/')?>/buat-akun/post_password" id="form_input">
                     {{ csrf_field() }}
+                    <input type="text" name="email" value="{{$email}}" hidden>
+                    <input type="text" name="no_hp" value="{{$no_hp}}" hidden>
                     <div class="form-group">
-                        <label for="exampleEmail" class="bmd-label-floating" id="label_email" style="color: #999797">Alamat Email</label>
-                        <input type="email" name="email" id="email" class="form-control" id="exampleEmail"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleEmail" class="bmd-label-floating" id="label_no_hp" style="color: #999797">Nomor Whatsapp</label>
-                        <input type="number" name="no_hp" id="no_hp" class="form-control" id="exampleEmail"/>
+                        <label for="exampleEmail" class="bmd-label-floating" id="label_password" style="color: #999797">Masukkan Password Untuk Akun Anda</label>
+                        <input  type="text" name="password" id="password" class="form-control" id="exampleEmail"/>
                     </div>
                     <div class="form-group" style="display: flex;justify-content: center; flex-direction: column;">
 
                         <button onclick="cek_submit()" type="button" class="btn" style="width: 100%; background: #0CA437;">
-                            Daftar
+                            Masukkan Password
                         </button>
-                        <a href="<?=url('/')?>" style="color:#353535;width: 100%; text-align: center; font-size: 0.9em; margin-top: 0.5em;">Sudah punya akun? <span style="color: #FB036B; font-weight: 600; text-decoration: underline;">Masuk disini</span></a>
                     </div>
                 </form>
-                {{-- <div style="display: flex;justify-content: center; align-items: center;">
-                    <hr style="width: 100%; margin-right: 1em;">
-                    <span style="color: #9D9D9D;">Atau</span>
-                    <hr style="width: 100%; margin-left: 1em;">
-                </div>
-                <div class="form-group">
-                    <a href="<?=url('/')?>/register-api" class="btn" style="width: 100%; background: #EAF4FF; color: #575757; display: flex;">
-                        <span class="" style="width: 15%; display: flex; justify-content: center;">
-                            <img src="<?=url('/')?>/public/img/home/google-icon.svg" style="width: 1.5em;">
-                        </span>
-                        <span style="width: 70%;">Google</span>
-                        <span style="width: 15%; color: #EAF4FF">a</span>
-                    </a>
-                    <a href="<?=url('/')?>/register-api" class="btn" style="width: 100%; background: #00A3FF; display: flex; margin-top: 0.8em;">
-                        <span class="" style="width: 15%; display: flex; justify-content: center;">
-                            <img src="<?=url('/')?>/public/img/home/facebook-icon.svg" style="width: 1.5em;">
-                        </span>
-                        <span style="width: 70%;">Facebook</span>
-                        <span style="width: 15%; color: #00A3FF">a</span>
-                    </a>
-                </div> --}}
-
             </div>
         </div>
     </main>
@@ -409,14 +384,15 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 </script>
 <script type="text/javascript">
     function cek_submit(){
-        var cek_status = status_email + status_no_hp;
-        if(cek_status == 2){
+        cek_password();
+        if(status_password == 1){
             $('#form_input').submit();
         }
         else{
-            alert('Periksa Kembali Data Anda')
+            $('#label_password').text('Password (Minimal 8 Karakter)');
+            $('#label_password').css('color', 'red')
+            status_password = 0;
         }
-        
     }
 
     function cek_password(){

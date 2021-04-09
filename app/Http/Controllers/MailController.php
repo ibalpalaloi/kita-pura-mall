@@ -12,7 +12,7 @@ class MailController extends Controller
     //
     public function send_email(){
         $data = [
-            'title' => 'mail form kitapura',
+            'title' => 'Kode Otp Akun anda',
             'body' => 'email dari kita semua'
         ];
 

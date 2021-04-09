@@ -49,6 +49,11 @@ Route::group(['middleware'=> 'guest'], function() {
     Route::get('/register', [AuthController::class, 'register']);
     Route::get('/register-api', [AuthController::class, 'register_api']);
     
+    Route::post('/buat-akun/input_otp', [AuthController::class, 'input_otp']);
+    Route::get('/input_otp/{email}/{no_hp}', [AuthController::class, 'view_input_otp']);
+    Route::get('/input_password/{email}/{no_hp}', [AuthController::class, 'view_input_password']);
+    Route::post('/buat-akun/post_otp', [AuthController::class, 'post_otp']);
+    Route::post('/buat-akun/post_password', [AuthController::class, 'post_password']);
     Route::post('/buat-akun', [AuthController::class, 'buat_akun']);
     Route::post('/buat-akun/simpan-foto', [UserController::class, 'simpan_foto']);
 

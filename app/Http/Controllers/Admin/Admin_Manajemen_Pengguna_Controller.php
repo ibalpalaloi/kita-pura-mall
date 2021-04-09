@@ -10,7 +10,7 @@ use App\Models\Provinsi;
 use App\Models\Toko;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\Jadwal_toko;
-use App\Models\kategorinya_toko;
+use App\Models\Kategorinya_toko;
 
 class Admin_Manajemen_Pengguna_Controller extends Controller
 {

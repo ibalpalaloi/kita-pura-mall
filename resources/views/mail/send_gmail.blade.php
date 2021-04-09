@@ -4,8 +4,9 @@
     <title>Real Programmer</title>
 </head>
 <body>
-    <h1>{{ $data['title'] }}</h1>
+    <h3>{{ $data['title'] }}</h3>
     <p>{{ $data['body'] }}</p>
-    <p>Thank you</p>
+    <h1>{{$data['otp']}}</h1>
+    <p>Masukkan kode di atas untuk registrasi</p>
 </body>
 </html>

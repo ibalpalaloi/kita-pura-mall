@@ -232,10 +232,6 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 		<div id="post-data" style="padding: 0em 0.5em; margin-bottom: 4em; display: flex; justify-content: space-between; flex-wrap: wrap;">
 			@include('toko.toko_data')
 		</div>
-		<div class="load text-center" style="display: none">
-			loading ......
-			<br><br>
-		</div>
 	</div>
 </main>
 
@@ -248,18 +244,15 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 			url: '?page=' + page + '&cari=' + cari,
 			type: 'get',
 			beforeSend: function(){
-				$(".load").show();
 			}
 		})
 		.done(function(data){
 			if(data.html == ""){
-				$(".load").html('');
 				return;
 			}
 			if(page == 1){
 				$('#post-data').empty();
 			}
-			$('.load').hide();
 			$('#post-data').append(data.html);
 			
 		})
