@@ -70,7 +70,7 @@ class Mitra_Register_Controller extends Controller
     }
 
 	public function simpan_mitra(Request $request, $jenis_mitra){
-
+        // dd($request);
 		$this->validate($request,[
 			'nama_toko' => 'required',
 			// 'username' => 'required',
@@ -84,7 +84,6 @@ class Mitra_Register_Controller extends Controller
 		if ($jenis_mitra == 'premium'){
 			$this->validate($request,[
                 'deskripsi' => 'required',
-				'username' => 'required|unique:toko'
 			]);
 		};
         Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->delete();

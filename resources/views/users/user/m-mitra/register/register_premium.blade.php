@@ -623,6 +623,17 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+			<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+				<div class="loader-container">
+					<div class="spinner-border text-danger" role="status">
+						<span class="sr-only">Loading...</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<header class="style__Container-sc-3fiysr-0 header" style="background:#353535; padding-top: 0.3em;">
@@ -758,7 +769,7 @@
 					</div>
 
 
-					<button type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
+					<button onclick="show_loader()" type="submit" class="btn btn-primary" style="padding: 0px; background: transparent; border: none;">
 						<img src="<?=url('/')?>/public/img/button/toko_premium/simpan.svg" style="width: 100%; margin: 0px;">
 					</button>	
 				</div>

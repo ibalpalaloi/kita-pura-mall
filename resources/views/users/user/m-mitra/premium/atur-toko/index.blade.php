@@ -709,7 +709,7 @@
 						<input type="hidden" name="nama_foto_temp" id="nama_foto_temp">
 						<div style="display: flex; justify-content: center; flex-direction: column;">
 							<input type="text" id="nama_toko" name="nama_toko" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nama Toko" aria-label="Nama Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1.5em; font-weight: 645;" required value="{{$toko->nama_toko}}">
-							<input type="tel" id="username_toko" name="username_toko" class="" onchange="input_focus_username(this.id)" placeholder="Username Toko" aria-label="Username Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" required value="{{$toko->username}}">
+							<input type="text" id="username_toko" name="username_toko" class="" onchange="input_focus_username(this.id)" placeholder="Username Toko" aria-label="Username Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645;" required value="{{$toko->username}}">
 <!-- 							<input type="text" id="username_toko_error" name="username_toko" class="" placeholder="Username Toko" onfocus="input_focus_username(this.id)" aria-label="Username Toko" aria-describedby="basic-addon1" style="width: 100%; background: transparent; color: white; text-align: center; font-size: 1em; font-weight: 645; text-decoration: underline; color: #ED0D0D;" required value="{{$toko->username}}">
 -->
 </div>
@@ -741,7 +741,7 @@
 		<span class="input-group-text-mall" style="width: 3em; background: #202020;">
 			+62
 		</span>
-		<input type="text" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nomor Handphone" aria-label="no_hp" aria-describedby="basic-addon1" style="width: 100%;" value="@if(substr($toko->no_hp, 0, 3) == '+62'){{substr($toko->no_hp,3)}}@else{{$toko->no_hp}}@endif" required>
+		<input type="telp" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nomor Handphone" aria-label="no_hp" aria-describedby="basic-addon1" style="width: 100%;" value="@if(substr($toko->no_hp, 0, 3) == '+62'){{substr($toko->no_hp,3)}}@else{{$toko->no_hp}}@endif" required>
 	</div>
 </div>
 <div class="input-group mb-3 st0 @if($errors->first('jadwal_hari')) is-invalid @endif" id="div_kategori" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;">
