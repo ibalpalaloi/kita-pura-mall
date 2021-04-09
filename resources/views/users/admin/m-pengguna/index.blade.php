@@ -162,7 +162,11 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                             @foreach ($user as $data)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
+                                @if ($data->no_hp)
                                 <td><a href="<?=url('/')?>/admin/manajemen/detail_pengguna/{{$data->id}}">{{$data->no_hp}}</a></td>
+                                @else
+                                <td><a href="<?=url('/')?>/admin/manajemen/detail_pengguna/{{$data->id}}">{{$data->email}}</a></td> 
+                                @endif
                                 @if (!empty($data->biodata->nama))
                                 <td>{{$data->biodata->nama}}</td>
                                 @else

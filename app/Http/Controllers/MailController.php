@@ -18,6 +18,5 @@ class MailController extends Controller
 
         Mail::to('ibalpalaloi@gmail.com')->send(new Gmail($data));
         return "email send";
-        
     }
 }
