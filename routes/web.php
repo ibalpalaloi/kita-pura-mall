@@ -86,6 +86,7 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::get('/home_mitra', [HomeController::class, 'home_mitra']);
         Route::get('/home', [HomeController::class, 'index'])->name('home');
         Route::get('/pencarian', [HomeController::class, 'pencarian']);
+        Route::get('/pencarian/explore/{id_product}', [HomeController::class, 'detail_produk']);
         Route::get('/pencarian/explore', [HomeController::class, 'pencarian']);
         Route::get('/pencarian/rekomendasi', [HomeController::class, 'pencarian']);
         Route::get('/pencarian/maps', [HomeController::class, 'maps']);
@@ -308,7 +309,9 @@ Route::get('/{username_mitra}', [LandingPageController::class, 'landing_page_mit
 
 // keranjang
 Route::post('/tambah_keranjang_belanja', [Keranjang_Belanja_Controller::class, 'tambah_keranjang_belanja'])->name('tambah_keranjang_belanja');
-Route::get('/user/keranjang', [Keranjang_Belanja_Controller::class, 'keranjang']);
+Route::post('/user/keranjang/ubah_jumlah', [Keranjang_Belanja_Controller::class, 'ubah_jumlah']);
+Route::get('/user/keranjang/{id_toko}', [Keranjang_Belanja_Controller::class, 'keranjang']);
+Route::get('/user/keranjang', [Keranjang_Belanja_Controller::class, 'keranjang_user']);
 
 // Penilaian
 Route::post('/user/post_penilaian', [PenilaianController::class, 'post_penilaian']);

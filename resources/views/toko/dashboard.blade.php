@@ -189,6 +189,18 @@
 	background: #eaf4ff;
 }
 
+.overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      clear: float;
+      width: 100%;
+      height: 100%;
+background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
+      color: #ffffff;	
+      border-radius: 1em;
+}
+
 </style>
 @endsection
 
@@ -217,7 +229,7 @@
 
 <main id="homepage" class="homepage" style="background: #eaf4ff;">
 	<div class="row-mall" style="padding: 0em 0em 5.5em 0em; margin-top: 10em; background: #eaf4ff;">
-		<div id="post-data" style="margin-bottom: 4em">
+		<div id="post-data" style="padding: 0em 0.5em; margin-bottom: 4em; display: flex; justify-content: space-between; flex-wrap: wrap;">
 			@include('toko.toko_data')
 		</div>
 		<div class="load text-center" style="display: none">

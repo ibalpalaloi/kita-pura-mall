@@ -386,12 +386,12 @@ style="padding: 1.5em; padding: 0px;">
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
 		<?php if (!empty($_GET['previous'])){ ?>
-			<div id="defaultheader_logo" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" onclick='back_preivous()'>
-				<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
-			</div>
+			<a id="defaultheader_logo" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/toko">
+				<img src="<?=url('/')?>/public/img/icon_svg/kmall_circle.svg">
+			</a>
 		<?php } else { ?>
-			<a id="defaultheader_logo" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/">
-				<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
+			<a id="defaultheader_logo" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="<?=url('/')?>/toko">
+				<img src="<?=url('/')?>/public/img/icon_svg/kmall_circle.svg">
 			</a>
 		<?php } ?>
 		@if (Auth::user())
@@ -405,9 +405,9 @@ style="padding: 1.5em; padding: 0px;">
 		@else
 		@php $penjual = 'no'; @endphp
 
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
+		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang/{{$toko->username}}">
 			<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
-			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
+			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{$keranjang}}</div>
 		</a>
 		@endif
 		@endif
@@ -685,8 +685,9 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 			url : "{{ route('tambah_keranjang_belanja') }}",
 			method : 'post',
 			data : {toko_id:toko_id, produk_id:produk_id, _token:'{{csrf_token()}}'},
-			success:function()
+			success:function(data)
 			{
+				// alert(data);
 				var jumlah_keranjang = $("#jumlah_keranjang").html();
 				jumlah_keranjang = parseInt(jumlah_keranjang)+1;
 				$("#jumlah_keranjang").html(jumlah_keranjang);

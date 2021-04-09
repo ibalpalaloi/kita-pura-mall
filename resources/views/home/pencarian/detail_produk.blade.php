@@ -167,6 +167,7 @@
 }
 
 .slider {
+	width: 100%;
 	display: flex; 
 	overflow-y: visible; 
 	margin: 0px; 			
@@ -185,11 +186,12 @@
 	flex-direction: column; 
 	align-items: center; 
 	margin: 0em 0em 0em 0.5em; 
-	width: 47.5%;		
+	width: 9em;		
 }
 
 .slider-toko img {
-	width: 100%;
+	width: 9em;
+	object-fit: cover;
 	border-top-left-radius: 1em;
 	border-top-right-radius: 1em;
 }
@@ -197,8 +199,7 @@
 .slider-toko > div {
 	border-bottom-left-radius: 1em;
 	border-bottom-right-radius: 1em;
-}
-
+}  
 
 .swiper-container {
 	width: 100%;
@@ -264,7 +265,7 @@
 		</a>
 
 
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang/{{Request::segment(1)}}">
+		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
 			<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
 			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
 		</a>
@@ -282,7 +283,7 @@
 	</div>
 </div>
 <main id="homepage" class="homepage" style="padding-bottom: -1.5em;">
-	<div class="kategori" style="background: #121617; color: white; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 3em 8%; display: flex; flex-direction: column;">
+	<div class="kategori" style="background: #EAF4FF; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 3em 8%; display: flex; flex-direction: column;">
 		<div class="info-toko" style="display: flex; justify-content: space-between; width: 100%;">
 			<div class="nama-toko" style="width: 80%;">
 				@php $hasil_diskon_string = ""; @endphp
@@ -340,11 +341,85 @@
 		</div>
 
 	</div>
-	<div class="kategori" style="background:white; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 0em 0em 0em; display: flex; flex-direction: column; margin-top: -1em; margin-bottom: -1em; justify-content: center; align-items: center;">
-		<h3 style="margin: 0em 8% 1em 8%; display: flex; justify-content: center;"><b>Produk Lainnya</b></h3>
+	<?php $svg = url('/')."/public/img/home/bg-slider-toko.svg"; ?>	
+	<div class="kategori" style="background-image: url('<?=$svg?>'); color: white; background-size: cover; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 3em 8%; display: flex; flex-direction: column; margin-top: -1em;">
+		<div style="flex-direction: row; display: flex; justify-content: flex-start; align-items: center;">
+			<div>
+				<img src="<?=url('/')?>/public/img/toko/{{$toko->id}}/logo/200x200/{{$toko->logo_toko}}" style="border-radius: 50%; width: 5em; border: 3px solid white;">
+			</div>
+			<div style="margin-left: 0.8em;">
+				<div class="info-toko" style="display: flex; justify-content: space-between; width: 100%;">
+					<div class="nama-toko" style="width: 100%;">
+						<div style="padding: 0; margin: 0.5em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">{{$toko->nama_toko}}</div>
+					</div>
+				</div>
+				<div class="penilaian" style="margin-top: 0.5em;">
+					<div style="padding: 0; margin: 0em 0px 0px 0px; font-size: 0.9em; line-height: 1em;">
+						@php
+						$bintang = 1;
+						@endphp
+						@for ($i = 0; $i < 4; $i++)
+						<i class="fas fa-star star-rating-toko"></i>
+						@endfor
+						@for ($i = 0; $i < $bintang; $i++)
+						<i class="far fa-star star-rating-toko"></i>
+						@endfor
+					</div>
+					<div class="" style="font-size: 1.1em; margin-top: 0.2em;"><b style="text-decoration: underline;">{{$produk_lainnya}} Produk Lainnya</b></div>
+					<div class="penilai" style="display: flex; justify-content: space-between; align-items: flex-end;" hidden>
+						<div class="foto-penilai" style="display: flex; justify-content: flex-start; margin-top: 0.2em;">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="deskripsi" style=" margin-top: 0.8em;">
+			<div style="font-size: 0.9em;">{{$product->deskripsi}}</div>
+		</div>
 
-		<div id="daftar_menu" style="width: 90%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
-			@include('landing_page.data_daftar_menu_detail')
+		<a href="<?=url('/')?>/{{$toko->username}}" style="background: linear-gradient(180deg, #FF58BB 0%, #FF006E 100%);border-radius: 35px; padding: 0.8em; width: 100%; margin-top: 0.5em; text-align: center; color: white; font-size: 1.1em;">
+			Kunjungi Toko<img src="<?=url('/')?>/public/img/icon_svg/toko_white.svg" style="position: absolute;right: 5em;">
+		</a>
+	</div>
+	<div class="kategori" style="background:white; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 0em 0em 0em; display: flex; flex-direction: column; margin-top: -1em; margin-bottom: -1em;">
+		<div class="info-toko" style="display: flex; justify-content: center; flex-direction: column; width: 100%;">
+			<h3 style="margin: 0em 8% 1em 8%; display: flex; justify-content: center;"><b>Produk Serupa</b></h3>
+			<div class="slider">
+				@php $i= 0; @endphp
+				@foreach ($produk_serupa as $row)
+				<a href="<?=url('/')?>/pencarian/explore/{{$row->id}}" class="slider-toko" style="@if ($i == 0) margin-left: 8%;@endif">
+					@php $i++; @endphp
+					<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/240x200/{{$row->foto_produk}}">
+					<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; background-image: url("<?=$svg?>"); color: white; background-size: cover; padding: 1em; position: relative;'> 
+						<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(255,6,115,1) 0%, rgba(255,82,181,1) 100%); box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
+							<img src="<?=url('/')?>/public/img/icon_svg/download.svg" style="width: 2em; height: 2em;">
+						</div>
+						<div style="font-weight: 500;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
+						<div style="font-size: 0.7em; line-height: 1em; font-weight: 0;">{{$row->kategori_id}}</div>
+						<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.6em; line-height: 1em;">
+							<i class="fas fa-star star-rating-toko"></i>
+							<i class="fas fa-star star-rating-toko"></i>
+							<i class="fas fa-star star-rating-toko"></i>
+							<i class="fas fa-star star-rating-toko"></i>
+							<i class="far fa-star star-rating-toko"></i>
+							&nbsp;<span>0 Penilaian</span><br>
+						</div>
+
+						<span style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.6em; line-height: 1em; vertical-align: center;">
+							Harga Mulai
+						</span>
+						<span style="padding: 0; margin: 0.5em 0px 0px 0.5em; font-size: 0.9em; line-height: 1em; font-weight: 500;">IDR. {{number_format($row->harga, 0, '.', '.')}}</span>
+					</div>
+				</a> 
+				@if ($i == count($produk_serupa))
+				<div style="padding: 1em; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+					<img src="<?=url('/')?>/public/img/icon_svg/vertikal_right.svg">
+					<div style="color: gray; font-size: 0.7em; white-space: nowrap;">Lebih Banyak</div>
+				</div>
+				@endif
+				@endforeach
+			</div>
+
 		</div>
 
 	</div>

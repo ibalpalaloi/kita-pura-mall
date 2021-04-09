@@ -225,7 +225,7 @@
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: white; padding-top: 0.3em;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" >
-		<a class="svg_color" href="<?=url('/')?>/{{Request::segment(1)}}" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; margin-right: ">
+		<a class="svg_color" href="javascript:history.back()" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; margin-right: ">
 			<svg width="13" height="21" viewBox="0 0 13 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path fill-rule="evenodd" clip-rule="evenodd" d="M1.09413 11.5312C0.524614 10.9617 0.524613 10.0383 1.09413 9.46882L9.84413 0.718824C10.4136 0.149308 11.337 0.149308 11.9065 0.718824C12.476 1.28834 12.476 2.2117 11.9065 2.78122L4.18772 10.5L11.9065 18.2188C12.476 18.7883 12.476 19.7117 11.9065 20.2812C11.337 20.8507 10.4136 20.8507 9.84413 20.2812L1.09413 11.5312Z" fill="{{$page->warna_header}}"/>
 				</svg>
@@ -242,8 +242,7 @@
 					</svg>
 				</a>
 				@else
-				<a  href="https://api.whatsapp.com/
-				send?phone={{$toko->no_hp}}&text=Halo%20{{$toko->nama_toko}},%20Saya%20Ingin%20Memesan%20product%20yang%20ada%20di%20kitapuraa%20mall" style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; position: relative;">
+				<a  href="<?=url('/')?>/user/keranjang/{{Request::segment(1)}}" style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; position: relative;">
 
 				<svg width="25" height="30" viewBox="0 0 25 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M5.91667 10.3333V7.49996C5.91667 5.62134 6.66294 3.81967 7.99133 2.49129C9.31971 1.1629 11.1214 0.416626 13 0.416626C14.8786 0.416626 16.6803 1.1629 18.0087 2.49129C19.3371 3.81967 20.0833 5.62134 20.0833 7.49996V10.3333H24.3333C24.7091 10.3333 25.0694 10.4825 25.3351 10.7482C25.6007 11.0139 25.75 11.3742 25.75 11.75V28.75C25.75 29.1257 25.6007 29.486 25.3351 29.7517C25.0694 30.0174 24.7091 30.1666 24.3333 30.1666H1.66667C1.29094 30.1666 0.930608 30.0174 0.664932 29.7517C0.399255 29.486 0.25 29.1257 0.25 28.75V11.75C0.25 11.3742 0.399255 11.0139 0.664932 10.7482C0.930608 10.4825 1.29094 10.3333 1.66667 10.3333H5.91667ZM5.91667 13.1666H3.08333V27.3333H22.9167V13.1666H20.0833V16H17.25V13.1666H8.75V16H5.91667V13.1666ZM8.75 10.3333H17.25V7.49996C17.25 6.37279 16.8022 5.29178 16.0052 4.49476C15.2082 3.69773 14.1272 3.24996 13 3.24996C11.8728 3.24996 10.7918 3.69773 9.99479 4.49476C9.19777 5.29178 8.75 6.37279 8.75 7.49996V10.3333Z" fill="{{$page->warna_header}}"/>
@@ -280,13 +279,13 @@
 						</div> --}}
 					</div>
 				</div>
-				{{-- <div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">
+				<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">
 					<div class="kategori-tabs" style="margin-top: 5px; font-size: 0.85em;">
 						<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">General</a>
 						<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">terbaru</a>
 						<a class="active-kategori" style="padding: 0.3em 0.7em;">paling dicari</a>
 					</div>
-				</div> --}}
+				</div> 
 				<div id="daftar_menu" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
 					@include('landing_page.data_daftar_menu')
 				</div>

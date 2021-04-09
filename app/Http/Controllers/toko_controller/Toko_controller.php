@@ -14,29 +14,20 @@ class Toko_controller extends Controller
     public function index(Request $request){
         $cari = $request->get('cari');
         if ($cari == 'all' or $cari==""){
-            $tokos = Toko::where('status', 'Aktif')->orWhere('status', 'Libur')->orderByRaw('RAND()')->paginate(20);
+            $tokos = DB::table('toko')->select('toko.id', 'nama_toko', 'username', 'logo_toko', 'foto_cover', 'jenis_mitra', DB::raw('count(product.id) as jumlah_produk'))->join('product', 'product.toko_id', '=', 'toko.id')->where('toko.status', 'Aktif')->orWhere('status', 'Libur')->groupBy('toko.id', 'nama_toko', 'logo_toko', 'foto_cover', 'username', 'jenis_mitra')->orderByRaw('RAND()')->paginate(20);
+            // $tokos = Toko::where('status', 'Aktif')->orWhere('status', 'Libur')->orderByRaw('RAND()')->paginate(20);
         }
         else{
-            $tokos = Toko::where('nama_toko', 'like', '%'.$cari.'%')->where('status', 'Aktif')->orWhere('status', 'Libur')->paginate(20);
+            // $tokos = DB::table('toko')->select('toko.id', 'nama_toko', 'username', 'logo_toko', 'foto_cover', 'jenis_mitra', DB::raw('count(product.id) as jumlah_produk'))->join('product', 'product.toko_id', '=', 'toko.id')->where('toko.status', 'Aktif')->orWhere('status', 'Libur')->groupBy('toko.id', 'nama_toko', 'logo_toko', 'foto_cover', 'username', 'jenis_mitra')->where('nama_toko', 'like', '%'.$cari.'%')->paginate(20);
+             $tokos = Toko::where('nama_toko', 'like', '%'.$cari.'%')->where('status', 'Aktif')->orWhere('status', 'Libur')->paginate(20);
+
         }
-        $index = 0;
-        for($i = 0; $i < count($tokos); $i++){
-            $foto = Foto_maps::where([
-                                        ['toko_id', $tokos[$i]->id],
-                                        ['no_foto', 1]
-                                    ])->first();
-            if(!empty($foto)){
-                $tokos[$i]->setAttribute('foto', $foto->foto);
-            }
-            else{
-                $tokos[$i]->setAttribute('foto', '');
-            }
-        }
-        
+        $index = 0;        
         if($request->ajax()){
             $view = view('toko.toko_data', compact('tokos'))->render();
             return response()->json(['html'=>$view]);
         }
+        // dd($tokos);
         return view('toko.dashboard', compact('tokos'));
     }
 

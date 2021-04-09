@@ -646,7 +646,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 	function ubah_pesanan(id, jumlah_pesanan){
 		$("#ubah_id").val(id);
-		$("#jumlah_pesanan").val(jumlah_pesanan)
+		$("#jumlah_pesanan").val(jumlah_pesanan);
 		$("#modal-ubah-pesanan").modal('show');
 	}
 
