@@ -135,6 +135,10 @@
                                         <i class="mdi mdi-account-multiple"></i>
                                         <span class="hide-menu">Daftar Pengguna</span>
                                     </a>
+                                    <a href="<?=url('/')?>/admin/manajemen/pengguna_daftar_otp" class="sidebar-link">
+                                        <i class="mdi mdi-account-multiple"></i>
+                                        <span class="hide-menu">Daftar OTP</span>
+                                    </a>
                                 </li>
                             </ul>
                         </li>

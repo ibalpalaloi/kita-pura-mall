@@ -165,7 +165,7 @@ class AuthController extends Controller
         $otp->status = "belum dikirim";
         $otp->save();
         
-        // $this->send_email_otp($otp->email, $otp->kode_otp);
+        $this->send_email_otp($otp->email, $otp->kode_otp);
         return redirect('/input_otp/'.$otp->email.'/'.$otp->no_hp);
     }
 

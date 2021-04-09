@@ -11,6 +11,7 @@ use App\Models\Toko;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\Jadwal_toko;
 use App\Models\Kategorinya_toko;
+use App\Models\Otp;
 
 class Admin_Manajemen_Pengguna_Controller extends Controller
 {
@@ -173,6 +174,11 @@ class Admin_Manajemen_Pengguna_Controller extends Controller
         $no_telp = substr_replace($no_telp, "+62", 0, 0);
 
         return $no_telp;
+    }
+
+    public function daftar_otp(){
+        $otp = Otp::all();
+        return view('users.admin.m-pengguna.data_otp', compact('otp'));
     }
 
 }

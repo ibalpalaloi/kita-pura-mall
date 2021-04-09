@@ -230,6 +230,7 @@ Route::group(['middleware'=> 'admin'], function() {
 
         // manajemen pengguna
     Route::get('/admin/manajemen/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'index']);
+    Route::get('/admin/manajemen/pengguna_daftar_otp', [Admin_Manajemen_Pengguna_Controller::class, 'daftar_otp']);
     Route::get('/admin/manajemen/buat_toko/{id}', [Admin_Manajemen_Pengguna_Controller::class, 'buat_toko']);
     Route::post('/admin/manajemen/post_buat_toko/{id}', [Admin_Manajemen_Pengguna_Controller::class, 'post_buat_toko']);
     Route::get('/admin/manajemen/detail_pengguna/{id}', [Admin_Manajemen_Pengguna_Controller::class, 'detail_pengguna']);
