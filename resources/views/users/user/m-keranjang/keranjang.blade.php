@@ -245,6 +245,12 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		margin-top: 0.8em;
 	}	
 </style>
+<script type="text/javascript">
+	const formatToCurrency = amount => {
+		return "IDR " +amount.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.")
+		// return "IDR. " + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+	};	
+</script>
 @endsection
 
 @section('content')
@@ -333,30 +339,34 @@ if (!empty($_GET['hari'])){
 	<main id="homepage" class="homepage" style="padding: 0px; background: #eaf4ff !important;">
 		<div style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: white; margin-top: 4.5em; background: #eaf4ff;">	
 			<script type="text/javascript">
+				var sub_keranjang_current = {};
 				var sub_keranjang = {};
+				var sub_total = [];
+				var sub_total_current = [];
 			</script>
 			@for ($i = 0; $i < count($data_keranjang_current); $i++)
 			<div class="toko" style="background: white; width: 100%; padding: 0% 5%; margin-bottom: 0.5em; padding-top: 1em;">
 				<a class="nama-toko" href="<?=url('/')?>/<?=$data_keranjang_current[$i]['username']?>" style="margin: 1em 0em; font-size: 1.15em;font-weight: 600; color: {{$page->warna_header}}">
 				{{$data_keranjang_current[$i]['nama_toko']}}</a>
 				<script type="text/javascript">
-					var sub_total_current = 0;
-
+					sub_total_current["<?=$data_keranjang_current[$i]['id_toko']?>"] = 0;
+					// alert("<?=$data_keranjang_current[$i]['id_toko']?>");
+					// alert(sub_total_current["<?=$data_keranjang_current[$i]['id_toko']?>"]);
 				</script>
 
 				<div class="daftar-product" style="margin-top: 1em;">
 					@foreach ($data_keranjang_current[$i]['product'] as $row)
 					<div class="product" style="display: flex; justify-content: space-between; margin-bottom: 1em;">
 						<div class="" style="width: 5%;">
-							<input type="checkbox" name="">
+							<input type="checkbox" name="" checked id="checkbox_{{$row->id}}">
 						</div>
 						<div class="deskripsi-product" style="width: 55%;"> 
 							<div class="nama" style="font-size: 1em; color: {{$page->warna_header}}; font-weight: 500;"><?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 35)))?>@if (strlen($row->nama) > 35)..@endif</div>
 							<div class="harga" style="color: {{$page->warna_header}};">IDR. {{number_format($row->harga,0,',','.')}}</div>
 							<div class="button-detail" style="margin-top: 1em; display: flex;">
-								<div style="width: 2em; height: 2em; background: white; border-radius: 50%; background: {{$page->warna_header}}; color: {{$page->warna_body}};text-align: center; font-size: 0.7em; padding-top: 0.3em; margin-right: 0.2em;" onclick='ubah_pesanan("<?=$row->id?>", "kurang")'><i class="fa fa-minus"></i></div>
+								<div style="width: 2em; height: 2em; background: white; border-radius: 50%; background: {{$page->warna_header}}; color: {{$page->warna_body}};text-align: center; font-size: 0.7em; padding-top: 0.3em; margin-right: 0.2em;" onclick='ubah_pesanan_current("<?=$row->id?>", "kurang", "<?=$row->harga?>", "<?=$data_keranjang_current[$i]['id_toko']?>")'><i class="fa fa-minus"></i></div>
 								<div style="width: 3em; height: 2em; background: white; border-radius: 2em; background: {{$page->warna_header}}; color: {{$page->warna_body}}; display: flex; justify-content: center; align-items: center; margin-right: 0.2em; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan_<?=$row->id?>">{{$row->jumlah}}</div>
-								<div style="width: 2.1em; height: 2em; background: white; border-radius: 50%; background:  {{$page->warna_header}};color: {{$page->warna_body}};text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick='ubah_pesanan("<?=$row->id?>", "tambah")'><i class="fa fa-plus"></i></div>
+								<div style="width: 2.1em; height: 2em; background: white; border-radius: 50%; background:  {{$page->warna_header}};color: {{$page->warna_body}};text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick='ubah_pesanan_current("<?=$row->id?>", "tambah", "<?=$row->harga?>", "<?=$data_keranjang_current[$i]['id_toko']?>")'><i class="fa fa-plus"></i></div>
 							</div>									
 						</div>
 						<a  href="<?=url('/')?>/{{$data_keranjang_current[$i]['username']}}/daftar-menu/{{$row->product_id}}" class="foto-product" style="width: 30%;">
@@ -364,7 +374,8 @@ if (!empty($_GET['hari'])){
 						</a>
 					</div>
 					<script type="text/javascript">
-						sub_total_current += <?=$row->harga?>*<?=$row->jumlah?>;
+						sub_total_current["<?=$data_keranjang_current[$i]['id_toko']?>"] += <?=$row->harga?>*<?=$row->jumlah?>;
+						// alert(sub_total_current);
 						sub_keranjang_current["<?=$data_keranjang_current[$i]['id_toko']?>"] = {
 							"id":"<?=$row->id?>", 
 							"nama":"<?=$row->nama?>",
@@ -376,10 +387,10 @@ if (!empty($_GET['hari'])){
 				</div>
 			</div>
 			<div class="" style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
-				<img src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_current_<?=$i?>">Rp. 1.500.000</span>
+				<img src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_current_<?=$data_keranjang_current[$i]['id_toko']?>">Rp. 1.500.000</span>
 			</div>
 			<script type="text/javascript">
-				document.getElementById("sub_total_current_<?=$i?>").innerHTML = "Rp. "+sub_total_current;
+				document.getElementById("sub_total_current_<?=$data_keranjang_current[$i]['id_toko']?>").innerHTML = formatToCurrency( sub_total_current["<?=$data_keranjang_current[$i]['id_toko']?>"]);
 			</script>
 
 			@endfor
@@ -388,7 +399,7 @@ if (!empty($_GET['hari'])){
 			<div class="toko" style="background: white; width: 100%; padding: 0% 5%; margin-bottom: 0.5em; padding-top: 1em;">
 				<a class="nama-toko" href="<?=url('/')?>/<?=$data_keranjang[$i]['username']?>" style="margin: 1em 0em; font-size: 1.15em;font-weight: 600; color: {{$page->warna_header}}">{{$data_keranjang[$i]['nama_toko']}}</a>
 				<script type="text/javascript">
-					var sub_total = 0;
+					sub_total["<?=$data_keranjang[$i]['id_toko']?>"] = 0;
 
 				</script>
 
@@ -396,15 +407,15 @@ if (!empty($_GET['hari'])){
 					@foreach ($data_keranjang[$i]['product'] as $row)
 					<div class="product" style="display: flex; justify-content: space-between; margin-bottom: 1em;">
 						<div class="" style="width: 5%;">
-							<input type="checkbox" name="" checked>
+							<input type="checkbox" name="" checked id="checkbox_{{$row->id}}">
 						</div>
 						<div class="deskripsi-product" style="width: 55%;"> 
 							<div class="nama" style="font-size: 1em; color: {{$page->warna_header}}; font-weight: 500;"><?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 35)))?>@if (strlen($row->nama) > 35)..@endif</div>
 							<div class="harga" style="color: {{$page->warna_header}};">IDR. {{number_format($row->harga,0,',','.')}}</div>
 							<div class="button-detail" style="margin-top: 1em; display: flex;">
-								<div style="width: 2em; height: 2em; background: white; border-radius: 50%; background: {{$page->warna_header}}; color: {{$page->warna_body}};text-align: center; font-size: 0.7em; padding-top: 0.3em; margin-right: 0.2em;" onclick='ubah_pesanan("<?=$row->id?>", "kurang")'><i class="fa fa-minus"></i></div>
+								<div style="width: 2em; height: 2em; background: white; border-radius: 50%; background: {{$page->warna_header}}; color: {{$page->warna_body}};text-align: center; font-size: 0.7em; padding-top: 0.3em; margin-right: 0.2em;" onclick='ubah_pesanan("<?=$row->id?>", "kurang", "<?=$row->harga?>", "<?=$data_keranjang[$i]['id_toko']?>")'><i class="fa fa-minus"></i></div>
 								<div style="width: 3em; height: 2em; background: white; border-radius: 2em; background: {{$page->warna_header}}; color: {{$page->warna_body}}; display: flex; justify-content: center; align-items: center; margin-right: 0.2em; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan_<?=$row->id?>">{{$row->jumlah}}</div>
-								<div style="width: 2.1em; height: 2em; background: white; border-radius: 50%; background:  {{$page->warna_header}};color: {{$page->warna_body}};text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick='ubah_pesanan("<?=$row->id?>", "tambah")'><i class="fa fa-plus"></i></div>
+								<div style="width: 2.1em; height: 2em; background: white; border-radius: 50%; background:  {{$page->warna_header}};color: {{$page->warna_body}};text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick='ubah_pesanan("<?=$row->id?>", "tambah", "<?=$row->harga?>", "<?=$data_keranjang[$i]['id_toko']?>")'><i class="fa fa-plus"></i></div>
 							</div>									
 						</div>
 						<a  href="<?=url('/')?>/{{$data_keranjang[$i]['username']}}/daftar-menu/{{$row->product_id}}" class="foto-product" style="width: 30%;">
@@ -412,7 +423,7 @@ if (!empty($_GET['hari'])){
 						</a>
 					</div>
 					<script type="text/javascript">
-						sub_total += <?=$row->harga?>*<?=$row->jumlah?>;
+						sub_total["<?=$data_keranjang[$i]['id_toko']?>"] += <?=$row->harga?>*<?=$row->jumlah?>;
 						sub_keranjang["<?=$data_keranjang[$i]['id_toko']?>"] = {
 							"id":"<?=$row->id?>", 
 							"nama":"<?=$row->nama?>",
@@ -424,10 +435,10 @@ if (!empty($_GET['hari'])){
 				</div>
 			</div>
 			<div class="" onclick='WhatsappMessage("<?=$data_keranjang[$i]['no_hp']?>")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
-				<img src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_<?=$i?>">Rp. 1.500.000</span>
+				<img src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_<?=$data_keranjang[$i]['id_toko']?>">Rp. 1.500.000</span>
 			</div>
 			<script type="text/javascript">
-				document.getElementById("sub_total_<?=$i?>").innerHTML = "Rp. "+sub_total;
+				document.getElementById("sub_total_<?=$data_keranjang[$i]['id_toko']?>").innerHTML = formatToCurrency(sub_total["<?=$data_keranjang[$i]['id_toko']?>"]);
 			</script>
 
 			@endfor
@@ -471,6 +482,9 @@ if (!empty($_GET['hari'])){
 			}
 		});
 
+		// const formatToCurrency = amount => {
+		// 	return "IDR." + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "&,");
+		// };
 
 		var isMobile = mobilecheck();
 
@@ -530,7 +544,7 @@ if (!empty($_GET['hari'])){
     	$("#div_"+id).css('border', '1px solid white');		
     }
 
-    function ubah_pesanan(id, operasi){
+    function ubah_pesanan(id, operasi, harga, id_product){
     	var jumlah_pesanan = $("#jumlah_pesanan_"+id).html();
     	if ((operasi == 'kurang') && (jumlah_pesanan == 1)){
 
@@ -541,7 +555,52 @@ if (!empty($_GET['hari'])){
     			type: "POST",
     			data: {"jumlah_pesanan":jumlah_pesanan, "id":id, 'operasi':operasi},
     			success: function (data) {
+    				// alert(data);
+    				var sub_total_value = sub_total[id_product];
+
     				$("#jumlah_pesanan_"+id).html(data);
+    				if (operasi == 'kurang'){
+    					sub_total_value = parseInt(sub_total_value)-parseInt(harga);
+    					$("#sub_total_current_"+id_product).html(formatToCurrency(sub_total_value));
+    				}
+    				else {
+    					sub_total_value = parseInt(sub_total_value)+parseInt(harga);
+    					$("#sub_total_current_"+id_product).html(formatToCurrency(sub_total_value));
+    				}
+    				sub_total[id_product] = sub_total_value;
+
+    			}
+    		});
+
+    	}
+
+
+    }
+
+    function ubah_pesanan_current(id, operasi, harga, id_product){
+    	var jumlah_pesanan = $("#jumlah_pesanan_"+id).html();
+    	if ((operasi == 'kurang') && (jumlah_pesanan == 1)){
+
+    	}
+    	else {
+    		$.ajax({
+    			url: "<?=url('/')?>/user/keranjang/ubah_jumlah",
+    			type: "POST",
+    			data: {"jumlah_pesanan":jumlah_pesanan, "id":id, 'operasi':operasi},
+    			success: function (data) {
+    				// alert(data);
+    				var sub_total_value = sub_total_current[id_product];
+    				$("#jumlah_pesanan_"+id).html(data);
+    				if (operasi == 'kurang'){
+    					sub_total_value = parseInt(sub_total_value)-parseInt(harga);
+    					$("#sub_total_current_"+id_product).html(formatToCurrency(sub_total_value));
+    				}
+    				else {
+    					sub_total_value = parseInt(sub_total_value)+parseInt(harga);
+    					$("#sub_total_current_"+id_product).html(formatToCurrency(sub_total_value));
+    				}
+    				sub_total_current[id_product] = sub_total_value;
+
     			}
     		});
 
