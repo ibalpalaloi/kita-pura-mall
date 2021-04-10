@@ -15,7 +15,7 @@
         <div class="label-product" style="position: absolute; bottom: 0em; left: 0em; padding: 0.5em 0.5em 0.5em 0.7em; display: flex; width: 100%; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);  justify-content: space-between; border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
             <div class="keterangan-product" style="display: flex;">
                 <div style="border-radius: 50%; width: 1.8em; height: 1.8em; border:1px solid white;">
-                    @if (file_exists(public_path("img/toko/$toko->id/cover/240x240/$toko->foto_cover")))
+                    @if (file_exists(public_path("img/toko/$toko->id/logo/200x200/$toko->logo_toko")))
                     <img src="<?=url('/')?>/public/img/toko/{{$toko->id}}/logo/200x200/{{$toko->logo_toko}}" style="width: 100%; border-radius: 50%;">
                     @else
                     <img src="<?=url('/')?>/public/img/toko/premium.svg" style="width: 100%; border-radius: 50%;">
@@ -55,7 +55,7 @@
         <div class="label-product" style="position: absolute; bottom: 0em; left: 0em; padding: 0.5em 0.5em 1em 1em; display: flex; width: 100%; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);  justify-content: space-between; border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
             <div class="keterangan-product" style="display: flex;">
                 <div style="border-radius: 50%; width: 2.8em; height: 2.8em; border:1px solid white;">
-                    @if (file_exists(public_path("img/toko/$toko->id/cover/240x240/$toko->foto_cover")))
+                    @if (file_exists(public_path("img/toko/$toko->id/logo/200x200/$toko->logo_toko")))
                     <img src="<?=url('/')?>/public/img/toko/{{$toko->id}}/logo/200x200/{{$toko->logo_toko}}" style="width: 100%; border-radius: 50%;">
                     @else
                     <img src="<?=url('/')?>/public/img/toko/premium.svg" style="width: 100%; border-radius: 50%;">

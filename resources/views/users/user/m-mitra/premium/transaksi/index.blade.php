@@ -512,89 +512,42 @@ if (!empty($_GET['deskripsi'])){
 		</div>
 		<div style="padding: 0px 16px 1em;">
 			<div style="display: flex; flex-direction: column; justify-content: center; color: white; align-items: center;">
-				<div style="display: flex; justify-content: space-around; width: 100%;">
+				<div style="background: linear-gradient(180deg, #353434 -73.2%, #212121 12.46%, #2E2D2D 92.14%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21); width: 95%; position: relative; display: flex; padding: 1em 2em; border-radius: 0.5em; margin-top:1em;">
+					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_pemasukan.svg" style="margin-right: 1em;">
 					<div>
-						<div>Pemasukan</div>
-						<div>Rp. 5.000.000</div>
-					</div>
+						<div style="font-size: 0.8em;">Pemasukan</div>
+						<div style="font-size: 1.2em; font-weight: 600;">Rp. 5.000.000</div>
+					</div>					
+					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_pemasukan.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
+				</div>
+				<div style="background: linear-gradient(180deg, #353434 -73.2%, #212121 12.46%, #2E2D2D 92.14%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21); width: 95%; position: relative; display: flex; padding: 1em 2em; border-radius: 0.5em; margin-top:1em;">
+					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_pengeluaran.svg" style="margin-right: 1em;">
 					<div>
-						<div>Pengeluaran</div>
-						<div>Rp. 3.000.000</div>
-					</div>
+						<div style="font-size: 0.8em;">Pengeluaran</div>
+						<div style="font-size: 1.2em; font-weight: 600;">Rp. 5.000.000</div>
+					</div>					
+					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_pengeluaran.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
 				</div>
-				<div>Untung : Rp. 2.000.000</div>
-				<a href="<?=url('/')?>/akun/mitra/premium/transaksi/laporan-keuangan">Lihat Laporan Keuangan</a>
-			</div>
-			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em; width: 100%;" hidden>
-				<div style="width: 100%; padding-right: 0.5em;">
-					<span class="input-group-text-mall">
-					</span>
-					<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em;" required>
-					<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center;">
-						<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
-					</div>
-
-				</div>
-			</div>
-			<div class="input-group mb-3" id="div_no_hp" style="border-radius: 3em; width: 100%; display: flex; justify-content: flex-end;">
-				<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center; ">
-					<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
-				</div>
-				<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center; margin-left: 5px;">
-					<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
-				</div>
-				<div style="width: 3em; height: 3em; background: #926c15; border-radius: 50%; padding: 1.5em; display: flex; justify-content: center;align-items: center; margin-left: 5px;">
-					<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
+				<div style="background: linear-gradient(180deg, #353434 -73.2%, #212121 12.46%, #2E2D2D 92.14%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21); width: 95%; position: relative; display: flex; padding: 1em 2em; border-radius: 0.5em; margin-top:1em;">
+					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_keuangan.svg" style="margin-right: 1em;">
+					<div>
+						<div style="font-size: 0.8em;">Keuntungan</div>
+						<div style="font-size: 1.2em; font-weight: 600;">Rp. 5.000.000</div>
+					</div>					
+					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_keuangan.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
 				</div>
 
-			</div>
 
-			<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em; padding-bottom: 10em;">
-				@foreach ($pesanan as $item)
-				<div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px; width: 100%; background: radial-gradient(131.25% 1072.4% at -7.42% 138.67%, #232323 0%, #353535 42.71%, #1C1C1D 77.6%, #252526 100%); border-radius: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83); position: relative;">
-					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-					<div style="width: 27%; margin: 0.5em; height: 7em;">
-						<img src="<?=url('/')?>/public/img/toko/{{$item->toko_id}}/produk/{{$item->foto_product}}">
-					</div>
-					<div style='text-align: left; font-size: 0.75em; width:60%; color: white; background-size: cover; position: relative; margin-left: 0.5em; display: flex; justify-content: space-between;'> 
-						<div>
-							<div style="font-weight: 500; margin-top: 0em; font-size: 1.3em;"><?=substr(strip_tags($item->nama), 0, 15)?>@if (strlen($item->nama) > 15)..@endif</div>
-							<div style="font-size: 0.7em; line-height: 1.2em; font-weight: 0;">Jenis</div>
+				<a style="background: linear-gradient(266.6deg, #DD9D25 47.19%, #C88302 62.81%); box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.78); border-radius: 5px; color: white;padding: 1em; width: 95%; margin-top: 1em;text-align: center; font-weight: 600; position: relative;" href="<?=url('/')?>/akun/mitra/premium/transaksi/laporan-keuangan">
+					<img src="<?=url('/')?>/public/img/icon_svg/laporan_keuangan.svg" style="position: absolute; left: 2em; top: 35%;">Lihat Laporan Keuangan</a>
+				<a style="background: radial-gradient(131.25% 1072.4% at -7.42% 138.67%, #232323 0%, #353535 42.71%, #1C1C1D 77.6%, #252526 100%); box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.78); border-radius: 5px;color: white;padding: 1em; width: 95%; margin-top: 1em;text-align: center; font-weight: 600; position: relative;" href="<?=url('/')?>/akun/mitra/premium/transaksi/tambah-transaksi">
+					<img src="<?=url('/')?>/public/img/icon_svg/plus_white.svg" style="position: absolute; left: 2em; top: 35%;">Input Pesanan</a>
 
-							<div style="padding: 0; margin: 0.1em 0px 0px 0px; font-size: 0.6em; line-height: 1.2em; vertical-align: center;">
-								<s>IDR. 25.000</s>
-							</div>
-							<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 0.9em; font-weight: 500;">IDR. 5.000</div>
-							<div class="button-detail" style="margin-top: 1.5em;">
-								<div style="width: 2em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick='ubah_pesanan("<?=$item->id?>", "<?=$item->jumlah?>")'><i class="fa fa-minus"></i></div>
-								<div style="width: 3em; height: 2em; background: white; border-radius: 2em; color: #9d0208; display: flex; justify-content: center; align-items: center; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan"><?=$item->jumlah?></div>
-								<div style="width: 2.1em; height: 2em; background: white; border-radius: 50%; color: #9d0208; text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick='ubah_pesanan("<?=$item->id?>", "<?=$item->jumlah?>")'><i class="fa fa-plus"></i></div>
-							</div>			
-						</div>				
-						<div>
-							<div style="text-align: center;">Time</div>
-							<div class="st0" style="padding: 0.2em 1em; margin-right: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83);">{{$item->waktu}}</div>
-						</div>
-					</div>
-					<div style="width: 13%; height: 100%; display: flex; align-items: center; justify-content: center; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em;" class="st0" onclick='hapus_pesanan("<?=$item->id?>")'>
-						<div>
-							<img src="<?=url('/')?>/public/img/icon_svg/trash_white.svg" style="width: 100%;">
-						</div>
-					</div>
-					<div class="st0" style="position: absolute; color: white; bottom: -0.5em; right: 0px; padding: 0.2em 1em; border-radius: 0.5em; box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.83);">
-						IDR {{number_format($item->harga_total,0,',','.')}}
-					</div>
-				</div> 
-				@endforeach
+
 			</div>
 		</div>
 	</div>
 </main>
-<div class="footer st0">
-	<a href="<?=url('/')?>/akun/mitra/premium/transaksi/tambah-transaksi" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
-		<img src="<?=url('/')?>/public/img/button/toko_premium/input_pesanan.svg" style="width: 100%;">
-	</a>
-</div>
 @endsection
 
 @section('footer-scripts')

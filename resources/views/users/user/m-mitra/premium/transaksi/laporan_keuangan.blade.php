@@ -544,32 +544,46 @@ if (!empty($_GET['deskripsi'])){
 				<div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">Statistik</div>			
 			</div>
 			<div style="display: flex; flex-direction: column; justify-content: center; color: white; align-items: center;">
-				<div style="display: flex; justify-content: space-around; width: 100%;">
+				<div style="background: linear-gradient(180deg, #353434 -73.2%, #212121 12.46%, #2E2D2D 92.14%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21); width: 100%; position: relative; display: flex; padding: 1em 2em; border-radius: 0.5em; margin-top:1em;">
+					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_pemasukan.svg" style="margin-right: 1em;">
 					<div>
-						<div>Pemasukan</div>
-						<div>Rp. 5.000.000</div>
-					</div>
+						<div style="font-size: 0.8em;">Pemasukan</div>
+						<div style="font-size: 1.2em; font-weight: 600;">Rp. 5.000.000</div>
+					</div>					
+					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_pemasukan.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
+				</div>
+				<div style="background: linear-gradient(180deg, #353434 -73.2%, #212121 12.46%, #2E2D2D 92.14%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21); width: 100%; position: relative; display: flex; padding: 1em 2em; border-radius: 0.5em; margin-top:1em;">
+					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_pengeluaran.svg" style="margin-right: 1em;">
 					<div>
-						<div>Pengeluaran</div>
-						<div>Rp. 3.000.000</div>
+						<div style="font-size: 0.8em;">Pengeluaran</div>
+						<div style="font-size: 1.2em; font-weight: 600;">Rp. 5.000.000</div>
+					</div>					
+					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_pengeluaran.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
+				</div>
+				<div style="background: linear-gradient(180deg, #353434 -73.2%, #212121 12.46%, #2E2D2D 92.14%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21); width: 100%; position: relative; display: flex; padding: 1em 2em; border-radius: 0.5em; margin-top:1em;">
+					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_keuangan.svg" style="margin-right: 1em;">
+					<div>
+						<div style="font-size: 0.8em;">Keuntungan</div>
+						<div style="font-size: 1.2em; font-weight: 600;">Rp. 5.000.000</div>
+					</div>					
+					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_keuangan.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
+				</div>
+				<div class="input-group mb-3 st0" id="div_kategori_pemasukan" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; margin-top: 1em; width: 100%;">
+					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Pilih Tanggal Laporan</div>
+					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
+						<span class="input-group-text-mall" style="width: 3em; background: #202020;">
+							<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 60%;">
+						</span>
+						<select type="text" class="form-control-mall" onchange="pilih_rentan_tanggal()" id="rentan_tanggal" name="rentan_tanggal" style="height: 2.5em;">
+							<option value="Hari ini">Hari ini</option>
+							<option value="7 Hari Terakhir">7 Hari Terakhir</option>
+							<option value="30 Hari Terakhir">30 Hari Terakhir</option>
+							<option value="Semua">Semua</option>
+							<option value="Pilih Tanggal">Pilih Tanggal</option>
+						</select>
 					</div>
 				</div>
-				<div>Untung : Rp. 2.000.000</div>
-			</div>
-			<div class="input-group mb-3 st0" id="div_kategori_pemasukan" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; margin-top: 1em;">
-				<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Pilih Tanggal Laporan</div>
-				<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
-					<span class="input-group-text-mall" style="width: 3em; background: #202020;">
-						<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 60%;">
-					</span>
-					<select type="text" class="form-control-mall" onchange="pilih_rentan_tanggal()" id="rentan_tanggal" name="rentan_tanggal" style="height: 2.5em;">
-						<option value="Hari ini">Hari ini</option>
-						<option value="7 Hari Terakhir">7 Hari Terakhir</option>
-						<option value="30 Hari Terakhir">30 Hari Terakhir</option>
-						<option value="Semua">Semua</option>
-						<option value="Pilih Tanggal">Pilih Tanggal</option>
-					</select>
-				</div>
+
 			</div>
 			<div class="input-group mb-3 st0" id="div_rentan_tanggal" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex; justify-content: space-between;" hidden>
 				<div style="width: 48%;">
@@ -614,11 +628,6 @@ if (!empty($_GET['deskripsi'])){
 	</div>
 </div>
 </main>
-<div class="footer st0">
-	<a href="<?=url('/')?>/akun/mitra/premium/transaksi/tambah-transaksi" class="container-mall" style="display: flex; justify-content: space-around; padding: 0px;">
-		<img src="<?=url('/')?>/public/img/button/toko_premium/input_pesanan.svg" style="width: 100%;">
-	</a>
-</div>
 @endsection
 
 @section('footer-scripts')

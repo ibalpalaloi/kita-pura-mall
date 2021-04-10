@@ -317,6 +317,7 @@ Route::get('/{username_mitra}', [LandingPageController::class, 'landing_page_mit
 
 // keranjang
 Route::post('/tambah_keranjang_belanja', [Keranjang_Belanja_Controller::class, 'tambah_keranjang_belanja'])->name('tambah_keranjang_belanja');
+Route::post('/user/keranjang/tambah_daftar_tunggu', [Keranjang_Belanja_Controller::class, 'tambah_daftar_tunggu']);
 Route::post('/user/keranjang/ubah_jumlah', [Keranjang_Belanja_Controller::class, 'ubah_jumlah']);
 Route::get('/user/keranjang/{id_toko}', [Keranjang_Belanja_Controller::class, 'keranjang']);
 Route::get('/user/keranjang', [Keranjang_Belanja_Controller::class, 'keranjang_user']);
