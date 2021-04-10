@@ -158,6 +158,16 @@ class AuthController extends Controller
         Otp::where('no_hp', $this->generate_no_telp($request->no_hp))->delete();
         Otp::where('email', $request->email)->delete();
 
+        $cek_email = User::where('email', $request->email)->get();
+        if(count($cek_email)>0){
+            return redirect('/');
+        }
+
+        $cek_no_hp = User::where('no_hp', $this->generate_no_telp($request->no_hp))->get();
+        if(count($cek_no_hp)>0){
+            return redirect('/');
+        }
+
         $otp = new Otp;
         $otp->no_hp = $this->generate_no_telp($request->no_hp);
         $otp->email = $request->email;
@@ -165,7 +175,7 @@ class AuthController extends Controller
         $otp->status = "belum dikirim";
         $otp->save();
         
-        $this->send_email_otp($otp->email, $otp->kode_otp);
+        // $this->send_email_otp($otp->email, $otp->kode_otp);
         return redirect('/input_otp/'.$otp->email.'/'.$otp->no_hp);
     }
 

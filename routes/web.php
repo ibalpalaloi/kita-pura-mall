@@ -6,6 +6,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Lupa_Password_Controller;
 use App\Http\Controllers\toko_controller\Toko_controller;
 use App\Http\Controllers\toko_controller\Produk_controller;
 // Admin
@@ -56,6 +57,14 @@ Route::group(['middleware'=> 'guest'], function() {
     Route::post('/buat-akun/post_password', [AuthController::class, 'post_password']);
     Route::post('/buat-akun', [AuthController::class, 'buat_akun']);
     Route::post('/buat-akun/simpan-foto', [UserController::class, 'simpan_foto']);
+
+    // lupa password
+    Route::get('/lupa_password/cari_akun', [Lupa_Password_Controller::class, 'view_cari_akun']);
+    Route::post('/lupa_password/post_no_hp', [Lupa_Password_Controller::class, 'post_no_hp']);
+    Route::post('/lupa_password/kirim_kode', [Lupa_Password_Controller::class, 'post_kirim_kode']);
+    Route::post('/lupa_password/post_kode', [Lupa_Password_Controller::class, 'post_kode_lupa_password']);
+    Route::post('/lupa_password/post_new_password', [Lupa_Password_Controller::class, 'post_new_password']);
+    Route::get('/lupa_password/input_kode/{id}', [Lupa_Password_Controller::class, 'view_input_kode']);
 
     // @Jika Belum Memiliki Akun
     Route::get('/verifikasi-otp/{id}', [AuthController::class, 'verifikasi_otp']);

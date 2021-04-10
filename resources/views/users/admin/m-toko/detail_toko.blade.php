@@ -97,7 +97,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Kelurahan:</label>
                         <select class="form-control" name="kelurahan" id="select_kelurahan">
-                            <option value=""> {{$toko->kelurahan->kelurahan}} </option>
+                            <option value="{{$toko->kelurahan->id}}"> {{$toko->kelurahan->kelurahan}} </option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -233,7 +233,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
                         <div class="el-overlay">
                             <ul class="list-style-none el-info">
                                 <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="<?=url('/')?>/public/img/toko/{{$toko->id}}/logo/400x400/{{$toko->logo_toko}}"><i class="icon-magnifier"></i></a></li>
-                                <li class="el-item"><a class="btn default btn-outline el-link" href="{{$toko->logo()}}" download=""><i class="icon-link"></i></a></li>
+                                <li class="el-item"><a class="btn default btn-outline el-link" href="<?=url('/')?>/public/img/toko/{{$toko->id}}/logo/400x400/{{$toko->logo_toko}}" download=""><i class="icon-link"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -318,7 +318,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
                 <br>
                 <br>
                 <div class="form-group mb-0 text-right">
-                    <button data-toggle="modal" data-target="#modal_data_toko" type="button" class="btn btn-info waves-effect waves-light">ubah</button>
+                    <button onclick="show_modal('modal_data_toko')" data-toggle="modal" data-target="#modal_data_toko" type="button" class="btn btn-info waves-effect waves-light">ubah</button>
                 </div>
             </div>
             <hr class="mt-0">
@@ -364,7 +364,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
                     </div>
                 </div>
                 <div class="form-group mb-0 text-right">
-                    <button data-toggle="modal" data-target="#modal_alamat_toko" type="button" class="btn btn-info waves-effect waves-light">ubah</button>
+                    <button onclick="show_modal('modal_alamat_toko')" data-toggle="modal" data-target="#modal_alamat_toko" type="button" class="btn btn-info waves-effect waves-light">ubah</button>
                 </div>
             </div>
         </div>
@@ -378,6 +378,9 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 <script src="<?=url('/')?>/public/plugins/select2/js/select2.full.min.js"></script>
 
 <script>
+    function show_modal(id_modal){
+        $('#'+id_modal).modal('show');
+    }
     var id_toko = {!! json_encode($toko->id) !!}
     function ubah_status_toko(){
         $.ajax({

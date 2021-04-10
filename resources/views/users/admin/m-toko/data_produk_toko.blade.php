@@ -110,8 +110,8 @@ Produk Toko
                 <div class="el-card-avatar el-overlay-1"> <img src="<?=url('/')?>/public/img/toko/{{$toko->id}}/produk/600x600/{{$data->foto_produk}}" alt="user" height="600" />
                     <div class="el-overlay">
                         <ul class="list-style-none el-info">
-                            <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="../../assets/images/gallery/chair.jpg"><i class="icon-magnifier"></i></a></li>
-                            <li class="el-item"><a class="btn default btn-outline el-link" href="javascript:void(0);"><i class="icon-link"></i></a></li>
+                            <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="<?=url('/')?>/public/img/toko/{{$toko->id}}/produk/600x600/{{$data->foto_produk}}"><i class="icon-magnifier"></i></a></li>
+                            <li class="el-item"><a class="btn default btn-outline el-link" href="<?=url('/')?>/public/img/toko/{{$toko->id}}/produk/600x600/{{$data->foto_produk}}" download=""><i class="icon-link"></i></a></li>
                         </ul>
                     </div>
                 </div>

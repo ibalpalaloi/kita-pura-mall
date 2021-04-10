@@ -146,13 +146,13 @@ class LandingPageController extends Controller
 		$toko = DB::table('toko')->select('toko.nama_toko', 'toko.logo_toko', 'toko.username', 'toko.no_hp', 'toko.deskripsi as deskripsi_toko', 'toko.id')->where('id', $product->toko_id)->first();
 		$produk_lainnya = DB::table('product')->select()->where('toko_id', $product->toko_id)->get();
 		$produk_serupa = DB::table('product')->select()->where('sub_kategori_id', $product->sub_kategori_id)->where('id', '!=', $product->id)->get();
-
+		$landing_page_toko = Landing_page_toko::where('toko_id', $toko->id)->first();
 		if(Auth::user()){
 			$keranjang = DB::table('keranjang_belanja')->select('product.nama', 'jenis_harga', 'harga', 'harga_terendah', 'harga_tertinggi', 'diskon', 'foto_produk', 'toko.nama_toko')->join('product', 'product.id', '=', 'keranjang_belanja.product_id')->join('toko', 'toko.id', '=', 'keranjang_belanja.toko_id')->where('user_id', Auth()->user()->id)->get();		
 		}
 		else{
 			$keranjang = 0;
 		}
-		return view('landing_page/detail_produk', compact('product', 'toko', 'produk_lainnya', 'produk_serupa', 'keranjang'));	
+		return view('landing_page/detail_produk', compact('landing_page_toko','product', 'toko', 'produk_lainnya', 'produk_serupa', 'keranjang'));	
 	}
 }
