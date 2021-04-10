@@ -242,21 +242,24 @@
         background: white !important;
     }
 
-        .btn {
-            text-transform: none;
-            font-size: 0.9em;
-        }
+    .btn {
+        text-transform: none;
+        font-size: 0.9em;
+    }
 </style>
 </head>
+{{-- modal  --}}
+
+
 <div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
-        <div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
-            <div class="loader-container">
-                <div class="spinner-border text-danger" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </div>
-        </div>
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+			<div class="loader-container">
+				<div class="spinner-border text-danger" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+		</div>
     </div>
 </div>
 <body style="margin: 0px; background: #EAF4FF;">
@@ -278,62 +281,34 @@
     @endif
 
     <div class="wrapper" style="background: #FB036B; position: relative; z-index: -1; height: 100%;">
-        <div class="banner" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-            <div >
-                <img src="<?=url('/')?>/public/img/logo.svg">
-                <img src="<?=url('/')?>/public/img/logo_text.svg">
+        <div class="banner" style="display: flex; justify-content: flex-end;">
+            <div class="" style="width: 30%; display: flex; align-items: flex-start; flex-direction: column; padding-top: 4em; padding-left: 2em;">
+                <img src="<?=url('/')?>/public/img/logo.svg" style="width: 30%; width: 60%;">
+                <img src="<?=url('/')?>/public/img/logo_text_vertical.svg" style="width: 30%; width: 90%; margin-top: 0.7em;">
             </div>
-            <img src="<?=url('/')?>/public/img/home/animasi_login.gif" style="width: 100%;">
+            <img src="<?=url('/')?>/public/img/user/img_user.png" style="width: 70%;">
         </div>
     </div>
 
     <main id="homepage" class="homepage">
         <div class="card-mall">
             <div class="card-body" style="padding-top: 2em;">
-                <form method="post" action="<?=url('/')?>/masuk">
-                    {{csrf_field()}}
+                <form method="post" action="<?=url('/')?>/lupa_password/post_no_hp" id="form_input">
+                    {{ csrf_field() }}
+                    @if (\Session::has('error'))
+                         <p style="color: red">Nomor Tidak Ditemukan</p>
+                    @endif  
                     <div class="form-group">
-                        <label for="exampleEmail" class="bmd-label-floating">Email Address / No. Whatsapp</label>
-                        <input type="text" name="email" class="form-control" id="exampleEmail" required/>
+                        
+                        <label for="exampleEmail" class="bmd-label-floating" id="label_password" style="color: #999797">Masukkan Nomor Whatapp Untuk Mencari Akun Anda</label>
+                        <input  type="text" name="no_hp" id="no_hp" class="form-control" id="exampleEmail"/>
                     </div>
-                    <div class="form-group">
-                        <label for="examplePass" class="bmd-label-floating">Password</label>
-                        <input type="password" name="password" class="form-control" id="examplePass" required>
-                    </div>
-                    <div class="form-group">
-                        <input onclick="show_loader()" type="submit" name="submit" class="btn" style="width: 100%; background: #FB036B;" value="Masuk">
+                    <div class="form-group" style="display: flex;justify-content: center; flex-direction: column;">
+                        <button onclick="show_loader()" type="submit" class="btn" style="width: 100%; background: #0CA437;">
+                            cari
+                        </button>
                     </div>
                 </form>
-                <div class="form-group" style="display: flex; justify-content: center;">
-                    <a href="<?=url('/')?>/lupa_password/cari_akun"  style="text-align: center; color: #FB036B; font-weight: 700;">Lupa Kata Sandi?</a>
-                </div>
-                <div style="display: flex;justify-content: center; align-items: center;">
-                    <hr style="width: 100%; margin-right: 1em;">
-                    <span style="color: #9D9D9D;">Atau</span>
-                    <hr style="width: 100%; margin-left: 1em;">
-                </div>
-                <div class="form-group">
-                    <a href="<?=url('/')?>/register" class="btn" style="width: 100%; background: #0CA437;">
-                        Buat Akun kitapura <i>mall</i>
-                    </a>
-                    <a href="<?=url('/')?>/redirectToGoogle" onclick="show_loader()">
-                        <div class="btn" style="width: 100%; background: #EAF4FF; color: #575757; display: flex;">
-                            <span class="" style="width: 15%; display: flex; justify-content: center;">
-                                <img src="<?=url('/')?>/public/img/home/google-icon.svg" style="width: 1.5em;">
-                            </span>
-                            <span style="width: 70%;">Google</span>
-                            <span style="width: 15%; color: #EAF4FF">a</span>
-                        </div>
-                    </a>
-                    <div class="btn" style="width: 100%; background: #00A3FF; display: flex; margin-top: 0.8em;">
-                        <span class="" style="width: 15%; display: flex; justify-content: center;">
-                            <img src="<?=url('/')?>/public/img/home/facebook-icon.svg" style="width: 1.5em;">
-                        </span>
-                        <span style="width: 70%;">Facebook</span>
-                        <span style="width: 15%; color: #00A3FF">a</span>
-                    </div>
-                </div>
-
             </div>
         </div>
     </main>
@@ -348,8 +323,94 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 <script src="<?=url('/')?>/public/plugins/material-design/js/material-dashboard.min.js?v=2.1.0"></script>
 
+<script>
+    var status_email = 0;
+    var status_no_hp = 0;
+    var status_password = 0;
+    var result_no_hp = "";
+    var result_email = "";
+    
+    $('#email').change(function(){
+        var email = $(this).val();
+        if(email != "" && email != result_email){
+            $.ajax({
+            url: "<?=url('/')?>/register/cek_email",
+            method: "post",
+            data : {email:email, _token:'{{csrf_token()}}'},
+            success:function(result)
+            {
+                if(result.data['status'] == "false"){
+                    $('#label_email').css('color', 'red');
+                    $('#label_email').text('Email Telah Tersedia');
+                    status_email = 0;
+                }
+                else{
+                    $('#label_email').css('color', '#999797');
+                    $('#label_email').text('Alamat Email');
+                    status_email = 1;
+                }
+            }
+            })
+            result_email = email;
+            // console.log(result_email);
+        }
+        
+    });
 
+    $('#no_hp').change(function(){
+        var no_hp = $(this).val();
+        if(no_hp != result_no_hp && no_hp != ""){
+            result_no_hp = no_hp;
+            $.ajax({
+                url: "<?=url('/')?>/register/cek_no_hp",
+                method: "post",
+                data : {no_hp:no_hp, _token:'{{csrf_token()}}'},
+                success:function(result)
+                {
+                    if(result.data['status'] == "false"){
+                        result_no_hp = no_hp;
+                        status_no_hp = 0;
+                        $('#label_no_hp').css('color', 'red');
+                        $('#label_no_hp').text('Nomor Telah Tersedia');
+                    }
+                    else{
+                        result_no_hp = no_hp;
+                        status_no_hp = 1;
+                        $('#label_no_hp').css('color', '#999797')
+                        $('#label_no_hp').text('Nomor Whatsapp')
+                    }
+                }
+            })
+            // console.log(result_no_hp);
+        }
+        
+    });
+</script>
 <script type="text/javascript">
+    function cek_submit(){
+        cek_password();
+        if(status_password == 1){
+            $('#form_input').submit();
+        }
+        else{
+            $('#label_password').text('Password (Minimal 8 Karakter)');
+            $('#label_password').css('color', 'red')
+            status_password = 0;
+        }
+    }
+
+    function cek_password(){
+        var password = $('#password').val();
+        if(password.length >= 8){
+            status_password = 1;
+        }
+        else{
+            $('#label_password').text('Password (Minimal 8 Karakter)');
+            $('#label_password').css('color', 'red')
+            status_password = 0;
+        }
+    }
+
     (function($) {
         $.fn.nodoubletapzoom = function() {
             $(this).bind('touchstart', function preventZoom(e) {
