@@ -374,7 +374,7 @@
 			</div>
 		</div>
 		<div class="deskripsi" style=" margin-top: 0.8em;">
-			<div style="font-size: 0.9em;">{{$product->deskripsi}}</div>
+			<div style="font-size: 0.9em;">{{$toko->deskripsi_toko}}</div>
 		</div>
 
 		<a href="<?=url('/')?>/{{$toko->username}}" style="background: linear-gradient(180deg, #FF58BB 0%, #FF006E 100%);border-radius: 35px; padding: 0.8em; width: 100%; margin-top: 0.5em; text-align: center; color: white; font-size: 1.1em;">
@@ -395,7 +395,7 @@
 							<img src="<?=url('/')?>/public/img/icon_svg/download.svg" style="width: 2em; height: 2em;">
 						</div>
 						<div style="font-weight: 500;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
-						<div style="font-size: 0.7em; line-height: 1em; font-weight: 0;">{{$row->kategori_id}}</div>
+						<div style="font-size: 0.7em; line-height: 1em; font-weight: 0;">{{$row->kategori_product}}</div>
 						<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.6em; line-height: 1em;">
 							<i class="fas fa-star star-rating-toko"></i>
 							<i class="fas fa-star star-rating-toko"></i>

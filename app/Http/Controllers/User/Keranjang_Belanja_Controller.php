@@ -100,6 +100,11 @@ class Keranjang_Belanja_Controller extends Controller
 
     }
 
+    public function hapus_keranjang(Request $request){
+        Keranjang_belanja::where('id', $request->id_keranjang)->delete();
+        return redirect()->back();
+    }
+
     public function ubah_jumlah(Request $request){
         // echo $request->jumlah_pesanan;
         $keranjang = Keranjang_belanja::where('id', $request->id)->first();
@@ -117,6 +122,7 @@ class Keranjang_Belanja_Controller extends Controller
     }
 
     public function tambah_daftar_tunggu(Request $request){
+        Daftar_tunggu_pesanan::where('id_user', Auth()->user()->id)->where('id_toko', $request->id_toko)->where('id_product', $request->id_product)->where('keynota', $request->keynota)->delete();
         $pesanan = new Daftar_tunggu_pesanan;
         $pesanan->id_user = Auth()->user()->id;
         $pesanan->id_toko = $request->id_toko;

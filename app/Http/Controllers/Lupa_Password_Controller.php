@@ -37,7 +37,7 @@ class Lupa_Password_Controller extends Controller
         $jenis = $request->radio;
         if($jenis == 'email'){
             $akun = 'email';
-            // $this->kirim_email_kode($user->email, $kode);
+            $this->kirim_email_kode($user->email, $kode);
         }
         if($jenis == 'whatsapp'){
             $akun = 'Whatsapp';

@@ -20,6 +20,7 @@ use App\Models\Jadwal_toko;
 use App\Models\Ktp_toko;
 use App\Models\Template_landing_page;
 use App\Models\Landing_page_toko;
+use App\Models\Daftar_tunggu_pesanan;
 use DB;
 use File;
 
@@ -376,6 +377,12 @@ class Mitra_Premium_Controller extends Controller
 	public function atur_lokasi(){
 		$toko = toko::where('users_id', Auth()->User()->id)->first();
 		return view('users/user/m-mitra/premium/pilih_lokasi_premium', ['toko'=>$toko]);
+	}
+
+	public function daftar_tunggu_pesanan(){
+		$toko = Toko::where('users_id', Auth()->User()->id)->first();
+		$daftar = Daftar_tunggu_pesanan::where('id_toko', $toko->id);
+		return view('users/user/m-mitra/premium/daftar-tunggu-pesanan/index');
 	}
 
 	public function kirim_lokasi(){
