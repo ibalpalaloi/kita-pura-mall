@@ -89,14 +89,13 @@ class Keranjang_Belanja_Controller extends Controller
             $data_keranjang[$i]['no_hp'] = $row->no_hp;
             $data_keranjang[$i]["product"] = DB::table('keranjang_belanja')->select('keranjang_belanja.id', 'keranjang_belanja.jumlah', 'product.id as product_id', 'nama', 'jenis_harga', 'harga', 'harga_terendah', 'harga_tertinggi', 'diskon', 'foto_produk')->join('product', 'product.id', '=', 'keranjang_belanja.product_id')->where('keranjang_belanja.toko_id', $row->toko_id)->get();
             if ($data_keranjang[$i]["product"]->count() == 0){
-            DB::table('keranjang_belanja')->where('toko_id', $row->toko_id)->where("user_id", Auth()->user()->id)->delete();
+                DB::table('keranjang_belanja')->where('toko_id', $row->toko_id)->where("user_id", Auth()->user()->id)->delete();
             }
             $i++;
         }
         // dd($data_keranjang_current);
         // dd($data_keranjang);
         return view('users.user.m-keranjang.keranjang_user', compact('data_keranjang'));
-
 
     }
 
@@ -105,13 +104,14 @@ class Keranjang_Belanja_Controller extends Controller
         return redirect()->back();
     }
 
+
     public function ubah_jumlah(Request $request){
         // echo $request->jumlah_pesanan;
         $keranjang = Keranjang_belanja::where('id', $request->id)->first();
         $jumlah = 0;
         if ($request->operasi == 'kurang'){
             $jumlah = $request->jumlah_pesanan-1;            
-        
+
         }
         else {
             $jumlah = $request->jumlah_pesanan+1;            
@@ -128,6 +128,9 @@ class Keranjang_Belanja_Controller extends Controller
         $pesanan->id_toko = $request->id_toko;
         $pesanan->id_product = $request->id_product;
         $pesanan->keynota= $request->keynota;
+        date_default_timezone_set('Asia/Makassar');
+        $pesanan->tanggal = date('Y-m-d');
+        $pesanan->waktu = date('H:i');
         $pesanan->save();
     }
 }

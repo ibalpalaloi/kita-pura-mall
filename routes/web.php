@@ -169,6 +169,9 @@ Route::group(['middleware'=> 'auth'], function() {
 
             // @atur toko
             Route::get('/akun/mitra/premium/daftar-tunggu-pesanan', [Mitra_Premium_Controller::class, 'daftar_tunggu_pesanan']);
+            Route::post('/akun/mitra/premium/daftar-tunggu-pesanan/hapus-daftar', [Mitra_Premium_Controller::class, 'hapus_daftar_tunggu_pesanan']);
+            Route::post('/akun/mitra/premium/daftar-tunggu-pesanan/berhasil-kirim', [Mitra_Premium_Controller::class, 'konfirmasi_daftar_tunggu_pesanan']);
+
             Route::get('/akun/mitra/premium/ganti-landing-page', [Mitra_Premium_Controller::class, 'ganti_landing_page']);               
             Route::get('/akun/mitra/premium/post_template/{id}', [Mitra_Premium_Controller::class, 'post_template']);
 

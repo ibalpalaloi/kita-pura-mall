@@ -383,7 +383,7 @@ if (!empty($_GET['hari'])){
 						<div class="" style="width: 5%;">
 							<input type="checkbox" name="" checked id="checkbox_{{$row->id}}" onclick='checkbox_check_current("<?=$row->id?>", "<?=$row->harga?>", "<?=$data_keranjang_current[$i]['id_toko']?>")'>
 						</div>
-						<div class="deskripsi-product" style="width: 55%;"> 
+						<div class="deskripsi-product" style="width: 47%;"> 
 							<div class="nama" id="nama_{{$row->id}}" style="font-size: 1em; color: {{$page->warna_header}}; font-weight: 500;"><?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 35)))?>@if (strlen($row->nama) > 35)..@endif</div>
 							<div class="harga" style="color: {{$page->warna_header}};">IDR. {{number_format($row->harga,0,',','.')}}</div>
 							<div class="button-detail" style="margin-top: 1em; display: flex;">
@@ -395,6 +395,13 @@ if (!empty($_GET['hari'])){
 						<a  href="<?=url('/')?>/{{$data_keranjang_current[$i]['username']}}/daftar-menu/{{$row->product_id}}" class="foto-product" style="width: 30%;">
 							<img src="<?=url('/')?>/public/img/toko/{{$data_keranjang_current[$i]['id_toko']}}/produk/240x240/{{$row->foto_produk}}" style="width: 100%; border-radius: 1em;">
 						</a>
+						<div class="" style="display: flex; justify-content: center; align-items: center; width: 8%;" onclick="hapus_keranjang('<?=$row->id?>')">
+							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M15 4H20V6H18V19C18 19.2652 17.8946 19.5196 17.7071 19.7071C17.5196 19.8946 17.2652 20 17 20H3C2.73478 20 2.48043 19.8946 2.29289 19.7071C2.10536 19.5196 2 19.2652 2 19V6H0V4H5V1C5 0.734784 5.10536 0.48043 5.29289 0.292893C5.48043 0.105357 5.73478 0 6 0H14C14.2652 0 14.5196 0.105357 14.7071 0.292893C14.8946 0.48043 15 0.734784 15 1V4ZM16 6H4V18H16V6ZM7 9H9V15H7V9ZM11 9H13V15H11V9ZM7 2V4H13V2H7Z" fill="{{$page->warna_header}}"/>
+								</svg>							
+							</div>
+						</div>
+
 					</div>
 					<script type="text/javascript">
 						sub_total_current["<?=$data_keranjang_current[$i]['id_toko']?>"] += <?=$row->harga?>*<?=$row->jumlah?>;
@@ -554,7 +561,8 @@ if (!empty($_GET['hari'])){
 
 
 		function WhatsappMessage(no_hp, nama, id_product, current) {
-			event.preventDefault();
+			// alert('ye');
+			// event.preventDefault();
 			var apilink = 'http://';
 			var phone = no_hp;
 			var produk = "";
@@ -605,7 +613,7 @@ if (!empty($_GET['hari'])){
     		}
 
 
-        // window.open(walink);
+        window.open(walink);
     } 
 
 
@@ -683,6 +691,8 @@ if (!empty($_GET['hari'])){
     		// var jumlah_sebelum = $("#jumlah_pesanan_"+id).html();
     		// var id_sebelum = id+jumlah_sebelum;
     		// var jumlah_pesanan = $("#jumlah_pesanan_"+id).html();
+    		var jumlah_pesanan = $("#jumlah_pesanan_"+id).html();
+
     		if ((operasi == 'kurang') && (jumlah_pesanan == 1)){
 
     		}
