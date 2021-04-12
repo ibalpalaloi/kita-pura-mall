@@ -139,6 +139,10 @@
                                         <i class="mdi mdi-account-multiple"></i>
                                         <span class="hide-menu">Daftar OTP</span>
                                     </a>
+                                    <a href="<?=url('/')?>/admin/manajemen/pengguna_lupa_password" class="sidebar-link">
+                                        <i class="mdi mdi-account-multiple"></i>
+                                        <span class="hide-menu">Lupa Password</span>
+                                    </a>
                                 </li>
                             </ul>
                         </li>
