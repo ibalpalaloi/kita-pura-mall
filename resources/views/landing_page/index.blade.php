@@ -619,14 +619,17 @@ style="padding: 1.5em; padding: 0px;">
 								</div>
 							</div>
 							@if (Auth::user())
-							@if ($penjual == 'no')
-							<div class="">
-								<img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="position: absolute; bottom: -0.8em; right: -0.5em; width: 5em;" onclick="masukan_keranjang('{{$item->toko_id}}', '{{$item->id}}')">
-							</div>
-							
+								@if ($penjual == 'no')
+								<div class="">
+									<img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="position: absolute; bottom: -0.8em; right: -0.5em; width: 5em;" onclick="masukan_keranjang('{{$item->toko_id}}', '{{$item->id}}')">
+								</div>
+								
+								@else
+								@endif
 							@else
-							@endif
-
+								<div class="">
+									<img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="position: absolute; bottom: -0.8em; right: -0.5em; width: 5em;" onclick="redirect_login()">
+								</div>
 							@endif
 						</div>
 
@@ -679,6 +682,10 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 </script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
+
+	function redirect_login(){
+		window.location.href = "<?=url('/')?>/";
+	}
 
 	function masukan_keranjang(toko_id, produk_id){
 		$.ajax({
