@@ -30,6 +30,6 @@ class Gmail extends Mailable
      */
     public function build()
     {
-        return $this->subject("Kode Otp KitaPuraMall")->view('mail.send_gmail');
+        return $this->from($address = 'noreply@kitapuramall.com', $name = 'no-reply kitapuramall')->subject("Kode Otp KitaPuraMall")->view('mail.send_gmail');
     }
 }

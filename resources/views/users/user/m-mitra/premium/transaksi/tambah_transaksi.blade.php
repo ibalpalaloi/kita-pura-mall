@@ -439,8 +439,8 @@ if (!empty($_GET['deskripsi'])){
 	</div>
 	<div style="padding: 0px 16px 1em;">
 		<div style="display: flex; justify-content: space-between; color: white;">
-			<div style="width: 48%;" class="btn btn-success" onclick="jenis_transaksi('Pemasukan')">Pemasukan</div>
-			<div style="width: 48%;" class="btn btn-danger" onclick="jenis_transaksi('Pengeluaran')">Pengeluaran</div>
+			<div style="width: 48%; color: white; background: #C88403;" class="btn" id="btn_pemasukan" onclick="jenis_transaksi('Pemasukan')">Pemasukan</div>
+			<div style="width: 48%; color: white; background: #8C8C8C;" class="btn" id="btn_pengeluaran" onclick="jenis_transaksi('Pengeluaran')">Pengeluaran</div>
 		</div>
 		<form action="<?=url('/')?>/akun/mitra/{{$toko->jenis_mitra}}/transaksi/simpan" method="post">
 			@csrf
@@ -493,7 +493,7 @@ if (!empty($_GET['deskripsi'])){
 						@foreach($produk as $item)
 						<div class="slider-toko" style="@if ($loop->iteration == 0) margin-left: 1em;@endif">
 							<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-							<img src="<?=url('/')?>/public/img/toko/{{$item->toko_id}}/produk/{{$item->foto_produk}}">
+							<img src="<?=url('/')?>/public/img/toko/{{$item->toko_id}}/produk/240x200/{{$item->foto_produk}}">
 							<div class="st0" style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%;color: white; background-size: cover; position: relative;'> 
 								<div id="check_{{$item->id}}"style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #757575; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;" onclick='modal_pesan("{{$item->id}}", "{{$item->harga}}")'>
 									<i class="fa fa-check" style="font-size: 2em;"></i>
@@ -672,12 +672,18 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		if (jenisnya == 'Pengeluaran'){
 			jenis_transaksi_active = 'Pengeluaran';
 			$("#div_kategori_pengeluaran").prop('hidden', false);			
-			$("#div_kategori_pemasukan").prop('hidden', true);			
+			$("#div_kategori_pemasukan").prop('hidden', true);	
+			$("#btn_pemasukan").css('background', '#8C8C8C');
+			$("#btn_pengeluaran").css('background', '#C88403');
+
 		}
 		else {
 			jenis_transaksi_active = 'Pemasukan';
 			$("#div_kategori_pengeluaran").prop('hidden', true);			
 			$("#div_kategori_pemasukan").prop('hidden', false);						
+			$("#btn_pengeluaran").css('background', '#8C8C8C');
+			$("#btn_pemasukan").css('background', '#C88403');
+
 		}
 		$("#jenis_transaksi").val(jenis_transaksi_active);
 

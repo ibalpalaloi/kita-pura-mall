@@ -9,6 +9,7 @@ use App\Models\Toko;
 use App\Models\Product;
 use DB;
 use App\Models\Landing_page_toko;
+use App\Models\Daftar_tunggu_pesanan;
 
 class Keranjang_Belanja_Controller extends Controller
 {
@@ -77,7 +78,31 @@ class Keranjang_Belanja_Controller extends Controller
     }
 
     public function keranjang_user(){
-        // alert('tes');
+        $data_keranjang = array();
+        $i = 0;
+        $toko_loop = DB::table('keranjang_belanja')->select('no_hp', 'toko_id', 'nama_toko', 'username')->where('user_id', Auth()->user()->id)->distinct()->join('toko', 'toko.id', '=' , 'keranjang_belanja.toko_id')->get();
+
+        foreach ($toko_loop as $row){
+            $data_keranjang[$i]["id_toko"] = $row->toko_id;
+            $data_keranjang[$i]["nama_toko"] = $row->nama_toko;
+            $data_keranjang[$i]['username'] = $row->username;
+            $data_keranjang[$i]['no_hp'] = $row->no_hp;
+            $data_keranjang[$i]["product"] = DB::table('keranjang_belanja')->select('keranjang_belanja.id', 'keranjang_belanja.jumlah', 'product.id as product_id', 'nama', 'jenis_harga', 'harga', 'harga_terendah', 'harga_tertinggi', 'diskon', 'foto_produk')->join('product', 'product.id', '=', 'keranjang_belanja.product_id')->where('keranjang_belanja.toko_id', $row->toko_id)->get();
+            if ($data_keranjang[$i]["product"]->count() == 0){
+            DB::table('keranjang_belanja')->where('toko_id', $row->toko_id)->where("user_id", Auth()->user()->id)->delete();
+            }
+            $i++;
+        }
+        // dd($data_keranjang_current);
+        // dd($data_keranjang);
+        return view('users.user.m-keranjang.keranjang_user', compact('data_keranjang'));
+
+
+    }
+
+    public function hapus_keranjang(Request $request){
+        Keranjang_belanja::where('id', $request->id_keranjang)->delete();
+        return redirect()->back();
     }
 
     public function ubah_jumlah(Request $request){
@@ -94,5 +119,15 @@ class Keranjang_Belanja_Controller extends Controller
         $keranjang->jumlah = $jumlah;
         $keranjang->save();
         echo $jumlah;
+    }
+
+    public function tambah_daftar_tunggu(Request $request){
+        Daftar_tunggu_pesanan::where('id_user', Auth()->user()->id)->where('id_toko', $request->id_toko)->where('id_product', $request->id_product)->where('keynota', $request->keynota)->delete();
+        $pesanan = new Daftar_tunggu_pesanan;
+        $pesanan->id_user = Auth()->user()->id;
+        $pesanan->id_toko = $request->id_toko;
+        $pesanan->id_product = $request->id_product;
+        $pesanan->keynota= $request->keynota;
+        $pesanan->save();
     }
 }

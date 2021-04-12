@@ -458,6 +458,9 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 				<img src="<?=url('/')?>/public/img/button/toko_premium/list_pesanan.svg" style="width: 100%;">
 			</a>
 			@endif
+			<a onclick="show_loader()" href="<?=url('/')?>/akun/mitra/premium/daftar-tunggu-pesanan" style="padding-left: 0.4em;">
+				<img src="<?=url('/')?>/public/img/button/toko_premium/list_pesanan.svg" style="width: 100%;">
+			</a>
 		</div>
 	</div>
 

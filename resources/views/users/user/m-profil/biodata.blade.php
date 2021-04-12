@@ -359,8 +359,8 @@ if (!empty($_GET['hari'])){
 			<img src="<?=url('/')?>/public/img/logo.svg">
 			<img src="<?=url('/')?>/public/img/logo_text.svg">
 		</a>
-		<div data-toggle="modal" data-target="#modal-ganti-pass" style="cursor:pointer;padding-right: 1em;">
-			<img src="<?=url('/')?>/public/img/back_white.svg">
+		<div style="cursor:pointer;padding-right: 1em; color: #ff006e;">
+			a
 		</div>
 	</div>
 </header>
@@ -486,10 +486,29 @@ if (!empty($_GET['hari'])){
 							<img src="<?=url('/')?>/public/img/icon_svg/handphone.svg" style="width: 100%;">
 						</span>
 						<input type="text" class="form-control-mall" id="no_hp" name="no_hp"
-						onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor handphone" aria-label="no_hp" aria-describedby="basic-addon1" disabled oninvalid="this.setCustomValidity('Harap Masukkan Nomor Handphone')" oninput="setCustomValidity('')" value="{{Session::get('no_telp')}}" style="width: 100%;">
+						onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Masukan nomor handphone" aria-label="no_hp" aria-describedby="basic-addon1" disabled oninvalid="this.setCustomValidity('Harap Masukkan Nomor Handphone')" oninput="setCustomValidity('')" value="	" style="width: 100%;">
 					</div>
 				</div>
 			</div>
+			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="margin-top: 0.5em;" data-toggle="modal" data-target="#modal-ganti-pass">
+				<div style="display: flex; align-items: center;">
+					<span class="label-mall" style="padding-bottom: 0.4em;">Password</span>&nbsp;
+					<span>
+						<div class="label-mall" style="background:#ff006e; color: white; padding: 0.1em 1.5em 0.3em 1em; border-radius: 1.5em; line-height: 1.2em;">wajib</div>
+					</span>
+				</div>
+				<div style="width: 100%; display: flex;justify-content: center;">
+					<div style="width: 90%;">
+						<span class="input-group-text-mall">
+							<img src="<?=url('/')?>/public/img/icon_svg/password.svg" style="width: 100%;">
+						</span>
+						<input type="text" class="form-control-mall" id="Ubah Password" name="Ubah Password"
+						onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Ubah Password" aria-label="no_hp" aria-describedby="basic-addon1" disabled oninvalid="this.setCustomValidity('Harap Masukkan Nomor Handphone')" oninput="setCustomValidity('')" value="{{Session::get('no_telp')}}" style="width: 100%; padding-left: 1.3em;">
+					</div>
+				</div>
+			</div>
+
+
 
 			<div style="display: flex;justify-content: center;">
 				<button type="submit" class="btn btn-primary" style="background: #fb036b; font-size: 1em; border: 1px solid #fb036b; border-radius: 1.5em;  width: 60%; display: flex; align-items: center; justify-content: center;"><img src="<?=url('/')?>/public/img/icon_svg/folder_white.svg" style="width: 1.2em;">&nbsp;&nbsp;&nbsp;Simpan

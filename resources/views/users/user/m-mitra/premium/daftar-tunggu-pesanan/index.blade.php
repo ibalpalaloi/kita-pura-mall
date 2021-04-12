@@ -5,28 +5,6 @@
 @endsection
 
 @section('header-scripts')
-<?php
-// fungsi untuk konversi tanggal ke indonesia
-function tgl_indo($tanggal){
-	$bulan = array (
-		1 =>   'Januari',
-		'Februari',
-		'Maret',
-		'April',
-		'Mei',
-		'Juni',
-		'Juli',
-		'Agustus',
-		'September',
-		'Oktober',
-		'November',
-		'Desember'
-	);
-	$pecahkan = explode('-', $tanggal);     
-	return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
-}
-?>
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -305,14 +283,6 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	}
 
 
-	.input-group-text-mall {
-		border: none;
-		display: flex;justify-content: center;
-		border-bottom-left-radius: 0.5em; 
-		border-top-left-radius: 0.5em; 
-	}	
-
-
 	.star-rating {
 		color: #efff3b;
 	}
@@ -338,18 +308,6 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		min-height: calc(80vh - 60px); 
 
 	}
-
-	.form-control-mall {
-		height: 2.5em; 
-		border-bottom-right-radius: 0.5em; 
-		border-top-right-radius: 0.5em; 
-		border:  none;	
-		background: #202020;
-		color: white;
-		font-weight: 600;
-		padding: 0em 0em 0em 0.6em;	
-		margin-left: 0px;
-	}	
 
 	.togglebutton,.togglebutton .toggle,.togglebutton input,.togglebutton label{user-select:none}
 	.togglebutton label{cursor:pointer}
@@ -536,15 +494,25 @@ if (!empty($_GET['deskripsi'])){
 
 
 
-<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 6em 0px;'>
+<main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
 	<div>
 		<div style="padding: 0px 16px 1em;">
-			<h3 style="color: white; font-size: 1.75rem; font-weight: 500;">Laporan</h3>
+			<h3 style="color: white; font-size: 1.75rem; font-weight: 500;">Transaksi</h3>
 			<div style=" display: flex; justify-content: space-between; align-items: center;">
-				<div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">Statistik</div>			
+				<div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">Statistik</div>
+				<div style="display: flex; font-size: 0.7em;color: #a1a4a8;">
+					<div class="btn-menu-analitik analitik-active" id="menu_pekanan" onclick="lihat_chart('pekanan')">Mingguan</div>
+					<div class="btn-menu-analitik" id="menu_bulanan" onclick="lihat_chart('bulanan')">Bulanan</div>
+				</div>				
 			</div>
+		</div>
+		<div class="grafis" style="">
+			<canvas id="chart-pekanan"></canvas>
+			<canvas id="chart-bulanan" hidden></canvas>
+		</div>
+		<div style="padding: 0px 16px 1em;">
 			<div style="display: flex; flex-direction: column; justify-content: center; color: white; align-items: center;">
-				<div style="background: linear-gradient(180deg, #353434 -73.2%, #212121 12.46%, #2E2D2D 92.14%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21); width: 100%; position: relative; display: flex; padding: 1em 2em; border-radius: 0.5em; margin-top:1em;">
+				<div style="background: linear-gradient(180deg, #353434 -73.2%, #212121 12.46%, #2E2D2D 92.14%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21); width: 95%; position: relative; display: flex; padding: 1em 2em; border-radius: 0.5em; margin-top:1em;">
 					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_pemasukan.svg" style="margin-right: 1em;">
 					<div>
 						<div style="font-size: 0.8em;">Pemasukan</div>
@@ -552,7 +520,7 @@ if (!empty($_GET['deskripsi'])){
 					</div>					
 					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_pemasukan.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
 				</div>
-				<div style="background: linear-gradient(180deg, #353434 -73.2%, #212121 12.46%, #2E2D2D 92.14%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21); width: 100%; position: relative; display: flex; padding: 1em 2em; border-radius: 0.5em; margin-top:1em;">
+				<div style="background: linear-gradient(180deg, #353434 -73.2%, #212121 12.46%, #2E2D2D 92.14%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21); width: 95%; position: relative; display: flex; padding: 1em 2em; border-radius: 0.5em; margin-top:1em;">
 					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_pengeluaran.svg" style="margin-right: 1em;">
 					<div>
 						<div style="font-size: 0.8em;">Pengeluaran</div>
@@ -560,7 +528,7 @@ if (!empty($_GET['deskripsi'])){
 					</div>					
 					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_pengeluaran.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
 				</div>
-				<div style="background: linear-gradient(180deg, #353434 -73.2%, #212121 12.46%, #2E2D2D 92.14%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21); width: 100%; position: relative; display: flex; padding: 1em 2em; border-radius: 0.5em; margin-top:1em;">
+				<div style="background: linear-gradient(180deg, #353434 -73.2%, #212121 12.46%, #2E2D2D 92.14%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21); width: 95%; position: relative; display: flex; padding: 1em 2em; border-radius: 0.5em; margin-top:1em;">
 					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_keuangan.svg" style="margin-right: 1em;">
 					<div>
 						<div style="font-size: 0.8em;">Keuntungan</div>
@@ -568,65 +536,17 @@ if (!empty($_GET['deskripsi'])){
 					</div>					
 					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_keuangan.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
 				</div>
-				<div class="input-group mb-3 st0" id="div_kategori_pemasukan" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; margin-top: 1em; width: 100%;">
-					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Pilih Tanggal Laporan</div>
-					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
-						<span class="input-group-text-mall" style="width: 3em; background: #202020;">
-							<img src="<?=url('/')?>/public/img/icon_svg/kategori_white.svg" style="width: 60%;">
-						</span>
-						<select type="text" class="form-control-mall" onchange="pilih_rentan_tanggal()" id="rentan_tanggal" name="rentan_tanggal" style="height: 2.5em;">
-							<option value="Hari ini">Hari ini</option>
-							<option value="7 Hari Terakhir">7 Hari Terakhir</option>
-							<option value="30 Hari Terakhir">30 Hari Terakhir</option>
-							<option value="Semua">Semua</option>
-							<option value="Pilih Tanggal">Pilih Tanggal</option>
-						</select>
-					</div>
-				</div>
+
+
+				<a style="background: linear-gradient(266.6deg, #DD9D25 47.19%, #C88302 62.81%); box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.78); border-radius: 5px; color: white;padding: 1em; width: 95%; margin-top: 1em;text-align: center; font-weight: 600; position: relative;" href="<?=url('/')?>/akun/mitra/premium/transaksi/laporan-keuangan">
+					<img src="<?=url('/')?>/public/img/icon_svg/laporan_keuangan.svg" style="position: absolute; left: 2em; top: 35%;">Lihat Laporan Keuangan</a>
+				<a style="background: radial-gradient(131.25% 1072.4% at -7.42% 138.67%, #232323 0%, #353535 42.71%, #1C1C1D 77.6%, #252526 100%); box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.78); border-radius: 5px;color: white;padding: 1em; width: 95%; margin-top: 1em;text-align: center; font-weight: 600; position: relative;" href="<?=url('/')?>/akun/mitra/premium/transaksi/tambah-transaksi">
+					<img src="<?=url('/')?>/public/img/icon_svg/plus_white.svg" style="position: absolute; left: 2em; top: 35%;">Input Pesanan</a>
+
 
 			</div>
-			<div class="input-group mb-3 st0" id="div_rentan_tanggal" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex; justify-content: space-between;" hidden>
-				<div style="width: 48%;">
-					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Tanggal Mulai</div>
-					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em; ">
-						<input type="date" class="form-control-mall" id="tanggal_mulai" name="tanggal_mulai" aria-label="Tanggal mulai" aria-describedby="basic-addon1" style="width: 100%; color: white; border-radius: 0.5em;" value="<?=date('Y-m-d')?>">
-					</div>
-				</div>
-				<div style="width: 48%">
-					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Tanggal Akhir</div>
-					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em; ">
-						<input type="date" class="form-control-mall" id="tanggal_akhir" name="tanggal_akhir" aria-label="Tanggal akhir" aria-describedby="basic-addon1" style="width: 100%; color: white; border-radius: 0.5em;" value="<?=date('Y-m-d')?>">
-					</div>
-				</div>
-			</div>			
 		</div>
-		<table class="table" style="color: white;">
-			<thead>
-				<tr>
-					<th>Transaksi</th>
-					<th style="text-align: right;">Pemasukan</th>
-					<th style="text-align: right;">Pengeluaran</th>
-				</tr>
-			</thead>
-			<tbody id="body_transaksi">
-				@foreach ($transaksi as $row)
-				<tr>
-					<td><div style="line-height: 0.5em; padding-top: 0.5em;">{{$row->kategori}}</div>
-						<small style="font-size: 0.65em;">{{tgl_indo(date('Y-m-d', strtotime($row->tanggal)))}}</small>
-					</td>
-					@if ($row->jenis == 'Pemasukan')
-					<td style="text-align: right;">{{number_format($row->harga_total,0,',','.')}}</td>
-					<td style="text-align: right; padding-right: 3em;">-</td>
-					@else
-					<td style="text-align: right; padding-right: 2em;">-</td>
-					<td style="text-align: right; padding-right: 1.2em;">{{number_format($row->harga_total,0,',','.')}}</td>
-					@endif
-				</tr>
-				@endforeach
-			</tbody>
-		</table>
 	</div>
-</div>
 </main>
 @endsection
 
@@ -636,29 +556,97 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 </script>
 <script type="text/javascript">
 
+	function tambah_foto_toko(id){
+		$("#foto_maps_"+id).click();
+		$("#foto_maps_"+id).change(function(){
+			readURL(this, id);
+		});
+	}	
 
-	function pilih_rentan_tanggal(){
-		var rentan_tanggal = $("#rentan_tanggal").val();
-		if (rentan_tanggal == 'Pilih Tanggal'){
-			$("#div_rentan_tanggal").prop('hidden', false);
-		}
-		else {
+	function readURL(input, id) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
 
-			$.ajax({
-				url : "{{ route('pilih_rentan_tanggal') }}",
-				method : 'post',
-				data : {rentan:rentan_tanggal, _token:'{{csrf_token()}}'},
-				success:function(data)
-				{
-					$("#body_transaksi").html(data);
-				}
-			})
-			$("#div_rentan_tanggal").prop('hidden', true);			
+			reader.onload = function (e) {
+				$('#pic_maps_'+id+'_privew').attr('src', e.target.result);
+				$("#div_pic_maps_"+id+"_privew").prop('hidden', false);
+				$("#div_pic_maps_"+id).prop('hidden', true);
+			}
+
+			reader.readAsDataURL(input.files[0]);
 		}
+	}
+
+
+
+
+	@if(Session::get('message') == 'Pesanan Berhasil Dihapus')
+	$("#modal-notif-hapus-pesanan").modal('show');
+	@endif
+
+	@if(Session::get('message') == 'Pesanan Berhasil Ditambahkan')
+	$("#modal-notif-tambah-pesanan").modal('show');
+	@endif
+
+
+	function input_focus(id){
+		$("#div_"+id).css('border', '1px solid #d1d2d4');
+	}
+
+	function input_blur(id){
+		$("#div_"+id).css('border', '1px solid white');		
+	}		
+
+	function ubah_pesanan(id, jumlah_pesanan){
+		$("#ubah_id").val(id);
+		$("#jumlah_pesanan").val(jumlah_pesanan);
+		$("#modal-ubah-pesanan").modal('show');
+	}
+
+	function hapus_pesanan(id){
+		$("#hapus_id").val(id);
+		$("#modal-hapus-pesanan").modal('show');
+	}
+
+	function tambah_produk(){
+		$('#modal-tambah').modal('show'); 
+	}
+
+	function edit_produk(id, gambar, nama, kategori, harga, stok, deskripsi){
+		$("#edit_id_produk").val(id);
+		$("#hapus_id_produk").val(id);
+		$("#pic_edit_toko_privew").attr('src', "<?=url('/')?>/public/img/toko/"+gambar);
+		$("#edit_nama_produk").val(nama);
+		$("#edit_kategori").val(kategori);
+		$("#edit_harga").val(harga);
+		$("#edit_stok").val(stok);
+		$("#edit_deskripsi").val(deskripsi);
+		$("#modal-ubah").modal('show');
 	}
 
 
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script type="text/javascript">
+
+
+
+	function lihat_chart(value){
+		if (value == 'pekanan'){
+			$("#menu_bulanan").removeClass("analitik-active");
+			$("#menu_pekanan").addClass("analitik-active");
+			$("#chart-pekanan").prop('hidden', false);
+			$("#chart-bulanan").prop('hidden', true);
+		}
+		else {
+			$("#menu_pekanan").removeClass("analitik-active");
+			$("#menu_bulanan").addClass("analitik-active");
+			$("#chart-pekanan").prop('hidden', true);
+			$("#chart-bulanan").prop('hidden', false);
+		}
+	}
+
+
+</script>
 
 @endsection

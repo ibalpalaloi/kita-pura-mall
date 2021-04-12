@@ -80,7 +80,7 @@ class HomeController extends Controller
 		$product = DB::table('product')->select('product.*', 'sub_kategori.nama as sub_kategori')->leftJoin('sub_kategori', 'sub_kategori.id', '=', 'product.sub_kategori_id')->where('product.id', $id_produk)->first();
 		$toko = DB::table('toko')->select('toko.nama_toko', 'toko.logo_toko', 'toko.username', 'toko.no_hp', 'toko.deskripsi as deskripsi_toko', 'toko.id')->where('id', $product->toko_id)->first();
 		$produk_lainnya = DB::table('product')->select('id')->where('toko_id', $product->toko_id)->get()->count();
-		$produk_serupa = DB::table('product')->select()->where('sub_kategori_id', $product->sub_kategori_id)->where('id', '!=', $product->id)->get();
+		$produk_serupa = DB::table('product')->select('product.*', 'kategori.nama as kategori_product')->join('kategori', 'kategori.id', '=', 'product.kategori_id')->where('sub_kategori_id', $product->sub_kategori_id)->where('product.id', '!=', $product->id)->get();
 
 		if(Auth::user()){
 			$keranjang = DB::table('keranjang_belanja')->select('product.nama', 'jenis_harga', 'harga', 'harga_terendah', 'harga_tertinggi', 'diskon', 'foto_produk', 'toko.nama_toko')->join('product', 'product.id', '=', 'keranjang_belanja.product_id')->join('toko', 'toko.id', '=', 'keranjang_belanja.toko_id')->where('user_id', Auth()->user()->id)->get();		

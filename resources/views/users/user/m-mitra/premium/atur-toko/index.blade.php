@@ -739,7 +739,7 @@
 	<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Nomor Whatsapp Business</div>
 	<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em;">
 		<span class="input-group-text-mall" style="width: 3em; background: #202020;">
-			+62
+			<img src="<?=url('/')?>/public/img/icon_svg/62.svg" style="width: 60%;">
 		</span>
 		<input type="telp" class="form-control-mall" id="no_hp" name="no_hp" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Nomor Handphone" aria-label="no_hp" aria-describedby="basic-addon1" style="width: 100%;" value="@if(substr($toko->no_hp, 0, 3) == '+62'){{substr($toko->no_hp,3)}}@else{{$toko->no_hp}}@endif" required>
 	</div>
