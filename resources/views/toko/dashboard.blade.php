@@ -239,7 +239,11 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 
 @section('footer-scripts')
 <script>
-	function loadMoreData(page, cari){
+	var status = 1;
+	var page = 2;
+	var ulang = 0;
+	var jumlah_data =20;
+	function loadMoreData(page, cari, nilai){
 		$.ajax({
 			url: '?page=' + page + '&cari=' + cari,
 			type: 'get',
@@ -247,12 +251,19 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 			}
 		})
 		.done(function(data){
+			status = nilai;
+			jumlah_data = data.jumlah_data;
 			if(data.html == ""){
-				return;
+				status = 0;
+				if(cari == 'all'){
+					loadMoreData(1, cari, 0)
+				}
 			}
-			if(page == 1){
+			if(ulang == 1){
+				ulang = 0;
 				$('#post-data').empty();
 			}
+			
 			$('#post-data').append(data.html);
 			
 		})
@@ -261,7 +272,7 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 		}); 
 	}
 	
-	var page = 1;
+	
 
 	$(window).scroll(function(){
 		if($(window).scrollTop() + $(window).height() >= $(document).height()){
@@ -269,25 +280,31 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 			if(cari == ''){
 				cari = 'all';
 			}
-			page++;
-			loadMoreData(page, cari);
+			if(status == 1){
+				page++;
+			}
+			else{
+				page = 2;
+			}
+			loadMoreData(page, cari, 1);
 		}
 	})
 
 	$(document).ready(function(){
 		var cari = $('#cari_toko').val();
 		page = 1;
-		loadMoreData(page, cari);
+		loadMoreData(page, cari, 1);
 	})
 
 	$(document).ready(function(){
 		$('#cari_toko').on('input', function(){
 			var cari = $('#cari_toko').val();
 			page = 1;
+			ulang = 1;
 			if(cari == ''){
 				cari = 'all';
 			}
-			loadMoreData(page, cari);
+			loadMoreData(page, cari, 1);
 		});
 	})
 </script>

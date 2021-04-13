@@ -63,9 +63,9 @@ class HomeController extends Controller
 			return redirect('/buat_akun_biodata');
 		}
 		else{
-			return redirect('/akun');
+			return redirect('/toko');
 		}
-		return redirect('/akun');
+		return redirect('/toko');
 	}
 
 	public function home_mitra(){
