@@ -31,22 +31,33 @@ class Lupa_Password_Controller extends Controller
 
     public function post_kirim_kode(Request $request){
         // dd($request);
-        Kode_lupa_password::where('user_id', $request->id_user)->delete();
-        $kode = $this->buat_kode_otp();
-        $user = User::where('id', $request->id_user)->first();
+        $tb_kode = Kode_lupa_password::where('user_id', $request->id_user)->first();
         $jenis = $request->radio;
+        if(empty($tb_kode)){
+            $kode = $this->buat_kode_otp();
+            $user = User::where('id', $request->id_user)->first();
+            if($jenis == 'email'){
+                $akun = 'email';
+            }
+            if($jenis == 'whatsapp'){
+                $akun = 'Whatsapp';
+            }
+            $tb_kode = new Kode_lupa_password;
+            $tb_kode->user_id = $user->id;
+            $tb_kode->jenis = $jenis;
+            $tb_kode->kode = $kode;
+            $tb_kode->save();
+        }
+
         if($jenis == 'email'){
             $akun = 'email';
-            $this->kirim_email_kode($user->email, $kode);
+            $this->kirim_email_kode($user->email, $tb_kode->kode);
         }
         if($jenis == 'whatsapp'){
             $akun = 'Whatsapp';
+            $this->notif_telegram($request->id_user, $tb_kode->kode);
         }
-        $tb_kode = new Kode_lupa_password;
-        $tb_kode->user_id = $user->id;
-        $tb_kode->jenis = $jenis;
-        $tb_kode->kode = $kode;
-        $tb_kode->save();
+
         return redirect('/lupa_password/input_kode/'.$tb_kode->id);
     }
 
@@ -121,4 +132,22 @@ class Lupa_Password_Controller extends Controller
         }
         return $kode_otp;
     }
+    public function notif_telegram($id_user, $kode_otp){
+        $user = User::where('id', $id_user)->first();
+        $no_hp = substr($user->no_hp, 1);
+        $founder = [1660066265, 1766032289];
+        for ($i = 0; $i < count($founder); $i++){
+            $token = "1732361789:AAFvHgC5XYNODxYqLt-YTZK4x5XGE-VH9Vg";
+            $user_id = $founder[$i];
+            $mesg = "--- LUPA PASSWORD ----No HP = $user->no_hp  Email = $user->email Kode = $kode_otp".
+                    "klik link <br> http://api.whatsapp.com/send/?phone=%2B$no_hp&text=Kode+Lupa+Password+=+$kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas";
+            $request_params = [
+                'chat_id' => $user_id,
+                'text' => $mesg
+            ];
+            $request_url = 'https://api.telegram.org/bot'.$token.'/sendMessage?'.http_build_query($request_params);
+            file_get_contents($request_url);    
+
+        }
+    } 
 }
