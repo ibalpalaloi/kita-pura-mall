@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Kode_lupa_password;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\send_kode_Lupa_password;
+use App\Mail\Send_Kode_Lupa_password;
 use Auth;
 
 class Lupa_Password_Controller extends Controller
@@ -48,6 +48,7 @@ class Lupa_Password_Controller extends Controller
             $tb_kode->kode = $kode;
             $tb_kode->save();
         }
+        $user = User::where('id', $request->id_user)->first();
 
         if($jenis == 'email'){
             $akun = 'email';
@@ -101,7 +102,7 @@ class Lupa_Password_Controller extends Controller
             'otp' => $kode
         ];
 
-        Mail::to($email)->send(new send_kode_Lupa_Password($data));
+        Mail::to($email)->send(new Send_Kode_Lupa_password($data));
     }
 
     public function generate_no_telp($no_hp){

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class send_kode_Lupa_Password extends Mailable
+class Send_Kode_Lupa_Password extends Mailable
 {
     use Queueable, SerializesModels;
     public $data;

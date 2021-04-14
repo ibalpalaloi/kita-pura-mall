@@ -160,12 +160,13 @@ class AuthController extends Controller
 
         $cek_email = User::where('email', $request->email)->get();
         if(count($cek_email)>0){
-            return redirect('/');
+            return redirect('/')->with('error', 'Email Sudah Tersedia');
         }
 
         $cek_no_hp = User::where('no_hp', $this->generate_no_telp($request->no_hp))->get();
         if(count($cek_no_hp)>0){
             return redirect('/');
+            return redirect('/')->with('error', 'Nomor Telah Tersedia');
         }
 
         $otp = new Otp;

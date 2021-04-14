@@ -49,7 +49,7 @@
     @php
     date_default_timezone_set('Asia/Makassar');
     $waktu = date('Y-m-d H:i:s');
-    $user = \App\Models\User::where('id', Session::get('id_user'))->first();
+    $user = \App\Models\User::where('id', Auth()->user()->id)->first();
     if ($user->waktu_validasi == null){
     $show = "finish";
 }
