@@ -136,20 +136,7 @@ $show = "finish";
 </div> --}}
 @else
 @if(Session::get('progress_biodata') != '5')
-<div class="modal fade" id="modal-sukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
-        <div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
-            <div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-                <img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: 0;">
-                <img src="<?=url('/')?>/public/img/mitra/modal_1_step.svg" style="width: 80%; position: absolute; top: -10.5em;">
-                <div style="font-size: 2em; font-weight: 600; margin-top: 1em;">1 Step Lagi</div>
-                <div style="font-size: 1.1em; text-align: center; width: 80%; font-weight: 0; color: #ffe6f1;">lengkapi data diri anda, agar dapat <span style="font-weight: 600;">bertransaksi</span> di kitapura mall</div>
-                <a href="<?=url('/')?>/akun/pengaturan-profil" class="btn btn-primary" style="background: #ffaa00;;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; margin-bottom: 1em; font-size: 1.2em; display: flex; justify-content: center;align-items: center; margin-top: 0.5em;"><img src="<?=url('/')?>/public/img/icon_svg/edit_white.svg">&nbsp;&nbsp;Lengkapi
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+
 @endif
 @endif  
 
