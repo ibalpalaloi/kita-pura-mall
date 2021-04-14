@@ -125,7 +125,7 @@ class LandingPageController extends Controller
 
 	public function daftar_menu(Request $request, $mitra){
 		if(Auth::user()){
-			$keranjang = keranjang_belanja::where('user_id', Auth()->user()->id)->get();
+			$keranjang = DB::table('keranjang_belanja')->select(DB::raw('sum(keranjang_belanja.jumlah) as jumlah_keranjang'))->join('product', 'product.id', '=', 'keranjang_belanja.product_id')->join('toko', 'toko.id', '=', 'keranjang_belanja.toko_id')->where('user_id', Auth()->user()->id)->first()->jumlah_keranjang;	
 		}
 		else{
 			$keranjang = 0;
@@ -148,7 +148,7 @@ class LandingPageController extends Controller
 		$produk_serupa = DB::table('product')->select()->where('sub_kategori_id', $product->sub_kategori_id)->where('id', '!=', $product->id)->get();
 		$landing_page_toko = Landing_page_toko::where('toko_id', $toko->id)->first();
 		if(Auth::user()){
-			$keranjang = DB::table('keranjang_belanja')->select('product.nama', 'jenis_harga', 'harga', 'harga_terendah', 'harga_tertinggi', 'diskon', 'foto_produk', 'toko.nama_toko')->join('product', 'product.id', '=', 'keranjang_belanja.product_id')->join('toko', 'toko.id', '=', 'keranjang_belanja.toko_id')->where('user_id', Auth()->user()->id)->get();		
+			$keranjang = DB::table('keranjang_belanja')->select(DB::raw('sum(keranjang_belanja.jumlah) as jumlah_keranjang'))->join('product', 'product.id', '=', 'keranjang_belanja.product_id')->join('toko', 'toko.id', '=', 'keranjang_belanja.toko_id')->where('user_id', Auth()->user()->id)->first()->jumlah_keranjang;	
 		}
 		else{
 			$keranjang = 0;

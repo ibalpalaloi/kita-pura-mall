@@ -290,7 +290,7 @@
     <main id="homepage" class="homepage">
         <div class="card-mall">
             <div class="card-body" style="padding-top: 2em;">
-                <p>Kode Otp Dikirimkan ke akun whatapp dan email yang sebelumnya anda masukkan</p>
+                <p>Kode Otp Dikirimkan ke akun whatapps dan email yang sebelumnya anda masukkan</p>
                 <form method="post" action="<?=url('/')?>/buat-akun/post_otp" id="form_input">
                     {{ csrf_field() }}
                     <input type="text" name="email" value="{{$email}}" hidden>

@@ -18,10 +18,10 @@ class ComposerStaticInit28310e24ee7a88c08bf2406e8fb0221a
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
-        'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
@@ -115,6 +115,7 @@ class ComposerStaticInit28310e24ee7a88c08bf2406e8fb0221a
         'N' => 
         array (
             'NunoMaduro\\Collision\\' => 21,
+            'NotificationChannels\\Telegram\\' => 30,
         ),
         'M' => 
         array (
@@ -373,6 +374,10 @@ class ComposerStaticInit28310e24ee7a88c08bf2406e8fb0221a
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/collision/src',
         ),
+        'NotificationChannels\\Telegram\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel-notification-channels/telegram/src',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
@@ -532,6 +537,8 @@ class ComposerStaticInit28310e24ee7a88c08bf2406e8fb0221a
         'App\\Http\\Controllers\\GetController' => __DIR__ . '/../..' . '/app/Http/Controllers/GetController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\LandingPageController' => __DIR__ . '/../..' . '/app/Http/Controllers/LandingPageController.php',
+        'App\\Http\\Controllers\\Lupa_Password_Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Lupa_Password_Controller.php',
+        'App\\Http\\Controllers\\MailController' => __DIR__ . '/../..' . '/app/Http/Controllers/MailController.php',
         'App\\Http\\Controllers\\Mitra\\Atur_Landing_Page_Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Mitra/Atur_Landing_Page_Controller.php',
         'App\\Http\\Controllers\\Mitra\\MitraController' => __DIR__ . '/../..' . '/app/Http/Controllers/Mitra/MitraController.php',
         'App\\Http\\Controllers\\Mitra\\Mitra_Free_Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Mitra/Mitra_Free_Controller.php',
@@ -560,14 +567,18 @@ class ComposerStaticInit28310e24ee7a88c08bf2406e8fb0221a
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Mail\\Gmail' => __DIR__ . '/../..' . '/app/Mail/Gmail.php',
         'App\\Models\\Biodata' => __DIR__ . '/../..' . '/app/Models/Biodata.php',
+        'App\\Models\\Daftar_tunggu_pesanan' => __DIR__ . '/../..' . '/app/Models/Daftar_tunggu_pesanan.php',
         'App\\Models\\Daftar_tunggu_toko' => __DIR__ . '/../..' . '/app/Models/Daftar_tunggu_toko.php',
         'App\\Models\\Foto_maps' => __DIR__ . '/../..' . '/app/Models/Foto_maps.php',
         'App\\Models\\Jadwal_toko' => __DIR__ . '/../..' . '/app/Models/Jadwal_toko.php',
         'App\\Models\\Kategori' => __DIR__ . '/../..' . '/app/Models/Kategori.php',
         'App\\Models\\Kategori_toko' => __DIR__ . '/../..' . '/app/Models/Kategori_toko.php',
         'App\\Models\\Kategorinya_toko' => __DIR__ . '/../..' . '/app/Models/Kategorinya_toko.php',
+        'App\\Models\\Kecamatan' => __DIR__ . '/../..' . '/app/Models/Kecamatan.php',
         'App\\Models\\Keranjang_belanja' => __DIR__ . '/../..' . '/app/Models/Keranjang_belanja.php',
+        'App\\Models\\Kode_lupa_password' => __DIR__ . '/../..' . '/app/Models/Kode_lupa_password.php',
         'App\\Models\\Ktp_toko' => __DIR__ . '/../..' . '/app/Models/Ktp_toko.php',
         'App\\Models\\Landing_page_fasilitas_toko' => __DIR__ . '/../..' . '/app/Models/Landing_page_fasilitas_toko.php',
         'App\\Models\\Landing_page_toko' => __DIR__ . '/../..' . '/app/Models/Landing_page_toko.php',
@@ -575,6 +586,7 @@ class ComposerStaticInit28310e24ee7a88c08bf2406e8fb0221a
         'App\\Models\\Pengunjung_toko' => __DIR__ . '/../..' . '/app/Models/Pengunjung_toko.php',
         'App\\Models\\Penilaian_toko' => __DIR__ . '/../..' . '/app/Models/Penilaian_toko.php',
         'App\\Models\\Pesanan' => __DIR__ . '/../..' . '/app/Models/Pesanan.php',
+        'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
         'App\\Models\\Provinsi' => __DIR__ . '/../..' . '/app/Models/Provinsi.php',
         'App\\Models\\Template_landing_page' => __DIR__ . '/../..' . '/app/Models/Template_landing_page.php',
         'App\\Models\\Transaksi' => __DIR__ . '/../..' . '/app/Models/Transaksi.php',
@@ -3205,6 +3217,14 @@ class ComposerStaticInit28310e24ee7a88c08bf2406e8fb0221a
         'Monolog\\Test\\TestCase' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Test/TestCase.php',
         'Monolog\\Utils' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Utils.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+        'NotificationChannels\\Telegram\\Exceptions\\CouldNotSendNotification' => __DIR__ . '/..' . '/laravel-notification-channels/telegram/src/Exceptions/CouldNotSendNotification.php',
+        'NotificationChannels\\Telegram\\Telegram' => __DIR__ . '/..' . '/laravel-notification-channels/telegram/src/Telegram.php',
+        'NotificationChannels\\Telegram\\TelegramChannel' => __DIR__ . '/..' . '/laravel-notification-channels/telegram/src/TelegramChannel.php',
+        'NotificationChannels\\Telegram\\TelegramFile' => __DIR__ . '/..' . '/laravel-notification-channels/telegram/src/TelegramFile.php',
+        'NotificationChannels\\Telegram\\TelegramLocation' => __DIR__ . '/..' . '/laravel-notification-channels/telegram/src/TelegramLocation.php',
+        'NotificationChannels\\Telegram\\TelegramMessage' => __DIR__ . '/..' . '/laravel-notification-channels/telegram/src/TelegramMessage.php',
+        'NotificationChannels\\Telegram\\TelegramServiceProvider' => __DIR__ . '/..' . '/laravel-notification-channels/telegram/src/TelegramServiceProvider.php',
+        'NotificationChannels\\Telegram\\Traits\\HasSharedLogic' => __DIR__ . '/..' . '/laravel-notification-channels/telegram/src/Traits/HasSharedLogic.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\Commands\\TestCommand' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/Commands/TestCommand.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php',

@@ -20,6 +20,7 @@ use App\Models\Jadwal_toko;
 use App\Models\Ktp_toko;
 use App\Models\Template_landing_page;
 use App\Models\Landing_page_toko;
+use App\Models\Transaksi;
 use App\Models\Daftar_tunggu_pesanan;
 use DB;
 use File;
@@ -381,8 +382,53 @@ class Mitra_Premium_Controller extends Controller
 
 	public function daftar_tunggu_pesanan(){
 		$toko = Toko::where('users_id', Auth()->User()->id)->first();
-		$daftar = Daftar_tunggu_pesanan::where('id_toko', $toko->id);
-		return view('users/user/m-mitra/premium/daftar-tunggu-pesanan/index');
+        $data_keranjang = array();
+        $i = 0;
+        $toko_loop = DB::table('daftar_tunggu_pesanan')->select('keynota', 'users.no_hp', 'biodata.nama', 'tanggal', 'waktu')->distinct()->join('biodata', 'biodata.users_id', '=' , 'daftar_tunggu_pesanan.id_user')->join('users', 'users.id', '=', 'biodata.users_id')->where('id_toko', '=', $toko->id)->orderBy('tanggal', 'asc')->orderBy('waktu', 'asc')->get();
+ 		// dd($toko_loop);
+        foreach ($toko_loop as $row){
+        	$data_keranjang[$i]['no_hp'] = $row->no_hp;
+        	$data_keranjang[$i]['keynota'] = $row->keynota;
+        	$data_keranjang[$i]['nama'] = $row->nama;
+        	$data_keranjang[$i]['tanggal'] = $row->tanggal;
+        	$data_keranjang[$i]['waktu'] = $row->waktu;
+            $data_keranjang[$i]["product"] = DB::table('daftar_tunggu_pesanan')->select('keranjang_belanja.id', 'keranjang_belanja.jumlah', 'product.id as product_id', 'nama', 'jenis_harga', 'harga', 'harga_terendah', 'harga_tertinggi', 'diskon', 'foto_produk')->join('keranjang_belanja', 'keranjang_belanja.id', '=', 'daftar_tunggu_pesanan.id_product')->join('product', 'product.id', '=', 'keranjang_belanja.product_id')->where('keynota', $row->keynota)->get();
+            $i++;
+        }
+        $toko = Toko::where('users_id', Auth()->User()->id)->first();
+
+        // dd($data_keranjang);
+		return view('users/user/m-mitra/premium/daftar-tunggu-pesanan/index', compact('data_keranjang', 'toko'));
+	}
+
+	public function hapus_daftar_tunggu_pesanan(Request $request)
+	{
+        Daftar_tunggu_pesanan::where('keynota', $request->id_keranjang)->delete();
+        return redirect()->back();
+	}
+
+	public function konfirmasi_daftar_tunggu_pesanan(Request $request)
+	{
+		$daftar_tunggu_pesanan = DB::table('daftar_tunggu_pesanan')->select('daftar_tunggu_pesanan.*', 'keranjang_belanja.product_id', 'keranjang_belanja.jumlah')->join('keranjang_belanja', 'keranjang_belanja.id', '=', 'daftar_tunggu_pesanan.id_product')->where('keynota', $request->id_keranjang)->get();
+		// dd($daftar_tunggu_pesanan);
+		// hapus keranjang
+		foreach ($daftar_tunggu_pesanan as $row){
+			DB::table('keranjang_belanja')->where('toko_id', $row->id_toko)->where('user_id', $row->id_user)->where('id', $row->id_product)->delete();
+		}
+		// 	$transaksi = new Transaksi;
+		// 	$transaksi->toko_id = $row->id_toko;
+		// 	$transaksi->product_id = $row->product_id;
+		// 	$transaksi->tanggal = $row->tanggal;
+		// 	$transaksi->waktu = $row->waktu;
+		// 	$transaksi->jenis = "Pemasukan";
+		// 	$transaksi->kategori = "Penjualan";
+		// 	$transaksi->jumlah = $row->jumlah;
+		// 	$transaksi->harga_total = 5000;
+		// 	// $transaksi->save();
+		// }
+		// dd($daftar_tunggu_pesanan);
+        Daftar_tunggu_pesanan::where('keynota', $request->id_keranjang)->delete();
+        return redirect()->back();
 	}
 
 	public function kirim_lokasi(){

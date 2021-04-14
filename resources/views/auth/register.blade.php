@@ -3,6 +3,7 @@
 <head>
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="HandheldFriendly" content="true" />     
     <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template/admin/dist/css/style.min.css">
     <link href="<?=url('/')?>/public/plugins/material-design/css/material-design.min.css" rel="stylesheet">
@@ -249,14 +250,14 @@
 </style>
 </head>
 <div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
-		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
-			<div class="loader-container">
-				<div class="spinner-border text-danger" role="status">
-					<span class="sr-only">Loading...</span>
-				</div>
-			</div>
-		</div>
+    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+        <div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+            <div class="loader-container">
+                <div class="spinner-border text-danger" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <body style="margin: 0px; background: #EAF4FF;">
@@ -313,7 +314,7 @@
                     <span style="color: #9D9D9D;">Atau</span>
                     <hr style="width: 100%; margin-left: 1em;">
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <a href="<?=url('/')?>/register-api" class="btn" style="width: 100%; background: #EAF4FF; color: #575757; display: flex;">
                         <span class="" style="width: 15%; display: flex; justify-content: center;">
                             <img src="<?=url('/')?>/public/img/home/google-icon.svg" style="width: 1.5em;">
@@ -345,11 +346,18 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 <script src="<?=url('/')?>/public/plugins/material-design/js/material-dashboard.min.js?v=2.1.0"></script>
 
 <script>
-    var status_email = 0;
-    var status_no_hp = 0;
-    var status_password = 0;
+    var status_email = 1;
+    var status_no_hp = 1;
+    var status_password = 1;
     var result_no_hp = "";
     var result_email = "";
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
     
     $('#email').change(function(){
         var email = $(this).val();
@@ -363,7 +371,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
                 if(result.data['status'] == "false"){
                     $('#label_email').css('color', 'red');
                     $('#label_email').text('Email Telah Tersedia');
-                    status_email = 0;
+                    status_email = 1;
                 }
                 else{
                     $('#label_email').css('color', '#999797');
@@ -390,7 +398,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
                 {
                     if(result.data['status'] == "false"){
                         result_no_hp = no_hp;
-                        status_no_hp = 0;
+                        status_no_hp = 1;
                         $('#label_no_hp').css('color', 'red');
                         $('#label_no_hp').text('Nomor Telah Tersedia');
                     }

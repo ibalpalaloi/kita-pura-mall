@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '495e31e31b36797a133658b3f2d69d55723ebacf',
+    'reference' => '0789ecda7a7585737caf92eb771e4f8f5b6019cd',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -461,6 +461,15 @@ private static $installed = array (
         0 => '*',
       ),
     ),
+    'laravel-notification-channels/telegram' => 
+    array (
+      'pretty_version' => '0.5.1',
+      'version' => '0.5.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2cedb10b78219cc91a285eaa5a3de0db405cc207',
+    ),
     'laravel/framework' => 
     array (
       'pretty_version' => 'v8.23.1',
@@ -477,7 +486,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '495e31e31b36797a133658b3f2d69d55723ebacf',
+      'reference' => '0789ecda7a7585737caf92eb771e4f8f5b6019cd',
     ),
     'laravel/sail' => 
     array (
@@ -490,12 +499,12 @@ private static $installed = array (
     ),
     'laravel/socialite' => 
     array (
-      'pretty_version' => 'v5.2.2',
-      'version' => '5.2.2.0',
+      'pretty_version' => 'v5.2.3',
+      'version' => '5.2.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8d25d574b4f2005411c0b9cb527ef5e745c1b07d',
+      'reference' => '1960802068f81e44b2ae9793932181cf1cb91b5c',
     ),
     'laravel/tinker' => 
     array (

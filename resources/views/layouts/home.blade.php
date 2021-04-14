@@ -135,9 +135,6 @@ $show = "finish";
     </div>
 </div> --}}
 @else
-@if(Session::get('progress_biodata') != '5')
-
-@endif
 @endif  
 
 <div class="modal fade" id="modal-cooming-soon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
@@ -251,7 +248,6 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
     $('#modal-otp').modal('show');
     @else
     @if(Session::get('progress_biodata') != '5')
-    $('#modal-sukses').modal('show');
     @endif
     @endif
 

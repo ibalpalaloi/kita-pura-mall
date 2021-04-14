@@ -244,89 +244,107 @@
 				@else
 				<a  href="<?=url('/')?>/user/keranjang/{{Request::segment(1)}}" style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; position: relative;">
 
-				<svg width="25" height="30" viewBox="0 0 25 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M5.91667 10.3333V7.49996C5.91667 5.62134 6.66294 3.81967 7.99133 2.49129C9.31971 1.1629 11.1214 0.416626 13 0.416626C14.8786 0.416626 16.6803 1.1629 18.0087 2.49129C19.3371 3.81967 20.0833 5.62134 20.0833 7.49996V10.3333H24.3333C24.7091 10.3333 25.0694 10.4825 25.3351 10.7482C25.6007 11.0139 25.75 11.3742 25.75 11.75V28.75C25.75 29.1257 25.6007 29.486 25.3351 29.7517C25.0694 30.0174 24.7091 30.1666 24.3333 30.1666H1.66667C1.29094 30.1666 0.930608 30.0174 0.664932 29.7517C0.399255 29.486 0.25 29.1257 0.25 28.75V11.75C0.25 11.3742 0.399255 11.0139 0.664932 10.7482C0.930608 10.4825 1.29094 10.3333 1.66667 10.3333H5.91667ZM5.91667 13.1666H3.08333V27.3333H22.9167V13.1666H20.0833V16H17.25V13.1666H8.75V16H5.91667V13.1666ZM8.75 10.3333H17.25V7.49996C17.25 6.37279 16.8022 5.29178 16.0052 4.49476C15.2082 3.69773 14.1272 3.24996 13 3.24996C11.8728 3.24996 10.7918 3.69773 9.99479 4.49476C9.19777 5.29178 8.75 6.37279 8.75 7.49996V10.3333Z" fill="{{$page->warna_header}}"/>
-					</svg>
+					<svg width="25" height="30" viewBox="0 0 25 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M5.91667 10.3333V7.49996C5.91667 5.62134 6.66294 3.81967 7.99133 2.49129C9.31971 1.1629 11.1214 0.416626 13 0.416626C14.8786 0.416626 16.6803 1.1629 18.0087 2.49129C19.3371 3.81967 20.0833 5.62134 20.0833 7.49996V10.3333H24.3333C24.7091 10.3333 25.0694 10.4825 25.3351 10.7482C25.6007 11.0139 25.75 11.3742 25.75 11.75V28.75C25.75 29.1257 25.6007 29.486 25.3351 29.7517C25.0694 30.0174 24.7091 30.1666 24.3333 30.1666H1.66667C1.29094 30.1666 0.930608 30.0174 0.664932 29.7517C0.399255 29.486 0.25 29.1257 0.25 28.75V11.75C0.25 11.3742 0.399255 11.0139 0.664932 10.7482C0.930608 10.4825 1.29094 10.3333 1.66667 10.3333H5.91667ZM5.91667 13.1666H3.08333V27.3333H22.9167V13.1666H20.0833V16H17.25V13.1666H8.75V16H5.91667V13.1666ZM8.75 10.3333H17.25V7.49996C17.25 6.37279 16.8022 5.29178 16.0052 4.49476C15.2082 3.69773 14.1272 3.24996 13 3.24996C11.8728 3.24996 10.7918 3.69773 9.99479 4.49476C9.19777 5.29178 8.75 6.37279 8.75 7.49996V10.3333Z" fill="{{$page->warna_header}}"/>
+						</svg>
 
 
 
-					<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: 0.3em; right: 1em; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
-				</a>
+						<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: 0.3em; right: 1em; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{$keranjang}}</div>
+					</a>
 
-				@endif
-				@endif
+					@endif
+					@else
+					<a  style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; position: relative;">
 
-			</div>
-		</header>
+						<svg width="25" height="30" viewBox="0 0 25 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M5.91667 10.3333V7.49996C5.91667 5.62134 6.66294 3.81967 7.99133 2.49129C9.31971 1.1629 11.1214 0.416626 13 0.416626C14.8786 0.416626 16.6803 1.1629 18.0087 2.49129C19.3371 3.81967 20.0833 5.62134 20.0833 7.49996V10.3333H24.3333C24.7091 10.3333 25.0694 10.4825 25.3351 10.7482C25.6007 11.0139 25.75 11.3742 25.75 11.75V28.75C25.75 29.1257 25.6007 29.486 25.3351 29.7517C25.0694 30.0174 24.7091 30.1666 24.3333 30.1666H1.66667C1.29094 30.1666 0.930608 30.0174 0.664932 29.7517C0.399255 29.486 0.25 29.1257 0.25 28.75V11.75C0.25 11.3742 0.399255 11.0139 0.664932 10.7482C0.930608 10.4825 1.29094 10.3333 1.66667 10.3333H5.91667ZM5.91667 13.1666H3.08333V27.3333H22.9167V13.1666H20.0833V16H17.25V13.1666H8.75V16H5.91667V13.1666ZM8.75 10.3333H17.25V7.49996C17.25 6.37279 16.8022 5.29178 16.0052 4.49476C15.2082 3.69773 14.1272 3.24996 13 3.24996C11.8728 3.24996 10.7918 3.69773 9.99479 4.49476C9.19777 5.29178 8.75 6.37279 8.75 7.49996V10.3333Z" fill="#fff"/>
+						</svg>
+					</a>
+
+
+					@endif
+
+				</div>
+			</header>
 
 
 
-		<main id="homepage" class="homepage" style="background:white;">
+			<main id="homepage" class="homepage" style="background:white;">
 
-			<div class="row-mall" style="padding: 5em 0em 1.2em 0em;">
-				<h2 style="color: {{$page->warna_header}}; font-weight: 600; margin-bottom: 0px; margin-top: 1em;">Produk Kami</h2>
-				<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
-					<div style="width: 100%;">
+				<div class="row-mall" style="padding: 5em 0em 1.2em 0em;">
+					<h2 style="color: {{$page->warna_header}}; font-weight: 600; margin-bottom: 0px; margin-top: 1em;">Produk Kami</h2>
+					<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
+						<div style="width: 100%;">
 
-						<div class="div-input-mall-square" style="background: #eaf4ff; display: flex; align-items: center; margin-right: 0.5em;"> 
-							<span class="input-group-text-mall" style="margin-left: 0.8em;">
-								<img src="<?=url('/')?>/public/img/icon_svg/search_grey.svg">
-							</span>
-							<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em; background: #EAF4FF; color: grey !important;" required>
+							<div class="div-input-mall-square" style="background: #eaf4ff; display: flex; align-items: center; margin-right: 0.5em;"> 
+								<span class="input-group-text-mall" style="margin-left: 0.8em;">
+									<img src="<?=url('/')?>/public/img/icon_svg/search_grey.svg">
+								</span>
+								<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 3em; margin-right: 1em; background: #EAF4FF; color: grey !important;" required>
+							</div>
+							{{-- <div style="width: 3.4em; height: 3em; background: {{$page->warna_header}}; border-radius: 0.5em; display: flex; justify-content: center;align-items: center;">
+								<img src="<?=url('/')?>/public/img/icon_svg/filter_white.svg" style="width: 50%;">
+							</div> --}}
 						</div>
-						{{-- <div style="width: 3.4em; height: 3em; background: {{$page->warna_header}}; border-radius: 0.5em; display: flex; justify-content: center;align-items: center;">
-							<img src="<?=url('/')?>/public/img/icon_svg/filter_white.svg" style="width: 50%;">
-						</div> --}}
+					</div>
+					<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">
+						<div class="kategori-tabs" style="margin-top: 5px; font-size: 0.85em;">
+							<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">General</a>
+							<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">terbaru</a>
+							<a class="active-kategori" style="padding: 0.3em 0.7em;">paling dicari</a>
+						</div>
+					</div> 
+					<div id="daftar_menu" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
+						@include('landing_page.data_daftar_menu')
 					</div>
 				</div>
-				<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">
-					<div class="kategori-tabs" style="margin-top: 5px; font-size: 0.85em;">
-						<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">General</a>
-						<a class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">terbaru</a>
-						<a class="active-kategori" style="padding: 0.3em 0.7em;">paling dicari</a>
-					</div>
-				</div> 
-				<div id="daftar_menu" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; padding-left: 0em;">
-					@include('landing_page.data_daftar_menu')
-				</div>
-			</div>
-		</main>
+			</main>
 
-		@endsection
+			@endsection
 
-		@section('footer-scripts')
-		<script type="text/javascript">
-			function masukan_keranjang(){
-				var jumlah_keranjang = $("#jumlah_keranjang").html();
-				jumlah_keranjang = parseInt(jumlah_keranjang)+1;
-				$("#jumlah_keranjang").html(jumlah_keranjang);
-			}
+			@section('footer-scripts')
+			<script type="text/javascript">
+				function masukan_keranjang(toko_id, produk_id){
+					$.ajax({
+						url : "{{ route('tambah_keranjang_belanja') }}",
+						method : 'post',
+						data : {toko_id:toko_id, produk_id:produk_id, _token:'{{csrf_token()}}'},
+						success:function(data)
+						{
+							var jumlah_keranjang = $("#jumlah_keranjang").html();
+							jumlah_keranjang = parseInt(jumlah_keranjang)+1;
+							$("#jumlah_keranjang").html(jumlah_keranjang);
+						}
+					});
 
-			var produk;
-			var id_toko = {!! json_encode($toko->id) !!}
+				}
 
-			function get_produk(produk){
-				$.ajax({
-					url:"{{ route('get_produk') }}",
-					method: "post",
-					data : {id_toko:id_toko, produk:produk, _token:'{{csrf_token()}}'},
+				var produk;
+				var id_toko = {!! json_encode($toko->id) !!}
+
+				function get_produk(produk){
+					$.ajax({
+						url:"{{ route('get_produk') }}",
+						method: "post",
+						data : {id_toko:id_toko, produk:produk, _token:'{{csrf_token()}}'},
+					})
+					.done(function(data){
+						$('#daftar_menu').empty();
+						$('#daftar_menu').append(data.html);
+					})
+				}
+
+				$(document).ready(function(){
+					$('#cari_produk').on('input', function(){
+						var produk = $('#cari_produk').val();
+						get_produk(produk);
+					});
 				})
-				.done(function(data){
-					$('#daftar_menu').empty();
-					$('#daftar_menu').append(data.html);
-				})
-			}
 
-			$(document).ready(function(){
-				$('#cari_produk').on('input', function(){
-					var produk = $('#cari_produk').val();
-					get_produk(produk);
-				});
-			})
+				function cooming_soon(){
+					$("#modal-cooming-soon").modal('show');		
+				}
+			</script>
 
-			function cooming_soon(){
-				$("#modal-cooming-soon").modal('show');		
-			}
-		</script>
-
-		@endsection
+			@endsection

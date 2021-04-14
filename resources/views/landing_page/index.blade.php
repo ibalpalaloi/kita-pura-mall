@@ -385,6 +385,7 @@ style="padding: 1.5em; padding: 0px;">
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: space-between;">
+		@if (Auth::user())
 		<?php if (!empty($_GET['previous'])){ ?>
 			<a id="defaultheader_logo" style="margin-left: 20px; height:33px;margin-right:15px; position: relative;" href="javascript:history.back()">
 				<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
@@ -394,7 +395,7 @@ style="padding: 1.5em; padding: 0px;">
 				<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
 			</a>
 		<?php } ?>
-		@if (Auth::user())
+
 		@if(Auth()->user()->id == $toko->users_id)
 		@php $penjual = 'yes'; @endphp
 
