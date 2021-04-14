@@ -559,9 +559,9 @@ if (!empty($_GET['deskripsi'])){
 <main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
 	<div>
 		<div style="padding: 0px 16px 1em;">
-			<h3 style="color: white; font-size: 1.75rem; font-weight: 500;">Transaksi</h3>
+			<h3 style="color: white; font-size: 1.75rem; font-weight: 500;">List Pesanan</h3>
 			<div style=" display: flex; justify-content: space-between; align-items: center;">
-				<div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">Statistik</div>
+				<!--<div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">Daftar product yang di</div>-->
 			</div>
 		</div>
 		<div style="padding: 0px 16px 1em;">

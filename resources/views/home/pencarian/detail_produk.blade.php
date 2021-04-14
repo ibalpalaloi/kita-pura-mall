@@ -365,7 +365,7 @@
 						<i class="far fa-star star-rating-toko"></i>
 						@endfor
 					</div>
-					<div class="" style="font-size: 1.1em; margin-top: 0.2em;"><b style="text-decoration: underline;">{{$produk_lainnya}} Produk Lainnya</b></div>
+					<a href="<?=url('/')?>/{{$toko->username}}/daftar-menu" class="" style="font-size: 1.1em; margin-top: 0.2em;"><b style="text-decoration: underline; color: white;">{{$produk_lainnya}} Produk Lainnya</b></a>
 					<div class="penilai" style="display: flex; justify-content: space-between; align-items: flex-end;" hidden>
 						<div class="foto-penilai" style="display: flex; justify-content: flex-start; margin-top: 0.2em;">
 						</div>
@@ -392,7 +392,7 @@
 					<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/240x200/{{$row->foto_produk}}">
 					<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; background-image: url("<?=$svg?>"); color: white; background-size: cover; padding: 1em; position: relative;'> 
 						<div style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(255,6,115,1) 0%, rgba(255,82,181,1) 100%); box-shadow: rgba(152, 152, 152, 0.5) 0px 2px 8px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">
-							<img src="<?=url('/')?>/public/img/icon_svg/download.svg" style="width: 2em; height: 2em;">
+							<img src="<?=url('/')?>/public/img/icon_svg/toko_white.svg" style="width: 60%;">
 						</div>
 						<div style="font-weight: 500;"><?=substr(strip_tags($row->nama), 0, 15)?>@if (strlen($row->nama) > 15)..@endif</div>
 						<div style="font-size: 0.7em; line-height: 1em; font-weight: 0;">{{$row->kategori_product}}</div>

@@ -249,14 +249,14 @@
 </style>
 </head>
 <div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
-		<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
-			<div class="loader-container">
-				<div class="spinner-border text-danger" role="status">
-					<span class="sr-only">Loading...</span>
-				</div>
-			</div>
-		</div>
+    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+        <div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+            <div class="loader-container">
+                <div class="spinner-border text-danger" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <body style="margin: 0px; background: #EAF4FF;">
@@ -294,9 +294,12 @@
                     {{ csrf_field() }}
                     <input type="text" name="email" value="{{$email}}" hidden>
                     <input type="text" name="no_hp" value="{{$no_hp}}" hidden>
-                    <div class="form-group">
+                    <div class="form-group" style="position:relative;">
+                        <img src="<?=url('/')?>/public/img/icon_svg/eye_hidden.svg" style="position: absolute; right:0.2em; margin-top: 0.6em;" id="eye_hidden" onclick="lihat_password()">
+                        <img src="<?=url('/')?>/public/img/icon_svg/eye_show.svg" style="position: absolute; right:0.4em; margin-top: 1em;" id="eye_show" onclick="hidden_password()" hidden>
+
                         <label for="exampleEmail" class="bmd-label-floating" id="label_password" style="color: #999797">Masukkan Password Untuk Akun Anda</label>
-                        <input  type="text" name="password" id="password" class="form-control" id="exampleEmail"/>
+                        <input  type="password" name="password" id="password" class="form-control" id="exampleEmail"/>
                     </div>
                     <div class="form-group" style="display: flex;justify-content: center; flex-direction: column;">
 
@@ -325,6 +328,20 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
     var status_password = 0;
     var result_no_hp = "";
     var result_email = "";
+    
+    function lihat_password(){
+        $("#eye_hidden").prop('hidden', true);
+        $("#eye_show").prop('hidden', false);
+        $("#password").attr('type', 'text');
+
+    }
+    
+    function hidden_password(){
+        $("#eye_hidden").prop('hidden', false);
+        $("#eye_show").prop('hidden', true);
+        $("#password").attr('type', 'password');
+        
+    }
     
     $('#email').change(function(){
         var email = $(this).val();

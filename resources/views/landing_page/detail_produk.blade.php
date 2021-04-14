@@ -263,12 +263,13 @@
 			<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
 		</a>
 
+            @if (Auth::user())
 
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang/{{Request::segment(1)}}">
 			<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
-			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
+			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{$keranjang}}</div>
 		</a>
-
+		@endif
 	</div>	
 </header>
 
@@ -334,9 +335,17 @@
 				<div><b>Detail</b></div>
 				<div style="font-size: 0.9em;">{{$product->deskripsi}}</div>
 			</div>
+            @if (Auth::user())
+
 			<div style="background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%);border-radius: 35px; padding: 0.8em; width: 100%; margin-top: 0.5em; text-align: center; color: white; font-size: 1.1em;" onclick="masukan_keranjang('{{$toko->id}}', '{{$product->id}}')">
 				Tambahkan ke keranjang&nbsp;<img src="<?=url('/')?>/public/img/button/landing_page/keranjang_icon.svg">
 			</div>
+			@else
+			<div style="background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%);border-radius: 35px; padding: 0.8em; width: 100%; margin-top: 0.5em; text-align: center; color: white; font-size: 1.1em;" onclick="redirect_home()">
+				Tambahkan ke keranjang&nbsp;<img src="<?=url('/')?>/public/img/button/landing_page/keranjang_icon.svg">
+			</div>
+
+			@endif
 		</div>
 
 	</div>
@@ -386,6 +395,10 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 	function cooming_soon(){
 		$("#modal-cooming-soon").modal('show');		
+	}
+
+	function redirect_home(){
+		location.href="<?=url('/')?>";															
 	}
 
 	function nilai_toko(index){

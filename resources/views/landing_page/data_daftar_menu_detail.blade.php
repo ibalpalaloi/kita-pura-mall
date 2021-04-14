@@ -3,10 +3,15 @@
         <?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
         <img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/240x200/{{$row->foto_produk}}">
         <div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative; background:{{$landing_page_toko->warna_header}};'> 
+            @if (Auth::user())
             <div class="" style="width: 5em; position: absolute; height: 5em; bottom:3.5em; right:0.5em;">
                 <img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="width: 100%; height: 100%;" onclick="masukan_keranjang('{{$row->toko_id}}', '{{$row->id}}')">
-            </div>              
-
+            </div>            
+            @else  
+            <a href="<?=url('/')?>" style="width: 5em; position: absolute; height: 5em; bottom:3.5em; right:0.5em;">
+                <img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="width: 100%; height: 100%;" onclick="masukan_keranjang('{{$row->toko_id}}', '{{$row->id}}')">
+            </a>            
+            @endif
             <a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/{{$row->id}}" style="font-weight: 500; margin-top: 0em; color: white; font-size: 1.5em;"><?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 10)))?>@if (strlen($row->nama) > 10)..@endif</a>
             <div style="font-size: 0.8em; line-height: 1.2em; font-weight: 0;">{{ucwords(strtolower($row->kategori_id))}}</div>
             <div style="padding: 0; margin: 0.5em 0px 0.7em 0px; font-size: 0.8em; line-height: 1em;">

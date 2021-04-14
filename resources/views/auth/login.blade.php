@@ -299,6 +299,7 @@
                     <div class="form-group">
                         <label for="examplePass" class="bmd-label-floating">Password</label>
                         <input type="password" name="password" class="form-control" id="examplePass" required>
+                        <div>
                     </div>
                     <div class="form-group">
                         <input onclick="show_loader()" type="submit" name="submit" class="btn" style="width: 100%; background: #FB036B;" value="Masuk">
@@ -316,7 +317,7 @@
                     <a href="<?=url('/')?>/register" class="btn" style="width: 100%; background: #0CA437;">
                         Buat Akun kitapura <i>mall</i>
                     </a>
-                    <a href="<?=url('/')?>/redirectToGoogle" onclick="show_loader()">
+                    <a href="<?=url('/')?>/redirectToGoogle" onclick="show_loader()" hidden>
                         <div class="btn" style="width: 100%; background: #EAF4FF; color: #575757; display: flex;">
                             <span class="" style="width: 15%; display: flex; justify-content: center;">
                                 <img src="<?=url('/')?>/public/img/home/google-icon.svg" style="width: 1.5em;">
@@ -325,7 +326,7 @@
                             <span style="width: 15%; color: #EAF4FF">a</span>
                         </div>
                     </a>
-                    <div class="btn" style="width: 100%; background: #00A3FF; display: flex; margin-top: 0.8em;">
+                    <div class="btn" style="width: 100%; background: #00A3FF; display: flex; margin-top: 0.8em;" hidden>
                         <span class="" style="width: 15%; display: flex; justify-content: center;">
                             <img src="<?=url('/')?>/public/img/home/facebook-icon.svg" style="width: 1.5em;">
                         </span>
@@ -350,6 +351,12 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 
 <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
     (function($) {
         $.fn.nodoubletapzoom = function() {
             $(this).bind('touchstart', function preventZoom(e) {
