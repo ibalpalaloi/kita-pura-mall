@@ -13,6 +13,12 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'telegram-bot-api' => [
+        'token' => env('TELEGRAM_BOT_TOKEN', '1732361789:AAFvHgC5XYNODxYqLt-YTZK4x5XGE-VH9Vg')
+    ],
+
+    'telegram_id' => env('TELEGRAM_ID', '1732361789'),
+
 
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),

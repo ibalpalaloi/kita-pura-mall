@@ -17,7 +17,10 @@ use Session;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Gmail;
-
+use App\Models\Notice;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Notification\Notifiable;
+use App\Notifications\TelegramRegister;
 
 class AuthController extends Controller
 {
@@ -176,30 +179,35 @@ class AuthController extends Controller
         $otp->status = "belum dikirim";
         $otp->save();
         
-        $this->notif_telegram($otp->id, $otp->kode_otp);
+        $notice = new Notice([
+            'notice' => 'Pengguna Baru',
+            'noticedes' => "Nomor HP $request->no_hp\nEmail = $request->email", 
+            'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$request->no_hp&text=Kode+OTP+Anda+=+$otp->kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas",
+            'telegramid' => 1766032289
+        ]);
+        $notice->save();
+        $notice->notify(new TelegramRegister());
+
+        $notice1 = new Notice([
+            'notice' => 'Pengguna Baru',
+            'noticedes' => "Nomor HP $request->no_hp\nEmail = $request->email", 
+            'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$request->no_hp&text=Kode+OTP+Anda+=+$otp->kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas",
+            'telegramid' => 1660066265
+        ]);
+        $notice1->save();
+        $notice1->notify(new TelegramRegister());
+        $notice2 = new Notice([
+            'notice' => 'Pengguna Baru',
+            'noticedes' => "Nomor HP $request->no_hp\nEmail = $request->email", 
+            'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$request->no_hp&text=Kode+OTP+Anda+=+$otp->kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas",
+            'telegramid' => 894149404
+        ]);
+        $notice2->save();
+        $notice2->notify(new TelegramRegister());        
         // $this->send_email_otp($otp->email, $otp->kode_otp);
         return redirect('/input_otp/'.$otp->email.'/'.$otp->no_hp);
     }
 
-    public function notif_telegram($id_user, $kode_otp){
-        $user = Otp::where('id', $id_user)->first();
-        // dd($user);
-        $no_hp = substr($user->no_hp, 1);
-        $founder = [1660066265, 1766032289, 894149404];
-        for ($i = 0; $i < count($founder); $i++){
-            $token = "1732361789:AAFvHgC5XYNODxYqLt-YTZK4x5XGE-VH9Vg";
-            $user_id = $founder[$i];
-            $mesg = "--- PENGGUNA BARU ----No HP = $user->no_hp  Email = $user->email Kode = $kode_otp".
-                    "klik link <br> http://api.whatsapp.com/send/?phone=%2B$no_hp&text=Kode+OTP+Anda+=+$kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas";
-            $request_params = [
-                'chat_id' => $user_id,
-                'text' => $mesg
-            ];
-            $request_url = 'https://api.telegram.org/bot'.$token.'/sendMessage?'.http_build_query($request_params);
-            file_get_contents($request_url);    
-
-        }
-    } 
 
     public function send_email_otp($email, $otp){
         $data = [

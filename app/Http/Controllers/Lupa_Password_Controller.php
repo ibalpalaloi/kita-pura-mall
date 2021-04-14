@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Kode_lupa_password;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\Send_Kode_Lupa_password;
+use App\Mail\Send_Kode_Lupa_Password;
 use Auth;
+use App\Models\Notice;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Notification\Notifiable;
+use App\Notifications\TelegramRegister;
+
 
 class Lupa_Password_Controller extends Controller
 {
@@ -33,8 +38,8 @@ class Lupa_Password_Controller extends Controller
         // dd($request);
         $tb_kode = Kode_lupa_password::where('user_id', $request->id_user)->first();
         $jenis = $request->radio;
+        $kode = $this->buat_kode_otp();
         if(empty($tb_kode)){
-            $kode = $this->buat_kode_otp();
             $user = User::where('id', $request->id_user)->first();
             if($jenis == 'email'){
                 $akun = 'email';
@@ -56,7 +61,37 @@ class Lupa_Password_Controller extends Controller
         }
         if($jenis == 'whatsapp'){
             $akun = 'Whatsapp';
-            $this->notif_telegram($request->id_user, $tb_kode->kode);
+            $user = User::where('id', $request->id_user)->first();
+            $no_hp = substr($user->no_hp, 1);
+
+
+            $notice = new Notice([
+                'notice' => 'Lupa Password Coy',
+                'noticedes' => "Nomor HP $user->no_hp\nEmail = $user->email", 
+                'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$no_hp&text=Kode+Lupa+Password+=+$kode+%0A%0ASilahkan+Masukkan+Kode+Diatas",
+                'telegramid' => 1766032289
+            ]);
+            $notice->save();
+            $notice->notify(new TelegramRegister());
+
+            $notice1 = new Notice([
+                'notice' => 'Lupa Password Coy',
+                'noticedes' => "Nomor HP $user->no_hp\nEmail = $user->email", 
+                'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$no_hp&text=Kode+Lupa+Password+=+$kode+%0A%0ASilahkan+Masukkan+Kode+Diatas",
+                'telegramid' => 1660066265
+            ]);
+            $notice1->save();
+            $notice1->notify(new TelegramRegister());
+
+            $notice2 = new Notice([
+                'notice' => 'Lupa Password Coy',
+                'noticedes' => "Nomor HP $user->no_hp\nEmail = $user->email", 
+                'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$no_hp&text=Kode+Lupa+Password+=+$kode+%0A%0ASilahkan+Masukkan+Kode+Diatas",
+                'telegramid' => 894149404
+            ]);
+            $notice2->save();
+            $notice2->notify(new TelegramRegister());
+
         }
 
         return redirect('/lupa_password/input_kode/'.$tb_kode->id);
@@ -102,7 +137,7 @@ class Lupa_Password_Controller extends Controller
             'otp' => $kode
         ];
 
-        Mail::to($email)->send(new Send_Kode_Lupa_password($data));
+        Mail::to($email)->send(new Send_Kode_Lupa_Password($data));
     }
 
     public function generate_no_telp($no_hp){
@@ -133,22 +168,4 @@ class Lupa_Password_Controller extends Controller
         }
         return $kode_otp;
     }
-    public function notif_telegram($id_user, $kode_otp){
-        $user = User::where('id', $id_user)->first();
-        $no_hp = substr($user->no_hp, 1);
-        $founder = [1660066265, 1766032289];
-        for ($i = 0; $i < count($founder); $i++){
-            $token = "1732361789:AAFvHgC5XYNODxYqLt-YTZK4x5XGE-VH9Vg";
-            $user_id = $founder[$i];
-            $mesg = "--- LUPA PASSWORD ----No HP = $user->no_hp  Email = $user->email Kode = $kode_otp".
-                    "klik link <br> http://api.whatsapp.com/send/?phone=%2B$no_hp&text=Kode+Lupa+Password+=+$kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas";
-            $request_params = [
-                'chat_id' => $user_id,
-                'text' => $mesg
-            ];
-            $request_url = 'https://api.telegram.org/bot'.$token.'/sendMessage?'.http_build_query($request_params);
-            file_get_contents($request_url);    
-
-        }
-    } 
 }
