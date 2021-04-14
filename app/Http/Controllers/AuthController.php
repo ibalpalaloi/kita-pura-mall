@@ -205,6 +205,7 @@ class AuthController extends Controller
         $notice2->save();
         $notice2->notify(new TelegramRegister());        
         // $this->send_email_otp($otp->email, $otp->kode_otp);
+        $this->send_email_otp($otp->email, $otp->kode_otp);
         return redirect('/input_otp/'.$otp->email.'/'.$otp->no_hp);
     }
 
@@ -447,7 +448,7 @@ class AuthController extends Controller
         $user = new User;
         $user->id = $id_user;
         $user->password = bcrypt($request->password);
-        $user->no_hp = $this->generate_no_telp($request->no_hp);
+        $user->no_hp = $request->no_hp;
         $user->email = $request->email;
         $user->remember_token = str::random(60);
         $user->level_akses = 'user';
