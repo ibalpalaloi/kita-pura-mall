@@ -290,7 +290,7 @@
     <main id="homepage" class="homepage">
         <div class="card-mall">
             <div class="card-body" style="padding-top: 2em;">
-                <form method="post" action="<?=url('/')?>/masuk">
+                <form method="post" action="<?=url('/')?>/masuk" id="form_input">
                     {{csrf_field()}}
                     <div class="form-group">
                         <label for="exampleEmail" class="bmd-label-floating">Email Address / No. Whatsapp</label>
@@ -304,7 +304,7 @@
 
                     </div>
                     <div class="form-group">
-                        <input onclick="show_loader()" type="submit" name="submit" class="btn" style="width: 100%; background: #FB036B;" value="Masuk">
+                        <input type="submit" name="submit" class="btn" style="width: 100%; background: #FB036B;" value="Masuk">
                     </div>
                 </form>
                 <div class="form-group" style="display: flex; justify-content: center;">
@@ -353,11 +353,15 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 
 <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    $('#form_input').submit(function(){
+        show_loader();
+    })
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     (function($) {
         $.fn.nodoubletapzoom = function() {

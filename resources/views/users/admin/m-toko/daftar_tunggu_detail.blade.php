@@ -2,11 +2,14 @@
 
 
 @section('title')
+
 Detail Daftar Tunguu
 @endsection
 
 @section('header-scripts')
 
+1
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @endsection
 
@@ -77,7 +80,7 @@ function tgl_indo($tanggal){
         <div class="card">
             <div class="card-body">
                 <div class="card-body">
-                    <form class="form-horizontal form-material" method="post" action="<?=url('/')?>/admin/manajemen/daftar_tunggu_toko/post">
+                    <form class="form-horizontal form-material" method="post" action="<?=url('/')?>/admin/manajemen/daftar_tunggu_toko/post" id="form_submit">
                         {{ csrf_field() }}
                         <input type="text" name="id" value="{{$toko->id}}" hidden>
                         <input type="text" name="toko_id" value="{{$toko->toko_id}}" hidden>
@@ -173,10 +176,9 @@ function tgl_indo($tanggal){
                                 </div>
                                 <div class="col-sm-4">
                                     <button onclick="tampil_alert()" type="button" class="btn btn-primary">Verifikasi</button>
-                                    <button id="submit" type="submit" class="btn btn-primary" hidden>hidden</button>
+                                    <button id="submit" type="button" class="btn btn-primary" hidden>hidden</button>
                                 </div>
                             </div>
-                            
                         </div>
                     </form>
                 </div>
@@ -190,6 +192,12 @@ function tgl_indo($tanggal){
 @section('footer-scripts')
 
 <script>
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     function hapus_kategori_toko(id){
         $.ajax({
@@ -281,24 +289,33 @@ function tgl_indo($tanggal){
     }
 
     $( "#submit" ).click(function() {
-        var data = {!! json_encode($toko) !!};
-        var user = {!! json_encode($user) !!};
-        var apilink = 'http://';
-        var phone = user['no_hp'];
-        var message = 'Hallo kak akun Toko ' + data['nama_toko'] + ' telah aktif\n' +
-                      'sekarang kaka sudah bisa menggunakan semua layanan kami, silahkan menambahakan produk dan mengatur landing page toko kaka\n\n'+
-                      'jika ada kendala atau hal yang tidak dipahami silahkan hubungi admin kitapuramall\n'+
-                      '-----------------------\n'+
-                      'Informasi dan konfirmasi (0851-5836-2224)\n\n'+
-                      'Official Account:\n'+
-                      'IG : @kitapuramall\n\n'+
-                      'Kantor Pemasaran Kitapuramall\n'+
-                      'Jln. Gelatik, No. 29, Birobuli Utara, Palu Selatan, Palu - Sulawesi Tengah';
+        $.ajax({
+            url: "{{route('validasi_toko')}}",
+            method: "post",
+            data : $('#form_submit').serialize(),
+            success:function()
+            {
+                var data = {!! json_encode($toko) !!};
+                var user = {!! json_encode($user) !!};
+                var apilink = 'http://';
+                var phone = user['no_hp'];
+                var message = 'Hallo kak akun Toko ' + data['nama_toko'] + ' telah aktif\n' +
+                            'sekarang kaka sudah bisa menggunakan semua layanan kami, silahkan menambahakan produk dan mengatur landing page toko kaka\n\n'+
+                            'jika ada kendala atau hal yang tidak dipahami silahkan hubungi admin kitapuramall\n'+
+                            '-----------------------\n'+
+                            'Informasi dan konfirmasi (0851-5836-2224)\n\n'+
+                            'Official Account:\n'+
+                            'IG : @kitapuramall\n\n'+
+                            'Kantor Pemasaran Kitapuramall\n'+
+                            'Jln. Gelatik, No. 29, Birobuli Utara, Palu Selatan, Palu - Sulawesi Tengah';
 
-        // apilink += isMobile ? 'api' : 'web';
-        // apilink += '.whatsapp.com/send?phone=' + phone + '&text=' + encodeURI(message);
-        var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
-        window.open(walink);
+                // apilink += isMobile ? 'api' : 'web';
+                // apilink += '.whatsapp.com/send?phone=' + phone + '&text=' + encodeURI(message);
+                var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
+                window.open(walink);
+            }
+        })
+        
     });
 </script>
 @endsection

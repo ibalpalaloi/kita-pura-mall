@@ -135,7 +135,6 @@ $show = "finish";
     </div>
 </div> --}}
 @else
-
 @endif  
 
 <div class="modal fade" id="modal-cooming-soon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
