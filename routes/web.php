@@ -112,7 +112,7 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::get('/akun/pengaturan-profil', [UserController::class, 'biodata']);
         Route::post('/akun/pengaturan-profil/simpan-foto', [UserController::class, 'simpan_foto']);
         Route::put('/akun/pengaturan-profil/simpan-biodata', [UserController::class, 'simpan_biodata']);
-        Route::put('/akun/ubah-password', [UserController::class, 'ubah_password']);
+        Route::put('/akun/pengaturan-profil/ubah-password', [UserController::class, 'ubah_password']);
 
 
         // @mitra

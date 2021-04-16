@@ -5,7 +5,7 @@ $count_product = count($product);
 $index = 0;
 @endphp 
 @for ($j = 0; $j < $rownya; $j++)
-<div class="row" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+<div class="row" style="display: flex; flex-wrap: wrap; justify-content: space-around;" onclick="show_loader()">
     @for ($i = 0; $i < 6; $i++)
     <a style="display: flex; justify-content: center; flex-direction: column; width:30%; margin: 1.5%;" href="<?=url('/')?>/pencarian/explore/{{$product[$index]->id}}">
         <img src="<?=url('/')?>/public/img/toko/{{$product[$index]->toko_id}}/produk/240x240/{{$product[$index]->foto_produk}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">

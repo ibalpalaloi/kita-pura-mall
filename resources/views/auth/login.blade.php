@@ -296,10 +296,12 @@
                         <label for="exampleEmail" class="bmd-label-floating">Email Address / No. Whatsapp</label>
                         <input type="text" name="email" class="form-control" id="exampleEmail" required/>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="position: relative;">
+                        <img src="<?=url('/')?>/public/img/icon_svg/eye_hidden.svg" style="position: absolute; right:0.2em; margin-top: 0.53em;" id="eye_hidden" onclick="lihat_password()">
+                        <img src="<?=url('/')?>/public/img/icon_svg/eye_show.svg" style="position: absolute; right:0.4em; margin-top: 1em;" id="eye_show" onclick="hidden_password()" hidden>
                         <label for="examplePass" class="bmd-label-floating">Password</label>
-                        <input type="password" name="password" class="form-control" id="examplePass" required>
-                        <div>
+                        <input type="password" name="password" id="password" class="form-control" id="examplePass" required>
+
                     </div>
                     <div class="form-group">
                         <input type="submit" name="submit" class="btn" style="width: 100%; background: #FB036B;" value="Masuk">
@@ -379,6 +381,20 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
     $('#nomor_hp').keyup(function(){
         $(this).val($(this).val().replace(/(\d{3})\-?(\d{4})\-?(\d{4})/,'$1-$2-$3'))
     });     
+
+    function lihat_password(){
+        $("#eye_hidden").prop('hidden', true);
+        $("#eye_show").prop('hidden', false);
+        $("#password").attr('type', 'text');
+
+    }
+    
+    function hidden_password(){
+        $("#eye_hidden").prop('hidden', false);
+        $("#eye_show").prop('hidden', true);
+        $("#password").attr('type', 'password');
+        
+    }    
 
     @if(Session::get('message') == 'Masih Menunggu')
     $('#modal-verifikasi').modal('show');

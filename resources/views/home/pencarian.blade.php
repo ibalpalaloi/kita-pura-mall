@@ -81,10 +81,10 @@ Explore |
 <header class="style__Container-sc-3fiysr-0 header" style="background: #eaf4ff;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center; flex-direction: column; height: 55px;">
 		<div class="pencarian-tabs" style="display: flex; justify-content: center; background: white; padding: 8px; border-radius: 1.5em;">
-			<a href="<?=url('/')?>/pencarian/maps">
+			<a href="<?=url('/')?>/pencarian/maps" onclick="show_loader()">
 				Maps
 			</a>
-			<a class="active-mall" href="<?=url('/')?>/pencarian/explore">
+			<a class="active-mall" href="<?=url('/')?>/pencarian/explore" onclick="show_loader()">
 				Explore
 			</a>
 		</div>
