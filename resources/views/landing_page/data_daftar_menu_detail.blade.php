@@ -1,8 +1,8 @@
     @foreach($produk_lainnya as $row)
     @php $go_link = url('/')."/".Request::segment(1)."/daftar-menu/$row->id"; @endphp
-    <div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;" onclick='go_link("<?=$go_link?>")' >
+    <div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
         <?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-        <img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/240x200/{{$row->foto_produk}}">
+        <img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/240x200/{{$row->foto_produk}}" onclick='go_link("<?=$go_link?>")'>
         <div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative; background:{{$landing_page_toko->warna_header}};'> 
             @if (Auth::user())
             <div class="" style="width: 5em; position: absolute; height: 5em; bottom:3.5em; right:0.5em;">
@@ -14,7 +14,7 @@
             </a>            
             @endif
             <a href="<?=url('/')?>/{{Request::segment(1)}}/daftar-menu/{{$row->id}}" style="font-weight: 500; margin-top: 0em; color: white; font-size: 1.5em;"><?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 10)))?>@if (strlen($row->nama) > 10)..@endif</a>
-            <div style="font-size: 0.8em; line-height: 1.2em; font-weight: 0;">{{ucwords(strtolower($row->kategori_id))}}</div>
+            <div style="font-size: 0.8em; line-height: 1.2em; font-weight: 0;">{{ucwords(strtolower($row->sub_kategori))}}</div>
             <div style="padding: 0; margin: 0.5em 0px 0.7em 0px; font-size: 0.8em; line-height: 1em;">
                 <i class="fas fa-star star-rating"></i>
                 <i class="fas fa-star star-rating"></i>

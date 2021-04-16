@@ -144,7 +144,8 @@ class LandingPageController extends Controller
 	public function detail_produk($mitra, $id_produk){
 		$product = DB::table('product')->select('product.*', 'sub_kategori.nama as sub_kategori')->leftJoin('sub_kategori', 'sub_kategori.id', '=', 'product.sub_kategori_id')->where('product.id', $id_produk)->first();
 		$toko = DB::table('toko')->select('toko.nama_toko', 'toko.logo_toko', 'toko.username', 'toko.no_hp', 'toko.deskripsi as deskripsi_toko', 'toko.id')->where('id', $product->toko_id)->first();
-		$produk_lainnya = DB::table('product')->select()->where('toko_id', $product->toko_id)->get();
+		$produk_lainnya = DB::table('product')->select('product.*', 'sub_kategori.nama as sub_kategori')->join('sub_kategori', 'sub_kategori.id','=', 'product.sub_kategori_id')->where('toko_id', $product->toko_id)->distinct()->get();
+		// dd($produk_lainnya);
 		$produk_serupa = DB::table('product')->select()->where('sub_kategori_id', $product->sub_kategori_id)->where('id', '!=', $product->id)->get();
 		$landing_page_toko = Landing_page_toko::where('toko_id', $toko->id)->first();
 		if(Auth::user()){
