@@ -223,6 +223,16 @@
 	</div>
 </div>
 
+<div class="modal fade" id="modal_keranjang" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+        <div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+            <div class="loader-container">
+                <img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/keranjang.svg">
+            </div>
+        </div>
+    </div>
+</div>
+
 <header class="style__Container-sc-3fiysr-0 header" style="background: white; padding-top: 0.3em;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" >
 		<a class="svg_color" href="javascript:history.back()" style=" width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; margin-right: ">
@@ -305,7 +315,14 @@
 
 			@section('footer-scripts')
 			<script type="text/javascript">
+				function hide_keranjang_modal(){
+					console.log('hide');
+					$("#modal_keranjang").modal("hide");
+				};
+
 				function masukan_keranjang(toko_id, produk_id){
+					$('#modal_keranjang').modal('show');
+					setTimeout(hide_keranjang_modal, 500);
 					$.ajax({
 						url : "{{ route('tambah_keranjang_belanja') }}",
 						method : 'post',
