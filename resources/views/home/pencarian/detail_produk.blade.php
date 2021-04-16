@@ -265,7 +265,7 @@
 		</a>
 
 
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang">
+		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang" onclick="show_loader()">
 			<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
 			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{count($keranjang)}}</div>
 		</a>
@@ -345,7 +345,11 @@
 	<div class="kategori" style="background-image: url('<?=$svg?>'); color: white; background-size: cover; border-top-left-radius: 1.5em; border-top-right-radius: 1.5em; padding: 2em 8% 3em 8%; display: flex; flex-direction: column; margin-top: -1em;">
 		<div style="flex-direction: row; display: flex; justify-content: flex-start; align-items: center;">
 			<div>
+				@if (file_exists(public_path("img/toko/$toko->id/logo/200x200/$toko->logo_toko")))
 				<img src="<?=url('/')?>/public/img/toko/{{$toko->id}}/logo/200x200/{{$toko->logo_toko}}" style="border-radius: 50%; width: 5em; border: 3px solid white;">
+				@else
+				<img src="<?=url('/')?>/public/img/toko/premium.svg" style="border-radius: 50%; width: 5em;">
+				@endif
 			</div>
 			<div style="margin-left: 0.8em;">
 				<div class="info-toko" style="display: flex; justify-content: space-between; width: 100%;">
@@ -365,7 +369,7 @@
 						<i class="far fa-star star-rating-toko"></i>
 						@endfor
 					</div>
-					<a href="<?=url('/')?>/{{$toko->username}}/daftar-menu" class="" style="font-size: 1.1em; margin-top: 0.2em;"><b style="text-decoration: underline; color: white;">{{$produk_lainnya}} Produk Lainnya</b></a>
+					<a href="<?=url('/')?>/{{$toko->username}}/daftar-menu" class="" style="font-size: 1.1em; margin-top: 0.2em;"><b style="text-decoration: underline; color: white;" onclick="show_loader()">{{$produk_lainnya}} Produk Lainnya</b></a>
 					<div class="penilai" style="display: flex; justify-content: space-between; align-items: flex-end;" hidden>
 						<div class="foto-penilai" style="display: flex; justify-content: flex-start; margin-top: 0.2em;">
 						</div>
@@ -377,7 +381,7 @@
 			<div style="font-size: 0.9em;">{{$toko->deskripsi_toko}}</div>
 		</div>
 
-		<a href="<?=url('/')?>/{{$toko->username}}" style="background: linear-gradient(180deg, #FF58BB 0%, #FF006E 100%);border-radius: 35px; padding: 0.8em; width: 100%; margin-top: 0.5em; text-align: center; color: white; font-size: 1.1em;">
+		<a href="<?=url('/')?>/{{$toko->username}}" style="background: linear-gradient(180deg, #FF58BB 0%, #FF006E 100%);border-radius: 35px; padding: 0.8em; width: 100%; margin-top: 0.5em; text-align: center; color: white; font-size: 1.1em;"  onclick="show_loader()">
 			Kunjungi Toko<img src="<?=url('/')?>/public/img/icon_svg/toko_white.svg" style="position: absolute;right: 5em;">
 		</a>
 	</div>
@@ -387,7 +391,7 @@
 			<div class="slider">
 				@php $i= 0; @endphp
 				@foreach ($produk_serupa as $row)
-				<a href="<?=url('/')?>/pencarian/explore/{{$row->id}}" class="slider-toko" style="@if ($i == 0) margin-left: 8%;@endif">
+				<a href="<?=url('/')?>/pencarian/explore/{{$row->id}}" class="slider-toko" style="@if ($i == 0) margin-left: 8%;@endif" onclick="show_loader()">
 					@php $i++; @endphp
 					<img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/240x200/{{$row->foto_produk}}">
 					<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; background-image: url("<?=$svg?>"); color: white; background-size: cover; padding: 1em; position: relative;'> 

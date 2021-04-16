@@ -100,6 +100,18 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	}
 
 
+	.modal-dialog-centered { 
+		position:fixed;
+		padding:0;
+		margin: 0em 4%;
+		top:auto;
+		right:auto;
+		left:auto;
+		bottom:0;
+		width: 92%;
+
+	}  
+
 
 	.div-input-mall-square {
 		border-radius: 0.5em;
@@ -324,22 +336,34 @@ if (!empty($_GET['hari'])){
 				</div>
 				<hr style="border-top: 1px solid #c8d2dd; width: 100%;">
 				@if(Session::has('pass_message'))
+				@if(Session::get('pass_message') == 'Password Berhasil Diperbarui')
+				<div class="mb-3">
+					<span class="badge badge-pill badge-success">{{Session::get('pass_message')}}</span>	
+				</div>
+				@else
 				<div class="mb-3">
 					<span class="badge badge-pill badge-danger">{{Session::get('pass_message')}}</span>	
 				</div>
 				@endif
+				@endif
 				<div style="width: 90%;">
 				<label for="">Password Lama</label>
 					<div class="input-group mb-3 div-input-mall" id="div_no_hp">
-						<input type="password" class="form-control form-control-mall-modal" id="password_old"  name="password_old" required style="width: 100%; height: auto !important;" >
+						<input type="password" class="form-control form-control-mall-modal" id="password_old"  name="password_old" required style="width: 100%; height: auto !important;">
+                        <img src="<?=url('/')?>/public/img/icon_svg/eye_hidden.svg" style="position: absolute; right:0em; margin-top: 0.5em; margin-right: 1em; z-index: 5;" id="eye_hidden_password_old" onclick="lihat_password('password_old')">
+                        <img src="<?=url('/')?>/public/img/icon_svg/eye_show.svg" style="position: absolute; right:0em; margin-top: 0.45em; margin-right: 1.2em; z-index: 5;" id="eye_show_password_old" onclick="hidden_password('password_old')" hidden>						
 					</div>
 					<label for="">Password Baru</label>
 					<div class="input-group mb-3 div-input-mall" id="div_no_hp">
-						<input type="password" class="form-control form-control-mall-modal" id="password"  name="password" required style="width: 100%; height: auto !important;">
+						<input type="password" class="form-control form-control-mall-modal" id="password_baru"  name="password" required style="width: 100%; height: auto !important;">
+                        <img src="<?=url('/')?>/public/img/icon_svg/eye_hidden.svg" style="position: absolute; right:0em; margin-top: 0.5em; margin-right: 1em; z-index: 5;" id="eye_hidden_password_baru" onclick="lihat_password('password_baru')">
+                        <img src="<?=url('/')?>/public/img/icon_svg/eye_show.svg" style="position: absolute; right:0em; margin-top: 0.45em; margin-right: 1.2em; z-index: 5;" id="eye_show_password_baru" onclick="hidden_password('password_baru')" hidden>	
 					</div>
 					<label for="">Ulangi Password Baru</label>
 					<div class="input-group mb-3 div-input-mall" id="div_no_hp">
 						<input type="password" class="form-control form-control-mall-modal" id="konfirmasi_password" name="konfirmasi_password" required style="width: 100%; height: auto !important;" >
+                        <img src="<?=url('/')?>/public/img/icon_svg/eye_hidden.svg" style="position: absolute; right:0em; margin-top: 0.5em; margin-right: 1em; z-index: 5;" id="eye_hidden_konfirmasi_password" onclick="lihat_password('konfirmasi_password')">
+                        <img src="<?=url('/')?>/public/img/icon_svg/eye_show.svg" style="position: absolute; right:0em; margin-top: 0.45em; margin-right: 1.2em; z-index: 5;" id="eye_show_konfirmasi_password" onclick="hidden_password('konfirmasi_password')" hidden>
 					</div>
 				</div>
 				<button type="submit" class="btn btn-primary" style="background: #ffaa00;;border: 1px solid #ffaa00; border-radius: 1.5em; padding: 0.5em 2em 0.5em 2em; width: 90%; margin-bottom: 1em;">Ubah Password
@@ -379,7 +403,6 @@ if (!empty($_GET['hari'])){
 					</div>
 
 				</div>
-				<img onclick="ubah_foto()" src="<?=url('/')?>/public/img/icon_svg/upload_foto.svg" style="width: 3em; position: absolute; right: 0; bottom: 0;">
 
 			</div>
 			<div style="font-size: 1.5em; font-weight: 600;">@if ($biodata->nama == '') Belum ada nama @else {{$biodata->nama}} @endif</div>
@@ -473,7 +496,7 @@ if (!empty($_GET['hari'])){
 					</div>
 				</div>
 			</div>
-			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="margin-top: 0.5em;">
+			<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="margin-top: 0.5em;" hidden>
 				<div style="display: flex; align-items: center;">
 					<span class="label-mall" style="padding-bottom: 0.4em;">Nomor Handphone</span>&nbsp;
 					<span>
@@ -555,6 +578,21 @@ if (!empty($_GET['hari'])){
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
 	});
+
+
+    function lihat_password(password){
+        $("#eye_hidden_"+password).prop('hidden', true);
+        $("#eye_show_"+password).prop('hidden', false);
+        $("#"+password).attr('type', 'text');
+
+    }
+    
+    function hidden_password(password){
+        $("#eye_hidden_"+password).prop('hidden', false);
+        $("#eye_show_"+password).prop('hidden', true);
+        $("#"+password).attr('type', 'password');
+        
+    }
 
 	var status_ganti_foto = 0;
 

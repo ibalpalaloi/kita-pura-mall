@@ -134,7 +134,7 @@ crossorigin=""/>
 
 				</div>
 				<div id="contact_premium">
-					<a href="" id="link_landing_page" style="background: #FF006E; color:white; font-size: 1.2em; padding: 0.4em 0.8em; border-radius: 1.5em; align-items: center; margin-top: 0.5em; width: 100%; display: flex; justify-content: center;">
+					<a href="" id="link_landing_page" style="background: #FF006E; color:white; font-size: 1.2em; padding: 0.4em 0.8em; border-radius: 1.5em; align-items: center; margin-top: 0.5em; width: 100%; display: flex; justify-content: center;" onclick="show_loader()">
 						<div style="border: 2px solid white; width: 2em; height: 2em; display: flex; justify-content: center; align-items: center; border:none; border-radius: 50%; ">
 							<img src="<?=url('/')?>/public/img/icon_svg/landing_page3.svg" style="width: 60%;">
 						</div>
@@ -150,10 +150,10 @@ crossorigin=""/>
 <header class="style__Container-sc-3fiysr-0 header" style="background: transparent;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center; flex-direction: column; height: 55px;">
 		<div class="pencarian-tabs" style="display: flex; justify-content: center; background: white; padding: 8px; border-radius: 1.5em;">
-			<a class="active-mall" href="<?=url('/')?>/pencarian/maps">
+			<a class="active-mall" href="<?=url('/')?>/pencarian/maps" onclick="show_loader()">
 				Maps
 			</a>
-			<a href="<?=url('/')?>/pencarian/explore">
+			<a href="<?=url('/')?>/pencarian/explore" onclick="show_loader()">
 				Explore
 			</a>
 		</div>
@@ -226,7 +226,7 @@ crossorigin=""></script>
 					$("#contact_free").prop('hidden', true);
 					$("#contact_premium").prop('hidden', false);					
 				}
-				$("#foto_maps").attr('src', "<?=url('/')?>/public/img/toko/"+toko_id+"/maps/"+foto);
+				$("#foto_maps").attr('src', "<?=url('/')?>/public/img/toko/"+toko_id+"/maps/1/320x216/"+foto);
 				$("#detail-jadwal-toko").html(result.trim());
 				$("#modal-trigger-location").modal('show');
 

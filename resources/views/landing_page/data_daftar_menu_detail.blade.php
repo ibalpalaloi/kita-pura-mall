@@ -1,5 +1,6 @@
     @foreach($produk_lainnya as $row)
-    <div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;">
+    @php $go_link = url('/')."/".Request::segment(1)."/daftar-menu/$row->id"; @endphp
+    <div class="slider-toko" style="margin-bottom: 1em; margin-left: 0px;" onclick='go_link("<?=$go_link?>")' >
         <?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
         <img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/240x200/{{$row->foto_produk}}">
         <div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative; background:{{$landing_page_toko->warna_header}};'> 

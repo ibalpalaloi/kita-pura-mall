@@ -345,6 +345,11 @@
 				function cooming_soon(){
 					$("#modal-cooming-soon").modal('show');		
 				}
+
+				function go_link(link){
+					show_loader();
+					location.href=link;
+				}
 			</script>
 
 			@endsection

@@ -290,6 +290,28 @@ if (!empty($_GET['hari'])){
 }
 
 ?>
+@if ($page->warna_header == '#9d0208')
+<div class="modal fade" id="modal-keranjang-black" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
+			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+				<img data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: 30%; right: 1em;">
+				<img src="<?=url('/')?>/public/img/modal_assets/modal_confirm_red.svg" style="width: 100%;">
+				<div style="position: absolute; margin: 3% 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 55%;">
+					<div style="font-size: 2em; font-weight: 600; text-align: center;">Yakin ?</div>
+					<div style="font-size: 1em; text-align: center; width: 90%; font-weight: 0; color: white; margin-bottom: 1.2em;">Apakah kamu yakin menghapus data ini ?</div>
+					<form style="display: flex; justify-content: center;" method="post" action="<?=url('/')?>/user/keranjang/hapus_keranjang">
+						@csrf
+						<input id="id_keranjang" name="id_keranjang" hidden>
+						<button type="submit" class="btn" style="background: #A00007; padding: 0.3em 2em; border-radius: 1.5em; font-size: 1.2em; margin-right: 0.5em; color: white;">Ya</button>
+						<div data-dismiss="modal" style="background: #FFAA00; padding: 0.3em 1.5em; border-radius: 1.5em; font-size: 1.2em; margin-left: 0.5em;">Tidak</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@else
 <div class="modal fade" id="modal-keranjang-black" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
 		<div class="modal-content" style="border-radius: 1.2em; background: transparent; display: flex; justify-content: center; align-items: center; margin: 0em 0em 0em 0em; color: white; border: none; box-shadow: none;">
@@ -311,6 +333,7 @@ if (!empty($_GET['hari'])){
 	</div>
 </div>
 
+@endif
 
 
 
@@ -412,8 +435,10 @@ if (!empty($_GET['hari'])){
 					@endforeach
 				</div>
 			</div>
-			<div class="" onclick='WhatsappMessage("<?=$data_keranjang_current[$i]['no_hp']?>", "<?=$data_keranjang_current[$i]['nama_toko']?>",  "<?=$data_keranjang_current[$i]['id_toko']?>", "yes")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
-				<img src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_current_<?=$data_keranjang_current[$i]['id_toko']?>">Rp. 1.500.000</span>
+			<div style="width: 100%; display: flex; justify-content: center;">
+				<div class="" onclick='WhatsappMessage("<?=$data_keranjang_current[$i]['no_hp']?>", "<?=$data_keranjang_current[$i]['nama_toko']?>",  "<?=$data_keranjang_current[$i]['id_toko']?>", "yes")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
+					<img src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_current_<?=$data_keranjang_current[$i]['id_toko']?>">Rp. 1.500.000</span>
+				</div>
 			</div>
 			<script type="text/javascript">
 				document.getElementById("sub_total_current_<?=$data_keranjang_current[$i]['id_toko']?>").innerHTML = formatToCurrency( sub_total_current["<?=$data_keranjang_current[$i]['id_toko']?>"]);
@@ -461,8 +486,11 @@ if (!empty($_GET['hari'])){
 						@endforeach
 					</div>
 				</div>
-				<div class="" onclick='WhatsappMessage("<?=$data_keranjang[$i]['no_hp']?>", "<?=$data_keranjang[$i]['nama_toko']?>", "<?=$data_keranjang[$i]['id_toko']?>", "no")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
-					<img src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_<?=$data_keranjang[$i]['id_toko']?>">Rp. 1.500.000</span>
+				<div style="width: 100%; display: flex; justify-content: center;">
+
+					<div class="" onclick='WhatsappMessage("<?=$data_keranjang[$i]['no_hp']?>", "<?=$data_keranjang[$i]['nama_toko']?>", "<?=$data_keranjang[$i]['id_toko']?>", "no")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
+						<img src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_<?=$data_keranjang[$i]['id_toko']?>">Rp. 1.500.000</span>
+					</div>
 				</div>
 				<script type="text/javascript">
 					document.getElementById("sub_total_<?=$data_keranjang[$i]['id_toko']?>").innerHTML = formatToCurrency(sub_total["<?=$data_keranjang[$i]['id_toko']?>"]);
@@ -483,7 +511,6 @@ if (!empty($_GET['hari'])){
 						{{Session::get('message')}}
 						<div class="row mt-2 p-2">
 							<a href="<?=url('/')?>/akun" type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary">Tutup</a>
-
 						</div>
 					</div>
 					<!-- /.modal-content -->
@@ -613,81 +640,81 @@ if (!empty($_GET['hari'])){
     		}
 
 
-        window.open(walink);
-    } 
+    		location.href=walink;
+    	} 
 
 
-    var status_ganti_foto = 0;
+    	var status_ganti_foto = 0;
 
-    @if(Session::has('message'))
-    $('#modal-pemberitahuan').modal('show');
-    @endif
+    	@if(Session::has('message'))
+    	$('#modal-pemberitahuan').modal('show');
+    	@endif
 
-    @if(Session::has('pass_message'))
-    $('#modal-ganti-pass').modal('show');
-    @endif
+    	@if(Session::has('pass_message'))
+    	$('#modal-ganti-pass').modal('show');
+    	@endif
 
 
-    function pilih_jenkel(id, jenkel){
-    	$("#jenis_kelamin").val(jenkel);
-    	if (id == 'option_pria'){
-    		$("#option_pria").css('color', '#1c2645');
-    		$("#option_wanita").css('color', '#b3b7c0');
-    	}
-    	else {
-    		$("#option_wanita").css('color', '#1c2645');
-    		$("#option_pria").css('color', '#b3b7c0');
-    	}
-    }
-
-    function input_focus(id){
-    	$("#div_"+id).css('border', '1px solid #d1d2d4');
-    }
-
-    function input_blur(id){
-    	$("#div_"+id).css('border', '1px solid white');		
-    }
-
-    function ubah_pesanan(id, operasi, harga, id_product){
-    	if ($('#checkbox_'+id).is(':checked')) {
-
-    		var jumlah_pesanan = $("#jumlah_pesanan_"+id).html();
-    		if ((operasi == 'kurang') && (jumlah_pesanan == 1)){
-
+    	function pilih_jenkel(id, jenkel){
+    		$("#jenis_kelamin").val(jenkel);
+    		if (id == 'option_pria'){
+    			$("#option_pria").css('color', '#1c2645');
+    			$("#option_wanita").css('color', '#b3b7c0');
     		}
     		else {
-    			$.ajax({
-    				url: "<?=url('/')?>/user/keranjang/ubah_jumlah",
-    				type: "POST",
-    				data: {"jumlah_pesanan":jumlah_pesanan, "id":id, 'operasi':operasi},
-    				success: function (data) {
-    					var sub_total_value = sub_total[id_product];
-
-    					$("#jumlah_pesanan_"+id).html(data);
-    					if (operasi == 'kurang'){
-    						sub_total_value = parseInt(sub_total_value)-parseInt(harga);
-    						$("#sub_total_"+id_product).html(formatToCurrency(sub_total_value));
-    					}
-    					else {
-    						sub_total_value = parseInt(sub_total_value)+parseInt(harga);
-    						$("#sub_total_"+id_product).html(formatToCurrency(sub_total_value));
-    					}
-    					sub_total[id_product] = sub_total_value;
-
-    				}
-    			});
+    			$("#option_wanita").css('color', '#1c2645');
+    			$("#option_pria").css('color', '#b3b7c0');
     		}
     	}
-    	else {
-    		alert('silahkan centang');
+
+    	function input_focus(id){
+    		$("#div_"+id).css('border', '1px solid #d1d2d4');
     	}
 
+    	function input_blur(id){
+    		$("#div_"+id).css('border', '1px solid white');		
+    	}
+
+    	function ubah_pesanan(id, operasi, harga, id_product){
+    		if ($('#checkbox_'+id).is(':checked')) {
+
+    			var jumlah_pesanan = $("#jumlah_pesanan_"+id).html();
+    			if ((operasi == 'kurang') && (jumlah_pesanan == 1)){
+
+    			}
+    			else {
+    				$.ajax({
+    					url: "<?=url('/')?>/user/keranjang/ubah_jumlah",
+    					type: "POST",
+    					data: {"jumlah_pesanan":jumlah_pesanan, "id":id, 'operasi':operasi},
+    					success: function (data) {
+    						var sub_total_value = sub_total[id_product];
+
+    						$("#jumlah_pesanan_"+id).html(data);
+    						if (operasi == 'kurang'){
+    							sub_total_value = parseInt(sub_total_value)-parseInt(harga);
+    							$("#sub_total_"+id_product).html(formatToCurrency(sub_total_value));
+    						}
+    						else {
+    							sub_total_value = parseInt(sub_total_value)+parseInt(harga);
+    							$("#sub_total_"+id_product).html(formatToCurrency(sub_total_value));
+    						}
+    						sub_total[id_product] = sub_total_value;
+
+    					}
+    				});
+    			}
+    		}
+    		else {
+    			alert('silahkan centang');
+    		}
 
 
-    }
 
-    function ubah_pesanan_current(id, operasi, harga, id_product){
-    	if ($('#checkbox_'+id).is(':checked')) {
+    	}
+
+    	function ubah_pesanan_current(id, operasi, harga, id_product){
+    		if ($('#checkbox_'+id).is(':checked')) {
     		// var jumlah_sebelum = $("#jumlah_pesanan_"+id).html();
     		// var id_sebelum = id+jumlah_sebelum;
     		// var jumlah_pesanan = $("#jumlah_pesanan_"+id).html();
