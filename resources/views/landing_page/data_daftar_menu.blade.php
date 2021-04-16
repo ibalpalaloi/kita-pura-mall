@@ -5,11 +5,11 @@
         <img src="<?=url('/')?>/public/img/toko/{{$row->toko_id}}/produk/240x200/{{$row->foto_produk}}">
         <div style='text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%; color: white; background-size: cover; position: relative; background: {{$page->warna_header}};'> 
             @if (Auth::user())
-            <div class="" style="width: 5em; position: absolute; height: 5em; bottom:3.5em; right:0.5em;">
+            <div class="" style="width: 5em; position: absolute; height: 5em; bottom:3.5em; right:0.5em; z-index: 1000;">
                 <img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="width: 100%; height: 100%;" onclick="masukan_keranjang('{{$row->toko_id}}', '{{$row->id}}')">
             </div>              
             @else
-            <a href="<?=url('/')?>" class="" style="width: 5em; position: absolute; height: 5em; bottom:3.5em; right:0.5em;">
+            <a href="<?=url('/')?>" class="" style="width: 5em; position: absolute; height: 5em; bottom:3.5em; right:0.5em; z-index: 1000;">
                 <img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="width: 100%; height: 100%;" onclick="masukan_keranjang('{{$row->toko_id}}', '{{$row->id}}')">
             </a>              
             @endif
