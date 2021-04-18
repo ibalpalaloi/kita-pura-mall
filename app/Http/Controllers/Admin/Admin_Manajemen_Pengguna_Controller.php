@@ -171,7 +171,7 @@ class Admin_Manajemen_Pengguna_Controller extends Controller
         if ($no_telp[0] == 0){
             $no_telp = substr($no_telp, 1);
         }
-        $no_telp = substr_replace($no_telp, "+62", 0, 0);
+        $no_telp = substr_replace($no_telp, "+62", 0, 0 );
 
         return $no_telp;
     }
