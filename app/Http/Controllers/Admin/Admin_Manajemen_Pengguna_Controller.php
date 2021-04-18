@@ -177,7 +177,9 @@ class Admin_Manajemen_Pengguna_Controller extends Controller
     }
 
     public function daftar_otp(){
-        $otp = Otp::all();
+        $otp = Otp::select("*")
+        ->orderBy("updated_at", 'desc')
+        ->get();
         return view('users.admin.m-pengguna.data_otp', compact('otp'));
     }
 
