@@ -6,17 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Toko;
+use App\Models\Kategori_toko;
 use Carbon\Carbon;
 
 class Diagram_Controller extends Controller
 {
     //
     public function user(){
+        // digaram user
         $user = User::latest()->first();
-        // $from = date('2021-04-01');
-        // $to = date('2021-04-31');
-        // $user = User::whereBetween('created_at', [$from, $to])->get();
-        // ;
         $array_date = [];
         $array_count_user = [];
         $array_count_toko = [];
@@ -29,8 +27,18 @@ class Diagram_Controller extends Controller
             $array_date[] = $date;
         }
         $data = [' ', ' '];
-        // dd(json_encode($array_count_user));
-        return view('users.admin.diagram.user', compact('array_date', 'array_count_user', 'array_count_toko', 'data'));
+
+        // diagram kategori toko
+        $kategori = Kategori_toko::all();
+        $kategori_toko = [];
+        $jumlah_toko = [];
+        foreach($kategori as $data){
+            $kategori_toko[] = $data->kategori;
+            $jumlah_toko[] = $data->kategorinya_toko->count();
+        }
+        return view('users.admin.diagram.user', compact('array_date', 'array_count_user', 'array_count_toko', 'data',
+                                                        'kategori_toko', 'jumlah_toko'
+                                                        ));
     }
 
     public function diagram_user_pilih(Request $request){
