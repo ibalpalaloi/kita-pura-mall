@@ -62,6 +62,16 @@ class Diagram_Controller extends Controller
             $array_date[] = $date;
         }
         $data = [$request->bulan, $request->tahun];
-        return view('users.admin.diagram.user', compact('array_date', 'array_count_user', 'array_count_toko', 'data'));
+        
+        $kategori = Kategori_toko::all();
+        $kategori_toko = [];
+        $jumlah_toko = [];
+        foreach($kategori as $data){
+            $kategori_toko[] = $data->kategori;
+            $jumlah_toko[] = $data->kategorinya_toko->count();
+        }
+        return view('users.admin.diagram.user', compact('array_date', 'array_count_user', 'array_count_toko', 'data',
+                                                        'kategori_toko', 'jumlah_toko'
+                                                        ));
     }
 }
