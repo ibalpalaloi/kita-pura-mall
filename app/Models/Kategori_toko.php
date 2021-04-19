@@ -18,4 +18,8 @@ class Kategori_toko extends Model
     public function daftar_tunggu_toko(){
         return $this->hasMany(Daftar_tunggu_toko::class);
     }
+
+    public function kategorinya_toko(){
+        return $this->hasMany(Kategorinya_toko::class);
+    }
 }

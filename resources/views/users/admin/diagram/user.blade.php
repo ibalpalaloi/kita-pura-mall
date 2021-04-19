@@ -11,25 +11,20 @@
     <title>Document</title>
 </head>
 <body>
+@php
+$bulan =['Januari', 'februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+$value =['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+@endphp
 <div style="padding: 40px; padding-left: 600px">
     <form action="<?=url('/')?>/admin/manajemen/diagram_user_pilih" method="post">
     {{ csrf_field() }}
         <table>
             <tr>
                 <select name="bulan" id="bulan">
-                    <option value="">{{$data[0]}}</option>
-                    <option value="01">Januari</option>
-                    <option value="02">februari</option>
-                    <option value="03">Maret</option>
-                    <option value="04">April</option>
-                    <option value="05">Mei</option>
-                    <option value="06">Juni</option>
-                    <option value="07">Juli</option>
-                    <option value="08">Agustus</option>
-                    <option value="09">September</option>
-                    <option value="10">Oktober</option>
-                    <option value="11">November</option>
-                    <option value="12">Desember</option>
+                    <option value="00">30 Hari Terakhir</option>
+                    @for($i=0; $i<12; $i++)
+                        <option @if($data[0] == $value[$i]) selected @endif value="{{$value[$i]}}">{{$bulan[$i]}}</option>
+                    @endfor
                 </select>
             </tr>
             <tr>     </tr>
@@ -42,8 +37,9 @@
         </table>
     </form>
 </div>
-<div id="container">
-</div> 
+<div id="container"></div> 
+<br><br><br>
+<div id="diagram_kategori_toko"></div>
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
@@ -79,6 +75,65 @@
     },{
         name: 'Toko',
         data: {!!json_encode($array_count_toko)!!}
+    }]
+});
+</script>
+
+<script>
+    Highcharts.chart('diagram_kategori_toko', {
+    chart: {
+        type: 'bar'
+    },
+    title: {
+        text: 'Kategori Toko'
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        categories: {!!json_encode($kategori_toko)!!},
+        title: {
+            text: null
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Population (millions)',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' toko'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        x: -40,
+        y: 80,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+        shadow: true
+    },
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Toko',
+        data: {!!json_encode($jumlah_toko)!!},
     }]
 });
 </script>
