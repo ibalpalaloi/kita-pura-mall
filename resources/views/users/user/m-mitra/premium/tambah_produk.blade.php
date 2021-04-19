@@ -430,7 +430,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 							@foreach($kategori_produk as $row)
 							<option data-index="{{$index++}}" value="{{$row->id}}">{{$row->nama}}</option>
 							@endforeach
-							<option data-index="lainnya" value="lainnya">LAINNYA</option>
+							<option data-index="lainnya" value="20">LAINNYA</option>
 						</select>
 					</div>
 					<input hidden type="text" class="form-control-mall" id="kategori_lain" name="kategori_lain"  placeholder="Isi Kategori Lainnya" aria-label="" aria-describedby="basic-addon1" style="width: 100%;">

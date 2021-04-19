@@ -110,6 +110,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                 <th>Email</th>
                                 <th>Kode OTP</th>
                                 <th>Status</th>
+                                <th>Waktu</th>
                                 <th style="width:3%;">Aksi</th>
                             </tr>
                         </thead>
@@ -121,6 +122,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                     <td>{{$data->email}}</td>
                                     <td>{{$data->kode_otp}}</td>
                                     <td>{{$data->status}}</td>
+                                    <td>{{$data->updated_at}}</td>
                                     <td>
                                         <button onclick="send_wa('{{$data->no_hp}}', '{{$data->kode_otp}}')" type="button" class="btn btn-success">Kirim WA</button>
                                     </td>

@@ -586,6 +586,7 @@ if (!empty($_GET['hari'])){
 
 
 		function WhatsappMessage(no_hp, nama, id_product, current) {
+			show_loader();
 			// alert('ye');
 			// event.preventDefault();
 			var apilink = 'http://';

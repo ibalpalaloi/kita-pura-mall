@@ -136,7 +136,7 @@
                                         <span class="hide-menu">Daftar Pengguna</span>
                                     </a>
                                     <a href="<?=url('/')?>/admin/manajemen/pengguna_daftar_otp" class="sidebar-link">
-                                        <i class="mdi mdi-account-multiple"></i>git 
+                                        <i class="mdi mdi-account-multiple"></i>
                                         <span class="hide-menu">Daftar OTP</span>
                                     </a>
                                     <a href="<?=url('/')?>/admin/manajemen/pengguna_lupa_password" class="sidebar-link">
@@ -177,6 +177,19 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="sidebar-item"> <a class="sidebar-link two-column has-arrow waves-effect waves-dark"
+                            href="javascript:void(0)" aria-expanded="false"><i
+                                class="mdi mdi-shopping"></i><span class="hide-menu">Diagram</span></a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="<?=url('/')?>/admin/manajemen/diagram_user" target="blank" class="sidebar-link">
+                                    <i class="mdi mdi-sort-variant"></i>
+                                    <span class="hide-menu">user</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                        
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

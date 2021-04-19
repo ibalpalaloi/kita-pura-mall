@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Admin_Beranda_Controller;
 use App\Http\Controllers\Admin\Admin_Manajemen_Pengguna_Controller;
 use App\Http\Controllers\Admin\Admin_Manajemen_Kategori_Controller;
 use App\Http\Controllers\Admin\Admin_Manajemen_Toko_Controller;
+use App\Http\Controllers\Admin\Diagram_Controller;
 // 
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\Keranjang_Belanja_Controller;
@@ -242,6 +243,10 @@ Route::group(['middleware'=> 'admin'], function() {
 
     Route::get('/admin/beranda', [Admin_Beranda_Controller::class, 'index']);
 
+    // diagram
+    Route::get('/admin/manajemen/diagram_user', [Diagram_Controller::class,'user']);
+    Route::post('/admin/manajemen/diagram_user_pilih', [Diagram_Controller::class,'diagram_user_pilih']);
+    // end diagram
         // manajemen pengguna
     Route::get('/admin/manajemen/pengguna', [Admin_Manajemen_Pengguna_Controller::class, 'index']);
     Route::get('/admin/manajemen/pengguna_daftar_otp', [Admin_Manajemen_Pengguna_Controller::class, 'daftar_otp']);
