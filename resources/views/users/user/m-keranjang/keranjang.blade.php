@@ -571,8 +571,6 @@ if (!empty($_GET['hari'])){
 		function hapus_keranjang(id){
 			$("#id_keranjang").val(id);
 			$("#modal-keranjang-black").modal('show');
-			// alert()
-			// alert(id);
 		}
 
 		function mobilecheck() {

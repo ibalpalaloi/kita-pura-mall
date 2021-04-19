@@ -220,7 +220,8 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::get('/akun/riwayat_transaksi/bulan', [PesananController::class, 'riwayat_transaksi_bulan']);
 
             // list transaksi
-            Route::get('/akun/mitra/premium/transaksi/pilih-rentan-tanggal', [TransaksiController::class, 'pilih_rentan_tanggal'])->name('pilih_rentan_tanggal');
+            Route::post('/akun/mitra/premium/transaksi/pilih-rentan-tanggal-range', [TransaksiController::class, 'pilih_rentan_tanggal_range'])->name('pilih_rentan_tanggal_range');
+            Route::post('/akun/mitra/premium/transaksi/pilih-rentan-tanggal', [TransaksiController::class, 'pilih_rentan_tanggal'])->name('pilih_rentan_tanggal');
             Route::post('/akun/mitra/premium/transaksi/simpan', [TransaksiController::class, 'simpan_transaksi']);
             Route::get('/akun/mitra/premium/transaksi/laporan-keuangan', [TransaksiController::class, 'laporan_keuangan']);
             Route::get('/akun/mitra/premium/transaksi/tambah-transaksi', [TransaksiController::class, 'tambah_transaksi']);

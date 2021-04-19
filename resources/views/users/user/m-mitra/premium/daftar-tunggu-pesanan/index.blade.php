@@ -548,8 +548,8 @@ if (!empty($_GET['deskripsi'])){
 		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
 			<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
 		</a>
-		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
-			<img src="<?=url('/')?>/public/img/icon_svg/riwayat_circle.svg">
+		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; color: #353535;">
+			a
 		</a>
 	</div>
 </header>

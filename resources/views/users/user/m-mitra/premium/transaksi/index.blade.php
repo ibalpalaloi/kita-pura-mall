@@ -486,8 +486,8 @@ if (!empty($_GET['deskripsi'])){
 		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
 			<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
 		</a>
-		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
-			<img src="<?=url('/')?>/public/img/icon_svg/riwayat_circle.svg">
+		<a style="color: #353535; width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
+			
 		</a>
 	</div>
 </header>
@@ -516,7 +516,7 @@ if (!empty($_GET['deskripsi'])){
 					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_pemasukan.svg" style="margin-right: 1em;">
 					<div>
 						<div style="font-size: 0.8em;">Pemasukan</div>
-						<div style="font-size: 1.2em; font-weight: 600;">Rp. 5.000.000</div>
+						<div style="font-size: 1.2em; font-weight: 600;">IDR. {{number_format($total_pemasukan,0,',','.')}}</div>
 					</div>					
 					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_pemasukan.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
 				</div>
@@ -524,7 +524,7 @@ if (!empty($_GET['deskripsi'])){
 					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_pengeluaran.svg" style="margin-right: 1em;">
 					<div>
 						<div style="font-size: 0.8em;">Pengeluaran</div>
-						<div style="font-size: 1.2em; font-weight: 600;">Rp. 5.000.000</div>
+						<div style="font-size: 1.2em; font-weight: 600;">IDR. {{number_format($total_pengeluaran,0,',','.')}}</div>
 					</div>					
 					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_pengeluaran.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
 				</div>
@@ -532,7 +532,7 @@ if (!empty($_GET['deskripsi'])){
 					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_keuangan.svg" style="margin-right: 1em;">
 					<div>
 						<div style="font-size: 0.8em;">Keuntungan</div>
-						<div style="font-size: 1.2em; font-weight: 600;">Rp. 5.000.000</div>
+						<div style="font-size: 1.2em; font-weight: 600;">IDR. {{number_format($total_pemasukan-$total_pengeluaran,0,',','.')}}</div>
 					</div>					
 					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_keuangan.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
 				</div>

@@ -181,8 +181,8 @@ class AuthController extends Controller
         
         $notice = new Notice([
             'notice' => 'Pengguna Baru',
-            'noticedes' => "Nomor HP $request->no_hp\nEmail = $request->email", 
-            'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$request->no_hp&text=Kode+OTP+Anda+=+$otp->kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas",
+            'noticedes' => "Nomor HP $otp->no_hp\nEmail = $request->email", 
+            'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$otp->no_hp&text=Kode+OTP+Anda+=+$otp->kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas",
             'telegramid' => 1766032289
         ]);
         $notice->save();
@@ -190,16 +190,16 @@ class AuthController extends Controller
 
         $notice1 = new Notice([
             'notice' => 'Pengguna Baru',
-            'noticedes' => "Nomor HP $request->no_hp\nEmail = $request->email", 
-            'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$request->no_hp&text=Kode+OTP+Anda+=+$otp->kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas",
+            'noticedes' => "Nomor HP $otp->no_hp\nEmail = $request->email", 
+            'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$otp->no_hp&text=Kode+OTP+Anda+=+$otp->kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas",
             'telegramid' => 1660066265
         ]);
         $notice1->save();
         $notice1->notify(new TelegramRegister());
         $notice2 = new Notice([
             'notice' => 'Pengguna Baru',
-            'noticedes' => "Nomor HP $request->no_hp\nEmail = $request->email", 
-            'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$request->no_hp&text=Kode+OTP+Anda+=+$otp->kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas",
+            'noticedes' => "Nomor HP $otp->no_hp\nEmail = $request->email", 
+            'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$otp->no_hp&text=Kode+OTP+Anda+=+$otp->kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas",
             'telegramid' => 894149404
         ]);
         $notice2->save();

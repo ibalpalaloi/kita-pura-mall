@@ -95,10 +95,11 @@ class Mitra_Premium_Controller extends Controller
 	public function index_premium(){
 		return $this->untuk_mitra();
 		$toko = toko::where('users_id', Auth()->User()->id)->first();
-
+		
 		if($toko){
 			$ktp = Ktp_toko::where('toko_id', $toko->id)->first();
 			if($ktp){
+
 				$hari = array("Mon"=>0, "Tue"=>1, "Wed"=>2, "Thu"=>3, "Fri"=>4, "Sat"=>5, "Sun"=>6);
 				date_default_timezone_set('Asia/Makassar');
 				$tanggal_sekarang = date('D, Y-m-d');
@@ -110,16 +111,19 @@ class Mitra_Premium_Controller extends Controller
 				$data_pekanan_transaksi = array(0);
 
 				for ($i = 1; $i < count($data_pekanan_hari); $i++){
-					$jumlah_transaksi = Pesanan::where('toko_id', $toko->id)->where('tanggal', date('Y-m-d', strtotime($hari_senin."+$i days")))->count();
+					$j = $i-1;
+					$jumlah_transaksi = Transaksi::where('toko_id', $toko->id)->where('tanggal', date('Y-m-d', strtotime($hari_senin."+$j days")))->count();
 					$data_pekanan_transaksi[$i] = $jumlah_transaksi;
+				// echo $hari_
 				}
 
 				$data_bulanan_bulan = array("", "01", "02", '03', '04', '05', '06', '07', '08', '09', '10', '11', '12');
 				$data_bulanan_transaksi = array(0);
 				for ($i = 1; $i < count($data_bulanan_bulan); $i++){
-					$jumlah_transaksi = Pesanan::where('toko_id', $toko->id)->where(DB::raw('month(tanggal)'), $data_bulanan_bulan[$i])->count();
+					$jumlah_transaksi = Transaksi::where('toko_id', $toko->id)->where(DB::raw('month(tanggal)'), $data_bulanan_bulan[$i])->count();
 					$data_bulanan_transaksi[$i] = $jumlah_transaksi;
 				}
+				// dd($data_pekanan_transaksi);
 				return view('users/user/m-mitra/premium/index_premium', compact('toko', 'data_pekanan_hari', 'data_pekanan_transaksi', 'data_bulanan_bulan', 'data_bulanan_transaksi'));
 			}
 			else{
@@ -163,16 +167,19 @@ class Mitra_Premium_Controller extends Controller
 		$data_pekanan_transaksi = array(0);
 
 		for ($i = 1; $i < count($data_pekanan_hari); $i++){
-			$jumlah_transaksi = Pesanan::where('toko_id', $toko->id)->where('tanggal', date('Y-m-d', strtotime($hari_senin."+$i days")))->count();
+			$j = $i-1;
+			$jumlah_transaksi = Transaksi::where('toko_id', $toko->id)->where('tanggal', date('Y-m-d', strtotime($hari_senin."+$j days")))->count();
 			$data_pekanan_transaksi[$i] = $jumlah_transaksi;
+				// echo $hari_
 		}
 
 		$data_bulanan_bulan = array("", "01", "02", '03', '04', '05', '06', '07', '08', '09', '10', '11', '12');
 		$data_bulanan_transaksi = array(0);
 		for ($i = 1; $i < count($data_bulanan_bulan); $i++){
-			$jumlah_transaksi = Pesanan::where('toko_id', $toko->id)->where(DB::raw('month(tanggal)'), $data_bulanan_bulan[$i])->count();
+			$jumlah_transaksi = Transaksi::where('toko_id', $toko->id)->where(DB::raw('month(tanggal)'), $data_bulanan_bulan[$i])->count();
 			$data_bulanan_transaksi[$i] = $jumlah_transaksi;
 		}
+
 		return view('users/user/m-mitra/premium/index_premium', compact('toko', 'data_pekanan_hari', 'data_pekanan_transaksi', 'data_bulanan_bulan', 'data_bulanan_transaksi'));
 
 	}
@@ -256,21 +263,21 @@ class Mitra_Premium_Controller extends Controller
 			$toko->deskripsi = $request->deskripsi;
 			if($request->file("foto_toko")){
 				$files = $request->file("foto_toko");
-                $image_path_ori = "img/toko/$toko->id/logo/original/$request->nama_foto_temp";
-                $image_path_400x400 = "img/toko/$toko->id/logo/400x400/$request->nama_foto_temp";
-                $image_path_200x200 = "img/toko/$toko->id/logo/200x200/$request->nama_foto_temp";
+				$image_path_ori = "img/toko/$toko->id/logo/original/$request->nama_foto_temp";
+				$image_path_400x400 = "img/toko/$toko->id/logo/400x400/$request->nama_foto_temp";
+				$image_path_200x200 = "img/toko/$toko->id/logo/200x200/$request->nama_foto_temp";
 
-                \Storage::disk('public')->put($image_path_ori, file_get_contents($files));
-                \Storage::disk('public')->put($image_path_400x400, file_get_contents($files));
-                \Storage::disk('public')->put($image_path_200x200, file_get_contents($files));
+				\Storage::disk('public')->put($image_path_ori, file_get_contents($files));
+				\Storage::disk('public')->put($image_path_400x400, file_get_contents($files));
+				\Storage::disk('public')->put($image_path_200x200, file_get_contents($files));
 
-                \File::delete("public/$image_path_400x400");            
-                \File::delete("public/$image_path_200x200");            
+				\File::delete("public/$image_path_400x400");            
+				\File::delete("public/$image_path_200x200");            
 
-                File::move(public_path('img/temp_produk/400x400/'.$request->nama_foto_temp), public_path($image_path_400x400));
-                File::move(public_path('img/temp_produk/200x200/'.$request->nama_foto_temp), public_path($image_path_200x200));
+				File::move(public_path('img/temp_produk/400x400/'.$request->nama_foto_temp), public_path($image_path_400x400));
+				File::move(public_path('img/temp_produk/200x200/'.$request->nama_foto_temp), public_path($image_path_200x200));
 
-                $toko->logo_toko = $request->nama_foto_temp;   
+				$toko->logo_toko = $request->nama_foto_temp;   
 			}
 			$toko->save();
 
@@ -290,21 +297,21 @@ class Mitra_Premium_Controller extends Controller
 			$toko->deskripsi = $request->deskripsi;
 			if($request->file("foto_toko")){
 				$files = $request->file("foto_toko");
-                $image_path_ori = "img/toko/$toko->toko_id/logo/original/$request->nama_foto_temp";
-                $image_path_400x400 = "img/toko/$toko->toko_id/logo/400x400/$request->nama_foto_temp";
-                $image_path_200x200 = "img/toko/$toko->toko_id/logo/200x200/$request->nama_foto_temp";
+				$image_path_ori = "img/toko/$toko->toko_id/logo/original/$request->nama_foto_temp";
+				$image_path_400x400 = "img/toko/$toko->toko_id/logo/400x400/$request->nama_foto_temp";
+				$image_path_200x200 = "img/toko/$toko->toko_id/logo/200x200/$request->nama_foto_temp";
 
-                \Storage::disk('public')->put($image_path_ori, file_get_contents($files));
-                \Storage::disk('public')->put($image_path_400x400, file_get_contents($files));
-                \Storage::disk('public')->put($image_path_200x200, file_get_contents($files));
+				\Storage::disk('public')->put($image_path_ori, file_get_contents($files));
+				\Storage::disk('public')->put($image_path_400x400, file_get_contents($files));
+				\Storage::disk('public')->put($image_path_200x200, file_get_contents($files));
 
-                \File::delete("public/$image_path_400x400");            
-                \File::delete("public/$image_path_200x200");            
+				\File::delete("public/$image_path_400x400");            
+				\File::delete("public/$image_path_200x200");            
 
-                File::move(public_path('img/temp_produk/400x400/'.$request->nama_foto_temp), public_path($image_path_400x400));
-                File::move(public_path('img/temp_produk/200x200/'.$request->nama_foto_temp), public_path($image_path_200x200));
+				File::move(public_path('img/temp_produk/400x400/'.$request->nama_foto_temp), public_path($image_path_400x400));
+				File::move(public_path('img/temp_produk/200x200/'.$request->nama_foto_temp), public_path($image_path_200x200));
 
-                $toko->logo_toko = $request->nama_foto_temp;    
+				$toko->logo_toko = $request->nama_foto_temp;    
 
 
 			}
@@ -347,16 +354,16 @@ class Mitra_Premium_Controller extends Controller
 	}
 
 	public function simpan_foto_toko(Request $request){
-        $image = $request->image;
-        $size = $request->size;
-        list($type, $image) = explode(';', $image);
-        list(, $image)      = explode(',', $image);
-        $image = base64_decode($image);
-        $image_name= $request->nama.'.png';
-        $toko = toko::where('users_id', Session::get('id_user'))->first();
-        \Storage::disk('public')->put("img/temp_produk/".$size."/".$image_name, file_get_contents($request->image));
-        $image_path = url('/')."/public/img/temp_produk/".$size."/$image_name";
-        echo $image_name;
+		$image = $request->image;
+		$size = $request->size;
+		list($type, $image) = explode(';', $image);
+		list(, $image)      = explode(',', $image);
+		$image = base64_decode($image);
+		$image_name= $request->nama.'.png';
+		$toko = toko::where('users_id', Session::get('id_user'))->first();
+		\Storage::disk('public')->put("img/temp_produk/".$size."/".$image_name, file_get_contents($request->image));
+		$image_path = url('/')."/public/img/temp_produk/".$size."/$image_name";
+		echo $image_name;
 	}
 
 
@@ -382,20 +389,20 @@ class Mitra_Premium_Controller extends Controller
 
 	public function daftar_tunggu_pesanan(){
 		$toko = Toko::where('users_id', Auth()->User()->id)->first();
-        $data_keranjang = array();
-        $i = 0;
-        $toko_loop = DB::table('daftar_tunggu_pesanan')->select('keynota', 'users.no_hp', 'biodata.nama', 'tanggal', 'waktu')->distinct()->join('biodata', 'biodata.users_id', '=' , 'daftar_tunggu_pesanan.id_user')->join('users', 'users.id', '=', 'biodata.users_id')->where('id_toko', '=', $toko->id)->orderBy('tanggal', 'asc')->orderBy('waktu', 'asc')->get();
+		$data_keranjang = array();
+		$i = 0;
+		$toko_loop = DB::table('daftar_tunggu_pesanan')->select('keynota', 'users.no_hp', 'biodata.nama', 'tanggal', 'waktu')->distinct()->join('biodata', 'biodata.users_id', '=' , 'daftar_tunggu_pesanan.id_user')->join('users', 'users.id', '=', 'biodata.users_id')->where('id_toko', '=', $toko->id)->orderBy('tanggal', 'asc')->orderBy('waktu', 'asc')->get();
  		// dd($toko_loop);
-        foreach ($toko_loop as $row){
-        	$data_keranjang[$i]['no_hp'] = $row->no_hp;
-        	$data_keranjang[$i]['keynota'] = $row->keynota;
-        	$data_keranjang[$i]['nama'] = $row->nama;
-        	$data_keranjang[$i]['tanggal'] = $row->tanggal;
-        	$data_keranjang[$i]['waktu'] = $row->waktu;
-            $data_keranjang[$i]["product"] = DB::table('daftar_tunggu_pesanan')->select('keranjang_belanja.id', 'keranjang_belanja.jumlah', 'product.id as product_id', 'nama', 'jenis_harga', 'harga', 'harga_terendah', 'harga_tertinggi', 'diskon', 'foto_produk')->join('keranjang_belanja', 'keranjang_belanja.id', '=', 'daftar_tunggu_pesanan.id_product')->join('product', 'product.id', '=', 'keranjang_belanja.product_id')->where('keynota', $row->keynota)->get();
-            $i++;
-        }
-        $toko = Toko::where('users_id', Auth()->User()->id)->first();
+		foreach ($toko_loop as $row){
+			$data_keranjang[$i]['no_hp'] = $row->no_hp;
+			$data_keranjang[$i]['keynota'] = $row->keynota;
+			$data_keranjang[$i]['nama'] = $row->nama;
+			$data_keranjang[$i]['tanggal'] = $row->tanggal;
+			$data_keranjang[$i]['waktu'] = $row->waktu;
+			$data_keranjang[$i]["product"] = DB::table('daftar_tunggu_pesanan')->select('keranjang_belanja.id', 'keranjang_belanja.jumlah', 'product.id as product_id', 'nama', 'jenis_harga', 'harga', 'harga_terendah', 'harga_tertinggi', 'diskon', 'foto_produk')->join('keranjang_belanja', 'keranjang_belanja.id', '=', 'daftar_tunggu_pesanan.id_product')->join('product', 'product.id', '=', 'keranjang_belanja.product_id')->where('keynota', $row->keynota)->get();
+			$i++;
+		}
+		$toko = Toko::where('users_id', Auth()->User()->id)->first();
 
         // dd($data_keranjang);
 		return view('users/user/m-mitra/premium/daftar-tunggu-pesanan/index', compact('data_keranjang', 'toko'));
@@ -403,8 +410,8 @@ class Mitra_Premium_Controller extends Controller
 
 	public function hapus_daftar_tunggu_pesanan(Request $request)
 	{
-        Daftar_tunggu_pesanan::where('keynota', $request->id_keranjang)->delete();
-        return redirect()->back();
+		Daftar_tunggu_pesanan::where('keynota', $request->id_keranjang)->delete();
+		return redirect()->back();
 	}
 
 	public function konfirmasi_daftar_tunggu_pesanan(Request $request)
@@ -427,8 +434,8 @@ class Mitra_Premium_Controller extends Controller
 		// 	// $transaksi->save();
 		// }
 		// dd($daftar_tunggu_pesanan);
-        Daftar_tunggu_pesanan::where('keynota', $request->id_keranjang)->delete();
-        return redirect()->back();
+		Daftar_tunggu_pesanan::where('keynota', $request->id_keranjang)->delete();
+		return redirect()->back();
 	}
 
 	public function kirim_lokasi(){

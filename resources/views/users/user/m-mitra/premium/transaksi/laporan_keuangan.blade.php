@@ -528,8 +528,9 @@ if (!empty($_GET['deskripsi'])){
 		<a id="defaultheader_logo" title="Kitabisa" style="height: 100%; width: 70%; display: flex; justify-content: center; align-items: center;">
 			<img src="<?=url('/')?>/public/img/logo_premium.svg" style="height: 80%;">
 		</a>
-		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center;">
-			<img src="<?=url('/')?>/public/img/icon_svg/riwayat_circle.svg">
+		<a style="width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; color: #353535;">
+			<!-- <img src="<?=url('/')?>/public/img/icon_svg/riwayat_circle.svg"> -->
+			a
 		</a>
 	</div>
 </header>
@@ -541,14 +542,14 @@ if (!empty($_GET['deskripsi'])){
 		<div style="padding: 0px 16px 1em;">
 			<h3 style="color: white; font-size: 1.75rem; font-weight: 500;">Laporan</h3>
 			<div style=" display: flex; justify-content: space-between; align-items: center;">
-				<div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">Statistik</div>			
+				<div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">Detail Laporan Keuangan</div>			
 			</div>
 			<div style="display: flex; flex-direction: column; justify-content: center; color: white; align-items: center;">
 				<div style="background: linear-gradient(180deg, #353434 -73.2%, #212121 12.46%, #2E2D2D 92.14%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21); width: 100%; position: relative; display: flex; padding: 1em 2em; border-radius: 0.5em; margin-top:1em;">
 					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_pemasukan.svg" style="margin-right: 1em;">
 					<div>
 						<div style="font-size: 0.8em;">Pemasukan</div>
-						<div style="font-size: 1.2em; font-weight: 600;">Rp. 5.000.000</div>
+						<div style="font-size: 1.2em; font-weight: 600;" id="pemasukan_value">IDR. {{number_format($total_pemasukan,0,',','.')}}</div>
 					</div>					
 					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_pemasukan.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
 				</div>
@@ -556,7 +557,7 @@ if (!empty($_GET['deskripsi'])){
 					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_pengeluaran.svg" style="margin-right: 1em;">
 					<div>
 						<div style="font-size: 0.8em;">Pengeluaran</div>
-						<div style="font-size: 1.2em; font-weight: 600;">Rp. 5.000.000</div>
+						<div style="font-size: 1.2em; font-weight: 600;" id="pengeluaran_value">IDR. {{number_format($total_pengeluaran,0,',','.')}}</div>
 					</div>					
 					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_pengeluaran.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
 				</div>
@@ -564,7 +565,7 @@ if (!empty($_GET['deskripsi'])){
 					<img src="<?=url('/')?>/public/img/button/toko_premium/icon_keuangan.svg" style="margin-right: 1em;">
 					<div>
 						<div style="font-size: 0.8em;">Keuntungan</div>
-						<div style="font-size: 1.2em; font-weight: 600;">Rp. 5.000.000</div>
+						<div style="font-size: 1.2em; font-weight: 600;" id="keuntungan_value">IDR. {{number_format($total_pemasukan-$total_pengeluaran,0,',','.')}}</div>
 					</div>					
 					<img src="<?=url('/')?>/public/img/button/toko_premium/btn_icon_keuangan.svg" style="position: absolute; right: 0; top: 0; height: 100%;">
 				</div>
@@ -585,19 +586,25 @@ if (!empty($_GET['deskripsi'])){
 				</div>
 
 			</div>
-			<div class="input-group mb-3 st0" id="div_rentan_tanggal" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em; display: flex; justify-content: space-between;" hidden>
-				<div style="width: 48%;">
-					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Tanggal Mulai</div>
-					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em; ">
-						<input type="date" class="form-control-mall" id="tanggal_mulai" name="tanggal_mulai" aria-label="Tanggal mulai" aria-describedby="basic-addon1" style="width: 100%; color: white; border-radius: 0.5em;" value="<?=date('Y-m-d')?>">
+			<div class="input-group mb-3 st0" id="div_rentan_tanggal" style="color: white; padding: 0.5em 1em 0.5em 1em; border-radius: 0.5em;" hidden>
+				<div style="display: flex; justify-content: space-between; width: 100%;">
+					<div style="width: 48%;">
+						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Tanggal Mulai</div>
+						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em; ">
+							<input type="date" class="form-control-mall" id="tanggal_mulai" name="tanggal_mulai" aria-label="Tanggal mulai" aria-describedby="basic-addon1" style="width: 100%; color: white; border-radius: 0.5em;" value="<?=date('Y-m-d')?>">
+						</div>
+					</div>
+					<div style="width: 48%">
+						<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Tanggal Akhir</div>
+						<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em; ">
+							<input type="date" class="form-control-mall" id="tanggal_akhir" name="tanggal_akhir" aria-label="Tanggal akhir" aria-describedby="basic-addon1" style="width: 100%; color: white; border-radius: 0.5em;" value="<?=date('Y-m-d')?>">
+						</div>
 					</div>
 				</div>
-				<div style="width: 48%">
-					<div style="margin-top: 0px; color: white; font-weight: 600; font-size: 0.75em;">Tanggal Akhir</div>
-					<div style="display: flex; justify-content: flex-start; width: 100%; margin: 0.2em 0em 0.3em 0em; ">
-						<input type="date" class="form-control-mall" id="tanggal_akhir" name="tanggal_akhir" aria-label="Tanggal akhir" aria-describedby="basic-addon1" style="width: 100%; color: white; border-radius: 0.5em;" value="<?=date('Y-m-d')?>">
-					</div>
+				<div class="form-control-mall" onclick="lihat_laporan_range()" style="width: 100%; border-radius: 0.5em; justify-content: center; align-items: center; display: flex; background: white; color: #202020; margin-bottom: 0.5em;">
+					Lihat Laporan
 				</div>
+
 			</div>			
 		</div>
 		<table class="table" style="color: white;">
@@ -639,23 +646,47 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 	function pilih_rentan_tanggal(){
 		var rentan_tanggal = $("#rentan_tanggal").val();
+		// alert(rentan_tanggal);
 		if (rentan_tanggal == 'Pilih Tanggal'){
 			$("#div_rentan_tanggal").prop('hidden', false);
 		}
 		else {
-
 			$.ajax({
 				url : "{{ route('pilih_rentan_tanggal') }}",
 				method : 'post',
+				dataType:'json',
 				data : {rentan:rentan_tanggal, _token:'{{csrf_token()}}'},
 				success:function(data)
 				{
-					$("#body_transaksi").html(data);
+					// alert(data);
+					$("#body_transaksi").html(data.hasil);
+					$("#pemasukan_value").html(data.pemasukan);
+					$("#pengeluaran_value").html(data.pengeluaran);
+					$("#keuntungan_value").html(data.keuntungan);
 				}
 			})
 			$("#div_rentan_tanggal").prop('hidden', true);			
 		}
 	}
+
+	function lihat_laporan_range(){
+		var tanggal_mulai = $("#tanggal_mulai").val();
+		var tanggal_akhir = $("#tanggal_akhir").val();
+		$.ajax({
+			url : "{{ route('pilih_rentan_tanggal_range') }}",
+			method : 'post',
+			dataType:'json',
+			data : {tanggal_mulai:tanggal_mulai, tanggal_akhir:tanggal_akhir, _token:'{{csrf_token()}}'},
+			success:function(data)
+			{
+				$("#body_transaksi").html(data.hasil);
+				$("#pemasukan_value").html(data.pemasukan);
+				$("#pengeluaran_value").html(data.pengeluaran);
+				$("#keuntungan_value").html(data.keuntungan);
+			}
+		})
+	}
+
 
 
 </script>

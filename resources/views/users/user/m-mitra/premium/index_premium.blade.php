@@ -455,7 +455,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 			</a>
 			@if ($toko->status == 'Tester')
 			<a onclick="show_loader()" href="<?=url('/')?>/akun/mitra/premium/transaksi" style="padding-left: 0.4em;">
-				<img src="<?=url('/')?>/public/img/button/toko_premium/list_pesanan.svg" style="width: 100%;">
+				<img src="<?=url('/')?>/public/img/button/toko_premium/laporan_keuangan.svg" style="width: 100%;">
 			</a>
 			@endif
 			<a onclick="show_loader()" href="<?=url('/')?>/akun/mitra/premium/daftar-tunggu-pesanan" style="padding-left: 0.4em;">
@@ -536,6 +536,23 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	create_chart(label_bulanan, jumlah_bulanan, color_bulanan, "chart-bulanan", 10, point_radius_bulanan, 13);
 	create_chart(label_pekanan, jumlah_pekanan, color_pekanan, "chart-pekanan", 10, point_radius_pekanan, 8);
 
+
+
+	function lihat_chart(value){
+		if (value == 'pekanan'){
+			$("#menu_bulanan").removeClass("analitik-active");
+			$("#menu_pekanan").addClass("analitik-active");
+			$("#chart-pekanan").prop('hidden', false);
+			$("#chart-bulanan").prop('hidden', true);
+		}
+		else {
+			$("#menu_pekanan").removeClass("analitik-active");
+			$("#menu_bulanan").addClass("analitik-active");
+			$("#chart-pekanan").prop('hidden', true);
+			$("#chart-bulanan").prop('hidden', false);
+		}
+	}
+
 	function atur_maps(){
 		$("#modal-atur-maps").modal('show');
 	}
@@ -563,35 +580,19 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	@endif
 
 
-	function lihat_chart(value){
-		if (value == 'pekanan'){
-			$("#menu_bulanan").removeClass("analitik-active");
-			$("#menu_pekanan").addClass("analitik-active");
-			$("#chart-pekanan").prop('hidden', false);
-			$("#chart-bulanan").prop('hidden', true);
-		}
-		else {
-			$("#menu_pekanan").removeClass("analitik-active");
-			$("#menu_bulanan").addClass("analitik-active");
-			$("#chart-pekanan").prop('hidden', true);
-			$("#chart-bulanan").prop('hidden', false);
-		}
-	}
+	// function readURL(input, id) {
+	// 	if (input.files && input.files[0]) {
+	// 		var reader = new FileReader();
 
+	// 		reader.onload = function (e) {
+	// 			$('#pic_toko_privew_'+id).attr('src', e.target.result);
+	// 			$("#div_pic_toko_privew_"+id).prop('hidden', false);
+	// 			$("#div_pic_toko_"+id).prop('hidden', true);
+	// 		}
 
-	function readURL(input, id) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-
-			reader.onload = function (e) {
-				$('#pic_toko_privew_'+id).attr('src', e.target.result);
-				$("#div_pic_toko_privew_"+id).prop('hidden', false);
-				$("#div_pic_toko_"+id).prop('hidden', true);
-			}
-
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
+	// 		reader.readAsDataURL(input.files[0]);
+	// 	}
+	// }
 
 	function create_chart(label, jumlah, color, target, margin_top, point_radius, end_data){
 		var chartData = {
@@ -675,6 +676,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 			}
 		});
 	}
+
 
 </script>
 
