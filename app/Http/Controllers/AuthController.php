@@ -25,6 +25,22 @@ use App\Notifications\TelegramRegister;
 class AuthController extends Controller
 {
     //
+    public function otp_wapibot($no_hp, $otp){
+        $no_hp = substr($no_hp, 1);
+        $json = [
+            "apikey" => "ec523173987ec087571b5d96f91c182e9154cd97",
+            "to" => $no_hp,
+            "message" => "Kode OTP Anda = ".$otp
+        ];
+        $client = new GuzzleHttp\client();
+        $response = $client->request('POST', 'https://app.wapibot.com/api/send/text',
+        ['headers'=>['Content-Type'=>'application/json'],
+        'json'=>$json
+        ]);
+
+        // echo $response->getBody();
+    }
+
     public function redirectToGoogle(){
         return Socialite::driver('google')->redirect();
     }
@@ -183,7 +199,7 @@ class AuthController extends Controller
         $otp->kode_otp = $this->buat_kode_otp();
         $otp->status = "belum dikirim";
         $otp->save();
-        
+               
         $notice = new Notice([
             'notice' => 'Pengguna Baru',
             'noticedes' => "Nomor HP $otp->no_hp\nEmail = $request->email", 
@@ -208,8 +224,9 @@ class AuthController extends Controller
             'telegramid' => 894149404
         ]);
         $notice2->save();
-        $notice2->notify(new TelegramRegister());        
-        // $this->send_email_otp($otp->email, $otp->kode_otp);
+        $notice2->notify(new TelegramRegister());   
+        
+        $this->otp_wapibot($otp->no_hp, $otp->kode_otp);
         $this->send_email_otp($otp->email, $otp->kode_otp);
         return redirect('/input_otp/'.$otp->email.'/'.$otp->no_hp);
     }
@@ -377,6 +394,7 @@ class AuthController extends Controller
                             ['kode_otp', $request->kode_otp]
         ])->get();
         if(count($otp)>0){
+            $otp = Otp::where('kode_otp', $request->kode_otp)->delete();
             return redirect('/input_password/'.$request->email.'/'.$request->no_hp);
         }
         return redirect('/input_otp/'.$request->email.'/'.$request->no_hp);
