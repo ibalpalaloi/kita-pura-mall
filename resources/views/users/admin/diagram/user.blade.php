@@ -40,6 +40,8 @@ $value =['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
 <div id="container"></div> 
 <br><br><br>
 <div id="diagram_kategori_toko"></div>
+<br><br><br>
+<div id="diagram_kategori_produk"></div>
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
@@ -134,6 +136,65 @@ $value =['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
     series: [{
         name: 'Toko',
         data: {!!json_encode($jumlah_toko)!!},
+    }]
+});
+</script>
+
+<script>
+    Highcharts.chart('diagram_kategori_produk', {
+    chart: {
+        type: 'bar'
+    },
+    title: {
+        text: 'Kategori Produk'
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        categories: {!!json_encode($kategori_produk)!!},
+        title: {
+            text: null
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Population (millions)',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' Produk'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        x: -40,
+        y: 80,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+        shadow: true
+    },
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Produk',
+        data: {!!json_encode($jumlah_kategori_produk)!!},
     }]
 });
 </script>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Toko;
 use App\Models\Kategori_toko;
+use App\Models\Kategori;
 use Carbon\Carbon;
 
 class Diagram_Controller extends Controller
@@ -36,8 +37,20 @@ class Diagram_Controller extends Controller
             $kategori_toko[] = $data->kategori;
             $jumlah_toko[] = $data->kategorinya_toko->count();
         }
+
+        // diagram kategori produk
+        $kategori_produk_ = Kategori::all();
+        $kategori_produk = [];
+        $jumlah_kategori_produk;
+        foreach($kategori_produk_ as $data){
+            $kategori_produk[] = $data->nama;
+            $jumlah_kategori_produk[] = $data->product->count();
+        }
+
+
         return view('users.admin.diagram.user', compact('array_date', 'array_count_user', 'array_count_toko', 'data',
-                                                        'kategori_toko', 'jumlah_toko'
+                                                        'kategori_toko', 'jumlah_toko',
+                                                        'kategori_produk', 'jumlah_kategori_produk'
                                                         ));
     }
 
@@ -74,4 +87,6 @@ class Diagram_Controller extends Controller
                                                         'kategori_toko', 'jumlah_toko'
                                                         ));
     }
+
+
 }

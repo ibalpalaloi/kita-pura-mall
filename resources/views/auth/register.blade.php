@@ -293,6 +293,9 @@
             <div class="card-body" style="padding-top: 2em;">
                 <form method="post" action="<?=url('/')?>/buat-akun/input_otp" id="form_input">
                     {{ csrf_field() }}
+                    @if(session()->has('error'))
+                        <label for="" style="color: red">{{ session()->get('error') }}</label>
+                    @endif
                     <div class="form-group">
                         <label for="exampleEmail" class="bmd-label-floating" id="label_email" style="color: #999797">Alamat Email</label>
                         <input type="email" name="email" id="email" class="form-control" id="exampleEmail"/>

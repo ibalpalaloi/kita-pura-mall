@@ -13,4 +13,8 @@ class Kategori extends Model
     public function sub_kategori(){
         return $this->hasMany(Sub_kategori::class);
     }
+
+    public function product(){
+        return $this->hasMany(Product::class);
+    }
 }
