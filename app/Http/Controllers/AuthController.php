@@ -394,7 +394,6 @@ class AuthController extends Controller
                             ['kode_otp', $request->kode_otp]
         ])->get();
         if(count($otp)>0){
-            $otp = Otp::where('kode_otp', $request->kode_otp)->delete();
             return redirect('/input_password/'.$request->email.'/'.$request->no_hp);
         }
         return redirect('/input_otp/'.$request->email.'/'.$request->no_hp);
@@ -488,7 +487,7 @@ class AuthController extends Controller
 
         $otp = Otp::where([
             ['email', $request->email],
-            ['no_hp', $this->generate_no_telp($request->no_hp)]
+            ['no_hp', $request->no_hp]
         ])->delete();
         
         Auth::login($user);

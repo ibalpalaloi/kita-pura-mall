@@ -9,6 +9,7 @@ use App\Models\Kode_lupa_password;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Send_Kode_Lupa_Password;
 use Auth;
+use GuzzleHttp;
 use App\Models\Notice;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Notification\Notifiable;
@@ -18,6 +19,21 @@ use App\Notifications\TelegramRegister;
 class Lupa_Password_Controller extends Controller
 {
     //
+    public function otp_wapibot($no_hp, $otp){
+        $json = [
+            "apikey" => "ec523173987ec087571b5d96f91c182e9154cd97",
+            "to" => $no_hp,
+            "message" => "Kode Lupa Password Anda = ".$otp
+        ];
+        $client = new GuzzleHttp\client();
+        $response = $client->request('POST', 'https://app.wapibot.com/api/send/text',
+        ['headers'=>['Content-Type'=>'application/json'],
+        'json'=>$json
+        ]);
+
+        // echo $response->getBody();
+    }
+
     public function view_cari_akun(){
         return view('auth.lupa_password_cari_akun');
     }
@@ -63,6 +79,7 @@ class Lupa_Password_Controller extends Controller
             $akun = 'Whatsapp';
             $user = User::where('id', $request->id_user)->first();
             $no_hp = substr($user->no_hp, 1);
+            $this->otp_wapibot($no_hp, $tb_kode->kode);
 
 
             $notice = new Notice([
