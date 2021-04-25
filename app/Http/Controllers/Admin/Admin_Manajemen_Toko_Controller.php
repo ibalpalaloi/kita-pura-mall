@@ -54,7 +54,7 @@ class Admin_Manajemen_Toko_Controller extends Controller
 
     public function daftar_tunggu_toko(){
         $daftar_tunggu = Daftar_tunggu_toko::all();
-        
+        $daftar_tunggu = Daftar_tunggu_toko::orderBy('created_at', 'desc')->get();
         return view('users.admin.m-toko.daftar_tunggu', ['daftar_toko'=>$daftar_tunggu]);
     }
 

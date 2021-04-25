@@ -31,6 +31,7 @@ Daftar Tunggu
                                 <th scope="col">Pemilik</th>
                                 <th scope="col">No Hp</th>
                                 <th scope="col">Alamat</th>
+                                <th scope="col">Waktu</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,6 +45,7 @@ Daftar Tunggu
                                 <td>{{$data->nama_pemilik}}</td>
                                 <td>{{$data->no_hp}}</td>
                                 <td>{{$data->alamat_toko}}</td>
+                                <td>{{$data->created_at}}</td>
                             </tr>
                             @endforeach
                         </tbody>
