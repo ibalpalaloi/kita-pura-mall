@@ -384,14 +384,38 @@ if (!empty($_GET['hari'])){
 					</div>
 					<div class="deskripsi-product" style="width: 47%;"> 
 						<div class="nama" id="nama_{{$row->id}}" style="font-size: 1em; font-weight: 500;"><?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 35)))?>@if (strlen($row->nama) > 35)..@endif</div>
+
+						@php $hasil_diskon_string = ""; @endphp
+						@if ($row->jenis_harga == 'Statis')
+						@if($row->diskon != '0')
+						<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
+							<s>IDR. {{number_format($row->harga)}}</s>
+						</div>
+						@php
+						$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
+						@endphp
+						<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.1em; line-height: 1em; font-weight: 500;">IDR. {{number_format($hasil_diskon)}}</div>
+						@php $hasil_diskon_string = number_format($hasil_diskon); @endphp
+						@else
 						<div class="harga">IDR. {{number_format($row->harga,0,',','.')}}</div>
+						@endif	
+
+						@else
+						<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
+							Harga Mulai
+						</div>
+						<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{number_format($row->harga_terendah)}}</div>
+
+						@endif
+
 						<div class="button-detail" style="margin-top: 1em; display: flex;">
-							<div id="kurang_{{$row->id}}" style="width: 2em; height: 2em;background: #FF0F6F; color: white;border-radius: 50%; text-align: center; font-size: 0.7em; padding-top: 0.3em; margin-right: 0.2em;" onclick='ubah_pesanan("<?=$row->id?>", "kurang", "<?=$row->harga?>", "<?=$data_keranjang[$i]['id_toko']?>")'><i class="fa fa-minus"></i></div>
+							<div id="kurang_{{$row->id}}" style="width: 2em; height: 2em;background: #FF0F6F; color: white;border-radius: 50%; text-align: center; font-size: 0.7em; padding-top: 0.3em; margin-right: 0.2em;" onclick='ubah_pesanan("<?=$row->id?>", "kurang", "<?=$row->harga?>", "<?=$data_keranjang[$i]['id_toko']?>", "<?=$row->diskon?>")'><i class="fa fa-minus"></i></div>
 							<div style="width: 3em; height: 2em; background: #FF0F6F; color: white; border-radius: 2em; display: flex; justify-content: center; align-items: center; margin-right: 0.2em; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan_<?=$row->id?>">{{$row->jumlah}}</div>
-							<div id="tambah_{{$row->id}}" style="width: 2.1em; height: 2em; background: #FF0F6F; color: white; border-radius: 50%;text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick='ubah_pesanan("<?=$row->id?>", "tambah", "<?=$row->harga?>", "<?=$data_keranjang[$i]['id_toko']?>")'><i class="fa fa-plus"></i></div>
+							<div id="tambah_{{$row->id}}" style="width: 2.1em; height: 2em; background: #FF0F6F; color: white; border-radius: 50%;text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick='ubah_pesanan("<?=$row->id?>", "tambah", "<?=$row->harga?>", "<?=$data_keranjang[$i]['id_toko']?>", "<?=$row->diskon?>")'><i class="fa fa-plus"></i></div>
 						</div>									
 					</div>
-					<a  href="<?=url('/')?>/{{$data_keranjang[$i]['username']}}/daftar-menu/{{$row->product_id}}" class="foto-product" style="width: 30%;">
+
+					<a href="<?=url('/')?>/{{$data_keranjang[$i]['username']}}/daftar-menu/{{$row->product_id}}" class="foto-product" style="width: 30%;">
 						<img src="<?=url('/')?>/public/img/toko/{{$data_keranjang[$i]['id_toko']}}/produk/240x240/{{$row->foto_produk}}" style="width: 100%; border-radius: 1em;">
 					</a>
 					<div class="" style="display: flex; justify-content: center; align-items: center; width: 8%;" onclick="hapus_keranjang('<?=$row->id?>')">
@@ -401,25 +425,36 @@ if (!empty($_GET['hari'])){
 					</div>
 				</div>
 
-			</div>
-			<script type="text/javascript">
-				sub_total["<?=$data_keranjang[$i]['id_toko']?>"] += <?=$row->harga?>*<?=$row->jumlah?>;
-				sub_keranjang["<?=$data_keranjang[$i]['id_toko']?>"] += "<?=$row->id?>"+"~";
-			</script>
-			@endforeach
-		</div>
-	</div>
-	<div style="width: 100%; display: flex; justify-content: center;">
-		<div class="" onclick='WhatsappMessage("<?=$data_keranjang[$i]['no_hp']?>", "<?=$data_keranjang[$i]['nama_toko']?>", "<?=$data_keranjang[$i]['id_toko']?>", "no")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
-			<img src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_<?=$data_keranjang[$i]['id_toko']?>">Rp. 1.500.000</span>
-		</div>
-	</div>
-	<script type="text/javascript">
-		document.getElementById("sub_total_<?=$data_keranjang[$i]['id_toko']?>").innerHTML = formatToCurrency(sub_total["<?=$data_keranjang[$i]['id_toko']?>"]);
-	</script>
+				<script type="text/javascript">
+					@if ($row->jenis_harga == 'Statis')
+					@if($row->diskon != '0')
+					@php
+					$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
+					$hasil_diskon_string = number_format($hasil_diskon);				
+					@endphp
+					sub_total["<?=$data_keranjang[$i]['id_toko']?>"] += <?=$hasil_diskon?>*<?=$row->jumlah?>;
+					@else
+					sub_total["<?=$data_keranjang[$i]['id_toko']?>"] += <?=$row->harga?>*<?=$row->jumlah?>;
+					@endif	
+					@endif
+					sub_keranjang["<?=$data_keranjang[$i]['id_toko']?>"] += "<?=$row->id?>"+"~";
+				</script>
 
-	@endfor
-</div>
+				@endforeach
+
+			</div>
+		</div>
+		<div style="width: 100%; display: flex; justify-content: center;">
+			<div class="" onclick='WhatsappMessage("<?=$data_keranjang[$i]['no_hp']?>", "<?=$data_keranjang[$i]['nama_toko']?>", "<?=$data_keranjang[$i]['id_toko']?>", "no")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
+				<img src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_<?=$data_keranjang[$i]['id_toko']?>">Rp. 1.500.000</span>
+			</div>
+		</div>
+		<script type="text/javascript">
+			document.getElementById("sub_total_<?=$data_keranjang[$i]['id_toko']?>").innerHTML = formatToCurrency(sub_total["<?=$data_keranjang[$i]['id_toko']?>"]);
+		</script>
+
+		@endfor
+	</div>
 
 
 </main>
@@ -510,13 +545,18 @@ if (!empty($_GET['hari'])){
 			var produk = "";
 			var jumlah_pesanan = "";
 			var nama_produk = "";
+			var keynota = "";
+
 			if (current == 'yes'){
 				var result = sub_keranjang_current[id_product].split("~");
 				var harga_sub_total = $("#sub_total_current_"+id_product).html();
+				var harga_sub_total_wa = sub_total_current[id_product];
+
 			}
 			else {
 				var result = sub_keranjang[id_product].split("~");
 				var harga_sub_total = $("#sub_total_"+id_product).html();
+				var harga_sub_total_wa = sub_total[id_product];
 			}
 			
 			for (var i = 0; i < result.length-1; i++){
@@ -524,109 +564,125 @@ if (!empty($_GET['hari'])){
 					jumlah_pesanan = $("#jumlah_pesanan_"+result[i]).html();
 					nama_produk = $("#nama_"+result[i]).html();
 					produk += jumlah_pesanan+" "+nama_produk+"\n";
+    				keynota += result[i]+jumlah_pesanan;
+
 				}
 			}
 			produk += "dengan harga total "+harga_sub_total;
 			
+			keynota += id_product+harga_sub_total_wa;
 
 			var message = '[Order Produk Kitapuramall]\n\nHaloo '+nama+" saya ingin pesan produk \n"+produk;
 
-        // apilink += isMobile ? 'api' : 'web';
-        // apilink += '.whatsapp.com/send?phone=' + phone + '&text=' + encodeURI(message);
-        var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
-        location.href=walink;
-    } 
+			var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
+
+			for (var i = 0; i < result.length-1; i++){
+				if ($('#checkbox_'+result[i]).is(':checked')) {
+					$.ajax({
+						url: "<?=url('/')?>/user/keranjang/tambah_daftar_tunggu",
+						type: "POST",
+						data: {"id_product":result[i], "id_toko":id_product, 'keynota':keynota},
+						success: function (data) {
+
+						}
+					});
+
+				}
+			}        
+			location.href=walink;
+		} 
 
 
-    var status_ganti_foto = 0;
+		var status_ganti_foto = 0;
 
-    @if(Session::has('message'))
-    $('#modal-pemberitahuan').modal('show');
-    @endif
+		@if(Session::has('message'))
+		$('#modal-pemberitahuan').modal('show');
+		@endif
 
-    @if(Session::has('pass_message'))
-    $('#modal-ganti-pass').modal('show');
-    @endif
+		@if(Session::has('pass_message'))
+		$('#modal-ganti-pass').modal('show');
+		@endif
 
 
-    function pilih_jenkel(id, jenkel){
-    	$("#jenis_kelamin").val(jenkel);
-    	if (id == 'option_pria'){
-    		$("#option_pria").css('color', '#1c2645');
-    		$("#option_wanita").css('color', '#b3b7c0');
-    	}
-    	else {
-    		$("#option_wanita").css('color', '#1c2645');
-    		$("#option_pria").css('color', '#b3b7c0');
-    	}
-    }
+		function pilih_jenkel(id, jenkel){
+			$("#jenis_kelamin").val(jenkel);
+			if (id == 'option_pria'){
+				$("#option_pria").css('color', '#1c2645');
+				$("#option_wanita").css('color', '#b3b7c0');
+			}
+			else {
+				$("#option_wanita").css('color', '#1c2645');
+				$("#option_pria").css('color', '#b3b7c0');
+			}
+		}
 
-    function input_focus(id){
-    	$("#div_"+id).css('border', '1px solid #d1d2d4');
-    }
+		function input_focus(id){
+			$("#div_"+id).css('border', '1px solid #d1d2d4');
+		}
 
-    function input_blur(id){
-    	$("#div_"+id).css('border', '1px solid white');		
-    }
+		function input_blur(id){
+			$("#div_"+id).css('border', '1px solid white');		
+		}
 
-    function ubah_pesanan(id, operasi, harga, id_product){
-    	if ($('#checkbox_'+id).is(':checked')) {
+		function ubah_pesanan(id, operasi, harga, id_product, diskon){
+			var harga_diskon = harga-harga*diskon/100;
+			if ($('#checkbox_'+id).is(':checked')) {
 
-    		var jumlah_pesanan = $("#jumlah_pesanan_"+id).html();
-    		if ((operasi == 'kurang') && (jumlah_pesanan == 1)){
+				var jumlah_pesanan = $("#jumlah_pesanan_"+id).html();
+				if ((operasi == 'kurang') && (jumlah_pesanan == 1)){
 
-    		}
-    		else {
-    			$.ajax({
-    				url: "<?=url('/')?>/user/keranjang/ubah_jumlah",
-    				type: "POST",
-    				data: {"jumlah_pesanan":jumlah_pesanan, "id":id, 'operasi':operasi},
-    				success: function (data) {
+				}
+				else {
+					$.ajax({
+						url: "<?=url('/')?>/user/keranjang/ubah_jumlah",
+						type: "POST",
+						data: {"jumlah_pesanan":jumlah_pesanan, "id":id, 'operasi':operasi},
+						success: function (data) {
     				// alert(data);
     				var sub_total_value = sub_total[id_product];
 
     				$("#jumlah_pesanan_"+id).html(data);
     				if (operasi == 'kurang'){
-    					sub_total_value = parseInt(sub_total_value)-parseInt(harga);
+    					sub_total_value = parseInt(sub_total_value)-parseInt(harga_diskon);
     					$("#sub_total_"+id_product).html(formatToCurrency(sub_total_value));
     				}
     				else {
-    					sub_total_value = parseInt(sub_total_value)+parseInt(harga);
+    					sub_total_value = parseInt(sub_total_value)+parseInt(harga_diskon);
     					$("#sub_total_"+id_product).html(formatToCurrency(sub_total_value));
     				}
     				sub_total[id_product] = sub_total_value;
 
     			}
     		});
-    		}
-    	}
-    	else {
-    		alert('silahkan centang');
-    	}
+				}
+			}
+			else {
+				alert('silahkan centang');
+			}
 
 
 
-    }
+		}
 
-    function hapus_keranjang(id){
-    	$("#id_keranjang").val(id);
-    	$("#modal-keranjang-black").modal('show');
-    }
+		function hapus_keranjang(id){
+			$("#id_keranjang").val(id);
+			$("#modal-keranjang-black").modal('show');
+		}
 
 
-    function ubah_pesanan_current(id, operasi, harga, id_product){
-    	if ($('#checkbox_'+id).is(':checked')) {
+		function ubah_pesanan_current(id, operasi, harga, id_product){
+			if ($('#checkbox_'+id).is(':checked')) {
 
-    		var jumlah_pesanan = $("#jumlah_pesanan_"+id).html();
-    		if ((operasi == 'kurang') && (jumlah_pesanan == 1)){
+				var jumlah_pesanan = $("#jumlah_pesanan_"+id).html();
+				if ((operasi == 'kurang') && (jumlah_pesanan == 1)){
 
-    		}
-    		else {
-    			$.ajax({
-    				url: "<?=url('/')?>/user/keranjang/ubah_jumlah",
-    				type: "POST",
-    				data: {"jumlah_pesanan":jumlah_pesanan, "id":id, 'operasi':operasi},
-    				success: function (data) {
+				}
+				else {
+					$.ajax({
+						url: "<?=url('/')?>/user/keranjang/ubah_jumlah",
+						type: "POST",
+						data: {"jumlah_pesanan":jumlah_pesanan, "id":id, 'operasi':operasi},
+						success: function (data) {
     				// alert(data);
     				var sub_total_value = sub_total_current[id_product];
     				$("#jumlah_pesanan_"+id).html(data);
@@ -643,21 +699,21 @@ if (!empty($_GET['hari'])){
     			}
     		});
 
-    		}
-    	}
-    	else {
-    		alert('silahkan centang');
-    	}
+				}
+			}
+			else {
+				alert('silahkan centang');
+			}
 
 
 
-    }
+		}
 
 
 
-    var resize = $('#upload-demo').croppie({
-    	enableExif: true,
-    	enableOrientation: true,    
+		var resize = $('#upload-demo').croppie({
+			enableExif: true,
+			enableOrientation: true,    
     viewport: { // Default { width: 100, height: 100, type: 'square' } 
     width: 300,
     height: 300,
@@ -670,51 +726,51 @@ if (!empty($_GET['hari'])){
 });
 
 
-    $('#image').on('change', function () { 
-    	$(".cr-slider-wrap").css("display", "block");
-    	var reader = new FileReader();
-    	reader.onload = function (e) {
-    		resize.croppie('bind',{
-    			url: e.target.result
-    		}).then(function(){
-    			console.log('jQuery bind complete');
-    		});
-    	}
-    	$("#div_upload").prop('hidden', false);
-    	$("#unggah_foto").prop('hidden', true);
-    	$("#prev_image").remove();
-    	reader.readAsDataURL(this.files[0]);
-    });
+		$('#image').on('change', function () { 
+			$(".cr-slider-wrap").css("display", "block");
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				resize.croppie('bind',{
+					url: e.target.result
+				}).then(function(){
+					console.log('jQuery bind complete');
+				});
+			}
+			$("#div_upload").prop('hidden', false);
+			$("#unggah_foto").prop('hidden', true);
+			$("#prev_image").remove();
+			reader.readAsDataURL(this.files[0]);
+		});
 
 
-    $('.upload-image').on('click', function (ev) {
-    	resize.croppie('result', {
-    		circle: false,
-    		type: 'canvas',
-    		size: 'viewport'
-    	}).then(function (img) {
-    		$.ajax({
+		$('.upload-image').on('click', function (ev) {
+			resize.croppie('result', {
+				circle: false,
+				type: 'canvas',
+				size: 'viewport'
+			}).then(function (img) {
+				$.ajax({
 
-    			url: "<?=url('/')?>/akun/pengaturan-profil/simpan-foto",
-    			type: "POST",
-    			data: {"image":img},
-    			success: function (data) {
-    				$('#pic_toko_privew').attr('src', img);
-    				$("#modal-sukses").modal('hide');
+					url: "<?=url('/')?>/akun/pengaturan-profil/simpan-foto",
+					type: "POST",
+					data: {"image":img},
+					success: function (data) {
+						$('#pic_toko_privew').attr('src', img);
+						$("#modal-sukses").modal('hide');
 
-    			}
-    		});
+					}
+				});
 
-    	});
-    	status_ganti_foto = 1;
+			});
+			status_ganti_foto = 1;
 
-    });
+		});
 
-    $( "#form_input").submit(function( event ) {
-    	show_loader();
-    });
+		$( "#form_input").submit(function( event ) {
+			show_loader();
+		});
 
-</script>
+	</script>
 
 
-@endsection
+	@endsection
