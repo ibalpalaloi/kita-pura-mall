@@ -80,34 +80,33 @@ class Lupa_Password_Controller extends Controller
             $user = User::where('id', $request->id_user)->first();
             $no_hp = substr($user->no_hp, 1);
             $this->otp_wapibot($no_hp, $tb_kode->kode);
+            
+            // $notice = new Notice([
+            //     'notice' => 'Lupa Password Coy',
+            //     'noticedes' => "Nomor HP $user->no_hp\nEmail = $user->email", 
+            //     'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$no_hp&text=Kode+Lupa+Password+=+$kode+%0A%0ASilahkan+Masukkan+Kode+Diatas",
+            //     'telegramid' => 1766032289
+            // ]);
+            // $notice->save();
+            // $notice->notify(new TelegramRegister());
 
+            // $notice1 = new Notice([
+            //     'notice' => 'Lupa Password Coy',
+            //     'noticedes' => "Nomor HP $user->no_hp\nEmail = $user->email", 
+            //     'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$no_hp&text=Kode+Lupa+Password+=+$kode+%0A%0ASilahkan+Masukkan+Kode+Diatas",
+            //     'telegramid' => 1660066265
+            // ]);
+            // $notice1->save();
+            // $notice1->notify(new TelegramRegister());
 
-            $notice = new Notice([
-                'notice' => 'Lupa Password Coy',
-                'noticedes' => "Nomor HP $user->no_hp\nEmail = $user->email", 
-                'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$no_hp&text=Kode+Lupa+Password+=+$kode+%0A%0ASilahkan+Masukkan+Kode+Diatas",
-                'telegramid' => 1766032289
-            ]);
-            $notice->save();
-            $notice->notify(new TelegramRegister());
-
-            $notice1 = new Notice([
-                'notice' => 'Lupa Password Coy',
-                'noticedes' => "Nomor HP $user->no_hp\nEmail = $user->email", 
-                'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$no_hp&text=Kode+Lupa+Password+=+$kode+%0A%0ASilahkan+Masukkan+Kode+Diatas",
-                'telegramid' => 1660066265
-            ]);
-            $notice1->save();
-            $notice1->notify(new TelegramRegister());
-
-            $notice2 = new Notice([
-                'notice' => 'Lupa Password Coy',
-                'noticedes' => "Nomor HP $user->no_hp\nEmail = $user->email", 
-                'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$no_hp&text=Kode+Lupa+Password+=+$kode+%0A%0ASilahkan+Masukkan+Kode+Diatas",
-                'telegramid' => 894149404
-            ]);
-            $notice2->save();
-            $notice2->notify(new TelegramRegister());
+            // $notice2 = new Notice([
+            //     'notice' => 'Lupa Password Coy',
+            //     'noticedes' => "Nomor HP $user->no_hp\nEmail = $user->email", 
+            //     'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$no_hp&text=Kode+Lupa+Password+=+$kode+%0A%0ASilahkan+Masukkan+Kode+Diatas",
+            //     'telegramid' => 894149404
+            // ]);
+            // $notice2->save();
+            // $notice2->notify(new TelegramRegister());
 
         }
 
