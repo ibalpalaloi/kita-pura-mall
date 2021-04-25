@@ -25,7 +25,7 @@ class Lupa_Password_Controller extends Controller
             "to" => $no_hp,
             "message" => "Kode Lupa Password Anda = ".$otp
         ];
-        $client = new GuzzleHttp\client();
+        $client = new GuzzleHttp\Client();
         $response = $client->request('POST', 'https://app.wapibot.com/api/send/text',
         ['headers'=>['Content-Type'=>'application/json'],
         'json'=>$json
