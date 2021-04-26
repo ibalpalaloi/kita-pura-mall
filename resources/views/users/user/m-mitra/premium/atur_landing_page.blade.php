@@ -1286,7 +1286,9 @@
 						type: "POST",
 						data: {"image":img, "size":"600x600", "nama":rString},
 						success: function (data) {
+							
 							$('#preview_cover').attr('src', "<?=url('/')?>/public/"+data);
+							setTimeout(hide_loader, 1000);
 
 						}
 					});

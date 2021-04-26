@@ -976,6 +976,8 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 10
 		for (i = 0; i < username.length; i++) {
 			code = username.charCodeAt(i);
 		    if ((code > 47 && code < 58) || // numeric (0-9)
+		    	(code == 46) || //.
+		    	(code == 95) || // _
 		        (code > 64 && code < 91) || // upper alpha (A-Z)
 		        (code > 96 && code < 123)) { // lower alpha (a-z)
 		    }

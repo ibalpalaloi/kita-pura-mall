@@ -62,7 +62,7 @@ class Mitra_Register_Controller extends Controller
 	
 
     public function kirim_lokasi(){
-        $toko = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
+        $toko = Toko::where('users_id', Auth()->User()->id)->first();
         $toko->latitude = 1;
         $toko->longitude = 1;
         $toko->save();  
@@ -86,7 +86,7 @@ class Mitra_Register_Controller extends Controller
                 'deskripsi' => 'required',
 			]);
 		};
-        Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->delete();
+        // Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->delete();
 
 		$toko_id = $this->autocode('TK-');
 		// @Tambah Toko
@@ -96,8 +96,9 @@ class Mitra_Register_Controller extends Controller
         else {
             $username = $request->username;
         }
-        $toko = new Daftar_tunggu_toko;
-		$toko->toko_id = $toko_id;
+
+        $toko = new Toko;
+		$toko->id = $toko_id;
         $toko->username = $this->get_username($request->nama_toko);
 		$toko->users_id = Auth()->User()->id;
 		$toko->jenis_mitra = $jenis_mitra;
@@ -108,7 +109,7 @@ class Mitra_Register_Controller extends Controller
                 $no_telp = substr($no_telp, 1);
             }
             $no_telp = substr_replace($no_telp, "+62", 0, 0);
-            $toko->no_hp = $no_telp;
+        $toko->no_hp = $no_telp;
 		$toko->alamat = $request->alamat;
 		$toko->kelurahan_id = $request->kelurahan;
         // @Tambah Foto
@@ -206,7 +207,6 @@ class Mitra_Register_Controller extends Controller
             $db->kategori_toko_id = $kategori_toko[$i];
             $db->save();
         }
-        $this->notif_telegram($request->nama_toko, $request->no_hp, Auth()->user()->no_hp);
 
 		return redirect('/akun/jadi-mitra/'.$jenis_mitra.'/pilih-lokasi');
 	}
@@ -236,7 +236,7 @@ class Mitra_Register_Controller extends Controller
 
 
     public function pilih_lokasi($jenis_mitra){
-        $daftar_tunggu = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
+        $daftar_tunggu = Toko::where('users_id', Auth()->User()->id)->first();
         if (($daftar_tunggu->latitude == null) && ($daftar_tunggu->longitude == null)){
             if ($jenis_mitra == 'free'){
                 return view('users/user/m-mitra/register/pilih_lokasi_free');
@@ -246,10 +246,6 @@ class Mitra_Register_Controller extends Controller
                 return view('users/user/m-mitra/register/pilih_lokasi_premium');            
             }
         }     
-        $notification = array(
-            'message' => 'Belum Terverifikasi',
-            'jenis_mitra' => $jenis_mitra
-        );     
         return redirect('akun')->with($notification);
 
 	}
@@ -273,31 +269,27 @@ class Mitra_Register_Controller extends Controller
     public function simpan_lokasi($jenis_mitra, Request $request){
 
         // dd($request->all());
-		$daftar_tunggu = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
+		$daftar_tunggu = Toko::where('users_id', Auth()->User()->id)->first();
         $daftar_tunggu->latitude = $request->latitude;
         $daftar_tunggu->longitude = $request->longitude;
         $daftar_tunggu->save();
 
-        $notification = array(
-            'message' => 'Belum Terverifikasi',
-            'jenis_mitra' => $jenis_mitra
-        );     
 
-        return redirect('/akun')->with($notification);
+        return redirect('/akun/mitra/premium');
     }
 
     public function selesai($jenis_mitra){
-        $notification = array(
-            'message' => 'Belum Terverifikasi',
-            'jenis_mitra' => $jenis_mitra
-        ); 
+        // $notification = array(
+        //     'message' => 'Belum Terverifikasi',
+        //     'jenis_mitra' => $jenis_mitra
+        // ); 
 
         if ($jenis_mitra == 'premium'){
-            return redirect('/akun')->with($notification);
+            return redirect('/akun');
             // return redirect('/akun/jadi-mitra/'.$jenis_mitra.'/upload-ktp');
         }
         else{
-            return redirect('/akun')->with($notification);
+            return redirect('/akun');
         }
     }
 
@@ -317,7 +309,7 @@ class Mitra_Register_Controller extends Controller
 			'foto_toko' => 'required'
 		]);
 
-		$toko = Daftar_tunggu_toko::where('users_id', Auth()->User()->id)->first();
+		$toko = Toko::where('users_id', Auth()->User()->id)->first();
 
         $ktp = new Ktp_toko;
 		$ktp->toko_id = $toko->toko_id;
