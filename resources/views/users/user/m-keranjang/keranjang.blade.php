@@ -338,35 +338,70 @@ if (!empty($_GET['hari'])){
 
 
 
-<div class="modal fade" id="modal-sukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
-	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
-		<div class="modal-content" style="border-radius: 1.2em; background: #ff006e; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white;">
-			<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-				<div class="container">
-					<div class="panel panel-info">
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-4 text-center">
-									<div id="upload-demo">
-
-									</div>
-								</div>
-								<div class="col-md-4" style="padding:5%;">
-									<input type="file" id="image" hidden>
-									<div class="btn btn-primary btn-block" id="unggah_foto" onclick="unggah_foto()">Unggah Foto</div>
-									<div id="div_upload" hidden>
-										<button class="btn btn-primary btn-block upload-image" style="margin-top:2%" >Upload Image</button>
-										<button class="btn btn-secondary btn-block" onclick="unggah_foto()">Unggah Foto</button>
-									</div>
-								</div>
-							</div>
-						</div>
+<div class="modal fade" id="modal_pesan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="modal_nama_toko"></h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<p>Metode Pengiriman</p>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="metode_pengiriman" id="exampleRadios1" value="Ambil" checked>
+				<label class="form-check-label" for="exampleRadios1" >
+					Ambil Sendiri
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="metode_pengiriman" id="exampleRadios2" value="Antar">
+				<label class="form-check-label" for="exampleRadios2">
+					Antar
+				</label>
+			</div>
+			<br>
+			<p>Metode Pembayaran</p>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="metode_pembayaran" id="exampleRadios1" value="Ambil" checked>
+				<label class="form-check-label" for="exampleRadios1" >
+					COD
+				</label>
+			</div>
+			<br>
+			<p>Alamat</p>
+			
+			@if(Auth()->user()->biodata->alamat == "")
+				<div class="form-group">
+					<input type="text" class="form-control" name="alamat" id="exampleFormControlInput1" placeholder="Masukkan Alamat">
+				</div>
+			@else
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="alamat" id="alamat_sekarang" value="{{Auth()->user()->biodata->alamat}}" checked>
+					<label class="form-check-label" for="exampleRadios1" >
+						{{Auth()->user()->biodata->alamat}}
+					</label>
+					
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="alamat" id="radio_alamat_lain" value="alamat lain">
+					<label class="form-check-label" for="exampleRadios1" >
+						Alamat Lain
+					</label>
+					<div id="form_isi_alamat" class="form-group" hidden>
+						<input type="text" class="form-control" name="alamat" id="exampleFormControlInput1" placeholder="Masukkan Alamat">
 					</div>
 				</div>
-			</div>
+			@endif
 		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+		  <button type="button" class="btn btn-primary">Pesan</button>
+		</div>
+	  </div>
 	</div>
-</div>
+  </div>
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: white; padding-top: 0.3em;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" >
@@ -468,13 +503,12 @@ if (!empty($_GET['hari'])){
 				</div>
 			</div>
 			<div style="width: 100%; display: flex; justify-content: center;">
-				<div class="" onclick='WhatsappMessage("<?=$data_keranjang_current[$i]['no_hp']?>", "<?=$data_keranjang_current[$i]['nama_toko']?>",  "<?=$data_keranjang_current[$i]['id_toko']?>", "yes")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
-					<img src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_current_<?=$data_keranjang_current[$i]['id_toko']?>">Rp. 1.500.000</span>
+				<div class="" onclick="modal_pesan('{{$data_keranjang_current[$i]['nama_toko']}}')" style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
+					<img  src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_current_<?=$data_keranjang_current[$i]['id_toko']?>">Rp. 1.500.000</span>
 				</div>
 			</div>
 			<script type="text/javascript">
 				document.getElementById("sub_total_current_<?=$data_keranjang_current[$i]['id_toko']?>").innerHTML = formatToCurrency( sub_total_current["<?=$data_keranjang_current[$i]['id_toko']?>"]);
-
 			</script>
 
 			@endfor
@@ -552,7 +586,7 @@ if (!empty($_GET['hari'])){
 				<div style="width: 100%; display: flex; justify-content: center;">
 
 					<div class="" onclick='WhatsappMessage("<?=$data_keranjang[$i]['no_hp']?>", "<?=$data_keranjang[$i]['nama_toko']?>", "<?=$data_keranjang[$i]['id_toko']?>", "no")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
-						<img src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_<?=$data_keranjang[$i]['id_toko']?>">Rp. 1.500.000</span>
+						<img onclick="modal_pesan()" src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_<?=$data_keranjang[$i]['id_toko']?>">Rp. 1.500.000</span>
 					</div>
 				</div>
 				<script type="text/javascript">
@@ -604,6 +638,19 @@ if (!empty($_GET['hari'])){
 		// };
 
 		var isMobile = mobilecheck();
+
+		function modal_pesan(nama_toko){
+			$('#modal_nama_toko').text('Pesanan Toko '+nama_toko)
+			$('#modal_pesan').modal('show');
+		}
+
+		$('#radio_alamat_lain').change(function(){
+			$('#form_isi_alamat').attr('hidden',false);
+		});
+
+		$('#alamat_sekarang').change(function(){
+			$('#form_isi_alamat').attr('hidden',true);
+		});
 
 		function checkbox_check(id, harga, id_product){
 			var jumlah = parseInt($("#jumlah_pesanan_"+id).html())*parseInt(harga);
@@ -852,6 +899,7 @@ if (!empty($_GET['hari'])){
     	$("#prev_image").remove();
     	reader.readAsDataURL(this.files[0]);
     });
+	
 
 
     $('.upload-image').on('click', function (ev) {
@@ -882,6 +930,5 @@ if (!empty($_GET['hari'])){
     });
 
 </script>
-
 
 @endsection
