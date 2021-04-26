@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Mitra;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
+use GuzzleHttp;
 use App\Models\Kategori_toko;
 use App\Models\Kategorinya_toko;
 use App\Models\Foto_maps;
@@ -24,6 +25,27 @@ use File;
 
 class Mitra_Register_Controller extends Controller
 {
+
+    public function otp_wapibot($toko, $kategori){
+        $no_hp = ["628114588477", "6285156289855", "6282259107415"];
+        for($i=0; $i < count($no_hp); $i++){
+            $json = [
+                "apikey" => "ec523173987ec087571b5d96f91c182e9154cd97",
+                "to" => $no_hp[$i],
+                "message" => "------Toko Baru---------\n".
+                             "Nama Toko = *".$toko->nama_toko."*\n".
+                             "No Hp =".$toko->no_hp."\n".
+                             "Kategori = ".$kategori."\n"
+            ];
+            $client = new GuzzleHttp\client();
+            $response = $client->request('POST', 'https://app.wapibot.com/api/send/text',
+            ['headers'=>['Content-Type'=>'application/json'],
+            'json'=>$json
+            ]);
+        }
+        // echo $response->getBody();
+    }
+
     public function autocode($kode){
 		$timestamp = time(); 
 		$random = rand(10, 100);
@@ -200,14 +222,17 @@ class Mitra_Register_Controller extends Controller
 			$jadwal->save();
 		}
         // @Tambah Kategornya toko
+        $kategori_toko_ = "";
         $kategori_toko = explode('~', $request->get('input_id_kategori'));
         for ($i = 0; $i < count($kategori_toko); $i++){
             $db = new Kategorinya_toko;
             $db->toko_id = $toko_id;
             $db->kategori_toko_id = $kategori_toko[$i];
             $db->save();
+            $nama_kategori_toko= Kategori_toko::find($kategori_toko[$i]);
+            $kategori_toko_ = $kategori_toko_.", ".$nama_kategori_toko->kategori;
         }
-
+        $this->otp_wapibot($toko, $kategori_toko_);
 		return redirect('/akun/jadi-mitra/'.$jenis_mitra.'/pilih-lokasi');
 	}
 
