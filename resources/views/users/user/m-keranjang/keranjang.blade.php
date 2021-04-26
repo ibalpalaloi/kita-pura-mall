@@ -348,6 +348,9 @@ if (!empty($_GET['hari'])){
 		  </button>
 		</div>
 		<div class="modal-body">
+			<div class="list-pesanan" style="margin-bottom: 2em;">
+				
+			</div>
 			<p>Metode Pengiriman</p>
 			<div class="form-check">
 				<input class="form-check-input" type="radio" name="metode_pengiriman" id="exampleRadios1" value="Ambil" checked>
@@ -503,7 +506,7 @@ if (!empty($_GET['hari'])){
 				</div>
 			</div>
 			<div style="width: 100%; display: flex; justify-content: center;">
-				<div class="" onclick="modal_pesan('{{$data_keranjang_current[$i]['nama_toko']}}')" style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
+				<div class="" onclick='WhatsappMessage("<?=$data_keranjang_current[$i]['no_hp']?>", "<?=$data_keranjang_current[$i]['nama_toko']?>", "<?=$data_keranjang_current[$i]['id_toko']?>", "yes")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
 					<img  src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_current_<?=$data_keranjang_current[$i]['id_toko']?>">Rp. 1.500.000</span>
 				</div>
 			</div>
@@ -640,8 +643,6 @@ if (!empty($_GET['hari'])){
 		var isMobile = mobilecheck();
 
 		function modal_pesan(nama_toko){
-			$('#modal_nama_toko').text('Pesanan Toko '+nama_toko)
-			$('#modal_pesan').modal('show');
 		}
 
 		$('#radio_alamat_lain').change(function(){
@@ -696,7 +697,7 @@ if (!empty($_GET['hari'])){
 
 
 		function WhatsappMessage(no_hp, nama, id_product, current) {
-			show_loader();
+			// show_loader();
 			// alert('ye');
 			// event.preventDefault();
 			var apilink = 'http://';
@@ -705,6 +706,7 @@ if (!empty($_GET['hari'])){
 			var jumlah_pesanan = "";
 			var nama_produk = "";
 			var keynota = "";
+			// alert(id_product);
 			if (current == 'yes'){
 				var result = sub_keranjang_current[id_product].split("~");
 				var harga_sub_total = $("#sub_total_current_"+id_product).html();
@@ -720,13 +722,13 @@ if (!empty($_GET['hari'])){
 				if ($('#checkbox_'+result[i]).is(':checked')) {
 					jumlah_pesanan = $("#jumlah_pesanan_"+result[i]).html();
 					nama_produk = $("#nama_"+result[i]).html();
-					produk += jumlah_pesanan+" "+nama_produk+"\n";
+					produk += jumlah_pesanan+" "+nama_produk+"<br/>";
     				// keynota_current = keynota_current.replace(id_sebelum, id+data);
     				keynota += result[i]+jumlah_pesanan;
 
     			}
     		}
-    		produk += "dengan harga total "+harga_sub_total;
+    		// produk += "dengan harga total "+harga_sub_total;
     		keynota += id_product+harga_sub_total_wa;
     		var message = '[Order Produk Kitapuramall]\n\nHaloo '+nama+" saya ingin pesan produk \n"+produk;
 
@@ -747,9 +749,12 @@ if (!empty($_GET['hari'])){
 
     			}
     		}
+			$('#modal_nama_toko').text('Pesanan Toko '+nama);
+			$(".list-pesanan").html(produk);
+			$('#modal_pesan').modal('show');
 
 
-    		location.href=walink;
+    		// location.href=walink;
     	} 
 
 
