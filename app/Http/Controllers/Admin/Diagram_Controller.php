@@ -20,7 +20,7 @@ class Diagram_Controller extends Controller
         $array_count_user = [];
         $array_count_toko = [];
         for($i=30; $i>0; $i--){
-            $date = date('y-m-d', strtotime('-'. $i .' days'));
+            $date = date('y-m-d', strtotime('-'. $i+1 .' days'));
             $user = User::where('created_at','like', '%'.$date.'%')->count(); 
             $toko = Toko::where('created_at','like', '%'.$date.'%')->count(); 
             $array_count_user[] = $user;

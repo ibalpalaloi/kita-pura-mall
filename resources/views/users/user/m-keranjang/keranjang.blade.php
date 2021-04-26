@@ -18,6 +18,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 	}
 
 	.header {
+		
 		background: #ff006e;
 		position: fixed;
 		width: 100%;
@@ -408,7 +409,29 @@ if (!empty($_GET['hari'])){
 						</div>
 						<div class="deskripsi-product" style="width: 47%;"> 
 							<div class="nama" id="nama_{{$row->id}}" style="font-size: 1em; color: {{$page->warna_header}}; font-weight: 500;"><?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 35)))?>@if (strlen($row->nama) > 35)..@endif</div>
+
+							@php $hasil_diskon_string = ""; @endphp
+							@if ($row->jenis_harga == 'Statis')
+							@if($row->diskon != '0')
+							<div style="padding: 0; color: {{$page->warna_header}}; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
+								<s>IDR. {{number_format($row->harga)}}</s>
+							</div>
+							@php
+							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
+							@endphp
+							<div style="color: {{$page->warna_header}}; padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.1em; line-height: 1em; font-weight: 500;">IDR. {{number_format($hasil_diskon)}}</div>
+							@php $hasil_diskon_string = number_format($hasil_diskon); @endphp
+							@else
 							<div class="harga" style="color: {{$page->warna_header}};">IDR. {{number_format($row->harga,0,',','.')}}</div>
+							@endif	
+
+							@else
+							<div style="padding: 0; color: {{$page->warna_header}}; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
+								Harga Mulai
+							</div>
+							<div style="padding: 0;color: {{$page->warna_header}}; margin: 0.1em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{number_format($row->harga_terendah)}}</div>
+
+							@endif
 							<div class="button-detail" style="margin-top: 1em; display: flex;">
 								<div id="kurang_{{$row->id}}" style="width: 2em; height: 2em; background: white; border-radius: 50%; background: {{$page->warna_header}}; color: {{$page->warna_body}};text-align: center; font-size: 0.7em; padding-top: 0.3em; margin-right: 0.2em;" onclick='ubah_pesanan_current("<?=$row->id?>", "kurang", "<?=$row->harga?>", "<?=$data_keranjang_current[$i]['id_toko']?>")'><i class="fa fa-minus"></i></div>
 								<div style="width: 3em; height: 2em; background: white; border-radius: 2em; background: {{$page->warna_header}}; color: {{$page->warna_body}}; display: flex; justify-content: center; align-items: center; margin-right: 0.2em; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan_<?=$row->id?>">{{$row->jumlah}}</div>
@@ -424,12 +447,21 @@ if (!empty($_GET['hari'])){
 								</svg>							
 							</div>
 						</div>
+						<script type="text/javascript">
+							@if ($row->jenis_harga == 'Statis')
+							@if($row->diskon != '0')
+							@php
+							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
+							$hasil_diskon_string = number_format($hasil_diskon);				
+							@endphp
+							sub_total_current["<?=$data_keranjang_current[$i]['id_toko']?>"] += <?=$hasil_diskon?>*<?=$row->jumlah?>;
+							@else
+							sub_total_current["<?=$data_keranjang_current[$i]['id_toko']?>"] += <?=$row->harga?>*<?=$row->jumlah?>;
+							@endif	
+							@endif
 
-					</div>
-					<script type="text/javascript">
-						sub_total_current["<?=$data_keranjang_current[$i]['id_toko']?>"] += <?=$row->harga?>*<?=$row->jumlah?>;
 
-						sub_keranjang_current["<?=$data_keranjang_current[$i]['id_toko']?>"] += "<?=$row->id?>"+"~";
+							sub_keranjang_current["<?=$data_keranjang_current[$i]['id_toko']?>"] += "<?=$row->id?>"+"~";
 						// id_product_current[] = 
 					</script>					
 					@endforeach
@@ -463,7 +495,28 @@ if (!empty($_GET['hari'])){
 						</div>
 						<div class="deskripsi-product" style="width: 47%;"> 
 							<div class="nama" id="nama_{{$row->id}}" style="font-size: 1em; color: {{$page->warna_header}}; font-weight: 500;"><?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 35)))?>@if (strlen($row->nama) > 35)..@endif</div>
+							@php $hasil_diskon_string = ""; @endphp
+							@if ($row->jenis_harga == 'Statis')
+							@if($row->diskon != '0')
+							<div style="padding: 0; color: {{$page->warna_header}}; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
+								<s>IDR. {{number_format($row->harga)}}</s>
+							</div>
+							@php
+							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
+							@endphp
+							<div style="color: {{$page->warna_header}}; padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.1em; line-height: 1em; font-weight: 500;">IDR. {{number_format($hasil_diskon)}}</div>
+							@php $hasil_diskon_string = number_format($hasil_diskon); @endphp
+							@else
 							<div class="harga" style="color: {{$page->warna_header}};">IDR. {{number_format($row->harga,0,',','.')}}</div>
+							@endif	
+
+							@else
+							<div style="padding: 0; color: {{$page->warna_header}}; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
+								Harga Mulai
+							</div>
+							<div style="padding: 0;color: {{$page->warna_header}}; margin: 0.1em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{number_format($row->harga_terendah)}}</div>
+
+							@endif
 							<div class="button-detail" style="margin-top: 1em; display: flex;">
 								<div id="kurang_{{$row->id}}" style="width: 2em; height: 2em; background: white; border-radius: 50%; background: {{$page->warna_header}}; color: {{$page->warna_body}};text-align: center; font-size: 0.7em; padding-top: 0.3em; margin-right: 0.2em;" onclick='ubah_pesanan("<?=$row->id?>", "kurang", "<?=$row->harga?>", "<?=$data_keranjang[$i]['id_toko']?>")'><i class="fa fa-minus"></i></div>
 								<div style="width: 3em; height: 2em; background: white; border-radius: 2em; background: {{$page->warna_header}}; color: {{$page->warna_body}}; display: flex; justify-content: center; align-items: center; margin-right: 0.2em; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan_<?=$row->id?>">{{$row->jumlah}}</div>
@@ -480,7 +533,17 @@ if (!empty($_GET['hari'])){
 							</div>
 						</div>
 						<script type="text/javascript">
+							@if ($row->jenis_harga == 'Statis')
+							@if($row->diskon != '0')
+							@php
+							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
+							$hasil_diskon_string = number_format($hasil_diskon);				
+							@endphp
+							sub_total["<?=$data_keranjang[$i]['id_toko']?>"] += <?=$hasil_diskon?>*<?=$row->jumlah?>;
+							@else
 							sub_total["<?=$data_keranjang[$i]['id_toko']?>"] += <?=$row->harga?>*<?=$row->jumlah?>;
+							@endif	
+							@endif
 							sub_keranjang["<?=$data_keranjang[$i]['id_toko']?>"] += "<?=$row->id?>"+"~";
 						</script>
 						@endforeach
