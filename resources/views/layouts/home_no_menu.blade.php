@@ -36,7 +36,7 @@
 				</div>
 			</div>
 		</div>
-    </div>
+	</div>
 </div>
 
 <body style="background: #eaf4ff; min-height: 100%;" class="hold-transition sidebar-mini layout-fixed">
@@ -48,6 +48,7 @@
 	function show_loader(){
 		console.log('show');
 		$("#modal_loader").modal("show");
+		setTimeout(hide_loader, 10000);
 	};
 
 	function hide_loader(){

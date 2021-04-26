@@ -377,13 +377,13 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
         }
 
         this.start = function () {
-         clearInterval(timer);
-         timer = 0;
-         seconds = options.seconds;
-         timer = setInterval(decrementCounter, 1000);
-     };
+           clearInterval(timer);
+           timer = 0;
+           seconds = options.seconds;
+           timer = setInterval(decrementCounter, 1000);
+       };
 
-     this.stop = function () {
+       this.stop = function () {
         clearInterval(timer);
     };
 }
@@ -401,6 +401,8 @@ function secondsTimeSpanToHMS(s) {
 function show_loader(){
     console.log('show');
     $("#modal_loader").modal("show");
+    setTimeout(hide_loader, 10000);
+
 };
 
 function hide_loader(){
