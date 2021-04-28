@@ -20,29 +20,29 @@ Toko
 {{-- hapus toko --}}
 <?php
     // fungsi untuk konversi tanggal ke indonesia
-    function tgl_indo($tanggal){
-        $bulan = array (
-            1 =>   'Januari',
-            'Februari',
-            'Maret',
-            'April',
-            'Mei',
-            'Juni',
-            'Juli',
-            'Agustus',
-            'September',
-            'Oktober',
-            'November',
-            'Desember'
-        );
-        $pecahkan = explode('-', $tanggal);
-        
+function tgl_indo($tanggal){
+    $bulan = array (
+        1 =>   'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    );
+    $pecahkan = explode('-', $tanggal);
+
         // variabel pecahkan 0 = tanggal
         // variabel pecahkan 1 = bulan
         // variabel pecahkan 2 = tahun
-     
-        return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
-    }
+
+    return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+}
 ?>
 
 <div id="modal_hapus_toko" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -94,78 +94,31 @@ Toko
                                 <th>Nama Toko</th>
                                 <th>No Telp</th>
                                 <th>Alamat</th>
-                                <th>Kategori Toko</th>
                                 <th>Jumlah Produk</th>
-                                <th>Tgl Mendaftar</th>
+                                <th>Perubahan</th>
+                                <th>Terakhir diubah</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @php $i = 0; @endphp
                             @foreach ($toko as $data)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$data->nama_toko}}</td>
-                                    <td>{{$data->no_hp}}</td>
-                                    <td>{{$data->alamat}}</td>
-                                    <td>
-                                        @foreach ($data->kategorinya_toko as $kategori)
-                                            {{$kategori->kategori_toko->kategori}},
-                                        @endforeach
-                                    </td>
-                                    <td><a href="<?=url('/')?>/admin/manajemen/toko/{{$data->id}}/daftar_produk">{{count($data->product)}}</a></td>
-                                    <td>{{tgl_indo(date('Y-m-d', strtotime($data->created_at)))}}</td>
-                                    <td>
-                                        <a href="<?=url('/')?>/admin/manajemen/toko/{{$data->id}}" type="button" class="btn btn-primary">Ubah</a>
-                                        <a onclick="modal_hapus('{{$data->id}}')" type="button" class="btn btn-danger">Hapus</a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <div class="material-card card">
-            <div class="card-body">
-                <h4 class="card-title">Daftar Toko Non-Aktif</h4>
-                <a type="button" class="btn btn-primary" href="<?=url('/')?>/admin/manajemen/daftar_tunggu_toko">
-                    Daftar Tunggu
-                </a>
-                <br><br>
-                <div class="table-responsive">
-                    <table style="width: 100%" id="config-table" class="table display table-bordered table-striped no-wrap">
-                        <thead>
+                            @if ($data->jumlah_perubahan > 0)
                             <tr>
-                                <th>Nama Toko</th>
-                                <th>No Telp</th>
-                                <th>Alamat</th>
-                                <th>Kategori Toko</th>
-                                <th>Jumlah Produk</th>
-                                <th>Action</th>
+                                <td>{{$i+1}}</td>
+                                <td>{{$data->nama_toko}}</td>
+                                <td>{{$data->no_hp}}</td>
+                                <td>{{$data->alamat}}</td>
+                                <td><a href="<?=url('/')?>/admin/manajemen/toko/{{$data->id}}/daftar_produk">{{$data->jumlah_produk}}</a></td>
+                                <td><a href="<?=url('/')?>/admin/manajemen/toko/{{$data->id}}/daftar_produk">{{$data->jumlah_perubahan}}</a></td>
+                                <td>{{tgl_indo(date('Y-m-d', strtotime($data->created_at)))}} - {{date('H:i', strtotime($data->created_at))}} WITA</td>
+                                <td>
+                                    <a href="<?=url('/')?>/admin/manajemen/toko/{{$data->id}}" type="button" class="btn btn-primary">Ubah</a>
+                                    <a onclick="modal_hapus('{{$data->id}}')" type="button" class="btn btn-danger">Hapus</a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($toko_non_aktif as $data)
-                                <tr>
-                                    <td>{{$data->nama_toko}}</td>
-                                    <td>{{$data->no_hp}}</td>
-                                    <td>{{$data->alamat}}</td>
-                                    <td>
-                                        @foreach ($data->kategorinya_toko as $kategori)
-                                            {{$kategori->kategori_toko->kategori}},
-                                        @endforeach
-                                    </td>
-                                    <td><a href="<?=url('/')?>/admin/manajemen/toko/{{$data->id}}/daftar_produk">{{count($data->product)}}</a></td>
-                                    <td>
-                                        <a href="<?=url('/')?>/admin/manajemen/toko/{{$data->id}}" type="button" class="btn btn-primary">Ubah</a>
-                                        <a onclick="modal_hapus('{{$data->id}}')" type="button" class="btn btn-danger">Hapus</a>
-                                    </td>
-                                </tr>
+                            @php $i++; @endphp
+                            @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -174,7 +127,6 @@ Toko
         </div>
     </div>
 </div>
-
 @endsection
 
 @section('footer-scripts')

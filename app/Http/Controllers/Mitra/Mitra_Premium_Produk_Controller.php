@@ -9,6 +9,7 @@ use App\Models\Kategori;
 use App\Models\toko;
 use App\Models\product;
 use App\Models\Foto_maps;
+use App\Models\Perubahan_product;
 use App\Models\Video_landing_page;
 use App\Models\Landing_page_fasilitas_toko;
 use File;
@@ -128,6 +129,9 @@ class Mitra_Premium_Produk_Controller extends Controller
 
 		$produk->foto_produk = $request->nama_foto_temp;
 		$produk->save();
+		$perubahan_produk = new Perubahan_product;
+		$perubahan_produk->id = $produk_id;
+		$perubahan_produk->save();
 
 		return redirect('/akun/mitra/premium/atur-produk');
 
@@ -200,8 +204,13 @@ class Mitra_Premium_Produk_Controller extends Controller
 		}
 
 		$produk->save();
-
-
+		$perubahan_produk = Perubahan_product::where('id', $produk->id);
+		if ($perubahan_produk){
+			Perubahan_product::where('id', $produk->id)->delete();
+		}
+		$perubahan_produk = new Perubahan_product;
+		$perubahan_produk->id = $produk->id;
+		$perubahan_produk->save();
 		return redirect('/akun/mitra/premium/atur-produk');
 	}
 

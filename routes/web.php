@@ -273,6 +273,7 @@ Route::group(['middleware'=> 'admin'], function() {
     
         // manajemen toko
     Route::get('/admin/manajemen/toko', [Admin_Manajemen_Toko_Controller::class, 'index']);
+    Route::get('/admin/manajemen/perubahan-toko', [Admin_Manajemen_Toko_Controller::class, 'perubahan_toko']);
     Route::post('/admin/manajemen/hapus_toko', [Admin_Manajemen_Toko_Controller::class, 'hapus_toko']);
     Route::get('/admin/manajemen/toko/{id}', [Admin_Manajemen_Toko_Controller::class, 'detail_toko']);
     Route::post('/admin/manajemen/toko/{id}/ganti-foto-logo', [Admin_Manajemen_Toko_Controller::class, 'ganti_foto_logo']);
@@ -294,9 +295,12 @@ Route::group(['middleware'=> 'admin'], function() {
         Route::post('/admin/manajemen/toko/{id_toko}/landing_page_ganti_foto_maps', [GetController::class, 'input_foto_maps']);
         Route::post('/admin/manajemen/toko/{id_toko}/landing_page_ganti_video', [GetController::class, 'input_video']);
         Route::get('/admin/manajemen/toko/{id_toko}/daftar_produk', [Admin_Manajemen_Toko_Controller::class, 'daftar_produk_toko']);
+        Route::put('/admin/manajemen/toko/{id_toko}/daftar_produk/update-foto-ori', [Admin_Manajemen_Toko_Controller::class, 'update_foto_ori']);
         Route::post('/admin/manajemen/toko/{id_toko}/daftar_produk/ganti-foto-produk', [Admin_Manajemen_Toko_Controller::class, 'ganti_foto_produk']);
         Route::get('/admin/manajemen/toko/{id_toko}/landing_page', [Admin_Manajemen_Toko_Controller::class, 'landing_page']);
         Route::post('/admin/manajemen/toko/{id_toko}/post_ubah_produk', [Admin_Manajemen_Toko_Controller::class, 'post_ubah_produk']);
+        Route::post('/admin/manajemen/toko/{id_toko}/post_validasi_perubahan', [Admin_Manajemen_Toko_Controller::class, 'post_validasi_perubahan']);
+
     });
    
 });

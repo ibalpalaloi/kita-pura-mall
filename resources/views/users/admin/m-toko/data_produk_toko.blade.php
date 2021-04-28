@@ -54,6 +54,37 @@ Produk Toko
     </div>
     <!-- /.modal-dialog -->
 </div>
+<div id="modal_hapus_perubahan" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center">
+                <h4 class="modal-title" id="myModalLabel">Data Toko</h4>
+                <button type="button" class="close ml-auto" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form action="<?=url('/')?>/admin/manajemen/toko/{{$toko->id}}/post_validasi_perubahan" method="post" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                    {{ csrf_field() }}
+                    <h3 style="text-align: center;">Apakah produk ini telah valid ?</h3>
+                    <div class="form-group" hidden>
+                        <label for="recipient-name" class="control-label">Nama Produk:</label>
+                        <input value="" type="text" class="form-control" id="id_perubahan" name="id_perubahan">
+                        <input value="" type="text" class="form-control" id="id_produk_perubahan" name="id_produk_perubahan">
+
+                        <!-- <input type="" name=""> -->
+                    </div>
+                    <div>
+                        <button class="btn btn-success" id="valid">Valid</button>
+                        <button class="btn btn-danger" id="tidak_valid">Tidak Valid</button>                        
+                        <div class="btn btn-dark" data-dismiss="modal">Tutup</div>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 <div id="modal-foto" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -61,7 +92,7 @@ Produk Toko
                 <h4 class="modal-title text-white" id="myModalLabel">Tambah Foto Rental</h4>
                 <button type="button" class="close ml-auto" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
-            <form enctype="multipart/form-data" action="{{url()->current()}}/foto-rental/simpan" method="post">
+            <form enctype="multipart/form-data" action="{{url()->current()}}/update-foto-ori" method="post">
                 @csrf
                 @method('PUT')
                 <div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
@@ -84,6 +115,10 @@ Produk Toko
                                         </div>
                                     </div>
                                     <input type="file" name="image" id="image" hidden>
+                                    <input type="text" name="nama_foto_temp" id="nama_foto_temp" hidden>
+                                    <input type="text" name="id_toko" id="id_toko" value="<?=Request::segment(4)?>" hidden>
+
+                                    <button type="submit" id="btn_image" hidden></button>
                                 </div>
                             </div>
                         </div>
@@ -115,26 +150,39 @@ Produk Toko
                         </ul>
                     </div>
                 </div>
-                <div class="d-flex no-block align-items-center">
+                <div class="d-flex no-block align-items-center" style="position: relative;">
                     <div class="ml-3">
                         <h4 class="mb-0">{{$data->nama}}</h4>
-                        <span class="text-muted">Kategori : {{$data->kategori->nama}}</span><br>
+                        <span class="text-muted">Kategori : {{$data->kategori}}</span><br>
                         
-                        <span class="text-muted">sub_Kategori : {{$data->get_nama_sub_kategori()}}</span><br>
+                        <span class="text-muted">sub_Kategori : {{$data->sub_kategori}}</span><br>
                         @if ($data->jenis_harga == "Statis")
-                            <span class="text-muted">Harga : {{$data->harga}}</span>
+                        <span class="text-muted">Harga : {{$data->harga}}</span>
                         @else
-                            <span class="text-muted">Harga Mulai : {{$data->harga_terendah}}</span>
+                        <span class="text-muted">Harga Mulai : {{$data->harga_terendah}}</span>
                         @endif
                         
                     </div>
-                    <div class="ml-auto mr-3">
+                    <div class="ml-auto mr-3" style="position: absolute; right: 0.1em; top: -3em;">
+                        <a download href="<?=url('/')?>/public/img/toko/{{$data->toko_id}}/produk/original/{{$data->foto_produk}}"  type="button" class="btn btn-info btn-circle" >
+                            <i class="fas fa-download"></i>
+                        </a>
                         <button onclick='open_modal_foto("<?=$data->id?>")' type="button" class="btn btn-primary btn-circle" >
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <button onclick="modal_ubah_produk('{{$data->nama}}', '{{$data->harga}}', '{{$data->kategori_id}}', '{{$data->sub_kategori_id}}', '{{$data->sub_kategori}}', '{{$data->id}}')" type="button" class="btn btn-dark btn-circle" >
                             <i class="fas fa-pencil-alt"></i>
                         </button>
-                        <button onclick="modal_ubah_produk('{{$data->nama}}', '{{$data->harga}}', '{{$data->kategori->id}}', '{{$data->get_id_sub_kategori()}}', '{{$data->get_nama_sub_kategori()}}', '{{$data->id}}')" type="button" class="btn btn-dark btn-circle" >
-                            <i class="fas fa-pencil-alt"></i>
+                        @if ($data->perubahan_product != null)
+                        <button onclick='validasi_perubahan("<?=$data->perubahan_product?>", "<?=$data->id?>", "tidak_valid")' type="button" class="btn btn-danger btn-circle" >
+                            <i class="fas fa-exclamation-triangle"></i>
                         </button>
+                        @else
+                        <button  onclick='validasi_perubahan("<?=$data->perubahan_product?>", "<?=$data->id?>", "valid")' type="button" class="btn btn-success btn-circle" >
+                            <i class="fas fa-check"></i>
+                        </button>
+                        @endif
+
                     </div>
                 </div>
             </div>
@@ -249,22 +297,41 @@ Produk Toko
         });
 
 
-    var imageSize = {
-        width: 600,
-        height: 600,
-        type: 'square'
-    };
+        var imageSize = {
+            width: 600,
+            height: 600,
+            type: 'square'
+        };
 
-    var imageSize2 = {
-        width: 240,
-        height: 240,
-        type: 'square'
-    };
+        var imageSize2 = {
+            width: 240,
+            height: 240,
+            type: 'square'
+        };
+
+
+        function validasi_perubahan(id, id_produk, valid){
+        // alert(id);
+
+        $("#id_perubahan").val(id);
+        if (valid == 'valid'){
+            $("#valid").prop('hidden', true);
+            $("#tidak_valid").prop('hidden',false);            
+        }
+        else {
+            $("#valid").prop('hidden', false);
+            $("#tidak_valid").prop('hidden', true);
+
+        }
+        $("#id_produk_perubahan").val(id_produk);
+        $("#modal_hapus_perubahan").modal('show');
+    }
 
 
 
     $('.upload-image').on('click', function (ev){ 
-        $("#modal-sukses").modal('hide');       
+        show_loader();
+        $("#modal-sukses").modal('hide');
         var id_toko = "{{Request::segment(4)}}";
         var rString = randomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
         resize.croppie('result', {
@@ -277,16 +344,12 @@ Produk Toko
                 type: "POST",
                 data: {"image":img, "size":"600x600", "id_produk":id_produk, "id_toko":id_toko, "nama":rString},
                 success: function (data) {
-                    // $('#pic_toko_privew').attr('src', "<?=url('/')?>/public/"+data);
-                    // $("#nama_foto_temp").val(data);
-                    // $("#div_pic_toko_privew").prop('hidden', false);
-                    // $("#div_pic_toko").prop('hidden', true);
-
-                   setTimeout(
+                    setTimeout(
                       function() 
                       {
-                        location.reload();
-                    }, 2000);
+                        $("#nama_foto_temp").val(rString);
+                        $("#btn_image").click();
+                      }, 2000);
                 }
             });
 
@@ -318,18 +381,18 @@ Produk Toko
             return milliseconds+result;
     }
 
-        function show_loader(){
-            console.log('show');
-            $("#modal_loader").modal("show");
-        };
+    function show_loader(){
+        console.log('show');
+        $("#modal_loader").modal("show");
+    };
 
-        function hide_loader(){
-            console.log('hide');
-            $("#modal_loader").modal("hide");
-        };
+    function hide_loader(){
+        console.log('hide');
+        $("#modal_loader").modal("hide");
+    };
 
 
-    </script>
+</script>
 
 
 
