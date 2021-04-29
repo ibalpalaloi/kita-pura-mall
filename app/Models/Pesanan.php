@@ -10,11 +10,8 @@ class Pesanan extends Model
     use HasFactory;
     protected $table = 'pesanan';
 
-    public function toko(){
-        return $this->belongsTo(Toko::class);
-    }
-
     public function product(){
         return $this->belongsTo(Product::class);
     }
+    
 }

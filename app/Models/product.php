@@ -13,6 +13,10 @@ class Product extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
+    public function daftar_tunggu_pesanan(){
+        return $this->hasMany(Daftar_tunggu_pesana::class);
+    }
+
     public function pesanan(){
         return $this->hasMany(Pesanan::class);
     }

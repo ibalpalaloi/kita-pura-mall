@@ -341,6 +341,7 @@ if (!empty($_GET['hari'])){
 <div class="modal fade" id="modal_pesan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 	  <div class="modal-content">
+		<form action="<?=url('/')?>/user/keranjang/pesan" method="post" id="form_pesan">
 		<div class="modal-header">
 		  <h5 class="modal-title" id="modal_nama_toko"></h5>
 		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -348,9 +349,12 @@ if (!empty($_GET['hari'])){
 		  </button>
 		</div>
 		<div class="modal-body">
+		
+			{{ csrf_field() }}
 			<div class="list-pesanan" style="margin-bottom: 2em;">
 				
 			</div>
+			<hr>
 			<p>Metode Pengiriman</p>
 			<div class="form-check">
 				<input class="form-check-input" type="radio" name="metode_pengiriman" id="exampleRadios1" value="Ambil" checked>
@@ -364,15 +368,15 @@ if (!empty($_GET['hari'])){
 					Antar
 				</label>
 			</div>
-			<br>
+			<hr>
 			<p>Metode Pembayaran</p>
 			<div class="form-check">
-				<input class="form-check-input" type="radio" name="metode_pembayaran" id="exampleRadios1" value="Ambil" checked>
+				<input class="form-check-input" type="radio" name="metode_pembayaran" id="exampleRadios1" value="COD" checked>
 				<label class="form-check-label" for="exampleRadios1" >
 					COD
 				</label>
 			</div>
-			<br>
+			<hr>
 			<p>Alamat</p>
 			
 			@if(Auth()->user()->biodata->alamat == "")
@@ -381,27 +385,32 @@ if (!empty($_GET['hari'])){
 				</div>
 			@else
 				<div class="form-check">
-					<input class="form-check-input" type="radio" name="alamat" id="alamat_sekarang" value="{{Auth()->user()->biodata->alamat}}" checked>
+					<input class="form-check-input" type="radio" name="radio_alamat" id="alamat_sekarang" value="{{Auth()->user()->biodata->alamat}}" checked>
 					<label class="form-check-label" for="exampleRadios1" >
 						{{Auth()->user()->biodata->alamat}}
 					</label>
 					
 				</div>
 				<div class="form-check">
-					<input class="form-check-input" type="radio" name="alamat" id="radio_alamat_lain" value="alamat lain">
+					<input class="form-check-input" type="radio" name="radio_alamat" id="radio_alamat_lain" value="alamat lain">
 					<label class="form-check-label" for="exampleRadios1" >
 						Alamat Lain
 					</label>
 					<div id="form_isi_alamat" class="form-group" hidden>
-						<input type="text" class="form-control" name="alamat" id="exampleFormControlInput1" placeholder="Masukkan Alamat">
+						<input type="text" class="form-control" name="alamat" id="alamat" placeholder="Masukkan Alamat" value="{{Auth()->user()->biodata->alamat}}">
 					</div>
 				</div>
 			@endif
+			<hr>
+			<p>No Telp: {{Auth()->user()->no_hp}}</p>
+			<input type="text" name="no_hp" value="{{Auth()->user()->no_hp}}" hidden>
+		
 		</div>
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-		  <button type="button" class="btn btn-primary">Pesan</button>
+		  <button type="button" onclick="post_pesanan()" class="btn btn-primary">Pesan</button>
 		</div>
+		</form>
 	  </div>
 	</div>
   </div>
@@ -419,189 +428,11 @@ if (!empty($_GET['hari'])){
 			<div style="width: 10%; color: white">.</div>
 		</div>
 	</header>
-
-
 	<main id="homepage" class="homepage" style="padding: 0px; background: #eaf4ff !important;">
-		<div style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: white; margin-top: 4.5em; background: #eaf4ff;">	
-			<script type="text/javascript">
-				var sub_keranjang_current = {};
-				var sub_keranjang = {};
-				var sub_total = [];
-				var sub_total_current = [];
-				// var keynota_current = [];
-			</script>
-			@for ($i = 0; $i < count($data_keranjang_current); $i++)
-			<div class="toko" style="background: white; width: 100%; padding: 0% 5%; margin-bottom: 0.5em; padding-top: 1em;">
-				<a class="nama-toko" href="<?=url('/')?>/<?=$data_keranjang_current[$i]['username']?>" style="margin: 1em 0em; font-size: 1.15em;font-weight: 600; color: {{$page->warna_header}}">
-				{{$data_keranjang_current[$i]['nama_toko']}}</a>
-				<script type="text/javascript">
-					sub_total_current["<?=$data_keranjang_current[$i]['id_toko']?>"] = 0;
-					sub_keranjang_current["<?=$data_keranjang_current[$i]['id_toko']?>"] = "";
-				</script>
-
-				<div class="daftar-product" style="margin-top: 1em;">
-					@foreach ($data_keranjang_current[$i]['product'] as $row)
-					<div class="product" style="display: flex; justify-content: space-between; margin-bottom: 1em;">
-						<div class="" style="width: 5%;">
-							<input type="checkbox" name="" checked id="checkbox_{{$row->id}}" onclick='checkbox_check_current("<?=$row->id?>", "<?=$row->harga?>", "<?=$data_keranjang_current[$i]['id_toko']?>")'>
-						</div>
-						<div class="deskripsi-product" style="width: 47%;"> 
-							<div class="nama" id="nama_{{$row->id}}" style="font-size: 1em; color: {{$page->warna_header}}; font-weight: 500;"><?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 35)))?>@if (strlen($row->nama) > 35)..@endif</div>
-
-							@php $hasil_diskon_string = ""; @endphp
-							@if ($row->jenis_harga == 'Statis')
-							@if($row->diskon != '0')
-							<div style="padding: 0; color: {{$page->warna_header}}; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
-								<s>IDR. {{number_format($row->harga)}}</s>
-							</div>
-							@php
-							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
-							@endphp
-							<div style="color: {{$page->warna_header}}; padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.1em; line-height: 1em; font-weight: 500;">IDR. {{number_format($hasil_diskon)}}</div>
-							@php $hasil_diskon_string = number_format($hasil_diskon); @endphp
-							@else
-							<div class="harga" style="color: {{$page->warna_header}};">IDR. {{number_format($row->harga,0,',','.')}}</div>
-							@endif	
-
-							@else
-							<div style="padding: 0; color: {{$page->warna_header}}; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
-								Harga Mulai
-							</div>
-							<div style="padding: 0;color: {{$page->warna_header}}; margin: 0.1em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{number_format($row->harga_terendah)}}</div>
-
-							@endif
-							<div class="button-detail" style="margin-top: 1em; display: flex;">
-								<div id="kurang_{{$row->id}}" style="width: 2em; height: 2em; background: white; border-radius: 50%; background: {{$page->warna_header}}; color: {{$page->warna_body}};text-align: center; font-size: 0.7em; padding-top: 0.3em; margin-right: 0.2em;" onclick='ubah_pesanan_current("<?=$row->id?>", "kurang", "<?=$row->harga?>", "<?=$data_keranjang_current[$i]['id_toko']?>")'><i class="fa fa-minus"></i></div>
-								<div style="width: 3em; height: 2em; background: white; border-radius: 2em; background: {{$page->warna_header}}; color: {{$page->warna_body}}; display: flex; justify-content: center; align-items: center; margin-right: 0.2em; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan_<?=$row->id?>">{{$row->jumlah}}</div>
-								<div id="tambah_{{$row->id}}" style="width: 2.1em; height: 2em; background: white; border-radius: 50%; background:  {{$page->warna_header}};color: {{$page->warna_body}};text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick='ubah_pesanan_current("<?=$row->id?>", "tambah", "<?=$row->harga?>", "<?=$data_keranjang_current[$i]['id_toko']?>")'><i class="fa fa-plus"></i></div>
-							</div>									
-						</div>
-						<a  href="<?=url('/')?>/{{$data_keranjang_current[$i]['username']}}/daftar-menu/{{$row->product_id}}" class="foto-product" style="width: 30%;">
-							<img src="<?=url('/')?>/public/img/toko/{{$data_keranjang_current[$i]['id_toko']}}/produk/240x240/{{$row->foto_produk}}" style="width: 100%; border-radius: 1em;">
-						</a>
-						<div class="" style="display: flex; justify-content: center; align-items: center; width: 8%;" onclick="hapus_keranjang('<?=$row->id?>')">
-							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M15 4H20V6H18V19C18 19.2652 17.8946 19.5196 17.7071 19.7071C17.5196 19.8946 17.2652 20 17 20H3C2.73478 20 2.48043 19.8946 2.29289 19.7071C2.10536 19.5196 2 19.2652 2 19V6H0V4H5V1C5 0.734784 5.10536 0.48043 5.29289 0.292893C5.48043 0.105357 5.73478 0 6 0H14C14.2652 0 14.5196 0.105357 14.7071 0.292893C14.8946 0.48043 15 0.734784 15 1V4ZM16 6H4V18H16V6ZM7 9H9V15H7V9ZM11 9H13V15H11V9ZM7 2V4H13V2H7Z" fill="{{$page->warna_header}}"/>
-								</svg>							
-							</div>
-						</div>
-						<script type="text/javascript">
-							@if ($row->jenis_harga == 'Statis')
-							@if($row->diskon != '0')
-							@php
-							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
-							$hasil_diskon_string = number_format($hasil_diskon);				
-							@endphp
-							sub_total_current["<?=$data_keranjang_current[$i]['id_toko']?>"] += <?=$hasil_diskon?>*<?=$row->jumlah?>;
-							@else
-							sub_total_current["<?=$data_keranjang_current[$i]['id_toko']?>"] += <?=$row->harga?>*<?=$row->jumlah?>;
-							@endif	
-							@endif
-
-
-							sub_keranjang_current["<?=$data_keranjang_current[$i]['id_toko']?>"] += "<?=$row->id?>"+"~";
-						// id_product_current[] = 
-					</script>					
-					@endforeach
-				</div>
-			</div>
-			<div style="width: 100%; display: flex; justify-content: center;">
-				<div class="" onclick='WhatsappMessage("<?=$data_keranjang_current[$i]['no_hp']?>", "<?=$data_keranjang_current[$i]['nama_toko']?>", "<?=$data_keranjang_current[$i]['id_toko']?>", "yes")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
-					<img  src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_current_<?=$data_keranjang_current[$i]['id_toko']?>">Rp. 1.500.000</span>
-				</div>
-			</div>
-			<script type="text/javascript">
-				document.getElementById("sub_total_current_<?=$data_keranjang_current[$i]['id_toko']?>").innerHTML = formatToCurrency( sub_total_current["<?=$data_keranjang_current[$i]['id_toko']?>"]);
-			</script>
-
-			@endfor
-
-			@for ($i = 0; $i < count($data_keranjang); $i++)
-			<div class="toko" style="background: white; width: 100%; padding: 0% 5%; margin-bottom: 0.5em; padding-top: 1em;">
-				<a class="nama-toko" href="<?=url('/')?>/<?=$data_keranjang[$i]['username']?>" style="margin: 1em 0em; font-size: 1.15em;font-weight: 600; color: {{$page->warna_header}}">{{$data_keranjang[$i]['nama_toko']}}</a>
-				<script type="text/javascript">
-					sub_total["<?=$data_keranjang[$i]['id_toko']?>"] = 0;
-					sub_keranjang["<?=$data_keranjang[$i]['id_toko']?>"] = "";
-
-				</script>
-				<div class="daftar-product" style="margin-top: 1em;">
-					@foreach ($data_keranjang[$i]['product'] as $row)
-					<div class="product" style="display: flex; justify-content: space-between; margin-bottom: 1em;">
-						<div class="" style="width: 5%;">
-							<input type="checkbox" name="" checked id="checkbox_{{$row->id}}" onclick='checkbox_check("<?=$row->id?>", "<?=$row->harga?>", "<?=$data_keranjang[$i]['id_toko']?>")'>
-						</div>
-						<div class="deskripsi-product" style="width: 47%;"> 
-							<div class="nama" id="nama_{{$row->id}}" style="font-size: 1em; color: {{$page->warna_header}}; font-weight: 500;"><?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 35)))?>@if (strlen($row->nama) > 35)..@endif</div>
-							@php $hasil_diskon_string = ""; @endphp
-							@if ($row->jenis_harga == 'Statis')
-							@if($row->diskon != '0')
-							<div style="padding: 0; color: {{$page->warna_header}}; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
-								<s>IDR. {{number_format($row->harga)}}</s>
-							</div>
-							@php
-							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
-							@endphp
-							<div style="color: {{$page->warna_header}}; padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.1em; line-height: 1em; font-weight: 500;">IDR. {{number_format($hasil_diskon)}}</div>
-							@php $hasil_diskon_string = number_format($hasil_diskon); @endphp
-							@else
-							<div class="harga" style="color: {{$page->warna_header}};">IDR. {{number_format($row->harga,0,',','.')}}</div>
-							@endif	
-
-							@else
-							<div style="padding: 0; color: {{$page->warna_header}}; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
-								Harga Mulai
-							</div>
-							<div style="padding: 0;color: {{$page->warna_header}}; margin: 0.1em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{number_format($row->harga_terendah)}}</div>
-
-							@endif
-							<div class="button-detail" style="margin-top: 1em; display: flex;">
-								<div id="kurang_{{$row->id}}" style="width: 2em; height: 2em; background: white; border-radius: 50%; background: {{$page->warna_header}}; color: {{$page->warna_body}};text-align: center; font-size: 0.7em; padding-top: 0.3em; margin-right: 0.2em;" onclick='ubah_pesanan("<?=$row->id?>", "kurang", "<?=$row->harga?>", "<?=$data_keranjang[$i]['id_toko']?>")'><i class="fa fa-minus"></i></div>
-								<div style="width: 3em; height: 2em; background: white; border-radius: 2em; background: {{$page->warna_header}}; color: {{$page->warna_body}}; display: flex; justify-content: center; align-items: center; margin-right: 0.2em; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan_<?=$row->id?>">{{$row->jumlah}}</div>
-								<div id="tambah_{{$row->id}}" style="width: 2.1em; height: 2em; background: white; border-radius: 50%; background:  {{$page->warna_header}};color: {{$page->warna_body}};text-align: center; font-size: 0.7em; padding-top: 0.3em;" onclick='ubah_pesanan("<?=$row->id?>", "tambah", "<?=$row->harga?>", "<?=$data_keranjang[$i]['id_toko']?>")'><i class="fa fa-plus"></i></div>
-							</div>									
-						</div>
-						<a  href="<?=url('/')?>/{{$data_keranjang[$i]['username']}}/daftar-menu/{{$row->product_id}}" class="foto-product" style="width: 30%;">
-							<img src="<?=url('/')?>/public/img/toko/{{$data_keranjang[$i]['id_toko']}}/produk/240x240/{{$row->foto_produk}}" style="width: 100%; border-radius: 1em;">
-						</a>
-						<div class="" style="display: flex; justify-content: center; align-items: center; width: 8%;" onclick="hapus_keranjang('<?=$row->id?>')">
-							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M15 4H20V6H18V19C18 19.2652 17.8946 19.5196 17.7071 19.7071C17.5196 19.8946 17.2652 20 17 20H3C2.73478 20 2.48043 19.8946 2.29289 19.7071C2.10536 19.5196 2 19.2652 2 19V6H0V4H5V1C5 0.734784 5.10536 0.48043 5.29289 0.292893C5.48043 0.105357 5.73478 0 6 0H14C14.2652 0 14.5196 0.105357 14.7071 0.292893C14.8946 0.48043 15 0.734784 15 1V4ZM16 6H4V18H16V6ZM7 9H9V15H7V9ZM11 9H13V15H11V9ZM7 2V4H13V2H7Z" fill="{{$page->warna_header}}"/>
-								</svg>							
-							</div>
-						</div>
-						<script type="text/javascript">
-							@if ($row->jenis_harga == 'Statis')
-							@if($row->diskon != '0')
-							@php
-							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
-							$hasil_diskon_string = number_format($hasil_diskon);				
-							@endphp
-							sub_total["<?=$data_keranjang[$i]['id_toko']?>"] += <?=$hasil_diskon?>*<?=$row->jumlah?>;
-							@else
-							sub_total["<?=$data_keranjang[$i]['id_toko']?>"] += <?=$row->harga?>*<?=$row->jumlah?>;
-							@endif	
-							@endif
-							sub_keranjang["<?=$data_keranjang[$i]['id_toko']?>"] += "<?=$row->id?>"+"~";
-						</script>
-						@endforeach
-					</div>
-				</div>
-				<div style="width: 100%; display: flex; justify-content: center;">
-
-					<div class="" onclick='WhatsappMessage("<?=$data_keranjang[$i]['no_hp']?>", "<?=$data_keranjang[$i]['nama_toko']?>", "<?=$data_keranjang[$i]['id_toko']?>", "no")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
-						<img onclick="modal_pesan()" src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_<?=$data_keranjang[$i]['id_toko']?>">Rp. 1.500.000</span>
-					</div>
-				</div>
-				<script type="text/javascript">
-					document.getElementById("sub_total_<?=$data_keranjang[$i]['id_toko']?>").innerHTML = formatToCurrency(sub_total["<?=$data_keranjang[$i]['id_toko']?>"]);
-				</script>
-
-				@endfor
-			</div>
-
-
-		</main>
-
+		<div id="data_content" style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: white; margin-top: 4.5em; background: #eaf4ff;">
+			@include('users.user.m-keranjang.data_keranjang')
+		</div>
+    </main>
 
 		@if(Session::has('message'))
 		<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
@@ -647,11 +478,15 @@ if (!empty($_GET['hari'])){
 
 		$('#radio_alamat_lain').change(function(){
 			$('#form_isi_alamat').attr('hidden',false);
+			$('#alamat').val('');
 		});
 
 		$('#alamat_sekarang').change(function(){
 			$('#form_isi_alamat').attr('hidden',true);
+			$('#alamat').val($('#alamat_sekarang').val());
 		});
+
+		
 
 		function checkbox_check(id, harga, id_product){
 			var jumlah = parseInt($("#jumlah_pesanan_"+id).html())*parseInt(harga);
@@ -695,8 +530,11 @@ if (!empty($_GET['hari'])){
 			return check;
 		}
 
+		var pesan_id_toko;
+		var pesan_id_keranjang = [];
+		var pesan_keynota;
 
-		function WhatsappMessage(no_hp, nama, id_product, current) {
+		function WhatsappMessage(no_hp, nama, id_toko, current) {
 			// show_loader();
 			// alert('ye');
 			// event.preventDefault();
@@ -706,16 +544,16 @@ if (!empty($_GET['hari'])){
 			var jumlah_pesanan = "";
 			var nama_produk = "";
 			var keynota = "";
-			// alert(id_product);
+			// alert(id_toko);
 			if (current == 'yes'){
-				var result = sub_keranjang_current[id_product].split("~");
-				var harga_sub_total = $("#sub_total_current_"+id_product).html();
-				var harga_sub_total_wa = sub_total_current[id_product];
+				var result = sub_keranjang_current[id_toko].split("~");
+				var harga_sub_total = $("#sub_total_current_"+id_toko).html();
+				var harga_sub_total_wa = sub_total_current[id_toko];
 			}
 			else {
-				var result = sub_keranjang[id_product].split("~");
-				var harga_sub_total = $("#sub_total_"+id_product).html();
-				var harga_sub_total_wa = sub_total[id_product];
+				var result = sub_keranjang[id_toko].split("~");
+				var harga_sub_total = $("#sub_total_"+id_toko).html();
+				var harga_sub_total_wa = sub_total[id_toko];
 			}
 			
 			for (var i = 0; i < result.length-1; i++){
@@ -728,27 +566,26 @@ if (!empty($_GET['hari'])){
 
     			}
     		}
-    		// produk += "dengan harga total "+harga_sub_total;
-    		keynota += id_product+harga_sub_total_wa;
+    		keynota += id_toko+harga_sub_total_wa;
     		var message = '[Order Produk Kitapuramall]\n\nHaloo '+nama+" saya ingin pesan produk \n"+produk;
 
     		var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
     		for (var i = 0; i < result.length-1; i++){
     			if ($('#checkbox_'+result[i]).is(':checked')) {
-    				// var jumlah_pesanan_tunggu = $("#jumlah_pesanan_"+result[i]).html();
-    				// var id_product_pesanan_tunggu = result[i];
-    				// produk += jumlah_pesanan+" "+nama_produk+"\n";
-    				$.ajax({
-    					url: "<?=url('/')?>/user/keranjang/tambah_daftar_tunggu",
-    					type: "POST",
-    					data: {"id_product":result[i], "id_toko":id_product, 'keynota':keynota},
-    					success: function (data) {
+					pesan_id_keranjang.push(result[i]);
+    				// $.ajax({
+    				// 	url: "<?=url('/')?>/user/keranjang/tambah_daftar_tunggu",
+    				// 	type: "POST",
+    				// 	data: {"id_product":result[i], "id_toko":id_toko, 'keynota':keynota},
+    				// 	success: function (data) {
 
-    					}
-    				});
+    				// 	}
+    				// });
 
     			}
     		}
+			pesan_id_toko = id_toko;
+			pesan_keynota = keynota;
 			$('#modal_nama_toko').text('Pesanan Toko '+nama);
 			$(".list-pesanan").html(produk);
 			$('#modal_pesan').modal('show');
@@ -756,6 +593,45 @@ if (!empty($_GET['hari'])){
 
     		// location.href=walink;
     	} 
+
+		function post_pesanan(){
+			console.log(pesan_id_keranjang);
+			var metode_pengiriman = $("input[name='metode_pengiriman']:checked").val();
+			var metode_pembayaran = $("input[name='metode_pembayaran']:checked").val();
+			var alamat = $('#alamat').val();
+				$.ajax({
+					url: "<?=url('/')?>/user/keranjang/tambah_daftar_tunggu",
+					type: "POST",
+					data: {"id_keranjang":pesan_id_keranjang, 
+							"id_toko":pesan_id_toko, 
+							'keynota':pesan_keynota,
+							'metode_pengiriman': metode_pengiriman,
+							'metode_pembayaran': metode_pembayaran,
+							'alamat': alamat,
+							},
+					success: function (data) {
+					}
+				});
+			$('#modal_pesan').modal('hide');
+			setTimeout(load_halaman, 1000);
+			// kirim_pesan(pesan_keynota)
+		}
+
+		function load_halaman(){
+			location.reload();
+		}
+
+		function kirim_pesan(keynota){
+			$.ajax({
+				url: "<?=url('/')?>/user/keranjang/kirim_pesan/kirim_wa",
+				type: "POST",
+				data: { 'keynota':keynota
+						},
+				success: function (data) {
+
+				}
+			});
+		}
 
 
     	var status_ganti_foto = 0;
