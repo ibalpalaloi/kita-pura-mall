@@ -227,6 +227,8 @@ Route::group(['middleware'=> 'auth'], function() {
             Route::get('/akun/mitra/premium/transaksi/tambah-transaksi', [TransaksiController::class, 'tambah_transaksi']);
             Route::get('/akun/mitra/premium/transaksi', [TransaksiController::class, 'index']);
 
+            // pesanan
+            Route::get('/get/konfirmasi_pesanan/{keynota}/{status}', [PesananController::class,'ubah_status']);
 
         });
 
@@ -320,6 +322,7 @@ Route::get('/get/get_kelurahan_from_kota', [GetController::class, 'get_kelurahan
 Route::post('/post/hapus_kategorinya_toko', [GetController::class, 'hapus_kategorinya_toko'])->name('hapus_kategorinya_toko');
 Route::post('/post/simpan_kategorinya_toko', [GetController::class, 'simpan_kategorinya_toko'])->name('simpan_kategorinya_toko');
 
+
 // toko
 Route::get('/toko', [Toko_controller::class, 'index']);
 Route::get('/toko/informasi_toko', [Toko_controller::class, 'informasi_toko']);
@@ -344,6 +347,7 @@ Route::post('/user/keranjang/tambah_daftar_tunggu', [Keranjang_Belanja_Controlle
 Route::post('/user/keranjang/ubah_jumlah', [Keranjang_Belanja_Controller::class, 'ubah_jumlah']);
 Route::get('/user/keranjang/{id_toko}', [Keranjang_Belanja_Controller::class, 'keranjang']);
 Route::get('/user/keranjang', [Keranjang_Belanja_Controller::class, 'keranjang_user']);
+Route::get('/user/keranjang/kirim_pesan/kirim_wa/{kode_nota}', [Keranjang_Belanja_Controller::class, 'kirim_pesanan']);
 
 // Penilaian
 Route::post('/user/post_penilaian', [PenilaianController::class, 'post_penilaian']);

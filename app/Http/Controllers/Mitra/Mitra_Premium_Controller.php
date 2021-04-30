@@ -22,6 +22,7 @@ use App\Models\Template_landing_page;
 use App\Models\Landing_page_toko;
 use App\Models\Transaksi;
 use App\Models\Daftar_tunggu_pesanan;
+use App\Models\Keynota;	
 use DB;
 use File;
 
@@ -387,25 +388,52 @@ class Mitra_Premium_Controller extends Controller
 		return view('users/user/m-mitra/premium/pilih_lokasi_premium', ['toko'=>$toko]);
 	}
 
-	public function daftar_tunggu_pesanan(){
+	public function daftar_tunggu_pesanan(Request $request){
 		$toko = Toko::where('users_id', Auth()->User()->id)->first();
 		$data_keranjang = array();
 		$i = 0;
-		$toko_loop = DB::table('daftar_tunggu_pesanan')->select('keynota', 'users.no_hp', 'biodata.nama', 'tanggal', 'waktu')->distinct()->join('biodata', 'biodata.users_id', '=' , 'daftar_tunggu_pesanan.id_user')->join('users', 'users.id', '=', 'biodata.users_id')->where('id_toko', '=', $toko->id)->orderBy('tanggal', 'asc')->orderBy('waktu', 'asc')->get();
- 		// dd($toko_loop);
+		// $toko_loop = DB::table('daftar_tunggu_pesanan')->select('keynota', 'users.no_hp', 'biodata.nama', 'tanggal', 'waktu', 'daftar_tunggu_pesanan.status')->distinct()->join('biodata', 'biodata.users_id', '=' , 'daftar_tunggu_pesanan.user_id')->join('users', 'users.id', '=', 'biodata.users_id')->where('toko_id', '=', $toko->id)->orderBy('tanggal', 'asc')->orderBy('waktu', 'asc')->get();
+		$toko_loop = Keynota::where([
+			['toko_id', Auth()->user()->toko->id],
+			['status', 'tunggu konfirmasi']
+		])->get();
 		foreach ($toko_loop as $row){
-			$data_keranjang[$i]['no_hp'] = $row->no_hp;
-			$data_keranjang[$i]['keynota'] = $row->keynota;
-			$data_keranjang[$i]['nama'] = $row->nama;
+			$data_keranjang[$i]['no_hp'] = $row->user->no_hp;
+			$data_keranjang[$i]['keynota'] = $row->kode_nota;
+			$data_keranjang[$i]['nama'] = $row->user->biodata->nama;
 			$data_keranjang[$i]['tanggal'] = $row->tanggal;
 			$data_keranjang[$i]['waktu'] = $row->waktu;
-			$data_keranjang[$i]["product"] = DB::table('daftar_tunggu_pesanan')->select('keranjang_belanja.id', 'keranjang_belanja.jumlah', 'product.id as product_id', 'nama', 'jenis_harga', 'harga', 'harga_terendah', 'harga_tertinggi', 'diskon', 'foto_produk')->join('keranjang_belanja', 'keranjang_belanja.id', '=', 'daftar_tunggu_pesanan.id_product')->join('product', 'product.id', '=', 'keranjang_belanja.product_id')->where('keynota', $row->keynota)->get();
+			$data_keranjang[$i]['status'] = $row->status;
+			$data_keranjang[$i]["product"] = Pesanan::where('keynota_id', $row->id)->get();
 			$i++;
 		}
-		// dd($data_keranjang);
 		$toko = Toko::where('users_id', Auth()->User()->id)->first();
 
-        // dd($data_keranjang);
+		$page = $request->get('page');
+		if($page == "terkonfirmasi"){
+			$toko_loop = Keynota::where([
+				['toko_id', Auth()->user()->toko->id],
+				['status', 'terkonfirmasi']
+			])->get();
+			foreach ($toko_loop as $row){
+				$data_keranjang[$i]['no_hp'] = $row->user->no_hp;
+				$data_keranjang[$i]['keynota'] = $row->kode_nota;
+				$data_keranjang[$i]['nama'] = $row->user->biodata->nama;
+				$data_keranjang[$i]['tanggal'] = $row->tanggal;
+				$data_keranjang[$i]['waktu'] = $row->waktu;
+				$data_keranjang[$i]['status'] = $row->status;
+				$data_keranjang[$i]["product"] = Pesanan::where('keynota_id', $row->id)->get();
+				$i++;
+			}
+
+			$view = view('users.user.m-mitra.premium.daftar-tunggu-pesanan.data_daftar_tunggu', compact('data_keranjang', 'toko'))->render();
+			return response()->json(['html'=>$view]);
+		}
+		if($page == "tunggu_konfirmasi"){
+			$view = view('users.user.m-mitra.premium.daftar-tunggu-pesanan.data_daftar_tunggu', compact('data_keranjang', 'toko'))->render();
+			return response()->json(['html'=>$view]);
+		}
+
 		return view('users/user/m-mitra/premium/daftar-tunggu-pesanan/index', compact('data_keranjang', 'toko'));
 	}
 

@@ -5,26 +5,7 @@
 @endsection
 
 @section('header-scripts')
-<?php
-function tgl_indo($tanggal){
-	$bulan = array (
-		1 =>   'Januari',
-		'Februari',
-		'Maret',
-		'April',
-		'Mei',
-		'Juni',
-		'Juli',
-		'Agustus',
-		'September',
-		'Oktober',
-		'November',
-		'Desember'
-	);
-	$pecahkan = explode('-', $tanggal);     
-	return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
-}
-?>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -558,6 +539,8 @@ if (!empty($_GET['deskripsi'])){
 
 <main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
 	<div>
+		<button type="button" onclick="load_halaman('tunggu_konfirmasi')">Konfirmasi pesanan</button>
+		<button type="button" onclick="load_halaman('terkonfirmasi')">List pesanan</button>
 		<div style="padding: 0px 16px 1em;">
 			<h3 style="color: white; font-size: 1.75rem; font-weight: 500;">List Pesanan</h3>
 			<div style=" display: flex; justify-content: space-between; align-items: center;">
@@ -565,102 +548,10 @@ if (!empty($_GET['deskripsi'])){
 			</div>
 		</div>
 		<div style="padding: 0px 16px 1em;">
-			<div style="display: flex; flex-direction: column; justify-content: center; color: white; align-items: center;">
-				<script type="text/javascript">
-					var product = [];
-					var total_harga = [];
-					var index_product = 0;		
+			<div id="data_list" style="display: flex; flex-direction: column; justify-content: center; color: white; align-items: center;">
+				
+				@include('users.user.m-mitra.premium.daftar-tunggu-pesanan.data_daftar_tunggu')
 
-				</script>
-
-				<?php 
-				$i=0; 
-				$tanggal = 0;
-				?>
-				@for ($i = 0; $i < count($data_keranjang); $i++)
-				@if ($tanggal != $data_keranjang[$i]['tanggal'])
-				@php $tanggal = $data_keranjang[$i]['tanggal']; @endphp
-				<div style=" display: flex; justify-content: space-between; align-items: center;">
-					<div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">{{tgl_indo(date('Y-m-d', strtotime($data_keranjang[$i]['tanggal'])))}}</div>
-				</div>
-				@endif
-
-				<div class="st0" style="width: 100%; border-radius: 0.5em; margin-bottom: 0.5em; position: relative;">
-					<div style="margin: 1em;">{{$data_keranjang[$i]['nama']}}</div>
-					<script type="text/javascript">
-						product[index_product] = "";
-						total_harga[index_product] = 0;
-					</script>
-					@php
-					$harga_sub_total = 0;
-					@endphp
-					@foreach ($data_keranjang[$i]['product'] as $row)
-					<div class="product" style="display: flex; justify-content: space-between; margin-bottom: 1em;">
-						<a  href="<?=url('/')?>/{{$toko->username}}/daftar-menu/{{$row->product_id}}" class="foto-product" style="width: 30%; padding-left: 1em;">
-							<img src="<?=url('/')?>/public/img/toko/{{$toko->id}}/produk/240x240/{{$row->foto_produk}}" style="width: 100%; border-radius: 1em;">
-						</a>
-						<div class="deskripsi-product" style="width: 60%; padding-left: 1em;"> 
-							<div class="nama" id="nama_{{$row->id}}" style="font-size: 1em; color: white; font-weight: 500;"><?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 35)))?>@if (strlen($row->nama) > 35)..@endif</div>
-							@if ($row->jenis_harga == 'Statis')
-							@if($row->diskon != '0')
-							<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
-								<s>IDR. {{number_format($row->harga)}}</s>
-							</div>
-							@php
-							$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
-							@endphp
-							<div style="padding: 0; margin: 0.1em 0px 0px 0em; font-size: 1.1em; line-height: 1em; font-weight: 500;">IDR. {{number_format($hasil_diskon)}}</div>
-							@php $hasil_diskon_string = number_format($hasil_diskon); @endphp
-							@else
-							<div class="harga" style="color: white;">IDR. {{number_format($row->harga,0,',','.')}}</div>
-							@endif	
-
-							@else
-							<div style="padding: 0;margin: 0.5em 0px 0px 0px; font-size: 0.9em; line-height: 1em; vertical-align: center; margin-bottom: 0em;">
-								Harga Mulai
-							</div>
-							<div style="padding: 0;margin: 0.1em 0px 0px 0em; font-size: 1.3em; line-height: 1em; font-weight: 500;">IDR. {{number_format($row->harga_terendah)}}</div>
-
-							@endif
-							<div class="button-detail" style="margin-top: 1em; display: flex; align-items: center;">
-								<span>Jumlah</span>&nbsp;
-								<span style="width: 3em; height: 2em; background: white; border-radius: 2em; color: #292929; display: flex; justify-content: center; align-items: center; margin-right: 0.2em; font-size: 0.7em; font-weight: 700;" id="jumlah_pesanan_<?=$row->id?>">{{$row->jumlah}}</span>
-							</div>									
-						</div>
-						<?php 
-						if ($row->jenis_harga == 'Statis'){
-							if($row->diskon != '0'){
-								$hasil_diskon = ($row->harga)-((($row->diskon)/100)*($row->harga));
-								$hasil_diskon_string = number_format($hasil_diskon);				
-								$harga_sub_total += $row->jumlah*$hasil_diskon;
-							}
-							else{
-								$harga_sub_total += $row->jumlah*$row->harga;
-							}
-						}
-						?>
-						<script type="text/javascript">
-							product[index_product] += "<?=$row->jumlah?> <?=$row->nama?>\n";
-						</script>
-					</div>				
-					@endforeach
-					<script type="text/javascript">
-						total_harga[index_product] = "<?=number_format($harga_sub_total,0,',','.')?>"; 
-					</script>
-					<?php $keynota = $data_keranjang[$i]['keynota']; ?>
-					<div style="width: 10%;display: flex; justify-content: center; position: absolute; right: 0; top: 0; height: 100%; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em;"  onclick='hapus_daftar_tunggu("<?=$keynota?>")' class="st0">
-						<img src="<?=url('/')?>/public/img/icon_svg/trash_white.svg" style="width: 60%;">
-					</div>
-
-				</div>
-				<div onclick='Whatsapp_pesan("<?=$data_keranjang[$i]['no_hp']?>", "<?=$data_keranjang[$i]['nama']?>", "<?=$i?>")' style="background:linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.82);border-radius: 11px; width: 100%; padding: 0.4em; text-align: center; margin-bottom: 0.5em;">Hubungi via Whatsapp</div>
-				<div id="berhasil_dikirim_{{$i}}" style="background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%); box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.82);border-radius: 11px; width: 100%; padding: 0.4em; text-align: center; margin-bottom: 1em;" onclick='berhasil_daftar_tunggu("<?=$keynota?>")'>Berhasil Dikirim? IDR. </div>
-				<script type="text/javascript">
-					document.getElementById("berhasil_dikirim_{{$i}}").innerHTML = "Berhasil Dikirim? IDR. "+total_harga[index_product];
-					index_product++;
-					
-				</script>
-				@endfor
 			</div>
 		</div>
 	</div>
@@ -672,6 +563,27 @@ if (!empty($_GET['deskripsi'])){
 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
 <script type="text/javascript">
+	function load_halaman(page){
+		$.ajax({
+			url: "?page="+page,
+			type: "get",
+			success: function (data) {
+				console.log(data);
+				$('#data_list').empty();
+				$('#data_list').html(data.html);
+			}
+		})
+	}
+
+	function konfirmasi_pesanan(keynota, status){
+		$.ajax({
+			url: "<?=url('/')?>/get/konfirmasi_pesanan/"+keynota+"/"+status,
+			type: "get",
+			success: function (data) {
+				location.reload();
+			}
+		})
+	}
 
 	function tambah_foto_toko(id){
 		$("#foto_maps_"+id).click();

@@ -15,6 +15,8 @@ use App\Models\kategori_toko;
 use App\Models\Foto_maps;
 use App\Models\Landing_page_fasilitas_toko;
 use App\Models\User;
+use App\Models\Daftar_tunggu_pesanan;
+use App\Models\Keynota;
 use DB;
 
 class GetController extends Controller
@@ -301,4 +303,8 @@ class GetController extends Controller
 
         return $no_telp;
     }
+
+	public function konfirmasi_pesanan($keynota, $status){
+		Keynota::where('kode_nota', $keynota)->update(['status' => $status]);
+	}
 }

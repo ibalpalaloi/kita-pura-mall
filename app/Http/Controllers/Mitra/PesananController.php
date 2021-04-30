@@ -7,12 +7,64 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Toko;
 use App\Models\Pesanan;
+use App\Models\Keynota;
+use App\Models\Riwayat_keynota;
+use App\Models\Riwayat_pesanan;
 use Auth;
 use Carbon\Carbon;
 
 class PesananController extends Controller
 {
     //
+    public function ubah_status($keynota, $status){
+		Keynota::where('kode_nota', $keynota)->update(['status' => $status]);
+        if($status == "selesai"){
+            $this->pesanan_selesai($keynota);
+        }
+	}
+
+    public function pesanan_selesai($kode_nota){
+        $keynota = Keynota::where('kode_nota', $kode_nota)->first();
+        $riwayat_keynota = new Riwayat_keynota;
+        $riwayat_keynota->kode_nota = $keynota->kode_nota;
+        $riwayat_keynota->toko_id = $keynota->toko_id;
+        $riwayat_keynota->user_id = $keynota->user_id;
+        $riwayat_keynota->metode_pengiriman = $keynota->metode_pengiriman;
+        $riwayat_keynota->metode_pembayaran = $keynota->metode_pembayaran;
+        $riwayat_keynota->waktu = $keynota->waktu;
+        $riwayat_keynota->tanggal = $keynota->tanggal;
+        $riwayat_keynota->save();
+
+        $pesanan = Pesanan::where('keynota_id', $keynota->id)->get();
+        foreach($pesanan as $data){
+            $riwayat_pesanan = new Riwayat_pesanan;
+            $riwayat_pesanan->kode_nota = $kode_nota;
+            $riwayat_pesanan->toko_id = $data->keynota->toko_id;
+            $riwayat_pesanan->kategori_id = $data->product->kategori_id;
+            $riwayat_pesanan->sub_kategori_id = $data->product->sub_kategori_id;
+            $riwayat_pesanan->nama_produk = $data->product->nama;
+            $riwayat_pesanan->jenis_harga = $data->product->jenis_harga;
+            $riwayat_pesanan->harga = $data->product->harga;
+            $riwayat_pesanan->harga_terendah = $data->product->harga_terendah;
+            $riwayat_pesanan->harga_tertinggi = $data->product->harga_tertinggi;
+            $riwayat_pesanan->diskon = $data->product->diskon;
+            $riwayat_pesanan->jumlah =$data->jumlah;
+            if($riwayat_pesanan->diskon != 0){
+                $harga_diskon = ($data->product->diskon/100) * $riwayat_pesanan->jumlah;
+                $harga_total = $harga_diskon * $riwayat_pesanan->jumlah; 
+                $riwayat_pesanan->total_harga = $harga_total;
+            }
+            else{
+                $harga_total = $riwayat_pesanan->jumlah * $riwayat_pesanan->harga;
+                $riwayat_pesanan->total_harga = $harga_total;
+            }
+            $riwayat_pesanan->save();
+            
+            
+        }
+        $pesanan = Pesanan::where('keynota_id', $keynota->id)->delete();
+        $keynota = Keynota::where('kode_nota', $kode_nota)->delete();
+    }
     public function pesanan(){
         // $pesanan = Pesanan::where('created_at', date('Y-m-d').'00:00:00')->get();
         // dd($pesanan);
