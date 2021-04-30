@@ -13,5 +13,9 @@ class Pesanan extends Model
     public function product(){
         return $this->belongsTo(Product::class);
     }
+
+    public function keynota(){
+        return $this->belongsTo(Keynota::class);
+    }
     
 }

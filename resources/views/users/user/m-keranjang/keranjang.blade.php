@@ -610,11 +610,12 @@ if (!empty($_GET['hari'])){
 							'alamat': alamat,
 							},
 					success: function (data) {
+
 					}
 				});
 			$('#modal_pesan').modal('hide');
 			setTimeout(load_halaman, 1000);
-			// kirim_pesan(pesan_keynota)
+			
 		}
 
 		function load_halaman(){

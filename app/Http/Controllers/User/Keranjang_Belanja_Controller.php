@@ -181,6 +181,7 @@ class Keranjang_Belanja_Controller extends Controller
         $keynota->toko_id = $request->id_toko;
         $keynota->metode_pengiriman = $request->metode_pengiriman;
         $keynota->metode_pembayaran = $request->metode_pembayaran;
+        $keynota->alamat = $request->alamat;
         $keynota->save();
         for($i=0; $i<count($request->id_keranjang); $i++){
            $keranjang = Keranjang_belanja::find($request->id_keranjang[$i]);
@@ -199,28 +200,31 @@ class Keranjang_Belanja_Controller extends Controller
            $pesanan->save();
            $keranjang = Keranjang_belanja::find($request->id_keranjang[$i])->delete();
         }
+        $this->kirim_pesanan($kode_nota);
     }
 
-    public function kirim_pesanan(Request $request){
+    public function kirim_pesanan($kode_nota){
         $data_pesanan = '';
         $total_bayar_pesanan = 0;
         $data_pemesana;
-        $pesanan = Daftar_tunggu_pesanan::where('keynota', $request->keynota)->get();
+        $keynota = Keynota::where('kode_nota', $kode_nota)->first();
+        $pesanan = Pesanan::where('keynota_id', $keynota->id)->get();
         if(count($pesanan)>0){
             foreach($pesanan as $data){
-                $keranjang = Keranjang_belanja::find($data->id_product);
-                $data_pesanan .= "-".$keranjang->product->nama." (".$keranjang->jumlah.")\n";
-                $harga_total_peritem = $keranjang->jumlah * $keranjang->product->harga;
-                $total_bayar_pesanan = $total_bayar_pesanan + $harga_total_peritem;
+                $data_pesanan .= "-".$data->product->nama." (".$data->jumlah.")\n";
+                $total_bayar_pesanan = $total_bayar_pesanan + $data->harga;
             }
-            $user = User::where('id', $pesanan[0]->id_user)->first();
+            $user = User::where('id', $keynota->user_id)->first();
             $data_pemesan['nama'] = $user->biodata->nama;
-            $data_pemesan['metode_pembayaran'] = $pesanan[0]->metode_pembayaran;
-            $data_pemesan['metode_pengiriman'] = $pesanan[0]->metode_pengiriman;
-            $data_pemesan['alamat'] = $pesanan[0]->alamat;
+            $data_pemesan['metode_pembayaran'] = $keynota->metode_pembayaran;
+            $data_pemesan['metode_pengiriman'] = $keynota->metode_pengiriman;
+            if($data_pemesan['metode_pembayaran'] == "COD"){
+                $data_pemesan['alamat'] = "-";
+            }else{
+                $data_pemesan['alamat'] = $keynota->alamat;
+            }
             $data_pemesan['no_hp'] = $user->no_hp;
-
-            $toko = Toko::where('id', $pesanan[0]->id_toko)->first();
+            $toko = Toko::where('id', $keynota->toko_id)->first();
             $no_hp = $this->generate_no_telp($toko->no_hp);
 
             $this->otp_wapibot($no_hp, $data_pesanan, $total_bayar_pesanan, $data_pemesan);
