@@ -430,6 +430,7 @@ if (!empty($_GET['hari'])){
 	</header>
 	<main id="homepage" class="homepage" style="padding: 0px; background: #eaf4ff !important;">
 		<div id="data_content" style="display: flex; justify-content: center; position: relative; flex-direction: column; align-items: center; background: white; margin-top: 4.5em; background: #eaf4ff;">
+			
 			@include('users.user.m-keranjang.data_keranjang')
 		</div>
     </main>
@@ -472,6 +473,18 @@ if (!empty($_GET['hari'])){
 		// };
 
 		var isMobile = mobilecheck();
+
+		function pindah_halaman(status){
+			$.ajax({
+				url: "?halaman="+status,
+				type: "get",
+				success: function (data) {
+					console.log(data);
+					$('#data_content').empty();
+					$('#data_content').html(data.html);
+				}
+			})
+		}
 
 		function modal_pesan(nama_toko){
 		}

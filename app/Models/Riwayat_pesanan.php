@@ -9,4 +9,8 @@ class Riwayat_pesanan extends Model
 {
     use HasFactory;
     protected $table = "riwayat_pesanan";
+
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
 }

@@ -347,6 +347,7 @@ Route::post('/user/keranjang/tambah_daftar_tunggu', [Keranjang_Belanja_Controlle
 Route::post('/user/keranjang/ubah_jumlah', [Keranjang_Belanja_Controller::class, 'ubah_jumlah']);
 Route::get('/user/keranjang/{id_toko}', [Keranjang_Belanja_Controller::class, 'keranjang']);
 Route::get('/user/keranjang', [Keranjang_Belanja_Controller::class, 'keranjang_user']);
+Route::get('/user/keranjang/riwayat_pesanan/riwayat', [Keranjang_Belanja_Controller::class, 'riwayat_keranjang']);
 Route::get('/user/keranjang/kirim_pesan/kirim_wa/{kode_nota}', [Keranjang_Belanja_Controller::class, 'kirim_pesanan']);
 
 // Penilaian
