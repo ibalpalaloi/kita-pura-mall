@@ -539,10 +539,16 @@ if (!empty($_GET['deskripsi'])){
 
 <main id="homepage" class="homepage" style='background: transparent; padding: 5em 0px 0px 0px;'>
 	<div>
-		<button type="button" onclick="load_halaman('tunggu_konfirmasi')">Konfirmasi pesanan</button>
-		<button type="button" onclick="load_halaman('terkonfirmasi')">List pesanan</button>
+		<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">
+			<div class="kategori-tabs" style="margin-top: 5px; font-size: 0.85em;">
+				<a onclick="load_halaman('tunggu_konfirmasi')" class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">List Pesanan</a>
+				<a onclick="load_halaman('terkonfirmasi')" class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">Dalam Proses</a>
+			</div>
+		</div>
+		{{-- <button type="button" onclick="load_halaman('tunggu_konfirmasi')">Konfirmasi pesanan</button>
+		<button type="button" onclick="load_halaman('terkonfirmasi')">List pesanan</button> --}}
 		<div style="padding: 0px 16px 1em;">
-			<h3 style="color: white; font-size: 1.75rem; font-weight: 500;">List Pesanan</h3>
+			{{-- <h3 style="color: white; font-size: 1.75rem; font-weight: 500;">List Pesanan</h3> --}}
 			<div style=" display: flex; justify-content: space-between; align-items: center;">
 				<!--<div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">Daftar product yang di</div>-->
 			</div>
