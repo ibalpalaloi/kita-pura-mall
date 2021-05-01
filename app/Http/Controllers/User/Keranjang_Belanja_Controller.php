@@ -14,6 +14,8 @@ use App\Models\Landing_page_toko;
 use App\Models\Daftar_tunggu_pesanan;
 use App\Models\Keynota;
 use App\Models\Pesanan;
+use App\Models\Riwayat_keynota;
+use App\Models\Riwayat_pesanan;
 
 class Keranjang_Belanja_Controller extends Controller
 {
@@ -123,10 +125,52 @@ class Keranjang_Belanja_Controller extends Controller
             $daftar_tunggu_konfirmasi[$i]['product'] = Pesanan::where('keynota_id', $data->id)->get();
             $i++;
         }
-        // dd($daftar_tunggu_konfirmasi);
-        // dd($data_keranjang);
+
+        if($request->get('halaman') == 'terkonfirmasi'){
+            $tunggu_konfirmasi = Keynota::where([
+                ['status', 'terkonfirmasi'],
+                ['user_id', Auth()->user()->id]
+            ])->get();
+            $daftar_tunggu_konfirmasi = array();
+            $i=0;
+            foreach($tunggu_konfirmasi as $data){
+                $cek_toko = Toko::where('id', $data->toko_id)->first();
+                $daftar_tunggu_konfirmasi[$i]["id_toko"] = $cek_toko->id;
+                $daftar_tunggu_konfirmasi[$i]['nama_toko'] = $cek_toko->nama_toko;
+                $daftar_tunggu_konfirmasi[$i]['username'] = $cek_toko->username;
+                $daftar_tunggu_konfirmasi[$i]['no_hp'] = $cek_toko->no_hp;
+                $daftar_tunggu_konfirmasi[$i]['product'] = Pesanan::where('keynota_id', $data->id)->get();
+                $i++;
+            }
+            $view = view('users.user.m-keranjang.data_keranjang_terkonfirmasi', compact('data_keranjang', 'data_keranjang_current', 'page', 'toko', 'daftar_tunggu_konfirmasi'))->render();
+            return response()->json(['html'=>$view]);
+        }
+        
+        if($request->get('halaman') == 'keranjang'){
+            $view = view('users.user.m-keranjang.data_keranjang', compact('data_keranjang', 'data_keranjang_current', 'page', 'toko', 'daftar_tunggu_konfirmasi'))->render();
+            return response()->json(['html'=>$view]);
+        }
+
+        if($request->get('halaman') == 'riwayat'){
+            $riwayat_keynota = Riwayat_keynota::where('user_id', Auth()->user()->id)->get();
+            $daftar_tunggu_konfirmasi = array();
+            $i=0;
+            foreach($riwayat_keynota as $data){
+                $cek_toko = Toko::where('id', $data->toko_id)->first();
+                $daftar_tunggu_konfirmasi[$i]["id_toko"] = $cek_toko->id;
+                $daftar_tunggu_konfirmasi[$i]['nama_toko'] = $cek_toko->nama_toko;
+                $daftar_tunggu_konfirmasi[$i]['username'] = $cek_toko->username;
+                $daftar_tunggu_konfirmasi[$i]['no_hp'] = $cek_toko->no_hp;
+                $daftar_tunggu_konfirmasi[$i]['product'] = Riwayat_pesanan::where('kode_nota', $data->kode_nota)->get();
+                $i++;
+            }
+            $view = view('users.user.m-keranjang.data_riwayat_pesanan', compact('data_keranjang', 'data_keranjang_current', 'page', 'toko', 'daftar_tunggu_konfirmasi'))->render();
+            return response()->json(['html'=>$view]);
+        }
         return view('users.user.m-keranjang.keranjang', compact('data_keranjang', 'data_keranjang_current', 'page', 'toko', 'daftar_tunggu_konfirmasi'));
     }
+
+    
 
     public function keranjang_user(){
         $data_keranjang = array();

@@ -39,6 +39,7 @@ class PesananController extends Controller
         foreach($pesanan as $data){
             $riwayat_pesanan = new Riwayat_pesanan;
             $riwayat_pesanan->kode_nota = $kode_nota;
+            $riwayat_pesanan->product_id = $data->product->id;
             $riwayat_pesanan->toko_id = $data->keynota->toko_id;
             $riwayat_pesanan->kategori_id = $data->product->kategori_id;
             $riwayat_pesanan->sub_kategori_id = $data->product->sub_kategori_id;

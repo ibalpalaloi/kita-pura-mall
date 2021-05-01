@@ -6,7 +6,11 @@
             var sub_total_current = [];
             // var keynota_current = [];
         </script>
-        
+        <div class="kategori-tabs" style="margin-top: 5px; font-size: 0.85em;">
+            <button onclick="pindah_halaman('keranjang')">Keranjang</button>
+            <button onclick="pindah_halaman('terkonfirmasi')">Dalam Proses</button>
+            <button onclick="pindah_halaman('riwayat')">Riwayat</button>
+        </div>
         @for ($i = 0; $i < count($daftar_tunggu_konfirmasi); $i++)
         <div class="toko" style="background: white; width: 100%; padding: 0% 5%; margin-bottom: 0.5em; padding-top: 1em;">
             <a class="nama-toko" href="<?=url('/')?>/<?=$daftar_tunggu_konfirmasi[$i]['username']?>" style="margin: 1em 0em; font-size: 1.15em;font-weight: 600; color: {{$page->warna_header}}">
