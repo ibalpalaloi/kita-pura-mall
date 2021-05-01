@@ -54,7 +54,7 @@
                         </div>									
                     </div>
                     <a  href="<?=url('/')?>/{{$daftar_tunggu_konfirmasi[$i]['username']}}/daftar-menu/{{$row->product_id}}" class="foto-product" style="width: 30%;">
-                        <img src="<?=url('/')?>/public/img/toko/{{$daftar_tunggu_konfirmasi[$i]['id_toko']}}/produk/240x240/{{$row->product->foto_produk}}" style="width: 100%; border-radius: 1em;">
+                        <img id="gambar_{{$row->id}}" src="<?=url('/')?>/public/img/toko/{{$daftar_tunggu_konfirmasi[$i]['id_toko']}}/produk/240x240/{{$row->product->foto_produk}}" style="width: 100%; border-radius: 1em;">
                     </a>
                     <div class="" style="display: flex; justify-content: center; align-items: center; width: 8%;" onclick="hapus_keranjang('<?=$row->id?>')">
                         							
@@ -143,7 +143,7 @@
                         </div>									
                     </div>
                     <a  href="<?=url('/')?>/{{$data_keranjang_current[$i]['username']}}/daftar-menu/{{$row->product_id}}" class="foto-product" style="width: 30%;">
-                        <img src="<?=url('/')?>/public/img/toko/{{$data_keranjang_current[$i]['id_toko']}}/produk/240x240/{{$row->foto_produk}}" style="width: 100%; border-radius: 1em;">
+                        <img id="gambar_{{$row->id}}" src="<?=url('/')?>/public/img/toko/{{$data_keranjang_current[$i]['id_toko']}}/produk/240x240/{{$row->foto_produk}}" style="width: 100%; border-radius: 1em;">
                     </a>
                     <div class="" style="display: flex; justify-content: center; align-items: center; width: 8%;" onclick="hapus_keranjang('<?=$row->id?>')">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
