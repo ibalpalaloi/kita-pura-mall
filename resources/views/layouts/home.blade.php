@@ -213,7 +213,15 @@ $show = "finish";
                 <div style="background: white; border: 2px solid #ff006e; width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;">
                     <img src="<?=url('/')?>/public/img/menu/rental_mobil.svg" style="width: 60%;">
                 </div>
-                <div style="text-align: center; font-size: 0.7em; color: #5b5b5b; white-space: nowrap;">Rental Mobil</div>
+                <div style="text-align: center; font-size: 0.7em; color: #5b5b5b; white-space: nowrap;">RentCar</div>
+            </a>
+        </div>        
+        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;">
+            <a href="<?=url('/')?>/digital-download" style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;"  onclick="show_loader()">
+                <div style="background: white; border: 2px solid #ff006e; width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;">
+                    <img src="<?=url('/')?>/public/img/menu/digidown_pink.svg" style="width: 60%;">
+                </div>
+                <div style="text-align: center; font-size: 0.7em; color: #5b5b5b; white-space: nowrap;">Digital Download</div>
             </a>
         </div>        
         @for ($i = 2; $i < count($menu); $i++)  

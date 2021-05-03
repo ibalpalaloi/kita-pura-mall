@@ -30,6 +30,9 @@ use App\Http\Controllers\Mitra\Mitra_Premium_Produk_Controller;
 use App\Http\Controllers\Mitra\Mitra_Premium_Landingpage_Controller;
 use App\Http\Controllers\Mitra\PesananController;
 use App\Http\Controllers\Mitra\TransaksiController;
+// DIGITAL DOWNLOAD
+use App\Http\Controllers\DigitalDownload\DigitalDownloadController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -136,6 +139,11 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::post('/set-null', [AuthController::class, 'set_null'])->name('set-null');
         Route::post('/notif-lengkap', [AuthController::class, 'notif_biodata_lengkap'])->name('notif_lengkap');
         Route::post('/notif_toko_lengkap', [AuthController::class, 'notif_toko_lengkap'])->name('notif_toko_lengkap');
+
+        // Digital Download
+        Route::get('digital-download', [DigitalDownloadController::class, 'index']);
+        Route::get('digital-download/daftar', [DigitalDownloadController::class, 'register']);
+
         Route::group(['middleware'=> 'free'], function() {
             // @mitra free
             Route::get('/akun/mitra/free', [Mitra_Free_Controller::class, 'index_free']);
