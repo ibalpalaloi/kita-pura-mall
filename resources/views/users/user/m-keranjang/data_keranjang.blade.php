@@ -1,9 +1,9 @@
 	
-        <script type="text/javascript">
-            var sub_keranjang_current = {};
-            var sub_keranjang = {};
-            var sub_total = [];
-            var sub_total_current = [];
+<script type="text/javascript">
+    var sub_keranjang_current = {};
+    var sub_keranjang = {};
+    var sub_total = [];
+    var sub_total_current = [];
             // var keynota_current = [];
         </script>
         <div class="kategori-tabs" style="margin-top: 5px; font-size: 0.85em;">
@@ -24,7 +24,7 @@
                 @foreach ($daftar_tunggu_konfirmasi[$i]['product'] as $row)
                 <div class="product" style="display: flex; justify-content: space-between; margin-bottom: 1em;">
                     <div class="" style="width: 5%;">
-                        
+
                     </div>
                     <div class="deskripsi-product" style="width: 47%;"> 
                         <div class="nama" id="nama_{{$row->id}}" style="font-size: 1em; color: {{$page->warna_header}}; font-weight: 500;"><?=ucwords(strtolower(substr(strip_tags($row->product->nama), 0, 35)))?>@if (strlen($row->product->nama) > 35)..@endif</div>
@@ -61,24 +61,24 @@
                         <img id="gambar_{{$row->id}}" src="<?=url('/')?>/public/img/toko/{{$daftar_tunggu_konfirmasi[$i]['id_toko']}}/produk/240x240/{{$row->product->foto_produk}}" style="width: 100%; border-radius: 1em;">
                     </a>
                     <div class="" style="display: flex; justify-content: center; align-items: center; width: 8%;" onclick="hapus_keranjang('<?=$row->id?>')">
-                        							
-                        </div>
+
                     </div>
-                    <script type="text/javascript">
-                        @if ($row->product->jenis_harga == 'Statis')
-                        @if($row->product->diskon != '0')
-                        @php
-                        $hasil_diskon = ($row->product->harga)-((($row->product->diskon)/100)*($row->product->harga));
-                        $hasil_diskon_string = number_format($hasil_diskon);				
-                        @endphp
-                        sub_total_current["<?=$daftar_tunggu_konfirmasi[$i]['id_toko']?>"] += <?=$hasil_diskon?>*<?=$row->jumlah?>;
-                        @else
-                        sub_total_current["<?=$daftar_tunggu_konfirmasi[$i]['id_toko']?>"] += <?=$row->product->harga?>*<?=$row->jumlah?>;
-                        @endif	
-                        @endif
+                </div>
+                <script type="text/javascript">
+                    @if ($row->product->jenis_harga == 'Statis')
+                    @if($row->product->diskon != '0')
+                    @php
+                    $hasil_diskon = ($row->product->harga)-((($row->product->diskon)/100)*($row->product->harga));
+                    $hasil_diskon_string = number_format($hasil_diskon);				
+                    @endphp
+                    sub_total_current["<?=$daftar_tunggu_konfirmasi[$i]['id_toko']?>"] += <?=$hasil_diskon?>*<?=$row->jumlah?>;
+                    @else
+                    sub_total_current["<?=$daftar_tunggu_konfirmasi[$i]['id_toko']?>"] += <?=$row->product->harga?>*<?=$row->jumlah?>;
+                    @endif	
+                    @endif
 
 
-                        sub_keranjang_current["<?=$daftar_tunggu_konfirmasi[$i]['id_toko']?>"] += "<?=$row->id?>"+"~";
+                    sub_keranjang_current["<?=$daftar_tunggu_konfirmasi[$i]['id_toko']?>"] += "<?=$row->id?>"+"~";
                     // id_product_current[] = 
                 </script>					
                 @endforeach
@@ -95,7 +95,7 @@
             </div>
         </div>
         <script type="text/javascript">
-            
+
         </script>
 
         @endfor
@@ -116,7 +116,19 @@
                         <input type="checkbox" name="" checked id="checkbox_{{$row->id}}" onclick='checkbox_check_current("<?=$row->id?>", "<?=$row->harga?>", "<?=$data_keranjang_current[$i]['id_toko']?>")'>
                     </div>
                     <div class="deskripsi-product" style="width: 47%;"> 
-                        <div class="nama" id="nama_{{$row->id}}" style="font-size: 1em; color: {{$page->warna_header}}; font-weight: 500;"><?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 35)))?>@if (strlen($row->nama) > 35)..@endif</div>
+                        <div class="nama" id="nama_{{$row->id}}" style="font-size: 1em; color: {{$page->warna_header}}; font-weight: 500;">
+                            <?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 35)))?>
+                            <?php 
+                            if (strlen($row->nama) > 35){
+                                echo "..";
+                            }
+                            else {
+                                $panjang_sisa = 35-strlen($row->nama);
+                                    // for ($i = 0; $i < $panjang_sisa; $i++){
+                                echo $panjang_sisa;
+                            }
+                            ?>
+                        </div>
 
                         @php $hasil_diskon_string = ""; @endphp
                         @if ($row->jenis_harga == 'Statis')
@@ -201,7 +213,20 @@
                         <input type="checkbox" name="" checked id="checkbox_{{$row->id}}" onclick='checkbox_check("<?=$row->id?>", "<?=$row->harga?>", "<?=$data_keranjang[$i]['id_toko']?>")'>
                     </div>
                     <div class="deskripsi-product" style="width: 47%;"> 
-                        <div class="nama" id="nama_{{$row->id}}" style="font-size: 1em; color: {{$page->warna_header}}; font-weight: 500;"><?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 35)))?>@if (strlen($row->nama) > 35)..@endif</div>
+                        <div class="nama" id="nama_{{$row->id}}" style="font-size: 1em; color: {{$page->warna_header}}; font-weight: 500;">
+                            <?=ucwords(strtolower(substr(strip_tags($row->nama), 0, 35)))?>
+                            <?php 
+                            if (strlen($row->nama) > 35){
+                                echo "..";
+                            }
+                            else {
+                                $panjang_sisa = 35-strlen($row->nama);
+                                    // for ($i = 0; $i < $panjang_sisa; $i++){
+                                echo $panjang_sisa;
+                                    // }
+                            }
+                            ?>
+                        </div>
                         @php $hasil_diskon_string = ""; @endphp
                         @if ($row->jenis_harga == 'Statis')
                         @if($row->diskon != '0')
@@ -231,7 +256,7 @@
                         </div>									
                     </div>
                     <a  href="<?=url('/')?>/{{$data_keranjang[$i]['username']}}/daftar-menu/{{$row->product_id}}" class="foto-product" style="width: 30%;">
-                        <img src="<?=url('/')?>/public/img/toko/{{$data_keranjang[$i]['id_toko']}}/produk/240x240/{{$row->foto_produk}}" style="width: 100%; border-radius: 1em;">
+                        <img  id="gambar_{{$row->id}}" src="<?=url('/')?>/public/img/toko/{{$data_keranjang[$i]['id_toko']}}/produk/240x240/{{$row->foto_produk}}" style="width: 100%; border-radius: 1em;">
                     </a>
                     <div class="" style="display: flex; justify-content: center; align-items: center; width: 8%;" onclick="hapus_keranjang('<?=$row->id?>')">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -267,4 +292,3 @@
             </script>
 
             @endfor
-       

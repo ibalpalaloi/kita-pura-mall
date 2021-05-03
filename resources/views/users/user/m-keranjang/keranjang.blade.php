@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
 
 <style type="text/css">
 	.banner {
@@ -265,19 +267,32 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		flex-direction: column; 
 		align-items: center; 
 		margin: 0em 0em 0em 0.5em; 
-		width: 8.5em;		
+		width: 8.5em !important;		
 	}
 
 	.slider-toko img {
-		width: 100%;
+		/*width: 5em;/*/
+		/*height: 5em;*/
 		border-top-left-radius: 1em;
 		border-top-right-radius: 1em;
 	}
 
 	.slider-toko > div {
-		height: 5em;
+		height: 3em;
 		border-bottom-left-radius: 1em;
 		border-bottom-right-radius: 1em;
+	}
+
+	.report-modal-body {
+		/*max-height:calc(100px);*/
+		overflow-y:auto;
+		overflow-x:auto;
+	}
+	.report-pre {
+		width:100%;
+		overflow-x:auto;
+		word-wrap:normal;
+		margin:1px;
 	}
 
 
@@ -384,15 +399,14 @@ if (!empty($_GET['hari'])){
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body">
+				<pre class="report-pre modal-body report-modal-body">
+					<div class="slider" style="margin-top: 0em; margin-bottom: 0px; position: relative; top: -1.5em;">
 
-					{{ csrf_field() }}
-					<div class="list-pesanan" style="margin-bottom: 2em;">
-						<div class="slider" style=" margin-top: 0em;">
 
- 
-						</div>
 					</div>
+				</pre>
+				<div class="modal-body" style="padding-top: 0px; position: relative; top: -5em;">
+					{{ csrf_field() }}
 					<hr>
 					<p>Metode Pengiriman</p>
 					<div class="form-check">
@@ -442,8 +456,7 @@ if (!empty($_GET['hari'])){
 					@endif
 					<hr>
 					<p>No Telp: {{Auth()->user()->no_hp}}</p>
-					<input type="text" name="no_hp" value="{{Auth()->user()->no_hp}}" hidden>
-
+					<input type="text" name="no_hp" value="{{Auth()->user()->no_hp}}" hidden>					
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -463,6 +476,7 @@ if (!empty($_GET['hari'])){
 			</a>
 			<a style="height: 100%; width: 80%; display: flex; justify-content: center; align-items: center; font-size: 1.5em; font-weight: 600; color: {{$page->warna_header}}">
 				Keranjang
+
 			</a>
 			<div style="width: 10%; color: white">.</div>
 		</div>
@@ -615,26 +629,26 @@ if (!empty($_GET['hari'])){
 					nama_produk = $("#nama_"+result[i]).html();
 					gambar_produk = $("#gambar_"+result[i]).attr('src');
 					produk += '<div class="slider-toko">'+
-								'<img src="'+gambar_produk+'" style="width: 100%;">'+
-								'<div style="text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%;color: white; background-size: cover; position: relative; background-color: {{$page->warna_header}};">'+ 
-									'<div id="check_1" style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #757575; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">'+jumlah_pesanan+
-									'</div>'+
-									'<div style="font-weight: 500; margin-top: 0em;">'+nama_produk+'</div>'+
-								'</div>'+
-							'</div>';
-    
+					'<img src="'+gambar_produk+'" style="width: 100%;">'+
+					'<div style="text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%;color: white; background-size: cover; position: relative; background-color: {{$page->warna_header}};">'+ 
+					'<div id="check_1" style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #757575; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">'+jumlah_pesanan+
+					'</div>'+
+					'<div style="font-weight: 500; margin-top: 0em;">'+nama_produk.trim()+'</div>'+
+					'</div>'+
+					'</div>';
+
 					// keynota_current = keynota_current.replace(id_sebelum, id+data);
-    				keynota += result[i]+jumlah_pesanan;
+					keynota += result[i]+jumlah_pesanan;
 
-    			}
-    		}
-    		keynota += id_toko+harga_sub_total_wa;
-    		var message = '[Order Produk Kitapuramall]\n\nHaloo '+nama+" saya ingin pesan produk \n"+produk;
+				}
+			}
+			keynota += id_toko+harga_sub_total_wa;
+			var message = '[Order Produk Kitapuramall]\n\nHaloo '+nama+" saya ingin pesan produk \n"+produk;
 
-    		var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
-    		for (var i = 0; i < result.length-1; i++){
-    			if ($('#checkbox_'+result[i]).is(':checked')) {
-    				pesan_id_keranjang.push(result[i]);
+			var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
+			for (var i = 0; i < result.length-1; i++){
+				if ($('#checkbox_'+result[i]).is(':checked')) {
+					pesan_id_keranjang.push(result[i]);
     				// $.ajax({
     				// 	url: "<?=url('/')?>/user/keranjang/tambah_daftar_tunggu",
     				// 	type: "POST",
