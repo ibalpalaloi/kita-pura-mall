@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
 
 <style type="text/css">
 	.banner {
@@ -245,6 +247,55 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		transform: scale(1.4);
 		margin-top: 0.8em;
 	}	
+
+	.slider {
+		display: flex; 
+		overflow-y: visible; 
+		margin: 0px; 			
+		overflow-x: scroll;
+		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none;  /* Internet Explorer 10+ */
+	}
+	.slider::-webkit-scrollbar { /* WebKit */
+		width: 0;
+		height: 0;
+	}
+
+	.slider-toko {
+		display: flex; 
+		justify-content: center; 
+		flex-direction: column; 
+		align-items: center; 
+		margin: 0em 0em 0em 0.5em; 
+		width: 8.5em !important;		
+	}
+
+	.slider-toko img {
+		/*width: 5em;/*/
+		/*height: 5em;*/
+		border-top-left-radius: 1em;
+		border-top-right-radius: 1em;
+	}
+
+	.slider-toko > div {
+		height: 3em;
+		border-bottom-left-radius: 1em;
+		border-bottom-right-radius: 1em;
+	}
+
+	.report-modal-body {
+		/*max-height:calc(100px);*/
+		overflow-y:auto;
+		overflow-x:auto;
+	}
+	.report-pre {
+		width:100%;
+		overflow-x:auto;
+		word-wrap:normal;
+		margin:1px;
+	}
+
+
 </style>
 <script type="text/javascript">
 	const formatToCurrency = amount => {
@@ -340,80 +391,81 @@ if (!empty($_GET['hari'])){
 
 <div class="modal fade" id="modal_pesan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
-	  <div class="modal-content">
-		<form action="<?=url('/')?>/user/keranjang/pesan" method="post" id="form_pesan">
-		<div class="modal-header">
-		  <h5 class="modal-title" id="modal_nama_toko"></h5>
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		  </button>
-		</div>
-		<div class="modal-body">
-		
-			{{ csrf_field() }}
-			<div class="list-pesanan" style="margin-bottom: 2em;">
-				
-			</div>
-			<hr>
-			<p>Metode Pengiriman</p>
-			<div class="form-check">
-				<input class="form-check-input" type="radio" name="metode_pengiriman" id="exampleRadios1" value="Ambil" checked>
-				<label class="form-check-label" for="exampleRadios1" >
-					Ambil Sendiri
-				</label>
-			</div>
-			<div class="form-check">
-				<input class="form-check-input" type="radio" name="metode_pengiriman" id="exampleRadios2" value="Antar">
-				<label class="form-check-label" for="exampleRadios2">
-					Antar
-				</label>
-			</div>
-			<hr>
-			<p>Metode Pembayaran</p>
-			<div class="form-check">
-				<input class="form-check-input" type="radio" name="metode_pembayaran" id="exampleRadios1" value="COD" checked>
-				<label class="form-check-label" for="exampleRadios1" >
-					COD
-				</label>
-			</div>
-			<hr>
-			<p>Alamat</p>
-			
-			@if(Auth()->user()->biodata->alamat == "")
-				<div class="form-group">
-					<input type="text" class="form-control" name="alamat" id="exampleFormControlInput1" placeholder="Masukkan Alamat">
+		<div class="modal-content">
+			<form action="<?=url('/')?>/user/keranjang/pesan" method="post" id="form_pesan">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal_nama_toko"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
-			@else
-				<div class="form-check">
-					<input class="form-check-input" type="radio" name="radio_alamat" id="alamat_sekarang" value="{{Auth()->user()->biodata->alamat}}" checked>
-					<label class="form-check-label" for="exampleRadios1" >
-						{{Auth()->user()->biodata->alamat}}
-					</label>
-					
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="radio" name="radio_alamat" id="radio_alamat_lain" value="alamat lain">
-					<label class="form-check-label" for="exampleRadios1" >
-						Alamat Lain
-					</label>
-					<div id="form_isi_alamat" class="form-group" hidden>
-						<input type="text" class="form-control" name="alamat" id="alamat" placeholder="Masukkan Alamat" value="{{Auth()->user()->biodata->alamat}}">
+				<pre class="report-pre modal-body report-modal-body">
+					<div class="slider" style="margin-top: 0em; margin-bottom: 0px; position: relative; top: -1.5em;">
+
+
 					</div>
+				</pre>
+				<div class="modal-body" style="padding-top: 0px; position: relative; top: -5em;">
+					{{ csrf_field() }}
+					<hr>
+					<p>Metode Pengiriman</p>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="metode_pengiriman" id="exampleRadios1" value="Ambil" checked>
+						<label class="form-check-label" for="exampleRadios1" >
+							Ambil Sendiri
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="metode_pengiriman" id="exampleRadios2" value="Antar">
+						<label class="form-check-label" for="exampleRadios2">
+							Antar
+						</label>
+					</div>
+					<hr>
+					<p>Metode Pembayaran</p>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="metode_pembayaran" id="exampleRadios1" value="COD" checked>
+						<label class="form-check-label" for="exampleRadios1" >
+							COD
+						</label>
+					</div>
+					<hr>
+					<p>Alamat</p>
+
+					@if(Auth()->user()->biodata->alamat == "")
+					<div class="form-group">
+						<input type="text" class="form-control" name="alamat" id="exampleFormControlInput1" placeholder="Masukkan Alamat">
+					</div>
+					@else
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="radio_alamat" id="alamat_sekarang" value="{{Auth()->user()->biodata->alamat}}" checked>
+						<label class="form-check-label" for="exampleRadios1" >
+							{{Auth()->user()->biodata->alamat}}
+						</label>
+
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="radio_alamat" id="radio_alamat_lain" value="alamat lain">
+						<label class="form-check-label" for="exampleRadios1" >
+							Alamat Lain
+						</label>
+						<div id="form_isi_alamat" class="form-group" hidden>
+							<input type="text" class="form-control" name="alamat" id="alamat" placeholder="Masukkan Alamat" value="{{Auth()->user()->biodata->alamat}}">
+						</div>
+					</div>
+					@endif
+					<hr>
+					<p>No Telp: {{Auth()->user()->no_hp}}</p>
+					<input type="text" name="no_hp" value="{{Auth()->user()->no_hp}}" hidden>					
 				</div>
-			@endif
-			<hr>
-			<p>No Telp: {{Auth()->user()->no_hp}}</p>
-			<input type="text" name="no_hp" value="{{Auth()->user()->no_hp}}" hidden>
-		
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+					<button type="button" onclick="post_pesanan()" class="btn btn-primary">Pesan</button>
+				</div>
+			</form>
 		</div>
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-		  <button type="button" onclick="post_pesanan()" class="btn btn-primary">Pesan</button>
-		</div>
-		</form>
-	  </div>
 	</div>
-  </div>
+</div>
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: white; padding-top: 0.3em;">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" >
@@ -424,6 +476,7 @@ if (!empty($_GET['hari'])){
 			</a>
 			<a style="height: 100%; width: 80%; display: flex; justify-content: center; align-items: center; font-size: 1.5em; font-weight: 600; color: {{$page->warna_header}}">
 				Keranjang
+
 			</a>
 			<div style="width: 10%; color: white">.</div>
 		</div>
@@ -433,40 +486,40 @@ if (!empty($_GET['hari'])){
 			
 			@include('users.user.m-keranjang.data_keranjang')
 		</div>
-    </main>
+	</main>
 
-		@if(Session::has('message'))
-		<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
-			<div class="modal-dialog modal-sm modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-body text-center font-weight-bold py-3">
-						{{Session::get('message')}}
-						<div class="row mt-2 p-2">
-							<a href="<?=url('/')?>/akun" type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary">Tutup</a>
-						</div>
+	@if(Session::has('message'))
+	<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
+		<div class="modal-dialog modal-sm modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body text-center font-weight-bold py-3">
+					{{Session::get('message')}}
+					<div class="row mt-2 p-2">
+						<a href="<?=url('/')?>/akun" type="button" class="col-sm-12 btn waves-effect waves-light btn-outline-secondary">Tutup</a>
 					</div>
-					<!-- /.modal-content -->
 				</div>
-				<!-- /.modal-dialog -->
+				<!-- /.modal-content -->
 			</div>
+			<!-- /.modal-dialog -->
 		</div>
-		@endif
+	</div>
+	@endif
 
-		@endsection
+	@endsection
 
-		@section('footer-scripts')
-		<script src="<?=url('/')?>/public/template/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	@section('footer-scripts')
+	<script src="<?=url('/')?>/public/template/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
 
 
-		<script type="text/javascript">
+	<script type="text/javascript">
 
-			$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-			});
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
 
 		// const formatToCurrency = amount => {
 		// 	return "IDR." + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "&,");
@@ -557,6 +610,7 @@ if (!empty($_GET['hari'])){
 			var jumlah_pesanan = "";
 			var nama_produk = "";
 			var keynota = "";
+			var gambar_produk;
 			// alert(id_toko);
 			if (current == 'yes'){
 				var result = sub_keranjang_current[id_toko].split("~");
@@ -573,18 +627,27 @@ if (!empty($_GET['hari'])){
 				if ($('#checkbox_'+result[i]).is(':checked')) {
 					jumlah_pesanan = $("#jumlah_pesanan_"+result[i]).html();
 					nama_produk = $("#nama_"+result[i]).html();
-					produk += jumlah_pesanan+" "+nama_produk+"<br/>";
-    				// keynota_current = keynota_current.replace(id_sebelum, id+data);
-    				keynota += result[i]+jumlah_pesanan;
+					gambar_produk = $("#gambar_"+result[i]).attr('src');
+					produk += '<div class="slider-toko">'+
+					'<img src="'+gambar_produk+'" style="width: 100%;">'+
+					'<div style="text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%;color: white; background-size: cover; position: relative; background-color: {{$page->warna_header}};">'+ 
+					'<div id="check_1" style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #757575; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">'+jumlah_pesanan+
+					'</div>'+
+					'<div style="font-weight: 500; margin-top: 0em;">'+nama_produk.trim()+'</div>'+
+					'</div>'+
+					'</div>';
 
-    			}
-    		}
-    		keynota += id_toko+harga_sub_total_wa;
-    		var message = '[Order Produk Kitapuramall]\n\nHaloo '+nama+" saya ingin pesan produk \n"+produk;
+					// keynota_current = keynota_current.replace(id_sebelum, id+data);
+					keynota += result[i]+jumlah_pesanan;
 
-    		var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
-    		for (var i = 0; i < result.length-1; i++){
-    			if ($('#checkbox_'+result[i]).is(':checked')) {
+				}
+			}
+			keynota += id_toko+harga_sub_total_wa;
+			var message = '[Order Produk Kitapuramall]\n\nHaloo '+nama+" saya ingin pesan produk \n"+produk;
+
+			var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
+			for (var i = 0; i < result.length-1; i++){
+				if ($('#checkbox_'+result[i]).is(':checked')) {
 					pesan_id_keranjang.push(result[i]);
     				// $.ajax({
     				// 	url: "<?=url('/')?>/user/keranjang/tambah_daftar_tunggu",
@@ -597,55 +660,55 @@ if (!empty($_GET['hari'])){
 
     			}
     		}
-			pesan_id_toko = id_toko;
-			pesan_keynota = keynota;
-			$('#modal_nama_toko').text('Pesanan Toko '+nama);
-			$(".list-pesanan").html(produk);
-			$('#modal_pesan').modal('show');
+    		pesan_id_toko = id_toko;
+    		pesan_keynota = keynota;
+    		$('#modal_nama_toko').text('Pesanan Toko '+nama);
+    		$(".slider").html(produk);
+    		$('#modal_pesan').modal('show');
 
 
     		// location.href=walink;
     	} 
 
-		function post_pesanan(){
-			console.log(pesan_id_keranjang);
-			var metode_pengiriman = $("input[name='metode_pengiriman']:checked").val();
-			var metode_pembayaran = $("input[name='metode_pembayaran']:checked").val();
-			var alamat = $('#alamat').val();
-				$.ajax({
-					url: "<?=url('/')?>/user/keranjang/tambah_daftar_tunggu",
-					type: "POST",
-					data: {"id_keranjang":pesan_id_keranjang, 
-							"id_toko":pesan_id_toko, 
-							'keynota':pesan_keynota,
-							'metode_pengiriman': metode_pengiriman,
-							'metode_pembayaran': metode_pembayaran,
-							'alamat': alamat,
-							},
-					success: function (data) {
+    	function post_pesanan(){
+    		console.log(pesan_id_keranjang);
+    		var metode_pengiriman = $("input[name='metode_pengiriman']:checked").val();
+    		var metode_pembayaran = $("input[name='metode_pembayaran']:checked").val();
+    		var alamat = $('#alamat').val();
+    		$.ajax({
+    			url: "<?=url('/')?>/user/keranjang/tambah_daftar_tunggu",
+    			type: "POST",
+    			data: {"id_keranjang":pesan_id_keranjang, 
+    			"id_toko":pesan_id_toko, 
+    			'keynota':pesan_keynota,
+    			'metode_pengiriman': metode_pengiriman,
+    			'metode_pembayaran': metode_pembayaran,
+    			'alamat': alamat,
+    		},
+    		success: function (data) {
 
-					}
-				});
-			$('#modal_pesan').modal('hide');
-			setTimeout(load_halaman, 1000);
-			
-		}
+    		}
+    	});
+    		$('#modal_pesan').modal('hide');
+    		setTimeout(load_halaman, 1000);
 
-		function load_halaman(){
-			location.reload();
-		}
+    	}
 
-		function kirim_pesan(keynota){
-			$.ajax({
-				url: "<?=url('/')?>/user/keranjang/kirim_pesan/kirim_wa",
-				type: "POST",
-				data: { 'keynota':keynota
-						},
-				success: function (data) {
+    	function load_halaman(){
+    		location.reload();
+    	}
 
-				}
-			});
-		}
+    	function kirim_pesan(keynota){
+    		$.ajax({
+    			url: "<?=url('/')?>/user/keranjang/kirim_pesan/kirim_wa",
+    			type: "POST",
+    			data: { 'keynota':keynota
+    		},
+    		success: function (data) {
+
+    		}
+    	});
+    	}
 
 
     	var status_ganti_foto = 0;
@@ -794,7 +857,7 @@ if (!empty($_GET['hari'])){
     	$("#prev_image").remove();
     	reader.readAsDataURL(this.files[0]);
     });
-	
+
 
 
     $('.upload-image').on('click', function (ev) {
