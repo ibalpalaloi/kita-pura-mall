@@ -63,6 +63,38 @@ Explore |
 		border-radius: 3em;         
 		margin-bottom: 0.5em;  
 	}
+
+	.div-input-mall-square {
+		border-radius: 0.5em; border:1px solid white;	
+		color: #1c2645;
+		font-weight: 600;			
+	}
+	.div-input-mall {
+		border-radius: 1.5em;		
+		display: flex; justify-content: center; flex-direction: column; align-items: flex-start;
+		padding-top: 0.3em;
+	}
+	.div-input-mall > span {
+		color: #b3b6bc;
+		padding: 0em 0em 0em 1.5em; 
+		font-size: 0.75em;
+		position: relative;
+		top: 0.5em;
+	}
+
+	.div-input-mall div {
+		display: flex; justify-content: center; flex-direction: row;
+		width: 100%;
+	}
+
+
+
+	.div-input-mall-square {
+		border-radius: 0.5em; border:1px solid white;	
+		color: #1c2645;
+		font-weight: 600;			
+	}
+
 </style>
 @endsection
 
@@ -88,6 +120,8 @@ Explore |
 				Explore
 			</a>
 		</div>
+
+		
 	</div>
 </header>
 
