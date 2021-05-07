@@ -13,6 +13,7 @@ use App\Models\Video_landing_page;
 use App\Models\Pengunjung_toko;
 use App\Models\Landing_page_toko;
 use App\Models\Template_landing_page;
+use App\Models\Band;
 use Auth;
 use DB;
 class LandingPageController extends Controller
@@ -106,7 +107,13 @@ class LandingPageController extends Controller
 
 		}
 		else {
-			return abort(404);
+			$band = Band::where('username', $mitra)->first();
+			if ($band){
+				return view('landing_page/index_digital', compact('band'));
+			}
+			else {
+				return abort(404);				
+			}
 		}
 		$landing_page = Landing_page_toko::where('toko_id', $toko->id)->first();
 		$color_status_bar = $request->get('colorStatusBar');
