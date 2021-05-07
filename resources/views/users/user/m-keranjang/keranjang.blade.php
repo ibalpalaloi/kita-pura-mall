@@ -267,18 +267,20 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		flex-direction: column; 
 		align-items: center; 
 		margin: 0em 0em 0em 0.5em; 
-		width: 8.5em !important;		
+		width:10em !important;		
 	}
 
 	.slider-toko img {
 		/*width: 5em;/*/
 		/*height: 5em;*/
-		border-top-left-radius: 1em;
-		border-top-right-radius: 1em;
+		/*border-top-left-radius: 1em;*/
+		/*border-top-right-radius: 1em;*/
+		border-radius: 1em;
 	}
 
 	.slider-toko > div {
 		height: 3em;
+		background: linear-gradient(-180deg, rgba(0, 0, 0, 0) 2.98%, #000000 80%);
 		border-bottom-left-radius: 1em;
 		border-bottom-right-radius: 1em;
 	}
@@ -293,6 +295,22 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		overflow-x:auto;
 		word-wrap:normal;
 		margin:1px;
+	}
+
+	.kategori-tabs {
+		display: flex; 
+		justify-content: space-between; 
+		width: 100%;
+		margin-bottom: 0.2em;
+	}
+
+	.kategori-tabs > div {
+		width: 33%;
+		padding: 1.8em;
+		font-size: 0.9em;
+		display: flex; justify-content: center;
+		flex-direction: column; align-items: center;
+		background: white;
 	}
 
 
@@ -390,13 +408,18 @@ if (!empty($_GET['hari'])){
 
 
 <div class="modal fade" id="modal_pesan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<form action="<?=url('/')?>/user/keranjang/pesan" method="post" id="form_pesan">
 				<div class="modal-header">
 					<h5 class="modal-title" id="modal_nama_toko"></h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
+						<svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<circle cx="14.5" cy="14.5" r="14.5" fill="#CDCDCD"/>
+							<rect x="17.7637" y="9.90234" width="2.22343" height="11.1171" rx="1.11171" transform="rotate(45 17.7637 9.90234)" fill="white"/>
+							<rect x="19.3359" y="17.7637" width="2.22343" height="11.1171" rx="1.11171" transform="rotate(135 19.3359 17.7637)" fill="white"/>
+							<circle cx="14.4998" cy="14.4998" r="10.1707" stroke="#E4E4E4" stroke-width="3"/>
+						</svg>
 					</button>
 				</div>
 				<pre class="report-pre modal-body report-modal-body">
@@ -405,10 +428,11 @@ if (!empty($_GET['hari'])){
 
 					</div>
 				</pre>
-				<div class="modal-body" style="padding-top: 0px; position: relative; top: -5em;">
+				<div class="modal-body" style="padding-top: 0px; position: relative; top: -5em; margin-bottom: -5em;">
 					{{ csrf_field() }}
 					<hr>
-					<p>Metode Pengiriman</p>
+
+					<h5 class="modal-title" style="margin-bottom: 0.3em;">Metode Pengiriman</h5>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="metode_pengiriman" id="exampleRadios1" value="Ambil" checked>
 						<label class="form-check-label" for="exampleRadios1" >
@@ -422,7 +446,7 @@ if (!empty($_GET['hari'])){
 						</label>
 					</div>
 					<hr>
-					<p>Metode Pembayaran</p>
+					<h5 class="modal-title" style="margin-bottom: 0.3em;">Metode Pembayaran</h5>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="metode_pembayaran" id="exampleRadios1" value="COD" checked>
 						<label class="form-check-label" for="exampleRadios1" >
@@ -430,7 +454,7 @@ if (!empty($_GET['hari'])){
 						</label>
 					</div>
 					<hr>
-					<p>Alamat</p>
+					<h5 class="modal-title" style="margin-bottom: 0.3em;">Alamat</h5>
 
 					@if(Auth()->user()->biodata->alamat == "")
 					<div class="form-group">
@@ -454,13 +478,17 @@ if (!empty($_GET['hari'])){
 						</div>
 					</div>
 					@endif
-					<hr>
-					<p>No Telp: {{Auth()->user()->no_hp}}</p>
 					<input type="text" name="no_hp" value="{{Auth()->user()->no_hp}}" hidden>					
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-					<button type="button" onclick="post_pesanan()" class="btn btn-primary">Pesan</button>
+					<div style="width: 100%; display: flex; justify-content: center; margin-top: 2em;">
+						<div onclick="post_pesanan()" class="" style="width: 100%; background: {{$page->warna_header}}; border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;left: 2em; top: 0.8em;">
+								<path d="M0.459623 5.9864C0.0681228 5.8559 0.0643728 5.64515 0.467123 5.5109L14.7824 0.739402C15.1791 0.607402 15.4064 0.829402 15.2954 1.2179L11.2049 15.5324C11.0924 15.9292 10.8636 15.9427 10.6956 15.5662L8.00012 9.50015L12.5001 3.50015L6.50012 8.00015L0.459623 5.9864Z" fill="white"/>
+							</svg>
+
+							<span>Kirim Pesanan</span>
+						</div>
+					</div>
+
 				</div>
 			</form>
 		</div>
@@ -630,7 +658,7 @@ if (!empty($_GET['hari'])){
 					gambar_produk = $("#gambar_"+result[i]).attr('src');
 					produk += '<div class="slider-toko">'+
 					'<img src="'+gambar_produk+'" style="width: 100%;">'+
-					'<div style="text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%;color: white; background-size: cover; position: relative; background-color: {{$page->warna_header}};">'+ 
+					'<div style="text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%;color: white; background-size: cover; position: relative; top: -2.5em;">'+ 
 					'<div id="check_1" style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #757575; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">'+jumlah_pesanan+
 					'</div>'+
 					'<div style="font-weight: 500; margin-top: 0em;">'+nama_produk.trim()+'</div>'+

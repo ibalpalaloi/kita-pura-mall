@@ -32,6 +32,8 @@ use App\Http\Controllers\Mitra\PesananController;
 use App\Http\Controllers\Mitra\TransaksiController;
 // DIGITAL DOWNLOAD
 use App\Http\Controllers\DigitalDownload\DigitalDownloadController;
+use App\Http\Controllers\DigitalDownload\DigitalRegisterController;
+use App\Http\Controllers\DigitalDownload\DigitalAkunController;
 
 /*
 |--------------------------------------------------------------------------
@@ -143,6 +145,8 @@ Route::group(['middleware'=> 'auth'], function() {
         // Digital Download
         Route::get('digital-download', [DigitalDownloadController::class, 'index']);
         Route::get('digital-download/daftar', [DigitalDownloadController::class, 'register']);
+        Route::post('digital-download/daftar/save', [DigitalRegisterController::class, 'simpan_band']);
+        Route::get("digital-download/akun", [DigitalAkunController::class, 'index']);
 
         Route::group(['middleware'=> 'free'], function() {
             // @mitra free

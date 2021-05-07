@@ -240,6 +240,14 @@
  			text-align: left;
  		}
 
+ 		.star-rating {
+ 			color: #BD0000;
+ 		}
+
+ 		.star-no-rating {
+ 			color: #BD0000;
+ 		} 		
+
  		.feature-premium {
  			background: #d9e1eb; 
  			width: 75%; 
@@ -307,6 +315,55 @@
  		.select2-container {
  			border-radius: 0.5em;
  		}
+
+ 		.slider {
+ 			display: flex; 
+ 			overflow-y: visible; 
+ 			margin: 0px; 			
+ 			overflow-x: scroll;
+ 			scrollbar-width: none; /* Firefox */
+ 			-ms-overflow-style: none;  /* Internet Explorer 10+ */
+ 		}
+ 		.slider::-webkit-scrollbar { /* WebKit */
+ 			width: 0;
+ 			height: 0;
+ 		}
+
+ 		.slider-toko {
+ 			display: flex; 
+ 			justify-content: center; 
+ 			flex-direction: column; 
+ 			align-items: center; 
+ 			margin: 0em 0em 0em 1em; 
+ 			width: 9em;		
+ 		}
+
+ 		.slider-toko img {
+ 			width: 9em;
+ 			object-fit: cover;
+ 		}
+
+ 		.slider-toko > div {
+ 			height: 6.3em;
+ 		} 		
+
+ 		.slider-band {
+ 			display: flex; 
+ 			justify-content: center; 
+ 			flex-direction: column; 
+ 			align-items: center; 
+ 			margin: 0em 0em 0em 1em; 
+ 			width: 15em;		
+ 		}
+
+ 		.slider-band img {
+ 			width: 15em;
+ 			object-fit: cover;
+ 		}
+
+ 		.slider-band > div {
+ 			height: 6.3em;
+ 		} 	
 
  	</style>
  	@endsection
@@ -406,49 +463,160 @@
  	</header>
 
 
- 	<main id="homepage" class="homepage" style="padding-top: 0em; background: transparent;">
- 		<form id="form_input" enctype="multipart/form-data" action="<?=url('/')?>/digital-download/daftar/save" method="post">
- 			{{csrf_field()}}
- 			<div style="display: flex; justify-content: center;">
- 				<div style="width: 90%; display: flex; flex-direction: column; align-items: center;">
- 					<div class="mb-4" style="display: flex; justify-content: center; align-items: center; flex-direction: 	column;">
- 						<img src="<?=url('/')?>/public/img/digital_download/bg-daftar.svg" style="">
- 						<div style="color: white; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 1.43%, #000000 54.28%); width: 100%; padding: 0em 0em 1em 0em; display: flex; justify-content: center; position: relative; top: -4em; margin-bottom: -5em;">
- 							<div style="width: 80%;">
- 								<h3>Daftar</h3>
- 								<div style="width: 80%; font-size: 0.9em; color: #ADADAD; line-height: 1.2em;">daftarkan band anda, dan permudah distribusi karya anda!</div>
+ 	<main id="homepage" class="homepage" style="padding-top: 0em; background: transparent; padding: 0;">
+ 		<div style="display: flex; justify-content: center; width: 100%;">
+ 			<div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+ 				<div class="mb-4" style="display: flex; justify-content: center; align-items: center; flex-direction: 	column;">
+ 					<img src="<?=url('/')?>/public/img/digital_download/cover_digital.png" style="width: 100%;">
+ 					<div style="color: white; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 1.43%, #000000 54.28%); width: 100%; padding: 0em 0em 1em 0em; display: flex; justify-content: center; position: relative; top: -4em; margin-bottom: -5em;">
+ 						<div style="width: 85%;">
+ 							<h3>Thinking</h3>
+ 							<div style="width: 80%; font-size: 0.9em; color: #ADADAD; line-height: 1.2em;">Hard Rock</div>
+ 							<div style="display: flex; justify-content: space-between;">
+ 								<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 1em; line-height: 1em;">
+ 									<i class="fas fa-star star-rating" id="rating_1" onclick="nilai_toko('1')"></i>
+ 									<i class="fas fa-star star-rating" id="rating_2" onclick="nilai_toko('2')"></i>
+ 									<i class="fas fa-star star-rating" id="rating_3" onclick="nilai_toko('3')"></i>
+ 									<i class="fas fa-star star-rating" id="rating_4" onclick="nilai_toko('4')"></i>
+ 									<i class="fas fa-star star-rating" id="rating_5" onclick="nilai_toko('5')"></i>
+ 									<span style="font-size: 0.8em;">&nbsp;&nbsp;50 Penilaian</span>
+ 								</div>
+ 								<div style="display: flex; justify-content: center; align-items: center; position: relative; top: -0.5em;">
+ 									<div style="background:rgba(255, 255, 255, 0.38); width: 2.5em; height: 2.5em; display: flex; justify-content: center; padding: 0.6em; border-radius:50%; margin-right: 0.3em;">
+ 										<img src="<?=url('/')?>/public/img/icon_svg/love_white.svg">
+ 									</div>
+ 									<div style="background:rgba(255, 255, 255, 0.38); width: 2.5em; height: 2.5em; display: flex; justify-content: center; padding: 0.6em; border-radius:50%;">
+ 										<img src="<?=url('/')?>/public/img/icon_svg/digi_white.svg">
+ 									</div>
+ 								</div>
  							</div>
- 						</div>
+ 							<div style="width: 100%; text-align: justify; font-size: 0.75em; color: #ADADAD; line-height: 1.2em;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus erat feugiat neque lacus, ac. In tortor ornare lectus odio lacus, egestas est orci, ac. Sed viverra hendrerit eget tortor, id sapien. Sollicitudin est lorem... </div>
 
- 					</div>
- 					<div class="input-group mb-3 @if($errors->first('no_hp')) is-invalid @endif"  id="div_kategori" style="color: white; padding: 0.5em 1em 1em 1em; border-radius: 0.5em; background: #161616;">
- 						<div style="margin-top: 0px; color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0.3em 0em 0.7em 0em;">Nama Band</div>
- 						<input type="text" class="form-control-mall" id="nama_band" name="nama_band" onfocus="input_focus(this.id)" onblur="input_blur(this.id)" placeholder="Band" aria-label="nama_band" aria-describedby="basic-addon1" style="width: 100%;" value="{{old('nama_band')}}">
- 					</div>
- 					<div class="input-group mb-3 @if($errors->first('no_hp')) is-invalid @endif"  id="div_kategori" style="color: white; padding: 0.5em 1em 1em 1em; border-radius: 0.5em; background: #161616;">
- 						<div style="margin-top: 0px; color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0.3em 0em 0.7em 0em;">Genre</div>
- 						<select type="text" class="form-control-mall" id="genre" name="genre" style="height: 2.5em; color: #B3B6BC;" required>
- 							<option value="" disabled selected>Genre</option>
- 							@foreach($kota as $row)
- 							<option value="{{$row->id}}" @if (old('kota') == $row->id) selected @endif>{{$row->nama}}
- 							</option>
- 							@endforeach
- 						</select>
- 					</div>
- 					<div class="input-group mb-3 @if($errors->first('no_hp')) is-invalid @endif"  id="div_kategori" style="color: white; padding: 0.5em 1em 1.1em 1em; border-radius: 0.5em; background: #161616;">
- 						<div style="margin-top: 0px; color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0.3em 0em 0.7em 0em;">Deskripsi</div>
- 						<div style="height: 9em; width: 100%; padding: 0;">
- 							<textarea id="deskripsi" name="deskripsi" onblur="input_blur(this.id)" onfocus="input_focus(this.id)" style="width: 100%; height: 10em; border-radius: 0.5em; margin: 0em 0em 1em 0em; background: #202020; color: #B3B6BC; border: none; font-size: 0.9em; padding: 0.3em 0.6em 0.5em 0.6em; text-align: justify;" rows="5" required placeholder="Masukan deskripsi singkat tentang band">{{old('deskripsi')}}</textarea>
  						</div>
  					</div>
- 					<button type="submit" class="btn" id="div_kategori" style="padding: 0.8em 1em 0.8em 1em; border-radius: 0.5em; background: #161616; color: white; text-align: center; font-size: 1.3em; font-weight: 500; width: 100%; margin-bottom: 1.5em;">
- 						<img src="<?=url('/')?>/public/img/icon_svg/save_white.svg" style="position: absolute; left: 1.4em; top: 1.2em;">
- 						Daftar
- 					</button>
+ 				</div>
+ 				<div style="width: 100%; padding-bottom: 2em;">
+ 					<h4 style="color: white; width: 100%; margin-left: 7%;">Single</h4>
+ 					<div class="slider">
+ 						@php
+ 						$digital = array('kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg');
+ 						$nama_digital = array('Kopi Kenangan', 'Janji Jiwa', 'Richese Factory', 'Starbucks', 'KFC', 'Janji Jiwa');
+ 						$kategori_toko = array('makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman');
+
+ 						$jumlah_digital = count($digital)-1;
+ 						@endphp 
+ 						@for ($i = 0; $i < count($digital); $i++)  
+ 						<div class="slider-toko" style="@if ($i == 0) margin-left: 7%;@endif position: relative;">
+ 							<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+ 							<img src="<?=url('/')?>/public/img/digital_download/single.png">
+ 							<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; color: white; background-size: cover; padding: 1em; position: absolute; bottom: 0em; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 20.45%, #000000 60.58%);'> 
+ 								<div style="position: absolute; bottom: 1em; z-index: 0; width: 3em; height: 3em; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 50%; right: 0.5em; display: flex; justify-content:center;align-items: center;">
+ 									<img src="<?=url('/')?>/public/img/icon_svg/pesawat_kertas_white.svg" style="width: 1.5em; height: 1.5em;">
+ 								</div>
+ 								<div style="font-weight: 400; font-size: 1.2em;"><?=substr(strip_tags($nama_digital[$i]), 0, 15)?>@if (strlen($nama_digital[$i]) > 15)..@endif</div>
+ 								<div style="font-size: 0.65em; line-height: 1em; font-weight: 0;">Hard Rock</div>
+ 								<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.65em; line-height: 1em;">
+ 									9000 Downloads
+ 								</div>
+ 								<div style="padding: 0; margin: 0.5em 0px 0px 0em; font-size: 0.9em; line-height: 1em; font-weight: 500;">IDR. {{number_format(50000, 0, '.', '.')}}</div>
+ 							</div>
+ 						</div> 
+ 						@if ($i == count($digital)-1)
+ 						<div style="padding: 1em; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+ 							<img src="<?=url('/')?>/public/img/icon_svg/vertikal_right.svg">
+ 							<div style="color: gray; font-size: 0.7em; white-space: nowrap;">Lebih Banyak</div>
+ 						</div>
+ 						@endif
+ 						@endfor
+ 					</div>
+ 				</div>
+ 				<div style="width: 100%; padding-bottom: 2em;">
+ 					<h4 style="color: white; width: 100%; margin-left: 7%;">Album</h4>
+ 					<div class="slider">
+ 						@php
+ 						$digital = array('kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg');
+ 						$nama_digital = array('Kopi Kenangan', 'Janji Jiwa', 'Richese Factory', 'Starbucks', 'KFC', 'Janji Jiwa');
+ 						$kategori_toko = array('makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman');
+
+ 						$jumlah_digital = count($digital)-1;
+ 						@endphp 
+ 						@for ($i = 0; $i < count($digital); $i++)  
+ 						<div class="slider-toko" style="@if ($i == 0) margin-left: 7%;@endif position: relative;">
+ 							<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+ 							<img src="<?=url('/')?>/public/img/digital_download/album.png">
+ 							<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; color: white; background-size: cover; padding: 1em; position: absolute; bottom: 0em; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 20.45%, #000000 60.58%);'> 
+ 								<div style="position: absolute; bottom: 1em; z-index: 0; width: 3em; height: 3em; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 50%; right: 0.5em; display: flex; justify-content:center;align-items: center;">
+ 									<img src="<?=url('/')?>/public/img/icon_svg/pesawat_kertas_white.svg" style="width: 1.5em; height: 1.5em;">
+ 								</div>
+ 								<div style="font-weight: 400; font-size: 1.2em;"><?=substr(strip_tags($nama_digital[$i]), 0, 15)?>@if (strlen($nama_digital[$i]) > 15)..@endif</div>
+ 								<div style="font-size: 0.65em; line-height: 1em; font-weight: 0;">Hard Rock</div>
+ 								<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.65em; line-height: 1em;">
+ 									9000 Downloads
+ 								</div>
+ 								<div style="padding: 0; margin: 0.5em 0px 0px 0em; font-size: 0.9em; line-height: 1em; font-weight: 500;">IDR. {{number_format(50000, 0, '.', '.')}}</div>
+ 							</div>
+ 						</div> 
+ 						@if ($i == count($digital)-1)
+ 						<div style="padding: 1em; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+ 							<img src="<?=url('/')?>/public/img/icon_svg/vertikal_right.svg">
+ 							<div style="color: gray; font-size: 0.7em; white-space: nowrap;">Lebih Banyak</div>
+ 						</div>
+ 						@endif
+ 						@endfor
+ 					</div>
+ 				</div>
+ 				<div style="width: 100%; padding-bottom: 2em;">
+ 					<h4 style="color: white; width: 100%; margin-left: 7%;">Foto</h4>
+ 					<div class="slider foto">
+ 						@php
+ 						$digital = array('kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg');
+ 						$nama_digital = array('Kopi Kenangan', 'Janji Jiwa', 'Richese Factory', 'Starbucks', 'KFC', 'Janji Jiwa');
+ 						$kategori_toko = array('makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman');
+
+ 						$jumlah_digital = count($digital)-1;
+ 						@endphp 
+ 						@for ($i = 0; $i < count($digital); $i++)  
+ 						<div class="slider-band" style="@if ($i == 0) margin-left: 7%;@endif position: relative;">
+ 							<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
+ 							<img src="<?=url('/')?>/public/img/digital_download/foto.png" style="border-radius: 1em;">
+ 						</div> 
+ 						@if ($i == count($digital)-1)
+ 						<div style="padding: 1em; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+ 							<img src="<?=url('/')?>/public/img/icon_svg/vertikal_right.svg">
+ 							<div style="color: gray; font-size: 0.7em; white-space: nowrap;">Lebih Banyak</div>
+ 						</div>
+ 						@endif
+ 						@endfor
+ 					</div>
+ 				</div>
+ 				<div style="width: 100%; padding-bottom: 4em;">
+ 					<h4 style="color: white; width: 100%; margin-left: 7%;">Musik Video</h4>
+ 					<div class="musik_video" style="width: 100%;">
+ 						@php
+ 						$digital = array('kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg', 'kopi_kenangan.jpg', 'geprek_bensu.jpg');
+ 						$nama_digital = array('Kopi Kenangan', 'Janji Jiwa', 'Richese Factory', 'Starbucks', 'KFC', 'Janji Jiwa');
+ 						$kategori_toko = array('makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman', 'makanan/minuman');
+
+ 						$jumlah_digital = count($digital)-1;
+ 						@endphp 
+ 						@for ($i = 0; $i < 5; $i++)  
+ 						<div class="" style="margin-left: 7%; margin-right: 7%; position: relative; margin-bottom: 1.5em;">
+ 							<img src="<?=url('/')?>/public/img/digital_download/musik_video.png" style="width: 100%;">
+ 							<img src="<?=url('/')?>/public/img/icon_svg/play_white.svg" style="position: absolute; top: 37%; left: 38%;">
+ 							<h5 style="position: absolute; bottom: 0em; left: 0.5em; color: white; ">Why - Thinking</h5>
+ 						</div> 
+ 						@endfor
+ 					</div>
  				</div>
  			</div>
- 		</form>
-
+ 		</div>
+ 		<div style="background: #1F1F1F; margin-top: -3em; border: none; position: absolute; z-index: 5; width: 100%;">
+ 			<div class="container-mall" style="padding-bottom: 0.5em;">
+ 				<div style="padding-top: 0.5em; text-align: center; margin-bottom: 0em; color: white; display: flex; justify-content: center;">
+ 					<img src="<?=url('/')?>/public/img/logo.svg" style="width: 2em;"><h6 style="padding-top: 0.5em;">&nbsp;&nbsp;&copy;&nbsp;<script>document.write(new Date().getFullYear());</script>&nbsp;Kitapuramall</h6>
+ 				</div>
+ 			</div>
+ 		</div>
  		@if(Session::has('message'))
  		<div id="modal-pemberitahuan" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
  		aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width: 100%;">
