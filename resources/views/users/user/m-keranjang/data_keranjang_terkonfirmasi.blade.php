@@ -89,11 +89,6 @@
         <img style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span>Mununggu konfirmasi</span>
     </div>
 </div>
-<div style="width: 100%; display: flex; justify-content: center;">
-    <div class="" style="width: 90%; background: linear-gradient(41.88deg, #FFA500 35.3%, #FF4500 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
-        <img style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span>Batalkan Pesanan</span>
-    </div>
-</div>
 <script type="text/javascript">
     
 </script>
