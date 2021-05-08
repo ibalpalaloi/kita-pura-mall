@@ -51,6 +51,22 @@ class Keranjang_Belanja_Controller extends Controller
         // echo $response->getBody();
     }
 
+    public function pesan_batalkan_pesanan($user, $toko){
+        $no_hp = $this->generate_no_telp($toko->no_hp);
+        $no_hp = substr($no_hp, 1);
+        $json = [
+            "apikey" => "ec523173987ec087571b5d96f91c182e9154cd97",
+            "to" => $no_hp,
+            "message" => "---- *Pesanan Dibatalkan* ----\n".
+                            "*".$user->biodata->nama."* membatalkan pesanannya"
+        ];
+        $client = new GuzzleHttp\client();
+        $response = $client->request('POST', 'https://app.wapibot.com/api/send/text',
+        ['headers'=>['Content-Type'=>'application/json'],
+        'json'=>$json
+        ]);
+    }
+
     public function tambah_keranjang_belanja(Request $request){
         $check_keranjang = DB::table('keranjang_belanja')->select('id', 'jumlah')->where('toko_id', $request->toko_id)->where('product_id', $request->produk_id)->first();
         $jumlah = 0;
@@ -281,21 +297,27 @@ class Keranjang_Belanja_Controller extends Controller
         $no_telp = $no_hp;
         $no_telp = str_replace("-","", $no_telp);
         $no_telp = str_replace(" ","", $no_telp);
-        if ($no_telp[0] == 0){
+        if ($no_telp[0] == "0"){
             $no_telp = substr($no_telp, 1);
             $no_telp = substr_replace($no_telp, "+62", 0, 0);
         }
         elseif($no_telp[0] == "+"){
             $no_telp = $no_telp;
         }
+        elseif($no_telp[0] == "6"){
+            $no_telp = substr_replace($no_telp, "+", 0, 0);
+        }
         
-
         return $no_telp;
     }
 
     public function batalkan_pesanan($kode_nota){
         $keynota = Keynota::where('kode_nota', $kode_nota)->first();
         $pesanan = Pesanan::where('keynota_id', $keynota->id)->get();
+
+        $toko = Toko::where('id', $keynota->toko_id)->first();
+        $user = User::where('id', $keynota->user_id)->first();
+        $this->pesan_batalkan_pesanan($user, $toko);
 
         foreach($pesanan as $data){
             $keranjang = new Keranjang_belanja;
