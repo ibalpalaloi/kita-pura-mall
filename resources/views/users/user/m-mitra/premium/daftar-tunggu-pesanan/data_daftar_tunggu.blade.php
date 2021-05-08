@@ -1,10 +1,16 @@
 @for ($i = 0; $i < count($data_keranjang); $i++)
-
-    <div style=" display: flex; justify-content: space-between; align-items: center;">
-        <div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">{{$data_keranjang[$i]['tanggal']}}</div>
+    @if ($i == 0)
+    <div style=" display: flex; justify-content: space-between; align-items: center; margin-bottom: 1em;">
+        <div style="background: #202020; font-size: 1em; line-height: 1.2em; color: #a1a4a8; padding: 0.5em 1em; border-radius: 0.5em;">{{tgl_indo(date('Y-m-d', strtotime($data_keranjang[$i]['tanggal'])))}}</div>
     </div>
-    
-    <div class="st0" style="width: 100%; border-radius: 0.5em; margin-bottom: 0.5em; position: relative;">
+    @else
+    @if ($data_keranjang[$i]['tanggal'] != $data_keranjang[$i-1]['tanggal'])
+    <div style=" display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">{{tgl_indo(date('Y-m-d', strtotime($data_keranjang[$i]['tanggal'])))}}</div>
+    </div>
+    @endif
+    @endif    
+    <div  style="background: #353535; width: 100%; border-radius: 0.5em; margin-bottom: 0.5em; position: relative;">
         <div style="margin: 1em;">{{$data_keranjang[$i]['nama']}}</div>
 
         @php

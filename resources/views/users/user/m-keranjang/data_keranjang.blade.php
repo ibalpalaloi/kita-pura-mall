@@ -126,6 +126,7 @@
             </script>
 
             <div class="daftar-product" style="margin-top: 1em;">
+                @if ($data_keranjang_current[$i]['product']->count() > 0)
                 @foreach ($data_keranjang_current[$i]['product'] as $row)
                 <div class="product" style="display: flex; justify-content: space-between; margin-bottom: 1em;">
                     <div class="" style="width: 5%;">
@@ -201,6 +202,11 @@
                     // id_product_current[] = 
                 </script>					
                 @endforeach
+                @else
+                <div style="width: 100%;text-align: left;padding-bottom: 1em;">
+                    <i>Tidak ada pesananan</i>
+                </div>
+                @endif
             </div>
         </div>
         @if ($data_keranjang_current[$i]['product']->count() > 0)
