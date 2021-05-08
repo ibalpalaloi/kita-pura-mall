@@ -555,6 +555,16 @@ if (!empty($_GET['hari'])){
 
 		var isMobile = mobilecheck();
 
+		function batalkan_pesanan(keynota){
+			$.ajax({
+    			url: "<?=url('/')?>/user/keranjang/batalkan_pesanan/"+keynota,
+    			type: "get",
+    			success: function (data) {
+					load_halaman();
+    			}
+    		});
+		}
+
 		function pindah_halaman(status){
 			$.ajax({
 				url: "?halaman="+status,
@@ -712,11 +722,11 @@ if (!empty($_GET['hari'])){
     			'metode_pengiriman': metode_pengiriman,
     			'metode_pembayaran': metode_pembayaran,
     			'alamat': alamat,
-    		},
-    		success: function (data) {
+    			},
+    			success: function (data) {
 
-    		}
-    	});
+    			}
+    		});
     		$('#modal_pesan').modal('hide');
     		setTimeout(load_halaman, 1000);
 

@@ -105,7 +105,7 @@
                 @endforeach
             </div>
         </div>
-        <div style="width: 100%; display: flex; justify-content: center;">
+        <div style="width: 100%; display: flex; justify-content: center;" onclick="batalkan_pesanan('{{$daftar_tunggu_konfirmasi[$i]['keynota']}}')">
             <div class="" style="width: 90%; background: #969696; border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
                 <img style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span>Batalkan Pesanan</span>
             </div>

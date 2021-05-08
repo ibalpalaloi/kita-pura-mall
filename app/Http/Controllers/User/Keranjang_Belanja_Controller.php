@@ -118,6 +118,7 @@ class Keranjang_Belanja_Controller extends Controller
         $i=0;
         foreach($tunggu_konfirmasi as $data){
             $cek_toko = Toko::where('id', $data->toko_id)->first();
+            $daftar_tunggu_konfirmasi[$i]['keynota'] = $data->kode_nota;
             $daftar_tunggu_konfirmasi[$i]["id_toko"] = $cek_toko->id;
             $daftar_tunggu_konfirmasi[$i]['nama_toko'] = $cek_toko->nama_toko;
             $daftar_tunggu_konfirmasi[$i]['username'] = $cek_toko->username;
@@ -290,5 +291,22 @@ class Keranjang_Belanja_Controller extends Controller
         
 
         return $no_telp;
+    }
+
+    public function batalkan_pesanan($kode_nota){
+        $keynota = Keynota::where('kode_nota', $kode_nota)->first();
+        $pesanan = Pesanan::where('keynota_id', $keynota->id)->get();
+
+        foreach($pesanan as $data){
+            $keranjang = new Keranjang_belanja;
+            $keranjang->user_id = $keynota->user_id;
+            $keranjang->toko_id = $keynota->toko_id;
+            $keranjang->product_id = $data->product_id;
+            $keranjang->jumlah = $data->jumlah;
+            $keranjang->save();
+        }
+        $pesanan = Pesanan::where('keynota_id', $keynota->id)->delete();
+        $keynota = Keynota::where('kode_nota', $kode_nota)->delete();
+        
     }
 }
