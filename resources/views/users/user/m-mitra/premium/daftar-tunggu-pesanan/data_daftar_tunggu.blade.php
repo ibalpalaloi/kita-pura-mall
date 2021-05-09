@@ -1,12 +1,14 @@
+
 @for ($i = 0; $i < count($data_keranjang); $i++)
     @if ($i == 0)
     <div style=" display: flex; justify-content: space-between; align-items: center; margin-bottom: 1em;">
-        <div style="background: #202020; font-size: 1em; line-height: 1.2em; color: #a1a4a8; padding: 0.5em 1em; border-radius: 0.5em;">{{tgl_indo(date('Y-m-d', strtotime($data_keranjang[$i]['tanggal'])))}}</div>
+        <div style="background: #202020; font-size: 1em; line-height: 1.2em; color: #a1a4a8; padding: 0.5em 1em; border-radius: 0.5em;"></div>
     </div>
     @else
     @if ($data_keranjang[$i]['tanggal'] != $data_keranjang[$i-1]['tanggal'])
     <div style=" display: flex; justify-content: space-between; align-items: center;">
-        <div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">{{tgl_indo(date('Y-m-d', strtotime($data_keranjang[$i]['tanggal'])))}}</div>
+        {{-- <div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;">{{tgl_indo(date('Y-m-d', strtotime($data_keranjang[$i]['tanggal'])))}}</div> --}}
+        <div style="font-size: 1em; line-height: 1.2em; color: #a1a4a8;"></div>
     </div>
     @endif
     @endif    

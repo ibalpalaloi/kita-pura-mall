@@ -415,6 +415,8 @@ class Mitra_Premium_Controller extends Controller
 				['toko_id', Auth()->user()->toko->id],
 				['status', 'terkonfirmasi']
 			])->get();
+			$data_keranjang = array();
+			$i=0;
 			foreach ($toko_loop as $row){
 				$data_keranjang[$i]['no_hp'] = $row->user->no_hp;
 				$data_keranjang[$i]['keynota'] = $row->kode_nota;
@@ -426,7 +428,7 @@ class Mitra_Premium_Controller extends Controller
 				$i++;
 			}
 
-			$view = view('users.user.m-mitra.premium.daftar-tunggu-pesanan.data_daftar_tunggu', compact('data_keranjang', 'toko'))->render();
+			$view = view('users.user.m-mitra.premium.daftar-tunggu-pesanan.data_proses_pesanan', compact('data_keranjang', 'toko'))->render();
 			return response()->json(['html'=>$view]);
 		}
 		if($page == "tunggu_konfirmasi"){
