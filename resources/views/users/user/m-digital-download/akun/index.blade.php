@@ -445,7 +445,7 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		</div>
 
 		<div id="menu-band" style="display: flex;justify-content:center;flex-direction: column; align-items: center; padding-bottom: 1.2em;">
-			<a onclick="show_loader()" href="<?=url('/')?>/akun/mitra/premium/ubah-toko" style="padding-left: 0.4em;">
+			<a onclick="show_loader()" href="<?=url('/')?>/digital-download/akun/atur-band" style="padding-left: 0.4em;">
 				<img src="<?=url('/')?>/public/img/button/digital_download/atur_band.svg" style="width: 100%;">
 			</a>
 			<a onclick="show_loader()" href="<?=url('/')?>/akun/mitra/premium/atur-produk" style="padding-left: 0.4em;">

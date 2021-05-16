@@ -629,9 +629,6 @@ if (!empty($_GET['hari'])){
 		var pesan_keynota;
 
 		function WhatsappMessage(no_hp, nama, id_toko, current) {
-			// show_loader();
-			// alert('ye');
-			// event.preventDefault();
 			var apilink = 'http://';
 			var phone = no_hp;
 			var produk = "";
