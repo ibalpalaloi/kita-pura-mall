@@ -39,8 +39,9 @@ class Keranjang_Belanja_Controller extends Controller
                          "Nama = ". $data_pemesan['nama'].
                          "\nMetode pengiriman = ". $data_pemesan['metode_pengiriman'].
                          "\nMetode Pembayaran = ". $data_pemesan['metode_pembayaran'].
-                         "\nAlamat = ". $data_pemesan['alamat'],
-                         "\nNo Telp = ". $data_pemesan['no_hp'] 
+                         "\nAlamat = ". $data_pemesan['alamat'].
+                         "\nNo Telp = ". $data_pemesan['no_hp'].
+                         "\n\n *Segera Konfirmasi Pesanan Pada Aplikasi*"
         ];
         $client = new GuzzleHttp\client();
         $response = $client->request('POST', 'https://app.wapibot.com/api/send/text',
