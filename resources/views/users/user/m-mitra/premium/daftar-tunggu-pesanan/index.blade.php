@@ -641,6 +641,9 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 			url: "<?=url('/')?>/get/konfirmasi_pesanan/"+keynota+"/"+status,
 			type: "get",
 			success: function (data) {
+				if(data != ""){
+					alert(data)
+				}
 				location.reload();
 			}
 		})

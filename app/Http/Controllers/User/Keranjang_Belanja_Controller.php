@@ -41,7 +41,7 @@ class Keranjang_Belanja_Controller extends Controller
                          "\nMetode Pembayaran = ". $data_pemesan['metode_pembayaran'].
                          "\nAlamat = ". $data_pemesan['alamat'].
                          "\nNo Telp = ". $data_pemesan['no_hp'].
-                         "\n\n *Segera Konfirmasi Pesanan Pada Aplikasi*"
+                         "\n\n*Segera Konfirmasi Pesanan Pada Aplikasi*"
         ];
         $client = new GuzzleHttp\client();
         $response = $client->request('POST', 'https://app.wapibot.com/api/send/text',
@@ -314,22 +314,26 @@ class Keranjang_Belanja_Controller extends Controller
 
     public function batalkan_pesanan($kode_nota){
         $keynota = Keynota::where('kode_nota', $kode_nota)->first();
-        $pesanan = Pesanan::where('keynota_id', $keynota->id)->get();
-
-        $toko = Toko::where('id', $keynota->toko_id)->first();
-        $user = User::where('id', $keynota->user_id)->first();
-        $this->pesan_batalkan_pesanan($user, $toko);
-
-        foreach($pesanan as $data){
-            $keranjang = new Keranjang_belanja;
-            $keranjang->user_id = $keynota->user_id;
-            $keranjang->toko_id = $keynota->toko_id;
-            $keranjang->product_id = $data->product_id;
-            $keranjang->jumlah = $data->jumlah;
-            $keranjang->save();
+        if($keynota->status == "terkonfirmasi"){
+            echo "Pesanan telah dikonfirmasi dan tidak bisa di batalkan";
         }
-        $pesanan = Pesanan::where('keynota_id', $keynota->id)->delete();
-        $keynota = Keynota::where('kode_nota', $kode_nota)->delete();
-        
+        else{
+            $pesanan = Pesanan::where('keynota_id', $keynota->id)->get();
+
+            $toko = Toko::where('id', $keynota->toko_id)->first();
+            $user = User::where('id', $keynota->user_id)->first();
+            $this->pesan_batalkan_pesanan($user, $toko);
+    
+            foreach($pesanan as $data){
+                $keranjang = new Keranjang_belanja;
+                $keranjang->user_id = $keynota->user_id;
+                $keranjang->toko_id = $keynota->toko_id;
+                $keranjang->product_id = $data->product_id;
+                $keranjang->jumlah = $data->jumlah;
+                $keranjang->save();
+            }
+            $pesanan = Pesanan::where('keynota_id', $keynota->id)->delete();
+            $keynota = Keynota::where('kode_nota', $kode_nota)->delete();
+        }
     }
 }

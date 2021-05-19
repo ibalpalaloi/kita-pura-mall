@@ -17,7 +17,13 @@ class PesananController extends Controller
 {
     //
     public function ubah_status($keynota, $status){
-		Keynota::where('kode_nota', $keynota)->update(['status' => $status]);
+        $tb_keynota = Keynota::where('kode_nota', $keynota)->get();
+        if(count($tb_keynota)>0){
+            Keynota::where('kode_nota', $keynota)->update(['status' => $status]);
+        }
+        else{
+            echo "Pelanggan Telah Membatalkan Pesanannya";
+        }
         if($status == "selesai"){
             $this->pesanan_selesai($keynota);
         }
