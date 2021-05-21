@@ -560,6 +560,9 @@ if (!empty($_GET['hari'])){
     			url: "<?=url('/')?>/user/keranjang/batalkan_pesanan/"+keynota,
     			type: "get",
     			success: function (data) {
+					if(data != ""){
+						alert(data);
+					}
 					load_halaman();
     			}
     		});
