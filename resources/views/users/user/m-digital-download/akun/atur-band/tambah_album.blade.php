@@ -355,12 +355,13 @@
  					<img src="<?=url('/')?>/public/img/modal_assets/modal_error_input.svg" style="width: 100%;">
  					<div style="position: absolute; margin: 0em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
  						<div style="font-size: 2em; font-weight: 600; text-align: center;">Gagal</div>
- 						<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">username hanya boleh menggunakan huruf, angka, garis bawah dan titik.</div>
+ 						<div id="message_error" style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">Silahkan upload foto cover album</div>
  					</div>
  				</div>
  			</div>
  		</div>
  	</div>
+
 
 
  	<div class="modal fade" id="modal-error" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
@@ -373,6 +374,73 @@
  						<div style="font-size: 2em; font-weight: 600; text-align: center;" id="judul_modal">Tersimpan</div>
  						<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;" id="pesan_modal">Perubahan toko telah <br>berhasil disimpan</div>
  					</div>
+ 				</div>
+ 			</div>
+ 		</div>
+ 	</div>
+
+ 	<div class="modal fade" id="modal-simpan-lagu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+ 		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+ 			<div class="modal-content" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535; background: #191818;">
+ 				<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center; width: 100%;">
+ 					<img id="close-btn" data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: -0.5em; z-index: 5;" hidden>
+ 					<img src="<?=url('/')?>/public/img/digital_download/modal_assets/modal_simpan_lagu.svg" style="width: 95%; position: absolute; top: -10.5em;">
+ 					<form action="#" method="post" id="form-judul-lagu" style="width: 100%;">
+ 						<div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 0.8em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;">
+ 							<div style="margin-top: 5em;">
+ 								<div style="width: 100%; text-align: center;">Masukan Judul Lagu</div>
+ 								<div style="display: flex; background: #202020; border-radius: 0.5em; margin-top: 0.5em;">
+ 									<div style="width: 100%;">
+ 										<input type="text" name="judul_lagu" id="judul_lagu" style="color: white; background: transparent; font-size: 1.3em; width: 100%; padding: 0.6em 1em; border-radius: 0.5em;" placeholder="Judul Lagu" required>
+ 									</div>
+ 								</div>
+ 							</div>	
+ 							<input type="text" id="id_ubah_fasilitas" name="id" hidden>	
+ 							<button type="submit" class="btn" id="btn-okay" style="padding: 0.5em; background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%); box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.78); margin-top: 1em; border-radius: 0.5em; position: relative; padding: 0.2em;">
+ 								<img class="" src="<?=url('/')?>/public/img/digital_download/icon_svg/simpan_file.svg" style="position: absolute; left: 1.5em; top: 0.7em;"> <h5 style="margin-top: 0.2em; color: white;">Okay</h5>
+ 							</button>									
+ 						</div>
+ 					</form>
+ 				</div>
+ 			</div>
+ 		</div>
+ 	</div>
+
+ 	<div class="modal fade" id="modal-ubah-lagu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+ 		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+ 			<div class="modal-content" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535; background: #191818;">
+ 				<div class="modal-body" style="display: flex; justify-content: center; flex-direction: column; align-items: center; width: 100%;">
+ 					<img id="close-btn-update" data-dismiss="modal" src="<?=url('/')?>/public/img/icon_svg/button_close.svg" style="position: absolute; top: -1em; right: -0.5em; z-index: 5000;">
+ 					<img src="<?=url('/')?>/public/img/digital_download/modal_assets/modal_update_lagu.svg" style="width: 95%; position: absolute; top: -10.5em;">
+ 					<form action="#" method="post" id="form-judul-lagu-update" style="width: 100%;">
+ 						<div style="display: flex; width: 100%; margin: 0em; cursor: pointer; border-radius: 1em; color: white; font-size: 0.8em; color: #dddddd; padding: 0.5em 1em; flex-direction: column;">
+ 							<div style="margin-top: 5em;">
+ 								<div style="width: 100%; text-align: center;">Edit Judul Lagu</div>
+ 								<div style="display: flex; background: #202020; border-radius: 0.5em; margin-top: 0.5em;">
+ 									<div style="width: 100%; position: relative;">
+ 										<input type="text" name="judul_lagu_update" id="judul_lagu_update" style="color: white; background: transparent; font-size: 1.3em; padding: 0.6em 1em; border-radius: 0.5em; width: 100%;" placeholder="Judul Lagu" required>
+ 										<img src="<?=url('/')?>/public/img/digital_download/icon_svg/trash_circle_white.svg" style="position: absolute; z-index: 10000; right: 0.5em; top: 0.2em;" onclick="hapus_lagu()">
+ 									</div>
+ 								</div>
+ 							</div>	
+
+ 							<div class="btn" id="btn-unggah-ulang" style="padding: 0.5em;background: #202020; box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.78); margin-top: 1em; border-radius: 0.5em; position: relative; padding: 0.2em; display: flex; justify-content: center;" onclick="unggah_ulang_lagu()">
+ 								<img id="upload_lagu_update" src="<?=url('/')?>/public/img/digital_download/icon_svg/upload_icon.svg" style="position: absolute; left: 1.5em; top: 0.7em;"> 
+ 								<div id="spinner_lagu_update" class="spinner-border" role="status" style="width: 1.3em; height: 1.3em; margin-top: 0.4em; margin-right: 1em; color: white;" hidden>
+ 									<span class="sr-only">Loading...</span>
+ 								</div>
+ 								<i id="done_lagu_update" class="fa fa-check" style="font-size: 1.5em; margin-top: 0.2em; color: white; margin-right: 1em;" hidden></i>
+ 								<h5 id="text_ulang" style="margin-top: 0.2em; color: white;">Unggah Ulang</h5>
+ 							</div>
+ 							<input type="text" name="id_update" id="id_update" hidden>
+ 							<input type="text" name="nomor_lagu_update" id="nomor_lagu_update" hidden>
+ 							<input type="text" name="id_nama_file" id="id_nama_file" hidden>
+ 							<input type="file" name="file_lagu_update" onchange="change_lagu_update()" id="file_lagu_update" hidden>
+ 							<button type="submit" class="btn" id="btn-okay" style="padding: 0.5em; background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%); box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.78); margin-top: 1em; border-radius: 0.5em; position: relative; padding: 0.2em;">
+ 								<img class="" src="<?=url('/')?>/public/img/digital_download/icon_svg/simpan_file.svg" style="position: absolute; left: 1.5em; top: 0.7em;"> <h5 style="margin-top: 0.2em; color: white;">Okay</h5>
+ 							</button>									
+ 						</div>
+ 					</form>
  				</div>
  			</div>
  		</div>
@@ -441,8 +509,10 @@
  			{{csrf_field()}}
  			<div style="display: flex; justify-content: center;">
  				<div style="width: 95%; display: flex; flex-direction: column; align-items: center;">
- 					<div style="margin-top: 6em; margin-bottom: 1.5em;">
- 						<div style="color: white; text-align: center; margin-bottom: 0.5em;">Masukan foto cover album</div>
+ 					<div style="margin-top: 5.5em; margin-bottom: 1.5em;">
+ 						<h2 style="color: white;">Album</h2>
+ 						<div style="color: white; text-align: center; margin-bottom: 2em; line-height: 1.1em;">Jual album di Kitapura <i>mall</i> dan distribusikan karya anda dengan mudah menggunakan platform kami</div>
+ 						<div style="color: white; text-align: center; margin-bottom: 1.5em;">Masukan foto cover album</div>
  						<div style="position: relative;">
  							<img id="preview_cover" src="<?=url('/')?>/public/img/digital_download/atur_band/foto_lagu.png" style="width: 100%;">
  							<img src="<?=url('/')?>/public/img/digital_download/icon_svg/ganti_foto.svg" onclick="pilih_foto_cover()" style="width: 3em; position: absolute; top: 45%; left: 45%;">
@@ -461,41 +531,31 @@
  						<input type="text" class="form-control-mall" id="harga_album" name="harga" placeholder="Harga Album" aria-describedby="basic-addon1" style="width: 100%; padding-left: 1em;" value="{{old('harga_lagu')}}" required>
  					</div>
  					<hr style="border-top: 1px solid #B3B6BC; width: 100%;">
+ 					<h5 style="color: white;">Album</h5>
  					<div id="lagu_fix" style="width: 100%;">
-
  					</div>
  					<div id="lagu_temp" hidden>
- 						<div class="input-group div-musik mb-3" id="div_lagu_temp">
- 							<div id="div-musik-title-temp">Judul Lagu ke-nomor_lagu</div>
- 							<div style="display: flex; justify-content: space-between;">
- 								<div style="width: 18%; display: flex; justify-content: center; align-content: center;" class="form-control-mall">
- 									<input type="file" name="file_lagu_temp" onchange="change_lagu('temp')" id="file_lagu_temp" hidden>
- 									<img id="upload_image_temp" onclick="upload_lagu('temp', 'tambah')" src="<?=url('/')?>/public/img/digital_download/icon_svg/upload_icon.svg" style="width: 50%; margin-right: 0.5em;">
- 									<div id="spinner_image_temp" class="spinner-border" role="status" style="margin-top: 0.2em; margin-right: 0.5em;" hidden>
- 										<span class="sr-only">Loading...</span>
- 									</div>
- 									<i id="done_image_temp" class="fa fa-check" style="font-size: 1.5em; margin-top: 0.3em; margin-right: 0.4em;" hidden></i>
-
-
- 								</div>
- 								<div style="width: 80%;">
- 									<input type="text" class="form-control-mall" id="judul_lagu_temp" name="judul_lagu_temp" placeholder="Judul Lagu" style="width: 100%; padding-left: 1em;" value="{{old('judul_lagu_temp')}}">
- 									<input type="text" class="form-control-mall" name="nama_file_temp" id="nama_file_temp" hidden>
- 									<small id="upload_kembali_temp" onclick="upload_lagu('temp', 'ubah')" hidden>Salah upload file? upload kembali</small>
- 								</div>
-
+ 						<div style="background:#161616; color: white; padding: 1em 0em; border-radius: 0.5em; display: flex; font-weight: 600; position: relative; margin-bottom: 0.5em;" id="div_lagu_temp">
+ 							<div style="width: 2.4em; margin-left: 1.5em;" id="number_music_temp">nomor_lagu</div>
+ 							<div id="judul_lagu_temp">Belum ada judul</div>
+ 							<input type="text" name="judul_lagu_temp" id="input_judul_lagu_temp" hidden>
+ 							<input type="text" id="nama_file_temp" name="nama_file_temp" hidden>
+ 							<img id="setting_lagu_temp" src="<?=url('/')?>/public/img/digital_download/icon_svg/setting.svg" style="width: 1.3em; position: absolute; right: 1.5em;" hidden onclick="data_album('temp')">
+ 							<div id="spinner_lagu_temp" class="spinner-border" role="status" style="width: 1.3em; height: 1.3em; position: absolute; right: 1.5em; margin-top: 0.2em;">
+ 								<span class="sr-only">Loading...</span>
  							</div>
- 							<img src="<?=url('/')?>/public/img/digital_download/icon_svg/icon_hapus_new.svg" style="width: 2em; position: absolute; right: 0.2em; top: 0.2em;" onclick="hapus_lagu(temp, nomor_lagu)">
  						</div>
  					</div> 					
  					<input type="input" name="daftar_id" id="daftar_id" hidden>	
- 					<div class="btn" onclick="tambah_lagu()" id="div_kategori" style="padding: 0.8em 1em 0.8em 1em; border-radius: 0.5em; background: #161616; color: white; text-align: center; font-size: 1.3em; font-weight: 500; width: 100%; margin-bottom: 1.5em;">
- 						<img src="<?=url('/')?>/public/img/icon_svg/save_white.svg" style="position: absolute; left: 1.4em; top: 1.2em;">
- 						Tambah Lagu
+ 					<input type="file" name="file_lagu_temp" onchange="change_lagu('temp')" id="file_lagu_temp" hidden>
+
+ 					<div class="btn" onclick="unggah_lagu()" id="div_kategori" style="padding: 0.8em 1em 0.8em 1em; border-radius: 0.5em; background: #161616; color: white; text-align: center; font-size: 1.3em; font-weight: 500; width: 100%; margin-bottom: 0.5em;">
+ 						<img src="<?=url('/')?>/public/img/digital_download/icon_svg/upload_icon.svg" style="position: absolute; left: 1.4em; top: 1.2em;">
+ 						Unggah Baru
  					</div>
- 					<button class="btn" type="submit" id="div_kategori" style="padding: 0.8em 1em 0.8em 1em; border-radius: 0.5em; background: #161616; color: white; text-align: center; font-size: 1.3em; font-weight: 500; width: 100%; margin-bottom: 1.5em;">
+ 					<button class="btn" type="submit" id="div_kategori" style="padding: 0.8em 1em 0.8em 1em; border-radius: 0.5em; background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%); box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.78); color: white; text-align: center; font-size: 1.3em; font-weight: 500; width: 100%; margin-bottom: 1em; ">
  						<img src="<?=url('/')?>/public/img/icon_svg/save_white.svg" style="position: absolute; left: 1.4em; top: 1.2em;">
- 						Simpan Album
+ 						Simpan
  					</button>
  				</div>
  			</div>
@@ -578,27 +638,64 @@
 	var jumlah_lagu = 0;
 	var status_upload = "";
 
-	$( "form" ).submit(function( event ) {
-		var daftar_id = $("#daftar_id").val();
-		var result = daftar_id.split(",");
-		var banyak_data = result.length-1;
-		if (banyak_data == 0){
-			$("#judul_modal").html("Gagal");
-			$("#pesan_modal").html("Silahkan tambahkan lagu terlebih dahulu");
-			$('#modal-error').modal('show');
+	function data_album(temp){
+		var nilai = $("#judul_lagu_"+temp).html();
+		$("#judul_lagu_update").val(nilai);
+		$("#id_update").val(temp);
+		$("#id_nama_file").val($("#nama_file_"+temp));
+		$("#nomor_lagu_update").val($("#_"+temp).val());
 
-		}
-		else if (banyak_data != jumlah_lagu){
-			$("#judul_modal").html("Gagal");
-			$("#pesan_modal").html("Silahkan upload lagu terlebih dahulu");
-			$('#modal-error').modal('show');
+		$("#upload_lagu_update").prop('hidden', false);
+		$("#spinner_lagu_update").prop('hidden', true);
+		$("#done_lagu_update").prop('hidden', true);
+		$("#text_ulang").html("Unggah Ulang");
 
-		}
-		else if (banyak_data == jumlah_lagu){
-			return true;
-		}
+		$("#modal-ubah-lagu").modal('show');
+	}
+
+	function unggah_ulang_lagu(){
+		$("#file_lagu_update").click();
+	}
+
+	function unggah_lagu(status){		
+		$("#file_lagu_temp").click();
+	}
+
+	$("#form-judul-lagu").submit(function( event ) {
 		event.preventDefault();
+		var nama_lagu = $("#judul_lagu").val();
+		var id_lagunya = id_div-1;
+		$("#judul_lagu_"+id_lagunya).html(nama_lagu);
+		$("#input_judul_lagu_"+id_lagunya).val(nama_lagu);
+		// $("#judul_lagu_"+id_div-1).html("tes");``
+		$("#close-btn").click();
 	});
+
+	$("#form_input").submit(function( event ) {
+		if ($("#foto_cover").val() == ''){
+			event.preventDefault();
+			$("#message_error").html("Silahkan masukan foto cover terlebih dahulu");
+			$("#modal-notif-error-toko").modal('show');
+		}
+		else if (id_div < 2){
+			event.preventDefault();
+			$("#message_error").html("Silahkan upload lagu terlebih dahulu");
+			$("#modal-notif-error-toko").modal('show');			
+		}
+
+
+	});
+
+
+	$("#form-judul-lagu-update").submit(function( event ) {
+		event.preventDefault();
+		var nama_lagu = $("#judul_lagu_update").val();
+		var id = $("#id_update").val();
+		$("#judul_lagu_"+id).html(nama_lagu);
+		// $("#judul_lagu_"+id_div-1).html("tes");
+		// $("#close-btn-update").click
+	});
+
 
 	function upload_lagu(temp, status){
 		$("#file_lagu_"+temp).prop("value", "");
@@ -639,13 +736,64 @@
 		if (this.value == "NaN" || this.value == "") this.value = 0;
 	});
 
-	function change_lagu(temp){
-		$("#upload_image_"+temp).prop('hidden', true);
-		$("#spinner_image_"+temp).prop('hidden', false);
-		$("#done_image_"+temp).prop('hidden', true);
+	function change_lagu_update(){
+		// $("#nama_file_"+id_lagunya).val(data.nama_file);
+		var id = $("#id_update").val();
+		var test = $("#id_nama_file").val();
+		// alert(id);
+		$("#upload_lagu_update").prop('hidden', true);
+		$("#spinner_lagu_update").prop('hidden', false);
+		$("#text_ulang").html("Sedang mengupload");
+		$("#setting_lagu_"+id).prop('hidden', true);
+		$("#spinner_lagu_"+id).prop('hidden', false);
 
-		var file_data = $('#file_lagu_'+temp).prop('files')[0];   
-		var nama_file = $("#nama_file_"+temp).val();
+
+		var file_data = $('#file_lagu_update').prop('files')[0];   
+		var form_data = new FormData();                  
+		form_data.append('file', file_data);
+		form_data.append('nama_file', test);
+		form_data.append('temp', id);
+		form_data.append('status_upload', "ubah");
+		$.ajax({
+			url: "<?=url('/')?>/digital-download/akun/atur-band/simpan-lagu",
+			dataType: 'JSON',  
+			cache: false,
+			contentType: false,
+			processData: false,
+			data: form_data,                       
+			method: 'post',
+			success: function(data){
+				// $("#upload_lagu_update").prop('hidden', true);
+				$("#spinner_lagu_update").prop('hidden', true);
+				$('#done_lagu_update').prop('hidden', false);
+				$("#text_ulang").html("Berhasil diupload");
+
+				$("#nama_file_"+id).val(data.nama_file);
+				$("#setting_lagu_"+id).prop('hidden', false);
+				$("#spinner_lagu_"+id).prop('hidden', true);
+
+
+			}
+		});
+
+		// $("#spinner_lagu_"+id_lagunya).prop('hidden', true);
+		// $("#setting_lagu_"+id_lagunya).prop('hidden', false);
+
+	}
+
+	function change_lagu(temp){
+		$("#modal-simpan-lagu").modal('show');
+		var template = $("#lagu_temp").html().trim();
+		var fix_template1 = template.replaceAll("temp", id_div).trim();
+		var fix_template = fix_template1.replaceAll("nomor_lagu", nomor_lagu).trim();
+		$("#lagu_fix").append(fix_template);
+		var daftar_id = $("#daftar_id").val();
+		$("#daftar_id").val(daftar_id+id_div+",");
+		id_div = id_div+1;
+		nomor_lagu = nomor_lagu+1;
+		$("#judul_lagu").val('');
+		var file_data = $('#file_lagu_temp').prop('files')[0];   
+		var nama_file = $("#nama_file_temp").val();
 		var form_data = new FormData();                  
 		form_data.append('file', file_data);
 		form_data.append('nama_file', nama_file);
@@ -660,10 +808,17 @@
 			data: form_data,                       
 			method: 'post',
 			success: function(data){
-				$("#spinner_image_"+temp).prop('hidden', true);
-				$("#done_image_"+temp).prop('hidden', false);
-				$('#nama_file_'+temp).val(data.nama_file);
-				$("#upload_kembali_"+temp).prop('hidden', false);
+				// alert(data.nama_file);
+				var id_lagunya = id_div-1;
+				$("#nama_file_"+id_lagunya).val(data.nama_file);
+				$("#spinner_lagu_"+id_lagunya).prop('hidden', true);
+				$("#setting_lagu_"+id_lagunya).prop('hidden', false);
+
+				// $("#spinner_lagu_"+temp).prop('hidden', true);
+				// $("#setting_lagu_"+temp).prop('hidden', false);
+				// $("#done_image_"+temp).prop('hidden', false);
+				// $('#nama_file_'+temp).val(data.nama_file);
+				// $("#upload_kembali_"+temp).prop('hidden', false);
 			}
 		});
 	}
@@ -681,7 +836,10 @@
 		nomor_lagu = nomor_lagu+1;
 	}
 
-	function hapus_lagu(temp, temp_nomor_lagu){
+	function hapus_lagu(){
+		// alert('tes');
+		var temp = $('#id_update').val();
+		var temp_nomor_lagu = $("#nomor_lagu_update").val();
 		var nama_file = $('#nama_file_'+temp).val();
 		// alert(nama_file);
 		$.ajax({
@@ -699,12 +857,14 @@
 						status_find = true;				
 					}
 					if (status_find == true){
-						$("#div-musik-title-"+result[i]).html("Judul Lagu ke-"+i);	
+
+						$("#number_music_"+result[i]).html(i);	
 					}
 				}
 				$("#daftar_id").val(daftar_id.replaceAll(temp+",", ""));
 				nomor_lagu = nomor_lagu-1;
 				jumlah_lagu = jumlah_lagu-1;
+				$("#close-btn-update").click();
 			}
 		});
 	}

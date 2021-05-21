@@ -19,10 +19,11 @@ class AturBandController extends Controller
 	public function index(){
 		$band = DB::table('band')->select('band.*', 'dd_genre.nama_genre as nama_genre')->join('dd_genre', 'dd_genre.id', '=', 'band.genre')->where('users_id', Auth()->User()->id)->first();
 		$genre = DB::table('dd_genre')->select('id', 'nama_genre')->get();
-		$album_single = DB::table('dd_album_single')->select()->where('id_band', $band->id)->get();
+		$album = DB::table('dd_album_single')->select()->where('id_band', $band->id)->where('status', 'album')->get();
+		$single = DB::table('dd_album_single')->select()->where('id_band', $band->id)->where('status', 'single')->get();
 		$foto_band = DB::table('dd_foto_band')->select()->where('id_band', $band->id)->get();
 		// dd($genre);
-		return view('users/user/m-digital-download/akun/atur-band/index', compact('band', 'genre', 'album_single', 'foto_band'));
+		return view('users/user/m-digital-download/akun/atur-band/index', compact('band', 'genre', 'album', 'single', 'foto_band'));
 	}
 
 	public function autocode($kode){
@@ -103,25 +104,25 @@ class AturBandController extends Controller
 		else {
 			$id = $this->autocode('SNG-');
 		}
+		$band = DB::table('band')->where('users_id', Session::get('id_user'))->first();
 
 		$files = $request->file("foto_cover");
 
-		$image_path_ori = "img/digital_download/album_single/$id/ori/$request->judul_foto";
-		$image_path_250x201 = "img/digital_download/album_single/$id/250x201/$request->judul_foto";
-		$image_path_600x483 = "img/digital_download/album_single/$id/600x483/$request->judul_foto";
+		$image_path_ori = "img/digital_download/album_single/$band->id/$id/ori/$request->judul_foto";
+		$image_path_250x201 = "img/digital_download/album_single/$band->id/$id/250x201/$request->judul_foto";
+		$image_path_600x483 = "img/digital_download/album_single/$band->id/$id/600x483/$request->judul_foto";
 
 		\Storage::disk('public')->put($image_path_ori, file_get_contents($files));
 		\Storage::disk('public')->put($image_path_250x201, file_get_contents($files));
 		\Storage::disk('public')->put($image_path_600x483, file_get_contents($files));
 
-		\File::delete("public/$image_path_250x201/$request->judul_foto");			
-		\File::delete("public/$image_path_600x483/$request->judul_foto");			
+		\File::delete("public/$image_path_250x201");			
+		\File::delete("public/$image_path_600x483");			
 		// \File::delete("public/$image_path_240x200");			
 
 		File::move(public_path('img/digital_download/temp_produk/250x201/'.$request->judul_foto), public_path($image_path_250x201));
 		File::move(public_path('img/digital_download/temp_produk/600x483/'.$request->judul_foto), public_path($image_path_600x483));
 
-		$band = DB::table('band')->where('users_id', Session::get('id_user'))->first();
 		$db->id = $id;		
 		$db->judul = $request->judul;
 		$db->harga = str_replace(',', '', $request->harga);
@@ -133,12 +134,20 @@ class AturBandController extends Controller
 		$count_daftar = explode(",", $request->daftar_id);
 		// dd($count_daftar);
 		for ($i = 0; $i < count($count_daftar)-1; $i++){
+			$nama_file = $request->input('nama_file_'.$count_daftar[$i]);
+			$lagu_path = "lagu/$band->id/$id/$request->judul_foto";
+			$lagu_preview_path = "preview_lagu/$band->id/$id/$request->judul_foto";
+			\Storage::disk('public')->put($lagu_path, file_get_contents($files));
+			\Storage::disk('public')->put($lagu_preview_path, file_get_contents($files));
+			\File::delete("public/$lagu_path");
+			\File::delete("public/$lagu_preview_path");
+			File::move(public_path("temp_lagu/$band->id/$nama_file"), public_path("lagu/$band->id/$id/$nama_file"));
+			\falahati\PHPMP3\MpegAudio::fromFile($_SERVER['DOCUMENT_ROOT']."/kita-pura-mall/public/lagu/$band->id/$id/$nama_file")->trim(10, 30)->saveFile($_SERVER['DOCUMENT_ROOT']."/kita-pura-mall/public/preview_lagu/$band->id/$id/$nama_file");			
 			$db = new Dd_lagu;
 			$db->id = $this->autocode('LGU');
-			// dd($request->input('judul_lagu_'.$count_daftar[$i]));
 			$db->judul = $request->input('judul_lagu_'.$count_daftar[$i]);
 			$db->id_album_single = $id;
-			$db->file = $request->input('nama_file_'.$count_daftar[$i]);
+			$db->file = $nama_file;
 			$db->save();
 		}
 		return redirect('digital-download/akun/atur-band');

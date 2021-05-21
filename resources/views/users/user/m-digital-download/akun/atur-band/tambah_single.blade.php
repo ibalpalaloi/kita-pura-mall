@@ -355,7 +355,7 @@
  					<img src="<?=url('/')?>/public/img/modal_assets/modal_error_input.svg" style="width: 100%;">
  					<div style="position: absolute; margin: 0em 1.5em 0em 1.5em; padding: 0em 1.5em 0em 1.5em; top: 60%;">
  						<div style="font-size: 2em; font-weight: 600; text-align: center;">Gagal</div>
- 						<div style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">username hanya boleh menggunakan huruf, angka, garis bawah dan titik.</div>
+ 						<div id="message_error" style="font-size: 1em; text-align: center; width: 100%; font-weight: 0; color: #ffe6f1; margin-bottom: 1.2em;">Silahkan upload foto cover album</div>
  					</div>
  				</div>
  			</div>
@@ -442,7 +442,9 @@
  			<div style="display: flex; justify-content: center;">
  				<div style="width: 95%; display: flex; flex-direction: column; align-items: center;">
  					<div style="margin-top: 6em; margin-bottom: 1.5em;">
- 						<div style="color: white; text-align: center; margin-bottom: 0.5em;">Masukan foto cover single</div>
+ 						<h2 style="color: white;">Single</h2>
+ 						<div style="color: white; text-align:justify; margin-bottom: 2em; line-height: 1.1em;">Jual single dikitapuramall dan distribusikan karya anda dengan mudah menggunakan platform kami</div>
+ 						<div style="color: white; text-align: center; margin-bottom: 1.5em;">Masukan foto cover single</div>
  						<div style="position: relative;">
  							<img id="preview_cover" src="<?=url('/')?>/public/img/digital_download/atur_band/foto_lagu.png" style="width: 100%;">
  							<img src="<?=url('/')?>/public/img/digital_download/icon_svg/ganti_foto.svg" onclick="pilih_foto_cover()" style="width: 3em; position: absolute; top: 45%; left: 45%;">
@@ -453,7 +455,7 @@
  					<input type="text" name="status" value="single" hidden>
  					<div class="input-group mb-3 @if($errors->first('no_hp')) is-invalid @endif"  id="div_kategori" style="color: white; padding: 0.5em 1em 1em 1em; border-radius: 0.5em; background: #161616;">
  						<div style="margin-top: 0px; color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0.3em 0em 0.7em 0em;">Judul Single</div>
- 						<input type="text" class="form-control-mall" id="judul_album" name="judul" placeholder="Judul Single" aria-describedby="basic-addon1" style="width: 100%; padding-left: 1em;" value="{{old('judul')}}" required>
+ 						<input type="text" class="form-control-mall" id="judul_single" name="judul" placeholder="Judul Single" aria-describedby="basic-addon1" style="width: 100%; padding-left: 1em;" value="{{old('judul')}}" required>
  					</div>
  					<div class="input-group mb-3 @if($errors->first('no_hp')) is-invalid @endif"  id="div_kategori" style="color: white; padding: 0.5em 1em 1em 1em; border-radius: 0.5em; background: #161616;">
  						<div style="margin-top: 0px; color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0.3em 0em 0.7em 0em;">Harga</div>
@@ -463,7 +465,6 @@
  					<hr style="border-top: 1px solid #B3B6BC; width: 100%;">
  					<div id="lagu_fix" style="width: 100%;">
  						<div class="input-group div-musik mb-3" id="div_lagu_1">
- 							<div id="div-musik-title-1">Judul Lagu</div>
  							<div style="display: flex; justify-content: space-between;">
  								<div style="width: 18%; display: flex; justify-content: center; align-content: center;" class="form-control-mall">
  									<input type="file" name="file_lagu_1" onchange="change_lagu('1')" id="file_lagu_1" hidden>
@@ -474,7 +475,8 @@
  									<i id="done_image_1" class="fa fa-check" style="font-size: 1.5em; margin-top: 0.3em; margin-right: 0.4em;" hidden></i>
  								</div>
  								<div style="width: 80%;">
- 									<input type="text" class="form-control-mall" id="judul_lagu_1" name="judul_lagu_1" placeholder="Judul Lagu" style="width: 100%; padding-left: 1em;" value="{{old('judul_lagu_1')}}">
+ 									<input type="text" class="form-control-mall" id="keterangan_upload" style="width: 100%; padding-left: 1em;" value="Belum mengunggah lagu" readonly>
+ 									<input type="text" class="form-control-mall" id="judul_lagu_1" name="judul_lagu_1" placeholder="Judul Lagu" style="width: 100%; padding-left: 1em;" value="{{old('judul_lagu_1')}}" hidden>
  									<input type="text" class="form-control-mall" name="nama_file_1" id="nama_file_1" hidden>
  									<small id="upload_kembali_1" onclick="upload_lagu('1', 'ubah')" hidden>Salah upload file? upload kembali</small>
  								</div>
@@ -496,7 +498,7 @@
 
 
  								</div>
- 								<div style="width: 80%;">
+ 								<div style="width: 80%;" hidden>
  									<input type="text" class="form-control-mall" id="judul_lagu_temp" name="judul_lagu_temp" placeholder="Judul Lagu" style="width: 100%; padding-left: 1em;" value="{{old('judul_lagu_temp')}}">
  									<input type="text" class="form-control-mall" name="nama_file_temp" id="nama_file_temp" hidden>
  									<small id="upload_kembali_temp" onclick="upload_lagu('temp', 'ubah')" hidden>Salah upload file? upload kembali</small>
@@ -507,9 +509,9 @@
  						</div>
  					</div> 					
  					<input type="input" name="daftar_id" id="daftar_id" hidden value="1,">	
- 					<button class="btn" type="submit" id="div_kategori" style="padding: 0.8em 1em 0.8em 1em; border-radius: 0.5em; background: #161616; color: white; text-align: center; font-size: 1.3em; font-weight: 500; width: 100%; margin-bottom: 1.5em;">
+ 					<button class="btn" type="submit" id="div_kategori" style="padding: 0.8em 1em 0.8em 1em; border-radius: 0.5em; background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%); box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.78); color: white; text-align: center; font-size: 1.3em; font-weight: 500; width: 100%; margin-bottom: 1.5em;">
  						<img src="<?=url('/')?>/public/img/icon_svg/save_white.svg" style="position: absolute; left: 1.4em; top: 1.2em;">
- 						Simpan Album
+ 						Simpan
  					</button>
  				</div>
  			</div>
@@ -614,6 +616,22 @@
 		event.preventDefault();
 	});
 
+	$("#form_input").submit(function( event ) {
+		$("#judul_lagu_1").val($("#judul_single").val());
+		if ($("#foto_cover").val() == ''){
+			event.preventDefault();
+			$("#message_error").html("Silahkan masukan foto cover terlebih dahulu");
+			$("#modal-notif-error-toko").modal('show');
+		}
+		else if ($("#nama_file_1").val() == ''){
+			event.preventDefault();
+			$("#message_error").html("Silahkan upload lagu terlebih dahulu");
+			$("#modal-notif-error-toko").modal('show');			
+		}
+
+
+	});
+
 	function upload_lagu(temp, status){
 		$("#file_lagu_"+temp).prop("value", "");
 		$("#file_lagu_"+temp).click();
@@ -654,6 +672,7 @@
 		$("#upload_image_"+temp).prop('hidden', true);
 		$("#spinner_image_"+temp).prop('hidden', false);
 		$("#done_image_"+temp).prop('hidden', true);
+		$('#keterangan_upload').val("Sedang mengunggah file");
 
 		var file_data = $('#file_lagu_'+temp).prop('files')[0];   
 		var nama_file = $("#nama_file_"+temp).val();
@@ -675,6 +694,8 @@
 				$("#done_image_"+temp).prop('hidden', false);
 				$('#nama_file_'+temp).val(data.nama_file);
 				$("#upload_kembali_"+temp).prop('hidden', false);
+				$('#keterangan_upload').val("Berhasil terunggah");
+
 			}
 		});
 	}

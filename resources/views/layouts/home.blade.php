@@ -199,14 +199,6 @@ $show = "finish";
             </div>
         </div> 
         @endfor
-<!--         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;">
-            <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;" onclick="cooming_soon()">
-                <div style="background: #6c757d; border: 2px solid #6c757d; width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;">
-                    <img src="<?=url('/')?>/public/img/menu/emergency_disabled.svg" style="width: 70%;">
-                </div>
-                <div style="text-align: center; font-size: 0.7em; color: #5b5b5b;">Emergency</div>
-            </div>
-        </div>  -->
 
         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;">
             <a href="https://lprmsulteng.com/mobile/mobil" style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;"  onclick="show_loader()">

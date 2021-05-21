@@ -611,26 +611,35 @@
  		<div style="display: flex; justify-content: center;">
  			<div style="width: 95%; display: flex; flex-direction: column; align-items: center;">
  				<div class="data-band" style="display: flex; justify-content: center; align-items: center; flex-direction:column; width: 100%;">
- 					<div style="color: white;  width: 100%; display: flex; justify-content: center; position: relative; top: 17em; margin-bottom: 17em;">
+ 					<div style="color: white;  width: 100%; display: flex; justify-content: center; position: relative; top: 18em; margin-bottom: 17em;">
  						<div style="width: 100%;">
  							<div style="color: white; background: linear-gradient(180deg, #BD0000 23.44%, #8B0303 100%);border-radius: 6px; margin-bottom: 0.5em;" class="btn" onclick="pilih_foto_cover()">
  								<img src="<?=url('/')?>/public/img/digital_download/icon_svg/ganti_sampul.svg">
  								<span>ganti foto depan</span>
  							</div>
  							<input hidden type="file" name="foto_cover" id="foto_cover">
- 							<h3 onclick='modal_data_band("{{$band->nama_band}}", "{{$band->nama_genre}}", "{{$band->deskripsi}}")'>{{$band->nama_band}}&nbsp;<img src="<?=url('/')?>/public/img/digital_download/icon_svg/edit_pencil_white.svg" style="width: 0.7em;"></h3> 									
-
- 							<div style="font-size: 1em; color: #ADADAD; line-height: 1.2em;" onclick='modal_data_band("{{$band->nama_band}}", "{{$band->nama_genre}}", "{{$band->deskripsi}}")'>{{$band->nama_genre}}&nbsp;<img src="<?=url('/')?>/public/img/digital_download/icon_svg/edit_pencil_white.svg" style="width: 0.7em;"></div>
  						</div>
  					</div>
  					<div class="input-group @if($errors->first('no_hp')) is-invalid @endif"  id="div_kategori" style="color: white; padding: 0.5em 1em 1.1em 1em; border-radius: 0.5em; background: #161616; margin-top: 1.5em;">
- 						<div style="margin-top: 0px; color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0.3em 0em 0.7em 0em;" onclick='modal_data_band("{{$band->nama_band}}", "{{$band->nama_genre}}", "{{$band->deskripsi}}")'>Deskripsi&nbsp;<img src="<?=url('/')?>/public/img/digital_download/icon_svg/edit_pencil_white.svg" style="width: 0.7em;"></div>
- 						<div style="height: 9em; width: 100%; padding: 0;">
- 							<textarea id="deskripsi" name="deskripsi"  style="width: 100%; height: 10em; border-radius: 0.5em; margin: 0em 0em 1em 0em; background: #202020; color: #B3B6BC; border: none; font-size: 0.9em; padding: 0.3em 0.6em 0.5em 0.6em; text-align: justify;" rows="5" readonly>{{$band->deskripsi}}</textarea>
+						<div style="margin-top: 0px; color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0.3em 0em 0.7em 0em;" onclick='modal_data_band("{{$band->nama_band}}", "{{$band->nama_genre}}", "{{$band->deskripsi}}")'>Nama Band</div>
+ 						<div style="width: 100%; padding: 0; margin-bottom: 1em;">
+ 							<input type="text" name="genre" value="{{$band->nama_band}}" style="width: 100%;border-radius: 0.5em;background: #202020; color: #B3B6BC; border: none; font-size: 0.9em; padding: 0.3em 0.6em 0.5em 0.6em; text-align: justify;" disabled>
+ 						</div> 						
+ 						<div style="color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0em 0em 0.7em 0em;" onclick='modal_data_band("{{$band->nama_band}}", "{{$band->nama_genre}}", "{{$band->deskripsi}}")'>Genre</div>
+ 						<div style="width: 100%; padding: 0; margin-bottom: 1em;">
+ 							<input type="text" name="genre" value="{{$band->nama_genre}}" style="width: 100%;border-radius: 0.5em; background: #202020; color: #B3B6BC; border: none; font-size: 0.9em; padding: 0.3em 0.6em 0.5em 0.6em; text-align: justify;" disabled>
+ 						</div> 						
+ 						<div style="margin-top: 0px; color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0.3em 0em 0.7em 0em;" onclick='modal_data_band("{{$band->nama_band}}", "{{$band->nama_genre}}", "{{$band->deskripsi}}")'>Deskripsi</div>
+ 						<div style="min-height: 6em; width: 100%; padding: 0;">
+ 							<textarea id="deskripsi" name="deskripsi"  style="width: 100%; min-height: 7em; border-radius: 0.5em; margin: 0em 0em 1em 0em; background: #202020; color: #B3B6BC; border: none; font-size: 0.9em; padding: 0.3em 0.6em 0.5em 0.6em; text-align: justify;" readonly>{{$band->deskripsi}}</textarea>
+ 						</div>
+ 						<div style="border-radius: 0.5em; background: #202020; color: white; width: 100%; text-align: center; padding: 0.4em; position: relative; box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.78);">
+ 							<img src="<?=url('/')?>/public/img/digital_download/icon_svg/setting.svg" style="position: absolute; left: 1.5em; width: 1.5em; top: 0.8em;">
+ 							<h5 style="margin-top: 0.2em;">Edit</h5>
  						</div>
  					</div>
  					<div class="input-group mb-2 @if($errors->first('no_hp')) is-invalid @endif"  id="div_kategori" style="color: white; padding: 0.5em 1em 1.1em 1em; border-radius: 0.5em; background: #161616; margin-top: 1.5em;">
- 						<h5 style="margin-top: 0.3em; margin-bottom: 1em;">Single/Album</h5>
+ 						<h4 style="margin-top: 0.3em; margin-bottom: 0.6em;">Single</h4>
  						<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
  							<div style="width: 100%; padding-right: 0.5em;">
  								<span class="input-group-text-mall">
@@ -642,12 +651,12 @@
  							</div>
  						</div>
  						<div style="display: flex;justify-content: space-between; flex-wrap: wrap; width: 100%;">
- 							@foreach ($album_single as $row)
- 							<div class="single" style="position: relative; width: 47%; margin-bottom: 1em;">
- 								<img src="<?=url('/')?>/public/img/digital_download/album_single/{{$row->id}}/250x201/{{$row->foto_cover}}" style="width: 100%;">
+ 							@foreach ($single as $row)
+ 							<a href="<?=url('/')?>/digital-download/akun/single/{{$row->id}}" class="single" style="position: relative; width: 47%; margin-bottom: 1em;">
+ 								<img src="<?=url('/')?>/public/img/digital_download/album_single/{{$band->id}}/{{$row->id}}/250x201/{{$row->foto_cover}}" style="width: 100%;">
  								<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; color: white; background-size: cover; padding: 1em; position: absolute; bottom: 0em; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 20.45%, #000000 60.58%);'> 
- 									<div style="position: absolute; bottom: 1em; z-index: 0; width: 3em; height: 3em; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 50%; right: 0.5em; display: flex; justify-content:center;align-items: center;">
- 										<img src="<?=url('/')?>/public/img/icon_svg/pesawat_kertas_white.svg" style="width: 1.5em; height: 1.5em;">
+ 									<div onclick='music_href("{{url()->current()}}/ubah-single/{{$row->id}}")' style="position: absolute; bottom: 1em; z-index: 1000; width: 3em; height: 3em; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 50%; right: 0.5em; display: flex; justify-content:center;align-items: center;">
+ 										<img src="<?=url('/')?>/public/img/digital_download/icon_svg/setting.svg" style="width: 1.8em; height: 1.8em;">
  									</div>
  									<div style="font-weight: 400; font-size: 1.2em;"><?=substr(strip_tags($row->judul), 0, 15)?>@if (strlen($row->judul) > 15)..@endif</div>
  									<div style="font-size: 0.65em; line-height: 1em; font-weight: 0;">{{ucfirst($row->status)}}</div>
@@ -656,7 +665,43 @@
  									</div>
  									<div style="padding: 0; margin: 0.5em 0px 0px 0em; font-size: 0.9em; line-height: 1em; font-weight: 500;">IDR. {{number_format($row->harga, 0, '.', '.')}}</div>
  								</div>
+ 							</a>
+ 							@endforeach
+ 						</div>		
+ 					</div>
+ 					<a href="<?=url('/')?>/digital-download/akun/atur-band/tambah-single" type="submit" class="btn" id="div_kategori" style="padding: 0.8em 1em 0.8em 1em; border-radius: 0.5em; background: #161616; color: white; text-align: center; font-size: 1.3em; font-weight: 500; width: 100%; margin-bottom: 0.5em; margin-top: 0.3em;">
+ 						<img src="<?=url('/')?>/public/img/icon_svg/save_white.svg" style="position: absolute; left: 1.4em; top: 1.2em;">
+ 						<span style="margin-left: 2em;">Tambah Single</span>
+ 					</a>
+
+ 					<div class="input-group mb-2 @if($errors->first('no_hp')) is-invalid @endif"  id="div_kategori" style="color: white; padding: 0.5em 1em 1.1em 1em; border-radius: 0.5em; background: #161616; margin-top: 1.5em;">
+ 						<h4 style="margin-top: 0.3em; margin-bottom: 0.6em;">Album</h4>
+ 						<div class="input-group mb-3 div-input-mall" id="div_no_hp" style="border-radius: 3em;">
+ 							<div style="width: 100%; padding-right: 0.5em;">
+ 								<span class="input-group-text-mall">
+ 								</span>
+ 								<input type="text" class="form-control-mall" id="cari_produk" name="cari_produk" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1" value=""style="width: 100%; height: 2.2em; margin-right: 0.5em; background: white; margin-left: 1em; color: black;">
+ 								<div style="width: 1.8em; height: 1.8em; background: #161616; border-radius: 50%; padding: 1.1em; display: flex; justify-content: center;align-items: center;">
+ 									<img src="<?=url('/')?>/public/img/icon_svg/search_white.svg">
+ 								</div>
  							</div>
+ 						</div>
+ 						<div style="display: flex;justify-content: space-between; flex-wrap: wrap; width: 100%;">
+ 							@foreach ($album as $row)
+ 							<a href="<?=url('/')?>/digital-download/akun/album/{{$row->id}}" class="single" style="position: relative; width: 47%; margin-bottom: 1em;">
+ 								<img src="<?=url('/')?>/public/img/digital_download/album_single/{{$band->id}}/{{$row->id}}/250x201/{{$row->foto_cover}}" style="width: 100%;">
+ 								<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; color: white; background-size: cover; padding: 1em; position: absolute; bottom: 0em; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 20.45%, #000000 60.58%);'> 
+ 									<div onclick='music_href("{{url()->current()}}/ubah-album/{{$row->id}}")'  style="position: absolute; bottom: 1em; z-index: 1000; width: 3em; height: 3em; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 50%; right: 0.5em; display: flex; justify-content:center;align-items: center;">
+ 										<img src="<?=url('/')?>/public/img/digital_download/icon_svg/setting.svg" style="width: 1.8em; height: 1.8em;">
+ 									</div>
+ 									<div style="font-weight: 400; font-size: 1.2em;"><?=substr(strip_tags($row->judul), 0, 15)?>@if (strlen($row->judul) > 15)..@endif</div>
+ 									<div style="font-size: 0.65em; line-height: 1em; font-weight: 0;">{{ucfirst($row->status)}}</div>
+ 									<div style="padding: 0; margin: 0.5em 0px 0px 0px; font-size: 0.65em; line-height: 1em;">
+ 										9000 Downloads
+ 									</div>
+ 									<div style="padding: 0; margin: 0.5em 0px 0px 0em; font-size: 0.9em; line-height: 1em; font-weight: 500;">IDR. {{number_format($row->harga, 0, '.', '.')}}</div>
+ 								</div>
+ 							</a>
  							@endforeach
  						</div>		
  					</div>
@@ -664,12 +709,7 @@
  						<img src="<?=url('/')?>/public/img/icon_svg/save_white.svg" style="position: absolute; left: 1.4em; top: 1.2em;">
  						<span style="margin-left: 2em;">Tambah Album</span>
  					</a>
- 					<a href="<?=url('/')?>/digital-download/akun/atur-band/tambah-single" type="submit" class="btn" id="div_kategori" style="padding: 0.8em 1em 0.8em 1em; border-radius: 0.5em; background: #161616; color: white; text-align: center; font-size: 1.3em; font-weight: 500; width: 100%; margin-bottom: 1.5em; margin-top: 0.3em;">
- 						<img src="<?=url('/')?>/public/img/icon_svg/save_white.svg" style="position: absolute; left: 1.4em; top: 1.2em;">
- 						<span style="margin-left: 2em;">Tambah Single</span>
- 					</a>
-
- 					<div class="input-group mb-2 @if($errors->first('no_hp')) is-invalid @endif"  id="div_kategori" style="color: white; margin-top: 1.5em;">
+ 					<div class="input-group mb-2 @if($errors->first('no_hp')) is-invalid @endif"  id="div_kategori" style="color: white; margin-top: 1.5em;" hidden>
  						<h5 style="margin-top: 0.3em; margin-bottom: 1em; width: 100%;">Foto</h5>
  						<div class="slider foto">
  							@php $i=0; @endphp
@@ -687,11 +727,11 @@
  							@endforeach
  						</div>
  					</div>
- 					<button type="submit" class="btn" onclick="tambah_foto()" id="div_kategori" style="padding: 0.8em 1em 0.8em 1em; border-radius: 0.5em; background: #161616; color: white; text-align: center; font-size: 1.3em; font-weight: 500; width: 100%; margin-bottom: 1.5em; margin-top: 0.3em;">
+ 					<button type="submit" class="btn" onclick="tambah_foto()" id="div_kategori" style="padding: 0.8em 1em 0.8em 1em; border-radius: 0.5em; background: #161616; color: white; text-align: center; font-size: 1.3em; font-weight: 500; width: 100%; margin-bottom: 1.5em; margin-top: 0.3em;" hidden>
  						<img src="<?=url('/')?>/public/img/icon_svg/save_white.svg" style="position: absolute; left: 1.4em; top: 1.2em;">
  						<span style="margin-left: 2em;">Tambah Foto</span>
  					</button>
- 					<div class="input-group mb-2 @if($errors->first('no_hp')) is-invalid @endif"  id="div_kategori" style="color: white; margin-top: 1.5em; width: 100%;">
+ 					<div class="input-group mb-2 @if($errors->first('no_hp')) is-invalid @endif"  id="div_kategori" style="color: white; margin-top: 1.5em; width: 100%;" hidden>
  						<h5 style="margin-top: 0.3em; margin-bottom: 1em;">Musik/Video</h5>
  						<div class="musik_video" style="width: 100%;">
  							@php
@@ -710,7 +750,7 @@
  							@endfor
  						</div>
  					</div>
- 					<a  href="<?=url('/')?>/digital-download/akun/atur-band/tambah-musik-video" class="btn" id="div_kategori" style="padding: 0.8em 1em 0.8em 1em; border-radius: 0.5em; background: #161616; color: white; text-align: center; font-size: 1.3em; font-weight: 500; width: 100%; margin-bottom: 1.5em;">
+ 					<a  href="<?=url('/')?>/digital-download/akun/atur-band/tambah-musik-video" class="btn" id="div_kategori" style="padding: 0.8em 1em 0.8em 1em; border-radius: 0.5em; background: #161616; color: white; text-align: center; font-size: 1.3em; font-weight: 500; width: 100%; margin-bottom: 1.5em;" hidden>
  						<img src="<?=url('/')?>/public/img/icon_svg/save_white.svg" style="position: absolute; left: 1.4em; top: 1.2em;">
  						<span style="margin-left: 2em;">Tambah Video</span>
  					</a>
@@ -801,6 +841,10 @@
 
 	function tambah_video(){
 		$("#modal-video").modal('show');
+	}
+
+	function music_href(link){
+		location.href = link;
 	}
 
 	function modal_data_band(nama_band, genre, deskripsi){
