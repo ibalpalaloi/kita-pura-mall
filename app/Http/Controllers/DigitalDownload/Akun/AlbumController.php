@@ -89,7 +89,7 @@ class AlbumController extends Controller
 			}
 
 		}
-		$delete_lagu = DB::table('dd_lagu')->select('id')->whereNotIn('id', $array_where)->get();
+		$delete_lagu = DB::table('dd_lagu')->select('id')->where('id_album_single', $request->id)->whereNotIn('id', $array_where)->get();
 		// dd($delete_lagu);
 		foreach ($delete_lagu as $row){
 			DB::table('dd_lagu')->where('id', $row->id)->delete();

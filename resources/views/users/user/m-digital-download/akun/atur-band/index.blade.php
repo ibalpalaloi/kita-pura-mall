@@ -621,19 +621,19 @@
  						</div>
  					</div>
  					<div class="input-group @if($errors->first('no_hp')) is-invalid @endif"  id="div_kategori" style="color: white; padding: 0.5em 1em 1.1em 1em; border-radius: 0.5em; background: #161616; margin-top: 1.5em;">
-						<div style="margin-top: 0px; color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0.3em 0em 0.7em 0em;" onclick='modal_data_band("{{$band->nama_band}}", "{{$band->nama_genre}}", "{{$band->deskripsi}}")'>Nama Band</div>
+						<div style="margin-top: 0px; color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0.3em 0em 0.7em 0em;">Nama Band</div>
  						<div style="width: 100%; padding: 0; margin-bottom: 1em;">
  							<input type="text" name="genre" value="{{$band->nama_band}}" style="width: 100%;border-radius: 0.5em;background: #202020; color: #B3B6BC; border: none; font-size: 0.9em; padding: 0.3em 0.6em 0.5em 0.6em; text-align: justify;" disabled>
  						</div> 						
- 						<div style="color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0em 0em 0.7em 0em;" onclick='modal_data_band("{{$band->nama_band}}", "{{$band->nama_genre}}", "{{$band->deskripsi}}")'>Genre</div>
+ 						<div style="color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0em 0em 0.7em 0em;">Genre</div>
  						<div style="width: 100%; padding: 0; margin-bottom: 1em;">
  							<input type="text" name="genre" value="{{$band->nama_genre}}" style="width: 100%;border-radius: 0.5em; background: #202020; color: #B3B6BC; border: none; font-size: 0.9em; padding: 0.3em 0.6em 0.5em 0.6em; text-align: justify;" disabled>
  						</div> 						
- 						<div style="margin-top: 0px; color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0.3em 0em 0.7em 0em;" onclick='modal_data_band("{{$band->nama_band}}", "{{$band->nama_genre}}", "{{$band->deskripsi}}")'>Deskripsi</div>
+ 						<div style="margin-top: 0px; color: #B3B6BC; font-weight: 600; font-size: 0.75em; padding: 0.3em 0em 0.7em 0em;">Deskripsi</div>
  						<div style="min-height: 6em; width: 100%; padding: 0;">
  							<textarea id="deskripsi" name="deskripsi"  style="width: 100%; min-height: 7em; border-radius: 0.5em; margin: 0em 0em 1em 0em; background: #202020; color: #B3B6BC; border: none; font-size: 0.9em; padding: 0.3em 0.6em 0.5em 0.6em; text-align: justify;" readonly>{{$band->deskripsi}}</textarea>
  						</div>
- 						<div style="border-radius: 0.5em; background: #202020; color: white; width: 100%; text-align: center; padding: 0.4em; position: relative; box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.78);">
+ 						<div style="border-radius: 0.5em; background: #202020; color: white; width: 100%; text-align: center; padding: 0.4em; position: relative; box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.78);" onclick='modal_data_band("{{$band->nama_band}}", "{{$band->nama_genre}}", "{{$band->deskripsi}}")'>
  							<img src="<?=url('/')?>/public/img/digital_download/icon_svg/setting.svg" style="position: absolute; left: 1.5em; width: 1.5em; top: 0.8em;">
  							<h5 style="margin-top: 0.2em;">Edit</h5>
  						</div>
@@ -655,7 +655,7 @@
  							<a href="<?=url('/')?>/digital-download/akun/single/{{$row->id}}" class="single" style="position: relative; width: 47%; margin-bottom: 1em;">
  								<img src="<?=url('/')?>/public/img/digital_download/album_single/{{$band->id}}/{{$row->id}}/250x201/{{$row->foto_cover}}" style="width: 100%;">
  								<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; color: white; background-size: cover; padding: 1em; position: absolute; bottom: 0em; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 20.45%, #000000 60.58%);'> 
- 									<div onclick='music_href("{{url()->current()}}/ubah-single/{{$row->id}}")' style="position: absolute; bottom: 1em; z-index: 1000; width: 3em; height: 3em; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 50%; right: 0.5em; display: flex; justify-content:center;align-items: center;">
+ 									<div onclick='music_href("{{url()->current()}}/ubah-single/{{$row->id}}")' style="position: absolute; bottom: 1em; width: 3em; height: 3em; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 50%; right: 0.5em; display: flex; justify-content:center;align-items: center;">
  										<img src="<?=url('/')?>/public/img/digital_download/icon_svg/setting.svg" style="width: 1.8em; height: 1.8em;">
  									</div>
  									<div style="font-weight: 400; font-size: 1.2em;"><?=substr(strip_tags($row->judul), 0, 15)?>@if (strlen($row->judul) > 15)..@endif</div>
@@ -691,7 +691,7 @@
  							<a href="<?=url('/')?>/digital-download/akun/album/{{$row->id}}" class="single" style="position: relative; width: 47%; margin-bottom: 1em;">
  								<img src="<?=url('/')?>/public/img/digital_download/album_single/{{$band->id}}/{{$row->id}}/250x201/{{$row->foto_cover}}" style="width: 100%;">
  								<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; color: white; background-size: cover; padding: 1em; position: absolute; bottom: 0em; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 20.45%, #000000 60.58%);'> 
- 									<div onclick='music_href("{{url()->current()}}/ubah-album/{{$row->id}}")'  style="position: absolute; bottom: 1em; z-index: 1000; width: 3em; height: 3em; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 50%; right: 0.5em; display: flex; justify-content:center;align-items: center;">
+ 									<div onclick='music_href("{{url()->current()}}/ubah-album/{{$row->id}}")'  style="position: absolute; bottom: 1em; width: 3em; height: 3em; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 50%; right: 0.5em; display: flex; justify-content:center;align-items: center;">
  										<img src="<?=url('/')?>/public/img/digital_download/icon_svg/setting.svg" style="width: 1.8em; height: 1.8em;">
  									</div>
  									<div style="font-weight: 400; font-size: 1.2em;"><?=substr(strip_tags($row->judul), 0, 15)?>@if (strlen($row->judul) > 15)..@endif</div>
