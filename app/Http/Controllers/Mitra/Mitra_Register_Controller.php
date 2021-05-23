@@ -37,7 +37,7 @@ class Mitra_Register_Controller extends Controller
                              "No Hp =".$toko->no_hp."\n".
                              "Kategori = ".$kategori."\n"
             ];
-            $client = new GuzzleHttp\client();
+            $client = new GuzzleHttp\Client();
             $response = $client->request('POST', 'https://app.wapibot.com/api/send/text',
             ['headers'=>['Content-Type'=>'application/json'],
             'json'=>$json

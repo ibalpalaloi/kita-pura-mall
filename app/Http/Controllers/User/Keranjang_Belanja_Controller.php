@@ -43,7 +43,7 @@ class Keranjang_Belanja_Controller extends Controller
                          "\nNo Telp = ". $data_pemesan['no_hp'].
                          "\n\n*Segera Konfirmasi Pesanan Pada Aplikasi*"
         ];
-        $client = new GuzzleHttp\client();
+        $client = new GuzzleHttp\Client();
         $response = $client->request('POST', 'https://app.wapibot.com/api/send/text',
         ['headers'=>['Content-Type'=>'application/json'],
         'json'=>$json
@@ -61,7 +61,7 @@ class Keranjang_Belanja_Controller extends Controller
             "message" => "---- *Pesanan Dibatalkan* ----\n".
                             "*".$user->biodata->nama."* membatalkan pesanannya"
         ];
-        $client = new GuzzleHttp\client();
+        $client = new GuzzleHttp\Client();
         $response = $client->request('POST', 'https://app.wapibot.com/api/send/text',
         ['headers'=>['Content-Type'=>'application/json'],
         'json'=>$json
