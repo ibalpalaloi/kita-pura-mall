@@ -23,6 +23,8 @@ use App\Models\Landing_page_toko;
 use App\Models\Transaksi;
 use App\Models\Daftar_tunggu_pesanan;
 use App\Models\Keynota;	
+use App\Models\Riwayat_keynota;	
+use App\Models\Riwayat_pesanan;
 use DB;
 use File;
 
@@ -433,6 +435,20 @@ class Mitra_Premium_Controller extends Controller
 		}
 		if($page == "tunggu_konfirmasi"){
 			$view = view('users.user.m-mitra.premium.daftar-tunggu-pesanan.data_daftar_tunggu', compact('data_keranjang', 'toko'))->render();
+			return response()->json(['html'=>$view]);
+		}
+
+		if($page == "riwayat"){
+			$keynota = Riwayat_keynota::where('toko_id', $toko->id)->orderBy('created_at', 'DESC')->get();
+			$i = 0;	
+			$riwayat_pesanan = array();
+			foreach($keynota as $kode_nota){
+				$riwayat_pesanan[$i]['nama_pemesan'] = $kode_nota->user->biodata->nama;
+				$riwayat_pesanan[$i]['waktu'] =$kode_nota->created_at;
+				$riwayat_pesanan[$i]['pesanan'] = Riwayat_pesanan::where('kode_nota', $kode_nota->kode_nota)->get();
+				$i++;
+			}
+			$view = view('users.user.m-mitra.premium.daftar-tunggu-pesanan.data_riwayat_pesanan', compact('riwayat_pesanan'))->render();
 			return response()->json(['html'=>$view]);
 		}
 

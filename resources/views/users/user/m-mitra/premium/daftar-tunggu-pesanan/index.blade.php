@@ -595,7 +595,7 @@ if (!empty($_GET['deskripsi'])){
 					</svg>
 					<div>Dalam Proses</div>
 				</div>
-				<div onclick="pindah_halaman('riwayat')">
+				<div onclick="load_halaman('riwayat')">
 					<svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M33.2498 7.91667C33.6698 7.91667 34.0725 8.08348 34.3694 8.38041C34.6664 8.67735 34.8332 9.08007 34.8332 9.5V31.6667C34.8332 32.0866 34.6664 32.4893 34.3694 32.7863C34.0725 33.0832 33.6698 33.25 33.2498 33.25H4.74984C4.32991 33.25 3.92718 33.0832 3.63025 32.7863C3.33332 32.4893 3.1665 32.0866 3.1665 31.6667V6.33333C3.1665 5.91341 3.33332 5.51068 3.63025 5.21375C3.92718 4.91681 4.32991 4.75 4.74984 4.75H16.4887L19.6553 7.91667H25.3332V11.0833H28.4998V7.91667H33.2498ZM28.4998 20.5833H25.3332V23.75H22.1665V28.5H28.4998V20.5833ZM25.3332 17.4167H22.1665V20.5833H25.3332V17.4167ZM28.4998 14.25H25.3332V17.4167H28.4998V14.25ZM25.3332 11.0833H22.1665V14.25H25.3332V11.0833Z" fill="white"/>
 					</svg>
 					<div>Riwayat</div>
@@ -625,11 +625,13 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 </script>
 <script type="text/javascript">
 	function load_halaman(page){
+		show_loader();
 		$.ajax({
 			url: "?page="+page,
 			type: "get",
 			success: function (data) {
 				console.log(data);
+				setTimeout(hide_loader, 999);
 				$('#data_list').empty();
 				$('#data_list').html(data.html);
 			}
