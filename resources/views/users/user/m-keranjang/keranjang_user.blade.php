@@ -245,6 +245,72 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		margin-top: 0.8em;
 		background: #FF0F6F;
 	}	
+	.slider {
+		display: flex; 
+		overflow-y: visible; 
+		margin: 0px; 			
+		overflow-x: scroll;
+		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none;  /* Internet Explorer 10+ */
+	}
+	.slider::-webkit-scrollbar { /* WebKit */
+		width: 0;
+		height: 0;
+	}
+
+	.slider-toko {
+		display: flex; 
+		justify-content: center; 
+		flex-direction: column; 
+		align-items: center; 
+		margin: 0em 0em 0em 0.5em; 
+		width:10em !important;		
+	}
+
+	.slider-toko img {
+		/*width: 5em;/*/
+		/*height: 5em;*/
+		/*border-top-left-radius: 1em;*/
+		/*border-top-right-radius: 1em;*/
+		border-radius: 1em;
+	}
+
+	.slider-toko > div {
+		height: 3em;
+		background: linear-gradient(-180deg, rgba(0, 0, 0, 0) 2.98%, #000000 80%);
+		border-bottom-left-radius: 1em;
+		border-bottom-right-radius: 1em;
+	}
+
+	.report-modal-body {
+		/*max-height:calc(100px);*/
+		overflow-y:auto;
+		overflow-x:auto;
+	}
+	.report-pre {
+		width:100%;
+		overflow-x:auto;
+		word-wrap:normal;
+		margin:1px;
+	}
+
+
+	.kategori-tabs {
+		display: flex; 
+		justify-content: space-between; 
+		width: 100%;
+		margin-bottom: 0.2em;
+	}
+
+	.kategori-tabs > div {
+		width: 33%;
+		padding: 1.8em;
+		font-size: 0.9em;
+		display: flex; justify-content: center;
+		flex-direction: column; align-items: center;
+		background: white;
+	}
+
 </style>
 <script type="text/javascript">
 	const formatToCurrency = amount => {
@@ -313,6 +379,94 @@ if (!empty($_GET['hari'])){
 	</div>
 </div>
 
+<div class="modal fade" id="modal_pesan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<form action="<?=url('/')?>/user/keranjang/pesan" method="post" id="form_pesan">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal_nama_toko"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<circle cx="14.5" cy="14.5" r="14.5" fill="#CDCDCD"/>
+							<rect x="17.7637" y="9.90234" width="2.22343" height="11.1171" rx="1.11171" transform="rotate(45 17.7637 9.90234)" fill="white"/>
+							<rect x="19.3359" y="17.7637" width="2.22343" height="11.1171" rx="1.11171" transform="rotate(135 19.3359 17.7637)" fill="white"/>
+							<circle cx="14.4998" cy="14.4998" r="10.1707" stroke="#E4E4E4" stroke-width="3"/>
+						</svg>
+					</button>
+				</div>
+				<pre class="report-pre modal-body report-modal-body">
+					<div class="slider" style="margin-top: 0em; margin-bottom: 0px; position: relative; top: -1.5em;">
+
+
+					</div>
+				</pre>
+				<div class="modal-body" style="padding-top: 0px; position: relative; top: -5em; margin-bottom: -5em;">
+					{{ csrf_field() }}
+					<hr>
+
+					<h5 class="modal-title" style="margin-bottom: 0.3em;">Metode Pengiriman</h5>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="metode_pengiriman" id="exampleRadios1" value="Ambil" checked>
+						<label class="form-check-label" for="exampleRadios1" >
+							Ambil Sendiri
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="metode_pengiriman" id="exampleRadios2" value="Antar">
+						<label class="form-check-label" for="exampleRadios2">
+							Antar
+						</label>
+					</div>
+					<hr>
+					<h5 class="modal-title" style="margin-bottom: 0.3em;">Metode Pembayaran</h5>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="metode_pembayaran" id="exampleRadios1" value="COD" checked>
+						<label class="form-check-label" for="exampleRadios1" >
+							COD
+						</label>
+					</div>
+					<hr>
+					<h5 class="modal-title" style="margin-bottom: 0.3em;">Alamat</h5>
+
+					@if(Auth()->user()->biodata->alamat == "")
+					<div class="form-group">
+						<input type="text" class="form-control" name="alamat" id="exampleFormControlInput1" placeholder="Masukkan Alamat">
+					</div>
+					@else
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="radio_alamat" id="alamat_sekarang" value="{{Auth()->user()->biodata->alamat}}" checked>
+						<label class="form-check-label" for="exampleRadios1" >
+							{{Auth()->user()->biodata->alamat}}
+						</label>
+
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="radio_alamat" id="radio_alamat_lain" value="alamat lain">
+						<label class="form-check-label" for="exampleRadios1" >
+							Alamat Lain
+						</label>
+						<div id="form_isi_alamat" class="form-group" hidden>
+							<input type="text" class="form-control" name="alamat" id="alamat" placeholder="Masukkan Alamat" value="{{Auth()->user()->biodata->alamat}}">
+						</div>
+					</div>
+					@endif
+					<input type="text" name="no_hp" value="{{Auth()->user()->no_hp}}" hidden>					
+					<div style="width: 100%; display: flex; justify-content: center; margin-top: 2em;">
+						<div onclick="post_pesanan()" class="" style="width: 100%; background: #FF0F6F; border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;left: 2em; top: 0.8em;">
+								<path d="M0.459623 5.9864C0.0681228 5.8559 0.0643728 5.64515 0.467123 5.5109L14.7824 0.739402C15.1791 0.607402 15.4064 0.829402 15.2954 1.2179L11.2049 15.5324C11.0924 15.9292 10.8636 15.9427 10.6956 15.5662L8.00012 9.50015L12.5001 3.50015L6.50012 8.00015L0.459623 5.9864Z" fill="white"/>
+							</svg>
+
+							<span>Kirim Pesanan</span>
+						</div>
+					</div>
+
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 
 <div class="modal fade" id="modal-sukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
 	<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px;">
@@ -367,6 +521,24 @@ if (!empty($_GET['hari'])){
 			var sub_total = [];
 			var sub_total_current = [];
 		</script>
+		<div class="kategori-tabs" style="font-size: 0.85em; ">
+			<div onclick="pindah_halaman('keranjang')" >
+				<svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.9998 3.1665C21.5194 3.1665 23.9358 4.16739 25.7174 5.94899C27.499 7.73059 28.4998 10.1469 28.4998 12.6665V14.2498H34.8332V17.4165H32.9854L31.7868 31.7979C31.7539 32.1936 31.5735 32.5624 31.2814 32.8313C30.9893 33.1003 30.6069 33.2496 30.2098 33.2498H7.78984C7.39281 33.2496 7.01036 33.1003 6.71827 32.8313C6.42619 32.5624 6.24579 32.1936 6.21284 31.7979L5.01267 17.4165H3.1665V14.2498H9.49984V12.6665C9.49984 10.1469 10.5007 7.73059 12.2823 5.94899C14.0639 4.16739 16.4803 3.1665 18.9998 3.1665ZM29.8077 17.4165H8.19042L9.2465 30.0832H28.7516L29.8077 17.4165ZM20.5832 20.5832V26.9165H17.4165V20.5832H20.5832ZM14.2498 20.5832V26.9165H11.0832V20.5832H14.2498ZM26.9165 20.5832V26.9165H23.7498V20.5832H26.9165ZM18.9998 6.33317C17.375 6.33317 15.8122 6.95769 14.6349 8.07757C13.4575 9.19744 12.7557 10.727 12.6744 12.3498L12.6665 12.6665V14.2498H25.3332V12.6665C25.3332 11.0416 24.7087 9.47889 23.5888 8.30155C22.4689 7.12421 20.9394 6.42233 19.3165 6.34109L18.9998 6.33317Z" fill="#FF0F6F"/>
+				</svg>
+
+				<div>Keranjang</div>
+			</div>
+			<div onclick="pindah_halaman('terkonfirmasi')">
+				<svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.1947 28.4998C14.0065 29.8208 13.348 31.0295 12.3402 31.9039C11.3323 32.7783 10.0428 33.2598 8.7085 33.2598C7.37419 33.2598 6.08469 32.7783 5.07684 31.9039C4.06899 31.0295 3.41047 29.8208 3.22225 28.4998H1.5835V9.49984C1.5835 9.07991 1.75031 8.67718 2.04724 8.38025C2.34418 8.08332 2.7469 7.9165 3.16683 7.9165H25.3335C25.7534 7.9165 26.1561 8.08332 26.4531 8.38025C26.75 8.67718 26.9168 9.07991 26.9168 9.49984V12.6665H31.6668L36.4168 19.0885V28.4998H33.1947C33.0065 29.8208 32.348 31.0295 31.3402 31.9039C30.3323 32.7783 29.0428 33.2598 27.7085 33.2598C26.3742 33.2598 25.0847 32.7783 24.0768 31.9039C23.069 31.0295 22.4105 29.8208 22.2222 28.4998H14.1947ZM23.7502 11.0832H4.75016V23.829C5.37489 23.1912 6.14445 22.7138 6.99335 22.4374C7.84226 22.161 8.74538 22.0938 9.62584 22.2415C10.5063 22.3892 11.3381 22.7475 12.0503 23.2858C12.7625 23.8241 13.3342 24.5264 13.7166 25.3332H22.7004C22.9664 24.7743 23.3227 24.266 23.7502 23.829V11.0832ZM26.9168 20.5832H33.2502V20.1319L30.0708 15.8332H26.9168V20.5832ZM27.7085 30.0832C28.3386 30.0832 28.9429 29.8329 29.3884 29.3873C29.834 28.9418 30.0843 28.3375 30.0843 27.7074C30.0843 27.0773 29.834 26.473 29.3884 26.0274C28.9429 25.5819 28.3386 25.3316 27.7085 25.3316C27.0784 25.3316 26.4741 25.5819 26.0286 26.0274C25.583 26.473 25.3327 27.0773 25.3327 27.7074C25.3327 28.3375 25.583 28.9418 26.0286 29.3873C26.4741 29.8329 27.0784 30.0832 27.7085 30.0832ZM11.0835 27.7082C11.0835 27.3963 11.0221 27.0874 10.9027 26.7993C10.7834 26.5111 10.6084 26.2493 10.3879 26.0288C10.1673 25.8083 9.90552 25.6333 9.61737 25.514C9.32922 25.3946 9.02039 25.3332 8.7085 25.3332C8.39661 25.3332 8.08777 25.3946 7.79962 25.514C7.51147 25.6333 7.24966 25.8083 7.02912 26.0288C6.80858 26.2493 6.63364 26.5111 6.51428 26.7993C6.39493 27.0874 6.3335 27.3963 6.3335 27.7082C6.3335 28.3381 6.58372 28.9422 7.02912 29.3875C7.47452 29.8329 8.07861 30.0832 8.7085 30.0832C9.33839 30.0832 9.94248 29.8329 10.3879 29.3875C10.8333 28.9422 11.0835 28.3381 11.0835 27.7082Z" fill="#FF0F6F"/>
+				</svg>
+				<div>Dalam Proses</div>
+			</div>
+			<div onclick="pindah_halaman('riwayat')">
+				<svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M33.2498 7.91667C33.6698 7.91667 34.0725 8.08348 34.3694 8.38041C34.6664 8.67735 34.8332 9.08007 34.8332 9.5V31.6667C34.8332 32.0866 34.6664 32.4893 34.3694 32.7863C34.0725 33.0832 33.6698 33.25 33.2498 33.25H4.74984C4.32991 33.25 3.92718 33.0832 3.63025 32.7863C3.33332 32.4893 3.1665 32.0866 3.1665 31.6667V6.33333C3.1665 5.91341 3.33332 5.51068 3.63025 5.21375C3.92718 4.91681 4.32991 4.75 4.74984 4.75H16.4887L19.6553 7.91667H25.3332V11.0833H28.4998V7.91667H33.2498ZM28.4998 20.5833H25.3332V23.75H22.1665V28.5H28.4998V20.5833ZM25.3332 17.4167H22.1665V20.5833H25.3332V17.4167ZM28.4998 14.25H25.3332V17.4167H28.4998V14.25ZM25.3332 11.0833H22.1665V14.25H25.3332V11.0833Z" fill="#FF0F6F"/>
+				</svg>
+				<div>Riwayat</div>
+			</div>
+		</div>
 
 		@for ($i = 0; $i < count($data_keranjang); $i++)
 		<div class="toko" style="background: white; width: 100%; padding: 0% 5%; margin-bottom: 0.5em; padding-top: 1em;">
@@ -416,7 +588,7 @@ if (!empty($_GET['hari'])){
 					</div>
 
 					<a href="<?=url('/')?>/{{$data_keranjang[$i]['username']}}/daftar-menu/{{$row->product_id}}" class="foto-product" style="width: 30%;">
-						<img src="<?=url('/')?>/public/img/toko/{{$data_keranjang[$i]['id_toko']}}/produk/240x240/{{$row->foto_produk}}" style="width: 100%; border-radius: 1em;">
+						<img  id="gambar_{{$row->id}}" src="<?=url('/')?>/public/img/toko/{{$data_keranjang[$i]['id_toko']}}/produk/240x240/{{$row->foto_produk}}" style="width: 100%; border-radius: 1em;">
 					</a>
 					<div class="" style="display: flex; justify-content: center; align-items: center; width: 8%;" onclick="hapus_keranjang('<?=$row->id?>')">
 						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -446,7 +618,7 @@ if (!empty($_GET['hari'])){
 		</div>
 		<div style="width: 100%; display: flex; justify-content: center;">
 			<div class="" onclick='WhatsappMessage("<?=$data_keranjang[$i]['no_hp']?>", "<?=$data_keranjang[$i]['nama_toko']?>", "<?=$data_keranjang[$i]['id_toko']?>", "no")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
-				<img src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_<?=$data_keranjang[$i]['id_toko']?>">Rp. 1.500.000</span>
+				<img onclick="modal_pesan()" src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_<?=$data_keranjang[$i]['id_toko']?>">Rp. 1.500.000</span>
 			</div>
 		</div>
 		<script type="text/javascript">
@@ -537,60 +709,77 @@ if (!empty($_GET['hari'])){
 			return check;
 		}
 
+		var pesan_id_toko;
+		var pesan_id_keranjang = [];
+		var pesan_keynota;
 
-		function WhatsappMessage(no_hp, nama, id_product, current) {
-			event.preventDefault();
+
+		function WhatsappMessage(no_hp, nama, id_toko, current) {
 			var apilink = 'http://';
 			var phone = no_hp;
 			var produk = "";
 			var jumlah_pesanan = "";
 			var nama_produk = "";
 			var keynota = "";
-
+			var gambar_produk;
+			// alert(id_toko);
 			if (current == 'yes'){
-				var result = sub_keranjang_current[id_product].split("~");
-				var harga_sub_total = $("#sub_total_current_"+id_product).html();
-				var harga_sub_total_wa = sub_total_current[id_product];
-
+				var result = sub_keranjang_current[id_toko].split("~");
+				var harga_sub_total = $("#sub_total_current_"+id_toko).html();
+				var harga_sub_total_wa = sub_total_current[id_toko];
 			}
 			else {
-				var result = sub_keranjang[id_product].split("~");
-				var harga_sub_total = $("#sub_total_"+id_product).html();
-				var harga_sub_total_wa = sub_total[id_product];
+				var result = sub_keranjang[id_toko].split("~");
+				var harga_sub_total = $("#sub_total_"+id_toko).html();
+				var harga_sub_total_wa = sub_total[id_toko];
 			}
 			
 			for (var i = 0; i < result.length-1; i++){
 				if ($('#checkbox_'+result[i]).is(':checked')) {
 					jumlah_pesanan = $("#jumlah_pesanan_"+result[i]).html();
 					nama_produk = $("#nama_"+result[i]).html();
-					produk += jumlah_pesanan+" "+nama_produk+"\n";
-    				keynota += result[i]+jumlah_pesanan;
+					gambar_produk = $("#gambar_"+result[i]).attr('src');
+					produk += '<div class="slider-toko">'+
+					'<img src="'+gambar_produk+'" style="width: 100%;">'+
+					'<div style="text-align: left; font-size: 0.75em; padding: 0.6em 1em 0.7em 1em; width: 100%;color: white; background-size: cover; position: relative; top: -2.5em;">'+ 
+					'<div id="check_1" style="position: absolute; top: -1.8em; z-index: 0; width: 3.5em; height: 3.5em; background: #757575; box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 1px; border-radius: 50%; right: 0.5em; display: flex; justify-content: center; align-items: center;">'+jumlah_pesanan+
+					'</div>'+
+					'<div style="font-weight: 500; margin-top: 0em;">'+nama_produk.trim()+'</div>'+
+					'</div>'+
+					'</div>';
+
+					// keynota_current = keynota_current.replace(id_sebelum, id+data);
+					keynota += result[i]+jumlah_pesanan;
 
 				}
 			}
-			produk += "dengan harga total "+harga_sub_total;
-			
-			keynota += id_product+harga_sub_total_wa;
-
+			keynota += id_toko+harga_sub_total_wa;
 			var message = '[Order Produk Kitapuramall]\n\nHaloo '+nama+" saya ingin pesan produk \n"+produk;
 
 			var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
-
 			for (var i = 0; i < result.length-1; i++){
 				if ($('#checkbox_'+result[i]).is(':checked')) {
-					$.ajax({
-						url: "<?=url('/')?>/user/keranjang/tambah_daftar_tunggu",
-						type: "POST",
-						data: {"id_product":result[i], "id_toko":id_product, 'keynota':keynota},
-						success: function (data) {
+					pesan_id_keranjang.push(result[i]);
+    				// $.ajax({
+    				// 	url: "<?=url('/')?>/user/keranjang/tambah_daftar_tunggu",
+    				// 	type: "POST",
+    				// 	data: {"id_product":result[i], "id_toko":id_toko, 'keynota':keynota},
+    				// 	success: function (data) {
 
-						}
-					});
+    				// 	}
+    				// });
 
-				}
-			}        
-			location.href=walink;
-		} 
+    			}
+    		}
+    		pesan_id_toko = id_toko;
+    		pesan_keynota = keynota;
+    		$('#modal_nama_toko').text('Pesanan Toko '+nama);
+    		$(".slider").html(produk);
+    		$('#modal_pesan').modal('show');
+
+
+    		// location.href=walink;
+    	} 
 
 
 		var status_ganti_foto = 0;

@@ -27,7 +27,7 @@ class PesananController extends Controller
         if($status == "selesai"){
             $this->pesanan_selesai($keynota);
         }
-	}
+    }
 
     public function pesanan_selesai($kode_nota){
         $keynota = Keynota::where('kode_nota', $kode_nota)->first();
@@ -65,12 +65,26 @@ class PesananController extends Controller
                 $harga_total = $riwayat_pesanan->jumlah * $riwayat_pesanan->harga;
                 $riwayat_pesanan->total_harga = $harga_total;
             }
+            
+            $transaksi = new Transaksi;
+            $transaksi->toko_id = $data->keynota->toko_id;
+            $transaksi->product_id = $data->product->id;
+            $transaksi->tanggal = date('Y-m-d');
+            $transaksi->waktu = date('H:i');
+            $transaksi->jenis = "Pemasukan";
+            $transaksi->kategori = "Penjualan";
+            $transaksi->harga_total = $harga_total;
+            $transaksi->jumlah = $riwayat_pesanan->jumlah;
+            $transaksi->save();
             $riwayat_pesanan->save();
+
             
             
         }
         $pesanan = Pesanan::where('keynota_id', $keynota->id)->delete();
         $keynota = Keynota::where('kode_nota', $kode_nota)->delete();
+        
+        
     }
     public function pesanan(){
         // $pesanan = Pesanan::where('created_at', date('Y-m-d').'00:00:00')->get();

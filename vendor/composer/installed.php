@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '0789ecda7a7585737caf92eb771e4f8f5b6019cd',
+    'reference' => '9c9e857da5a0cdd7bd6b028c1f35bc010b70692d',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -133,6 +133,16 @@
       ),
       'reference' => 'ab3f5364d01f2c2c16113442fb987d26e4004913',
     ),
+    'falahati/php-mp3' => 
+    array (
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
+      'aliases' => 
+      array (
+        0 => '9999999-dev',
+      ),
+      'reference' => 'a1951defdeb09286e7014eace3a2d7dd0231b9c8',
+    ),
     'fideloper/proxy' => 
     array (
       'pretty_version' => '4.4.1',
@@ -171,12 +181,12 @@
     ),
     'guzzlehttp/guzzle' => 
     array (
-      'pretty_version' => '7.2.0',
-      'version' => '7.2.0.0',
+      'pretty_version' => '7.3.0',
+      'version' => '7.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0aa74dfb41ae110835923ef10a9d803a22d50e79',
+      'reference' => '7008573787b430c1c1f650e3722d9bba59967628',
     ),
     'guzzlehttp/promises' => 
     array (
@@ -463,7 +473,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '0789ecda7a7585737caf92eb771e4f8f5b6019cd',
+      'reference' => '9c9e857da5a0cdd7bd6b028c1f35bc010b70692d',
     ),
     'laravel/sail' => 
     array (

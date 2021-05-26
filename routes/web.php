@@ -34,6 +34,9 @@ use App\Http\Controllers\Mitra\TransaksiController;
 use App\Http\Controllers\DigitalDownload\DigitalDownloadController;
 use App\Http\Controllers\DigitalDownload\DigitalRegisterController;
 use App\Http\Controllers\DigitalDownload\DigitalAkunController;
+use App\Http\Controllers\DigitalDownload\Akun\AturBandController;
+use App\Http\Controllers\DigitalDownload\Akun\SingleController;
+use App\Http\Controllers\DigitalDownload\Akun\AlbumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -146,6 +149,28 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::get('digital-download', [DigitalDownloadController::class, 'index']);
         Route::get('digital-download/daftar', [DigitalDownloadController::class, 'register']);
         Route::post('digital-download/daftar/save', [DigitalRegisterController::class, 'simpan_band']);
+        // Digital Download - akun
+        Route::post("digital-download/akun/atur-band/hapus-temp-lagu", [AturBandController::class, 'hapus_temp_lagu']);
+        Route::post("digital-download/akun/atur-band/simpan-lagu", [AturBandController::class, 'simpan_lagu']);
+        Route::post("digital-download/akun/atur-band/simpan-foto-band", [AturBandController::class, 'simpan_foto_band']);
+        Route::post("digital-download/akun/atur-band/simpan-data-band", [AturBandController::class, 'simpan_data_band']);
+        Route::post("digital-download/akun/atur-band/simpan-foto-lagu", [AturBandController::class, 'simpan_foto_lagu']);
+        Route::post("digital-download/akun/atur-band/simpan-foto-cover", [AturBandController::class, 'simpan_foto_cover']);
+        Route::post("digital-download/akun/atur-band/tambah-album/simpan-album", [AturBandController::class, 'simpan_album']);
+        // Single
+        Route::post("digital-download/akun/single/{lagu}/update", [SingleController::class, 'update']);
+        Route::get("digital-download/akun/single/{lagu}/ubah", [SingleController::class, 'ubah']);
+        Route::get("digital-download/akun/single/{lagu}", [SingleController::class, 'play_single']);
+        // Band
+        Route::post("digital-download/akun/album/{lagu}/update", [AlbumController::class, 'update']);
+        Route::get("digital-download/akun/album/{lagu}/ubah", [AlbumController::class, 'ubah']);
+        Route::get("digital-download/akun/album/{lagu}", [AlbumController::class, 'play_album']);
+        // Atur Band
+
+        Route::get("digital-download/akun/atur-band/tambah-single", [AturBandController::class, 'tambah_single']);
+        Route::get("digital-download/akun/atur-band/tambah-album", [AturBandController::class, 'tambah_album']);
+        Route::get("digital-download/akun/atur-band/tambah-single-album", [AturBandController::class, 'tambah_single_album']);
+        Route::get("digital-download/akun/atur-band", [AturBandController::class, 'index']);
         Route::get("digital-download/akun", [DigitalAkunController::class, 'index']);
 
         Route::group(['middleware'=> 'free'], function() {
