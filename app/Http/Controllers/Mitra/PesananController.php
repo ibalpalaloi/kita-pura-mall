@@ -10,6 +10,7 @@ use App\Models\Pesanan;
 use App\Models\Keynota;
 use App\Models\Riwayat_keynota;
 use App\Models\Riwayat_pesanan;
+use App\Models\Transaksi;
 use Auth;
 use Carbon\Carbon;
 

@@ -7,7 +7,7 @@ RIWAYAT PESANAN
         <br>
         Nama pemesan : {{$riwayat['nama_pemesan']}}
     </div>
-    {{-- @foreach ($riwayat['pesanan'] as $riwayat_pesanan)
+    @foreach ($riwayat['pesanan'] as $riwayat_pesanan)
     <div class="product" style="display: flex; justify-content: space-between; margin-bottom: 1em;">
         <a href="http://localhost/kita-pura-mall/Zifferent/daftar-menu/PD-04042021909" class="foto-product" style="width: 30%; padding-left: 1em;">
             <img src="<?=url('/')?>/public/img/toko/{{$riwayat_pesanan->toko->id}}/produk/240x240/{{$riwayat_pesanan->product->foto_produk}}" style="width: 100%; border-radius: 1em;">
@@ -23,7 +23,7 @@ RIWAYAT PESANAN
             </div>									
         </div>
     </div>	
-    @endforeach		 --}}
+    @endforeach		
     {{-- <div style="width: 10%;display: flex; justify-content: center; position: absolute; right: 0; top: 0; height: 100%; border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em;" onclick="hapus_daftar_tunggu('TK-031920215436_052320212248')" class="st0"></div> --}}
 </div>
 
