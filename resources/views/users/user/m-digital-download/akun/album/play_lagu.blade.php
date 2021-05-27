@@ -662,8 +662,8 @@
  		</div>
 
  		<div class="footer">
- 			<div class="container-mall" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
- 				<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; color: white; background-size: cover; position: absolute; bottom: 0em; padding: 0em 8%; bottom: 2em; margin-bottom: 12em;'> 
+ 			<div class="container-mall" style="display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;">
+ 				<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%; color: white; background-size: cover; position: absolute; bottom: 0em; padding: 0em 8%; bottom: 2em; margin-bottom: 12em;'>
  					<a href="{{url()->current()}}/ubah" style="position: absolute; bottom: 1em; z-index: 10000; width: 5em; height: 5em; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 50%; right:8%; display: flex; justify-content:center;align-items: center;" onclick="playBeep()">
  						<img src="<?=url('/')?>/public/img/digital_download/icon_svg/setting.svg" style="width: 3.5em; height:3.5em;">
  					</a>

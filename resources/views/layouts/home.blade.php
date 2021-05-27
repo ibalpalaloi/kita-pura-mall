@@ -163,14 +163,6 @@ $show = "finish";
         $link_menu = array('pencarian', 'toko','akun');
         $link_now = Request::segment(1);
         @endphp 
-<!--         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;">
-            <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;" onclick="cooming_soon()">
-                <div style="background: #6c757d; border: 2px solid #6c757d; width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center;" >
-                    <img src="<?=url('/')?>/public/img/menu/beranda.svg" style="width: 60%;">
-                </div>
-                <div style="text-align: center; font-size: 0.7em; color: #5b5b5b;">Beranda</div>
-            </div>
-        </div>  -->
         @for ($i = 1; $i < count($menu)-1; $i++)  
         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;">
             <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;">
