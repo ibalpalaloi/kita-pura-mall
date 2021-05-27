@@ -443,6 +443,7 @@ class Mitra_Premium_Controller extends Controller
 			$i = 0;	
 			$riwayat_pesanan = array();
 			foreach($keynota as $kode_nota){
+				$riwayat_pesanan[$i]['kode_nota'] = $kode_nota->kode_nota;
 				$riwayat_pesanan[$i]['nama_pemesan'] = $kode_nota->user->biodata->nama;
 				$riwayat_pesanan[$i]['waktu'] =$kode_nota->created_at;
 				$riwayat_pesanan[$i]['pesanan'] = Riwayat_pesanan::where('kode_nota', $kode_nota->kode_nota)->get();
