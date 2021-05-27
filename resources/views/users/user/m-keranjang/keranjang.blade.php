@@ -556,6 +556,7 @@ if (!empty($_GET['hari'])){
 		var isMobile = mobilecheck();
 
 		function batalkan_pesanan(keynota){
+			show_loader();
 			$.ajax({
     			url: "<?=url('/')?>/user/keranjang/batalkan_pesanan/"+keynota,
     			type: "get",
@@ -563,17 +564,20 @@ if (!empty($_GET['hari'])){
 					if(data != ""){
 						alert(data);
 					}
+					hide_loader();
 					load_halaman();
     			}
     		});
 		}
 
 		function pindah_halaman(status){
+			show_loader();
 			$.ajax({
 				url: "?halaman="+status,
 				type: "get",
 				success: function (data) {
 					console.log(data);
+					setTimeout(hide_loader, 999);
 					$('#data_content').empty();
 					$('#data_content').html(data.html);
 				}

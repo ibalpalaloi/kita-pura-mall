@@ -13,4 +13,8 @@ class Riwayat_pesanan extends Model
     public function product(){
         return $this->belongsTo(Product::class);
     }
+
+    public function toko(){
+        return $this->belongsTo(Toko::class);
+    }
 }
