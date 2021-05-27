@@ -639,10 +639,12 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	}
 
 	function konfirmasi_pesanan(keynota, status){
+		show_loader();
 		$.ajax({
 			url: "<?=url('/')?>/get/konfirmasi_pesanan/"+keynota+"/"+status,
 			type: "get",
 			success: function (data) {
+				setTimeout(hide_loader, 999);
 				if(data != ""){
 					alert(data)
 				}
