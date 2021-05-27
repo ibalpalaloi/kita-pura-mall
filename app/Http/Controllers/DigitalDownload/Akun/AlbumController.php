@@ -81,11 +81,15 @@ class AlbumController extends Controller
 				File::move(public_path("temp_lagu/$album->id_band/$nama_file"), public_path("lagu/$album->id_band/$request->id/$nama_file"));
 				\falahati\PHPMP3\MpegAudio::fromFile($_SERVER['DOCUMENT_ROOT']."/kita-pura-mall/public/lagu/$album->id_band/$request->id/$nama_file")->trim(10, 30)->saveFile($_SERVER['DOCUMENT_ROOT']."/kita-pura-mall/public/preview_lagu/$album->id_band/$request->id/$nama_file");
 				$db = new Dd_lagu;
-				$db->id = $this->autocode('LGU');
+				$id_lagu_new = $this->autocode('LGU');				
+				$db->id = $id_lagu_new;
 				$db->judul = $request->input('judul_lagu_'.$count_daftar[$i]);
 				$db->id_album_single = $request->id;
 				$db->file = $nama_file;
 				$db->save();
+				$array_where[$j] = $id_lagu_new;
+				$j++;
+
 			}
 
 		}

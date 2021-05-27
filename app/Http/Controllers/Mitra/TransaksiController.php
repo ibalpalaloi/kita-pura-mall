@@ -95,7 +95,6 @@ class TransaksiController extends Controller
 			$total_pemasukan = DB::table('transaksi')->select(DB::raw('sum(harga_total) as harga_total'))->where('toko_id', $toko->id)->where('jenis', 'pemasukan')->where('tanggal', '>=', $tanggal_mulai)->where('tanggal', '<=', $tanggal_terakhir)->first()->harga_total;
 			$total_pengeluaran = DB::table('transaksi')->select(DB::raw('sum(harga_total) as harga_total'))->where('toko_id', $toko->id)->where('jenis', 'pengeluaran')->where('tanggal', '>=', $tanggal_mulai)->where('tanggal', '<=', $tanggal_terakhir)->first()->harga_total;
 
-
 		}
 		else if ($request->rentan == '30 Hari Terakhir'){
 			$tanggal_terakhir = date('Y-m-d');
