@@ -279,8 +279,9 @@ class Keranjang_Belanja_Controller extends Controller
             $user = User::where('id', $keynota->user_id)->first();
             $data_pemesan['nama'] = $user->biodata->nama;
             $data_pemesan['metode_pembayaran'] = $keynota->metode_pembayaran;
+
             $data_pemesan['metode_pengiriman'] = $keynota->metode_pengiriman;
-            if($data_pemesan['metode_pembayaran'] == "COD"){
+            if($data_pemesan['metode_pengiriman'] == "Ambil"){
                 $data_pemesan['alamat'] = "-";
             }else{
                 $data_pemesan['alamat'] = $keynota->alamat;
