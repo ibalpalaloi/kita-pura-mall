@@ -12,43 +12,13 @@ use App\Models\Penilaian_toko;
 use App\Models\Product;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\Biodata;
+use App\Models\Kategori_toko;
 use Auth;
 
 class HomeController extends Controller
 {
     //
 	public function index(){
-		// $kategori_nama = ['makanan', 'kesehatan'];
-		// $list_toko= array();
-		// $kategori = [1,4];
-		// for($j = 0; $j < count($kategori_nama); $j++){
-		// 	$toko = Toko::where([
-		// 								['jenis_mitra', 'premium'],
-		// 								['kategori_toko_id', $kategori[$j]]
-		// 								])->get();
-		// 	$i=0;
-		// 	foreach($toko as $data){
-		// 		$penilaian = Penilaian_toko::where('toko_id', $data->id)->get();
-		// 		$produk = Product::where('toko_id', $data->id)->get();
-		// 		$produk = Product::where('toko_id', $data->id)->selectRaw('min(harga) as harga')->first();
-		// 		$bintang = 0;
-		// 		$rating = 0;
-		// 		foreach($penilaian as $item){
-		// 			$bintang += $item->bintang;
-		// 		}
-		// 		if(count($penilaian) != 0){
-		// 			$rating = $bintang / count($penilaian);
-		// 		}
-		// 		$list_toko[$kategori_nama[$j]][$i]['nama_toko'] = $data->nama_toko;
-		// 		$list_toko[$kategori_nama[$j]][$i]['kategori'] = $data->kategori_toko->kategori;
-		// 		$list_toko[$kategori_nama[$j]][$i]['jumlah_penilaian'] = count($penilaian);
-		// 		$list_toko[$kategori_nama[$j]][$i]['rating'] = $rating;
-		// 		$list_toko[$kategori_nama[$j]][$i]['harga'] = $produk->harga;
-		// 		$list_toko[$kategori_nama[$j]][$i]['foto'] = $data->logo_toko;
-		// 		$list_toko[$kategori_nama[$j]][$i]['logo'] = $data->logo();
-		// 		$i++;
-		// 	}
-		// }
 		return $this->untuk_mitra();
 		// return view('home/index', ['toko'=>$list_toko]);
 		
@@ -98,17 +68,23 @@ class HomeController extends Controller
 		$product = Product::whereHas('toko', function (Builder $q){
 			$q->where('status', '=', 'Aktif');
 		})->orderByRaw('RAND()')->paginate(54);
-		// dd($produk);
-		// $product = Product::orderByRaw('RAND()')->paginate(54);
-		// dd(count($product));
+
 		if($request->ajax()){
+			$kategori = $request->kategori;
+			if($kategori != "all"){
+				$product = Product::where('kategori_id', $kategori)->orderByRaw('RAND()')->paginate(54);
+			}
+			else{
+				$product = Product::whereHas('toko', function (Builder $q){
+					$q->where('status', '=', 'Aktif');
+				})->orderByRaw('RAND()')->paginate(54);
+			}
+			
             $view = view('home.data_pencarian', compact('product'))->render();
             return response()->json(['html'=>$view]);
         }
-        // dd();
-        // echo "<pre>";
-        // print_r($product);
-		return view('home/pencarian', compact('product'));
+		$kategori_toko = Kategori_toko::all();
+		return view('home/pencarian', compact('product', 'kategori_toko'));
 	}
 
 	public function input_password(){

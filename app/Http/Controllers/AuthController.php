@@ -199,32 +199,7 @@ class AuthController extends Controller
         $otp->kode_otp = $this->buat_kode_otp();
         $otp->status = "belum dikirim";
         $otp->save();
-               
-        $notice = new Notice([
-            'notice' => 'Pengguna Baru',
-            'noticedes' => "Nomor HP $otp->no_hp\nEmail = $request->email", 
-            'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$otp->no_hp&text=Kode+OTP+Anda+=+$otp->kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas",
-            'telegramid' => 1766032289
-        ]);
-        $notice->save();
-        $notice->notify(new TelegramRegister());
-
-        $notice1 = new Notice([
-            'notice' => 'Pengguna Baru',
-            'noticedes' => "Nomor HP $otp->no_hp\nEmail = $request->email", 
-            'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$otp->no_hp&text=Kode+OTP+Anda+=+$otp->kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas",
-            'telegramid' => 1660066265
-        ]);
-        $notice1->save();
-        $notice1->notify(new TelegramRegister());
-        $notice2 = new Notice([
-            'notice' => 'Pengguna Baru',
-            'noticedes' => "Nomor HP $otp->no_hp\nEmail = $request->email", 
-            'noticelink' => "http://api.whatsapp.com/send/?phone=%2B$otp->no_hp&text=Kode+OTP+Anda+=+$otp->kode_otp+%0A%0ASilahkan+Masukkan+Kode+Diatas",
-            'telegramid' => 894149404
-        ]);
-        $notice2->save();
-        $notice2->notify(new TelegramRegister());   
+            
         
         $this->otp_wapibot($otp->no_hp, $otp->kode_otp);
         $this->send_email_otp($otp->email, $otp->kode_otp);

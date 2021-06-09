@@ -755,7 +755,6 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
 
 	function Whatsapp_pesan(no_hp, nama, index){
-		show_loader();
 		var apilink = 'http://';
 		var phone = no_hp;
 		var produk = "";
@@ -763,7 +762,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		var nama_produk = "";
 		var keynota = "";
 
-		var message = '[Order Produk Kitapuramall]\n\nHaloo kak  '+nama+" apakah kakak ingin memesan \n"+product[index]+"dengan total harga IDR "+total_harga[index];
+		var message = "";
 
 		var walink = 'https://wa.me/'+ phone +'?text=' + encodeURI(message);
 

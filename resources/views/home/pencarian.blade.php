@@ -95,6 +95,12 @@ Explore |
 		font-weight: 600;			
 	}
 
+	.kategori-tabs {
+		display: flex; 
+		justify-content: center;
+		width: 90%;
+	}
+
 </style>
 @endsection
 
@@ -119,6 +125,13 @@ Explore |
 			<a class="active-mall" href="<?=url('/')?>/pencarian/explore" onclick="show_loader()">
 				Explore
 			</a>
+		</div>
+		<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">
+			<div class="kategori-tabs" style="margin-top: 5px; font-size: 0.85em;">
+				<a onclick="fungsi_kategori('all')" class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">Semua</a>
+				<a onclick="fungsi_kategori('1')" class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">Makanan/Minuman</a>
+				<a onclick="fungsi_kategori('2')" class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">Pakaian Pria</a>
+			</div>
 		</div>
 
 		
@@ -157,10 +170,18 @@ Explore |
 	var page = 2;
 	var status = 1;
 	var reload = 1;
+	var kategori = "all";
 
-	function loadMoreData(page){
+	function fungsi_kategori(id_kategori){
+		kategori = id_kategori;
+		page =1;
+		$('.nama-kategori').empty();
+		loadMoreData(page, kategori);
+	}
+
+	function loadMoreData(page, kategori){
 		$.ajax({
-			url: '?page=' + page,
+			url: '?page=' + page + "&kategori="+kategori,
 			type: 'get',
 			beforeSend: function(){
 				$("#loading").show();
@@ -184,7 +205,7 @@ Explore |
 		if($(window).scrollTop() + $(window).height() + 30 >= $(document).height()){
 			var check = $("#no_more_check").val();
 			if(status == 1){
-				loadMoreData(page);
+				loadMoreData(page, kategori);
 				status = 0;
 				if(reload == 1){
 					page++;
@@ -198,7 +219,7 @@ Explore |
 	function trigger(){
 		var check = $("#no_more_check").val();
 		if(status == 1){
-			loadMoreData(page);
+			loadMoreData(page, kategori);
 			status = 0;
 			if(reload == 1){
 				page++;
