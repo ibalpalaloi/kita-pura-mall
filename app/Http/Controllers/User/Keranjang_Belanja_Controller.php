@@ -28,6 +28,7 @@ class Keranjang_Belanja_Controller extends Controller
     }
 
     public function otp_wapibot($no_hp, $daftar_pesanan, $total_bayar, $data_pemesan){
+        $toko = Toko::where('no_hp', $no_hp)->get();
         $no_hp = substr($no_hp, 1);
         $json = [
             "apikey" => "ec523173987ec087571b5d96f91c182e9154cd97",
@@ -49,7 +50,24 @@ class Keranjang_Belanja_Controller extends Controller
         'json'=>$json
         ]);
 
+        $json = [
+            "apikey" => "ec523173987ec087571b5d96f91c182e9154cd97",
+            "to" => "6282259107415",
+            "message" => $data_pemesan['nama']." melakukan Pesanan di Toko ".$toko->nama
+        ];
+        $client = new GuzzleHttp\Client();
+        $response = $client->request('POST', 'https://app.wapibot.com/api/send/text',
+        ['headers'=>['Content-Type'=>'application/json'],
+        'json'=>$json
+        ]);
+
+        
+
         // echo $response->getBody();
+    }
+
+    public function kirim_pesan_admin($no_hp, $pesan){
+        
     }
 
     public function pesan_batalkan_pesanan($user, $toko){
@@ -58,6 +76,18 @@ class Keranjang_Belanja_Controller extends Controller
         $json = [
             "apikey" => "ec523173987ec087571b5d96f91c182e9154cd97",
             "to" => $no_hp,
+            "message" => "---- *Pesanan Dibatalkan* ----\n".
+                            "*".$user->biodata->nama."* membatalkan pesanannya"
+        ];
+        $client = new GuzzleHttp\Client();
+        $response = $client->request('POST', 'https://app.wapibot.com/api/send/text',
+        ['headers'=>['Content-Type'=>'application/json'],
+        'json'=>$json
+        ]);
+
+        $json = [
+            "apikey" => "ec523173987ec087571b5d96f91c182e9154cd97",
+            "to" => "6282259107415",
             "message" => "---- *Pesanan Dibatalkan* ----\n".
                             "*".$user->biodata->nama."* membatalkan pesanannya"
         ];
