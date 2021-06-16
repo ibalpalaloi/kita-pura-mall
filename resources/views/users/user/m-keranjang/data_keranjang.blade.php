@@ -211,8 +211,13 @@
         </div>
         @if ($data_keranjang_current[$i]['product']->count() > 0)
 
+        <?php
+        $no_hp = $data_keranjang[$i]['no_hp'];
+        $nama_toko = $data_keranjang[$i]['nama_toko'];
+        $id_toko = $data_keranjang[$i]['id_toko'];
+        ?>
         <div style="width: 100%; display: flex; justify-content: center;">
-            <div class="" onclick='WhatsappMessage("<?=$data_keranjang_current[$i]['no_hp']?>", "<?=$data_keranjang_current[$i]['nama_toko']?>", "<?=$data_keranjang_current[$i]['id_toko']?>", "yes")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
+            <div class="" onclick='WhatsappMessage("{{$no_hp}}", "{{$nama_toko}}", "{{$id_toko}}", "yes")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
                 <img  src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_current_<?=$data_keranjang_current[$i]['id_toko']?>">Rp. 1.500.000</span>
             </div>
         </div>
@@ -306,8 +311,12 @@
                 </div>
             </div>
             <div style="width: 100%; display: flex; justify-content: center;">
-
-                <div class="" onclick='WhatsappMessage("<?=$data_keranjang[$i]['no_hp']?>", "<?=$data_keranjang[$i]['nama_toko']?>", "<?=$data_keranjang[$i]['id_toko']?>", "no")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
+                <?php
+                $no_hp = $data_keranjang[$i]['no_hp'];
+                $nama_toko = $data_keranjang[$i]['nama_toko'];
+                $id_toko = $data_keranjang[$i]['id_toko'];
+                ?>
+                <div class="" onclick='WhatsappMessage("{{$no_hp}}", "{{$nama_toko}}", "{{$id_toko}}", "no")' style="width: 90%; background: linear-gradient(41.88deg, #4AAE20 35.3%, #5EE825 88.34%); border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
                     <img onclick="modal_pesan()" src="<?=url('/')?>/public/img/icon_svg/whatsapp.svg" style="width: 1.2em; position: absolute; left: 3.8em;top: 0.6em;"><span id="sub_total_<?=$data_keranjang[$i]['id_toko']?>">Rp. 1.500.000</span>
                 </div>
             </div>

@@ -101,6 +101,66 @@ Explore |
 		width: 90%;
 	}
 
+	.slider {
+		width: 100%;
+		display: flex; 
+		overflow-y: visible; 
+		margin: 0px; 			
+		overflow-x: scroll;
+		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none;  /* Internet Explorer 10+ */
+	}
+	.slider::-webkit-scrollbar { /* WebKit */
+		width: 0;
+		height: 0;
+	}
+
+	.slider-toko {
+		display: flex; 
+		justify-content: center; 
+		flex-direction: column; 
+		align-items: center; 
+		margin: 0em 0em 0em 0.5em; 
+		width: 9em;		
+	}
+
+	.slider-toko img {
+		width: 9em;
+		object-fit: cover;
+		border-top-left-radius: 1em;
+		border-top-right-radius: 1em;
+	}
+
+	.slider-toko > div {
+		border-bottom-left-radius: 1em;
+		border-bottom-right-radius: 1em;
+	}  
+
+	.swiper-container {
+		width: 100%;
+		height: 100%;
+	}
+
+	.swiper-slide {
+		text-align: center;
+		font-size: 18px;
+		background: #fff;
+
+		/* Center slide text vertically */
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		-webkit-justify-content: center;
+		justify-content: center;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		-webkit-align-items: center;
+		align-items: center;
+	}
+
 </style>
 @endsection
 
@@ -117,7 +177,7 @@ Explore |
 </div>
 
 <header class="style__Container-sc-3fiysr-0 header" style="background: #eaf4ff;">
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center; flex-direction: column; height: 55px;">
+	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center; flex-direction: column; height: 55px; margin-top: 1.6em;">
 		<div class="pencarian-tabs" style="display: flex; justify-content: center; background: white; padding: 8px; border-radius: 1.5em;">
 			<a href="<?=url('/')?>/pencarian/maps" onclick="show_loader()">
 				Maps
@@ -126,11 +186,33 @@ Explore |
 				Explore
 			</a>
 		</div>
-		<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1em;">
-			<div class="kategori-tabs" style="margin-top: 5px; font-size: 0.85em;">
-				<a onclick="fungsi_kategori('all')" class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">Semua</a>
-				<a onclick="fungsi_kategori('1')" class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">Makanan/Minuman</a>
-				<a onclick="fungsi_kategori('2')" class="" style="background: #EAF4FF; padding: 0.3em 0.7em;">Pakaian Pria</a>
+		<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1.5em;">
+			<div class="slider">
+				@php $i= 0; @endphp
+				@php
+				$kategori = array('Makanan','Minuman','Pakaian', 'Makanan','Minuman','Pakaian');
+				$kategori_id = array('1', '2', '3', '1', '2', '3');
+				$fix_kategori_id = array();
+				$fix_kategori = array();
+				@endphp 
+
+				<div onclick="fungsi_kategori('all')" class="slider-toko" style="margin-left: 8%">
+					<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%;  color: white; background-size: cover; padding: 1em; position: relative;'> 
+						<div style="font-weight: 500; color: black;">Semua</div>
+
+					</div>
+				</div> 
+
+				@for ($i = 0; $i < count($kategori); $i++)
+				@php $fix_kategori_id = $kategori_id[$i]; @endphp
+
+				<div onclick="fungsi_kategori('{{$fix_kategori_id}}')"  class="slider-toko" style="@if ($i == count($kategori)-1) margin-right: 8%; @endif">
+					<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%;  color: white; background-size: cover; padding: 1em; position: relative;'> 
+						<div style="font-weight: 500; color: black;">{{$kategori[$i]}}</div>
+
+					</div>
+				</div> 
+				@endfor
 			</div>
 		</div>
 
@@ -148,8 +230,8 @@ Explore |
 		<div id="loading" class="spinner-border text-danger" role="status" style="display: none; margin-bottom: 8em;">
 			<div role="status">
 				<span class="sr-only">Loading...</span>
-			  </div>
-			  <br><br><br><br><br><br><br>
+			</div>
+			<br><br><br><br><br><br><br>
 		</div>
 		<div class="no_more text-center" style="display: none">
 			No More ......
@@ -212,7 +294,7 @@ Explore |
 				}
 				$("#loading").show();
 			}
-				
+
 		}
 	})
 
