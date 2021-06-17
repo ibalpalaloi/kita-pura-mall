@@ -42,8 +42,8 @@ $index = 0;
             <?php if ($index == $count_product){ break; } ?>
             @endfor
         </div>
-        <a style="display: flex; justify-content: center; flex-direction: column;  width:63.7%; margin: 1.5% 1.5% 1.5% 2.3%;" href="<?=url('/')?>/pencarian/explore/{{$product[$index]->id}}">
-            <img src="<?=url('/')?>/public/img/toko/{{$product[$index]->toko_id}}/produk/600x600/{{$product[$index]->foto_produk}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
+        <a style="display: flex; justify-content: center; flex-direction: column;  width:63.7%; margin: 1.5% 1.5% 1.5% 2.3%;" href="<?=url('/')?>/pencarian/explore/{{$product[$index-1]->id}}">
+            <img src="<?=url('/')?>/public/img/toko/{{$product[$index-1]->toko_id}}/produk/600x600/{{$product[$index-1]->foto_produk}}" style="width: 100%; height: 100%;object-fit: cover; border-radius: 1em;">
         </a>
         @php $index++; @endphp
         <?php if ($index == $count_product){ break; } ?>

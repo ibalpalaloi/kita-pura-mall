@@ -13,6 +13,7 @@ use App\Models\Product;
 use App\Models\Daftar_tunggu_toko;
 use App\Models\Biodata;
 use App\Models\Kategori_toko;
+use App\Models\kategori;
 use Auth;
 
 class HomeController extends Controller
@@ -83,8 +84,17 @@ class HomeController extends Controller
             $view = view('home.data_pencarian', compact('product'))->render();
             return response()->json(['html'=>$view]);
         }
-		$kategori_toko = Kategori_toko::all();
-		return view('home/pencarian', compact('product', 'kategori_toko'));
+		//
+		$data_kategori =array(); 
+		$kategori = Product::groupBy('kategori_id')->select('kategori_id', DB::raw('count(*) as total'))->orderBy('total', 'desc')->get();
+		
+		for($i=0; $i<3; $i++){
+			$kategori_produk = Kategori::find($kategori[$i]->kategori_id);
+			$data_kategori[$i]['id'] = $kategori[$i]->kategori_id;
+			$data_kategori[$i]['kategori'] = $kategori_produk->nama;
+
+		}
+		return view('home/pencarian', compact('product', 'data_kategori'));
 	}
 
 	public function input_password(){

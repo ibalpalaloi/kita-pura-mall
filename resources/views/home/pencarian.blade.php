@@ -190,8 +190,8 @@ Explore |
 			<div class="slider">
 				@php $i= 0; @endphp
 				@php
-				$kategori = array('Makanan','Minuman','Pakaian', 'Makanan','Minuman','Pakaian');
-				$kategori_id = array('1', '2', '3', '1', '2', '3');
+				$kategori = array('Makanan','Minuman','Pakaian', 'Makanan','Minuman');
+				$kategori_id = array('1', '2', '3', '1', '2');
 				$fix_kategori_id = array();
 				$fix_kategori = array();
 				@endphp 
@@ -203,12 +203,12 @@ Explore |
 					</div>
 				</div> 
 
-				@for ($i = 0; $i < count($kategori); $i++)
-				@php $fix_kategori_id = $kategori_id[$i]; @endphp
+				@for ($i = 0; $i < count($data_kategori); $i++)
+				@php $fix_kategori_id = $data_kategori[$i]['id']; @endphp
 
-				<div onclick="fungsi_kategori('{{$fix_kategori_id}}')"  class="slider-toko" style="@if ($i == count($kategori)-1) margin-right: 8%; @endif">
+				<div onclick="fungsi_kategori('{{$fix_kategori_id}}')"  class="slider-toko" style="@if ($i == count($data_kategori)-1) margin-right: 8%; @endif">
 					<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%;  color: white; background-size: cover; padding: 1em; position: relative;'> 
-						<div style="font-weight: 500; color: black;">{{$kategori[$i]}}</div>
+						<div style="font-weight: 500; color: black;">{{$data_kategori[$i]['kategori']}}</div>
 
 					</div>
 				</div> 
