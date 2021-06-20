@@ -208,7 +208,7 @@ Explore |
 
 				<div onclick="fungsi_kategori('{{$fix_kategori_id}}')"  class="slider-toko" style="@if ($i == count($data_kategori)-1) margin-right: 8%; @endif">
 					<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%;  color: white; background-size: cover; padding: 1em; position: relative;'> 
-						<div style="font-weight: 500; color: black;">{{$data_kategori[$i]['kategori']}}</div>
+						<div style="font-weight: 500; color: black; white-space: nowrap;">{{ucfirst(strtolower($data_kategori[$i]['kategori']))}}</div>
 
 					</div>
 				</div> 

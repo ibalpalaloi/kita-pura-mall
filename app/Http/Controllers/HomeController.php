@@ -26,16 +26,19 @@ class HomeController extends Controller
 	}
 
 	public function untuk_mitra(){
-		$biodata = Biodata::where('users_id', Auth()->user()->id)->first();
-		if(is_null($biodata->nama) or $biodata->nama == ""){
-			return redirect('/buat_akun_biodata');
-		}
-		elseif(is_null($biodata->jenis_kelamin) or $biodata->jenis_kelamin == ""){
-			return redirect('/buat_akun_biodata');
-		}
-		else{
-			return redirect('/toko');
-		}
+		// $biodata = Biodata::where('users_id', Auth()->user()->id)->first();
+		// if ($biodata){
+		// 	if(is_null($biodata->nama) or $biodata->nama == ""){
+		// 		return redirect('/buat_akun_biodata');
+		// 	}
+		// 	elseif(is_null($biodata->jenis_kelamin) or $biodata->jenis_kelamin == ""){
+		// 		return redirect('/buat_akun_biodata');
+		// 	}
+		// 	else{
+		// 		return redirect('/toko');
+		// 	}
+			
+		// }
 		return redirect('/toko');
 	}
 
@@ -54,12 +57,12 @@ class HomeController extends Controller
 		$produk_serupa = DB::table('product')->select('product.*', 'kategori.nama as kategori_product')->join('kategori', 'kategori.id', '=', 'product.kategori_id')->where('sub_kategori_id', $product->sub_kategori_id)->where('product.id', '!=', $product->id)->get();
 
 		if(Auth::user()){
-			$keranjang = DB::table('keranjang_belanja')->select('product.nama', 'jenis_harga', 'harga', 'harga_terendah', 'harga_tertinggi', 'diskon', 'foto_produk', 'toko.nama_toko')->join('product', 'product.id', '=', 'keranjang_belanja.product_id')->join('toko', 'toko.id', '=', 'keranjang_belanja.toko_id')->where('user_id', Auth()->user()->id)->get();		
+			$keranjang = count(DB::table('keranjang_belanja')->select('product.nama', 'jenis_harga', 'harga', 'harga_terendah', 'harga_tertinggi', 'diskon', 'foto_produk', 'toko.nama_toko')->join('product', 'product.id', '=', 'keranjang_belanja.product_id')->join('toko', 'toko.id', '=', 'keranjang_belanja.toko_id')->where('user_id', Auth()->user()->id)->get());		
 		}
 		else{
 			$keranjang = 0;
 		}
-
+        
 		// dd($produk_serupa);
 		// dd($toko);
 		return view('home/pencarian/detail_produk', compact('product', 'toko', 'produk_lainnya', 'produk_serupa', 'keranjang'));
@@ -81,9 +84,9 @@ class HomeController extends Controller
 				})->orderByRaw('RAND()')->paginate(54);
 			}
 			
-            $view = view('home.data_pencarian', compact('product'))->render();
-            return response()->json(['html'=>$view]);
-        }
+			$view = view('home.data_pencarian', compact('product'))->render();
+			return response()->json(['html'=>$view]);
+		}
 		//
 		$data_kategori =array(); 
 		$kategori = Product::groupBy('kategori_id')->select('kategori_id', DB::raw('count(*) as total'))->orderBy('total', 'desc')->get();
@@ -117,7 +120,7 @@ class HomeController extends Controller
 		$produk = Product::paginate(3);
 		if($request->ajax()){
 			$view = view('home.rekomendasi_produk', compact('produk'))->render();
-            return response()->json(['html'=>$view]);
+			return response()->json(['html'=>$view]);
 		}
 		return view('home/rekomendasi', compact('produk'));
 	}
