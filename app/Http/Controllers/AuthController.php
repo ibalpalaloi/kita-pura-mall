@@ -149,9 +149,9 @@ class AuthController extends Controller
     }
 
     public function login(){
-        return redirect('home');
+        // return redirect('home');
         // return view('auth.daftar_mitra.daftar_mitra');
-        // return view('auth.login');
+        return view('auth.login');
     }
 
     public function logout(){

@@ -89,19 +89,9 @@ Route::group(['middleware'=> 'guest'], function() {
 
     Route::get('/admin', [Admin_Auth_Controller::class, 'login'])->name('login_admin');
     Route::post('/admin/masuk', [Admin_Auth_Controller::class, 'post_login']);
-    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    // Route::get('/login', [AuthController::class, 'login_admin'])->name('login');
 
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-
-    // route
-    Route::get('/home_mitra', [HomeController::class, 'home_mitra']);
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/pencarian', [HomeController::class, 'pencarian']);
-    Route::get('/pencarian/explore/{id_product}', [HomeController::class, 'detail_produk']);
-    Route::get('/pencarian/explore', [HomeController::class, 'pencarian']);
-    Route::get('/pencarian/rekomendasi', [HomeController::class, 'pencarian']);
-    Route::get('/pencarian/maps', [HomeController::class, 'maps']);
-    Route::post('/pencarian/maps/get_jadwal', [HomeController::class, 'get_jadwal'])->name('get_jadwal');
+    Route::get('/', [AuthController::class, 'login'])->name('login');
 
     
 });
@@ -118,6 +108,17 @@ Route::group(['middleware'=> 'auth'], function() {
 
 
         // @home
+    // route
+        Route::get('/home_mitra', [HomeController::class, 'home_mitra']);
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+        Route::get('/pencarian', [HomeController::class, 'pencarian']);
+        Route::get('/pencarian/explore/{id_product}', [HomeController::class, 'detail_produk']);
+        Route::get('/pencarian/explore', [HomeController::class, 'pencarian']);
+        Route::get('/pencarian/rekomendasi', [HomeController::class, 'pencarian']);
+        Route::get('/pencarian/maps', [HomeController::class, 'maps']);
+        Route::post('/pencarian/maps/get_jadwal', [HomeController::class, 'get_jadwal'])->name('get_jadwal');
+
+
 
         // @akun
         Route::get('/akun', [UserController::class, 'index']);
