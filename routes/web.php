@@ -104,22 +104,6 @@ Route::group(['middleware'=> 'auth'], function() {
     // Halaman Tunggu 
     Route::get('/home/halaman_tunggu', [HomeController::class, 'untuk_mitra']);
 
-    Route::group(['middleware'=> 'home'], function() {
-
-
-        // @home
-    // route
-        Route::get('/home_mitra', [HomeController::class, 'home_mitra']);
-        Route::get('/home', [HomeController::class, 'index'])->name('home');
-        Route::get('/pencarian', [HomeController::class, 'pencarian']);
-        Route::get('/pencarian/explore/{id_product}', [HomeController::class, 'detail_produk']);
-        Route::get('/pencarian/explore', [HomeController::class, 'pencarian']);
-        Route::get('/pencarian/rekomendasi', [HomeController::class, 'pencarian']);
-        Route::get('/pencarian/maps', [HomeController::class, 'maps']);
-        Route::post('/pencarian/maps/get_jadwal', [HomeController::class, 'get_jadwal'])->name('get_jadwal');
-
-
-
         // @akun
         Route::get('/akun', [UserController::class, 'index']);
         Route::get('/akun/pengaturan-profil', [UserController::class, 'biodata']);
@@ -177,6 +161,24 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::get("digital-download/akun/atur-band/tambah-single-album", [AturBandController::class, 'tambah_single_album']);
         Route::get("digital-download/akun/atur-band", [AturBandController::class, 'index']);
         Route::get("digital-download/akun", [DigitalAkunController::class, 'index']);
+
+    
+
+    Route::group(['middleware'=> 'home'], function() {
+
+
+        // @home
+    // route
+        Route::get('/home_mitra', [HomeController::class, 'home_mitra']);
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+        Route::get('/pencarian', [HomeController::class, 'pencarian']);
+        Route::get('/pencarian/explore/{id_product}', [HomeController::class, 'detail_produk']);
+        Route::get('/pencarian/explore', [HomeController::class, 'pencarian']);
+        Route::get('/pencarian/rekomendasi', [HomeController::class, 'pencarian']);
+        Route::get('/pencarian/maps', [HomeController::class, 'maps']);
+        Route::post('/pencarian/maps/get_jadwal', [HomeController::class, 'get_jadwal'])->name('get_jadwal');
+
+
 
         Route::group(['middleware'=> 'free'], function() {
             // @mitra free
