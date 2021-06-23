@@ -19,6 +19,13 @@ Explore |
 		color: white !important;
 	}
 
+
+	.active-mall-kategori {
+		background: #ff006e;
+		color: white !important;
+		border-radius: 1.5em;
+	}
+
 	#mapid {
 		height: 100vh;
 		z-index: 0;
@@ -175,10 +182,9 @@ Explore |
 		</div>
 	</div>
 </div>
-
-<header class="style__Container-sc-3fiysr-0 header" style="background: #eaf4ff;">
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center; flex-direction: column; height: 55px; margin-top: 1.6em;">
-		<div class="pencarian-tabs" style="display: flex; justify-content: center; background: white; padding: 8px; border-radius: 1.5em;">
+<header class="style__Container-sc-3fiysr-0 header" style="background: #EAF4FF;">
+	<div class="container-mall">
+		<div class="pencarian-tabs" style="display: flex; justify-content: center; background: white; padding: 8px; border-radius: 1.5em; margin-top: 0.5em;">
 			<a href="<?=url('/')?>/pencarian/maps" onclick="show_loader()">
 				Maps
 			</a>
@@ -186,7 +192,10 @@ Explore |
 				Explore
 			</a>
 		</div>
-		<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 1.5em;">
+
+
+
+		<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 0.5em; margin-top: 0.5em;">
 			<div class="slider">
 				@php $i= 0; @endphp
 				@php
@@ -207,18 +216,26 @@ Explore |
 				@php $fix_kategori_id = $data_kategori[$i]['id']; @endphp
 
 				<div onclick="fungsi_kategori('{{$fix_kategori_id}}')"  class="slider-toko" style="@if ($i == count($data_kategori)-1) margin-right: 8%; @endif">
-					<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%;  color: white; background-size: cover; padding: 1em; position: relative;'> 
-						<div style="font-weight: 500; color: black; white-space: nowrap;">{{ucfirst(strtolower($data_kategori[$i]['kategori']))}}</div>
-
+					<div style='text-align: left; font-size: 0.75em; padding: 0.3em 0.7em 0.3em 0.7em; width: 100%;  color: white; background-size: cover; position: relative;' class="active-mall-kategori"> 
+						<div style="font-weight: 500; white-space: nowrap;">{{ucfirst(strtolower($data_kategori[$i]['kategori']))}}</div>
 					</div>
 				</div> 
 				@endfor
 			</div>
 		</div>
 
+	</div>
+</header>
+
+
+<!-- 
+<header class="style__Container-sc-3fiysr-0 header" style="background: #eaf4ff;">
+	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center; flex-direction: column; margin-top: 3em;">
+
 		
 	</div>
 </header>
+ -->
 
 
 <main id="homepage" class="homepage" style="background: #eaf4ff;">

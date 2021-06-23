@@ -133,7 +133,7 @@
 }
 
 .slider-toko > div {
-	height: 6.3em;
+	/*height: 2em;*/
 	border-bottom-left-radius: 1em;
 	border-bottom-right-radius: 1em;
 }
@@ -223,12 +223,42 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 				</div> --}}
 			</div>
 		</div>
+		<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 0em;">
+			<div class="slider">
+				@php $i= 0; @endphp
+				@php
+				$kategori = array('Makanan','Minuman','Pakaian', 'Makanan','Minuman');
+				$kategori_id = array('1', '2', '3', '1', '2');
+				$fix_kategori_id = array();
+				$fix_kategori = array();
+				@endphp 
+
+				<div onclick="fungsi_kategori('all')" class="slider-toko" style="margin-left: 2%">
+					<div style='text-align: left; font-size: 0.75em; padding: 0em 0em 1.2em 0.5em; width: 100%;  color: white; background-size: cover; position: relative;'> 
+						<div style="font-weight: 500; color: black;">Semua</div>
+
+					</div>
+				</div> 
+
+				@for ($i = 0; $i < count($kategori); $i++)
+				@php $fix_kategori_id = $kategori_id[$i]; @endphp
+
+				<div onclick="fungsi_kategori('{{$fix_kategori_id}}')"  class="slider-toko" style="@if ($i == count($kategori)-1) margin-right: 8%; @endif">
+					<div style='text-align: left; font-size: 0.75em; padding: 0em 0em 1.2em 0.5em; width: 100%;  color: white; background-size: cover; position: relative;'> 
+						<div style="font-weight: 500; color: black; white-space: nowrap;">{{ucfirst(strtolower($kategori[$i]))}}</div>
+
+					</div>
+				</div> 
+				@endfor
+
+			</div>
+		</div>
 
 	</div>
 </header>
 
 <main id="homepage" class="homepage" style="background: #eaf4ff;">
-	<div class="row-mall" style="padding: 0em 0em 5.5em 0em; margin-top: 10em; background: #eaf4ff;">
+	<div class="row-mall" style="padding: 0em 0em 5.5em 0em; margin-top: 12em; background: #eaf4ff;">
 		<div id="post-data" style="padding: 0em 0.5em; margin-bottom: 4em; display: flex; justify-content: space-between; flex-wrap: wrap;">
 			@include('toko.toko_data')
 		</div>
