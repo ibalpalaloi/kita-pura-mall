@@ -254,18 +254,20 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 				
 					$fix_kategori_id = $kategori_id[$i];
 					$jumlah_kategori = count($data_kategori);
+					$i=0;
 				
 				@endphp
-				@for ($i = 0; $i < count($data_kategori); $i++)
-				
-
-				<div onclick="pilih_kategori('{{$data_kategori[$i]['id']}}', '{{$i}}')"  class="slider-toko" style="@if ($i == count($data_kategori)-1) margin-right: 8%; @endif">
+				@foreach ($data_kategori as $data)
+				<div onclick="pilih_kategori('{{$data['id']}}', '{{$i}}')"  class="slider-toko">
 					<div id="select_kategori_{{$i}}" style='text-align: left; font-size: 0.75em; padding: 0em 0em 1.2em 0.5em; width: 100%;  color: black; background-size: cover; position: relative;'> 
-						<div style="font-weight: 500; white-space: nowrap;">{{ucfirst(strtolower($data_kategori[$i]['kategori']))}}</div>
+						<div style="font-weight: 500; white-space: nowrap;">{{ucfirst(strtolower($data['kategori']))}}</div>
 
 					</div>
 				</div> 
-				@endfor
+				@php
+					$i++;
+				@endphp
+				@endforeach
 
 			</div>
 		</div>
