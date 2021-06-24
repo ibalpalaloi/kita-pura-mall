@@ -9,7 +9,7 @@
                 <img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="width: 100%; height: 100%;" onclick="masukan_keranjang('{{$row->toko_id}}', '{{$row->id}}')">
             </div>            
             @else  
-            <a href="<?=url('/')?>" style="width: 5em; position: absolute; height: 5em; bottom:3.5em; right:0.5em;">
+            <a href="<?=url('/')?>/login" style="width: 5em; position: absolute; height: 5em; bottom:3.5em; right:0.5em;">
                 <img src="<?=url('/')?>/public/img/mitra/landing_page/keranjang.svg" style="width: 100%; height: 100%;" onclick="masukan_keranjang('{{$row->toko_id}}', '{{$row->id}}')">
             </a>            
             @endif

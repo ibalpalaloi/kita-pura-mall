@@ -90,12 +90,23 @@ class HomeController extends Controller
 		//
 		$data_kategori =array(); 
 		$kategori = Product::groupBy('kategori_id')->select('kategori_id', DB::raw('count(*) as total'))->orderBy('total', 'desc')->get();
-		
-		for($i=0; $i<3; $i++){
+		$j=0;
+		$id_kategori_lainnya = "";
+		$kategori_lainnya ="";
+		for($i=0; $i<10; $i++){
 			$kategori_produk = Kategori::find($kategori[$i]->kategori_id);
-			$data_kategori[$i]['id'] = $kategori[$i]->kategori_id;
-			$data_kategori[$i]['kategori'] = $kategori_produk->nama;
-
+			if($kategori_produk->nama == "LAINNYA"){
+				$id_kategori_lainnya = $kategori[$i]->kategori_id;
+				$kategori_lainnya = $kategori_produk->nama;
+				$j = $j-1;
+			}
+			$data_kategori[$j]['id'] = $kategori[$i]->kategori_id;
+			$data_kategori[$j]['kategori'] = $kategori_produk->nama;
+			$j++;
+		}
+		if($kategori_lainnya != ""){
+			$data_kategori[$j]['id'] = $id_kategori_lainnya;
+			$data_kategori[$j]['kategori'] = $kategori_lainnya;
 		}
 		return view('home/pencarian', compact('product', 'data_kategori'));
 	}

@@ -47,10 +47,25 @@ class Toko_controller extends Controller
         }
         $kategori = Kategorinya_toko::groupBy('kategori_toko_id')->select('kategori_toko_id', DB::raw('count(*) as total'))->orderBy('total', 'desc')->get();
         $data_kategori = array();
+        $kategori_lainnya = "";
+        $id_kategori_lainnya = "";
+        $j=0;
         for($i=0; $i<=5; $i++){
             $kategori_toko = Kategori_toko::find($kategori[$i]->kategori_toko_id);
-            $data_kategori[$i]['id'] = $kategori_toko->id;
-            $data_kategori[$i]['kategori'] = $kategori_toko->kategori;
+            if($kategori_toko->kategori == "LAINNYA"){
+                $kategori_lainnya = $kategori_toko->kategori;
+                $id_kategori_lainnya = $kategori_toko->id;
+                $j--;
+            }
+            else{
+                $data_kategori[$j]['id'] = $kategori_toko->id;
+                $data_kategori[$j]['kategori'] = $kategori_toko->kategori;
+            }
+            $j++;
+        }
+        if($kategori_lainnya != ""){
+            $data_kategori[$j]['id'] = $id_kategori_lainnya;
+            $data_kategori[$j]['kategori'] = $kategori_lainnya;
         }
         $jumlah_data = count($tokos);
         $index = 0;   

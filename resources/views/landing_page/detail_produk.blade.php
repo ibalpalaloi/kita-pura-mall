@@ -414,7 +414,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 	}
 
 	function redirect_home(){
-		location.href="<?=url('/')?>";															
+		location.href="<?=url('/')?>/login";															
 	}
 
 	function nilai_toko(index){
