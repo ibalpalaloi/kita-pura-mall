@@ -338,14 +338,14 @@ class Keranjang_Belanja_Controller extends Controller
         $no_telp = str_replace("-","", $no_telp);
         $no_telp = str_replace(" ","", $no_telp);
         if ($no_telp[0] == "0"){
-            $no_telp = substr($no_telp, 1);
-            $no_telp = substr_replace($no_telp, "+62", 0, 0);
+            $no_telp = substr($no_telp, 0);
+            $no_telp = substr_replace($no_telp, "62", 0, 0);
         }
         elseif($no_telp[0] == "+"){
-            $no_telp = $no_telp;
+            $no_telp = $no_telp = substr($no_telp, 0);
         }
         elseif($no_telp[0] == "6"){
-            $no_telp = substr_replace($no_telp, "+", 0, 0);
+            // $no_telp = substr_replace($no_telp, "+", 0, 0);
         }
         
         return $no_telp;
