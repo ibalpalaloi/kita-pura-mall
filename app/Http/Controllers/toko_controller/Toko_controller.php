@@ -64,8 +64,8 @@ class Toko_controller extends Controller
             $j++;
         }
         if($kategori_lainnya != ""){
-            $data_kategori[$j+1]['id'] = $id_kategori_lainnya;
-            $data_kategori[$j+1]['kategori'] = $kategori_lainnya;
+            $data_kategori[$j]['id'] = $id_kategori_lainnya;
+            $data_kategori[$j]['kategori'] = $kategori_lainnya;
         }
         $jumlah_data = count($tokos);
         $index = 0;   

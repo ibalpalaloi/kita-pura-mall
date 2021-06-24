@@ -281,7 +281,7 @@ Explore |
 	function ubah_class_kategori(index_kategori){
 		$("#id_kategori_all").removeClass();
 		$("#id_kategori_all").css('color', 'black');
-		for(i=0; i<3; i++){
+		for(i=0; i<10; i++){
 			$("#id_kategori_"+i).removeClass();
 			$("#id_kategori_"+i).css('color', 'black');
 		}
