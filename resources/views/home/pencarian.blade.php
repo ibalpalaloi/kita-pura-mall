@@ -205,18 +205,17 @@ Explore |
 				$fix_kategori = array();
 				@endphp 
 
-				<div onclick="fungsi_kategori('all')" class="slider-toko" style="margin-left: 8%">
-					<div style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%;  color: white; background-size: cover; padding: 1em; position: relative;'> 
-						<div style="font-weight: 500; color: black;">Semua</div>
-
+				<div onclick="fungsi_kategori('all', 'all')" class="slider-toko" style="margin-left: 8%">
+					<div id="id_kategori_all" style='text-align: left; font-size: 0.75em; padding: 0.7em 0em 0.7em 0.5em; width: 100%;  color: white; background-size: cover; padding: 1em; position: relative;' class="active-mall-kategori"> 
+						<div style="font-weight: 500;">Semua</div>
 					</div>
 				</div> 
 
 				@for ($i = 0; $i < count($data_kategori); $i++)
 				@php $fix_kategori_id = $data_kategori[$i]['id']; @endphp
 
-				<div onclick="fungsi_kategori('{{$fix_kategori_id}}')"  class="slider-toko" style="@if ($i == count($data_kategori)-1) margin-right: 8%; @endif">
-					<div style='text-align: left; font-size: 0.75em; padding: 0.3em 0.7em 0.3em 0.7em; width: 100%;  color: white; background-size: cover; position: relative;' class="active-mall-kategori"> 
+				<div onclick="fungsi_kategori('{{$fix_kategori_id}}', '{{$i}}')"  class="slider-toko" style="@if ($i == count($data_kategori)-1) margin-right: 8%; @endif">
+					<div id="id_kategori_{{$i}}" style='text-align: left; font-size: 0.75em; padding: 0.3em 0.7em 0.3em 0.7em; width: 100%;  color: black; background-size: cover; position: relative;'> 
 						<div style="font-weight: 500; white-space: nowrap;">{{ucfirst(strtolower($data_kategori[$i]['kategori']))}}</div>
 					</div>
 				</div> 
@@ -271,11 +270,24 @@ Explore |
 	var reload = 1;
 	var kategori = "all";
 
-	function fungsi_kategori(id_kategori){
+	function fungsi_kategori(id_kategori, index_kategori){
 		kategori = id_kategori;
 		page =1;
 		$('.nama-kategori').empty();
 		loadMoreData(page, kategori);
+		ubah_class_kategori(index_kategori)
+
+	}
+
+	function ubah_class_kategori(index_kategori){
+		$("#id_kategori_all").removeClass();
+		$("#id_kategori_all").css('color', 'black');
+		for(i=0; i<3; i++){
+			$("#id_kategori_"+i).removeClass();
+			$("#id_kategori_"+i).css('color', 'black');
+		}
+		$("#id_kategori_"+index_kategori).addClass("active-mall-kategori");
+
 	}
 
 	function loadMoreData(page, kategori){
@@ -293,7 +305,6 @@ Explore |
 			$('#loading').hide();
 			$('.nama-kategori').append(data.html);
 			status = 1;
-			console.log(page);
 		})
 		.fail(function(jqXHR, ajaxOptions, thrownError){
 			// alert("server errror");

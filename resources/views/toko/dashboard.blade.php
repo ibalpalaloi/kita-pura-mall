@@ -201,6 +201,17 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
       border-radius: 1em;
 }
 
+.active-mall {
+		background: #ff006e;
+		color: white !important;
+	}
+
+.active-mall-kategori {
+		background: #ff006e;
+		color: white !important;
+		border-radius: 1.5em;
+	}
+
 </style>
 @endsection
 
@@ -233,19 +244,24 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 				$fix_kategori = array();
 				@endphp 
 
-				<div onclick="fungsi_kategori('all')" class="slider-toko" style="margin-left: 2%">
-					<div style='text-align: left; font-size: 0.75em; padding: 0em 0em 1.2em 0.5em; width: 100%;  color: white; background-size: cover; position: relative;'> 
-						<div style="font-weight: 500; color: black;">Semua</div>
+				<div onclick="pilih_kategori('all', 'all')" class="slider-toko" style="margin-left: 2%">
+					<div id="select_kategori_all" style='text-align: left; font-size: 0.75em; padding: 0em 0em 1.2em 0.5em; width: 100%;  color: white; background-size: cover; position: relative;' class="active-mall-kategori"> 
+						<div style="font-weight: 500;">Semua</div>
 
 					</div>
 				</div> 
+				@php 
+				
+					$fix_kategori_id = $kategori_id[$i];
+					$jumlah_kategori = count($data_kategori);
+				
+				@endphp
+				@for ($i = 0; $i < count($data_kategori); $i++)
+				
 
-				@for ($i = 0; $i < count($kategori); $i++)
-				@php $fix_kategori_id = $kategori_id[$i]; @endphp
-
-				<div onclick="fungsi_kategori('{{$fix_kategori_id}}')"  class="slider-toko" style="@if ($i == count($kategori)-1) margin-right: 8%; @endif">
-					<div style='text-align: left; font-size: 0.75em; padding: 0em 0em 1.2em 0.5em; width: 100%;  color: white; background-size: cover; position: relative;'> 
-						<div style="font-weight: 500; color: black; white-space: nowrap;">{{ucfirst(strtolower($kategori[$i]))}}</div>
+				<div onclick="pilih_kategori('{{$data_kategori[$i]['id']}}', '{{$i}}')"  class="slider-toko" style="@if ($i == count($data_kategori)-1) margin-right: 8%; @endif">
+					<div id="select_kategori_{{$i}}" style='text-align: left; font-size: 0.75em; padding: 0em 0em 1.2em 0.5em; width: 100%;  color: black; background-size: cover; position: relative;'> 
+						<div style="font-weight: 500; white-space: nowrap;">{{ucfirst(strtolower($data_kategori[$i]['kategori']))}}</div>
 
 					</div>
 				</div> 
@@ -273,9 +289,33 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 	var page = 2;
 	var ulang = 0;
 	var jumlah_data =20;
+	var kategori = "all";
+
+	function pilih_kategori(id_kategori, id_select){
+		var cari = $('#cari_toko').val();
+		kategori = id_kategori;
+		page = 1;
+		ulang=1;
+		loadMoreData(page, cari, 1);
+		select_kategori(id_select);
+		
+	}
+
+	function select_kategori(id_select){
+		var jumlah_kategori = <?php echo json_encode($jumlah_kategori) ?>;
+		$("#select_kategori_all").removeClass();
+		$("#select_kategori_all").css('color', 'black');
+		for(i=0; i<jumlah_kategori; i++){
+			$("#select_kategori_"+i).removeClass();
+			$("#select_kategori_"+i).css('color', 'black');
+		}
+		$("#select_kategori_"+id_select).addClass("active-mall-kategori");
+
+	}
+
 	function loadMoreData(page, cari, nilai){
 		$.ajax({
-			url: '?page=' + page + '&cari=' + cari,
+			url: '?page=' + page + '&cari=' + cari +'&kategori=' + kategori,
 			type: 'get',
 			beforeSend: function(){
 			}
@@ -286,7 +326,7 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 			if(data.html == ""){
 				status = 0;
 				if(cari == 'all'){
-					loadMoreData(1, cari, 0)
+					loadMoreData(1, cari, 0, 'all')
 				}
 			}
 			if(ulang == 1){
@@ -298,7 +338,6 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 			
 		})
 		.fail(function(jqXHR, ajaxOptions, thrownError){
-			alert("server errror");
 		}); 
 	}
 	
@@ -316,14 +355,14 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 			else{
 				page = 2;
 			}
-			loadMoreData(page, cari, 1);
+			loadMoreData(page, cari, 1, 'all');
 		}
 	})
 
 	$(document).ready(function(){
 		var cari = $('#cari_toko').val();
 		page = 1;
-		loadMoreData(page, cari, 1);
+		loadMoreData(page, cari, 1, 'all');
 	})
 
 	$(document).ready(function(){
@@ -334,7 +373,7 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 			if(cari == ''){
 				cari = 'all';
 			}
-			loadMoreData(page, cari, 1);
+			loadMoreData(page, cari, 1, 'all');
 		});
 	})
 </script>

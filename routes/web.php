@@ -49,7 +49,7 @@ use App\Http\Controllers\DigitalDownload\Akun\AlbumController;
 |
 */
 
-
+Route::get('/cek_toko_kategori/{id}', [Toko_controller::class, 'data_toko_kategori']);
 Route::group(['middleware'=> 'guest'], function() {
 
     Route::post('/masuk', [AuthController::class, 'post_login_v2']);
@@ -168,7 +168,6 @@ Route::group(['middleware'=> 'auth'], function() {
 
 
         // @home
-    // route
         Route::get('/home_mitra', [HomeController::class, 'home_mitra']);
         Route::get('/home', [HomeController::class, 'index'])->name('home');
         Route::get('/pencarian', [HomeController::class, 'pencarian']);
@@ -351,6 +350,17 @@ Route::group(['middleware'=> 'admin'], function() {
 });
 
 });
+
+
+// pencarian
+Route::get('/home_mitra', [HomeController::class, 'home_mitra']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/pencarian', [HomeController::class, 'pencarian']);
+Route::get('/pencarian/explore/{id_product}', [HomeController::class, 'detail_produk']);
+Route::get('/pencarian/explore', [HomeController::class, 'pencarian']);
+Route::get('/pencarian/rekomendasi', [HomeController::class, 'pencarian']);
+Route::get('/pencarian/maps', [HomeController::class, 'maps']);
+Route::post('/pencarian/maps/get_jadwal', [HomeController::class, 'get_jadwal'])->name('get_jadwal');
 
 Route::get('/verifikasi/send_email', [MailController::class, 'send_email']);
 

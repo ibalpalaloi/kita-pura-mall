@@ -273,12 +273,12 @@
 		<a id="defaultheader_logo" style="margin-left: 20px; height:33px;margin-right:15px; position: relative; cursor: pointer;" href="javascript:history.back()">
 			<img src="<?=url('/')?>/public/img/icon_svg/back_circle_transparent.svg">
 		</a>
-
-
+		@if (Auth::check())
 		<a id="keranjang_belanja" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; position: relative;" href="<?=url('/')?>/user/keranjang" onclick="show_loader()">
 			<img src="<?=url('/')?>/public/img/icon_svg/bag_circle_transparent.svg">
 			<div style="width: 1.5em; height: 1.5em; background:#9d0208; position: absolute;border-radius: 50%; bottom: -20px; right: 0; background: #FF0000; color: white; text-align: center;" id="jumlah_keranjang">{{$keranjang}}</div>
 		</a>
+		@endif
 
 	</div>	
 </header>
@@ -345,9 +345,11 @@
 				<div><b>Detail</b></div>
 				<div style="font-size: 0.9em;">{{$product->deskripsi}}</div>
 			</div>
-			<div id="tambahkan_keranjang" style="background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%);border-radius: 35px; padding: 0.8em; width: 100%; margin-top: 0.5em; text-align: center; color: white; font-size: 1.1em;" onclick="masukan_keranjang('{{$toko->id}}', '{{$product->id}}')">
-				Tambahkan ke keranjang&nbsp;<img src="<?=url('/')?>/public/img/button/landing_page/keranjang_icon.svg">
-			</div>
+			@if (Auth::check())
+				<div id="tambahkan_keranjang" style="background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%);border-radius: 35px; padding: 0.8em; width: 100%; margin-top: 0.5em; text-align: center; color: white; font-size: 1.1em;" onclick="masukan_keranjang('{{$toko->id}}', '{{$product->id}}')">
+					Tambahkan ke keranjang&nbsp;<img src="<?=url('/')?>/public/img/button/landing_page/keranjang_icon.svg">
+				</div>
+			@endif
 			<div id="pesan_sekarang" style="background: linear-gradient(41.88deg, #EC7405 35.3%, #FFAA00 88.34%);border-radius: 35px; padding: 0.8em; width: 100%; margin-top: 0.5em; text-align: center; color: white; font-size: 1.1em;" onclick="pesan_sekarang()">
 				Pesan Sekarang&nbsp;<img src="<?=url('/')?>/public/img/button/landing_page/keranjang_icon.svg">
 			</div>
