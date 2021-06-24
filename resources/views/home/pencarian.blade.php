@@ -203,7 +203,7 @@ Explore |
 				$kategori_id = array('1', '2', '3', '1', '2');
 				$fix_kategori_id = array();
 				$fix_kategori = array();
-				@endphp 
+				@endphp
 				<div onclick="fungsi_kategori('all', 'all')"  class="slider-toko" style="margin-left: 8%;">
 					<div class="active-mall-kategori" id="id_kategori_all" style='text-align: left; font-size: 0.75em; padding: 0.3em 0.7em 0.3em 0.7em; width: 100%;  color: black; background-size: cover; position: relative;'> 
 						<div style="font-weight: 500; white-space: nowrap;">Semua</div>

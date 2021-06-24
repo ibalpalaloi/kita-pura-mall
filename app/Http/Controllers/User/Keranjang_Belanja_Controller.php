@@ -220,7 +220,11 @@ class Keranjang_Belanja_Controller extends Controller
 
     
 
-    public function keranjang_user(){
+    public function keranjang_user(Request $request){
+        $halaman = $request->halaman;
+        if($halaman != null){
+            return $this->halaman_keranjang($halaman);
+        }
         $data_keranjang = array();
         $i = 0;
         $toko_loop = DB::table('keranjang_belanja')->select('no_hp', 'toko_id', 'nama_toko', 'username')->where('user_id', Auth()->user()->id)->distinct()->join('toko', 'toko.id', '=' , 'keranjang_belanja.toko_id')->get();
@@ -240,6 +244,10 @@ class Keranjang_Belanja_Controller extends Controller
         // dd($data_keranjang);
         return view('users.user.m-keranjang.keranjang_user', compact('data_keranjang'));
 
+    }
+
+    public function halaman_keranjang($halaman){
+        
     }
 
     public function hapus_keranjang(Request $request){
