@@ -787,6 +787,49 @@ if (!empty($_GET['hari'])){
     	} 
 
 
+    	function post_pesanan(){
+    		console.log(pesan_id_keranjang);
+    		var metode_pengiriman = $("input[name='metode_pengiriman']:checked").val();
+    		var metode_pembayaran = $("input[name='metode_pembayaran']:checked").val();
+    		var alamat = $('#alamat').val();
+    		$.ajax({
+    			url: "<?=url('/')?>/user/keranjang/tambah_daftar_tunggu",
+    			type: "POST",
+    			data: {"id_keranjang":pesan_id_keranjang, 
+    			"id_toko":pesan_id_toko, 
+    			'keynota':pesan_keynota,
+    			'metode_pengiriman': metode_pengiriman,
+    			'metode_pembayaran': metode_pembayaran,
+    			'alamat': alamat,
+    			},
+    			success: function (data) {
+
+    			}
+    		});
+    		$('#modal_pesan').modal('hide');
+    		setTimeout(load_halaman, 1000);
+    	}
+
+
+    	function load_halaman(){
+    		location.reload();
+    	}
+
+
+		function pindah_halaman(status){
+			show_loader();
+			$.ajax({
+				url: "?halaman="+status,
+				type: "get",
+				success: function (data) {
+					console.log(data);
+					setTimeout(hide_loader, 999);
+					$('#data_content').empty();
+					$('#data_content').html(data.html);
+				}
+			})
+		}    	
+
 		var status_ganti_foto = 0;
 
 		@if(Session::has('message'))

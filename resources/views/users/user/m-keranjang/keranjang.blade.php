@@ -678,10 +678,7 @@ if (!empty($_GET['hari'])){
 					'<div style="font-weight: 500; margin-top: 0em;">'+nama_produk.trim()+'</div>'+
 					'</div>'+
 					'</div>';
-
-					// keynota_current = keynota_current.replace(id_sebelum, id+data);
 					keynota += result[i]+jumlah_pesanan;
-
 				}
 			}
 			keynota += id_toko+harga_sub_total_wa;
@@ -691,15 +688,6 @@ if (!empty($_GET['hari'])){
 			for (var i = 0; i < result.length-1; i++){
 				if ($('#checkbox_'+result[i]).is(':checked')) {
 					pesan_id_keranjang.push(result[i]);
-    				// $.ajax({
-    				// 	url: "<?=url('/')?>/user/keranjang/tambah_daftar_tunggu",
-    				// 	type: "POST",
-    				// 	data: {"id_product":result[i], "id_toko":id_toko, 'keynota':keynota},
-    				// 	success: function (data) {
-
-    				// 	}
-    				// });
-
     			}
     		}
     		pesan_id_toko = id_toko;
@@ -707,9 +695,6 @@ if (!empty($_GET['hari'])){
     		$('#modal_nama_toko').text('Pesanan Toko '+nama);
     		$(".slider").html(produk);
     		$('#modal_pesan').modal('show');
-
-
-    		// location.href=walink;
     	} 
 
     	function post_pesanan(){
@@ -733,7 +718,6 @@ if (!empty($_GET['hari'])){
     		});
     		$('#modal_pesan').modal('hide');
     		setTimeout(load_halaman, 1000);
-
     	}
 
     	function load_halaman(){
