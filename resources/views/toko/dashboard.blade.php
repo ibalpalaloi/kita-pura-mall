@@ -243,11 +243,9 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 				$fix_kategori_id = array();
 				$fix_kategori = array();
 				@endphp 
-
-				<div onclick="pilih_kategori('all', 'all')" class="slider-toko" style="margin-left: 2%">
-					<div id="select_kategori_all" style='text-align: left; font-size: 0.75em; padding: 0em 0em 1.2em 0.5em; width: 100%;  color: white; background-size: cover; position: relative;' class="active-mall-kategori"> 
-						<div style="font-weight: 500;">Semua</div>
-
+				<div onclick="pilih_kategori('all', 'all')"  class="slider-toko" style="margin-left: 1%;">
+					<div id="select_kategori_all" style='text-align: left; font-size: 0.75em; padding: 0.3em 0.7em 0.3em 0.7em; width: 100%;  color: black; background-size: cover; position: relative;'> 
+						<div style="font-weight: 500; white-space: nowrap;">Semua</div>
 					</div>
 				</div> 
 				@php 
@@ -258,16 +256,17 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 				
 				@endphp
 				@foreach ($data_kategori as $data)
-				<div onclick="pilih_kategori('{{$data['id']}}', '{{$i}}')"  class="slider-toko">
-					<div id="select_kategori_{{$i}}" style='text-align: left; font-size: 0.75em; padding: 0em 0em 1.2em 0.5em; width: 100%;  color: black; background-size: cover; position: relative;'> 
+				<div onclick="pilih_kategori('{{$data['id']}}', '{{$i}}')"  class="slider-toko" style="@if ($i == count($data_kategori)-1) margin-right: 8%; @endif">
+					<div id="select_kategori_{{$i}}" style='text-align: left; font-size: 0.75em; padding: 0.3em 0.7em 0.3em 0.7em; width: 100%;  color: black; background-size: cover; position: relative;'>  
 						<div style="font-weight: 500; white-space: nowrap;">{{ucfirst(strtolower($data['kategori']))}}</div>
 
 					</div>
 				</div> 
 				@php
-					$i++;
+				 $i++;
 				@endphp
 				@endforeach
+				
 
 			</div>
 		</div>
