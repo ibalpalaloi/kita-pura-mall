@@ -244,7 +244,7 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.15%, #000000 100%);
 				$fix_kategori = array();
 				@endphp 
 				<div onclick="pilih_kategori('all', 'all')"  class="slider-toko" style="margin-left: 1%;">
-					<div id="select_kategori_all" style='text-align: left; font-size: 0.75em; padding: 0.3em 0.7em 0.3em 0.7em; width: 100%;  color: black; background-size: cover; position: relative;'> 
+					<div class="active-mall-kategori" id="select_kategori_all" style='text-align: left; font-size: 0.75em; padding: 0.3em 0.7em 0.3em 0.7em; width: 100%;  color: black; background-size: cover; position: relative;'> 
 						<div style="font-weight: 500; white-space: nowrap;">Semua</div>
 					</div>
 				</div> 
