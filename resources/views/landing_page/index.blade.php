@@ -698,7 +698,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
 	function redirect_login(){
-		window.location.href = "<?=url('/')?>/";
+		window.location.href = "<?=url('/login')?>/";
 	}
 
 	function hide_keranjang_modal(){

@@ -90,8 +90,10 @@ Route::group(['middleware'=> 'guest'], function() {
     Route::get('/admin', [Admin_Auth_Controller::class, 'login'])->name('login_admin');
     Route::post('/admin/masuk', [Admin_Auth_Controller::class, 'post_login']);
     // Route::get('/login', [AuthController::class, 'login_admin'])->name('login');
-
-    Route::get('/', [AuthController::class, 'login'])->name('login');
+    Route::get('/', function(){
+        return redirect('/toko');
+    });
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
 
     
 });
