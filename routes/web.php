@@ -164,7 +164,13 @@ Route::group(['middleware'=> 'auth'], function() {
         Route::get("digital-download/akun/atur-band", [AturBandController::class, 'index']);
         Route::get("digital-download/akun", [DigitalAkunController::class, 'index']);
 
-    
+            // keranjang
+        Route::post('/tambah_keranjang_belanja', [Keranjang_Belanja_Controller::class, 'tambah_keranjang_belanja'])->name('tambah_keranjang_belanja');
+        Route::post('/user/keranjang/hapus_keranjang', [Keranjang_Belanja_Controller::class, 'hapus_keranjang']);
+        Route::post('/user/keranjang/tambah_daftar_tunggu', [Keranjang_Belanja_Controller::class, 'tambah_daftar_tunggu']);
+        Route::post('/user/keranjang/ubah_jumlah', [Keranjang_Belanja_Controller::class, 'ubah_jumlah']);
+        Route::get('/user/keranjang/batalkan_pesanan/{kode_nota}', [Keranjang_Belanja_Controller::class, 'batalkan_pesanan']);
+        Route::get('/user/keranjang/{id_toko}', [Keranjang_Belanja_Controller::class, 'keranjang']);
 
     Route::group(['middleware'=> 'home'], function() {
 
@@ -397,13 +403,7 @@ Route::get('/{username_mitra}/daftar-menu/{produk}' , [LandingPageController::cl
 Route::get('/{username_mitra}/daftar-menu', [LandingPageController::class, 'daftar_menu']);
 Route::get('/{username_mitra}', [LandingPageController::class, 'landing_page_mitra']);
 
-// keranjang
-Route::post('/tambah_keranjang_belanja', [Keranjang_Belanja_Controller::class, 'tambah_keranjang_belanja'])->name('tambah_keranjang_belanja');
-Route::post('/user/keranjang/hapus_keranjang', [Keranjang_Belanja_Controller::class, 'hapus_keranjang']);
-Route::post('/user/keranjang/tambah_daftar_tunggu', [Keranjang_Belanja_Controller::class, 'tambah_daftar_tunggu']);
-Route::post('/user/keranjang/ubah_jumlah', [Keranjang_Belanja_Controller::class, 'ubah_jumlah']);
-Route::get('/user/keranjang/batalkan_pesanan/{kode_nota}', [Keranjang_Belanja_Controller::class, 'batalkan_pesanan']);
-Route::get('/user/keranjang/{id_toko}', [Keranjang_Belanja_Controller::class, 'keranjang']);
+
 
 Route::get('/user/keranjang/riwayat_pesanan/riwayat', [Keranjang_Belanja_Controller::class, 'riwayat_keranjang']);
 Route::get('/user/keranjang/kirim_pesan/kirim_wa/{kode_nota}', [Keranjang_Belanja_Controller::class, 'kirim_pesanan']);
