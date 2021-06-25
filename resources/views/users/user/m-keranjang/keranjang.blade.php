@@ -321,6 +321,13 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 		// return "IDR. " + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
 	};	
 </script>
+<script type="text/javascript">
+	var sub_keranjang_current = []; 
+	var sub_keranjang = [];
+	var sub_total = [];
+	var sub_total_current = [];
+</script>
+
 @endsection
 
 @section('content')
@@ -558,16 +565,16 @@ if (!empty($_GET['hari'])){
 		function batalkan_pesanan(keynota){
 			show_loader();
 			$.ajax({
-    			url: "<?=url('/')?>/user/keranjang/batalkan_pesanan/"+keynota,
-    			type: "get",
-    			success: function (data) {
+				url: "<?=url('/')?>/user/keranjang/batalkan_pesanan/"+keynota,
+				type: "get",
+				success: function (data) {
 					if(data != ""){
 						alert(data);
 					}
 					hide_loader();
 					load_halaman();
-    			}
-    		});
+				}
+			});
 		}
 
 		function pindah_halaman(status){
@@ -655,6 +662,8 @@ if (!empty($_GET['hari'])){
 			var gambar_produk;
 			// alert(id_toko);
 			if (current == 'yes'){
+				// alert(sub_keranjang_current[id_toko]);
+				// alert(sub_keranjang_current[]);
 				var result = sub_keranjang_current[id_toko].split("~");
 				var harga_sub_total = $("#sub_total_current_"+id_toko).html();
 				var harga_sub_total_wa = sub_total_current[id_toko];
@@ -688,126 +697,126 @@ if (!empty($_GET['hari'])){
 			for (var i = 0; i < result.length-1; i++){
 				if ($('#checkbox_'+result[i]).is(':checked')) {
 					pesan_id_keranjang.push(result[i]);
-    			}
-    		}
-    		pesan_id_toko = id_toko;
-    		pesan_keynota = keynota;
-    		$('#modal_nama_toko').text('Pesanan Toko '+nama);
-    		$(".slider").html(produk);
-    		$('#modal_pesan').modal('show');
-    	} 
+				}
+			}
+			pesan_id_toko = id_toko;
+			pesan_keynota = keynota;
+			$('#modal_nama_toko').text('Pesanan Toko '+nama);
+			$(".slider").html(produk);
+			$('#modal_pesan').modal('show');
+		} 
 
-    	function post_pesanan(){
-    		console.log(pesan_id_keranjang);
-    		var metode_pengiriman = $("input[name='metode_pengiriman']:checked").val();
-    		var metode_pembayaran = $("input[name='metode_pembayaran']:checked").val();
-    		var alamat = $('#alamat').val();
-    		$.ajax({
-    			url: "<?=url('/')?>/user/keranjang/tambah_daftar_tunggu",
-    			type: "POST",
-    			data: {"id_keranjang":pesan_id_keranjang, 
-    			"id_toko":pesan_id_toko, 
-    			'keynota':pesan_keynota,
-    			'metode_pengiriman': metode_pengiriman,
-    			'metode_pembayaran': metode_pembayaran,
-    			'alamat': alamat,
-    			},
-    			success: function (data) {
+		function post_pesanan(){
+			console.log(pesan_id_keranjang);
+			var metode_pengiriman = $("input[name='metode_pengiriman']:checked").val();
+			var metode_pembayaran = $("input[name='metode_pembayaran']:checked").val();
+			var alamat = $('#alamat').val();
+			$.ajax({
+				url: "<?=url('/')?>/user/keranjang/tambah_daftar_tunggu",
+				type: "POST",
+				data: {"id_keranjang":pesan_id_keranjang, 
+				"id_toko":pesan_id_toko, 
+				'keynota':pesan_keynota,
+				'metode_pengiriman': metode_pengiriman,
+				'metode_pembayaran': metode_pembayaran,
+				'alamat': alamat,
+			},
+			success: function (data) {
 
-    			}
-    		});
-    		$('#modal_pesan').modal('hide');
-    		setTimeout(load_halaman, 1000);
-    	}
+			}
+		});
+			$('#modal_pesan').modal('hide');
+			setTimeout(load_halaman, 1000);
+		}
 
-    	function load_halaman(){
-    		location.reload();
-    	}
+		function load_halaman(){
+			location.reload();
+		}
 
-    	function kirim_pesan(keynota){
-    		$.ajax({
-    			url: "<?=url('/')?>/user/keranjang/kirim_pesan/kirim_wa",
-    			type: "POST",
-    			data: { 'keynota':keynota
-    		},
-    		success: function (data) {
+		function kirim_pesan(keynota){
+			$.ajax({
+				url: "<?=url('/')?>/user/keranjang/kirim_pesan/kirim_wa",
+				type: "POST",
+				data: { 'keynota':keynota
+			},
+			success: function (data) {
 
-    		}
-    	});
-    	}
-
-
-    	var status_ganti_foto = 0;
-
-    	@if(Session::has('message'))
-    	$('#modal-pemberitahuan').modal('show');
-    	@endif
-
-    	@if(Session::has('pass_message'))
-    	$('#modal-ganti-pass').modal('show');
-    	@endif
+			}
+		});
+		}
 
 
-    	function pilih_jenkel(id, jenkel){
-    		$("#jenis_kelamin").val(jenkel);
-    		if (id == 'option_pria'){
-    			$("#option_pria").css('color', '#1c2645');
-    			$("#option_wanita").css('color', '#b3b7c0');
-    		}
-    		else {
-    			$("#option_wanita").css('color', '#1c2645');
-    			$("#option_pria").css('color', '#b3b7c0');
-    		}
-    	}
+		var status_ganti_foto = 0;
 
-    	function input_focus(id){
-    		$("#div_"+id).css('border', '1px solid #d1d2d4');
-    	}
+		@if(Session::has('message'))
+		$('#modal-pemberitahuan').modal('show');
+		@endif
 
-    	function input_blur(id){
-    		$("#div_"+id).css('border', '1px solid white');		
-    	}
-
-    	function ubah_pesanan(id, operasi, harga, id_product){
-    		if ($('#checkbox_'+id).is(':checked')) {
-
-    			var jumlah_pesanan = $("#jumlah_pesanan_"+id).html();
-    			if ((operasi == 'kurang') && (jumlah_pesanan == 1)){
-
-    			}
-    			else {
-    				$.ajax({
-    					url: "<?=url('/')?>/user/keranjang/ubah_jumlah",
-    					type: "POST",
-    					data: {"jumlah_pesanan":jumlah_pesanan, "id":id, 'operasi':operasi},
-    					success: function (data) {
-    						var sub_total_value = sub_total[id_product];
-
-    						$("#jumlah_pesanan_"+id).html(data);
-    						if (operasi == 'kurang'){
-    							sub_total_value = parseInt(sub_total_value)-parseInt(harga);
-    							$("#sub_total_"+id_product).html(formatToCurrency(sub_total_value));
-    						}
-    						else {
-    							sub_total_value = parseInt(sub_total_value)+parseInt(harga);
-    							$("#sub_total_"+id_product).html(formatToCurrency(sub_total_value));
-    						}
-    						sub_total[id_product] = sub_total_value;
-
-    					}
-    				});
-    			}
-    		}
-    		else {
-    			alert('silahkan centang');
-    		}
+		@if(Session::has('pass_message'))
+		$('#modal-ganti-pass').modal('show');
+		@endif
 
 
+		function pilih_jenkel(id, jenkel){
+			$("#jenis_kelamin").val(jenkel);
+			if (id == 'option_pria'){
+				$("#option_pria").css('color', '#1c2645');
+				$("#option_wanita").css('color', '#b3b7c0');
+			}
+			else {
+				$("#option_wanita").css('color', '#1c2645');
+				$("#option_pria").css('color', '#b3b7c0');
+			}
+		}
 
-    	}
+		function input_focus(id){
+			$("#div_"+id).css('border', '1px solid #d1d2d4');
+		}
 
-    	function ubah_pesanan_current(id, operasi, harga, id_product){
-    		if ($('#checkbox_'+id).is(':checked')) {
+		function input_blur(id){
+			$("#div_"+id).css('border', '1px solid white');		
+		}
+
+		function ubah_pesanan(id, operasi, harga, id_product){
+			if ($('#checkbox_'+id).is(':checked')) {
+
+				var jumlah_pesanan = $("#jumlah_pesanan_"+id).html();
+				if ((operasi == 'kurang') && (jumlah_pesanan == 1)){
+
+				}
+				else {
+					$.ajax({
+						url: "<?=url('/')?>/user/keranjang/ubah_jumlah",
+						type: "POST",
+						data: {"jumlah_pesanan":jumlah_pesanan, "id":id, 'operasi':operasi},
+						success: function (data) {
+							var sub_total_value = sub_total[id_product];
+
+							$("#jumlah_pesanan_"+id).html(data);
+							if (operasi == 'kurang'){
+								sub_total_value = parseInt(sub_total_value)-parseInt(harga);
+								$("#sub_total_"+id_product).html(formatToCurrency(sub_total_value));
+							}
+							else {
+								sub_total_value = parseInt(sub_total_value)+parseInt(harga);
+								$("#sub_total_"+id_product).html(formatToCurrency(sub_total_value));
+							}
+							sub_total[id_product] = sub_total_value;
+
+						}
+					});
+				}
+			}
+			else {
+				alert('silahkan centang');
+			}
+
+
+
+		}
+
+		function ubah_pesanan_current(id, operasi, harga, id_product){
+			if ($('#checkbox_'+id).is(':checked')) {
     		// var jumlah_sebelum = $("#jumlah_pesanan_"+id).html();
     		// var id_sebelum = id+jumlah_sebelum;
     		// var jumlah_pesanan = $("#jumlah_pesanan_"+id).html();

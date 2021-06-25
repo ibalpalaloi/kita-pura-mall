@@ -1,6 +1,6 @@
 <script type="text/javascript">
-	var sub_keranjang_current = {};
-	var sub_keranjang = {};
+	var sub_keranjang_current = [];
+	var sub_keranjang = [];
 	var sub_total = [];
 	var sub_total_current = [];
 </script>
