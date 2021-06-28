@@ -51,21 +51,21 @@
     $waktu = date('Y-m-d H:i:s');
     $user = \App\Models\User::where('id', Auth()->user()->id)->first();
     if ($user->waktu_validasi == null){
-    $show = "finish";
-}
-else {
-$newtimestamp = strtotime("$user->waktu_validasi + 1 minute");
-$deadline = date('Y-m-d H:i:s', $newtimestamp);
-$diff  = strtotime($deadline) - strtotime($waktu);
-if ($diff > 0){
-$show = "wait";
-}
-else {
-$user->waktu_validasi = null;
-$user->save();
-$show = "finish";
-}
-}
+        $show = "finish";
+    }
+    else {
+        $newtimestamp = strtotime("$user->waktu_validasi + 1 minute");
+        $deadline = date('Y-m-d H:i:s', $newtimestamp);
+        $diff  = strtotime($deadline) - strtotime($waktu);
+        if ($diff > 0){
+            $show = "wait";
+        }
+        else {
+            $user->waktu_validasi = null;
+            $user->save();
+            $show = "finish";
+        }
+    }                                                                   
 @endphp
 {{-- <div class="modal fade" id="modal-otp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
     <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
