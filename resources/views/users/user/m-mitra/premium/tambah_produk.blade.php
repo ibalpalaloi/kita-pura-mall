@@ -567,6 +567,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 		$("#foto_toko").click();
 	}	
 
+
 	function harga_diskon(){
 		// alert('tes');
 		var harga = $("#harga_produk").val().replaceAll(',', '');
@@ -953,5 +954,13 @@ function hapus_jadwal(hari){
 	});
 
 
+</script>
+<script>
+	$('#diskon_produk').change(function(){
+		var nilai_diskon = $('#diskon_produk').val();
+		if(nilai_diskon == "" || nilai_diskon < 0){
+			$('#diskon_produk').val("0");
+		}
+	})
 </script>
 @endsection
