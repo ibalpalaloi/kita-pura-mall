@@ -31,7 +31,7 @@ class Keranjang_Belanja_Controller extends Controller
         $toko = Toko::where('no_hp', $no_hp)->get();
         $no_hp = substr($no_hp, 1);
         $json = [
-            "apikey" => "ec523173987ec087571b5d96f91c182e9154cd97",
+            "apikey" => env("TOKEN_WAPIBOT"),
             "to" => $no_hp,
             "message" => "---- *Pesanan Baru* ----\n\n".
                          "*Daftar Pesanan:*\n".$daftar_pesanan.

@@ -21,7 +21,7 @@ class Lupa_Password_Controller extends Controller
     //
     public function otp_wapibot($no_hp, $otp){
         $json = [
-            "apikey" => "ec523173987ec087571b5d96f91c182e9154cd97",
+            "apikey" => env("TOKEN_WAPIBOT"),
             "to" => $no_hp,
             "message" => "Kode Lupa Password Anda = ".$otp
         ];

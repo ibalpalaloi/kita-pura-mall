@@ -30,7 +30,7 @@ class Mitra_Register_Controller extends Controller
         $no_hp = ["628114588477", "6285156289855", "6282259107415"];
         for($i=0; $i < count($no_hp); $i++){
             $json = [
-                "apikey" => "ec523173987ec087571b5d96f91c182e9154cd97",
+                "apikey" => env("TOKEN_WAPIBOT"),
                 "to" => $no_hp[$i],
                 "message" => "------Toko Baru---------\n".
                              "Nama Toko = *".$toko->nama_toko."*\n".
