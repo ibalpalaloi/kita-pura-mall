@@ -675,6 +675,8 @@ if (!empty($_GET['hari'])){
 				var harga_sub_total = $("#sub_total_"+id_toko).html();
 				var harga_sub_total_wa = sub_total[id_toko];
 			}
+			console.log(result);
+			var nama_produk_baru = ""
 			for (var i = 0; i < result.length-1; i++){
 				if ($('#checkbox_'+result[i]).is(':checked')) {
 					jumlah_pesanan = $("#jumlah_pesanan_"+result[i]).html();
@@ -689,7 +691,10 @@ if (!empty($_GET['hari'])){
 					'</div>'+
 					'</div>';
 					keynota += result[i]+jumlah_pesanan;
-					pesanan_produk = nama_produk+ "\n";
+					
+					nama_produk_baru = nama_produk.replace(/[0-9]/g, '')
+					pesanan_produk += nama_produk_baru.trim()+ " = "+ jumlah_pesanan+"\n";
+					console.log(nama_produk_baru);
 				}
 			}
 			
@@ -711,7 +716,7 @@ if (!empty($_GET['hari'])){
 		} 
 
 		function kirim_pesan_wa(no_hp, nama){
-			var message = '[Order Produk Kitapuramall]\n\nHaloo saya'+nama+" saya ingin pesan produk \n"+pesanan_produk;
+			var message = '[Order Produk Kitapuramall]\n\nHaloo saya '+nama+" saya ingin pesan produk \n"+pesanan_produk;
 			var walink = 'https://wa.me/'+ no_hp +'?text=' + encodeURI(message);
 			window.open(walink);
 		}
