@@ -487,7 +487,7 @@ if (!empty($_GET['hari'])){
 					@endif
 					<input type="text" name="no_hp" value="{{Auth()->user()->no_hp}}" hidden>					
 					<div style="width: 100%; display: flex; justify-content: center; margin-top: 2em;">
-						<div onclick="post_pesanan()" class="" style="width: 100%; background: {{$page->warna_header}}; border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
+						<div onclick="kirim_pesan_wa('{{$toko->no_hp}}', '{{Auth()->user()->biodata->nama}}')" class="" style="width: 100%; background: {{$page->warna_header}}; border-radius: 35px; padding: 0.5em; color: white; text-align: center; margin-bottom: 1em; position: relative;">
 							<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;left: 2em; top: 0.8em;">
 								<path d="M0.459623 5.9864C0.0681228 5.8559 0.0643728 5.64515 0.467123 5.5109L14.7824 0.739402C15.1791 0.607402 15.4064 0.829402 15.2954 1.2179L11.2049 15.5324C11.0924 15.9292 10.8636 15.9427 10.6956 15.5662L8.00012 9.50015L12.5001 3.50015L6.50012 8.00015L0.459623 5.9864Z" fill="white"/>
 							</svg>
@@ -653,6 +653,7 @@ if (!empty($_GET['hari'])){
 		var pesan_keynota;
 
 		function WhatsappMessage(no_hp, nama, id_toko, current) {
+			
 			var apilink = 'http://';
 			var phone = no_hp;
 			var produk = "";
@@ -690,6 +691,7 @@ if (!empty($_GET['hari'])){
 					keynota += result[i]+jumlah_pesanan;
 				}
 			}
+			
 			keynota += id_toko+harga_sub_total_wa;
 			var message = '[Order Produk Kitapuramall]\n\nHaloo '+nama+" saya ingin pesan produk \n"+produk;
 
@@ -699,12 +701,19 @@ if (!empty($_GET['hari'])){
 					pesan_id_keranjang.push(result[i]);
 				}
 			}
+			console.log(walink);
 			pesan_id_toko = id_toko;
 			pesan_keynota = keynota;
 			$('#modal_nama_toko').text('Pesanan Toko '+nama);
 			$(".slider").html(produk);
 			$('#modal_pesan').modal('show');
 		} 
+
+		function kirim_pesan_wa(no_hp, nama){
+			var message = '[Order Produk Kitapuramall]\n\nHaloo saya'+nama+" saya ingin pesan produk \n";
+			var walink = 'https://wa.me/'+ no_hp +'?text=' + encodeURI(message);
+			window.open(walink);
+		}
 
 		function post_pesanan(){
 			console.log(pesan_id_keranjang);
